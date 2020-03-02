@@ -1,0 +1,88 @@
+<aside class="left-sidebar">
+    <div class="scroll-sidebar">
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="nav-small-cap">Menu Administrateur</li>
+                <li>
+                    <a class="waves-effect waves-dark" href="<?= $router->generate('adminUsers'); ?>" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu"> Compte Client</span></a>
+                </li>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-folder"></i><span class="hide-menu">Informations</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="<?= $router->generate('ilotsList'); ?>">Panorama</a></li>
+                        <li><a href="<?= $router->generate('ilotsList'); ?>">BSV</a></li>
+                        <li><a href="<?= $router->generate('ilotsList'); ?>">Recommandations</a></li>
+                        <li><a href="<?= $router->generate('ilotsList'); ?>">Commandes clients</a></li>
+                        <li><a href="<?= $router->generate('ilotsList'); ?>">Commandes Prévi</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul id="sidebarnav">
+                <li class="nav-small-cap">Menu Technicien</li>
+                <li>
+                    <a class="waves-effect waves-dark" href="<?= $router->generate('ilotsList'); ?>" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu"> Compte Client</span></a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="<?= $router->generate('exploitationHome') ?>" aria-expanded="false"><i class="fas fa-flag"></i><span class="hide-menu"> Panorama</span></a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="<?= $router->generate('resultsHome') ?>" aria-expanded="false"><i class="fas fa-sticky-note"></i> Bilan Phyto</a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="<?= $router->generate('resultsHome') ?>" aria-expanded="false"><i class="fas fa-check"></i> Recommandations</a>
+                </li>
+            </ul>
+            <ul id="sidebarnav">
+                <li class="nav-small-cap">Menu Agriculteur</li>
+                <li>
+                    <a class="waves-effect waves-dark" href="<?= $router->generate('ilotsList'); ?>" aria-expanded="false"><i class="mdi mdi-sitemap"></i><span class="hide-menu">Choix par Ilots </span></a>
+                </li>
+                <li>
+                    <a class="has-arrow" aria-expanded="false"><i class="mdi mdi-movie"></i><span class="hide-menu">Choix par Cultures </span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a>Choix de la culture</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Avoine']) ?>">Avoine</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Betterave']) ?>">Betterave</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Ble']) ?>">Blé</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Ble(Dur)']) ?>">Blé(Dur)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Chanvre']) ?>">Chanvre</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Colza']) ?>">Colza</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Couvert(Vegetale)']) ?>">Couvert(Vegetale)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Feverole']) ?>">Feverole</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Jachère']) ?>">Jachère</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Landes&Parcours']) ?>">Landes&Parcours</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Lentille']) ?>">Lentille</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Luzerne']) ?>">Luzerne</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Mais(Conso)']) ?>">Maïs(Conso)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Mais(Doux)']) ?>">Maïs(Doux)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Mais(Ensi)']) ?>">Maïs(Ensi)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Mais(Popcorn)']) ?>">Maïs(Popcorn)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Mais(Semence)']) ?>">Maïs(Semence)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Melon']) ?>">Melon</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Noisetiers']) ?>">Noisetiers</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Orge']) ?>">Orge</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Pois']) ?>">Pois</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Pois(Chiche)']) ?>">Pois(Chiche)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Prairie(Naturel)']) ?>">Prairie(Naturel)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Prairie(Perma)']) ?>">Prairie(Perma)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Prairie(Tempo)']) ?>">Prairie(Tempo)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Prunier']) ?>">Prunier</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Ray-grass']) ?>">Ray-grass</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Seigle']) ?>">Seigle</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Soja']) ?>">Soja</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Sorgho']) ?>">Sorgho</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Tournesol']) ?>">Tournesol</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Tournesol(Semence)']) ?>">Tournesol(Semence)</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Trefle']) ?>">Trefle</a></li>
+                        <li><a href="<?= $router->generate('culturesViewIlot', ['slug' => 'Treticale']) ?>">Treticale</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="<?= $router->generate('exploitationHome') ?>" aria-expanded="false"><i class="mdi mdi-folder"></i><span class="hide-menu">Votre exploitation </span></a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="<?= $router->generate('resultsHome') ?>" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Votre Bilan </span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

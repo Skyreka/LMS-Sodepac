@@ -1,0 +1,214 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Accueil</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Vos Ilots</h4>
+                            <div class="ml-auto">
+                                <select class="custom-select">
+                                    <option selected="">January</option>
+                                    <option value="1">February</option>
+                                    <option value="2">March</option>
+                                    <option value="3">April</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">Assigned</th>
+                                    <th>Name</th>
+                                    <th>Priority</th>
+                                    <th>Budget</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="width:50px;"><span class="round">S</span></td>
+                                    <td>
+                                        <h6>Sunil Joshi</h6><small class="text-muted">Web Designer</small>
+                                    </td>
+                                    <td>Elite Admin</td>
+                                    <td><span class="label label-success">Low</span></td>
+                                    <td>$3.9K</td>
+                                </tr>
+                                <tr class="active">
+                                    <td><span class="round"><img src="../assets/images/users/2.jpg" alt="user" width="50"></span></td>
+                                    <td>
+                                        <h6>Andrew</h6><small class="text-muted">Project Manager</small>
+                                    </td>
+                                    <td>Real Homes</td>
+                                    <td><span class="label label-info">Medium</span></td>
+                                    <td>$23.9K</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="round round-success">B</span></td>
+                                    <td>
+                                        <h6>Bhavesh patel</h6><small class="text-muted">Developer</small>
+                                    </td>
+                                    <td>MedicalPro Theme</td>
+                                    <td><span class="label label-primary">High</span></td>
+                                    <td>$12.9K</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="round round-primary">N</span></td>
+                                    <td>
+                                        <h6>Nirav Joshi</h6><small class="text-muted">Frontend Eng</small>
+                                    </td>
+                                    <td>Elite Admin</td>
+                                    <td><span class="label label-danger">Low</span></td>
+                                    <td>$10.9K</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="round round-warning">M</span></td>
+                                    <td>
+                                        <h6>Micheal Doe</h6><small class="text-muted">Content Writer</small>
+                                    </td>
+                                    <td>Helping Hands</td>
+                                    <td><span class="label label-warning">High</span></td>
+                                    <td>$12.9K</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="round round-danger">N</span></td>
+                                    <td>
+                                        <h6>Johnathan</h6><small class="text-muted">Graphic</small>
+                                    </td>
+                                    <td>Digital Agency</td>
+                                    <td><span class="label label-info">High</span></td>
+                                    <td>$2.6K</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body little-profile text-center">
+                        <h3 class="m-b-0"><?= $user->getIdentity(); ?></h3>
+                        <p><?= $user->getRankStr(); ?></p>
+                        <div class="row text-center m-t-20">
+                            <div class="col-lg-4 col-md-4 m-t-20">
+                                <h3 class="m-b-0 font-light">1099</h3><small>Ilots</small>
+                            </div>
+                            <div class="col-lg-4 col-md-4 m-t-20">
+                                <h3 class="m-b-0 font-light">23,469</h3><small>Cultures</small>
+                            </div>
+                            <div class="col-lg-4 col-md-4 m-t-20">
+                                <h3 class="m-b-0 font-light">6035</h3><small>Ha restant</small>
+                            </div>
+                            <div class="col-md-12 m-b-10"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Flash Technique</h4>
+                        <h6 class="card-subtitle">Latest Comments on users from Material</h6>
+                    </div>
+                    <div class="comment-widgets">
+                        <div class="d-flex flex-row comment-row">
+                            <div class="comment-text w-100">
+                                <h5>James Anderson</h5>
+                                <p class="m-b-5">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
+                                <div class="comment-footer"> <span class="text-muted pull-right">April 14, 2016</span> <span class="label label-info">Pending</span> <span class="action-icons">
+                  <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
+                  <a href="javascript:void(0)"><i class="ti-check"></i></a>
+                  <a href="javascript:void(0)"><i class="ti-heart"></i></a>
+                </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">BSV</h4>
+                        <h6 class="card-subtitle">Bulletin Sanitaire du Végétal</h6>
+                    </div>
+                    <div class="comment-widgets">
+                        <div class="d-flex flex-row comment-row">
+                            <div class="comment-text w-100">
+                                <h5>James Anderson</h5>
+                                <p class="m-b-5">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
+                                <div class="comment-footer"> <span class="text-muted pull-right">April 14, 2016</span> <span class="label label-info">Pending</span> <span class="action-icons">
+                  <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
+                  <a href="javascript:void(0)"><i class="ti-check"></i></a>
+                  <a href="javascript:void(0)"><i class="ti-heart"></i></a>
+                </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-sidebar">
+            <div class="slimscrollright">
+                <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
+                <div class="r-panel-body">
+                    <ul id="themecolors" class="m-t-20">
+                        <li><b>With Light sidebar</b></li>
+                        <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
+                        <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
+                        <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
+                        <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
+                        <li><a href="javascript:void(0)" data-theme="purple" class="purple-theme">5</a></li>
+                        <li><a href="javascript:void(0)" data-theme="megna" class="megna-theme">6</a></li>
+                        <li class="d-block m-t-30"><b>With Dark sidebar</b></li>
+                        <li><a href="javascript:void(0)" data-theme="default-dark" class="default-dark-theme">7</a></li>
+                        <li><a href="javascript:void(0)" data-theme="green-dark" class="green-dark-theme">8</a></li>
+                        <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
+                        <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
+                        <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
+                        <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li>
+                    </ul>
+                    <ul class="m-t-20 chatonline">
+                        <li><b>Chat option</b></li>
+                        <li>
+                            <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><img src="../assets/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><img src="../assets/images/users/3.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><img src="../assets/images/users/4.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><img src="../assets/images/users/5.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><img src="../assets/images/users/6.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><img src="../assets/images/users/7.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><img src="../assets/images/users/8.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+
+{% endblock %}
