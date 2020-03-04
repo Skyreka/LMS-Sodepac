@@ -10,6 +10,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Users implements UserInterface, \Serializable
 {
+    const STATUS = [
+        1 => 'Client',
+        2 => 'Technicien',
+        3 => 'Administrateur',
+        4 => "SuperAdministrateur"
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

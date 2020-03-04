@@ -24,17 +24,15 @@
                             <li>
                                 <div class="dw-user-box center">
                                     <div class="u-text center">
-                                        <h4><?= $user->getIdentity(); ?></h4>
+                                        <h4>Test</h4>
                                     </div>
                                     <div class="u-text center">
-                                        <p>Espace restant : <?= $user->availableGround(); ?> / <?= $user->getHectare(); ?> Ha</p>
+                                        <p>Espace restant : 0 Ha</p>
                                     </div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?= $router->generate('setting'); ?>"><i class="ti-settings"></i> Paramètres </a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="<?= $router->generate('logout'); ?>"><i class="fa fa-power-off"></i> Se Déconnecter</a></li>
+                            <li><a href="{{ path('logout') }}"><i class="fa fa-power-off"></i> Se Déconnecter</a></li>
                         </ul>
                     </div>
                 </li>
