@@ -72,7 +72,7 @@ class Users implements UserInterface, \Serializable
     private $last_activity;
 
     /**
-     * @ORM\Column(type="boolean", options={"default": false})
+     * @ORM\Column(type="boolean", nullable=true, options={"default": false})
      */
     private $isActive;
 
