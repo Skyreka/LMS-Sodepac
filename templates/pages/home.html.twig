@@ -11,6 +11,9 @@
                 </ol>
             </div>
         </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">

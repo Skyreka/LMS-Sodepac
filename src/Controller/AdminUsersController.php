@@ -86,7 +86,6 @@ class AdminUsersController extends AbstractController {
     public function new(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer): Response
     {
         $user = new Users();
-        $user->setPassword( $encoder->encodePassword($user, 'test') );
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 

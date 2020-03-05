@@ -19,6 +19,11 @@ class Users implements UserInterface, \Serializable
         'ROLE_ADMIN' => 'Administrateur'
     ];
 
+    const ISACTIVE = [
+        1 => 'Activé',
+        2 => 'En attente'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -52,7 +57,7 @@ class Users implements UserInterface, \Serializable
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
 
@@ -65,6 +70,11 @@ class Users implements UserInterface, \Serializable
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $last_activity;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $isActive;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
@@ -173,13 +183,25 @@ class Users implements UserInterface, \Serializable
     }
 
     public function getCertificationPhyto(): ?string
-    {
-        return $this->certification_phyto;
-    }
+{
+    return $this->certification_phyto;
+}
 
     public function setCertificationPhyto(?string $certification_phyto): self
     {
         $this->certification_phyto = $certification_phyto;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

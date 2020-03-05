@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Skyreka">
+    <title>{% block title %}Activation de compte{% endblock %}</title>
+    <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/colors/green-dark.css') }}" rel="stylesheet">
+</head>
+<body>
+<div class="preloader">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+</div>
+<section id="wrapper">
+    <div class="login-register">
+        <div class="login-box card">
+            <div class="card-body">
+                <h3 class="box-title m-b-20">Bienvenue, {{ user.firstname }} {{ user.lastname }}</h3>
+                <p class="text-center">Merci de saisir votre mot de passe de compte LMS Sodepac</p>
+                {{ form_start(form) }}
+                    {{ form_rest(form) }}
+                    <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light">Activer mon compte</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
+<script src="{{ asset('js/sidebarmenu.js') }}"></script>
+<script src="{{ asset('js/waves.js') }}"></script>
+<script src="{{ asset('js/custom.min.js') }}"></script>
+</body>
+</html>
