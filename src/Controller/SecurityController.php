@@ -29,7 +29,7 @@ class SecurityController extends AbstractController {
     }
 
     /**
-     * @Route("/active_user/{id}", name="user.security.active")
+     * @Route("/active_user/{id}", name="security.active")
      * @param Users $user
      * @param Request $request
      * @param ObjectManager $em
