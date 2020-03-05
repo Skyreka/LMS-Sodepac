@@ -103,8 +103,7 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body little-profile text-center">
-                        <h3 class="m-b-0"><?= $user->getIdentity(); ?></h3>
-                        <p><?= $user->getRankStr(); ?></p>
+                        <h3 class="m-b-0">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</h3>
                         <div class="row text-center m-t-20">
                             <div class="col-lg-4 col-md-4 m-t-20">
                                 <h3 class="m-b-0 font-light">1099</h3><small>Ilots</small>
