@@ -14,10 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Users implements UserInterface, \Serializable
 {
     const STATUS = [
-        1 => 'Client',
-        2 => 'Technicien',
-        3 => 'Administrateur',
-        4 => "SuperAdministrateur"
+        'ROLE_USER' => 'Client',
+        'ROLE_TECHNICIAN' => 'Technicien',
+        'ROLE_ADMIN' => 'Administrateur'
     ];
 
     /**
@@ -58,7 +57,7 @@ class Users implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="string", length=30)
      */
     private $status;
 
@@ -149,7 +148,7 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -190,7 +189,7 @@ class Users implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return array($this->getStatus());
     }
 
     /**
