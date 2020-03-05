@@ -41,12 +41,13 @@ class SecurityController extends AbstractController {
         $form = $this->createForm(PasswordType::class, $user);
         $form->handleRequest($request);
 
-        if ($user->getIsActive() === false) {
+        if ($user->getIsActive() === false OR $user->getIsActive() === NULL) {
             if ($form->isSubmitted() && $form->isValid()) {
                 $user->setPassword( $encoder->encodePassword($user, $form['password']->getData()));
+                $user->setIsActive( 1 );
                 $em->flush();
                 $this->addFlash('success', 'Mot de passe modifié avec succès');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('login');
             }
 
             return $this->render('security/active.html.twig', [
