@@ -153,7 +153,7 @@ class Users implements UserInterface, \Serializable
         return $this->status;
     }
 
-    public function setStatus(int $status): self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 
