@@ -41,7 +41,7 @@
                                     <tr>
                                         <td>{{ key.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
                                         <td>{{ key.text }}</td>
-                                        <td><a href="#" class="btn btn-primary">Editer</a></td>
+                                        <td><a href="{{ path('admin.bsv.edit', {id: key.id}) }}" class="btn btn-primary">Editer</a></td>
                                         <td>
                                             <form method="POST" action="{{ path('admin.bsv.delete', {id: key.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le BSV ?')">
                                                 <input type="hidden" name="_method" value="DELETE">

@@ -73,6 +73,28 @@ class AdminBsvController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/admin/bsv/edit/{id}", name="admin.bsv.edit", methods="GET|POST")
+     * @param Bsv $bsv
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(Bsv $bsv, Request $request): Response
+    {
+        $form = $this->createForm(BsvType::class, $bsv);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            $this->addFlash('success', 'BSV modifié avec succès');
+            return $this->redirectToRoute('admin.bsv.index');
+        }
+
+        return $this->render('admin/bsv/edit.html.twig', [
+            'bsv' => $bsv,
+            'form' => $form->createView()
+        ]);
+    }
 
     /**
      * @Route("/admin/bsv/{id}", name="admin.bsv.delete", methods="DELETE")
