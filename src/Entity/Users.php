@@ -81,6 +81,11 @@ class Users implements UserInterface, \Serializable
      */
     private $certification_phyto;
 
+    /**
+     * @ORM\Column(type="string", length=11, nullable=true)
+     */
+    private $technician;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -166,6 +171,18 @@ class Users implements UserInterface, \Serializable
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getTechnician(): ?int
+    {
+        return $this->technician;
+    }
+
+    public function setTechnician($technician): self
+    {
+        $this->technician = $technician;
 
         return $this;
     }
@@ -259,5 +276,10 @@ class Users implements UserInterface, \Serializable
             $this->email,
             $this->password
             ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function __toString(): string
+    {
+        return $this->getId();
     }
 }

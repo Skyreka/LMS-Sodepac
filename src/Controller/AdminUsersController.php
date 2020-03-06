@@ -83,7 +83,7 @@ class AdminUsersController extends AbstractController {
      * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function new(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer): Response
+    public function new(Request $request, \Swift_Mailer $mailer): Response
     {
         $user = new Users();
         $form = $this->createForm(UserType::class, $user);
