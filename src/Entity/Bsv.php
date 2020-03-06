@@ -32,7 +32,7 @@ class Bsv
     private $second_file;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="smallint", options={"default" : 0})
      */
     private $sent;
 
@@ -47,14 +47,14 @@ class Bsv
     private $send_date;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $technician;
-
-    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private $customers = [];
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $third_file;
 
     public function getId(): ?int
     {
@@ -133,18 +133,6 @@ class Bsv
         return $this;
     }
 
-    public function getTechnician(): ?int
-    {
-        return $this->technician;
-    }
-
-    public function setTechnician(int $technician): self
-    {
-        $this->technician = $technician;
-
-        return $this;
-    }
-
     public function getCustomers(): ?array
     {
         return $this->customers;
@@ -153,6 +141,18 @@ class Bsv
     public function setCustomers(?array $customers): self
     {
         $this->customers = $customers;
+
+        return $this;
+    }
+
+    public function getThirdFile(): ?string
+    {
+        return $this->third_file;
+    }
+
+    public function setThirdFile(?string $third_file): self
+    {
+        $this->third_file = $third_file;
 
         return $this;
     }

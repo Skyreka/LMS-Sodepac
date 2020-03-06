@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des utilisateurs{% endblock %}
+{% block title %}Listes des BSV{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -22,9 +22,10 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Listes des utilisateurs</h4>
+                            <h4 class="card-title">Listes des BSV en attente d'envoi</h4>
                             <div class="ml-auto">
-                                <a href="#" class="btn btn-success">Ajouter une utilisateur</a>
+                                <a href="{{ path('admin.bsv.new') }}" class="btn btn-success">Créer un BSV</a>
+                                <a href="#" class="btn btn-info">Historique des BSV</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -32,17 +33,22 @@
                                 <thead>
                                 <tr>
                                     <th>Date de création</th>
-                                    <th>Téléphone</th>
-                                    <th>Ville</th>
-                                    <th>Certification</th>
+                                    <th>Texte</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for key in bsv %}
                                     <tr>
-                                        <td>{{key.creationDate|localizeddate('none', 'none', null, null, 'e MMMM Y')}}</td>
+                                        <td>{{ key.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                        <td>{{ key.text }}</td>
                                         <td><a href="#" class="btn btn-primary">Editer</a></td>
-
+                                        <td>
+                                            <form method="POST" action="{{ path('admin.bsv.delete', {id: key.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le BSV ?')">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ key.id) }}">
+                                                <button class="btn btn-danger">Supprimer</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

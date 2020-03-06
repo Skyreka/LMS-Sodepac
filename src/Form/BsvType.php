@@ -13,13 +13,6 @@ class BsvType extends AbstractType
     {
         $builder
             ->add('text')
-            ->add('first_file')
-            ->add('second_file')
-            ->add('sent')
-            ->add('creation_date')
-            ->add('send_date')
-            ->add('technician')
-            ->add('customers')
         ;
     }
 
@@ -27,6 +20,7 @@ class BsvType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Bsv::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }
