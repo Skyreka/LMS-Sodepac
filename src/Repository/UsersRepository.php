@@ -23,6 +23,21 @@ class UsersRepository extends ServiceEntityRepository
         parent::__construct($registry, Users::class);
     }
 
+    /**
+     * @param $idTechnician
+     * @return mixed
+     */
+    public function findAllCustomersOfTechnician( $idTechnician )
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.technician = :technician')
+            ->setParameter('technician', $idTechnician)
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Users[] Returns an array of Users objects
     //  */

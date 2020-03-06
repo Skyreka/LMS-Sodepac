@@ -9,6 +9,14 @@
                     </li>
                 </ul>
             {% endif %}
+            {% if app.user.status == 'ROLE_TECHNICIAN' %}
+                <ul id="sidebarnav">
+                    <li class="nav-small-cap">Compte Technicien</li>
+                    <li>
+                        <a class="waves-effect waves-dark" href="{{ path('technician.customers.index') }}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Compte Client </span></a>
+                    </li>
+                </ul>
+            {% endif %}
             {% if app.user.status == 'ROLE_USER' %}
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">Compte Utilisateur</li>

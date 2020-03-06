@@ -22,7 +22,7 @@
             <div class="card-body">
                 {% if error %}
                     <div class="alert alert-danger">
-                        {{ error }}
+                        {{ error.message }}
                     </div>
                 {% endif %}
                 <form data-toggle="validator" role="form" class="form-horizontal form-material" id="loginform" action="{{ path('login') }}" method="POST">
