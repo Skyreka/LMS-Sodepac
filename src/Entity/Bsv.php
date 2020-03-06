@@ -42,7 +42,7 @@ class Bsv
     private $creation_date;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $send_date;
 
