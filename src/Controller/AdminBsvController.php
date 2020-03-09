@@ -6,12 +6,13 @@ use App\Entity\Bsv;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AdminBsvController extends AbstractController
 {
@@ -55,6 +56,65 @@ class AdminBsvController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Add Files
+            $firstFile = $form->get('first_file')->getData();
+            $secondFile = $form->get('second_file')->getData();
+            $thirdFile = $form->get('third_file')->getData();
+
+            if ($firstFile) {
+                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $firstFile->move(
+                        $this->getParameter('bsv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $bsv->setFirstFile($newFilename);
+            }
+
+            if ($secondFile) {
+                $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $secondFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $secondFile->move(
+                        $this->getParameter('bsv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $bsv->setSecondFile($newFilename);
+            }
+
+            if ($thirdFile) {
+                $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $thirdFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $thirdFile->move(
+                        $this->getParameter('bsv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $bsv->setThirdFile($newFilename);
+            }
+
             $datetime = New \DateTime();
             $bsv->setCreationDate( $datetime );
             //* TO DO (remove setter (default value))

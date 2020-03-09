@@ -22,12 +22,12 @@ class Bsv
     private $text;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $first_file;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $second_file;
 
@@ -52,7 +52,7 @@ class Bsv
     private $customers = [];
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $third_file;
 
