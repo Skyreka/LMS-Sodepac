@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Exploitation;
 use App\Entity\Users;
+use App\Form\ExploitationType;
 use App\Form\TechnicianCustomersType;
 use App\Form\UserType;
 use App\Repository\UsersRepository;
@@ -108,6 +110,31 @@ class TechnicianCustomersController extends AbstractController
 
         return $this->render('technician/customers/edit.html.twig', [
             'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("technician/customers/new/exploitation/{id}", name="technician.customers.new.exploitation")
+     * @param Users $user
+     * @param Request $request
+     * @return Response
+     */
+    public function newExploitation(Users $user, Request $request): Response
+    {
+        $exploitation = new Exploitation();
+        $form = $this->createForm(ExploitationType::class, $exploitation);
+        $form->handleRequest( $request );
+
+        $exploitation->setUsers( $user );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist( $exploitation );
+            $this->em->flush();
+            $this->redirectToRoute( 'technician.customers.index' );
+        }
+
+        return $this->render('technician/customers/exploitation.html.twig', [
             'form' => $form->createView()
         ]);
     }

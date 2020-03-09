@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Cultures;
 use App\Repository\CulturesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
