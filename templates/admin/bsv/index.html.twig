@@ -41,6 +41,11 @@
                                     <tr>
                                         <td>{{ key.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
                                         <td>{{ key.text }}</td>
+                                        {% if key.firstFile %}
+                                            <td><a href="{{ asset('uploads/bsv/' ~ key.firstFile) }}" class="btn btn-success" target="_blank">PDF</a></td>
+                                        {% else %}
+                                            <td></td>
+                                        {% endif %}
                                         <td><a href="{{ path('admin.bsv.edit', {id: key.id}) }}" class="btn btn-primary">Editer</a></td>
                                         <td>
                                             <form method="POST" action="{{ path('admin.bsv.delete', {id: key.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le BSV ?')">
