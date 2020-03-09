@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Ilots
      * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $type;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cultures", mappedBy="ilot")
+     */
+    private $cultures;
+
+    public function __construct()
+    {
+        $this->cultures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,37 @@ class Ilots
     public function setType(?string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cultures[]
+     */
+    public function getCultures(): Collection
+    {
+        return $this->cultures;
+    }
+
+    public function addCulture(Cultures $culture): self
+    {
+        if (!$this->cultures->contains($culture)) {
+            $this->cultures[] = $culture;
+            $culture->setIlot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCulture(Cultures $culture): self
+    {
+        if ($this->cultures->contains($culture)) {
+            $this->cultures->removeElement($culture);
+            // set the owning side to null (unless already changed)
+            if ($culture->getIlot() === $this) {
+                $culture->setIlot(null);
+            }
+        }
 
         return $this;
     }

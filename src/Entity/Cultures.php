@@ -17,23 +17,127 @@ class Cultures
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ilots", inversedBy="cultures")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ilot;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\IndexCultures", inversedBy="cultures")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $size;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\IndexCultures")
+     */
+    private $precedent;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $residue;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $bio;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getIlot(): ?Ilots
+    {
+        return $this->ilot;
+    }
+
+    public function setIlot(?Ilots $ilot): self
+    {
+        $this->ilot = $ilot;
+
+        return $this;
+    }
+
+    public function getName(): ?IndexCultures
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?IndexCultures $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSize(): ?int
+    {
+        return $this->size;
+    }
+
+    public function setSize(int $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getComments(): ?string
+    {
+        return $this->comments;
+    }
+
+    public function setComments(?string $comments): self
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    public function getPrecedent(): ?IndexCultures
+    {
+        return $this->precedent;
+    }
+
+    public function setPrecedent(?IndexCultures $precedent): self
+    {
+        $this->precedent = $precedent;
+
+        return $this;
+    }
+
+    public function getResidue(): ?bool
+    {
+        return $this->residue;
+    }
+
+    public function setResidue(?bool $residue): self
+    {
+        $this->residue = $residue;
+
+        return $this;
+    }
+
+    public function getBio(): ?bool
+    {
+        return $this->bio;
+    }
+
+    public function setBio(bool $bio): self
+    {
+        $this->bio = $bio;
 
         return $this;
     }
