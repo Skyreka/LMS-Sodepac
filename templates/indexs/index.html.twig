@@ -55,6 +55,35 @@
                         </div>
                     </div>
                 </div>
+            </div><div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Apport d'effluents</h4>
+                            <div class="ml-auto">
+                                <a href="{{ path('indexs.effluents.new') }}" class="btn btn-success">Ajouter</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for effluent in effluents %}
+                                    <tr>
+                                        <td>
+                                            <h6>{{ effluent.name }}</h6>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="right-sidebar">
