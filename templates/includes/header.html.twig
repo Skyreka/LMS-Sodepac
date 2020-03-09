@@ -3,8 +3,8 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="<?= $router->generate('home'); ?>">
         <span>
-          <img src="images/logo.png" alt="homepage" class="dark-logo" />
-          <img src="images/logo.png" class="light-logo" alt="homepage" />
+          <img src="{{ asset('images/logo.png') }}" alt="homepage" class="dark-logo" />
+          <img src="{{ asset('images/logo.png') }}" class="light-logo" alt="homepage" />
         </span>
             </a>
         </div>
@@ -18,7 +18,7 @@
             </ul>
             <ul class="navbar-nav my-lg-0">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/users/1.jpg" alt="user" class="profile-pic" /></a>
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('images/users/1.jpg') }}" alt="user" class="profile-pic" /></a>
                     <div class="dropdown-menu dropdown-menu-right scale-up">
                         <ul class="dropdown-user">
                             <li>

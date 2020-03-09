@@ -47,7 +47,13 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <h6>{{ user.exploitation  }}</h6><small class="text-muted">{{ user.email }}</small>
+                                                <h6>
+                                                    {% if user.exploitation is null %}
+                                                        <a href="{{ path('technician.customers.new.exploitation', {id: user.id}) }}">Ajouter une exploitation</a>
+                                                    {% else %}
+                                                        <h6>{{ user.exploitation.size }} ha</h6>
+                                                    {% endif %}
+                                                </h6>
                                             </td>
                                             <td>{{ user.phone }}</td>
                                             <td>{{ user.city }}</td>
