@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,14 +49,19 @@ class Bsv
     private $send_date;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $customers = [];
-
-    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $third_file;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Users", inversedBy="bsvs")
+     */
+    private $customers;
+
+    public function __construct()
+    {
+        $this->customers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -133,18 +140,6 @@ class Bsv
         return $this;
     }
 
-    public function getCustomers(): ?array
-    {
-        return $this->customers;
-    }
-
-    public function setCustomers(?array $customers): self
-    {
-        $this->customers = $customers;
-
-        return $this;
-    }
-
     public function getThirdFile(): ?string
     {
         return $this->third_file;
@@ -153,6 +148,32 @@ class Bsv
     public function setThirdFile(?string $third_file): self
     {
         $this->third_file = $third_file;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Users[]
+     */
+    public function getCustomers(): Collection
+    {
+        return $this->customers;
+    }
+
+    public function addCustomer(Users $customer): self
+    {
+        if (!$this->customers->contains($customer)) {
+            $this->customers[] = $customer;
+        }
+
+        return $this;
+    }
+
+    public function removeCustomer(Users $customer): self
+    {
+        if ($this->customers->contains($customer)) {
+            $this->customers->removeElement($customer);
+        }
 
         return $this;
     }

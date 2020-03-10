@@ -54,6 +54,7 @@
                                                 <button class="btn btn-danger">Supprimer</button>
                                             </form>
                                         </td>
+                                        <td><a href="{{ path('admin.bsv.send', {id: key.id}) }}" class="btn btn-info">Envoyer</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

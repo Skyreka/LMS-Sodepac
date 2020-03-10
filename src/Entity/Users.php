@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -85,6 +87,16 @@ class Users implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=11, nullable=true)
      */
     private $technician;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Bsv", mappedBy="customers")
+     */
+    private $bsvs;
+
+    public function __construct()
+    {
+        $this->bsvs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -281,5 +293,33 @@ class Users implements UserInterface, \Serializable
     public function __toString(): string
     {
         return $this->getId();
+    }
+
+    /**
+     * @return Collection|Bsv[]
+     */
+    public function getBsvs(): Collection
+    {
+        return $this->bsvs;
+    }
+
+    public function addBsv(Bsv $bsv): self
+    {
+        if (!$this->bsvs->contains($bsv)) {
+            $this->bsvs[] = $bsv;
+            $bsv->addCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBsv(Bsv $bsv): self
+    {
+        if ($this->bsvs->contains($bsv)) {
+            $this->bsvs->removeElement($bsv);
+            $bsv->removeCustomer($this);
+        }
+
+        return $this;
     }
 }

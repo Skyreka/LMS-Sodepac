@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bsv;
+use App\Form\BsvSendType;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -134,11 +135,11 @@ class AdminBsvController extends AbstractController
     }
 
     /**
-     * @Route("/admin/bsv/edit/{id}", name="admin.bsv.edit", methods="GET|POST")
-     * @param Bsv $bsv
-     * @param Request $request
-     * @return Response
-     */
+ * @Route("/admin/bsv/edit/{id}", name="admin.bsv.edit", methods="GET|POST")
+ * @param Bsv $bsv
+ * @param Request $request
+ * @return Response
+ */
     public function edit(Bsv $bsv, Request $request): Response
     {
         $form = $this->createForm(BsvType::class, $bsv);
@@ -151,6 +152,30 @@ class AdminBsvController extends AbstractController
         }
 
         return $this->render('admin/bsv/edit.html.twig', [
+            'bsv' => $bsv,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/bsv/send/{id}", name="admin.bsv.send", methods="GET|POST")
+     * @param Bsv $bsv
+     * @param Request $request
+     * @return Response
+     */
+    public function send(Bsv $bsv, Request $request): Response
+    {
+        $form = $this->createForm(BsvSendType::class, $bsv);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $bsv->setSent(1);
+            $this->em->flush();
+            $this->addFlash('success', 'BSV envoyé avec succès');
+            return $this->redirectToRoute('admin.bsv.index');
+        }
+
+        return $this->render('admin/bsv/send.html.twig', [
             'bsv' => $bsv,
             'form' => $form->createView()
         ]);
