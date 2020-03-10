@@ -21,7 +21,6 @@ class BsvSendType extends AbstractType
                 'choice_label' => function(Users $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 },
-                'label'     => 'Envoyer à :',
                 'expanded'  => true,
                 'multiple'  => true,
             ])
@@ -32,6 +31,7 @@ class BsvSendType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Bsv::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

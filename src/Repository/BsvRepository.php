@@ -27,6 +27,18 @@ class BsvRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllByYear($year)
+    {
+
+        return $this->createQueryBuilder('b')
+            ->where('year(b.send_date) = :year')
+            ->setParameter('year', $year)
+            ->orderBy('b.send_date', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Bsv[] Returns an array of Bsv objects
     //  */

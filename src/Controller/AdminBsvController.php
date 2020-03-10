@@ -162,6 +162,7 @@ class AdminBsvController extends AbstractController
      * @param Bsv $bsv
      * @param Request $request
      * @return Response
+     * @throws \Exception
      */
     public function send(Bsv $bsv, Request $request): Response
     {
@@ -169,6 +170,8 @@ class AdminBsvController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $datetime = New \DateTime();
+            $bsv->setCreationDate( $datetime );
             $bsv->setSent(1);
             $this->em->flush();
             $this->addFlash('success', 'BSV envoyé avec succès');
@@ -195,5 +198,27 @@ class AdminBsvController extends AbstractController
         }
 
         return $this->redirectToRoute('admin.bsv.index');
+    }
+
+    /**
+     * @Route("/admin/bsv/history", name="admin.bsv.history.index")
+     * @return Response
+     */
+    public function history(): Response
+    {
+        return $this->render('admin/bsv/history/index.html.twig');
+    }
+
+    /**
+     * @Route("/admin/bsv/history/{year}", name="admin.bsv.history.show")
+     * @param $year
+     * @return Response
+     */
+    public function list($year): Response
+    {
+        $bsv = $this->repositoryBsv->findAllByYear($year);
+        return $this->render('admin/bsv/history/show.html.twig', [
+            'bsv' => $bsv
+        ]);
     }
 }
