@@ -98,6 +98,11 @@ class Users implements UserInterface, \Serializable
         $this->bsvs = new ArrayCollection();
     }
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Exploitation", mappedBy="users", cascade={"persist", "remove"})
+     */
+    private $exploitation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -293,6 +298,23 @@ class Users implements UserInterface, \Serializable
     public function __toString(): string
     {
         return $this->getId();
+    }
+
+    public function getExploitation(): ?Exploitation
+    {
+        return $this->exploitation;
+    }
+
+    public function setExploitation(Exploitation $exploitation): self
+    {
+        $this->exploitation = $exploitation;
+
+        // set the owning side of the relation if necessary
+        if ($exploitation->getUsers() !== $this) {
+            $exploitation->setUsers($this);
+        }
+
+        return $this;
     }
 
     /**

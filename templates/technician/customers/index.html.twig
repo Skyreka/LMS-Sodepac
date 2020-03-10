@@ -10,7 +10,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Technicien</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Utilisateurs</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Clients</a></li>
                 </ol>
             </div>
         </div>
@@ -32,6 +32,7 @@
                                 <thead>
                                 <tr>
                                     <th>Informations</th>
+                                    <th>Exploitation</th>
                                     <th>Téléphone</th>
                                     <th>Ville</th>
                                     <th>Certification</th>
@@ -44,6 +45,15 @@
                                             <a href="{{ path('admin.users.show', {id: customer.id}) }}">
                                                 <h6>{{ customer.firstname }} {{ customer.lastname }}</h6><small class="text-muted">{{ customer.email }}</small>
                                             </a>
+                                        </td>
+                                        <td>
+                                            <h6>
+                                                {% if customer.exploitation is null %}
+                                                    <a href="{{ path('technician.customers.new.exploitation', {id: customer.id}) }}">Ajouter une exploitation</a>
+                                                {% else %}
+                                                    <h6>{{ customer.exploitation.size }} ha</h6>
+                                                {% endif %}
+                                            </h6>
                                         </td>
                                         <td>{{ customer.phone }}</td>
                                         <td>{{ customer.city }}</td>

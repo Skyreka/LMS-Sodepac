@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ ilot.name }} {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Ilots</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ ilot.name }}</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Cultures liée(s)</h4>
+                            <div class="ml-auto">
+                                <a href="{{ path('cultures.new', {id: ilot.id}) }}" class="btn btn-success">Ajouter</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Cultures</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for culture in cultures %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                    <h6>{{ culture.name.name }} ({{ culture.comments }})</h6><small class="text-muted">{{ culture.size }} ha</small>
+                                                </a>
+                                            </td>
+                                            </a>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body little-profile text-center">
+                        <h3 class="m-b-0">Information sur Ilot</h3>
+                        <div class="row text-center m-t-20">
+                            <div class="col-lg-4 col-md-4 m-t-20">
+                                <h3 class="m-b-0 font-light">{{ ilot.name }}</h3><small>Nom</small>
+                            </div>
+                            <div class="col-lg-4 col-md-4 m-t-20">
+                                <h3 class="m-b-0 font-light">{{ ilot.size }} ha</h3><small>Taille</small>
+                            </div>
+                            <div class="col-lg-4 col-md-4 m-t-20">
+                                <h3 class="m-b-0 font-light">#{{ ilot.id }}</h3><small>ID</small>
+                            </div>
+                            <div class="col-md-12 m-b-10"></div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ path('ilots.edit', {id: ilot.id}) }}" class="btn btn-block btn-warning mb-2">Editer l'ilot</a>
+                <form method="POST" action="{{ path('ilots.delete', {id: ilot.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr vouloir supprimer l\'ilot ainsi que toutes les cultures liées à cette ilot ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('deleteIlot') }}">
+                    <button class="btn btn-block btn-danger">Supprimer l'ilot</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

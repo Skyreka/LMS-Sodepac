@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Indexs{% endblock %}
+
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Indexs</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Admin</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Indexs</a></li>
                 </ol>
             </div>
         </div>
@@ -19,88 +22,65 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Vos Ilots</h4>
+                            <h4 class="card-title">Cultures</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('ilots.new') }}" class="btn btn-success">Ajouter</a>
+                                <a href="{{ path('indexs.cultures.new') }}" class="btn btn-success">Ajouter</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
                             <table class="table stylish-table">
                                 <thead>
                                 <tr>
-                                    <th>Ilots</th>
+                                    <th>Nom</th>
+                                    <th>Permanent</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {% for ilot in ilots %}
-                                        <tr>
-                                            <td>
-                                                <a href="{{ path('ilots.show', {id: ilot.id}) }}">
-                                                    <h6>{{ ilot.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type }}</small>
-                                                </a>
-                                            </td>
-                                            </a>
-                                        </tr>
-                                    {% endfor %}
+                                {% for culture in cultures %}
+                                    <tr>
+                                        <td>
+                                            <h6>{{ culture.name }}</h6>
+                                        </td>
+                                        <td>
+                                            {% if culture.permanent == 1 %}
+                                                <span class="badge badge-success">Oui</span>
+                                            {% else %}
+                                                <span class="badge badge-danger">Non</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body little-profile text-center">
-                        <h3 class="m-b-0">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</h3>
-                        <div class="row text-center m-t-20">
-                            <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">1099</h3><small>Ilots</small>
-                            </div>
-                            <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">23,469</h3><small>Cultures</small>
-                            </div>
-                            <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">{{ app.user.exploitation.size }} ha</h3><small>Exploitation</small>
-                            </div>
-                            <div class="col-md-12 m-b-10"></div>
-                        </div>
-                    </div>
-                </div>
+            </div><div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Flash Technique</h4>
-                        <h6 class="card-subtitle">Latest Comments on users from Material</h6>
-                    </div>
-                    <div class="comment-widgets">
-                        <div class="d-flex flex-row comment-row">
-                            <div class="comment-text w-100">
-                                <h5>James Anderson</h5>
-                                <p class="m-b-5">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
-                                <div class="comment-footer"> <span class="text-muted pull-right">April 14, 2016</span> <span class="label label-info">Pending</span> <span class="action-icons">
-                  <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-check"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-heart"></i></a>
-                </span> </div>
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Apport d'effluents</h4>
+                            <div class="ml-auto">
+                                <a href="{{ path('indexs.effluents.new') }}" class="btn btn-success">Ajouter</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">BSV</h4>
-                        <h6 class="card-subtitle">Bulletin Sanitaire du Végétal</h6>
-                    </div>
-                    <div class="comment-widgets">
-                        <div class="d-flex flex-row comment-row">
-                            <div class="comment-text w-100">
-                                <h5>James Anderson</h5>
-                                <p class="m-b-5">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
-                                <div class="comment-footer"> <span class="text-muted pull-right">April 14, 2016</span> <span class="label label-info">Pending</span> <span class="action-icons">
-                  <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-check"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-heart"></i></a>
-                </span> </div>
-                            </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for effluent in effluents %}
+                                    <tr>
+                                        <td>
+                                            <h6>{{ effluent.name }}</h6>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

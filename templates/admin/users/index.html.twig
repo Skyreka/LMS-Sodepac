@@ -32,6 +32,7 @@
                                 <thead>
                                 <tr>
                                     <th>Informations</th>
+                                    <th>Exploitation</th>
                                     <th>Téléphone</th>
                                     <th>Ville</th>
                                     <th>Certification</th>
@@ -44,6 +45,15 @@
                                                 <a href="{{ path('admin.users.show', {id: user.id}) }}">
                                                     <h6>{{ user.firstname }} {{ user.lastname }}</h6><small class="text-muted">{{ user.email }}</small>
                                                 </a>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    {% if user.exploitation is null %}
+                                                        <a href="{{ path('technician.customers.new.exploitation', {id: user.id}) }}">Ajouter une exploitation</a>
+                                                    {% else %}
+                                                        <h6>{{ user.exploitation.size }} ha</h6>
+                                                    {% endif %}
+                                                </h6>
                                             </td>
                                             <td>{{ user.phone }}</td>
                                             <td>{{ user.city }}</td>
