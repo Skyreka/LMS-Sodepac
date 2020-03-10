@@ -28,9 +28,10 @@ class IrrigationController extends AbstractController
      * @param IrrigationRepository $irrigationRepository
      * @return Response
      */
+
     public function index(IrrigationRepository $irrigationRepository): Response
     {
-        $irrigations = $irrigationRepository->findAll();
+        $irrigations = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation() ] );
         return $this->render('exploitation/irrigation/index.html.twig', [
             'irrigations' => $irrigations
         ]);
@@ -42,14 +43,16 @@ class IrrigationController extends AbstractController
      * @return Response
      * @throws \Exception
      */
+
     public function new(Request $request): Response
     {
         $irrigation  = new Irrigation();
-        $form = $this->createForm(IrrigationType::class, $irrigation);
+        $form = $this->createForm(IrrigationType::class, $irrigation, ['exp' => $this->getUser()]);
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
             $irrigation->setInterventionAt( new \DateTime());
+            $irrigation->setExploitation( $this->getUser()->getExploitation() );
             $this->em->persist($irrigation);
             $this->em->flush();
 
@@ -61,4 +64,5 @@ class IrrigationController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
 }

@@ -23,6 +23,12 @@ class Irrigation
     private $ilot;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Exploitation", inversedBy="irrigations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $exploitation;
+
+    /**
      * @ORM\Column(type="string", length=30)
      */
     private $type;
@@ -40,7 +46,7 @@ class Irrigation
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $interventionAt;
+    private $intervention_at;
 
     public function getId(): ?int
     {
@@ -55,6 +61,18 @@ class Irrigation
     public function setIlot(?Ilots $ilot): self
     {
         $this->ilot = $ilot;
+
+        return $this;
+    }
+
+    public function getExploitation(): ?Exploitation
+    {
+        return $this->exploitation;
+    }
+
+    public function setExploitation(?Exploitation $exploitation): self
+    {
+        $this->exploitation = $exploitation;
 
         return $this;
     }
@@ -97,12 +115,12 @@ class Irrigation
 
     public function getInterventionAt(): ?\DateTimeInterface
     {
-        return $this->interventionAt;
+        return $this->intervention_at;
     }
 
-    public function setInterventionAt(?\DateTimeInterface $interventionAt): self
+    public function setInterventionAt(?\DateTimeInterface $intervention_at): self
     {
-        $this->interventionAt = $interventionAt;
+        $this->intervention_at = $intervention_at;
 
         return $this;
     }

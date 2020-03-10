@@ -45,7 +45,7 @@ class Ilots
     private $cultures;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Irrigation", mappedBy="ilot", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Irrigation", mappedBy="ilot")
      */
     private $irrigations;
 

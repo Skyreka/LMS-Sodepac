@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Ilots;
 use App\Entity\Irrigation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -20,22 +19,38 @@ class IrrigationRepository extends ServiceEntityRepository
         parent::__construct($registry, Irrigation::class);
     }
 
-    /**
-    * @return Irrigation[] Returns an array of Irrigation objects
-    */
-    public function findByUser()
+    public function findByUser( $user, $limit = null )
     {
-        $result = $this->createQueryBuilder('od')
-            ->join('od.order', 'o')
-            ->addSelect('o')
-            ->where('o.userid = :userid')
-            ->andWhere('od.orderstatusid IN (:orderstatusid)')
-            ->setParameter('userid', $userid)
-            ->setParameter('orderstatusid', array(5, 6, 7, 8, 10))
-            ->getQuery()->getResult()
-        ;
-        return $result;
+        $query = $this->createQueryBuilder('i')
+            ->andWhere('i.exploitation = :exp')
+            ->setParameter('exp', $user->getExploitation())
+            ->orderBy('i.id', 'ASC')
+            ;
+
+        if ($limit != NULL) {
+            $query = $query->setMaxResults( $limit );
+        }
+
+        return $query->getQuery()
+            ->getResult();
     }
+
+    // /**
+    //  * @return Irrigation[] Returns an array of Irrigation objects
+    //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('i.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    */
 
     /*
     public function findOneBySomeField($value): ?Irrigation
