@@ -81,4 +81,26 @@ class IlotsController extends AbstractController
         }
         return $this->redirectToRoute('home');
     }
+
+    /**
+     * @Route("ilots/edit/{id}", name="ilots.edit")
+     * @param Ilots $ilot
+     * @return Response
+     */
+    public function edit(Ilots $ilot, Request $request): Response
+    {
+        $form = $this->createForm( IlotsType::class, $ilot);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            $this->addFlash('success', 'Ilot édité avec succès');
+            return $this->redirectToRoute('ilots.show', [ 'id' => $ilot->getId() ]);
+        }
+
+        return $this->render('ilots/edit.html.twig', [
+            'ilot' => $ilot,
+            'form' => $form->createView()
+        ]);
+    }
 }

@@ -13,8 +13,12 @@ class IlotsType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('size')
-            ->add('type')
+            ->add('size', null, [
+                'help' => 'En hectare'
+            ])
+            ->add('type', null,[
+                'label' => 'Type de sol'
+            ])
         ;
     }
 

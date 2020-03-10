@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ culture.name.name }} {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ culture.ilot.name }}</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ culture.name.name }}</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Interventions</h4>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="" class="btn btn-block btn-success">Récolte</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center mt-3">
+                            <h4 class="card-title mt-2">{{ culture.name.name }} ({{ culture.comments }})</h4>
+                            <h6 class="card-subtitle">Ilot : {{ culture.ilot.name }} <small>{{ culture.ilot.size }} ha</small></h6>
+                            <div class="row text-center justify-content-md-center">
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        Taille:
+                                        <span class="font-medium">{{ culture.size }} ha</span>
+                                    </a>
+                                </div>
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        Bio:
+                                        <span class="font-medium">{{ culture.bio ? 'Oui' : 'Non' }}</span>
+                                    </a>
+                                </div>
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        Prod:
+                                        <span class="font-medium">{{ culture.production  ? 'Oui' : 'Non' }}</span>
+                                    </a>
+                                </div>
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        ZNT:
+                                        <span class="font-medium">{{ culture.znt  ? culture.znt : 'Non' }}</span>
+                                    </a>
+                                </div>
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        Résidu
+                                        <span class="font-medium">{{ culture.residue  ? 'Oui': 'Non' }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">Culture précédent:</small>
+                        <h6>{{ culture.precedent.name }}</h6>
+                        <small class="text-muted pt-4 d-block">Effluent:</small>
+                        <h6>{{ culture.effluent.name }}</h6>
+                        <small class="text-muted pt-4 d-block">Actions:</small>
+                        <br />
+                        <button class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></button>
+                        <button class="btn btn-circle btn-secondary"><i class="fab fa-twitter"></i></button>
+                        <button class="btn btn-circle btn-secondary"><i class="fab fa-youtube"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

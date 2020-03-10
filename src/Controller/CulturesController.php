@@ -47,4 +47,16 @@ class CulturesController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("cultures/show/{id}", name="cultures.show")
+     * @param Cultures $culture
+     * @return Response
+     */
+    public function show(Cultures $culture): Response
+    {
+        return $this->render('cultures/show.html.twig', [
+            'culture' => $culture
+        ]);
+    }
 }
