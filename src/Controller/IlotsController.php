@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Entity\Ilots;
 use App\Form\IlotsType;
+use App\Repository\CulturesRepository;
+use App\Repository\IlotsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,12 +53,15 @@ class IlotsController extends AbstractController
     /**
      * @Route("ilots/show/{id}", name="ilots.show")
      * @param Ilots $ilot
+     * @param CulturesRepository $culturesRepository
      * @return Response
      */
-    public function show(Ilots $ilot): Response
+    public function show(Ilots $ilot, CulturesRepository $culturesRepository): Response
     {
+        $cultures = $culturesRepository->findBy( ['ilot' => $ilot->getId()] );
         return $this->render('ilots/show.html.twig', [
-            'ilot' => $ilot
+            'ilot' => $ilot,
+            'cultures' => $cultures
         ]);
     }
 

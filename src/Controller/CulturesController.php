@@ -2,21 +2,47 @@
 namespace App\Controller;
 
 use App\Entity\Cultures;
+use App\Entity\Ilots;
 use App\Form\CulturesNewType;
+use App\Repository\IlotsRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CulturesController extends AbstractController
 {
     /**
-     * @Route("/cultures/new/{id_ilot}", name="cultures.new")
+     * @var ObjectManager
+     */
+    private $om;
+
+    public function __construct(ObjectManager $om)
+    {
+        $this->om = $om;
+    }
+
+    /**
+     * @Route("/cultures/new/{id}", name="cultures.new")
+     * @param Ilots $ilot
+     * @param Request $request
      * @return Response
      */
-    public function new(): Response
+    public function new( Ilots $ilot, Request $request ): Response
     {
         $culture = new Cultures();
         $form = $this->createForm( CulturesNewType::class, $culture);
+        $form->handleRequest( $request );
+
+        $culture->setIlot( $ilot );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->om->persist( $culture );
+            $this->om->flush();
+            $this->addFlash('success', 'Culture crée avec succès');
+            $this->redirectToRoute('ilots.show', ['id' => $ilot->getId()]);
+        }
         return $this->render('cultures/new.html.twig', [
             'form' => $form->createView()
         ]);

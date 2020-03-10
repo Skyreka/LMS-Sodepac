@@ -21,17 +21,27 @@
                         <div class="d-flex no-block">
                             <h4 class="card-title">Cultures liée(s)</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('cultures.new', {id_ilot: ilot.id}) }}" class="btn btn-success">Ajouter</a>
+                                <a href="{{ path('cultures.new', {id: ilot.id}) }}" class="btn btn-success">Ajouter</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
                             <table class="table stylish-table">
                                 <thead>
                                 <tr>
-                                    <th>CUlture</th>
+                                    <th>Cultures</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    {% for culture in cultures %}
+                                        <tr>
+                                            <td>
+                                                <a href="#">
+                                                    <h6>{{ culture.name.name }} ({{ culture.comments }})</h6><small class="text-muted">{{ culture.size }} ha</small>
+                                                </a>
+                                            </td>
+                                            </a>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

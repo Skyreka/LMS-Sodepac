@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Cultures;
 use App\Entity\IndexCultures;
+use App\Entity\IndexEffluents;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,13 +25,23 @@ class CulturesNewType extends AbstractType
                 'class' => IndexCultures::class,
                 'choice_label' => 'name'
             ])
+            ->add('production')
             ->add('comments', null, [
-                'label' => 'Commentaire de nom de culture'
+                'label' => 'Commentaire du nom de culture'
             ])
             ->add('size', null, [
-                'label' => 'Taille de la culture'
+                'label' => 'Taille de la culture',
+                'help' => 'En hectare'
             ])
-            ->add('residue')
+            ->add('residue', null, [
+                'help' => 'Avez-vous laissé le résidu ?'
+            ])
+            ->add('znt')
+            ->add('effluent', EntityType::class, [
+                'class' => IndexEffluents::class,
+                'label' => 'Apport d\'effluents',
+                'choice_label' => 'name'
+            ])
         ;
     }
 

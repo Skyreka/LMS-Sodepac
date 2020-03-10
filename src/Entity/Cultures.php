@@ -53,6 +53,21 @@ class Cultures
      */
     private $bio;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\IndexEffluents")
+     */
+    private $effluent;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $production;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $znt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +153,42 @@ class Cultures
     public function setBio(bool $bio): self
     {
         $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getEffluent(): ?IndexEffluents
+    {
+        return $this->effluent;
+    }
+
+    public function setEffluent(?IndexEffluents $effluent): self
+    {
+        $this->effluent = $effluent;
+
+        return $this;
+    }
+
+    public function getProduction(): ?bool
+    {
+        return $this->production;
+    }
+
+    public function setProduction(bool $production): self
+    {
+        $this->production = $production;
+
+        return $this;
+    }
+
+    public function getZnt(): ?float
+    {
+        return $this->znt;
+    }
+
+    public function setZnt(?float $znt): self
+    {
+        $this->znt = $znt;
 
         return $this;
     }
