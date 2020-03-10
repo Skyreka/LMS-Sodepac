@@ -58,7 +58,7 @@ class IlotsController extends AbstractController
      */
     public function show(Ilots $ilot, CulturesRepository $culturesRepository): Response
     {
-        $cultures = $culturesRepository->findBy( ['ilot' => $ilot->getId()] );
+        $cultures = $culturesRepository->findBy( ['ilot' => $ilot] );
         return $this->render('ilots/show.html.twig', [
             'ilot' => $ilot,
             'cultures' => $cultures

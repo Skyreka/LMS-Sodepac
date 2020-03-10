@@ -13,7 +13,7 @@ class HomeController extends AbstractController {
      * @return Response
      */
     public function index(IlotsRepository $ilotsRepository): Response {
-        $ilots = $ilotsRepository->findAll();
+        $ilots = $ilotsRepository->findIlotsFromUser( $this->getUser()->getExploitation() );
         return $this->render('pages/home.html.twig', [
             'ilots' => $ilots
         ]);

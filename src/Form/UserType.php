@@ -49,15 +49,4 @@ class UserType extends AbstractType
             'translation_domain' => 'forms'
         ]);
     }
-
-    private function getChoices()
-    {
-        $choices = Users::STATUS;
-        $output = [];
-        foreach ($choices as $k => $v) {
-            $output[$v] = $k;
-        }
-        return $output;
-    }
-
 }

@@ -19,22 +19,19 @@ class IlotsRepository extends ServiceEntityRepository
         parent::__construct($registry, Ilots::class);
     }
 
-    // /**
-    //  * @return Ilots[] Returns an array of Ilots objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Ilots[] Returns an array of Ilots objects
+    */
+    public function findIlotsFromUser( $exploitation )
     {
         return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('i.exploitation = :exploitation')
+            ->setParameter('exploitation', $exploitation)
             ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Ilots

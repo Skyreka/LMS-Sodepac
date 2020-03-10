@@ -44,9 +44,15 @@ class Ilots
      */
     private $cultures;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Irrigation", mappedBy="ilot", orphanRemoval=true)
+     */
+    private $irrigations;
+
     public function __construct()
     {
         $this->cultures = new ArrayCollection();
+        $this->irrigations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +133,37 @@ class Ilots
             // set the owning side to null (unless already changed)
             if ($culture->getIlot() === $this) {
                 $culture->setIlot(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Irrigation[]
+     */
+    public function getIrrigations(): Collection
+    {
+        return $this->irrigations;
+    }
+
+    public function addIrrigation(Irrigation $irrigation): self
+    {
+        if (!$this->irrigations->contains($irrigation)) {
+            $this->irrigations[] = $irrigation;
+            $irrigation->setIlot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIrrigation(Irrigation $irrigation): self
+    {
+        if ($this->irrigations->contains($irrigation)) {
+            $this->irrigations->removeElement($irrigation);
+            // set the owning side to null (unless already changed)
+            if ($irrigation->getIlot() === $this) {
+                $irrigation->setIlot(null);
             }
         }
 
