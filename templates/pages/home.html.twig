@@ -90,19 +90,23 @@
                         <h4 class="card-title">BSV</h4>
                         <h6 class="card-subtitle">Bulletin Sanitaire du Végétal</h6>
                     </div>
-                    <div class="comment-widgets">
-                        <div class="d-flex flex-row comment-row">
+                    {% for bsv in bsvs %}
+                        <div class="comment-widgets">
+                            <div class="d-flex flex-row comment-row">
                             <div class="comment-text w-100">
-                                <h5>James Anderson</h5>
-                                <p class="m-b-5">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
-                                <div class="comment-footer"> <span class="text-muted pull-right">April 14, 2016</span> <span class="label label-info">Pending</span> <span class="action-icons">
-                  <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-check"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-heart"></i></a>
-                </span> </div>
+                                <h5>TEST</h5>
+                                <p class="mb-5">{{ bsv.text }}</p>
+                                <div class="comment-footer">
+                                    <span class="text-muted pull-right">
+                                       {{ bsv.sendDate|localizeddate('none', 'none', null, null, 'd MMMM Y à HH:mm') }}
+                                    </span>
+                                    <span class="label label-info">Non lu</span>
+                                    <a href="{{ asset('uploads/bsv/' ~ bsv.firstFile) }}" target="_blank"><i class="ti-download"></i></a>
+                                </div>
+                            </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
