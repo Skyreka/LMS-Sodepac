@@ -171,7 +171,7 @@ class AdminBsvController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $datetime = New \DateTime();
-            $bsv->setCreationDate( $datetime );
+            $bsv->setSendDate( $datetime );
             $bsv->setSent(1);
             $this->em->flush();
             $this->addFlash('success', 'BSV envoyé avec succès');
