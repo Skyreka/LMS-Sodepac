@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des clients{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Technicien</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Panoramas</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Listes des panoramas</h4>
+                            <div class="ml-auto">
+                                <a href="#" class="btn btn-success">Créer un panorama</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Date de création</th>
+                                    <th>Texte</th>
+                                    <th>Validation</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for panorama in panoramas %}
+                                    <tr>
+                                        <td>{{ panorama.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                        <td>{{ panorama.text }}</td>
+                                        <td>
+                                            {% if panorama.validate == 1 %}
+                                                <span class="badge badge-default">Validé</span>
+                                            {% elseif panorama.validate == 0 %}
+                                                <span class="badge badge-warning">En attente de validation</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

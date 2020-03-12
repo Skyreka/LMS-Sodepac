@@ -96,12 +96,18 @@ class Users implements UserInterface, \Serializable
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
+        $this->panoramas = new ArrayCollection();
     }
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Exploitation", mappedBy="users", cascade={"persist", "remove"})
      */
     private $exploitation;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Panoramas", mappedBy="technician")
+     */
+    private $panoramas;
 
     public function getId(): ?int
     {
@@ -340,6 +346,37 @@ class Users implements UserInterface, \Serializable
         if ($this->bsvs->contains($bsv)) {
             $this->bsvs->removeElement($bsv);
             $bsv->removeCustomer($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Panoramas[]
+     */
+    public function getPanoramas(): Collection
+    {
+        return $this->panoramas;
+    }
+
+    public function addPanorama(Panoramas $panorama): self
+    {
+        if (!$this->panoramas->contains($panorama)) {
+            $this->panoramas[] = $panorama;
+            $panorama->setTechnician($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanorama(Panoramas $panorama): self
+    {
+        if ($this->panoramas->contains($panorama)) {
+            $this->panoramas->removeElement($panorama);
+            // set the owning side to null (unless already changed)
+            if ($panorama->getTechnician() === $this) {
+                $panorama->setTechnician(null);
+            }
         }
 
         return $this;
