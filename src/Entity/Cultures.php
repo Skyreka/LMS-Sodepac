@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -67,6 +69,16 @@ class Cultures
      * @ORM\Column(type="float", nullable=true)
      */
     private $znt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Interventions", mappedBy="culture", orphanRemoval=true)
+     */
+    private $interventions;
+
+    public function __construct()
+    {
+        $this->interventions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -189,6 +201,37 @@ class Cultures
     public function setZnt(?float $znt): self
     {
         $this->znt = $znt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Interventions[]
+     */
+    public function getInterventions(): Collection
+    {
+        return $this->interventions;
+    }
+
+    public function addIntervention(Interventions $intervention): self
+    {
+        if (!$this->interventions->contains($intervention)) {
+            $this->interventions[] = $intervention;
+            $intervention->setCulture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervention(Interventions $intervention): self
+    {
+        if ($this->interventions->contains($intervention)) {
+            $this->interventions->removeElement($intervention);
+            // set the owning side to null (unless already changed)
+            if ($intervention->getCulture() === $this) {
+                $intervention->setCulture(null);
+            }
+        }
 
         return $this;
     }

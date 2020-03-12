@@ -3,8 +3,10 @@ namespace App\Controller;
 
 use App\Entity\Cultures;
 use App\Entity\Ilots;
+use App\Entity\Interventions;
 use App\Form\CulturesNewType;
 use App\Repository\IlotsRepository;
+use App\Repository\InterventionsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,12 +53,14 @@ class CulturesController extends AbstractController
     /**
      * @Route("cultures/show/{id}", name="cultures.show")
      * @param Cultures $culture
+     * @param InterventionsRepository $ir
      * @return Response
      */
-    public function show(Cultures $culture): Response
+    public function show(Cultures $culture, InterventionsRepository $ir): Response
     {
         return $this->render('cultures/show.html.twig', [
-            'culture' => $culture
+            'culture' => $culture,
+            'ir' => $ir
         ]);
     }
 }

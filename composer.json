@@ -26,7 +26,8 @@
         "symfony/web-link": "4.1.*",
         "symfony/yaml": "4.1.*",
         "treehouselabs/slugifier": "^1.0",
-        "twig/extensions": "^1.5"
+        "twig/extensions": "^1.5",
+        "ext-intl": "*"
     },
     "require-dev": {
         "doctrine/data-fixtures": "^1.4",

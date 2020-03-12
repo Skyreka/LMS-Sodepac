@@ -39,7 +39,7 @@
                                 <tbody>
                                 {% for key in bsv %}
                                     <tr>
-                                        <td>{{ key.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                        <td>{{ key.creationDate|date('d m Y') }}</td>
                                         <td>{{ key.text }}</td>
                                         {% if key.firstFile %}
                                             <td><a href="{{ asset('uploads/bsv/' ~ key.firstFile) }}" class="btn btn-success" target="_blank">PDF</a></td>

@@ -98,7 +98,7 @@
                                 <p class="mb-5">{{ bsv.text }}</p>
                                 <div class="comment-footer">
                                     <span class="text-muted pull-right">
-                                       {{ bsv.sendDate|localizeddate('none', 'none', null, null, 'd MMMM Y à HH:mm') }}
+                                       {{ bsv.sendDate|date('d m Y') }}
                                     </span>
                                     <span class="label label-info">Non lu</span>
                                     <a href="{{ asset('uploads/bsv/' ~ bsv.firstFile) }}" target="_blank"><i class="ti-download"></i></a>
