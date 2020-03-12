@@ -24,7 +24,8 @@
                         <div class="d-flex no-block">
                             <h4 class="card-title">Listes des panoramas</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('technician.panoramas.new') }}" class="btn btn-success">Créer un panorama</a>
+                                <a title="Créer un panorama" href="{{ path('technician.panoramas.new') }}" class="btn btn-success">Créer</a>
+                                <a title="Historique des panoramas envoyés" href="#" class="btn btn-primary">Historique</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -43,9 +44,14 @@
                                         <td>{{ panorama.text }}</td>
                                         <td>
                                             {% if panorama.validate == 1 %}
-                                                <span class="badge badge-default">Validé</span>
+                                                <span class="badge badge-success">Validé</span>
                                             {% elseif panorama.validate == 0 %}
                                                 <span class="badge badge-warning">En attente de validation</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if panorama.validate == 1 %}
+                                                <a title="Envoyer ce panorama" href="{{ path('technician.panoramas.send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
                                             {% endif %}
                                         </td>
                                     </tr>
