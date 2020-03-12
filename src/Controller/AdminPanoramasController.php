@@ -59,4 +59,21 @@ class AdminPanoramasController extends AbstractController
         return $this->redirectToRoute('admin.panoramas.index');
     }
 
+    /**
+     * @Route("/admin/panoramas/{id}", name="admin.panoramas.valid", methods="VALID")
+     * @param Panoramas $panoramas
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function valid(Panoramas $panoramas, Request $request)
+    {
+        if ($this->isCsrfTokenValid('delete' . $panoramas->getId(), $request->get('_token'))) {
+            $panoramas->setValidate(1);
+            $this->em->flush();
+            $this->addFlash('success', 'Panorama validé avec succès');
+        }
+
+        return $this->redirectToRoute('admin.panoramas.index');
+    }
+
 }

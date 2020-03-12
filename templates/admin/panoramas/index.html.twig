@@ -49,6 +49,13 @@
                                                 <button class="btn btn-danger">Supprimer</button>
                                             </form>
                                         </td>
+                                        <td>
+                                            <form method="POST" action="{{ path('admin.panoramas.valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
+                                                <input type="hidden" name="_method" value="VALID">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
+                                                <button class="btn btn-success">Valider</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
