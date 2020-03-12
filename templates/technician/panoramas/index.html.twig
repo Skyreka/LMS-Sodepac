@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des clients{% endblock %}
+{% block title %}Listes des panoramas{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -24,7 +24,7 @@
                         <div class="d-flex no-block">
                             <h4 class="card-title">Listes des panoramas</h4>
                             <div class="ml-auto">
-                                <a href="#" class="btn btn-success">Créer un panorama</a>
+                                <a href="{{ path('technician.panoramas.new') }}" class="btn btn-success">Créer un panorama</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
