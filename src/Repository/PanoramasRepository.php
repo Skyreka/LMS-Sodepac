@@ -34,6 +34,14 @@ class PanoramasRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllNotSent ()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.sent = 0')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Panoramas[] Returns an array of Panoramas objects
     //  */

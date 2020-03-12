@@ -187,6 +187,7 @@ class AdminBsvController extends AbstractController
     /**
      * @Route("/admin/bsv/{id}", name="admin.bsv.delete", methods="DELETE")
      * @param Bsv $bsv
+     * @param Request $request
      * @return RedirectResponse
      */
     public function delete(Bsv $bsv, Request $request)
