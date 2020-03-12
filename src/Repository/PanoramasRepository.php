@@ -34,6 +34,22 @@ class PanoramasRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+    * @param $idTechnician
+    * @return mixed
+    */
+    public function findAllPanoramasOfTechnicianNotSent( $idTechnician )
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.technician = :technician')
+            ->andWhere('u.sent = 0')
+            ->setParameter('technician', $idTechnician)
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findAllNotSent ()
     {
         return $this->createQueryBuilder('p')

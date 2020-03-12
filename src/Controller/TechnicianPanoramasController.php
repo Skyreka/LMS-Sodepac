@@ -40,7 +40,7 @@ class TechnicianPanoramasController extends AbstractController
      */
     public function index(): Response
     {
-        $panoramas = $this->panoramasRepository->findAllPanoramasOfTechnician( $this->getUser()->getId() );
+        $panoramas = $this->panoramasRepository->findAllPanoramasOfTechnicianNotSent( $this->getUser()->getId() );
         return $this->render('technician/panoramas/index.html.twig', [
             'panoramas' => $panoramas
         ]);
