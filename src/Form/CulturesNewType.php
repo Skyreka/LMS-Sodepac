@@ -7,6 +7,7 @@ use App\Entity\IndexCultures;
 use App\Entity\IndexEffluents;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,9 +30,13 @@ class CulturesNewType extends AbstractType
             ->add('comments', null, [
                 'label' => 'Commentaire du nom de culture'
             ])
-            ->add('size', null, [
+            ->add('size', IntegerType::class, [
+                'attr' => [
+                    'min' => 0,
+                    'max' => $options['max_size']
+                ],
                 'label' => 'Taille de la culture',
-                'help' => 'En hectare'
+                'help' => 'En hectare | Espace restant : '. $options['max_size'] .' ha'
             ])
             ->add('residue', null, [
                 'help' => 'Avez-vous laissé le résidu ?'
@@ -49,7 +54,8 @@ class CulturesNewType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Cultures::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'forms',
+            'max_size' => null
         ]);
     }
 }

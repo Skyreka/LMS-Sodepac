@@ -32,16 +32,21 @@ class CulturesController extends AbstractController
      * @Route("/cultures/new/{id}", name="cultures.new")
      * @param Ilots $ilot
      * @param Request $request
+     * @param CulturesRepository $cr
      * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function new( Ilots $ilot, Request $request ): Response
+    public function new( Ilots $ilot, Request $request, CulturesRepository $cr): Response
     {
+        //-- Get Size
+        $availableSize = $cr->countAvailableSizeCulture( $ilot );
+
+        //-- Form
         $culture = new Cultures();
-        $form = $this->createForm( CulturesNewType::class, $culture);
+        $form = $this->createForm( CulturesNewType::class, $culture, ['max_size' => $availableSize]);
         $form->handleRequest( $request );
-
         $culture->setIlot( $ilot );
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->om->persist( $culture );
             $this->om->flush();

@@ -36,6 +36,27 @@ class CulturesRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @param $exploitation
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countAvailableSizeCulture( $ilot )
+    {
+        $totalSize = $this->createQueryBuilder('t')
+            ->select('SUM(t.size)')
+            ->andWhere( 't.ilot = :ilot' )
+            ->setParameter('ilot', $ilot )
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+
+        $ilotSize = $ilot->getSize();
+
+        return $ilotSize - $totalSize;
+    }
+
     // /**
     //  * @return Cultures[] Returns an array of Cultures objects
     //  */

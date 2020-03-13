@@ -33,6 +33,12 @@ class IlotsRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @param $exploitation
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function countAvailableSizeIlot( $exploitation )
     {
         $totalIlots = $this->createQueryBuilder('t')
