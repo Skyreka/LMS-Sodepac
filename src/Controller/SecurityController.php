@@ -29,6 +29,26 @@ class SecurityController extends AbstractController {
     }
 
     /**
+     * @Route("/login_success", name="login.success")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function postLoginRedirection()
+    {
+        switch ($this->getUser()->getStatus())
+        {
+            case 'ROLE_USER':
+                return $this->redirectToRoute('home');
+                break;
+            case 'ROLE_TECHNICIAN':
+                return $this->redirectToRoute('technician.customers.index');
+                break;
+            case 'ROLE_ADMIN':
+                return $this->redirectToRoute('admin.users.index');
+                break;
+        }
+    }
+
+    /**
      * @Route("/active_user/{id}", name="security.active")
      * @param Users $user
      * @param Request $request
