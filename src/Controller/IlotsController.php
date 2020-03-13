@@ -27,27 +27,35 @@ class IlotsController extends AbstractController
     /**
      * @Route("ilots/new", name="ilots.new")
      * @param Request $request
+     * @param IlotsRepository $ir
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, IlotsRepository $ir): Response
     {
-        $ilot = new Ilots();
-        $form = $this->createForm(IlotsType::class, $ilot);
-        $form->handleRequest( $request );
+        // Get Size
+        $size = $ir->countAvailableSizeIlot( $this->getUser()->getExploitation() );
 
-        $ilot->setExploitation( $this->getUser()->getExploitation()  );
+        if ($size != 0) {
+            //-- Create form
+            $ilot = new Ilots();
+            $form = $this->createForm(IlotsType::class, $ilot, ['max_size' => $size]);
+            $form->handleRequest( $request );
+            $ilot->setExploitation( $this->getUser()->getExploitation()  );
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->em->persist($ilot);
+                $this->em->flush();
+                $this->addFlash('success', 'Ilot crée avec succès');
+                return $this->redirectToRoute('home');
+            }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($ilot);
-            $this->em->flush();
-
-            $this->addFlash('success', 'Ilot crée avec succès');
+            return $this->render('ilots/new.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        } else {
+            // Return error no size
+            $this->addFlash('danger', "Vous ne pouvez pas créer d'ilot, plus d'espace disponible");
             return $this->redirectToRoute('home');
         }
-
-        return $this->render('ilots/new.html.twig', [
-            'form' => $form->createView()
-        ]);
     }
 
     /**

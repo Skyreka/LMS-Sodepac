@@ -33,6 +33,21 @@ class IlotsRepository extends ServiceEntityRepository
         ;
     }
 
+    public function countAvailableSizeIlot( $exploitation )
+    {
+        $totalIlots = $this->createQueryBuilder('t')
+            ->select('SUM(t.size)')
+            ->andWhere('t.exploitation = :exp')
+            ->setParameter('exp', $exploitation)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+
+        $totalExploitation = $exploitation->getSize();
+
+        return $totalExploitation - $totalIlots;
+    }
+
     /*
     public function findOneBySomeField($value): ?Ilots
     {
