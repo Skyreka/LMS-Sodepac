@@ -49,7 +49,7 @@ class Panoramas
     private $sent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\users", inversedBy="panoramas")
+     * @ORM\ManyToOne(targetEntity="App\Entity\users", inversedBy="panoramasOwn")
      */
     private $technician;
 

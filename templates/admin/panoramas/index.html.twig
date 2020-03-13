@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des panoramas{% endblock %}
+{% block title %}Listes des BSV{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <h3 class="text-themecolor">Accueil</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Technicien</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Admin</a></li>
                     <li class="breadcrumb-item active"><a href="javascript:void(0)">Panoramas</a></li>
                 </ol>
             </div>
@@ -22,10 +22,9 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Listes des panoramas</h4>
+                            <h4 class="card-title">Listes des Panoramas en attente de confirmation</h4>
                             <div class="ml-auto">
-                                <a title="Créer un panorama" href="{{ path('technician.panoramas.new') }}" class="btn btn-success">Créer</a>
-                                <a title="Historique des panoramas envoyés" href="#" class="btn btn-primary">Historique</a>
+                                <a href="#" class="btn btn-info">Historique des Panoramas</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -34,7 +33,7 @@
                                 <tr>
                                     <th>Date de création</th>
                                     <th>Texte</th>
-                                    <th>Validation</th>
+                                    <th>Technicien</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,17 +41,20 @@
                                     <tr>
                                         <td>{{ panorama.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
                                         <td>{{ panorama.text }}</td>
+                                        <td>{{ panorama.technician.lastname }} {{ panorama.technician.firstname }}</td>
                                         <td>
-                                            {% if panorama.validate == 1 %}
-                                                <span class="badge badge-success">Validé</span>
-                                            {% elseif panorama.validate == 0 %}
-                                                <span class="badge badge-warning">En attente de validation</span>
-                                            {% endif %}
+                                            <form method="POST" action="{{ path('admin.panoramas.delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
+                                                <button class="btn btn-danger">Supprimer</button>
+                                            </form>
                                         </td>
                                         <td>
-                                            {% if panorama.validate == 1 %}
-                                                <a title="Envoyer ce panorama" href="{{ path('technician.panoramas.send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
-                                            {% endif %}
+                                            <form method="POST" action="{{ path('admin.panoramas.valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
+                                                <input type="hidden" name="_method" value="VALID">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
+                                                <button class="btn btn-success">Valider</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -63,6 +65,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 {% endblock %}

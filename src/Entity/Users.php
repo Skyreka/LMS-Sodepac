@@ -105,9 +105,14 @@ class Users implements UserInterface, \Serializable
     private $exploitation;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Panoramas", mappedBy="technician")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Panoramas", mappedBy="customers")
      */
     private $panoramas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Panoramas", mappedBy="technician")
+     */
+    private $panoramasOwn;
 
     public function getId(): ?int
     {
@@ -380,5 +385,21 @@ class Users implements UserInterface, \Serializable
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPanoramasOwn()
+    {
+        return $this->panoramasOwn;
+    }
+
+    /**
+     * @param mixed $panoramasOwn
+     */
+    public function setPanoramasOwn($panoramasOwn): void
+    {
+        $this->panoramasOwn = $panoramasOwn;
     }
 }
