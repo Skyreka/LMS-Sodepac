@@ -17,8 +17,10 @@ class HomeController extends AbstractController {
     public function home(IlotsRepository $ir, UsersRepository $ur): Response {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $bsvs = $this->getUser()->getBsvs();
+        $panoramas = $this->getUser()->getPanoramas();
         return $this->render('pages/home.html.twig', [
             'bsvs' => $bsvs,
+            'panoramas' => $panoramas,
             'ilots' => $ilots
         ]);
     }
