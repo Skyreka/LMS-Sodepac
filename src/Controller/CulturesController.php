@@ -34,24 +34,25 @@ class CulturesController extends AbstractController
      * @param Request $request
      * @param CulturesRepository $cr
      * @return Response
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function new( Ilots $ilot, Request $request, CulturesRepository $cr): Response
     {
         //-- Get Size
-        $availableSize = $cr->countAvailableSizeCulture( $ilot );
-
+        $size = $cr->countAvailableSizeCulture( $ilot );
+        if ($size === 0) {
+            $this->addFlash('danger', 'Vous ne pouvez pas créer de culture, plus d\'espace disponible dans cette ilot');
+            return $this->redirectToRoute('ilots.show', ['id' => $ilot->getId()]);
+        }
         //-- Form
         $culture = new Cultures();
-        $form = $this->createForm( CulturesNewType::class, $culture, ['max_size' => $availableSize]);
+        $form = $this->createForm( CulturesNewType::class, $culture, ['max_size' => $size]);
         $form->handleRequest( $request );
         $culture->setIlot( $ilot );
         if ($form->isSubmitted() && $form->isValid()) {
             $this->om->persist( $culture );
             $this->om->flush();
             $this->addFlash('success', 'Culture crée avec succès');
-            $this->redirectToRoute('ilots.show', ['id' => $ilot->getId()]);
+            return $this->redirectToRoute('ilots.show', ['id' => $ilot->getId()]);
         }
         return $this->render('cultures/new.html.twig', [
             'form' => $form->createView()

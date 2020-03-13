@@ -7,6 +7,8 @@ use App\Entity\Ilots;
 use App\Entity\IndexCultures;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\Expr\Join;
 
 /**
@@ -37,20 +39,21 @@ class CulturesRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $exploitation
+     * @param $ilot
      * @return mixed
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countAvailableSizeCulture( $ilot )
     {
-        $totalSize = $this->createQueryBuilder('t')
-            ->select('SUM(t.size)')
-            ->andWhere( 't.ilot = :ilot' )
-            ->setParameter('ilot', $ilot )
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
+        try {
+            $totalSize = $this->createQueryBuilder('t')
+                ->select('SUM(t.size)')
+                ->andWhere('t.ilot = :ilot')
+                ->setParameter('ilot', $ilot)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
 
         $ilotSize = $ilot->getSize();
 
