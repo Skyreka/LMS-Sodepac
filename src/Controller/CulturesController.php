@@ -3,9 +3,12 @@ namespace App\Controller;
 
 use App\Entity\Cultures;
 use App\Entity\Ilots;
+use App\Entity\IndexCultures;
 use App\Entity\Interventions;
 use App\Form\CulturesNewType;
+use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
+use App\Repository\IndexCulturesRepository;
 use App\Repository\InterventionsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,6 +64,20 @@ class CulturesController extends AbstractController
         return $this->render('cultures/show.html.twig', [
             'culture' => $culture,
             'ir' => $ir
+        ]);
+    }
+
+    /**
+     * @Route("cultures", name="cultures.index")
+     * @param CulturesRepository $cr
+     * @return Response
+     */
+    public function index(CulturesRepository $cr): Response
+    {
+        $cultures = $cr->findCulturesByExploitation( $this->getUser()->getExploitation() );
+        dump($cultures);
+        return $this->render('cultures/index.html.twig', [
+            'cultures' => $cultures
         ]);
     }
 }

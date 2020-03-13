@@ -9,17 +9,26 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController {
     /**
-     * @Route("/", name="home")
+     * @Route("/home", name="home")
      * @param IlotsRepository $ir
      * @param UsersRepository $ur
      * @return Response
      */
-    public function index(IlotsRepository $ir, UsersRepository $ur): Response {
+    public function home(IlotsRepository $ir, UsersRepository $ur): Response {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $bsvs = $this->getUser()->getBsvs();
         return $this->render('pages/home.html.twig', [
             'bsvs' => $bsvs,
             'ilots' => $ilots
         ]);
+    }
+
+    /**
+     * @Route("/", name="index")
+     * @return Response
+     */
+    public function index()
+    {
+        return $this->render('pages/index.html.twig');
     }
 }

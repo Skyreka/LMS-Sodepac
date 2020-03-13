@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Cultures;
+use App\Entity\Ilots;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method Cultures|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,19 @@ class CulturesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Cultures::class);
+    }
+
+    public function findCulturesByExploitation( $exploitation )
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin(Ilots::class, 'i', 'WITH', 'i.id = c.ilot')
+            ->andWhere( 'i.exploitation = :exp')
+            ->setParameter('exp', $exploitation)
+            ->distinct( true )
+            ->getQuery()
+            ->getResult()
+        ;
+
     }
 
     // /**

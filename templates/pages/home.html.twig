@@ -15,39 +15,66 @@
             <div class="alert alert-success">{{ message }}</div>
         {% endfor %}
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-md-6">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex no-block">
-                            <h4 class="card-title">Vos Ilots</h4>
-                            <div class="ml-auto">
-                                <a href="{{ path('ilots.new') }}" class="btn btn-success">Ajouter</a>
-                            </div>
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                            <a class="btn-minimize" data-action="expand"><i
+                                        class="mdi mdi-arrow-expand"></i></a>
+                            <a class="btn-close" data-action="close"><i class="ti-close"></i></a>
                         </div>
-                        <div class="table-responsive m-t-20">
-                            <table class="table stylish-table">
-                                <thead>
-                                <tr>
-                                    <th>Ilots</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    {% for ilot in ilots %}
-                                        <tr>
-                                            <td>
-                                                <a href="{{ path('ilots.show', {id: ilot.id}) }}">
-                                                    <h6>{{ ilot.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type }}</small>
-                                                </a>
-                                            </td>
-                                            </a>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                        <h4 class="card-title mb-0">Bulletin Sanitaire du Végétal</h4>
+                    </div>
+                    <div class="card-body collapse show bg-info">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item flex-column active">
+                                    <h3 class="text-white font-weight-light">Découvrez vos derniers bulletin sanitaire végétal</h3>
+                                    <div class="text-white mt-3">
+                                        <i>- L'équipe Sodepac</i>
+                                    </div>
+                                </div>
+                                {% for bsv in bsvs %}
+                                   <div class="carousel-item flex-column">
+                                        <h3 class="text-white font-weight-light">{{ bsv.text }} <button class="btn btn-secondary waves-effect waves-light" type="button"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le BSV</button></h3>
+                                        <div class="text-white mt-3">
+                                            <p class="text-white">- L'équipe Sodepac | <i class="fa fa-bell text-white"></i>  {{ bsv.sendDate|date('d M y à h:m') }} - <i class="fa fa-exclamation"></i> Non lu</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                            <a class="btn-minimize" data-action="expand"><i
+                                        class="mdi mdi-arrow-expand"></i></a>
+                            <a class="btn-close" data-action="close"><i class="ti-close"></i></a>
+                        </div>
+                        <h4 class="card-title mb-0">Flash Technique</h4>
+                    </div>
+                    <div class="card-body collapse show bg-primary">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item flex-column active">
+                                    <h3 class="text-white font-weight-light">Découvrez vos derniers flash technique</h3>
+                                    <div class="text-white mt-3">
+                                        <i>- L'équipe Sodepac</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body little-profile text-center">
@@ -66,103 +93,41 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Flash Technique</h4>
-                        <h6 class="card-subtitle">Latest Comments on users from Material</h6>
-                    </div>
-                    <div class="comment-widgets">
-                        <div class="d-flex flex-row comment-row">
-                            <div class="comment-text w-100">
-                                <h5>James Anderson</h5>
-                                <p class="m-b-5">Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has beenorem Ipsum is simply dummy text of the printing and type setting industry.</p>
-                                <div class="comment-footer"> <span class="text-muted pull-right">April 14, 2016</span> <span class="label label-info">Pending</span> <span class="action-icons">
-                  <a href="javascript:void(0)"><i class="ti-pencil-alt"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-check"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-heart"></i></a>
-                </span> </div>
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Vos Ilots</h4>
+                            <div class="ml-auto">
+                                <a href="{{ path('ilots.new') }}" class="btn btn-success">Ajouter</a>
                             </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Ilots</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for ilot in ilots %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('ilots.show', {id: ilot.id}) }}">
+                                                <h6>{{ ilot.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type }}</small>
+                                            </a>
+                                        </td>
+                                        </a>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">BSV</h4>
-                        <h6 class="card-subtitle">Bulletin Sanitaire du Végétal</h6>
-                    </div>
-                    {% for bsv in bsvs %}
-                        <div class="comment-widgets">
-                            <div class="d-flex flex-row comment-row">
-                            <div class="comment-text w-100">
-                                <h5>TEST</h5>
-                                <p class="mb-5">{{ bsv.text }}</p>
-                                <div class="comment-footer">
-                                    <span class="text-muted pull-right">
-                                       {{ bsv.sendDate|date('d m Y') }}
-                                    </span>
-                                    <span class="label label-info">Non lu</span>
-                                    <a href="{{ asset('uploads/bsv/' ~ bsv.firstFile) }}" target="_blank"><i class="ti-download"></i></a>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
             </div>
         </div>
-        <div class="right-sidebar">
-            <div class="slimscrollright">
-                <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
-                <div class="r-panel-body">
-                    <ul id="themecolors" class="m-t-20">
-                        <li><b>With Light sidebar</b></li>
-                        <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
-                        <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
-                        <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
-                        <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
-                        <li><a href="javascript:void(0)" data-theme="purple" class="purple-theme">5</a></li>
-                        <li><a href="javascript:void(0)" data-theme="megna" class="megna-theme">6</a></li>
-                        <li class="d-block m-t-30"><b>With Dark sidebar</b></li>
-                        <li><a href="javascript:void(0)" data-theme="default-dark" class="default-dark-theme">7</a></li>
-                        <li><a href="javascript:void(0)" data-theme="green-dark" class="green-dark-theme">8</a></li>
-                        <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
-                        <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
-                        <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
-                        <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li>
-                    </ul>
-                    <ul class="m-t-20 chatonline">
-                        <li><b>Chat option</b></li>
-                        <li>
-                            <a href="javascript:void(0)"><img src="../assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><img src="../assets/images/users/2.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><img src="../assets/images/users/3.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><img src="../assets/images/users/4.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><img src="../assets/images/users/5.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><img src="../assets/images/users/6.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><img src="../assets/images/users/7.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"><img src="../assets/images/users/8.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Right sidebar -->
-        <!-- ============================================================== -->
     </div>
 
 {% endblock %}
