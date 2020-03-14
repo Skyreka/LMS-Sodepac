@@ -35,6 +35,7 @@
                                 <thead>
                                 <tr>
                                     <th>Cultures</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -45,7 +46,13 @@
                                                     <h6>{{ culture.name.name }} ({{ culture.comments }})</h6><small class="text-muted">{{ culture.size }} ha</small>
                                                 </a>
                                             </td>
-                                            </a>
+                                            <td>
+                                                <form method="POST" action="{{ path('cultures.delete', {id: culture.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette culture?')">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ culture.id) }}">
+                                                    <button class="btn btn-danger">Supprimer</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

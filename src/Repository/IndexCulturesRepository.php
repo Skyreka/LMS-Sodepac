@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Cultures;
+use App\Entity\Ilots;
 use App\Entity\IndexCultures;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -17,6 +19,18 @@ class IndexCulturesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, IndexCultures::class);
+    }
+
+    public function findCulturesByExploitation( $exploitation )
+    {
+        return $this->createQueryBuilder('q')
+            ->leftJoin( Cultures::class, 'c', 'WITH', 'q.id = c.name')
+            ->leftJoin(Ilots::class, 'i', 'WITH', 'c.ilot = i.id')
+            ->andWhere('i.exploitation = :exp')
+            ->setParameter('exp', $exploitation)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     // /**

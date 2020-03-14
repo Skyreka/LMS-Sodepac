@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Cultures;
 use App\Entity\Ilots;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -52,6 +53,21 @@ class IlotsRepository extends ServiceEntityRepository
         $totalExploitation = $exploitation->getSize();
 
         return $totalExploitation - $totalIlots;
+    }
+
+    /**
+     * @param $indexNameId
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findByIndexCulture($indexNameId )
+    {
+        return $this->createQueryBuilder('i')
+            ->leftJoin(Cultures::class, 'c', 'WITH', 'i.id = c.ilot')
+            ->andWhere('c.name = :nameId')
+            ->setParameter('nameId', $indexNameId)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     /*

@@ -9,6 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
 
 /**
@@ -22,20 +23,6 @@ class CulturesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Cultures::class);
-    }
-
-    public function findCulturesByExploitation( $exploitation )
-    {
-        return $this->createQueryBuilder('c')
-            ->select( 'c.name' )
-            ->leftJoin(Ilots::class, 'i', 'WITH', 'i.id = c.ilot')
-            ->andWhere( 'i.exploitation = :exp')
-            ->setParameter('exp', $exploitation)
-            ->distinct()
-            ->getQuery()
-            ->getResult()
-        ;
-
     }
 
     /**

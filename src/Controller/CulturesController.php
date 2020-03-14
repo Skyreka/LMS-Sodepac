@@ -75,15 +75,47 @@ class CulturesController extends AbstractController
 
     /**
      * @Route("cultures", name="cultures.index")
-     * @param CulturesRepository $cr
+     * @param IndexCulturesRepository $icr
      * @return Response
      */
-    public function index(CulturesRepository $cr): Response
+    public function index(IndexCulturesRepository $icr): Response
     {
-        $cultures = $cr->findCulturesByExploitation( $this->getUser()->getExploitation() );
-        dump($cultures);
+        $cultures = $icr->findCulturesByExploitation( $this->getUser()->getExploitation() );
+        dump( $cultures );
         return $this->render('cultures/index.html.twig', [
             'cultures' => $cultures
         ]);
+    }
+
+    /**
+     * @Route("cultures/{id}/ilots", name="cultures.show.ilots")
+     * @param IndexCultures $indexCulture
+     * @param IlotsRepository $ir
+     * @return Response
+     */
+    public function showIlotsByCultures(IndexCultures $indexCulture, IlotsRepository $ir)
+    {
+        $ilots = $ir->findByIndexCulture( $indexCulture->getId() );
+        dump( $ilots );
+        return $this->render('cultures/showIlots.html.twig', [
+            'indexCulture' => $indexCulture,
+            'ilots' => $ilots
+        ]);
+    }
+
+    /**
+     * @Route("cultures/delete/{id}", name="cultures.delete", methods="DELETE")
+     * @param Cultures $culture
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Cultures $culture, Request $request)
+    {
+        if($this->isCsrfTokenValid('delete' . $culture->getId(), $request->get('_token'))) {
+            $this->om->remove( $culture );
+            $this->om->flush();
+            $this->addFlash('success','Culture supprimé avec succès');
+        }
+        return $this->redirectToRoute('ilots.show', ['id' => $culture->getIlot()->getId()]);
     }
 }
