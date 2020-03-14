@@ -8,13 +8,28 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController {
+
+    /**
+     * @Route("/technician", name="home.technician")
+     * @param UsersRepository $ur
+     * @return Response
+     */
+    public function homeTechnicians( UsersRepository $ur)
+    {
+        $customers = $ur->findAllCustomersOfTechnician( $this->getUser()->getId(), 10 );
+        return $this->render('technician/home.html.twig', [
+            'customers' => $customers
+        ]);
+    }
+
     /**
      * @Route("/home", name="home")
      * @param IlotsRepository $ir
      * @param UsersRepository $ur
      * @return Response
      */
-    public function home(IlotsRepository $ir, UsersRepository $ur): Response {
+    public function homeUsers(IlotsRepository $ir, UsersRepository $ur): Response
+    {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $bsvs = $this->getUser()->getBsvs();
         $panoramas = $this->getUser()->getPanoramas();

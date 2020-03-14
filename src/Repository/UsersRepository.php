@@ -27,15 +27,19 @@ class UsersRepository extends ServiceEntityRepository
      * @param $idTechnician
      * @return mixed
      */
-    public function findAllCustomersOfTechnician( $idTechnician )
+    public function findAllCustomersOfTechnician( $idTechnician, $limit = NULL )
     {
-        return $this->createQueryBuilder('u')
+        $req = $this->createQueryBuilder('u')
             ->andWhere('u.technician = :technician')
             ->setParameter('technician', $idTechnician)
             ->orderBy('u.id', 'ASC')
-            ->getQuery()
-            ->getResult()
             ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
     }
 
     // /**

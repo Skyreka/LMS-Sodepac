@@ -37,7 +37,6 @@ class TechnicianCustomersController extends AbstractController
     public function index(): Response
     {
         $customers = $this->usersRepository->findAllCustomersOfTechnician( $this->getUser()->getId() );
-        dump($customers);
         return $this->render('technician/customers/index.html.twig', [
             'customers' => $customers
         ]);
