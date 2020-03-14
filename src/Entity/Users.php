@@ -89,17 +89,6 @@ class Users implements UserInterface, \Serializable
     private $technician;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Bsv", mappedBy="customers")
-     */
-    private $bsvs;
-
-    public function __construct()
-    {
-        $this->bsvs = new ArrayCollection();
-        $this->panoramas = new ArrayCollection();
-    }
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Exploitation", mappedBy="users", cascade={"persist", "remove"})
      */
     private $exploitation;
@@ -113,6 +102,16 @@ class Users implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="App\Entity\Panoramas", mappedBy="technician")
      */
     private $panoramasOwn;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BsvUsers", mappedBy="customers")
+     */
+    private $bsvs;
+
+    public function __construct()
+    {
+        $this->bsvs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -329,34 +328,6 @@ class Users implements UserInterface, \Serializable
     }
 
     /**
-     * @return Collection|Bsv[]
-     */
-    public function getBsvs(): Collection
-    {
-        return $this->bsvs;
-    }
-
-    public function addBsv(Bsv $bsv): self
-    {
-        if (!$this->bsvs->contains($bsv)) {
-            $this->bsvs[] = $bsv;
-            $bsv->addCustomer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBsv(Bsv $bsv): self
-    {
-        if ($this->bsvs->contains($bsv)) {
-            $this->bsvs->removeElement($bsv);
-            $bsv->removeCustomer($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Panoramas[]
      */
     public function getPanoramas(): Collection
@@ -401,5 +372,36 @@ class Users implements UserInterface, \Serializable
     public function setPanoramasOwn($panoramasOwn): void
     {
         $this->panoramasOwn = $panoramasOwn;
+    }
+
+    /**
+     * @return Collection|BsvUsers[]
+     */
+    public function getBsvs(): Collection
+    {
+        return $this->bsvs;
+    }
+
+    public function addBsv(BsvUsers $bsv): self
+    {
+        if (!$this->bsvs->contains($bsv)) {
+            $this->bsvs[] = $bsv;
+            $bsv->setCustomers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBsv(BsvUsers $bsv): self
+    {
+        if ($this->bsvs->contains($bsv)) {
+            $this->bsvs->removeElement($bsv);
+            // set the owning side to null (unless already changed)
+            if ($bsv->getCustomers() === $this) {
+                $bsv->setCustomers(null);
+            }
+        }
+
+        return $this;
     }
 }

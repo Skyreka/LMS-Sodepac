@@ -54,7 +54,7 @@ class Bsv
     private $third_file;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Users", inversedBy="bsvs")
+     * @ORM\OneToMany(targetEntity="App\Entity\BsvUsers", mappedBy="bsv")
      */
     private $customers;
 
@@ -153,28 +153,34 @@ class Bsv
     }
 
     /**
-     * @return Collection|Users[]
+     * @return Collection|BsvUsers[]
      */
     public function getCustomers(): Collection
     {
         return $this->customers;
     }
 
-    public function addCustomer(Users $customer): self
+    public function addCustomer(BsvUsers $customer): self
     {
         if (!$this->customers->contains($customer)) {
             $this->customers[] = $customer;
+            $customer->setBsv($this);
         }
 
         return $this;
     }
 
-    public function removeCustomer(Users $customer): self
+    public function removeCustomer(BsvUsers $customer): self
     {
         if ($this->customers->contains($customer)) {
             $this->customers->removeElement($customer);
+            // set the owning side to null (unless already changed)
+            if ($customer->getBsv() === $this) {
+                $customer->setBsv(null);
+            }
         }
 
         return $this;
     }
+
 }

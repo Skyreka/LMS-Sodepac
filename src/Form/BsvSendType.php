@@ -2,11 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Bsv;
 use App\Entity\Users;
-use App\Repository\UsersRepository;
-use Doctrine\ORM\Mapping\Entity;
-use http\Client\Curl\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,7 +28,7 @@ class BsvSendType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Bsv::class,
+            // Configure your form options here
         ]);
     }
 }
