@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController {
 
     /**
-     * @Route("/technician", name="home.technician")
+     * @Route("/technician", name="technician.home")
      * @param UsersRepository $ur
      * @return Response
      */

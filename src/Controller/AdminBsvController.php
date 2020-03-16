@@ -5,13 +5,17 @@ namespace App\Controller;
 
 use App\Entity\Bsv;
 use App\Entity\BsvUsers;
+use App\Entity\IndexCultures;
 use App\Entity\Users;
+use App\Form\BsvSendType;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
 use App\Repository\UsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,54 +71,45 @@ class AdminBsvController extends AbstractController
 
             if ($firstFile) {
                 $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $safeFilename = $originalFilename;
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
-
-                // Move the file to the directory where brochures are stored
                 try {
                     $firstFile->move(
                         $this->getParameter('bsv_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
                 }
                 $bsv->setFirstFile($newFilename);
             }
 
             if ($secondFile) {
                 $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
                 $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $secondFile->guessExtension();
 
-                // Move the file to the directory where brochures are stored
                 try {
                     $secondFile->move(
                         $this->getParameter('bsv_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
                 }
                 $bsv->setSecondFile($newFilename);
             }
 
             if ($thirdFile) {
                 $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
                 $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $thirdFile->guessExtension();
 
-                // Move the file to the directory where brochures are stored
                 try {
                     $thirdFile->move(
                         $this->getParameter('bsv_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
                 }
                 $bsv->setThirdFile($newFilename);
             }
@@ -169,32 +164,21 @@ class AdminBsvController extends AbstractController
      */
     public function send(Bsv $bsv, Request $request): Response
     {
-        $form = $this->createFormBuilder()
-            ->add('customers', EntityType::class, [
-                'class' => Users::class,
-                'choice_label' => function(Users $user) {
-                    return $user->getFirstname() . ' ' . $user->getLastname();
-                },
-                'query_builder' => function (UsersRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.status', 'ASC')
-                        ->andWhere('u.status = :status')
-                        ->setParameter('status', 'ROLE_USER');
-                },
-                'label'     => 'Envoyer à :',
-                'expanded'  => true,
-                'multiple'  => true,
-            ])
-            ->getForm();
+        $bsvUsers = new BsvUsers();
+        $form = $this->createForm(BsvSendType::class, $bsvUsers);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->all();
+            $customers = $data['user']->getData();
+            //-- Init
             $datetime = New \DateTime();
+            $data = $form->getData();
+            //-- Update BSV info
             $bsv->setSendDate( $datetime );
             $bsv->setSent(1);
-            $data = $form->getData();
-            dump($data);
-            foreach ($data['customers'] as $customer) {
+            //-- Create relation
+            foreach ($customers as $customer) {
                 $relation = new BsvUsers();
                 $this->em->persist($relation);
                 $relation->setBsv($bsv);

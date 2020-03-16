@@ -34,6 +34,7 @@
                                 <tr>
                                     <th>Date de création</th>
                                     <th>Texte</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -41,20 +42,18 @@
                                     <tr>
                                         <td>{{ key.creationDate|date('d m Y') }}</td>
                                         <td>{{ key.text }}</td>
-                                        {% if key.firstFile %}
-                                            <td><a href="{{ asset('uploads/bsv/' ~ key.firstFile) }}" class="btn btn-success" target="_blank">PDF</a></td>
-                                        {% else %}
-                                            <td></td>
-                                        {% endif %}
-                                        <td><a href="{{ path('admin.bsv.edit', {id: key.id}) }}" class="btn btn-primary">Editer</a></td>
                                         <td>
+                                            {% if key.firstFile %}
+                                                <a href="{{ asset('uploads/bsv/' ~ key.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                                            {% endif %}
+                                            <a href="{{ path('admin.bsv.edit', {id: key.id}) }}" class="btn btn-primary">Editer</a>
                                             <form method="POST" action="{{ path('admin.bsv.delete', {id: key.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le BSV ?')">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ key.id) }}">
                                                 <button class="btn btn-danger">Supprimer</button>
                                             </form>
+                                            <a href="{{ path('admin.bsv.send', {id: key.id}) }}" class="btn btn-info">Envoyer</a>
                                         </td>
-                                        <td><a href="{{ path('admin.bsv.send', {id: key.id}) }}" class="btn btn-info">Envoyer</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
