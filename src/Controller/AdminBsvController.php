@@ -171,9 +171,9 @@ class AdminBsvController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->all();
             $customers = $data['user']->getData();
+            $displayAt = $data['display_at']->getData();
             //-- Init
             $datetime = New \DateTime();
-            $data = $form->getData();
             //-- Update BSV info
             $bsv->setSendDate( $datetime );
             $bsv->setSent(1);
@@ -184,6 +184,11 @@ class AdminBsvController extends AbstractController
                 $relation->setBsv($bsv);
                 $relation->setCustomers($customer);
                 $relation->setChecked(0);
+                if ( $displayAt !== null ) {
+                    $relation->setDisplayAt($displayAt);
+                } else {
+                    $relation->setDisplayAt($datetime);
+                }
             }
             $this->em->flush();
             $this->addFlash('success', 'BSV envoyé avec succès');

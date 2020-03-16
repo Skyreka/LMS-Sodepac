@@ -31,6 +31,11 @@ class BsvUsers
      */
     private $checked;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $display_at;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class BsvUsers
     public function setChecked(bool $checked): self
     {
         $this->checked = $checked;
+
+        return $this;
+    }
+
+    public function getDisplayAt(): ?\DateTimeInterface
+    {
+        return $this->display_at;
+    }
+
+    public function setDisplayAt(\DateTimeInterface $display_at): self
+    {
+        $this->display_at = $display_at;
 
         return $this;
     }

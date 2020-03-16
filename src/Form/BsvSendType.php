@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BsvSendType extends AbstractType
@@ -22,6 +23,18 @@ class BsvSendType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('display_at', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'class' => 'js-datepicker',
+                    'autocomplete' => 'off'
+                ],
+                'label' => 'Date d\'envoi',
+                'help' => 'Remplir uniquement en cas d\'envoi différé.'
+            ])
             ->add('cultures', EntityType::class, [
                 'class' => IndexCultures::class,
                 'choice_label' => 'name',
@@ -49,6 +62,10 @@ class BsvSendType extends AbstractType
         );
     }
 
+    /**
+     * @param FormInterface $form
+     * @param IndexCultures|null $indexCultures
+     */
     private function addUserField(FormInterface $form, ?IndexCultures $indexCultures)
     {
         if (is_null($indexCultures)) {
