@@ -5,17 +5,11 @@ namespace App\Controller;
 
 use App\Entity\Bsv;
 use App\Entity\BsvUsers;
-use App\Entity\IndexCultures;
-use App\Entity\Users;
 use App\Form\BsvSendType;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
-use App\Repository\UsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
