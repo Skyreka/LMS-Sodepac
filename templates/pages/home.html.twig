@@ -77,7 +77,6 @@
                                 </div>
                                 {% for panorama in panoramas %}
                                     {% if date(panorama.displayAt) <= date() %}
-                                        {% dump(panorama.displayAt) %}
                                         <div class="carousel-item flex-column">
                                             <h3 class="text-white font-weight-light">{{ panorama.panorama.text }} <button class="btn btn-secondary waves-effect waves-light" type="button"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le Panorama</button></h3>
                                             <div class="text-white mt-3">
