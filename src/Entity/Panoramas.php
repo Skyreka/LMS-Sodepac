@@ -49,16 +49,6 @@ class Panoramas
     private $sent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\users", inversedBy="panoramasOwn")
-     */
-    private $technician;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\users", inversedBy="panoramas")
-     */
-    private $customers;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $creation_date;
@@ -67,6 +57,11 @@ class Panoramas
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $send_date;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaUser", mappedBy="panorama", orphanRemoval=true)
+     */
+    private $customers;
 
     public function __construct()
     {
@@ -150,44 +145,6 @@ class Panoramas
         return $this;
     }
 
-    public function getTechnician(): ?users
-    {
-        return $this->technician;
-    }
-
-    public function setTechnician(?users $technician): self
-    {
-        $this->technician = $technician;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|users[]
-     */
-    public function getCustomers(): Collection
-    {
-        return $this->customers;
-    }
-
-    public function addCustomer(users $customer): self
-    {
-        if (!$this->customers->contains($customer)) {
-            $this->customers[] = $customer;
-        }
-
-        return $this;
-    }
-
-    public function removeCustomer(users $customer): self
-    {
-        if ($this->customers->contains($customer)) {
-            $this->customers->removeElement($customer);
-        }
-
-        return $this;
-    }
-
     public function getCreationDate(): ?\DateTimeInterface
     {
         return $this->creation_date;
@@ -208,6 +165,37 @@ class Panoramas
     public function setSendDate(?\DateTimeInterface $send_date): self
     {
         $this->send_date = $send_date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PanoramaUser[]
+     */
+    public function getCustomers(): Collection
+    {
+        return $this->customers;
+    }
+
+    public function addCustomer(PanoramaUser $customer): self
+    {
+        if (!$this->customers->contains($customer)) {
+            $this->customers[] = $customer;
+            $customer->setPanorama($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomer(PanoramaUser $customer): self
+    {
+        if ($this->customers->contains($customer)) {
+            $this->customers->removeElement($customer);
+            // set the owning side to null (unless already changed)
+            if ($customer->getPanorama() === $this) {
+                $customer->setPanorama(null);
+            }
+        }
 
         return $this;
     }
