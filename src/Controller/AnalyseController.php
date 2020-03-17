@@ -37,7 +37,7 @@ class AnalyseController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/irrigation/new", name="exploitation.analyse.new")
+     * @Route("exploitation/analyse/new", name="exploitation.analyse.new")
      * @param Request $request
      * @return Response
      * @throws \Exception
