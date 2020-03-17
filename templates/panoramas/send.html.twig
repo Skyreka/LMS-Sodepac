@@ -23,6 +23,7 @@
                         {{ form_start(form) }}
                         <div class="row">
                             <div class="col-12">
+                                {{ form_row(form.display_at) }}
                                 {{ form_row(form.customers) }}
                             </div>
                         </div>
@@ -33,4 +34,20 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('plugins/moment/moment.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-datepicker').datepicker({
+                weekStart:0,
+                time: 1,
+                format:"yyyy-mm-dd",
+                lang:"fr"
+            });
+        });
+    </script>
 {% endblock %}

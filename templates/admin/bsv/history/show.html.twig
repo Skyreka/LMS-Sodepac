@@ -43,7 +43,7 @@
                                         <td>{{ key.text }}</td>
                                         <td>
                                             {% for customer in key.customers %}
-                                                {{ customer.firstname }} {{ customer.lastname }},
+                                                {{ customer.customers.firstname }} {{ customer.customers.lastname }} ,
                                             {% endfor %}
                                         </td>
                                     </tr>

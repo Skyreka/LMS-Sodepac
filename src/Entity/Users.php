@@ -94,23 +94,19 @@ class Users implements UserInterface, \Serializable
     private $exploitation;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Panoramas", mappedBy="customers")
-     */
-    private $panoramas;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Panoramas", mappedBy="technician")
-     */
-    private $panoramasOwn;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\BsvUsers", mappedBy="customers")
      */
     private $bsvs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaUser", mappedBy="customers", orphanRemoval=true)
+     */
+    private $panoramas;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
+        $this->panoramas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -328,53 +324,6 @@ class Users implements UserInterface, \Serializable
     }
 
     /**
-     * @return Collection|Panoramas[]
-     */
-    public function getPanoramas(): Collection
-    {
-        return $this->panoramas;
-    }
-
-    public function addPanorama(Panoramas $panorama): self
-    {
-        if (!$this->panoramas->contains($panorama)) {
-            $this->panoramas[] = $panorama;
-            $panorama->setTechnician($this);
-        }
-
-        return $this;
-    }
-
-    public function removePanorama(Panoramas $panorama): self
-    {
-        if ($this->panoramas->contains($panorama)) {
-            $this->panoramas->removeElement($panorama);
-            // set the owning side to null (unless already changed)
-            if ($panorama->getTechnician() === $this) {
-                $panorama->setTechnician(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPanoramasOwn()
-    {
-        return $this->panoramasOwn;
-    }
-
-    /**
-     * @param mixed $panoramasOwn
-     */
-    public function setPanoramasOwn($panoramasOwn): void
-    {
-        $this->panoramasOwn = $panoramasOwn;
-    }
-
-    /**
      * @return Collection|BsvUsers[]
      */
     public function getBsvs(): Collection
@@ -399,6 +348,37 @@ class Users implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($bsv->getCustomers() === $this) {
                 $bsv->setCustomers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PanoramaUser[]
+     */
+    public function getPanoramas(): Collection
+    {
+        return $this->panoramas;
+    }
+
+    public function addPanorama(PanoramaUser $panorama): self
+    {
+        if (!$this->panoramas->contains($panorama)) {
+            $this->panoramas[] = $panorama;
+            $panorama->setCustomers($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanorama(PanoramaUser $panorama): self
+    {
+        if ($this->panoramas->contains($panorama)) {
+            $this->panoramas->removeElement($panorama);
+            // set the owning side to null (unless already changed)
+            if ($panorama->getCustomers() === $this) {
+                $panorama->setCustomers(null);
             }
         }
 
