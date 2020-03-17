@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Cultures;
 use App\Entity\Interventions;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,9 +16,13 @@ class DefaultInterventionType extends AbstractType
     {
         $builder
             ->add('comment')
-            ->add('intervention_at')
-            ->add('type')
-            ->add('culture')
+            ->add('intervention_at', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => [
+                    'class' => 'js-datepicker'
+                ]
+            ])
         ;
     }
 
@@ -23,6 +30,7 @@ class DefaultInterventionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Interventions::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }
