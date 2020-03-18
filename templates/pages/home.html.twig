@@ -41,11 +41,20 @@
                                     </div>
                                 </div>
                                 {% for bsv in bsvs %}
-                                    {% if date(bsv.displayAt) <= date() %}
+                                    {% if date(bsv.displayAt) <= date() and bsv.checked == 0 %}
                                         <div class="carousel-item flex-column">
                                             <h3 class="text-white font-weight-light">{{ bsv.bsv.text }} <button class="btn btn-secondary waves-effect waves-light" type="button"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le BSV</button></h3>
                                             <div class="text-white mt-3">
-                                                <p class="text-white">- L'équipe Sodepac | <i class="fa fa-bell text-white"></i>  {{ bsv.displayAt|date('d M y à h:m') }} - <i class="fa fa-exclamation"></i> Non lu</p>
+                                                <p class="text-white">
+                                                    - L'équipe Sodepac |
+                                                    <i class="fa fa-bell text-white"></i>  {{ bsv.displayAt|date('d M y à h:m') }} -
+                                                    <i class="fa fa-exclamation"></i> Non lu
+                                                <form method="POST" action="{{ path('user.bsv.check', {id: bsv.id}) }}" style="display: inline-block">
+                                                    <input type="hidden" name="_method" value="CHECK">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ bsv.id) }}">
+                                                    <button class="btn btn-danger">Ne plus voir</button>
+                                                </form>
+                                                </p>
                                             </div>
                                         </div>
                                     {% endif %}

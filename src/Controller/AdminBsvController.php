@@ -233,4 +233,20 @@ class AdminBsvController extends AbstractController
             'bsv' => $bsv
         ]);
     }
+
+    /**
+     * @Route("/user/bsv/{id}", name="user.bsv.check", methods="CHECK")
+     * @param BsvUsers $bsvUsers
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function check(BsvUsers $bsvUsers, Request $request)
+    {
+        if ($this->isCsrfTokenValid('check' . $bsvUsers->getId(), $request->get('_token'))) {
+            $bsvUsers->setChecked(1);
+            $this->em->flush();
+        }
+
+        return $this->redirectToRoute('home');
+    }
 }
