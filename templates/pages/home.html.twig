@@ -49,11 +49,11 @@
                                                     - L'équipe Sodepac |
                                                     <i class="fa fa-bell text-white"></i>  {{ bsv.displayAt|date('d M y à h:m') }} -
                                                     <i class="fa fa-exclamation"></i> Non lu
-                                                <form method="POST" action="{{ path('user.bsv.check', {id: bsv.id}) }}" style="display: inline-block">
-                                                    <input type="hidden" name="_method" value="CHECK">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ bsv.id) }}">
-                                                    <button class="btn btn-danger">Ne plus voir</button>
-                                                </form>
+                                                    <form method="POST" action="{{ path('user.bsv.check', {id: bsv.id}) }}" style="display: inline-block">
+                                                        <input type="hidden" name="_method" value="CHECK">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('check' ~ bsv.id) }}">
+                                                        <button class="btn btn-danger">Ne plus voir</button>
+                                                    </form>
                                                 </p>
                                             </div>
                                         </div>
@@ -85,11 +85,20 @@
                                     </div>
                                 </div>
                                 {% for panorama in panoramas %}
-                                    {% if date(panorama.displayAt) <= date() %}
+                                    {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
                                         <div class="carousel-item flex-column">
                                             <h3 class="text-white font-weight-light">{{ panorama.panorama.text }} <button class="btn btn-secondary waves-effect waves-light" type="button"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le Panorama</button></h3>
                                             <div class="text-white mt-3">
-                                                <p class="text-white">- L'équipe Sodepac | <i class="fa fa-bell text-white"></i>  {{ panorama.displayAt|date('d M y à h:m') }} - <i class="fa fa-exclamation"></i> Non lu</p>
+                                                <p class="text-white">
+                                                    - L'équipe Sodepac |
+                                                    <i class="fa fa-bell text-white"></i>  {{ panorama.displayAt|date('d M y à h:m') }} -
+                                                    <i class="fa fa-exclamation"></i> Non lu
+                                                <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
+                                                    <input type="hidden" name="_method" value="CHECK">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
+                                                    <button class="btn btn-danger">Ne plus voir</button>
+                                                </form>
+                                                </p>
                                             </div>
                                         </div>
                                     {% endif %}
