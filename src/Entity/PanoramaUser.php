@@ -33,6 +33,11 @@ class PanoramaUser
      */
     private $display_at;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $checked = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class PanoramaUser
     public function setDisplayAt(\DateTimeInterface $display_at): self
     {
         $this->display_at = $display_at;
+
+        return $this;
+    }
+
+    public function getChecked(): ?bool
+    {
+        return $this->checked;
+    }
+
+    public function setChecked(bool $checked): self
+    {
+        $this->checked = $checked;
 
         return $this;
     }

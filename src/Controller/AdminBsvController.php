@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Bsv;
 use App\Entity\BsvUsers;
+use App\Entity\PanoramaUser;
 use App\Form\BsvSendType;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
@@ -232,5 +233,21 @@ class AdminBsvController extends AbstractController
         return $this->render('admin/bsv/history/show.html.twig', [
             'bsv' => $bsv
         ]);
+    }
+
+    /**
+     * @Route("/user/panorama/{id}", name="user.panorama.check", methods="CHECK")
+     * @param PanoramaUser $panoramaUser
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function check(PanoramaUser $panoramaUser, Request $request)
+    {
+        if ($this->isCsrfTokenValid('check' . $panoramaUser->getId(), $request->get('_token'))) {
+            $panoramaUser->setChecked(1);
+            $this->em->flush();
+        }
+
+        return $this->redirectToRoute('home');
     }
 }
