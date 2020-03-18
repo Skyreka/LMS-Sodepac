@@ -34,7 +34,7 @@ class StockController extends AbstractController
      */
     public function index(StocksRepository $stocksRepository): Response
     {
-        $stocks = $stocksRepository->findAll();
+        $stocks = $stocksRepository->findByExploitation( $this->getUser()->getExploitation(), true );
         return $this->render('exploitation/stock/index.html.twig', [
             'stocks' => $stocks
         ]);
@@ -92,7 +92,14 @@ class StockController extends AbstractController
         $form = $this->createForm(StockEditQuantityType::class, $stock);
         $form->handleRequest( $request );
 
+        //-- Get precedentQuantity before submit of form
+        $precedentQuantity = $stock->getQuantity();
+
         if ($form->isSubmitted() && $form->isValid()) {
+            //-- Add new value of quantity to existing value on product in stock
+            $data = $form->all();
+            $newQuantity = $data['addQuantity']->getData();
+            $stock->setQuantity( $precedentQuantity + $newQuantity );
             $this->om->flush();
             $this->addFlash('success','Mise à jour effectuée avec succès');
             return $this->redirectToRoute('exploitation.stock.index');

@@ -34,6 +34,11 @@ class Products
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $dose;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -97,5 +102,22 @@ class Products
         $this->category = $category;
 
         return $this;
+    }
+
+    public function getDose(): ?float
+    {
+        return $this->dose;
+    }
+
+    public function setDose(float $dose): self
+    {
+        $this->dose = $dose;
+
+        return $this;
+    }
+
+    public function __toString():string
+    {
+        return $this->getId();
     }
 }

@@ -81,11 +81,18 @@ class StockAddProductType extends AbstractType
     {
         $form->add('quantity');
         $form->add('unit', ChoiceType::class, [
-            'choices' => [
-                'L/ha' => 'L/ha',
-                'Kilo' => 'Kilos'
-            ]
+            'choices' => $this->getChoices()
         ]);
+    }
+
+    private function getChoices()
+    {
+        $choices = Stocks::UNIT;
+        $output = [];
+        foreach ($choices as $k => $v) {
+            $output[$v] = $k;
+        }
+        return $output;
     }
 
     public function configureOptions(OptionsResolver $resolver)

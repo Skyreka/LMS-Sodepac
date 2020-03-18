@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Products;
+use App\Entity\Stocks;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -23,12 +24,21 @@ class ProductsRepository extends ServiceEntityRepository
      * @param $category
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findProductsByCategory($category )
+    public function findProductsByCategory( $category )
     {
         return $this->createQueryBuilder('p')
             ->where('p.category = :category')
             ->setParameter('category', $category)
         ;
+    }
+
+    public function findByStocks( $exploitation )
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin( Stocks::class, 's', 'WITH', 'p.id = s.product')
+            ->andWhere('s.exploitation = :exp')
+            ->setParameter('exp', $exploitation)
+            ;
     }
 
     // /**

@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "recolte" = "Recolte",
  *     "binage" = "Binage",
  *     "labour" = "Labour",
+ *     "fumure" = "Fumure",
  *     "epandange" = "Epandage",
  *     "semis" = "Semis"
  * })
@@ -137,7 +138,7 @@ class Labour extends Interventions
 class Epandage extends Interventions
 {
     /**
-     * @ORM\Column(type="integer", length=11, nullable=true)
+     * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $quantity;
 
@@ -195,7 +196,7 @@ class Semis extends Interventions
     private $name;
 
     /**
-     * @ORM\Column(type="integer", length=11, nullable=true)
+     * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $quantity;
 
@@ -271,5 +272,96 @@ class Semis extends Interventions
     public function setObjective($objective): void
     {
         $this->objective = $objective;
+    }
+}
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="int_fumure")
+ */
+class Fumure extends Interventions
+{
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Products")
+     */
+    private $product;
+
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(type="integer", length=11, nullable=true)
+     */
+    private $reliquat;
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param mixed $product
+     */
+    public function setProduct($product): void
+    {
+        $this->product = $product;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReliquat()
+    {
+        return $this->reliquat;
+    }
+
+    /**
+     * @param mixed $reliquat
+     */
+    public function setReliquat($reliquat): void
+    {
+        $this->reliquat = $reliquat;
     }
 }

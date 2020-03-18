@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Stocks
 {
+    const UNIT = [
+        '1' => 'Kilos',
+        '2' => 'Litres'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -34,7 +39,7 @@ class Stocks
     private $quantity;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="integer", length=11, nullable=true)
      */
     private $unit;
 
@@ -81,7 +86,7 @@ class Stocks
 
     public function getUnit(): ?string
     {
-        return $this->unit;
+        return self::UNIT[$this->unit];
     }
 
     public function setUnit(?string $unit): self

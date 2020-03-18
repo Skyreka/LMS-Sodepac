@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Stocks;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Stocks|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,22 +20,26 @@ class StocksRepository extends ServiceEntityRepository
         parent::__construct($registry, Stocks::class);
     }
 
-    // /**
-    //  * @return Stocks[] Returns an array of Stocks objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param $exp
+     * @param null $return
+     * @return QueryBuilder
+     */
+    public function findByExploitation( $exp, $return = null )
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+        $query = $this->createQueryBuilder('s')
+            ->andWhere('s.exploitation = :exp')
+            ->setParameter('exp', $exp)
             ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
         ;
+
+        if ($return) {
+            $query = $query->getQuery()
+                ->getResult();
+        }
+
+        return $query;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Stocks
