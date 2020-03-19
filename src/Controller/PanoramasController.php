@@ -231,4 +231,20 @@ class PanoramasController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/user/panorama/{id}", name="user.panorama.check", methods="CHECK")
+     * @param PanoramaUser $panoramaUser
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function check(PanoramaUser $panoramaUser, Request $request)
+    {
+        if ($this->isCsrfTokenValid('check' . $panoramaUser->getId(), $request->get('_token'))) {
+            $panoramaUser->setChecked(1);
+            $this->em->flush();
+        }
+
+        return $this->redirectToRoute('home');
+    }
 }

@@ -93,11 +93,11 @@
                                                     - L'équipe Sodepac |
                                                     <i class="fa fa-bell text-white"></i>  {{ panorama.displayAt|date('d M y à h:m') }} -
                                                     <i class="fa fa-exclamation"></i> Non lu
-                                                <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
-                                                    <input type="hidden" name="_method" value="CHECK">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
-                                                    <button class="btn btn-danger">Ne plus voir</button>
-                                                </form>
+                                                    <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
+                                                        <input type="hidden" name="_method" value="CHECK">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
+                                                        <button class="btn btn-danger">Ne plus voir</button>
+                                                    </form>
                                                 </p>
                                             </div>
                                         </div>

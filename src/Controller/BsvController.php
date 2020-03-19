@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-class AdminBsvController extends AbstractController
+class BsvController extends AbstractController
 {
     /**
      * @var BsvRepository
@@ -236,15 +236,15 @@ class AdminBsvController extends AbstractController
     }
 
     /**
-     * @Route("/user/panorama/{id}", name="user.panorama.check", methods="CHECK")
-     * @param PanoramaUser $panoramaUser
+     * @Route("/user/bsv/{id}", name="user.bsv.check", methods="CHECK")
+     * @param BsvUsers $bsvUsers
      * @param Request $request
      * @return RedirectResponse
      */
-    public function check(PanoramaUser $panoramaUser, Request $request)
+    public function check(BsvUsers $bsvUsers, Request $request)
     {
-        if ($this->isCsrfTokenValid('check' . $panoramaUser->getId(), $request->get('_token'))) {
-            $panoramaUser->setChecked(1);
+        if ($this->isCsrfTokenValid('check' . $bsvUsers->getId(), $request->get('_token'))) {
+            $bsvUsers->setChecked(1);
             $this->em->flush();
         }
 
