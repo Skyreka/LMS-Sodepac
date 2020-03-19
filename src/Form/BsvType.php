@@ -17,16 +17,11 @@ class BsvType extends AbstractType
             ->add('text')
             ->add('first_file', FileType::class, [
                 'label' => 'PDF',
-
-                // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
-
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
                 'required' => false,
-
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
+                'attr' => [
+                    'class' => 'dropify-fr'
+                ],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -40,16 +35,11 @@ class BsvType extends AbstractType
             ])
             ->add('second_file', FileType::class, [
                 'label' => 'Image 1',
-
-                // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
-
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
                 'required' => false,
-
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
+                'attr' => [
+                    'class' => 'dropify-fr'
+                ],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k'
@@ -58,16 +48,11 @@ class BsvType extends AbstractType
             ])
             ->add('third_file', FileType::class, [
                 'label' => 'Image 2',
-
-                // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
-
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
                 'required' => false,
-
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
+                'attr' => [
+                  'class' => 'dropify-fr'
+                ],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k'

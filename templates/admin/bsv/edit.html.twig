@@ -2,6 +2,11 @@
 
 {% block title %}Créer un BSV{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/file.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/dropify/dist/css/dropify.min.css') }}">
+{% endblock %}
+
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
@@ -42,4 +47,20 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('plugins/dropify/dist/js/dropify.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Translated
+            $('.dropify-fr').dropify({
+                messages: {
+                    default: 'Glissez-déposez un fichier ici ou cliquez',
+                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                    remove: 'Supprimer',
+                    error: 'Désolé, le fichier trop volumineux'
+                }
+            });
+        });
+    </script>
 {% endblock %}
