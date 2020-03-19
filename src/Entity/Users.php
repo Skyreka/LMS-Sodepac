@@ -162,6 +162,11 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
+    public function getIdentity(): ?string
+    {
+        return $this->getFirstname().''.$this->getLastname();
+    }
+
     public function getCity(): ?string
     {
         return $this->city;

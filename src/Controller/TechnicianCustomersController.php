@@ -137,4 +137,16 @@ class TechnicianCustomersController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("technician/customers/show/{id}", name="technician.customers.show")
+     * @param Users $customer
+     * @return Response
+     */
+    public function show(Users $customer): Response
+    {
+        return $this->render('technician/customers/show.html.twig', [
+            'customer' => $customer
+        ]);
+    }
 }

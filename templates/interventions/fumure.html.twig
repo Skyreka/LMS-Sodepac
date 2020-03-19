@@ -36,8 +36,21 @@
         </div>
     </div>
 {% endblock %}
-
 {% block javascripts %}
+    <script>
+        $(document).on('change', '#fumure_intervention_productInStock', function () {
+            let $field = $(this)
+            let $form = $field.closest('form')
+            let data = {}
+            data[$field.attr('name')] = $field.val()
+            $.post($form.attr('action'), data).then(function (data) {
+                let $input = $(data).find('.form-group')
+                let $button = $(data).find('.btn')
+                $($form).html( $input )
+                $($form).append( $button )
+            })
+        })
+    </script>
     <script src="{{ asset('plugins/moment/moment.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>

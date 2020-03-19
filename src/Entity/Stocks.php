@@ -34,7 +34,7 @@ class Stocks
     private $product;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $quantity;
 
@@ -84,9 +84,12 @@ class Stocks
         return $this;
     }
 
-    public function getUnit(): ?string
+    public function getUnit( $return = null): ?string
     {
-        return self::UNIT[$this->unit];
+        if ($return) {
+            return self::UNIT[$this->unit];
+        }
+        return $this->unit;
     }
 
     public function setUnit(?string $unit): self

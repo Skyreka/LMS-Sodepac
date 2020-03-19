@@ -8,11 +8,13 @@ use App\Entity\Fumure;
 use App\Entity\Labour;
 use App\Entity\Recolte;
 use App\Entity\Semis;
+use App\Entity\UsedProducts;
 use App\Form\DefaultInterventionType;
 use App\Form\EpandageInterventionType;
 use App\Form\FumureInterventionType;
 use App\Form\SemisInterventionType;
 use App\Repository\StocksRepository;
+use App\Repository\UsedProductsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -221,13 +223,17 @@ class InterventionsController extends AbstractController
      * @param Cultures $culture
      * @param Request $request
      * @param StocksRepository $sr
+     * @param UsedProductsRepository $upr
      * @return Response
      */
     public function fumure(Cultures $culture, Request $request, StocksRepository $sr): Response
     {
         $name = 'Fumure';
         $intervention = new Fumure();
-        $form = $this->createForm( FumureInterventionType::class, $intervention, ['user' => $this->getUser()]);
+        $form = $this->createForm( FumureInterventionType::class, $intervention, [
+            'user' => $this->getUser(),
+            'culture' => $culture
+        ]);
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -236,8 +242,8 @@ class InterventionsController extends AbstractController
             $stock = $data['productInStock']->getData();
             //-- Update Stock
             $stock = $sr->find( ['id' => $stock] );
-            //-- Get size of culture multiple by product doses
-            $quantityUsed = $culture->getSize() * $stock->getProduct()->getDose();
+            // Get size of culture multiple by product doses
+            $quantityUsed = $form->getData()->getQuantity();
             $quantityOnStock = $stock->getQuantity();
             $stock->setQuantity( $quantityOnStock - $quantityUsed);
             //-- Setters
@@ -248,7 +254,7 @@ class InterventionsController extends AbstractController
             $this->om->persist( $intervention );
             $this->om->flush();
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-            $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit());
+            $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
         }
 

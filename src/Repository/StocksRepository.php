@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Products;
 use App\Entity\Stocks;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -21,6 +22,7 @@ class StocksRepository extends ServiceEntityRepository
     }
 
     /**
+     * Return Stock Products by exploitation
      * @param $exp
      * @param null $return
      * @return QueryBuilder
@@ -28,6 +30,30 @@ class StocksRepository extends ServiceEntityRepository
     public function findByExploitation( $exp, $return = null )
     {
         $query = $this->createQueryBuilder('s')
+            ->andWhere('s.exploitation = :exp')
+            ->setParameter('exp', $exp)
+            ->orderBy('s.id', 'ASC')
+        ;
+
+        if ($return) {
+            $query = $query->getQuery()
+                ->getResult();
+        }
+
+        return $query;
+    }
+
+    /**
+     * Function return stock & product by exploitation and only product on fumure category
+     * @param $exp
+     * @param null $return
+     * @return QueryBuilder
+     */
+    public function findProductStockFumureByExploitation( $exp, $return = null )
+    {
+        $query = $this->createQueryBuilder('s')
+            ->leftJoin(Products::class, 'p', 'WITH', 'p.id = s.product')
+            ->where('p.category = 3')
             ->andWhere('s.exploitation = :exp')
             ->setParameter('exp', $exp)
             ->orderBy('s.id', 'ASC')
