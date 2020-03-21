@@ -29,6 +29,19 @@ class InterventionsRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByTypeAndCulture( $type, $culture )
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.culture = :culture')
+            ->andWhere('i.type = :type')
+            ->setParameter('type', $type)
+            ->setParameter('culture', $culture)
+            ->orderBy('i.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Interventions[] Returns an array of Interventions objects
     //  */

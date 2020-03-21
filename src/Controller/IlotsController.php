@@ -29,6 +29,8 @@ class IlotsController extends AbstractController
      * @param Request $request
      * @param IlotsRepository $ir
      * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function new(Request $request, IlotsRepository $ir): Response
     {

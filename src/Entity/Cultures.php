@@ -235,4 +235,11 @@ class Cultures
 
         return $this;
     }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->id
+        ]);
+    }
 }

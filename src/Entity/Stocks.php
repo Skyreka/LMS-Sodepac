@@ -43,6 +43,11 @@ class Stocks
      */
     private $unit;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $used_quantity = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,7 +89,7 @@ class Stocks
         return $this;
     }
 
-    public function getUnit( $return = null): ?string
+    public function getUnit( $return = null ): ?string
     {
         if ($return) {
             return self::UNIT[$this->unit];
@@ -95,6 +100,18 @@ class Stocks
     public function setUnit(?string $unit): self
     {
         $this->unit = $unit;
+
+        return $this;
+    }
+
+    public function getUsedQuantity(): ?float
+    {
+        return $this->used_quantity;
+    }
+
+    public function setUsedQuantity(float $used_quantity): self
+    {
+        $this->used_quantity = $used_quantity;
 
         return $this;
     }

@@ -502,5 +502,8 @@
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.1"
+    },
+    "zumba/json-serializer": {
+        "version": "2.2.0"
     }
 }

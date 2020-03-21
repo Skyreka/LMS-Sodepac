@@ -1,0 +1,205 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des clients{% endblock %}
+
+{% block stylesheets %}
+    <link href="{{ asset('plugins/css-chart/css-chart.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Technicien</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ customer.identity }}</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Exploitation</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-md-flex no-block">
+                            <h4 class="card-title">Ilots du client</h4>
+                        </div>
+                        <div class="month-table">
+                            <div class="table-responsive mt-3">
+                                <table class="table stylish-table mb-0">
+                                    <tbody>
+                                        {% for ilot in ilots %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{{ path('view.user.ilot', {id: ilot.id}) }}">
+                                                        <h6>{{ ilot.name }} ({{ ilot.size }} ha)</h6><small class="text-muted">{{ ilot.type }}</small>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-md-flex no-block">
+                            <h4 class="card-title">Irrigation</h4>
+                        </div>
+                        <div class="month-table">
+                            <div class="table-responsive mt-3">
+                                <table class="table stylish-table mb-0">
+                                    <tbody>
+                                    {% for irrigation in irrigations %}
+                                        <tr>
+                                            <td>
+                                                <h6>{{ irrigation.type }} sur {{ irrigation.ilot.name }}</h6><small class="text-muted">{{ irrigation.quantity}} mm.</small>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-md-flex no-block">
+                            <h4 class="card-title">Analyse de terre</h4>
+                        </div>
+                        <div class="month-table">
+                            <div class="table-responsive mt-3">
+                                <table class="table stylish-table mb-0">
+                                    <tbody>
+                                    {% for analyse in analyses %}
+                                        <tr>
+                                            <td>
+                                                <h6>Analyse sur {{ analyse.ilot.name }}</h6><small class="text-muted">{{ analyse.measure }} HA/ha.</small>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card"> <img src="{{ asset('images/background/field.jpg') }}" alt="Card image cap" class="w-100 rounded-top">
+                    <div class="card-body little-profile text-center">
+                        <div class="pro-img"><img src="{{ asset('images/user.png') }}" alt="user" class="rounded-circle shadow-sm"></div>
+                        <h3 class="mb-0">{{ customer.identity }}</h3>
+                        <p><span class="badge badge-success px-2 py-1">{{ customer.status }}</span></p>
+                        <p>Exploitation de <span class="badge badge-warning px-2 py-1">{{ customer.exploitation.size }} ha</span></p>
+                        <div class="row text-center mt-3 pt-1">
+                            <div class="col-12 mt-4">
+                                <h6 class="mb-0 font-weight-light">{{ customer.phone }}</h6><small>Téléphone</small>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <h6 class="mb-0 font-weight-light">{{ customer.city }}</h6><small>Ville</small>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <h6 class="mb-0 font-weight-light">{{ customer.certificationPhyto }}</h6><small>Certification</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-md-flex no-block">
+                            <h4 class="card-title">Stock du client</h4>
+                            <div class="ml-auto">
+                                <select class="custom-select">
+                                    <option selected="">2020</option>
+                                    <option value="1">2019</option>
+                                    <option value="2">2018</option>
+                                    <option value="3">2017</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="month-table">
+                            <div class="table-responsive mt-3">
+                                <table class="table stylish-table mb-0 datatable">
+                                    <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>Quantité restant</th>
+                                        <th>Quantité utilisée</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for stock in usedProducts %}
+                                        <tr>
+                                            <td>
+                                                <a href="">
+                                                    <h6>{{ stock.product.name }}</h6><small class="text-muted">{{ stock.product.category.name }}</small>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <h6>{{ stock.quantity }} {{ stock.unit( true ) }}</h6>
+                                            </td>
+                                            <td>
+                                                <h6>{{ stock.usedQuantity }} {{ stock.unit( true ) }}</h6>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script>
+        $('.datatable').DataTable({
+            dom: 'Bfrtip',
+            responsive: true,
+            buttons: [
+                {
+                    extend: 'pdf',
+                    text: 'Exporter état des stocks',
+                    title: 'Etat des stock de {{ customer.identity }}',
+                    message: 'Exporter le {{ "now"|date('d-m-Y H:i') }} avec l\'application LMS-Sodepac',
+                    exportOptions: {
+                        columns: [0,1],
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                }
+            ]
+        });
+    </script>
+{% endblock %}

@@ -24,12 +24,12 @@ class AnalyseRepository extends ServiceEntityRepository
      * @param null $limit
      * @return mixed
      */
-    public function findByUser( $user, $limit = null )
+    public function findByExploitation( $exploitation, $limit = null )
     {
         $query = $this->createQueryBuilder('i')
             ->andWhere('i.exploitation = :exp')
-            ->setParameter('exp', $user->getExploitation())
-            ->orderBy('i.id', 'ASC')
+            ->setParameter('exp', $exploitation)
+            ->orderBy('i.id', 'DESC')
         ;
 
         if ($limit != NULL) {

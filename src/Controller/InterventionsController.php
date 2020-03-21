@@ -243,9 +243,12 @@ class InterventionsController extends AbstractController
             //-- Update Stock
             $stock = $sr->find( ['id' => $stock] );
             // Get size of culture multiple by product doses
+            //TODO: Make this on repository (Clean Code)
             $quantityUsed = $form->getData()->getQuantity();
             $quantityOnStock = $stock->getQuantity();
             $stock->setQuantity( $quantityOnStock - $quantityUsed);
+            $quantityUsedInStock = $stock->getUsedQuantity();
+            $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
             //-- Setters
             $intervention->setProduct( $stock->getProduct() );
             $intervention->setCulture( $culture );

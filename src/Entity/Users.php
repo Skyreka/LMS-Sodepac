@@ -203,7 +203,7 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getTechnician(): ?int
+    public function getTechnician(): ?string
     {
         return $this->technician;
     }

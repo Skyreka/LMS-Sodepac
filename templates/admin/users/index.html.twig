@@ -42,7 +42,7 @@
                                     {% for user in users %}
                                         <tr>
                                             <td>
-                                                <a href="{{ path('admin.users.show', {id: user.id}) }}">
+                                                <a href="{{ path('view.user.index', {id: user.id}) }}">
                                                     <h6>{{ user.firstname }} {{ user.lastname }}</h6><small class="text-muted">{{ user.email }}</small>
                                                 </a>
                                             </td>

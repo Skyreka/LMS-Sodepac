@@ -2,17 +2,27 @@
 
 namespace App\Controller;
 
+use App\Entity\Cultures;
 use App\Entity\Exploitation;
+use App\Entity\Ilots;
 use App\Entity\Users;
 use App\Form\ExploitationType;
 use App\Form\TechnicianCustomersType;
 use App\Form\UserType;
+use App\Repository\AnalyseRepository;
+use App\Repository\CulturesRepository;
+use App\Repository\IlotsRepository;
+use App\Repository\InterventionsRepository;
+use App\Repository\IrrigationRepository;
+use App\Repository\StocksRepository;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
+use Zumba\JsonSerializer\JsonSerializer;
 
 class TechnicianCustomersController extends AbstractController
 {
@@ -135,18 +145,6 @@ class TechnicianCustomersController extends AbstractController
 
         return $this->render('technician/customers/exploitation.html.twig', [
             'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("technician/customers/show/{id}", name="technician.customers.show")
-     * @param Users $customer
-     * @return Response
-     */
-    public function show(Users $customer): Response
-    {
-        return $this->render('technician/customers/show.html.twig', [
-            'customer' => $customer
         ]);
     }
 }
