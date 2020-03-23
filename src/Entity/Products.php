@@ -28,17 +28,6 @@ class Products
      */
     private $stocks;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ProductsCategory", inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $category;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $dose;
-
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -88,30 +77,6 @@ class Products
                 $stock->setProduct(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getCategory(): ?ProductsCategory
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?ProductsCategory $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    public function getDose(): ?float
-    {
-        return $this->dose;
-    }
-
-    public function setDose(float $dose): self
-    {
-        $this->dose = $dose;
 
         return $this;
     }
