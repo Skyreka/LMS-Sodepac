@@ -77,12 +77,12 @@ class Stocks
         return $this;
     }
 
-    public function getQuantity(): ?int
+    public function getQuantity(): ?self
     {
         return $this->quantity;
     }
 
-    public function setQuantity(?int $quantity): self
+    public function setQuantity(?float $quantity): self
     {
         $this->quantity = $quantity;
 

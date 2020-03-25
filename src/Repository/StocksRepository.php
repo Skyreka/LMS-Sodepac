@@ -43,17 +43,32 @@ class StocksRepository extends ServiceEntityRepository
         return $query;
     }
 
+    public function findByProduct( $product, $return = null )
+    {
+        $query = $this->createQueryBuilder('s')
+            ->andWhere('s.product = :product')
+            ->setParameter('product', $product)
+            ->orderBy('s.id', 'ASC')
+        ;
+
+        if ($return) {
+            $query = $query->getQuery()
+                ->getResult();
+        }
+
+        return $query;
+    }
+
     /**
      * Function return stock & product by exploitation and only product on fumure category
      * @param $exp
      * @param null $return
      * @return QueryBuilder
      */
-    public function findProductStockFumureByExploitation( $exp, $return = null )
+    public function findProductInStockByExploitation( $exp, $return = null )
     {
         $query = $this->createQueryBuilder('s')
             ->leftJoin(Products::class, 'p', 'WITH', 'p.id = s.product')
-            ->where('p.category = 3')
             ->andWhere('s.exploitation = :exp')
             ->setParameter('exp', $exp)
             ->orderBy('s.id', 'ASC')
@@ -66,6 +81,8 @@ class StocksRepository extends ServiceEntityRepository
 
         return $query;
     }
+
+
 
     /*
     public function findOneBySomeField($value): ?Stocks

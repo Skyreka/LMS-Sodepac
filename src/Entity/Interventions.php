@@ -82,7 +82,7 @@ abstract class Interventions
         return $this->intervention_at;
     }
 
-    public function setInterventionAt(\DateTimeInterface $intervention_at): self
+    public function setInterventionAt($intervention_at): self
     {
         $this->intervention_at = $intervention_at;
 

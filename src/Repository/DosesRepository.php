@@ -19,6 +19,22 @@ class DosesRepository extends ServiceEntityRepository
         parent::__construct($registry, Doses::class);
     }
 
+    public function findByProduct( $product, $return = null )
+    {
+        $query = $this->createQueryBuilder('s')
+            ->andWhere('s.product = :product')
+            ->setParameter('product', $product)
+            ->orderBy('s.id', 'ASC')
+        ;
+
+        if ($return) {
+            $query = $query->getQuery()
+                ->getResult();
+        }
+
+        return $query;
+    }
+
     // /**
     //  * @return Doses[] Returns an array of Doses objects
     //  */

@@ -44,10 +44,20 @@
             let data = {}
             data[$field.attr('name')] = $field.val()
             $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('.form-group')
-                let $button = $(data).find('.btn')
-                $($form).html( $input )
-                $($form).append( $button )
+                let $input = $(data).find('#fumure_intervention_doses')
+                $('#fumure_intervention_doses').replaceWith($input)
+            })
+        })
+        $(document).on('change', '#fumure_intervention_doses', function () {
+            let $field = $(this)
+            let $product = $('#fumure_intervention_productInStock')
+            let form = $field.closest('form')
+            let data = {}
+            data[$product.attr('name')] =  $product.val()
+            data[$field.attr('name')] =  $field.val()
+            $.post(form.attr('action'), data).then(function (data) {
+                let input = $(data).find('form')
+                $(form).replaceWith( input )
             })
         })
     </script>
