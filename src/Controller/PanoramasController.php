@@ -247,4 +247,27 @@ class PanoramasController extends AbstractController
 
         return $this->redirectToRoute('home');
     }
+
+    /**
+     * @Route("/panoramas/history", name="panoramas.history.index")
+     * @return Response
+     */
+    public function history(): Response
+    {
+        return $this->render('panoramas/history/index.html.twig');
+    }
+
+    /**
+     * @Route("/panoramas/history/{year}", name="panoramas.history.show")
+     * @param $year
+     * @return Response
+     */
+    public function list($year): Response
+    {
+        $panoramas = $this->repositoryPanoramas->findAllByYear($year);
+        return $this->render('panoramas/history/show.html.twig', [
+            'panoramas' => $panoramas,
+            'year' => $year
+        ]);
+    }
 }

@@ -58,6 +58,18 @@ class PanoramasRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllByYear($year)
+    {
+
+        return $this->createQueryBuilder('b')
+            ->where('year(b.send_date) = :year')
+            ->setParameter('year', $year)
+            ->orderBy('b.send_date', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Panoramas[] Returns an array of Panoramas objects
     //  */
