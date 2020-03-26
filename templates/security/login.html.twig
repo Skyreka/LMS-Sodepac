@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Skyreka">
+    <title>{% block title %}Connexion{% endblock %}</title>
+    <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/colors/green-dark.css') }}" rel="stylesheet">
+</head>
+<body>
+<div class="preloader">
+    <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+</div>
+<section id="wrapper">
+    <div class="login-register">
+        <div class="login-box card">
+            <div class="card-body">
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error.message }}
+                    </div>
+                {% endif %}
+                <form data-toggle="validator" role="form" class="form-horizontal form-material" id="loginform" action="{{ path('login') }}" method="POST">
+                    <h3 class="box-title m-b-20">Se connecter</h3>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <label form="email">Adresse Email:</label>
+                            <input class="form-control" id="email" type="text" name="_email" value="{{ last_username }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label form="password">Mot de passe:</label>
+                            <input class="form-control" id="password" type="password" name="_password" required>
+                        </div>
+                    </div>
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Se connecter</button>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            Mot de passe oublié ? <a href="<?= $router->generate('register'); ?>" class="text-info m-l-5"><b>Cliquez-ici</b></a>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            Pas encore de compte <a href="<?= $router->generate('register'); ?>" class="text-info m-l-5"><b>Inscrivez-vous?</b></a>
+                        </div>
+                    </div>
+                </form>
+                <form class="form-horizontal" id="recoverform" action="<?= $router->generate('login'); ?>">
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <h3>Réinitialiser votre mot de passe</h3>
+                            <p class="text-muted">Entrez votre email et les instructions vous seront envoyées! </p>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" required="" placeholder="Adresse e-mail" name="email_reset"> </div>
+                    </div>
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" name="reset">Soumettre</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
+<script src="{{ asset('js/sidebarmenu.js') }}"></script>
+<script src="{{ asset('js/waves.js') }}"></script>
+<script src="{{ asset('js/custom.min.js') }}"></script>
+</body>
+</html>

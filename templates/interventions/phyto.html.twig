@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une intervention{% endblock %}
+
+{% block stylesheets %}
+    <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ culture.ilot.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ culture.name.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Intervention</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ intervention }}</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="card-title">Créer un(e) {{ intervention }}</h4>
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            {{ form_rest(form) }}
+                            <button class="btn btn-primary">Ajouter</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on('change', '#phyto_intervention_productInStock', function () {
+            let $field = $(this)
+            let $form = $field.closest('form')
+            let data = {}
+            data[$field.attr('name')] = $field.val()
+            $.post($form.attr('action'), data).then(function (data) {
+                let $input = $(data).find('#phyto_intervention_doses')
+                $('#phyto_intervention_doses').replaceWith($input)
+            })
+        })
+        $(document).on('change', '#phyto_intervention_doses', function () {
+            let $field = $(this)
+            let $product = $('#phyto_intervention_productInStock')
+            let form = $field.closest('form')
+            let data = {}
+            data[$product.attr('name')] =  $product.val()
+            data[$field.attr('name')] =  $field.val()
+            $.post(form.attr('action'), data).then(function (data) {
+                let input = $(data).find('form')
+                $(form).replaceWith( input )
+            })
+        })
+    </script>
+    <script src="{{ asset('plugins/moment/moment.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-datepicker').datepicker({
+                weekStart:0,
+                time: 1,
+                format:"yyyy-mm-dd",
+                lang:"fr"
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,275 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ culture.name.name }} {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ culture.ilot.name }}</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ culture.name.name }}</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('warning') %}
+            <div class="alert alert-warning">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Interventions</h4>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Interventions</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Récolte</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Recolte', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucune récolte existante</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.recolte.new', {id: culture.id}) }}" class="btn btn-block btn-success">Créer une récolte</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Binage</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Binage', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucune récolte existante</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.binage.new', {id: culture.id}) }}" class="btn btn-block btn-success">Créer un binage</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Labour</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Labour', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun labour existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.labour.new', {id: culture.id}) }}" class="btn btn-block btn-success">Créer un labour</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Epandage</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Epandage', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun épandage existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.epandage.new', {id: culture.id}) }}" class="btn btn-block btn-success">Créer un épandage</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Désherbant</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Désherbant', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun épandage existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Désherbant'}) }}" class="btn btn-block btn-success">Créer un désherbage</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Fongicide</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Fongicide', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun épandage existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Fongicide'}) }}" class="btn btn-block btn-success">Créer un Fongicide</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Insecticide</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Insecticide', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun épandage existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Insecticide'}) }}" class="btn btn-block btn-success">Créer un Insecticide</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Oligo-Element</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Oligo-Element', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun épandage existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Oligo-Element'}) }}" class="btn btn-block btn-success">Créer un Oligo-Element</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Fumure</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Fumure', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun épandage existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.fumure.new', {id: culture.id}) }}" class="btn btn-block btn-success">Créer une Fumure</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>Semis</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Semis', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucune semis existante</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.semis.new', {id: culture.id}) }}" class="btn btn-block btn-success">Créer une semis</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center mt-3">
+                            <h4 class="card-title mt-2">{{ culture.name.name }} ({{ culture.comments }})</h4>
+                            <h6 class="card-subtitle">Ilot : {{ culture.ilot.name }} <small>{{ culture.ilot.size }} ha</small></h6>
+                            <div class="row text-center justify-content-md-center">
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        Taille:
+                                        <span class="font-medium">{{ culture.size }} ha</span>
+                                    </a>
+                                </div>
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        Bio:
+                                        <span class="font-medium">{{ culture.bio ? 'Oui' : 'Non' }}</span>
+                                    </a>
+                                </div>
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        Prod:
+                                        <span class="font-medium">{{ culture.production  ? 'Oui' : 'Non' }}</span>
+                                    </a>
+                                </div>
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        ZNT:
+                                        <span class="font-medium">{{ culture.znt  ? culture.znt : 'Non' }}</span>
+                                    </a>
+                                </div>
+                                <div class="col-2">
+                                    <a href="javascript:void(0)" class="link">
+                                        Résidu
+                                        <span class="font-medium">{{ culture.residue  ? 'Oui': 'Non' }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">Culture précédent:</small>
+                        <h6>{{ culture.precedent.name }}</h6>
+                        <small class="text-muted pt-4 d-block">Effluent:</small>
+                        <h6>{{ culture.effluent.name }}</h6>
+                        <small class="text-muted pt-4 d-block">Actions:</small>
+                        <br />
+                        <button class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></button>
+                        <button class="btn btn-circle btn-secondary"><i class="fab fa-twitter"></i></button>
+                        <button class="btn btn-circle btn-secondary"><i class="fab fa-youtube"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

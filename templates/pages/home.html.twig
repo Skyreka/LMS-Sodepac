@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Accueil</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                            <a class="btn-minimize" data-action="expand"><i
+                                        class="mdi mdi-arrow-expand"></i></a>
+                            <a class="btn-close" data-action="close"><i class="ti-close"></i></a>
+                        </div>
+                        <h4 class="card-title mb-0">Bulletin Sanitaire du Végétal</h4>
+                    </div>
+                    <div class="card-body collapse show bg-info">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item flex-column active">
+                                    <h3 class="text-white font-weight-light">Découvrez vos derniers bulletin sanitaire végétal</h3>
+                                    <div class="text-white mt-3">
+                                        <i>- L'équipe Sodepac</i>
+                                    </div>
+                                </div>
+                                {% for bsv in bsvs %}
+                                    {% if date(bsv.displayAt) <= date() and bsv.checked == 0 %}
+                                        <div class="carousel-item flex-column">
+                                            <h3 class="text-white font-weight-light">{{ bsv.bsv.text }} <button class="btn btn-secondary waves-effect waves-light" type="button"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le BSV</button></h3>
+                                            <div class="text-white mt-3">
+                                                <p class="text-white">
+                                                    - L'équipe Sodepac |
+                                                    <i class="fa fa-bell text-white"></i>  {{ bsv.displayAt|date('d M y à h:m') }} -
+                                                    <i class="fa fa-exclamation"></i> Non lu
+                                                    <form method="POST" action="{{ path('user.bsv.check', {id: bsv.id}) }}" style="display: inline-block">
+                                                        <input type="hidden" name="_method" value="CHECK">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('check' ~ bsv.id) }}">
+                                                        <button class="btn btn-danger">Ne plus voir</button>
+                                                    </form>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <a class="" data-action="collapse"><i class="ti-minus"></i></a>
+                            <a class="btn-minimize" data-action="expand"><i
+                                        class="mdi mdi-arrow-expand"></i></a>
+                            <a class="btn-close" data-action="close"><i class="ti-close"></i></a>
+                        </div>
+                        <h4 class="card-title mb-0">Flash Technique</h4>
+                    </div>
+                    <div class="card-body collapse show bg-primary">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item flex-column active">
+                                    <h3 class="text-white font-weight-light">Découvrez vos derniers flash technique</h3>
+                                    <div class="text-white mt-3">
+                                        <i>- L'équipe Sodepac</i>
+                                    </div>
+                                </div>
+                                {% for panorama in panoramas %}
+                                    {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
+                                        <div class="carousel-item flex-column">
+                                            <h3 class="text-white font-weight-light">{{ panorama.panorama.text }} <button class="btn btn-secondary waves-effect waves-light" type="button"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le Panorama</button></h3>
+                                            <div class="text-white mt-3">
+                                                <p class="text-white">
+                                                    - L'équipe Sodepac |
+                                                    <i class="fa fa-bell text-white"></i>  {{ panorama.displayAt|date('d M y à h:m') }} -
+                                                    <i class="fa fa-exclamation"></i> Non lu
+                                                    <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
+                                                        <input type="hidden" name="_method" value="CHECK">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
+                                                        <button class="btn btn-danger">Ne plus voir</button>
+                                                    </form>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body little-profile text-center">
+                        <h3 class="m-b-0">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</h3>
+                        <div class="row text-center m-t-20">
+                            <div class="col-lg-4 col-md-4 m-t-20">
+                                <h3 class="m-b-0 font-light">1099</h3><small>Ilots</small>
+                            </div>
+                            <div class="col-lg-4 col-md-4 m-t-20">
+                                <h3 class="m-b-0 font-light">23,469</h3><small>Cultures</small>
+                            </div>
+                            <div class="col-lg-4 col-md-4 m-t-20">
+                                <h3 class="m-b-0 font-light">{{ app.user.exploitation.size }} ha</h3><small>Exploitation</small>
+                            </div>
+                            <div class="col-md-12 m-b-10"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Vos Ilots</h4>
+                            <div class="ml-auto">
+                                <a href="{{ path('ilots.new') }}" class="btn btn-success">Ajouter</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Ilots</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for ilot in ilots %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('ilots.show', {id: ilot.id}) }}">
+                                                <h6>{{ ilot.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type }}</small>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Admin</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Utilisateurs</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Listes des utilisateurs</h4>
+                            <div class="ml-auto">
+                                <a href="{{ path('admin.users.new') }}" class="btn btn-success">Ajouter une utilisateur</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Informations</th>
+                                    <th>Exploitation</th>
+                                    <th>Téléphone</th>
+                                    <th>Ville</th>
+                                    <th>Certification</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in users %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('view.user.index', {id: user.id}) }}">
+                                                    <h6>{{ user.firstname }} {{ user.lastname }}</h6><small class="text-muted">{{ user.email }}</small>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <h6>
+                                                    {% if user.exploitation is null %}
+                                                        <a href="{{ path('technician.customers.new.exploitation', {id: user.id}) }}">Ajouter une exploitation</a>
+                                                    {% else %}
+                                                        <h6>{{ user.exploitation.size }} ha</h6>
+                                                    {% endif %}
+                                                </h6>
+                                            </td>
+                                            <td>{{ user.phone }}</td>
+                                            <td>{{ user.city }}</td>
+                                            <td>{{ user.certificationPhyto }}</td>
+                                            <td><a href="{{ path('admin.users.edit', {id: user.id}) }}" class="btn btn-primary">Editer</a></td>
+                                            <td>
+                                                <form method="POST" action="{{ path('admin.users.delete', {id: user.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer {{ user.firstname }} {{ user.lastname }}?')">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                                    <button class="btn btn-danger">Supprimer</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

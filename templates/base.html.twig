@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Skyreka">
+        <title>{% block title %}Page{% endblock %} - LMS Sodepac</title>
+        <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/colors/green-dark.css') }}" rel="stylesheet">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body class="fix-header fix-sidebar card-no-border logo-center">
+
+        <div id="main-wrapper">
+            {% include('includes/header.html.twig') %}
+            {% include('includes/navigation.html.twig') %}
+            <div class="page-wrapper">
+                {% block body %}{% endblock %}
+                {% include('includes/footer.html.twig') %}
+            </div>
+        </div>
+        <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
+        <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
+        <script src="{{ asset('js/sidebarmenu.js') }}"></script>
+        <script src="{{ asset('js/waves.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+        <script src="{{ asset('js/custom.min.js') }}"></script>
+    </body>
+</html>
