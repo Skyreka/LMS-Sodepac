@@ -33,7 +33,7 @@ class Doses
     private $application;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $unit;
 

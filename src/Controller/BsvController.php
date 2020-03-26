@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Entity\Bsv;
 use App\Entity\BsvUsers;
-use App\Entity\PanoramaUser;
 use App\Form\BsvSendType;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
@@ -231,7 +230,8 @@ class BsvController extends AbstractController
     {
         $bsv = $this->repositoryBsv->findAllByYear($year);
         return $this->render('admin/bsv/history/show.html.twig', [
-            'bsv' => $bsv
+            'bsv' => $bsv,
+            'year' => $year
         ]);
     }
 

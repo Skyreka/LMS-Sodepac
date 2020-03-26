@@ -27,14 +27,32 @@
                         </div>
                         <div class="button-group">
                             {% for i in 0..4 %}
-                                <a href="{{ path('admin.bsv.history.show', {year: "now"|date("Y") - i}) }}" class="btn waves-effect waves-light btn-lg btn-info">{{ "now"|date("Y") - i }}</a>
+                                <a href="{{ path('admin.bsv.history.show', {year: "now"|date("Y") - i}) }}" class="btn waves-effect waves-light btn-lg btn-info history">{{ "now"|date("Y") - i }}</a>
                             {% endfor %}
                         </div>
                     </div>
+                </div>
+                <div class="card" id="insert-table">
+
                 </div>
             </div>
         </div>
     </div>
     </div>
 
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).on('click', 'a.history', function (event) {
+            event.preventDefault();
+            let $field = $(this)
+            let url = $field.attr('href')
+            $.post(url).then(function (data) {
+                let content = $('#insert-table')
+                content.empty()
+                content.append( data )
+            })
+        })
+    </script>
 {% endblock %}
