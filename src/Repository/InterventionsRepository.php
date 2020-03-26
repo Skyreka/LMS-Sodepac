@@ -19,11 +19,13 @@ class InterventionsRepository extends ServiceEntityRepository
         parent::__construct($registry, Interventions::class);
     }
 
-    public function findIfInterventionExist( $nameOfIntervention )
+    public function findIfInterventionExist( $nameOfIntervention, $culture )
     {
         return $this->createQueryBuilder('s')
-            ->andWhere( 's.type = :type' )
+            ->where( 's.type = :type' )
+            ->andWhere( 's.culture = :culture' )
             ->setParameter('type', $nameOfIntervention)
+            ->setParameter('culture', $culture)
             ->getQuery()
             ->getResult()
         ;

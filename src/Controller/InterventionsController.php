@@ -5,13 +5,17 @@ use App\Entity\Binage;
 use App\Entity\Cultures;
 use App\Entity\Epandage;
 use App\Entity\Fumure;
+use App\Entity\Interventions;
 use App\Entity\Labour;
+use App\Entity\Phyto;
 use App\Entity\Recolte;
 use App\Entity\Semis;
 use App\Entity\UsedProducts;
 use App\Form\DefaultInterventionType;
 use App\Form\EpandageInterventionType;
 use App\Form\FumureInterventionType;
+use App\Form\PhytoAddAdjuvantType;
+use App\Form\PhytoInterventionType;
 use App\Form\SemisInterventionType;
 use App\Repository\StocksRepository;
 use App\Repository\UsedProductsRepository;
@@ -193,21 +197,43 @@ class InterventionsController extends AbstractController
      * @param Cultures $culture
      * @param $name
      * @param Request $request
+     * @param StocksRepository $sr
      * @return Response
      */
-    public function phyto(Cultures $culture, $name, Request $request): Response
+    public function phyto(Cultures $culture, $name, Request $request, StocksRepository $sr): Response
     {
-        $intervention = new Semis();
-        $form = $this->createForm( SemisInterventionType::class, $intervention);
+        $intervention = new Phyto();
+        $form = $this->createForm( PhytoInterventionType::class, $intervention, [
+            'user' => $this->getUser(),
+            'culture' => $culture
+        ]);
         $form->handleRequest( $request );
 
-        $intervention->setCulture( $culture );
-        $intervention->setType( $name );
-
         if ($form->isSubmitted() && $form->isValid()) {
+            //-- Get data
+            $data = $form->all();
+            $stock = $data['productInStock']->getData();
+            //-- Update Stock
+            $stock = $sr->find( ['id' => $stock] );
+            $quantityUsed = $form->getData()->getQuantity();
+            $quantityOnStock = $stock->getQuantity();
+            $stock->setQuantity( $quantityOnStock - $quantityUsed);
+            $quantityUsedInStock = $stock->getUsedQuantity();
+            $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
+            //-- Setters
+            $intervention->setProduct( $stock->getProduct() );
+            $intervention->setCulture( $culture );
+            $intervention->setType( $name );
+            //-- Flush on db
             $this->om->persist( $intervention );
             $this->om->flush();
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+            $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
+            //-- Redirect to add Adjuvant if checkbox is checked
+            if ( $data['addAdjuvant']->getData() ) {
+                return $this->redirectToRoute('interventions.phyto.adjuvant', ['id' => $intervention->getId()]);
+            }
+            //-- Or redirect to culture
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
         }
 
@@ -219,11 +245,52 @@ class InterventionsController extends AbstractController
     }
 
     /**
+     * Update Adjuvant on exist intervention
+     * @Route("interventions/phyto/{id}", name="interventions.phyto.adjuvant")
+     * @param Interventions $interventions
+     * @param Request $request
+     * @param StocksRepository $sr
+     * @return Response
+     */
+    public function phytoAddAdjuvant(Interventions $interventions, Request $request, StocksRepository $sr): Response
+    {
+        $form = $this->createForm( PhytoAddAdjuvantType::class, $interventions, [
+            'user' => $this->getUser(),
+            'culture' => $interventions->getCulture()
+        ]);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //-- Get data
+            $data = $form->all();
+            $stock = $data['productInStock']->getData();
+            //-- Update Stock
+            $stock = $sr->find( ['id' => $stock] );
+            $quantityUsed = $form->getData()->getQuantity();
+            $quantityOnStock = $stock->getQuantity();
+            $stock->setQuantity( $quantityOnStock - $quantityUsed);
+            $quantityUsedInStock = $stock->getUsedQuantity();
+            $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
+            //-- Update Adjuvant
+            $interventions->setAdjuvant( $stock->getProduct() );
+            //-- Flush on db
+            $this->om->flush();
+            $this->addFlash('success', 'Adjuvant ajouté avec succès');
+            $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
+            return $this->redirectToRoute( 'cultures.show', ['id' => $interventions->getCulture()->getId()] );
+        }
+
+        return $this->render('interventions/phytoAddAdjuvant.html.twig', [
+            'form' => $form->createView(),
+            'culture' => $interventions->getCulture()
+        ]);
+    }
+
+    /**
      * @Route("interventions/fumure/{id}", name="interventions.fumure.new")
      * @param Cultures $culture
      * @param Request $request
      * @param StocksRepository $sr
-     * @param UsedProductsRepository $upr
      * @return Response
      */
     public function fumure(Cultures $culture, Request $request, StocksRepository $sr): Response
@@ -242,8 +309,6 @@ class InterventionsController extends AbstractController
             $stock = $data['productInStock']->getData();
             //-- Update Stock
             $stock = $sr->find( ['id' => $stock] );
-            // Get size of culture multiple by product doses
-            //TODO: Make this on repository (Clean Code)
             $quantityUsed = $form->getData()->getQuantity();
             $quantityOnStock = $stock->getQuantity();
             $stock->setQuantity( $quantityOnStock - $quantityUsed);

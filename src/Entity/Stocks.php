@@ -77,7 +77,7 @@ class Stocks
         return $this;
     }
 
-    public function getQuantity(): ?self
+    public function getQuantity(): ?float
     {
         return $this->quantity;
     }

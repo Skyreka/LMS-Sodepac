@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "binage" = "Binage",
  *     "labour" = "Labour",
  *     "fumure" = "Fumure",
+ *     "phyto" = "Phyto",
  *     "epandange" = "Epandage",
  *     "semis" = "Semis"
  * })
@@ -363,5 +364,112 @@ class Fumure extends Interventions
     public function setReliquat($reliquat): void
     {
         $this->reliquat = $reliquat;
+    }
+}
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="int_phyto")
+ */
+class Phyto extends Interventions
+{
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Products")
+     */
+    private $product;
+
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $quantity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Products")
+     */
+    private $adjuvant;
+
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $adjuvant_quantity;
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param mixed $product
+     */
+    public function setProduct($product): void
+    {
+        $this->product = $product;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReliquat()
+    {
+        return $this->reliquat;
+    }
+
+    /**
+     * @param mixed $reliquat
+     */
+    public function setReliquat($reliquat): void
+    {
+        $this->reliquat = $reliquat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdjuvant()
+    {
+        return $this->adjuvant;
+    }
+
+    /**
+     * @param mixed $adjuvant
+     */
+    public function setAdjuvant($adjuvant): void
+    {
+        $this->adjuvant = $adjuvant;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdjuvantQuantity(): ?self
+    {
+        return $this->adjuvant_quantity;
+    }
+
+    /**
+     * @param $adjuvant_quantity
+     */
+    public function setAdjuvantQuantity($adjuvant_quantity): void
+    {
+        $this->adjuvant_quantity = $adjuvant_quantity;
     }
 }

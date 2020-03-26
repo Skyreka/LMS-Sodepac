@@ -41,7 +41,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Récolte</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Recolte') %}
+                                                    {% if ir.findIfInterventionExist('Recolte', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucune récolte existante</span>
@@ -58,7 +58,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Binage</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Binage') %}
+                                                    {% if ir.findIfInterventionExist('Binage', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucune récolte existante</span>
@@ -75,7 +75,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Labour</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Labour') %}
+                                                    {% if ir.findIfInterventionExist('Labour', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucun labour existant</span>
@@ -92,7 +92,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Epandage</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Epandage') %}
+                                                    {% if ir.findIfInterventionExist('Epandage', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucun épandage existant</span>
@@ -109,7 +109,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Désherbant</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Désherbant') %}
+                                                    {% if ir.findIfInterventionExist('Désherbant', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucun épandage existant</span>
@@ -126,7 +126,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Fongicide</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Fongicide') %}
+                                                    {% if ir.findIfInterventionExist('Fongicide', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucun épandage existant</span>
@@ -143,7 +143,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Insecticide</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Insecticide') %}
+                                                    {% if ir.findIfInterventionExist('Insecticide', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucun épandage existant</span>
@@ -160,7 +160,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Oligo-Element</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Oligo-Element') %}
+                                                    {% if ir.findIfInterventionExist('Oligo-Element', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucun épandage existant</span>
@@ -177,7 +177,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Fumure</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Fumure') %}
+                                                    {% if ir.findIfInterventionExist('Fumure', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucun épandage existant</span>
@@ -194,7 +194,7 @@
                                             <a href="{{ path('cultures.show', {id: culture.id}) }}">
                                                 <h6>Semis</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Semis') %}
+                                                    {% if ir.findIfInterventionExist('Semis', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
                                                         <span class="badge badge-warning">Aucune semis existante</span>
