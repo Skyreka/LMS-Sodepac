@@ -8,9 +8,8 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Accueil</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Admin</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Utilisateurs</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ path('admin.users.index') }}">Utilisateurs</a></li>
                 </ol>
             </div>
         </div>
@@ -49,7 +48,7 @@
                                             <td>
                                                 <h6>
                                                     {% if user.exploitation is null %}
-                                                        <a href="{{ path('technician.customers.new.exploitation', {id: user.id}) }}">Ajouter une exploitation</a>
+                                                        <h6>Aucune exploitation</h6>
                                                     {% else %}
                                                         <h6>{{ user.exploitation.size }} ha</h6>
                                                     {% endif %}

@@ -8,9 +8,8 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Accueil</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Admin</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">BSV</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ path('admin.bsv.index') }}">BSV</a></li>
                 </ol>
             </div>
         </div>
@@ -22,7 +21,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Listes des BSV en attente d'envoi</h4>
+                            <h4 class="card-title">Liste des BSV en attente d'envoi</h4>
                             <div class="ml-auto">
                                 <a href="{{ path('admin.bsv.new') }}" class="btn btn-success">Créer un BSV</a>
                                 <a href="{{ path('admin.bsv.history.index') }}" class="btn btn-info">Historique des BSV</a>

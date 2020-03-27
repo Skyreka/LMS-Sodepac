@@ -34,7 +34,7 @@ class AdminUsersController extends AbstractController {
      */
     public function index(): Response
     {
-        $users = $this->repositoryUsers->findAll();
+        $users = $this->repositoryUsers->findAllByRole('ROLE_USER');
         return $this->render('admin/users/index.html.twig', [
             'users' => $users
         ]);
