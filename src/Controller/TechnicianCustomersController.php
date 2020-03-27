@@ -140,7 +140,8 @@ class TechnicianCustomersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist( $exploitation );
             $this->em->flush();
-            $this->redirectToRoute( 'technician.customers.index' );
+            $this->addFlash('success', 'Ajout d\'une exploitation avec succès');
+            return $this->redirectToRoute( 'technician.customers.index' );
         }
 
         return $this->render('technician/customers/exploitation.html.twig', [
