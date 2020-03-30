@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Repository\IlotsRepository;
+use App\Repository\PanoramasRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,13 +13,16 @@ class HomeController extends AbstractController {
     /**
      * @Route("/technician", name="technician.home")
      * @param UsersRepository $ur
+     * @param PanoramasRepository $pr
      * @return Response
      */
-    public function homeTechnicians( UsersRepository $ur)
+    public function homeTechnicians( UsersRepository $ur, PanoramasRepository $pr)
     {
         $customers = $ur->findAllCustomersOfTechnician( $this->getUser()->getId(), 10 );
+        $panoramas = $pr->findAllNotSent(3);
         return $this->render('technician/home.html.twig', [
-            'customers' => $customers
+            'customers' => $customers,
+            'panoramas' => $panoramas
         ]);
     }
 
