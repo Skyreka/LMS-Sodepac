@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Ilots;
+use App\Entity\IndexGrounds;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -23,8 +25,9 @@ class IlotsType extends AbstractType
                 ],
                 'help' => 'En hectare | Espace restant : '. $options['max_size'] .' ha'
             ])
-            ->add('type', null,[
-                'label' => 'Type de sol'
+            ->add('type', EntityType::class, [
+                'class' => IndexGrounds::class,
+                'choice_label' => 'name'
             ])
         ;
     }
