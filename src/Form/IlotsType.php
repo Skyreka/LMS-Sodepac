@@ -27,7 +27,8 @@ class IlotsType extends AbstractType
             ])
             ->add('type', EntityType::class, [
                 'class' => IndexGrounds::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+
             ])
         ;
     }

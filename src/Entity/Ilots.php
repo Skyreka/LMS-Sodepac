@@ -35,11 +35,6 @@ class Ilots
     private $size;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
-     */
-    private $type;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Cultures", mappedBy="ilot")
      */
     private $cultures;
@@ -53,6 +48,12 @@ class Ilots
      * @ORM\OneToMany(targetEntity="App\Entity\Analyse", mappedBy="ilot", orphanRemoval=true)
      */
     private $analyses;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\IndexGrounds", inversedBy="ilots")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
 
     public function __construct()
     {
@@ -98,18 +99,6 @@ class Ilots
     public function setSize(int $size): self
     {
         $this->size = $size;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(?string $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }
@@ -203,6 +192,18 @@ class Ilots
                 $analysis->setIlot(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?IndexGrounds
+    {
+        return $this->type;
+    }
+
+    public function setType(?IndexGrounds $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

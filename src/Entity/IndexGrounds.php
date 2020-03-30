@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class IndexGrounds
      * @ORM\Column(type="string", length=75)
      */
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ilots", mappedBy="type")
+     */
+    private $ilots;
+
+    public function __construct()
+    {
+        $this->ilots = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +63,37 @@ class IndexGrounds
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ilots[]
+     */
+    public function getIlots(): Collection
+    {
+        return $this->ilots;
+    }
+
+    public function addIlot(Ilots $ilot): self
+    {
+        if (!$this->ilots->contains($ilot)) {
+            $this->ilots[] = $ilot;
+            $ilot->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIlot(Ilots $ilot): self
+    {
+        if ($this->ilots->contains($ilot)) {
+            $this->ilots->removeElement($ilot);
+            // set the owning side to null (unless already changed)
+            if ($ilot->getType() === $this) {
+                $ilot->setType(null);
+            }
+        }
 
         return $this;
     }
