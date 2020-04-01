@@ -8,6 +8,7 @@ use App\Entity\BsvUsers;
 use App\Form\BsvSendType;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
+use App\Repository\BsvUsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -298,5 +299,29 @@ class BsvController extends AbstractController
         }
 
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/user/bsv/history", name="user.bsv.history.index")
+     * @return Response
+     */
+    public function userHistory(): Response
+    {
+        return $this->render('admin/bsv/history/userindex.html.twig');
+    }
+
+    /**
+     * @Route("/user/bsv/history/{year}", name="user.bsv.history.show")
+     * @param BsvUsersRepository $bur
+     * @param $year
+     * @return Response
+     */
+    public function userList(BsvUsersRepository $bur, $year): Response
+    {
+        $bsv = $bur->findAllByYearAndCustomer($year, $this->getUser()->getId());
+        return $this->render('admin/bsv/history/usershow.html.twig', [
+            'bsv' => $bsv,
+            'year' => $year
+        ]);
     }
 }
