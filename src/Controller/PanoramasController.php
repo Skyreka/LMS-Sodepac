@@ -163,6 +163,78 @@ class PanoramasController extends AbstractController
     }
 
     /**
+     * @Route("/panorama/edit/{id}", name="panoramas.edit", methods="GET|POST")
+     * @param Panoramas $panoramas
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(Panoramas $panoramas, Request $request): Response
+    {
+        $form = $this->createForm(PanoramaType::class, $panoramas);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //Add Files
+            $firstFile = $form->get('first_file')->getData();
+            $secondFile = $form->get('second_file')->getData();
+            $thirdFile = $form->get('third_file')->getData();
+
+            if ($firstFile) {
+                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
+                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $safeFilename = $originalFilename;
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                try {
+                    $firstFile->move(
+                        $this->getParameter('panorama_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $panoramas->setFirstFile($newFilename);
+            }
+
+            if ($secondFile) {
+                $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $secondFile->guessExtension();
+
+                try {
+                    $secondFile->move(
+                        $this->getParameter('panorama_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $panoramas->setSecondFile($newFilename);
+            }
+
+            if ($thirdFile) {
+                $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $thirdFile->guessExtension();
+
+                try {
+                    $thirdFile->move(
+                        $this->getParameter('panorama_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $panoramas->setThirdFile($newFilename);
+            }
+            $this->em->flush();
+            $this->addFlash('success', 'Panorama modifié avec succès');
+            return $this->redirectToRoute('panoramas.index');
+        }
+
+        return $this->render('panoramas/edit.html.twig', [
+            'panoramas' => $panoramas,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/panoramas/send/{id}", name="panoramas.send", methods="GET|POST")
      * @param Panoramas $panoramas
      * @param Request $request

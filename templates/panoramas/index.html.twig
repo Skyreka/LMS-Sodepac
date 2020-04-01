@@ -49,12 +49,16 @@
                                             {% endif %}
                                         </td>
                                         <td>
+                                            {% if panorama.firstFile %}
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                                            {% endif %}
                                             {% if app.user.status == 'ROLE_ADMIN' %}
                                                 <form method="POST" action="{{ path('panoramas.delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
                                                     <button class="btn btn-danger">Supprimer</button>
                                                 </form>
+                                                <a href="{{ path('panoramas.edit', {id: panorama.id}) }}" class="btn btn-primary">Editer</a>
                                                 {% if panorama.validate == 0 %}
                                                     <form method="POST" action="{{ path('panoramas.valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
                                                         <input type="hidden" name="_method" value="VALID">
