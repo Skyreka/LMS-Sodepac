@@ -350,20 +350,20 @@ class PanoramasController extends AbstractController
      */
     public function userHistory(): Response
     {
-        return $this->render('panoramas/history/userIndex.html.twig');
+        return $this->render('panoramas/history/user/index.html.twig');
     }
 
     /**
      * @Route("/user/panoramas/history/{year}", name="user.panoramas.history.show")
-     * @param  PanoramaUserRepository $bur
+     * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response
      */
     public function userList(PanoramaUserRepository $pur, $year): Response
     {
-        $bsv = $pur->findAllByYearAndCustomer($year, $this->getUser()->getId());
-        return $this->render('admin/bsv/history/user/show.html.twig', [
-            'bsv' => $bsv,
+        $panoramas = $pur->findAllByYearAndCustomer($year, $this->getUser()->getId());
+        return $this->render('panoramas/history/user/show.html.twig', [
+            'panoramas' => $panoramas,
             'year' => $year
         ]);
     }
