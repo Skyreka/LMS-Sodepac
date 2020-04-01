@@ -138,6 +138,55 @@ class BsvController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Add Files
+            $firstFile = $form->get('first_file')->getData();
+            $secondFile = $form->get('second_file')->getData();
+            $thirdFile = $form->get('third_file')->getData();
+
+            if ($firstFile) {
+                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
+                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $safeFilename = $originalFilename;
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                try {
+                    $firstFile->move(
+                        $this->getParameter('bsv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $bsv->setFirstFile($newFilename);
+            }
+
+            if ($secondFile) {
+                $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $secondFile->guessExtension();
+
+                try {
+                    $secondFile->move(
+                        $this->getParameter('bsv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $bsv->setSecondFile($newFilename);
+            }
+
+            if ($thirdFile) {
+                $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $thirdFile->guessExtension();
+
+                try {
+                    $thirdFile->move(
+                        $this->getParameter('bsv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $bsv->setThirdFile($newFilename);
+            }
             $this->em->flush();
             $this->addFlash('success', 'BSV modifié avec succès');
             return $this->redirectToRoute('admin.bsv.index');
