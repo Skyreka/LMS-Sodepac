@@ -307,7 +307,7 @@ class BsvController extends AbstractController
      */
     public function userHistory(): Response
     {
-        return $this->render('admin/bsv/history/userindex.html.twig');
+        return $this->render('admin/bsv/history/user/index.html.twig');
     }
 
     /**
@@ -319,7 +319,7 @@ class BsvController extends AbstractController
     public function userList(BsvUsersRepository $bur, $year): Response
     {
         $bsv = $bur->findAllByYearAndCustomer($year, $this->getUser()->getId());
-        return $this->render('admin/bsv/history/usershow.html.twig', [
+        return $this->render('admin/bsv/history/user/show.html.twig', [
             'bsv' => $bsv,
             'year' => $year
         ]);

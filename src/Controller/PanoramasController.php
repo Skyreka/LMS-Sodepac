@@ -8,6 +8,7 @@ use App\Entity\Users;
 use App\Form\PanoramaSendType;
 use App\Form\PanoramaType;
 use App\Repository\PanoramasRepository;
+use App\Repository\PanoramaUserRepository;
 use App\Repository\UsersRepository;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -339,6 +340,30 @@ class PanoramasController extends AbstractController
         $panoramas = $this->repositoryPanoramas->findAllByYear($year);
         return $this->render('panoramas/history/show.html.twig', [
             'panoramas' => $panoramas,
+            'year' => $year
+        ]);
+    }
+
+    /**
+     * @Route("/user/panoramas/history", name="user.panoramas.history.index")
+     * @return Response
+     */
+    public function userHistory(): Response
+    {
+        return $this->render('panoramas/history/userIndex.html.twig');
+    }
+
+    /**
+     * @Route("/user/panoramas/history/{year}", name="user.panoramas.history.show")
+     * @param  PanoramaUserRepository $bur
+     * @param $year
+     * @return Response
+     */
+    public function userList(PanoramaUserRepository $pur, $year): Response
+    {
+        $bsv = $pur->findAllByYearAndCustomer($year, $this->getUser()->getId());
+        return $this->render('admin/bsv/history/user/show.html.twig', [
+            'bsv' => $bsv,
             'year' => $year
         ]);
     }
