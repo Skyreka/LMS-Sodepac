@@ -50,12 +50,21 @@ class PanoramasRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findAllNotSent ()
+    /**
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllNotSent ($limit = null)
     {
-        return $this->createQueryBuilder('p')
+        $req = $this->createQueryBuilder('p')
             ->where('p.sent = 0')
-            ->getQuery()
-            ->getResult();
+            ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
     }
 
     public function findAllByYear($year)

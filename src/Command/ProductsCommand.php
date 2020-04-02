@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use TreeHouse\Slugifier\Slugifier;
 
 class ProductsCommand extends Command
 {
@@ -50,6 +51,9 @@ class ProductsCommand extends Command
         $products = [];
         $applications = [];
 
+        //Declaration de slugify
+        $slugify = new Slugifier();
+
         // Boucle par line du csv
         foreach ($lines as $k => $line) {
             $line = explode(';', $line);
@@ -58,6 +62,7 @@ class ProductsCommand extends Command
                 //-- Add new products
                 $product = new Products();
                 $product->setName($line[2]);
+                $product->setSlug( $slugify->slugify( $line[2] ) );
                 $products[$line[2]] = $products;
                 $em->persist($product);
             }

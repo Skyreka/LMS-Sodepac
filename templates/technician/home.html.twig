@@ -97,12 +97,25 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    QUE 3
+                                {% for panorama in panoramas %}
+                                    <tr>
+                                        <td>
+                                            <h6>{{ panorama.text }} </h6>
+                                            <small class="text-muted">{{ panorama.creationDate|date("d/m/Y") }}
+                                                {% if panorama.validate == 1 %}
+                                                    <span class="badge badge-success">Validé</span>
+                                                {% elseif panorama.validate == 0 %}
+                                                    <span class="badge badge-warning">En attente de validation</span>
+                                                {% endif %}
+                                            </small>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                         <div class="text-center">
-                            <a href="{{ path('technician.customers.index') }}" class="link font-medium"><h6>Voir plus</h6></a>
+                            <a href="{{ path('panoramas.index') }}" class="link font-medium"><h6>Voir plus</h6></a>
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ use App\Entity\BsvUsers;
 use App\Form\BsvSendType;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
+use App\Repository\BsvUsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -138,6 +139,55 @@ class BsvController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Add Files
+            $firstFile = $form->get('first_file')->getData();
+            $secondFile = $form->get('second_file')->getData();
+            $thirdFile = $form->get('third_file')->getData();
+
+            if ($firstFile) {
+                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
+                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $safeFilename = $originalFilename;
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                try {
+                    $firstFile->move(
+                        $this->getParameter('bsv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $bsv->setFirstFile($newFilename);
+            }
+
+            if ($secondFile) {
+                $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $secondFile->guessExtension();
+
+                try {
+                    $secondFile->move(
+                        $this->getParameter('bsv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $bsv->setSecondFile($newFilename);
+            }
+
+            if ($thirdFile) {
+                $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $thirdFile->guessExtension();
+
+                try {
+                    $thirdFile->move(
+                        $this->getParameter('bsv_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $bsv->setThirdFile($newFilename);
+            }
             $this->em->flush();
             $this->addFlash('success', 'BSV modifié avec succès');
             return $this->redirectToRoute('admin.bsv.index');
@@ -249,5 +299,29 @@ class BsvController extends AbstractController
         }
 
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/user/bsv/history", name="user.bsv.history.index")
+     * @return Response
+     */
+    public function userHistory(): Response
+    {
+        return $this->render('admin/bsv/history/user/index.html.twig');
+    }
+
+    /**
+     * @Route("/user/bsv/history/{year}", name="user.bsv.history.show")
+     * @param BsvUsersRepository $bur
+     * @param $year
+     * @return Response
+     */
+    public function userList(BsvUsersRepository $bur, $year): Response
+    {
+        $bsv = $bur->findAllByYearAndCustomer($year, $this->getUser()->getId());
+        return $this->render('admin/bsv/history/user/show.html.twig', [
+            'bsv' => $bsv,
+            'year' => $year
+        ]);
     }
 }

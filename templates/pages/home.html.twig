@@ -36,7 +36,10 @@
                                 <div class="carousel-item flex-column active">
                                     <h3 class="text-white font-weight-light">Découvrez vos derniers bulletin sanitaire végétal</h3>
                                     <div class="text-white mt-3">
-                                        <i>- L'équipe Sodepac</i>
+                                        <i>- L'équipe Sodepac | </i>
+                                        <a href="{{ path('user.bsv.history.index') }}" class="font-medium">
+                                            <i>Voir plus</i>
+                                        </a>
                                     </div>
                                 </div>
                                 {% for bsv in bsvs %}
@@ -80,7 +83,10 @@
                                 <div class="carousel-item flex-column active">
                                     <h3 class="text-white font-weight-light">Découvrez vos derniers flash technique</h3>
                                     <div class="text-white mt-3">
-                                        <i>- L'équipe Sodepac</i>
+                                        <i>- L'équipe Sodepac | </i>
+                                        <a href="{{ path('user.panoramas.history.index') }}" class="font-medium">
+                                            <i>Voir plus</i>
+                                        </a>
                                     </div>
                                 </div>
                                 {% for panorama in panoramas %}
@@ -149,7 +155,7 @@
                                     <tr>
                                         <td>
                                             <a href="{{ path('ilots.show', {id: ilot.id}) }}">
-                                                <h6>{{ ilot.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type }}</small>
+                                                <h6>{{ ilot.type.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type.name }}</small>
                                             </a>
                                         </td>
                                     </tr>

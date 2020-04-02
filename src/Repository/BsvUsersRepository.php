@@ -19,6 +19,25 @@ class BsvUsersRepository extends ServiceEntityRepository
         parent::__construct($registry, BsvUsers::class);
     }
 
+    /**
+     * @param $year
+     * @param $customer
+     * @return mixed
+     */
+    public function findAllByYearAndCustomer($year, $customer)
+    {
+
+        return $this->createQueryBuilder('b')
+            ->where('year(b.display_at) = :year')
+            ->andWhere('b.customers = :customer')
+            ->setParameter('year', $year)
+            ->setParameter('customer', $customer)
+            ->orderBy('b.display_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return BsvUsers[] Returns an array of BsvUsers objects
     //  */

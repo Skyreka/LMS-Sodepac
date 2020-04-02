@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex no-block">
+            <h4 class="card-title">Listes des panoramas envoyé en {{ year }}</h4>
+        </div>
+        <div class="table-responsive m-t-20">
+            <table class="table stylish-table">
+                <thead>
+                <tr>
+                    <th>Date d'envoi</th>
+                    <th>Texte</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for panorama in panoramas %}
+                    <tr>
+                        <td>{{ panorama.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y à HH:mm') }}</td>
+                        <td>{{ panorama.panorama.text }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

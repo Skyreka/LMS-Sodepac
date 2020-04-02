@@ -19,6 +19,25 @@ class PanoramaUserRepository extends ServiceEntityRepository
         parent::__construct($registry, PanoramaUser::class);
     }
 
+    /**
+     * @param $year
+     * @param $customer
+     * @return mixed
+     */
+    public function findAllByYearAndCustomer($year, $customer)
+    {
+
+        return $this->createQueryBuilder('b')
+            ->where('year(b.display_at) = :year')
+            ->andWhere('b.customers = :customer')
+            ->setParameter('year', $year)
+            ->setParameter('customer', $customer)
+            ->orderBy('b.display_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return PanoramaUser[] Returns an array of PanoramaUser objects
     //  */
