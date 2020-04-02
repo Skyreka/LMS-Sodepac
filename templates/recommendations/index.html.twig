@@ -38,12 +38,15 @@
                                     <th>Culture</th>
                                     <th>Status</th>
                                     <th>Crée le</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for recommendation in recommendations %}
                                     <tr>
-                                        <td>{{ recommendation.id }}</td>
+                                        <td>
+                                            <a href="{{ path('recommendations.synthese', {id: recommendation.id}) }}">{{ recommendation.id }}</a>
+                                        </td>
                                         <td>
                                             <a href="">
                                                 <h6>{{ recommendation.exploitation.users.identity }}</h6><small class="text-muted">{{ recommendation.exploitation.users.email }}</small>
@@ -62,6 +65,21 @@
                                         <td>
                                             {{ recommendation.createAt | date('d M Y H:i') }}
                                         </td>
+                                        <td style="display: flex">
+                                            <form method="POST" action="{{ path('recommendations.delete', {'id': recommendation.id}) }}">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recommendation.id) }}">
+                                                <button class="btn btn-danger">Supprimer</button>
+                                            </form>
+                                            {% if( recommendation.status == 2 ) %}
+                                                <form method="POST" action="{{ path('recommendations.send', {id: recommendation.id}) }}">
+                                                    <input type="hidden" name="_method" value="SEND">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('send') }}">
+                                                    <button class="btn btn-primary ml-3">Renvoyer</button>
+                                                </form>
+                                            {% endif %}
+                                        </td>
+
                                     </tr>
                                 {% endfor %}
                                 </tbody>

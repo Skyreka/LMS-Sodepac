@@ -172,12 +172,28 @@ class RecommendationsController extends AbstractController
      */
     public function deleteProduct( RecommendationProducts $product, Request $request )
     {
-        if ($this->isCsrfTokenValid('delete', $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))) {
             $this->em->remove( $product );
             $this->em->flush();
             $this->addFlash('success', 'Produit supprimé avec succès');
         }
         return $this->redirectToRoute('recommendations.synthese.products', ['id' => $product->getRecommendation()->getId()]);
+    }
+
+    /**
+     * @Route("recommendations/{id}/delete", name="recommendations.delete", methods={"DELETE"})
+     * @param Recommendations $recommendation
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete( Recommendations $recommendation, Request $request )
+    {
+        if ($this->isCsrfTokenValid('delete' . $recommendation->getId(), $request->get('_token' ))) {
+            $this->em->remove( $recommendation );
+            $this->em->flush();
+            $this->addFlash('success', 'Recommendation supprimé avec succès');
+        }
+        return $this->redirectToRoute('recommendations.index');
     }
 
     /**
@@ -317,12 +333,16 @@ class RecommendationsController extends AbstractController
             ;
             $mailer->send($message);
 
-            //TODO: DELETE FILE AFTER SEND
+            // Delete File
+            /*
+            $fileSystem = new Filesystem();
+            $fileSystem->remove(['uploads/recommendations/'.$fileName]);
+            */
 
             $this->em->flush();
             $this->addFlash('success', 'Recommendation envoyé avec succès');
         }
-        return $this->redirectToRoute('login.success');
+        return $this->redirectToRoute('recommendations.index');
     }
 
     /**

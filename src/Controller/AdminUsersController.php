@@ -128,7 +128,7 @@ class AdminUsersController extends AbstractController {
      */
     public function delete(Users $user, Request $request)
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token' ))) {
             $this->em->remove($user);
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur supprimé avec succès');
