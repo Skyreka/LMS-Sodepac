@@ -5,32 +5,33 @@
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">Compte Administrateur</li>
                     <li>
-                        <a class="waves-effect waves-dark" href="{{ path('admin.users.index') }}" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu"> Comptes Client</span></a>
-                        <a class="waves-effect waves-dark" href="{{ path('indexs.index') }}" aria-expanded="false"><i class="fas fa-folder"></i><span class="hide-menu"> Indexs</span></a>
-                        <a class="waves-effect waves-dark" href="{{ path('admin.bsv.index') }}" aria-expanded="false"><i class="fas fa-cogs"></i><span class="hide-menu"> BSV</span></a>
-                        <a class="waves-effect waves-dark" href="{{ path('panoramas.index') }}" aria-expanded="false"><i class="fas fa-info"></i><span class="hide-menu"> Panoramas</span></a>
-                        <a class="waves-effect waves-dark" href="{{ path('recommendations.index') }}" aria-expanded="false"><i class="fas fa-thumbs-up"></i><span class="hide-menu"> Recommendation</span></a>
+                        <a class="waves-effect waves-dark" href="{{ path('admin.users.index') }}"><i class="fas fa-users"></i><span class="hide-menu"> Comptes Client</span></a>
+                        <a class="waves-effect waves-dark" href="{{ path('indexs.index') }}"><i class="fas fa-folder"></i><span class="hide-menu"> Indexs</span></a>
+                        <a class="waves-effect waves-dark" href="{{ path('admin.bsv.index') }}"><i class="fas fa-cogs"></i><span class="hide-menu"> BSV</span></a>
+                        <a class="waves-effect waves-dark" href="{{ path('panoramas.index') }}"><i class="fas fa-info"></i><span class="hide-menu"> Panoramas</span></a>
+                        <a class="waves-effect waves-dark" href="{{ path('recommendations.index') }}"><i class="fas fa-thumbs-up"></i><span class="hide-menu"> Recommendation</span></a>
                     </li>
                 </ul>
             {% endif %}
             {% if app.user.status == 'ROLE_TECHNICIAN' %}
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">Compte Technicien</li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('technician.customers.index') }}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Compte Client </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('panoramas.index') }}" aria-expanded="false"><i class="fas fa-info"></i><span class="hide-menu">Panoramas </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('recommendations.index') }}" aria-expanded="false"><i class="fas fa-thumbs-up"></i><span class="hide-menu"> Recommendation</span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('technician.customers.index') }}"><i class="fa fa-users"></i><span class="hide-menu">Compte Client </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('panoramas.index') }}"><i class="fas fa-info"></i><span class="hide-menu">Panoramas </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('recommendations.index') }}"><i class="fas fa-thumbs-up"></i><span class="hide-menu"> Recommendation</span></a></li>
                 </ul>
             {% endif %}
             {% if app.user.status == 'ROLE_USER' %}
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">Compte Utilisateur</li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('home') }}" aria-expanded="false"><i class="fa fa-home"></i><span class="hide-menu">Accueil </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('cultures.index') }}" aria-expanded="false"><i class="fa fa-list"></i><span class="hide-menu">Vos Cultures </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('home') }}"><i class="fa fa-home"></i><span class="hide-menu">Accueil </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('ilots.index') }}"><i class="fa fa-list"></i><span class="hide-menu">Vos Ilots </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('cultures.index') }}"><i class="mdi mdi-flower"></i><span class="hide-menu">Vos Cultures </span></a></li>
                     <li class="nav-devider"></li>
                     <li class="nav-small-cap">Mon Exploitation</li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('exploitation.stock.index') }}" aria-expanded="false"><i class="fa fa-boxes"></i><span class="hide-menu">Gestion des stocks </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('exploitation.irrigation.index') }}" aria-expanded="false"><i class="fa fa-tint"></i><span class="hide-menu">Irrigations </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('exploitation.analyse.index') }}" aria-expanded="false"><i class="fa fa-vial"></i><span class="hide-menu">Analyses </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('exploitation.stock.index') }}"><i class="fa fa-boxes"></i><span class="hide-menu">Gestion des stocks </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('exploitation.irrigation.index') }}"><i class="fa fa-tint"></i><span class="hide-menu">Irrigations </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('exploitation.analyse.index') }}"><i class="fa fa-vial"></i><span class="hide-menu">Analyses </span></a></li>
                 </ul>
             {% endif %}
         </nav>
