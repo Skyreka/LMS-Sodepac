@@ -8,7 +8,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Tests\DefaultResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -34,6 +33,12 @@ class SecurityController extends AbstractController {
      */
     public function postLoginRedirection()
     {
+        if (date('H' > 18) OR date('H' < 7)) {
+            $this->addFlash('success', 'Bonsoir, '. $this->getUser()->getIdentity());
+        } else {
+            $this->addFlash('success', 'Bonjour, '. $this->getUser()->getIdentity());
+        }
+        // Redirection User By Status
         switch ($this->getUser()->getStatus())
         {
             case 'ROLE_USER':
