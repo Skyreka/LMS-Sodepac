@@ -28,6 +28,11 @@ class Products
      */
     private $stocks;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -84,5 +89,17 @@ class Products
     public function __toString():string
     {
         return $this->getId();
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
