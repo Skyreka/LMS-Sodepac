@@ -16,12 +16,9 @@
             {% if app.user.status == 'ROLE_TECHNICIAN' %}
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">Compte Technicien</li>
-                    <li>
-                        <a class="waves-effect waves-dark" href="{{ path('technician.customers.index') }}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Compte Client </span></a>
-                    </li>
-                    <li>
-                        <a class="waves-effect waves-dark" href="{{ path('panoramas.index') }}" aria-expanded="false"><i class="fas fa-info"></i><span class="hide-menu">Panoramas </span></a>
-                    </li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('technician.customers.index') }}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Compte Client </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('panoramas.index') }}" aria-expanded="false"><i class="fas fa-info"></i><span class="hide-menu">Panoramas </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('recommendations.index') }}" aria-expanded="false"><i class="fas fa-thumbs-up"></i><span class="hide-menu"> Recommendation</span></a></li>
                 </ul>
             {% endif %}
             {% if app.user.status == 'ROLE_USER' %}

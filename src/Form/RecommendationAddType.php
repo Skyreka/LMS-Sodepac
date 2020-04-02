@@ -26,13 +26,27 @@ class RecommendationAddType extends AbstractType
                 'class' => Users::class,
                 'label' => 'Sélection du client',
                 'choice_label' => function(Users $user) {
-                    return $user->getIdentity().' ('.$user->getExploitation()->getSize().'ha)';
+                    //-- If user don't have Exploitation
+                    if ($user->getExploitation()) {
+                        return $user->getIdentity().' ('.$user->getExploitation()->getSize().'ha)';
+                    }
+                    return $user->getIdentity();
                 },
-                'query_builder' => function(UsersRepository $usersRepository) {
-                    return $usersRepository->createQueryBuilder('u')
-                        ->leftJoin(Exploitation::class, 'e', 'WITH', 'e.users = u.id')
-                        ->where('u.status = :status')
-                        ->setParameter('status', 'ROLE_USER');
+                'query_builder' => function(UsersRepository $usersRepository) use ( $options ) {
+                    //-- Get User of Technician only
+                    if ( $options['user']->getStatus() === 'ROLE_TECHNICIAN' ) {
+                        return $usersRepository->createQueryBuilder('u')
+                            ->leftJoin(Exploitation::class, 'e', 'WITH', 'e.users = u.id')
+                            ->where('u.status = :status')
+                            ->andWhere('u.technician = :tech')
+                            ->setParameter('status', 'ROLE_USER')
+                            ->setParameter('tech', $options['user']);
+                    } else {
+                        return $usersRepository->createQueryBuilder('u')
+                            ->leftJoin(Exploitation::class, 'e', 'WITH', 'e.users = u.id')
+                            ->where('u.status = :status')
+                            ->setParameter('status', 'ROLE_USER');
+                    }
                 },
                 'placeholder' => 'Selectionner un utilisateur'
             ])
@@ -59,6 +73,7 @@ class RecommendationAddType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Recommendations::class,
+            'user' => null
         ]);
     }
 

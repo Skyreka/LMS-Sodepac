@@ -14,8 +14,8 @@ use App\Repository\RecommendationProductsRepository;
 use App\Repository\RecommendationsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -56,7 +56,7 @@ class RecommendationsController extends AbstractController
     public function select( Request $request ): Response
     {
         $recommendation = new Recommendations();
-        $form = $this->createForm( RecommendationAddType::class, $recommendation);
+        $form = $this->createForm( RecommendationAddType::class, $recommendation, [ 'user' => $this->getUser() ]);
         $form->handleRequest( $request );
 
 
@@ -168,7 +168,7 @@ class RecommendationsController extends AbstractController
      * @Route("recommendations/product/{id}/delete", name="recommendations.delete.product", methods={"DELETE"})
      * @param RecommendationProducts $product
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteProduct( RecommendationProducts $product, Request $request )
     {
@@ -184,7 +184,7 @@ class RecommendationsController extends AbstractController
      * @Route("recommendations/{id}/delete", name="recommendations.delete", methods={"DELETE"})
      * @param Recommendations $recommendation
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete( Recommendations $recommendation, Request $request )
     {
@@ -352,8 +352,15 @@ class RecommendationsController extends AbstractController
      */
     public function index( RecommendationsRepository $rr): Response
     {
-        return $this->render('recommendations/index.html.twig', [
-            'recommendations' => $rr->findAll()
-        ]);
+        //-- If user is technician get recommendation of user of technician
+        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
+            return $this->render('recommendations/index.html.twig', [
+                'recommendations' => $rr->findByExploitationOfTechnician( $this->getUser() )
+            ]);
+        } else {
+            return $this->render('recommendations/index.html.twig', [
+                'recommendations' => $rr->findAll()
+            ]);
+        }
     }
 }

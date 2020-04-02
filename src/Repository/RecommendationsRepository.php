@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Exploitation;
 use App\Entity\Recommendations;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -17,6 +19,18 @@ class RecommendationsRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Recommendations::class);
+    }
+
+    public function findByExploitationOfTechnician( $technician )
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin( Exploitation::class,'e','WITH', 'r.exploitation = e.id' )
+            ->leftJoin( Users::class, 'u', 'WITH', 'e.users = u.id')
+            ->where('u.technician = :tech')
+            ->setParameter('tech', $technician )
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

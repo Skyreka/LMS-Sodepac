@@ -66,7 +66,7 @@ class TechnicianCustomersController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //: Setters
-            $user->setTechnician( $this->getUser()->getId() );
+            $user->setTechnician( $this->getUser() );
             $user->setStatus( 'ROLE_USER' );
 
             //: Update
