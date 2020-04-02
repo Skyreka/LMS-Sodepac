@@ -84,11 +84,6 @@ class Users implements UserInterface, \Serializable
     private $certification_phyto;
 
     /**
-     * @ORM\Column(type="string", length=11, nullable=true)
-     */
-    private $technician;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Exploitation", mappedBy="users", cascade={"persist", "remove"})
      */
     private $exploitation;
@@ -102,6 +97,11 @@ class Users implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="App\Entity\PanoramaUser", mappedBy="customers", orphanRemoval=true)
      */
     private $panoramas;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users")
+     */
+    private $technician;
 
     public function __construct()
     {
@@ -199,18 +199,6 @@ class Users implements UserInterface, \Serializable
     public function setStatus(string $status): self
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    public function getTechnician(): ?string
-    {
-        return $this->technician;
-    }
-
-    public function setTechnician($technician): self
-    {
-        $this->technician = $technician;
 
         return $this;
     }
@@ -386,6 +374,18 @@ class Users implements UserInterface, \Serializable
                 $panorama->setCustomers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTechnician(): ?self
+    {
+        return $this->technician;
+    }
+
+    public function setTechnician(?self $technician): self
+    {
+        $this->technician = $technician;
 
         return $this;
     }
