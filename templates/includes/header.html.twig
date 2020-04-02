@@ -22,9 +22,18 @@
                     <div class="dropdown-menu dropdown-menu-right scale-up">
                         <ul class="dropdown-user">
                             <li>
+                                <div class="dw-user-box">
+                                    <div class="u-text">
+                                        <h4>{{ app.user.identity}}</h4>
+                                        <p class="text-muted">{{ app.user.email }}</p>
+                                </div>
+                            </li>
+                            <li><a href="{{ path('account') }}"><i class="ti-user"></i> Mes infos</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>
                                 <div class="dw-user-box center">
                                     <div class="u-text center">
-                                        <h4>Test</h4>
+                                        <h4>Exploitation</h4>
                                     </div>
                                     <div class="u-text center">
                                         <p>Espace restant : 0 Ha</p>
