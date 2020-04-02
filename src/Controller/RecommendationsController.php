@@ -86,10 +86,15 @@ class RecommendationsController extends AbstractController
      */
     public function canevas( Recommendations $recommendations, IndexCultures $indexCultures ): Response
     {
-        return $this->render('recommendations/canevas/'.$indexCultures->getSlug().'.html.twig', [
-            'recommendations' => $recommendations,
-            'culture' => $indexCultures
-        ]);
+        if (file_exists( 'recommendations/canevas/'.$indexCultures->getSlug().'.html.twig' )) {
+            return $this->render('recommendations/canevas/'.$indexCultures->getSlug().'.html.twig', [
+                'recommendations' => $recommendations,
+                'culture' => $indexCultures
+            ]);
+        } else {
+            $this->addFlash('error', 'Aucun canevas existant pour cette culture');
+            return $this->redirectToRoute('recommendations.index' );
+        }
     }
 
     /**
