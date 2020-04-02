@@ -30,7 +30,7 @@ class AnalyseController extends AbstractController
 
     public function index(AnalyseRepository $analyseRepository): Response
     {
-        $analyses = $analyseRepository->findByUser( $this->getUser() );
+        $analyses = $analyseRepository->findByExploitation( $this->getUser()->getExploitation() );
         return $this->render('exploitation/analyse/index.html.twig', [
             'analyses' => $analyses
         ]);
