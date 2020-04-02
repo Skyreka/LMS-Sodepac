@@ -32,6 +32,16 @@ class ProductsRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findProductBySlug( $slug )
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     public function findByStocks( $exploitation )
     {
         return $this->createQueryBuilder('p')

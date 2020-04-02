@@ -45,9 +45,11 @@
                                             <td>{{ product.dose }}</td>
                                             <td>{{ product.unit }}</td>
                                             <td class="text-nowrap">
-                                                <a href="#" data-toggle="tooltip" data-original-title="Close">
-                                                    <i class="fas fa-window-close text-danger"></i>
-                                                </a>
+                                                <form method="POST" action="{{ path('recommendations.delete.product', {'id': product.id}) }}">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                                                    <button class="btn btn-danger">Supprimer</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     {% endfor %}

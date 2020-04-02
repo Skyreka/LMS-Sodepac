@@ -86,7 +86,7 @@ class RecommendationsController extends AbstractController
      */
     public function canevas( Recommendations $recommendations, IndexCultures $indexCultures ): Response
     {
-        if (file_exists( 'recommendations/canevas/'.$indexCultures->getSlug().'.html.twig' )) {
+        if ( $this->get('twig')->getLoader()->exists( 'recommendations/canevas/'.$indexCultures->getSlug().'.html.twig' ) ) {
             return $this->render('recommendations/canevas/'.$indexCultures->getSlug().'.html.twig', [
                 'recommendations' => $recommendations,
                 'culture' => $indexCultures
@@ -111,7 +111,7 @@ class RecommendationsController extends AbstractController
     public function canevasAddProduct( Request $request, ProductsRepository $pr, RecommendationsRepository $rr, CulturesRepository $cr )
     {
         if ($request->isXmlHttpRequest()) {
-            $product = $pr->find( $request->get('product_id'));
+            $product = $pr->findProductBySlug( $request->get('product_slug') );
             $recommendation = $rr->find( $request->get('recommendation_id'));
             $cultureTotal = $cr->countSizeByIndexCulture( $recommendation->getCulture(), $recommendation->getExploitation() );
             //-- SETTERS
@@ -162,6 +162,22 @@ class RecommendationsController extends AbstractController
             'recommendations' => $recommendations,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("recommendations/product/{id}/delete", name="recommendations.delete.product", methods={"DELETE"})
+     * @param RecommendationProducts $product
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteProduct( RecommendationProducts $product, Request $request )
+    {
+        if ($this->isCsrfTokenValid('delete', $request->get('_token'))) {
+            $this->em->remove( $product );
+            $this->em->flush();
+            $this->addFlash('success', 'Produit supprimé avec succès');
+        }
+        return $this->redirectToRoute('recommendations.synthese.products', ['id' => $product->getRecommendation()->getId()]);
     }
 
     /**
@@ -219,7 +235,7 @@ class RecommendationsController extends AbstractController
     public function syntheseProducts( Recommendations $recommendations )
     {
         $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-        return $this->render( 'recommendations/syntheseProducts.html.twig', [
+        return $this->render( 'recommendations/listProducts.html.twig', [
             'recommendations' => $recommendations,
             'products' => $products
         ]);
