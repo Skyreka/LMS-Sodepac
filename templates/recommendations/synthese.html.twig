@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Synthese - Recommendation{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.index') }}">Recommendation</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.exploitation.users.identity }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.culture.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Produits</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Synthese</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <h4 class="card-title">Liste des produits</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped no-wrap" id="edit-table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nom du produit</th>
+                                    <th>Dosage</th>
+                                    <th>Surface</th>
+                                    <th>Quantité Totale</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for product in products %}
+                                        <tr>
+                                            <td>{{ product.id }}</td>
+                                            <td>{{ product.product.name }}</td>
+                                            <td>{{ product.dose }} <small>{{ product.unit }}</small></td>
+                                            <td>{{ cultureTotal }} <small>ha</small></td>
+                                            <td>{{ product.dose * cultureTotal }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <form method="POST" action="{{ path('recommendations.send', {id: recommendations.id}) }}">
+                    <input type="hidden" name="_method" value="SEND">
+                    <input type="hidden" name="_token" value="{{ csrf_token('send') }}">
+                    <button class="btn btn-success float-right">Envoyer la recommendation</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <div class="card"> <img src="{{ asset('images/background/field.jpg') }}" alt="Card image cap" class="w-100 rounded-top">
+                    <div class="card-body little-profile text-center">
+                        <div class="pro-img"><img src="{{ asset('images/user.png') }}" alt="user" class="rounded-circle shadow-sm"></div>
+                        <h3 class="mb-0">{{ customer.identity }}</h3>
+                        <p><span class="badge badge-success px-2 py-1">{{ customer.status }}</span></p>
+                        <p>Exploitation de <span class="badge badge-warning px-2 py-1">{{ customer.exploitation.size }} ha</span></p>
+                        <div class="row text-center mt-3 pt-1">
+                            <div class="col-12 mt-4">
+                                <h6 class="mb-0 font-weight-light">{{ customer.phone }}</h6><small>Téléphone</small>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <h6 class="mb-0 font-weight-light">{{ customer.email }}</h6><small>E-mail</small>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <h6 class="mb-0 font-weight-light">{{ customer.city }}</h6><small>Ville</small>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <h6 class="mb-0 font-weight-light">{{ customer.certificationPhyto }}</h6><small>Certification</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>
+    <script>
+        $('#edit-table').Tabledit({
+            url: '/recommendations/edit-total-quantity',
+            editButton: false,
+            hideIdentifier: true,
+            columns: {
+                identifier: [0, 'id'],
+                editable: [[4, 'quantity']]
+            }
+        });
+    </script>
+{% endblock %}

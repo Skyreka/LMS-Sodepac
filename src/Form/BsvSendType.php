@@ -55,7 +55,6 @@ class BsvSendType extends AbstractType
         $builder->addEventListener(
             FormEvents::POST_SET_DATA,
             function (FormEvent $event) {
-                $data = $event->getData();
                 $form = $event->getForm();
                 $this->addUserField( $form, null );
             }
@@ -80,7 +79,7 @@ class BsvSendType extends AbstractType
             $form->add('user', EntityType::class, [
                 'class' => Users::class,
                 'choice_label' => function(Users $user) {
-                    return $user->getFirstname() . ' ' . $user->getLastname();
+                    return $user->getIdentity();
                 },
                 'query_builder' => function (UsersRepository $er) use ( $indexCultures ) {
                     return $er->createQueryBuilder('u')

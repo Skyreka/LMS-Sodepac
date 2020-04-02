@@ -1,0 +1,55 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Skyreka">
+    <title>{% block title %}Page{% endblock %} - LMS Sodepac</title>
+    <link href="{{ absolute_url( asset('plugins/bootstrap/css/bootstrap.min.css') ) }}" rel="stylesheet">
+    <style>
+        .footer {
+            position: fixed;
+            height: 50px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-body little-profile center">
+        <h3 class="mb-0">{{ customer.identity }}</h3>
+        <p>{{ recommendations.culture.name }}</span></p>
+        <p>{{ customer.certificationPhyto }}</span></p>
+    </div>
+    <h4 class="card-title text-center">Synthese des produits choisis</h4>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped no-wrap" id="edit-table">
+                    <thead>
+                    <tr>
+                        <th>Nom du produit</th>
+                        <th>Dosage</th>
+                        <th>Surface</th>
+                        <th>Quantité Totale</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.product.name }}</td>
+                            <td>{{ product.dose }} <small>{{ product.unit }}</small></td>
+                            <td>{{ cultureTotal }} <small>ha</small></td>
+                            <td>{{ product.quantity }} <small>ha</small></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <small class="footer">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </small>
+</body>

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Cultures;
+use App\Entity\Exploitation;
 use App\Entity\Ilots;
 use App\Entity\IndexCultures;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -31,6 +32,7 @@ class CulturesRepository extends ServiceEntityRepository
      */
     public function countAvailableSizeCulture( $ilot )
     {
+        //TODO: Catch ?
         try {
             $totalSize = $this->createQueryBuilder('t')
                 ->select('SUM(t.size)')
@@ -45,6 +47,36 @@ class CulturesRepository extends ServiceEntityRepository
         $ilotSize = $ilot->getSize();
 
         return $ilotSize - $totalSize;
+    }
+
+    /**
+     * @param IndexCultures $culture
+     * @param Exploitation $exploitation
+     * @return mixed
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countSizeByIndexCulture(IndexCultures $culture, Exploitation $exploitation )
+    {
+        //TODO: Catch ?
+        return $this->createQueryBuilder('c')
+            ->select('SUM(c.size)')
+            ->where('c.name = :name')
+            ->setParameter('name', $culture)
+            ->leftJoin(Ilots::class, 'i', 'WITH', 'i.id = c.ilot')
+            ->andWhere( 'i.exploitation = :exploitation' )
+            ->setParameter( 'exploitation', $exploitation )
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findCultureByExploitation( $exploitation )
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin(Ilots::class, 'i', 'WITH', 'i.id = c.ilot')
+            ->where('i.exploitation = :exploitation')
+            ->setParameter('exploitation', $exploitation)
+            ;
     }
 
     // /**

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'un produit{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">Recommendation</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.exploitation.users.identity }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.culture.name }}</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Ajout d'un produit</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="card-title">Ajouter un produit</h4>
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            {{ form_rest(form) }}
+                            <button class="btn btn-primary">Ajouter</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on('change', '#recommendation_add_product_product', function () {
+            let $field = $(this)
+            let $form = $field.closest('form')
+            let data = {}
+            data[$field.attr('name')] = $field.val()
+            $.post($form.attr('action'), data).then(function (data) {
+                let $input = $(data).find('#recommendation_add_product_doses')
+                $('#recommendation_add_product_doses').replaceWith($input)
+            })
+        })
+        $(document).on('change', '#recommendation_add_product_doses', function () {
+            let $field = $(this)
+            let $product = $('#recommendation_add_product_product')
+            let form = $field.closest('form')
+            let data = {}
+            data[$product.attr('name')] =  $product.val()
+            data[$field.attr('name')] =  $field.val()
+            $.post(form.attr('action'), data).then(function (data) {
+                let input = $(data).find('form')
+                $(form).replaceWith( input )
+            })
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $('.select2').select2();
+        $(document).on('change', '#stock_add_product_category', function () {
+            let $field = $(this)
+            let $form = $field.closest('form')
+            let data = {}
+            data[$field.attr('name')] = $field.val()
+            $.post($form.attr('action'), data).then(function (data) {
+                let $input = $(data).find('.form-group')
+                let $button = $(data).find('.btn')
+                $($form).html( $input )
+                $($form).append( $button )
+            })
+        })
+    </script>
+{% endblock %}

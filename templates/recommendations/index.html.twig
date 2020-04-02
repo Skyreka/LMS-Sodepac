@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recommendation{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ path('recommendations.index') }}">Recommendation</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Listes des recommendations</h4>
+                            <div class="ml-auto">
+                                <a href="{{ path('recommendations.select') }}" class="btn btn-success">Ajouter une recommendation</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Exploitation</th>
+                                    <th>Culture</th>
+                                    <th>Status</th>
+                                    <th>Crée le</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for recommendation in recommendations %}
+                                    <tr>
+                                        <td>{{ recommendation.id }}</td>
+                                        <td>
+                                            <a href="">
+                                                <h6>{{ recommendation.exploitation.users.identity }}</h6><small class="text-muted">{{ recommendation.exploitation.users.email }}</small>
+                                            </a>
+                                        </td>
+                                        <td>{{ recommendation.culture.name }}</td>
+                                        <td>
+                                            {% if recommendation.status == 0 %}
+                                                <span class="label label-light-info">Broullion</span>
+                                            {% elseif( recommendation.status == 1 ) %}
+                                                <span class="label label-warning">Enregistré</span>
+                                            {% elseif( recommendation.status == 2 ) %}
+                                                <span class="label label-success">Envoyé</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {{ recommendation.createAt | date('d M Y H:i') }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

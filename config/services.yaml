@@ -7,6 +7,7 @@ parameters:
     locale: 'fr'
     bsv_directory: '%kernel.project_dir%/public/uploads/bsv'
     panorama_directory: '%kernel.project_dir%/public/uploads/panorama'
+    recommendation_directory: '%kernel.project_dir%/public/uploads/recommendations'
 
 services:
     # default configuration for services in *this* file

@@ -21,16 +21,23 @@ class IndexCulturesRepository extends ServiceEntityRepository
         parent::__construct($registry, IndexCultures::class);
     }
 
-    public function findCulturesByExploitation( $exploitation )
+    public function findCulturesByExploitation( $exploitation, $result = NULL )
     {
-        return $this->createQueryBuilder('q')
+        $query = $this->createQueryBuilder('q')
             ->leftJoin( Cultures::class, 'c', 'WITH', 'q.id = c.name')
             ->leftJoin(Ilots::class, 'i', 'WITH', 'c.ilot = i.id')
             ->andWhere('i.exploitation = :exp')
             ->setParameter('exp', $exploitation)
-            ->getQuery()
-            ->getResult()
         ;
+
+        //-- Only Query
+        if ($result) {
+            return $query;
+        }
+
+        //-- Return Array
+        return $query->getQuery()
+            ->getResult();
     }
 
     // /**
