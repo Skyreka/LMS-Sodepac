@@ -45,14 +45,14 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        $(document).on('click', 'a.history', function (event) {
+        $('a.history').on('click', function (event) {
             event.preventDefault();
-            let $field = $(this)
-            let url = $field.attr('href')
+            let $field = $(this);
+            let url = $field.attr('href');
             $.post(url).then(function (data) {
-                let content = $('#insert-table')
-                content.empty()
-                content.append( data )
+                let content = $('#insert-table');
+                content.empty();
+                content.append( data );
             })
         })
         var $loading = $('#loading').hide();

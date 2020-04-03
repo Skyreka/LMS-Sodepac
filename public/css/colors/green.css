@@ -36,7 +36,7 @@ File: scss
 /*Top bar
 *******************/
 .topbar {
-  background: #00acc1;
+  background: linear-gradient(to right, #99f2c8, #5d756e);
 }
 
 .topbar .top-navbar .navbar-header .navbar-brand .dark-logo {
