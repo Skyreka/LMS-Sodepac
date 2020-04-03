@@ -26,7 +26,10 @@ class CulturesNewType extends AbstractType
             ])
             ->add('name', EntityType::class, [
                 'class' => IndexCultures::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
             ->add('comments', TextType::class, [
                 'label' => 'Commentaire nom de culture'
