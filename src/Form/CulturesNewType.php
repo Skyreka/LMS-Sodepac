@@ -22,14 +22,15 @@ class CulturesNewType extends AbstractType
             ->add('precedent', EntityType::class, [
                 'class' => IndexCultures::class,
                 'choice_label' => 'name',
-                'label' => 'Culture Précédent'
+                'label' => 'Culture Précédente'
             ])
             ->add('name', EntityType::class, [
                 'class' => IndexCultures::class,
                 'choice_label' => 'name',
                 'attr' => [
                     'class' => 'select2'
-                ]
+                ],
+                'label' => 'Nom de la culture'
             ])
             ->add('comments', TextType::class, [
                 'label' => 'Commentaire nom de culture'
