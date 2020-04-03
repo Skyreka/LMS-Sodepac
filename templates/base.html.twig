@@ -39,6 +39,16 @@
         <!-- App -->
         <script src="{{ asset('js/sodepac.js') }}"></script>
         <!-- Custom Page Script -->
+        <script>
+            $(function()
+            {
+                $('form').submit(function(){
+                    $("button", this)
+                        .attr('disabled', 'disabled');
+                    return true;
+                });
+            });
+        </script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
