@@ -113,4 +113,16 @@ class IlotsController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("ilots", name="ilots.index")
+     * @param IlotsRepository $ir
+     * @return Response
+     */
+    public function index( IlotsRepository $ir): Response
+    {
+        return $this->render('ilots/index.html.twig', [
+            'ilots' => $ir->findBy( ['exploitation' => $this->getUser()->getExploitation() ] )
+        ]);
+    }
 }

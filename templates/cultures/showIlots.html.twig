@@ -18,26 +18,7 @@
             <div class="alert alert-success">{{ message }}</div>
         {% endfor %}
         <div class="row">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body little-profile text-center">
-                        <h3 class="m-b-0">{{ app.user.firstname }} {{ app.user.lastname }}</h3>
-                        <div class="row text-center m-t-20">
-                            <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">1099</h3><small>Ilots</small>
-                            </div>
-                            <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">23,469</h3><small>Cultures</small>
-                            </div>
-                            <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">{{ app.user.exploitation.size }} ha</h3><small>Exploitation</small>
-                            </div>
-                            <div class="col-md-12 m-b-10"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
@@ -64,5 +45,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
