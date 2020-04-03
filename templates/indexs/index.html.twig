@@ -54,7 +54,8 @@
                         </div>
                     </div>
                 </div>
-            </div><div class="col-lg-4">
+            </div>
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
@@ -75,6 +76,36 @@
                                     <tr>
                                         <td>
                                             <h6>{{ effluent.name }}</h6>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Types de sol</h4>
+                            <div class="ml-auto">
+                                <a href="{{ path('indexs.grounds.new') }}" class="btn btn-success">Ajouter</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for ground in grounds %}
+                                    <tr>
+                                        <td>
+                                            <h6>{{ ground.name }}</h6>
                                         </td>
                                     </tr>
                                 {% endfor %}
