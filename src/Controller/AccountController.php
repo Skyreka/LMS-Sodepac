@@ -66,6 +66,7 @@ class AccountController extends AbstractController {
     public function password(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
+
         if (!$user) {
             throw $this->createNotFoundException('Utilisateur introuvable.');
         }

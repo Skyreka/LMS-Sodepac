@@ -1,5 +1,9 @@
 <aside class="left-sidebar">
     <div class="scroll-sidebar">
+        <div class="user-profile" style="background: url({{ asset('images/background/field.jpg')}}) no-repeat;">
+            <div class="profile-img"> <img src="{{ asset('images/user.png') }}" alt="user" /> </div>
+            <div class="profile-text"> <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ app.user.identity }}</a></div>
+        </div>
         <nav class="sidebar-nav">
             {% if app.user.status == 'ROLE_ADMIN' %}
                 <ul id="sidebarnav">
@@ -36,5 +40,10 @@
                 </ul>
             {% endif %}
         </nav>
+    </div>
+    <div class="sidebar-footer">
+        <a href="{{ path('account') }}" class="link" data-toggle="tooltip" title="Parametres"><i class="ti-settings"></i></a>
+        <a href="{{ path('account.password') }}" class="link" data-toggle="tooltip" title="Mot de passe"><i class="mdi mdi-key"></i></a>
+        <a href="{{ path('logout') }}" class="link" data-toggle="tooltip" title="Déconnexion"><i class="mdi mdi-power"></i></a>
     </div>
 </aside>
