@@ -17,6 +17,7 @@ class PasswordType extends AbstractType
                 'type' => \Symfony\Component\Form\Extension\Core\Type\PasswordType::class,
                 'first_options'  => array('label' => 'Votre mot de passe'),
                 'second_options' => array('label' => 'Confirmation de mot de passe'),
+                'invalid_message' => 'Les 2 mots de passe ne sont pas identiques.',
             ))
         ;
     }
