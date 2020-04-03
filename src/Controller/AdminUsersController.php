@@ -95,7 +95,8 @@ class AdminUsersController extends AbstractController {
             $this->em->flush();
 
             //Send Email to user
-            $link = 'http://127.0.0.1:8000/active_user/'.$user->getId();
+            $pathInfo = '/active_user/'.$user->getId();
+            $link = $request->getUriForPath($pathInfo);
             $message = (new \Swift_Message('Votre compte LMS Sodepac est maintenant disponible.'))
                 ->setFrom('send@lms-sodepac.fr')
                 ->setTo( $user->getEmail() )
