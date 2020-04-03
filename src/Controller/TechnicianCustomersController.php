@@ -125,11 +125,11 @@ class TechnicianCustomersController extends AbstractController
     }
 
     /**
-     * @Route("technician/customers/new/exploitation/{id}", name="technician.customers.new.exploitation")
-     * @param Users $user
-     * @param Request $request
-     * @return Response
-     */
+ * @Route("technician/customers/new/exploitation/{id}", name="technician.customers.new.exploitation")
+ * @param Users $user
+ * @param Request $request
+ * @return Response
+ */
     public function newExploitation(Users $user, Request $request): Response
     {
         $exploitation = new Exploitation();
@@ -146,6 +146,29 @@ class TechnicianCustomersController extends AbstractController
         }
 
         return $this->render('technician/customers/exploitation.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("technician/customers/edit/exploitation/{id}", name="technician.customers.edit.exploitation")
+     * @param Exploitation $exploitation
+     * @param Request $request
+     * @return Response
+     */
+    public function editExploitation(Exploitation $exploitation, Request $request): Response
+    {
+        $form = $this->createForm(ExploitationType::class, $exploitation);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist( $exploitation );
+            $this->em->flush();
+            $this->addFlash('success', 'Exploitation modifiée avec succès');
+            return $this->redirectToRoute( 'technician.customers.index' );
+        }
+
+        return $this->render('technician/customers/size.html.twig', [
             'form' => $form->createView()
         ]);
     }
