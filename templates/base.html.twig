@@ -27,6 +27,16 @@
         <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
         <script src="{{ asset('js/waves.js') }}"></script>
+        <script>
+            $(function()
+            {
+                $('form').submit(function(){
+                    $("button", this)
+                        .attr('disabled', 'disabled');
+                    return true;
+                });
+            });
+        </script>
         {% block javascripts %}{% endblock %}
         <script src="{{ asset('js/sidebarmenu.js') }}"></script>
         <script src="{{ asset('js/custom.min.js') }}"></script>
