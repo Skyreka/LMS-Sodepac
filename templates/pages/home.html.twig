@@ -143,7 +143,7 @@
                         <div class="d-flex no-block">
                             <h4 class="card-title">Vos Ilots</h4>
                             <div class="ml-auto">
-                                {% if app.user.exploitation is defined %}
+                                {% if app.user.exploitation is not empty %}
                                     <a href="{{ path('ilots.new') }}" class="btn btn-success">Ajouter</a>
                                 {% endif %}
                             </div>
