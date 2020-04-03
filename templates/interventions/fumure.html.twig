@@ -58,6 +58,12 @@
             $.post(form.attr('action'), data).then(function (data) {
                 let input = $(data).find('form')
                 $(form).replaceWith( input )
+                $('.js-datepicker').datepicker({
+                    weekStart:0,
+                    time: 1,
+                    format:"yyyy-mm-dd",
+                    lang:"fr"
+                });
             })
         })
     </script>
