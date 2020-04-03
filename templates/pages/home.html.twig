@@ -95,7 +95,11 @@
                                 {% for panorama in panoramas %}
                                     {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
                                         <div class="carousel-item flex-column">
-                                            <h3 class="text-white font-weight-light">{{ panorama.panorama.text }} <button class="btn btn-secondary waves-effect waves-light" type="button"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le Panorama</button></h3>
+                                            <h3 class="text-white font-weight-light">{{ panorama.panorama.text }}
+                                                {% if panorama.panorama.firstFile %}
+                                                    <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.firstFile) }}" class="btn btn-secondary waves-effect waves-light" target="_blank"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le Panorama</a>
+                                                {% endif %}
+                                            </h3>
                                             <div class="text-white mt-3">
                                                 <p class="text-white">
                                                     - L'équipe Sodepac |
