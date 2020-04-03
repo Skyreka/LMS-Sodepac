@@ -18,6 +18,9 @@
         {% for message in app.flashes('danger') %}
             <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
+        {% if app.user.exploitation is null %}
+            <div class="alert alert-info">Vous n'avez actuellement pas d'exploitation <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation</div>
+        {% endif %}
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
@@ -127,7 +130,7 @@
                                 <h3 class="m-b-0 font-light">23,469</h3><small>Cultures</small>
                             </div>
                             <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">{{ app.user.exploitation.size }} ha</h3><small>Exploitation</small>
+                                <h3 class="m-b-0 font-light">{{ app.user.exploitation.size is defined }} ha</h3><small>Exploitation</small>
                             </div>
                             <div class="col-md-12 m-b-10"></div>
                         </div>

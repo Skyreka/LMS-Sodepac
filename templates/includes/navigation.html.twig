@@ -27,11 +27,13 @@
                     <li><a class="waves-effect waves-dark" href="{{ path('home') }}"><i class="fa fa-home"></i><span class="hide-menu">Accueil </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('ilots.index') }}"><i class="fa fa-list"></i><span class="hide-menu">Vos Ilots </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('cultures.index') }}"><i class="mdi mdi-flower"></i><span class="hide-menu">Vos Cultures </span></a></li>
-                    <li class="nav-devider"></li>
-                    <li class="nav-small-cap">Mon Exploitation</li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('exploitation.stock.index') }}"><i class="fa fa-boxes"></i><span class="hide-menu">Gestion des stocks </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('exploitation.irrigation.index') }}"><i class="fa fa-tint"></i><span class="hide-menu">Irrigations </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('exploitation.analyse.index') }}"><i class="fa fa-vial"></i><span class="hide-menu">Analyses </span></a></li>
+                    {% if app.user.exploitation is not empty %}
+                        <li class="nav-devider"></li>
+                        <li class="nav-small-cap">Mon Exploitation</li>
+                        <li><a class="waves-effect waves-dark" href="{{ path('exploitation.stock.index') }}"><i class="fa fa-boxes"></i><span class="hide-menu">Gestion des stocks </span></a></li>
+                        <li><a class="waves-effect waves-dark" href="{{ path('exploitation.irrigation.index') }}"><i class="fa fa-tint"></i><span class="hide-menu">Irrigations </span></a></li>
+                        <li><a class="waves-effect waves-dark" href="{{ path('exploitation.analyse.index') }}"><i class="fa fa-vial"></i><span class="hide-menu">Analyses </span></a></li>
+                    {% endif %}
                 </ul>
             {% endif %}
         </nav>
