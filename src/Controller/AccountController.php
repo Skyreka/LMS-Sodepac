@@ -63,7 +63,7 @@ class AccountController extends AbstractController {
      * @param ObjectManager $em
      * @return Response
      */
-    public function password(Request $request, UserPasswordEncoderInterface $encoder, ObjectManager $em): Response
+    public function password(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
         if (!$user) {
@@ -75,7 +75,7 @@ class AccountController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword( $encoder->encodePassword($user, $form['password']->getData()));
-            $em->flush();
+            $this->em->flush();
             $this->addFlash('success', 'Mot de passe modifié avec succès');
             return $this->redirectToRoute('login.success');
         }
