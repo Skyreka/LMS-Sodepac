@@ -33,11 +33,6 @@ class SecurityController extends AbstractController {
      */
     public function postLoginRedirection()
     {
-        if (date('H' > 18) OR date('H' < 7)) {
-            $this->addFlash('success', 'Bonsoir, '. $this->getUser()->getIdentity());
-        } else {
-            $this->addFlash('success', 'Bonjour, '. $this->getUser()->getIdentity());
-        }
         // Redirection User By Status
         switch ($this->getUser()->getStatus())
         {

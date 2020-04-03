@@ -13,6 +13,8 @@ use App\Repository\ProductsRepository;
 use App\Repository\RecommendationProductsRepository;
 use App\Repository\RecommendationsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -105,8 +107,8 @@ class RecommendationsController extends AbstractController
      * @param RecommendationsRepository $rr
      * @param CulturesRepository $cr
      * @return JsonResponse
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function canevasAddProduct( Request $request, ProductsRepository $pr, RecommendationsRepository $rr, CulturesRepository $cr )
     {
@@ -202,8 +204,8 @@ class RecommendationsController extends AbstractController
      * @param Request $request
      * @param CulturesRepository $cr
      * @return JsonResponse
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function editDose( Request $request, CulturesRepository $cr )
     {
@@ -262,8 +264,8 @@ class RecommendationsController extends AbstractController
      * @param Recommendations $recommendations
      * @param CulturesRepository $cr
      * @return Response
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function synthese( Recommendations $recommendations, CulturesRepository $cr ): Response
     {
@@ -285,8 +287,8 @@ class RecommendationsController extends AbstractController
      * @param CulturesRepository $cr
      * @param \Swift_Mailer $mailer
      * @return Response
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function send( Recommendations $recommendations, Request $request, CulturesRepository $cr, \Swift_Mailer $mailer )
     {
@@ -350,7 +352,7 @@ class RecommendationsController extends AbstractController
      * @param RecommendationsRepository $rr
      * @return Response
      */
-    public function index( RecommendationsRepository $rr): Response
+    public function indexStaff( RecommendationsRepository $rr ): Response
     {
         //-- If user is technician get recommendation of user of technician
         if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
@@ -362,5 +364,38 @@ class RecommendationsController extends AbstractController
                 'recommendations' => $rr->findAll()
             ]);
         }
+    }
+
+    /**
+     * @Route("exploitation/recommendations", name="exploitation.recommendations.index")
+     * @param RecommendationsRepository $rr
+     * @return Response
+     */
+    public function indexUser( RecommendationsRepository $rr ): Response
+    {
+        return $this->render('exploitation/recommendations/index.html.twig', [
+            'recommendations' => $rr->findBy( ['exploitation' => $this->getUser()->getExploitation() ] )
+        ]);
+    }
+
+    /**
+     * @Route("exploitation/recommendations/{id}", name="exploitation.recommendations.show")
+     * @param Recommendations $recommendations
+     * @param CulturesRepository $cr
+     * @return Response
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function showUser( Recommendations $recommendations, CulturesRepository $cr ): Response
+    {
+        $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
+        $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
+        return $this->render('exploitation/recommendations/show.html.twig', [
+            'recommendations' => $recommendations,
+            'products' => $products,
+            'culture' => $recommendations->getCulture(),
+            'customer' => $recommendations->getExploitation()->getUsers(),
+            'cultureTotal' => $cultureTotal
+        ]);
     }
 }
