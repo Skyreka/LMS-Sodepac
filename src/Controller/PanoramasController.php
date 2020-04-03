@@ -12,6 +12,7 @@ use App\Repository\PanoramaUserRepository;
 use App\Repository\UsersRepository;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -33,7 +34,7 @@ class PanoramasController extends AbstractController
      */
     private $em;
 
-    public function __construct(PanoramasRepository $repository, ObjectManager $em)
+    public function __construct(PanoramasRepository $repository, EntityManagerInterface $em)
     {
         $this->repositoryPanoramas = $repository;
         $this->em = $em;

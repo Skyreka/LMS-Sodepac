@@ -5,6 +5,7 @@ use App\Form\PasswordType;
 use App\Form\UserType;
 use App\Repository\UsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class AccountController extends AbstractController {
      */
     private $em;
 
-    public function __construct(UsersRepository $repository, ObjectManager $em)
+    public function __construct(UsersRepository $repository, EntityManagerInterface $em)
     {
         $this->repositoryUser = $repository;
         $this->em = $em;

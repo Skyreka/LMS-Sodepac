@@ -5,6 +5,7 @@ use App\Entity\Users;
 use App\Form\UserType;
 use App\Repository\UsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,7 @@ class AdminUsersController extends AbstractController {
      */
     private $em;
 
-    public function __construct(UsersRepository $repositoryUsers, ObjectManager $em)
+    public function __construct(UsersRepository $repositoryUsers, EntityManagerInterface $em)
     {
         $this->repositoryUsers = $repositoryUsers;
         $this->em = $em;

@@ -20,6 +20,7 @@ use App\Form\SemisInterventionType;
 use App\Repository\StocksRepository;
 use App\Repository\UsedProductsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +37,7 @@ class InterventionsController extends AbstractController
      * InterventionsController constructor.
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(EntityManagerInterface $om)
     {
 
         $this->om = $om;
