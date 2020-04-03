@@ -135,7 +135,8 @@ class PhytoInterventionType extends AbstractType
                     'widget' => 'single_text',
                     'html5' => false,
                     'attr' => [
-                        'class' => 'js-datepicker'
+                        'class' => 'js-datepicker',
+                        'value' => date('Y-m-d')
                     ]
                 ])
                 ->add('addAdjuvant', CheckboxType::class, [
