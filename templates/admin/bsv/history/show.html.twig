@@ -10,19 +10,26 @@
                     <th>Date de création</th>
                     <th>Date d'envoi</th>
                     <th>Texte</th>
-                    <th>Destinataires</th>
+                    <th>Destinataire</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for key in bsv %}
                     <tr>
-                        <td>{{ key.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
-                        <td>{{ key.sendDate|localizeddate('none', 'none', null, null, 'd MMMM Y à HH:mm') }}</td>
-                        <td>{{ key.text }}</td>
+                        <td>{{ key.bsv.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                        <td>{{ key.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y à HH:mm') }}</td>
+                        <td>{{ key.bsv.text }}</td>
+                        <td>{{ key.customers.identity }}</td>
                         <td>
-                            {% for customer in key.customers %}
-                                {{ customer.customers.firstname }} {{ customer.customers.lastname }} ,
-                            {% endfor %}
+                            {% if key.bsv.firstFile %}
+                                <a href="{{ asset('uploads/bsv/' ~ key.bsv.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                            {% endif %}
+                            {% if key.bsv.secondFile %}
+                                <a href="{{ asset('uploads/panorama/' ~ key.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                            {% endif %}
+                            {% if key.bsv.thirdFile %}
+                                <a href="{{ asset('uploads/panorama/' ~ key.bsv.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

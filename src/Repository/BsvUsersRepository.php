@@ -38,6 +38,22 @@ class BsvUsersRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param $year
+     * @return mixed
+     */
+    public function findAllByYear($year)
+    {
+
+        return $this->createQueryBuilder('b')
+            ->where('year(b.display_at) = :year')
+            ->setParameter('year', $year)
+            ->orderBy('b.display_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return BsvUsers[] Returns an array of BsvUsers objects
     //  */
