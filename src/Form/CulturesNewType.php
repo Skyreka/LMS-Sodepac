@@ -44,10 +44,11 @@ class CulturesNewType extends AbstractType
                 'help' => 'En hectare | Espace restant : '. $options['max_size'] .' ha'
             ])
             ->add('bio', null, [
-                'label' => 'Culture biodégradable ?'
+                'label' => 'Culture bio ?'
             ])
             ->add('production', null, [
-                'label' => 'Culture en production ?'
+                'label' => 'Culture en production ?',
+                'attr' => array('checked' => 'checked')
             ])
             ->add('residue', null, [
                 'label' => 'Avez-vous laissé le résidu ?'
