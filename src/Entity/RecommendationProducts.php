@@ -17,12 +17,6 @@ class RecommendationProducts
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Recommendations")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $recommendation;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Products")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -48,21 +42,15 @@ class RecommendationProducts
      */
     private $quantityUnit;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Recommendations", inversedBy="recommendationProducts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $recommendation;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getRecommendation(): ?Recommendations
-    {
-        return $this->recommendation;
-    }
-
-    public function setRecommendation(?Recommendations $recommendation): self
-    {
-        $this->recommendation = $recommendation;
-
-        return $this;
     }
 
     public function getProduct(): ?Products
@@ -121,6 +109,18 @@ class RecommendationProducts
     public function setQuantityUnit(?int $quantityUnit): self
     {
         $this->quantityUnit = $quantityUnit;
+
+        return $this;
+    }
+
+    public function getRecommendation(): ?Recommendations
+    {
+        return $this->recommendation;
+    }
+
+    public function setRecommendation(?Recommendations $recommendation): self
+    {
+        $this->recommendation = $recommendation;
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Schema\Index;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,7 @@ class Recommendations
     public function __construct()
     {
         $this->setCreateAt( new \DateTime() );
+        $this->recommendationProducts = new ArrayCollection();
     }
 
     /**
@@ -49,6 +52,11 @@ class Recommendations
      * @ORM\Column(type="datetime")
      */
     private $create_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RecommendationProducts", mappedBy="recommendation", orphanRemoval=true)
+     */
+    private $recommendationProducts;
 
     public function getId(): ?int
     {
@@ -102,6 +110,37 @@ class Recommendations
     public function setCreateAt(\DateTimeInterface $create_at): self
     {
         $this->create_at = $create_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RecommendationProducts[]
+     */
+    public function getRecommendationProducts(): Collection
+    {
+        return $this->recommendationProducts;
+    }
+
+    public function addRecommendationProduct(RecommendationProducts $recommendationProduct): self
+    {
+        if (!$this->recommendationProducts->contains($recommendationProduct)) {
+            $this->recommendationProducts[] = $recommendationProduct;
+            $recommendationProduct->setRecommendation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecommendationProduct(RecommendationProducts $recommendationProduct): self
+    {
+        if ($this->recommendationProducts->contains($recommendationProduct)) {
+            $this->recommendationProducts->removeElement($recommendationProduct);
+            // set the owning side to null (unless already changed)
+            if ($recommendationProduct->getRecommendation() === $this) {
+                $recommendationProduct->setRecommendation(null);
+            }
+        }
 
         return $this;
     }

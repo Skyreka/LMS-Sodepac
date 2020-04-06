@@ -188,9 +188,11 @@ class RecommendationsController extends AbstractController
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete( Recommendations $recommendation, Request $request )
+    public function delete( Recommendations $recommendation, Request $request)
     {
         if ($this->isCsrfTokenValid('delete' . $recommendation->getId(), $request->get('_token' ))) {
+            $recommendationProducts = new RecommendationProducts();
+            $recommendation->removeRecommendationProduct( $recommendationProducts );
             $this->em->remove( $recommendation );
             $this->em->flush();
             $this->addFlash('success', 'Recommendation supprimé avec succès');
