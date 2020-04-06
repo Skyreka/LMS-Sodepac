@@ -221,7 +221,6 @@ class BsvController extends AbstractController
             $datetime = New \DateTime();
             //-- Update BSV info
             $bsv->setSendDate( $datetime );
-            $bsv->setSent(1);
             //-- Create relation
             foreach ($customers as $customer) {
                 $relation = new BsvUsers();
@@ -230,6 +229,7 @@ class BsvController extends AbstractController
                 $relation->setCustomers($customer);
                 $relation->setChecked(0);
                 if ( $displayAt !== null ) {
+                    $displayAt->setTime(8,00);
                     $relation->setDisplayAt($displayAt);
                 } else {
                     $relation->setDisplayAt($datetime);
