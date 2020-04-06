@@ -241,7 +241,7 @@ class PanoramasController extends AbstractController
      * @param Panoramas $panoramas
      * @param Request $request
      * @return Response
-     * @throws Exception
+     * @throws \Exception
      */
     public function send(Panoramas $panoramas, Request $request): Response
     {
@@ -281,14 +281,13 @@ class PanoramasController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $datetime = New DateTime();
             $data = $form->all();
-            $panoramas->setSendDate( $datetime );
-            $panoramas->setSent(1);
             foreach ($data['customers']->getData() as $customer) {
                 $displayAt = $data['display_at']->getData();
                 $relation = new PanoramaUser();
                 $this->em->persist($relation);
                 $relation->setPanorama($panoramas);
                 $relation->setCustomers($customer);
+                $relation->setSender($this->getUser());
                 if ( $displayAt !== null ) {
                     $relation->setDisplayAt($displayAt);
                 } else {
@@ -333,12 +332,18 @@ class PanoramasController extends AbstractController
 
     /**
      * @Route("/panoramas/history/{year}", name="panoramas.history.show")
+     * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response
      */
-    public function list($year): Response
+    public function list(PanoramaUserRepository $pur, $year): Response
     {
-        $panoramas = $this->repositoryPanoramas->findAllByYear($year);
+        $user = $this->getUser();
+        if ($user->getRoles() == 'ROLE_ADMIN') {
+            $panoramas = $this->repositoryPanoramas->findAllByYear($year);
+        } else {
+            $panoramas = $pur->findAllByYearAndSender($year, $this->getUser());
+        }
         return $this->render('panoramas/history/show.html.twig', [
             'panoramas' => $panoramas,
             'year' => $year

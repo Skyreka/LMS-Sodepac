@@ -38,6 +38,12 @@ class PanoramaUser
      */
     private $checked = 0;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="panoramas_sent")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sender;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +93,18 @@ class PanoramaUser
     public function setChecked(bool $checked): self
     {
         $this->checked = $checked;
+
+        return $this;
+    }
+
+    public function getSender(): ?Users
+    {
+        return $this->sender;
+    }
+
+    public function setSender(?Users $sender): self
+    {
+        $this->sender = $sender;
 
         return $this;
     }

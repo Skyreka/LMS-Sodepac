@@ -38,6 +38,25 @@ class PanoramaUserRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param $year
+     * @param $sender
+     * @return mixed
+     */
+    public function findAllByYearAndSender($year, $sender)
+    {
+
+        return $this->createQueryBuilder('b')
+            ->where('year(b.display_at) = :year')
+            ->andWhere('b.sender = :sender')
+            ->setParameter('year', $year)
+            ->setParameter('sender', $sender)
+            ->orderBy('b.display_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return PanoramaUser[] Returns an array of PanoramaUser objects
     //  */

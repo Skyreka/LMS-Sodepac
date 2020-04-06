@@ -103,10 +103,16 @@ class Users implements UserInterface, \Serializable
      */
     private $technician;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaUser", mappedBy="sender")
+     */
+    private $panoramas_sent;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
         $this->panoramas = new ArrayCollection();
+        $this->panoramas_sent = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -386,6 +392,37 @@ class Users implements UserInterface, \Serializable
     public function setTechnician(?self $technician): self
     {
         $this->technician = $technician;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PanoramaUser[]
+     */
+    public function getPanoramasSent(): Collection
+    {
+        return $this->panoramas_sent;
+    }
+
+    public function addPanoramasSent(PanoramaUser $panoramasSent): self
+    {
+        if (!$this->panoramas_sent->contains($panoramasSent)) {
+            $this->panoramas_sent[] = $panoramasSent;
+            $panoramasSent->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanoramasSent(PanoramaUser $panoramasSent): self
+    {
+        if ($this->panoramas_sent->contains($panoramasSent)) {
+            $this->panoramas_sent->removeElement($panoramasSent);
+            // set the owning side to null (unless already changed)
+            if ($panoramasSent->getSender() === $this) {
+                $panoramasSent->setSender(null);
+            }
+        }
 
         return $this;
     }
