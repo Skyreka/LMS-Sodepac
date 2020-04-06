@@ -84,13 +84,18 @@ class RecommendationsController extends AbstractController
      * @Route("recommendations/{recommendations}/canevas/{slug}", name="recommendations.canevas")
      * @param Recommendations $recommendations
      * @param IndexCultures $indexCultures
+     * @param CulturesRepository $cr
      * @return Response
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
-    public function canevas( Recommendations $recommendations, IndexCultures $indexCultures ): Response
+    public function canevas( Recommendations $recommendations, IndexCultures $indexCultures, CulturesRepository $cr ): Response
     {
         if ( $this->get('twig')->getLoader()->exists( 'recommendations/canevas/'.$indexCultures->getSlug().'.html.twig' ) ) {
+            $totalSize = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
             return $this->render('recommendations/canevas/'.$indexCultures->getSlug().'.html.twig', [
                 'recommendations' => $recommendations,
+                'totalSize' => $totalSize,
                 'culture' => $indexCultures
             ]);
         } else {
