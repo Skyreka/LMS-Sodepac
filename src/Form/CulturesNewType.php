@@ -33,7 +33,8 @@ class CulturesNewType extends AbstractType
                 'label' => 'Nom de la culture'
             ])
             ->add('comments', TextType::class, [
-                'label' => 'Commentaire nom de culture'
+                'label' => 'Commentaire nom de culture',
+                'required' => false,
             ])
             ->add('size', NumberType::class, [
                 'attr' => [
