@@ -4,60 +4,80 @@
     </div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs customtab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#recolte" role="tab">
-                <span class="hidden-xs-down">Récolte</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#binage" role="tab">
-                <span class="hidden-xs-down">Binage</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#labour" role="tab">
-                <span class="hidden-xs-down">Labour</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#epandage" role="tab">
-                <span class="hidden-xs-down">Epandage</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#desherbant" role="tab">
-                <span class="hidden-xs-down">Désherbant</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#fongicide" role="tab">
-                <span class="hidden-xs-down">Fongicide</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#insecticide" role="tab">
-                <span class="hidden-xs-down">Insecticide</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#oligo" role="tab">
-                <span class="hidden-xs-down">Oligo-element</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#fumure" role="tab">
-                <span class="hidden-xs-down">Fumure</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#semis" role="tab">
-                <span class="hidden-xs-down">Semis</span>
-            </a>
-        </li>
+        {% if interventions.findByTypeAndCulture('Recolte', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#recolte" role="tab">
+                    <span class="hidden-xs-down">Récolte</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if interventions.findByTypeAndCulture('Binage', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#binage" role="tab">
+                    <span class="hidden-xs-down">Binage</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if interventions.findByTypeAndCulture('Labour', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#labour" role="tab">
+                    <span class="hidden-xs-down">Labour</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if interventions.findByTypeAndCulture('Epandage', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#epandage" role="tab">
+                    <span class="hidden-xs-down">Epandage</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if interventions.findByTypeAndCulture('Désherbant', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#desherbant" role="tab">
+                    <span class="hidden-xs-down">Désherbant</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if interventions.findByTypeAndCulture('Fongicide', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#fongicide" role="tab">
+                    <span class="hidden-xs-down">Fongicide</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if interventions.findByTypeAndCulture('Insecticide', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#insecticide" role="tab">
+                    <span class="hidden-xs-down">Insecticide</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if interventions.findByTypeAndCulture('Oligo-element', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#oligo" role="tab">
+                    <span class="hidden-xs-down">Oligo-element</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if interventions.findByTypeAndCulture('Fumure', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#fumure" role="tab">
+                    <span class="hidden-xs-down">Fumure</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if interventions.findByTypeAndCulture('Semis', culture) is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#semis" role="tab">
+                    <span class="hidden-xs-down">Semis</span>
+                </a>
+            </li>
+        {% endif %}
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
-        <div class="tab-pane active" id="recolte" role="tabpanel">
+        <div class="tab-pane" id="recolte" role="tabpanel">
             <div class="p-3">
                 <div class="table-responsive">
                     <table class="table">
