@@ -40,7 +40,10 @@ class BsvSendType extends AbstractType
                 'choice_label' => 'name',
                 'mapped' => false,
                 'required' => false,
-                'placeholder' => 'Sélectionnez une culture'
+                'placeholder' => 'Sélectionnez une culture',
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
         ;
 
