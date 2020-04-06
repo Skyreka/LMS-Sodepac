@@ -89,10 +89,12 @@ class PanoramasController extends AbstractController
     /**
      * @Route("/panoramas/new", name="panoramas.new")
      * @param Request $request
+     * @param UsersRepository $ur
+     * @param \Swift_Mailer $mailer
      * @return Response
      * @throws \Exception
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UsersRepository $ur, \Swift_Mailer $mailer): Response
     {
         $panorama = new Panoramas();
         $form = $this->createForm(PanoramaType::class, $panorama);
@@ -155,6 +157,28 @@ class PanoramasController extends AbstractController
             $panorama->setValidate( 0 );
             $this->em->persist($panorama);
             $this->em->flush();
+
+            //Envoie de mail aux admins
+            $admins = $ur->findAllByRole('ROLE_ADMIN');
+            foreach ($admins as $admin) {
+                $pathInfo = '/panoramas';
+                $link = $request->getUriForPath($pathInfo);
+                $message = (new \Swift_Message('Un panorama est en attente de validation.'))
+                    ->setFrom('send@lms-sodepac.fr')
+                    ->setTo( $admin->getEmail() )
+                    ->setBody(
+                        $this->renderView(
+                            'emails/panorama.html.twig', [
+                                'first_name' => $admin->getFirstname(),
+                                'link' => $link
+                            ]
+                        ),
+                        'text/html'
+                    )
+                ;
+                $mailer->send($message);
+            }
+
             $this->addFlash('success', 'Panorama crée avec succès');
             return $this->redirectToRoute('panoramas.index');
         }
