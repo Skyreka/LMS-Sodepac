@@ -9,6 +9,7 @@
                 <tr>
                     <th>Date d'envoi</th>
                     <th>Texte</th>
+                    <th>Fichiers</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -16,6 +17,17 @@
                     <tr>
                         <td>{{ key.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
                         <td>{{ key.bsv.text }}</td>
+                        <td>
+                            {% if key.bsv.firstFile %}
+                                <a href="{{ asset('bsv/panorama/' ~ key.bsv.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                            {% endif %}
+                            {% if key.bsv.secondFile %}
+                                <a href="{{ asset('bsv/panorama/' ~ key.bsv.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                            {% endif %}
+                            {% if key.bsv.thirdFile %}
+                                <a href="{{ asset('bsv/panorama/' ~ key.bsv.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
