@@ -8,6 +8,8 @@ use App\Repository\IlotsRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,16 +19,6 @@ class IrrigationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Pluviométrie' => 'Pluviometrie',
-                    'Arrosage' => 'Arrosage'
-                ]
-            ])
-            ->add('quantity', NumberType::class, [
-                'help' => 'En mm'
-            ])
-            ->add('comment')
             ->add('ilot', EntityType::class, [
                 'class' => Ilots::class,
                 'query_builder' => function (IlotsRepository $er) use ($options) {
@@ -36,6 +28,24 @@ class IrrigationType extends AbstractType
                 },
                 'choice_label' => 'name'
             ])
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'Pluviométrie' => 'Pluviometrie',
+                    'Arrosage' => 'Arrosage'
+                ]
+            ])
+            ->add('quantity', NumberType::class, [
+                'help' => 'En mm'
+            ])
+            ->add('intervention_at', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => [
+                    'class' => 'js-datepicker',
+                    'value' => date('Y-m-d')
+                ]
+            ])
+            ->add('comment')
         ;
     }
 
