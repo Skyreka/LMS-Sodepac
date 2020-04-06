@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recommendation{% endblock %}
+{% block title %}Recommandation{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <h3 class="text-themecolor">Accueil</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ path('recommendations.index') }}">Recommendation</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ path('recommendations.index') }}">Recommandation</a></li>
                 </ol>
             </div>
         </div>
@@ -24,9 +24,9 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Listes des recommendations</h4>
+                            <h4 class="card-title">Listes des recommandations</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('recommendations.select') }}" class="btn btn-success">Ajouter une recommendation</a>
+                                <a href="{{ path('recommendations.select') }}" class="btn btn-success">Ajouter une recommandation</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">

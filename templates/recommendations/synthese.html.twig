@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Synthese - Recommendation{% endblock %}
+{% block title %}Synthese - Recommandation{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <h3 class="text-themecolor">Accueil</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('recommendations.index') }}">Recommendation</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.index') }}">Recommandation</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.exploitation.users.identity }}</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.culture.name }}</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Produits</a></li>
@@ -51,7 +51,7 @@
                 <form method="POST" action="{{ path('recommendations.send', {id: recommendations.id}) }}">
                     <input type="hidden" name="_method" value="SEND">
                     <input type="hidden" name="_token" value="{{ csrf_token('send') }}">
-                    <button class="btn btn-success float-right">Envoyer la recommendation</button>
+                    <button class="btn btn-success float-right">Envoyer la recommandation</button>
                 </form>
             </div>
             <div class="col-md-4">
