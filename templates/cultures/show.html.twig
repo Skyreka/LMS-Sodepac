@@ -39,19 +39,70 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.recolte.new', {id: culture.id}) }}}">
-                                                <h6>Récolte</h6>
+                                            <a href="{{ path('interventions.semis.new', {id: culture.id}) }}">
+                                                <h6>Semis</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Recolte', culture) %}
+                                                    {% if ir.findIfInterventionExist('Semis', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
-                                                        <span class="badge badge-warning">Aucune récolte existante</span>
+                                                        <span class="badge badge-warning">Aucune semis existante</span>
                                                     {% endif %}
                                                 </small>
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ path('interventions.recolte.new', {id: culture.id}) }}" class="btn btn-block btn-success">Récolte</a>
+                                            <a href="{{ path('interventions.semis.new', {id: culture.id}) }}" class="btn btn-block btn-success">Semis</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Désherbant'}) }}">
+                                                <h6>Désherbage</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Désherbant', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun désherbage existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Désherbant'}) }}" class="btn btn-block btn-success">Désherbage</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Fongicide'}) }}">
+                                                <h6>Fongicide</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Fongicide', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun fongicide existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Fongicide'}) }}" class="btn btn-block btn-success">Fongicide</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Insecticide'}) }}">
+                                                <h6>Insecticide</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Insecticide', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun insecticide existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Insecticide'}) }}" class="btn btn-block btn-success">Insecticide</a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -62,7 +113,7 @@
                                                     {% if ir.findIfInterventionExist('Binage', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
-                                                        <span class="badge badge-warning">Aucune récolte existante</span>
+                                                        <span class="badge badge-warning">Aucune binage existante</span>
                                                     {% endif %}
                                                 </small>
                                             </a>
@@ -107,64 +158,13 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Désherbant'}) }}">
-                                                <h6>Désherbant</h6>
-                                                <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Désherbant', culture) %}
-                                                        <span class="badge badge-primary">Effectué</span>
-                                                    {% else %}
-                                                        <span class="badge badge-warning">Aucun épandage existant</span>
-                                                    {% endif %}
-                                                </small>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Désherbant'}) }}" class="btn btn-block btn-success">Désherbage</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Fongicide'}) }}">
-                                                <h6>Fongicide</h6>
-                                                <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Fongicide', culture) %}
-                                                        <span class="badge badge-primary">Effectué</span>
-                                                    {% else %}
-                                                        <span class="badge badge-warning">Aucun épandage existant</span>
-                                                    {% endif %}
-                                                </small>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Fongicide'}) }}" class="btn btn-block btn-success">Fongicide</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Insecticide'}) }}">
-                                                <h6>Insecticide</h6>
-                                                <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Insecticide', culture) %}
-                                                        <span class="badge badge-primary">Effectué</span>
-                                                    {% else %}
-                                                        <span class="badge badge-warning">Aucun épandage existant</span>
-                                                    {% endif %}
-                                                </small>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Insecticide'}) }}" class="btn btn-block btn-success">Insecticide</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
                                             <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Oligo-Element'}) }}">
                                                 <h6>Oligo-Element</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Oligo-Element', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
-                                                        <span class="badge badge-warning">Aucun épandage existant</span>
+                                                        <span class="badge badge-warning">Aucun oligo-élément existant</span>
                                                     {% endif %}
                                                 </small>
                                             </a>
@@ -181,7 +181,7 @@
                                                     {% if ir.findIfInterventionExist('Fumure', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
-                                                        <span class="badge badge-warning">Aucun épandage existant</span>
+                                                        <span class="badge badge-warning">Aucune fumure existante</span>
                                                     {% endif %}
                                                 </small>
                                             </a>
@@ -192,19 +192,19 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.semis.new', {id: culture.id}) }}">
-                                                <h6>Semis</h6>
+                                            <a href="{{ path('interventions.recolte.new', {id: culture.id}) }}}">
+                                                <h6>Récolte</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Semis', culture) %}
+                                                    {% if ir.findIfInterventionExist('Recolte', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
-                                                        <span class="badge badge-warning">Aucune semis existante</span>
+                                                        <span class="badge badge-warning">Aucune récolte existante</span>
                                                     {% endif %}
                                                 </small>
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ path('interventions.semis.new', {id: culture.id}) }}" class="btn btn-block btn-success">Semis</a>
+                                            <a href="{{ path('interventions.recolte.new', {id: culture.id}) }}" class="btn btn-block btn-success">Récolte</a>
                                         </td>
                                     </tr>
                                 </tbody>
