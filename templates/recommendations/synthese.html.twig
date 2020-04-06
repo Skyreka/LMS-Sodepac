@@ -51,7 +51,12 @@
                 <form method="POST" action="{{ path('recommendations.send', {id: recommendations.id}) }}">
                     <input type="hidden" name="_method" value="SEND">
                     <input type="hidden" name="_token" value="{{ csrf_token('send') }}">
-                    <button class="btn btn-success float-right">Envoyer la recommandation</button>
+                    <button class="btn btn-primary float-right"><i class="far fa-envelope"></i> Envoyer</button>
+                </form>
+                <form method="POST" action="{{ path('recommendations.download', {id: recommendations.id}) }}">
+                    <input type="hidden" name="_method" value="DOWNLOAD">
+                    <input type="hidden" name="_token" value="{{ csrf_token('download') }}">
+                    <button class="btn btn-success float-right mr-2"><i class="fas fa-download"></i> Télécharger</button>
                 </form>
             </div>
             <div class="col-md-4">

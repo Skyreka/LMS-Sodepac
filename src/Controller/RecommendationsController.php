@@ -348,6 +348,42 @@ class RecommendationsController extends AbstractController
     }
 
     /**
+     * @Route("recommendations/{id}/download", name="recommendations.download", methods="DOWNLOAD")
+     * @param Recommendations $recommendations
+     * @param Request $request
+     * @param CulturesRepository $cr
+     * @return Response
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function download( Recommendations $recommendations, Request $request, CulturesRepository $cr )
+    {
+        if ($this->isCsrfTokenValid('download', $request->get('_token'))) {
+            //-- Init @Var
+            $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
+            $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
+            $customer = $recommendations->getExploitation()->getUsers();
+            $fileName = 'Recommendation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
+
+            //-- Generate PDF
+            $pdfOptions = new Options();
+            $pdfOptions->set('defaultFront', 'Arial');
+            $pdf = new Dompdf( $pdfOptions );
+            $html = $this->render('recommendations/synthesePdf.html.twig', [
+                'products' => $products,
+                'recommendations' => $recommendations,
+                'customer' => $customer,
+                'cultureTotal' => $cultureTotal
+            ]);
+            $pdf->loadHtml( $html->getContent() );
+            $pdf->setPaper('A4', 'portrait');
+            $pdf->render();
+            $pdf->stream( $fileName );
+        }
+        return $this->redirectToRoute('recommendations.index');
+    }
+
+    /**
      * @Route("recommendations", name="recommendations.index")
      * @param RecommendationsRepository $rr
      * @return Response

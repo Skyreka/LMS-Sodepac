@@ -67,18 +67,19 @@
                                         </td>
                                         <td>
                                             <div style="display: flex">
-                                                <form method="POST" action="{{ path('recommendations.delete', {'id': recommendation.id}) }}">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recommendation.id) }}">
-                                                    <button class="btn btn-danger">Supprimer</button>
-                                                </form>
+                                                <a class="btn btn-success" href="{{ path('recommendations.synthese', {id: recommendation.id}) }}"><i class="fa fa-eye text-white"></i></a>
                                                 {% if( recommendation.status == 2 ) %}
                                                     <form method="POST" action="{{ path('recommendations.send', {id: recommendation.id}) }}">
                                                         <input type="hidden" name="_method" value="SEND">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('send') }}">
-                                                        <button class="btn btn-primary ml-3">Renvoyer</button>
+                                                        <button class="btn btn-primary ml-2"><i class="fa fa-repeat"></i></button>
                                                     </form>
                                                 {% endif %}
+                                                <form method="POST" action="{{ path('recommendations.delete', {'id': recommendation.id}) }}">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recommendation.id) }}">
+                                                    <button class="btn btn-danger ml-2"><i class="fa fa-trash"></i></button>
+                                                </form>
                                             </div>
                                         </td>
 
