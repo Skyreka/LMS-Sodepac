@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Doses;
-use App\Entity\Fumure;
+use App\Entity\Fertilisant;
 use App\Entity\Stocks;
 use App\Repository\DosesRepository;
 use App\Repository\StocksRepository;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FumureInterventionType extends AbstractType
+class FertilisantInterventionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -145,7 +145,7 @@ class FumureInterventionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Fumure::class,
+            'data_class' => Fertilisant::class,
             'translation_domain' => 'forms',
             'user' => null,
             'culture' => null

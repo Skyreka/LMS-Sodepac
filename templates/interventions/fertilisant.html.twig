@@ -38,19 +38,19 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        $(document).on('change', '#fumure_intervention_productInStock', function () {
+        $(document).on('change', '#fertilisant_intervention_productInStock', function () {
             let $field = $(this)
             let $form = $field.closest('form')
             let data = {}
             data[$field.attr('name')] = $field.val()
             $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('#fumure_intervention_doses')
-                $('#fumure_intervention_doses').replaceWith($input)
+                let $input = $(data).find('#fertilisant_intervention_doses')
+                $('#fertilisant_intervention_doses').replaceWith($input)
             })
         })
-        $(document).on('change', '#fumure_intervention_doses', function () {
+        $(document).on('change', '#fertilisant_intervention_doses', function () {
             let $field = $(this)
-            let $product = $('#fumure_intervention_productInStock')
+            let $product = $('#fertilisant_intervention_productInStock')
             let form = $field.closest('form')
             let data = {}
             data[$product.attr('name')] =  $product.val()

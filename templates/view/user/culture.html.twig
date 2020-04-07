@@ -53,17 +53,17 @@
                 </a>
             </li>
         {% endif %}
-        {% if interventions.findByTypeAndCulture('Oligo-element', culture) is not empty %}
+        {% if interventions.findByTypeAndCulture('Nutrition', culture) is not empty %}
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#oligo" role="tab">
-                    <span class="hidden-xs-down">Oligo-element</span>
+                <a class="nav-link" data-toggle="tab" href="#nutrition" role="tab">
+                    <span class="hidden-xs-down">Nutrition</span>
                 </a>
             </li>
         {% endif %}
-        {% if interventions.findByTypeAndCulture('Fumure', culture) is not empty %}
+        {% if interventions.findByTypeAndCulture('Fertilisant', culture) is not empty %}
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#fumure" role="tab">
-                    <span class="hidden-xs-down">Fumure</span>
+                <a class="nav-link" data-toggle="tab" href="#fertilisant" role="tab">
+                    <span class="hidden-xs-down">Fertilisant</span>
                 </a>
             </li>
         {% endif %}
@@ -169,7 +169,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane" id="fumure" role="tabpanel">
+        <div class="tab-pane" id="fertilisant" role="tabpanel">
             <div class="p-3">
                 <div class="table-responsive">
                     <table class="table">
@@ -183,7 +183,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            {% for intervention in interventions.findByTypeAndCulture('Fumure', culture) %}
+                            {% for intervention in interventions.findByTypeAndCulture('Fertilisant', culture) %}
                                 <tr>
                                     <td>{{ intervention.product.name }}</td>
                                     <td>{{ intervention.quantity }}</td>
@@ -192,6 +192,135 @@
                                     <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
                                 </tr>
                             {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- PHYTO -->
+        <div class="tab-pane" id="desherbant" role="tabpanel">
+            <div class="p-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Adjuvant</th>
+                            <th>Commentaire</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for intervention in interventions.findByTypeAndCulture('desherbant', culture) %}
+                            <tr>
+                                <td>{{ intervention.product.name }}</td>
+                                <td>{{ intervention.quantity }}</td>
+                                {% if intervention.adjuvant is not null %}
+                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
+                                {% else %}
+                                    <td>Pas d'adjuvant</td>
+                                {% endif %}
+                                <td>{{ intervention.comment }}</td>
+                                <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="fongicide" role="tabpanel">
+            <div class="p-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Adjuvant</th>
+                            <th>Commentaire</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for intervention in interventions.findByTypeAndCulture('Fongicide', culture) %}
+                            <tr>
+                                <td>{{ intervention.product.name }}</td>
+                                <td>{{ intervention.quantity }}</td>
+                                {% if intervention.adjuvant is not null %}
+                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
+                                {% else %}
+                                    <td>Pas d'adjuvant</td>
+                                {% endif %}
+                                <td>{{ intervention.comment }}</td>
+                                <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="insecticide" role="tabpanel">
+            <div class="p-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Adjuvant</th>
+                            <th>Commentaire</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for intervention in interventions.findByTypeAndCulture('Insecticide', culture) %}
+                            <tr>
+                                <td>{{ intervention.product.name }}</td>
+                                <td>{{ intervention.quantity }}</td>
+                                {% if intervention.adjuvant is not null %}
+                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
+                                {% else %}
+                                    <td>Pas d'adjuvant</td>
+                                {% endif %}
+                                <td>{{ intervention.comment }}</td>
+                                <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="nutrition" role="tabpanel">
+            <div class="p-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Adjuvant</th>
+                            <th>Commentaire</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for intervention in interventions.findByTypeAndCulture('Nutrition', culture) %}
+                            <tr>
+                                <td>{{ intervention.product.name }}</td>
+                                <td>{{ intervention.quantity }}</td>
+                                {% if intervention.adjuvant is not null %}
+                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
+                                {% else %}
+                                    <td>Pas d'adjuvant</td>
+                                {% endif %}
+                                <td>{{ intervention.comment }}</td>
+                                <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>

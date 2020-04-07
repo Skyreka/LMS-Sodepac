@@ -34,10 +34,10 @@
                     {% if app.user.exploitation is not empty %}
                         <li class="nav-devider"></li>
                         <li class="nav-small-cap">Mon Exploitation</li>
-                        <li><a class="waves-effect waves-dark" href="{{ path('exploitation.stock.index') }}"><i class="fa fa-boxes"></i><span class="hide-menu">Gestion des stocks </span></a></li>
+                        <li><a class="waves-effect waves-dark" href="{{ path('exploitation.stock.index') }}"><i class="fas fa-box"></i><span class="hide-menu">Gestion des stocks </span></a></li>
                         <li><a class="waves-effect waves-dark" href="{{ path('exploitation.irrigation.index') }}"><i class="fa fa-tint"></i><span class="hide-menu">Irrigations </span></a></li>
-                        <li><a class="waves-effect waves-dark" href="{{ path('exploitation.analyse.index') }}"><i class="fa fa-vial"></i><span class="hide-menu">Analyses </span></a></li>
-                        <li><a class="waves-effect waves-dark" href="{{ path('exploitation.recommendations.index') }}"><i class="fas fa-thumbs-up"></i><span class="hide-menu"> Recommandations</span></a></li>
+                        <li><a class="waves-effect waves-dark" href="{{ path('exploitation.analyse.index') }}"><i class="fas fa-vial"></i><span class="hide-menu">Analyses </span></a></li>
+                        <li><a class="waves-effect waves-dark" href="{{ path('exploitation.recommendations.index') }}"><i class="fas fa-thumbs-up"></i><span class="hide-menu"> Recommandation</span></a></li>
                     {% endif %}
                 </ul>
             {% endif %}

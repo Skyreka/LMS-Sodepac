@@ -4,7 +4,7 @@ namespace App\Controller;
 use App\Entity\Binage;
 use App\Entity\Cultures;
 use App\Entity\Epandage;
-use App\Entity\Fumure;
+use App\Entity\Fertilisant;
 use App\Entity\Interventions;
 use App\Entity\Labour;
 use App\Entity\Phyto;
@@ -13,7 +13,7 @@ use App\Entity\Semis;
 use App\Entity\UsedProducts;
 use App\Form\DefaultInterventionType;
 use App\Form\EpandageInterventionType;
-use App\Form\FumureInterventionType;
+use App\Form\FertilisantInterventionType;
 use App\Form\PhytoAddAdjuvantType;
 use App\Form\PhytoInterventionType;
 use App\Form\SemisInterventionType;
@@ -288,17 +288,17 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("interventions/fumure/{id}", name="interventions.fumure.new")
+     * @Route("interventions/fertilisant/{id}", name="interventions.fertilisant.new")
      * @param Cultures $culture
      * @param Request $request
      * @param StocksRepository $sr
      * @return Response
      */
-    public function fumure(Cultures $culture, Request $request, StocksRepository $sr): Response
+    public function fertilisant(Cultures $culture, Request $request, StocksRepository $sr): Response
     {
-        $name = 'Fumure';
-        $intervention = new Fumure();
-        $form = $this->createForm( FumureInterventionType::class, $intervention, [
+        $name = 'Fertilisant';
+        $intervention = new Fertilisant();
+        $form = $this->createForm( FertilisantInterventionType::class, $intervention, [
             'user' => $this->getUser(),
             'culture' => $culture
         ]);
@@ -327,7 +327,7 @@ class InterventionsController extends AbstractController
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
         }
 
-        return $this->render('interventions/fumure.html.twig', [
+        return $this->render('interventions/fertilisant.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView()

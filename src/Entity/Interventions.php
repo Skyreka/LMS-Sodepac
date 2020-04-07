@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "recolte" = "Recolte",
  *     "binage" = "Binage",
  *     "labour" = "Labour",
- *     "fumure" = "Fumure",
+ *     "fertilisant" = "Fertilisant",
  *     "phyto" = "Phyto",
  *     "epandange" = "Epandage",
  *     "semis" = "Semis"
@@ -278,9 +278,9 @@ class Semis extends Interventions
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="int_fumure")
+ * @ORM\Table(name="int_fertilisant")
  */
-class Fumure extends Interventions
+class Fertilisant extends Interventions
 {
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -460,7 +460,7 @@ class Phyto extends Interventions
     /**
      * @return mixed
      */
-    public function getAdjuvantQuantity(): ?self
+    public function getAdjuvantQuantity()
     {
         return $this->adjuvant_quantity;
     }
