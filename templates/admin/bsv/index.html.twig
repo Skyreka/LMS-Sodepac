@@ -46,10 +46,10 @@
                                                 <a href="{{ asset('uploads/bsv/' ~ key.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
                                             {% endif %}
                                             {% if key.secondFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ key.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                                                <a href="{{ asset('uploads/bsv/' ~ key.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
                                             {% endif %}
                                             {% if key.thirdFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ key.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                                                <a href="{{ asset('uploads/bsv/' ~ key.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
                                             {% endif %}
                                             <a href="{{ path('admin.bsv.edit', {id: key.id}) }}" class="btn btn-primary">Editer</a>
                                             <form method="POST" action="{{ path('admin.bsv.delete', {id: key.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le BSV ?')">
