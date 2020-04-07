@@ -20,12 +20,7 @@
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
-                        <div class="row">
-                            <div class="col-12">
-                                {{ form_row(form.display_at) }}
-                                {{ form_row(form.customers) }}
-                            </div>
-                        </div>
+                            {{ form_rest(form) }}
                         <button class="btn btn-info">Envoyer</button>
                         {{ form_end(form) }}
                     </div>
