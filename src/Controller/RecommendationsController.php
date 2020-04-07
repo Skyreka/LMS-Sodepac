@@ -135,7 +135,9 @@ class RecommendationsController extends AbstractController
             $this->em->flush();
 
             return $this->json([
-                'name_product' => $recommendationProducts->getProduct()->getName()
+                'name_product' => $recommendationProducts->getProduct()->getName(),
+                'dose' => $recommendationProducts->getDose(),
+                'unit' => $recommendationProducts->getUnit()
             ], 200);
         }
 
