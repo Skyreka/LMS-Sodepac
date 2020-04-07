@@ -313,6 +313,7 @@ class PanoramasController extends AbstractController
                 $relation->setCustomers($customer);
                 $relation->setSender($this->getUser());
                 if ( $displayAt !== null ) {
+                    $displayAt->setTime(8,00);
                     $relation->setDisplayAt($displayAt);
                 } else {
                     $relation->setDisplayAt($datetime);
