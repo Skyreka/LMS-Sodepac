@@ -53,6 +53,10 @@ class RecommendationsRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->where('year(r.create_at) = :year')
             ->setParameter('year', $year)
+            ->andWhere( 'r.status = :status1' )
+            ->orWhere( 'r.status = :status2' )
+            ->setParameter( 'status1',  '1' )
+            ->setParameter( 'status2',  '2' )
             ->getQuery()
             ->getResult()
             ;

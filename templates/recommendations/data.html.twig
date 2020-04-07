@@ -10,12 +10,10 @@
         </td>
         <td>{{ recommendation.culture.name }}</td>
         <td>
-            {% if recommendation.status == 0 %}
-                <span class="label label-light-info">Broullion</span>
-            {% elseif( recommendation.status == 1 ) %}
-                <span class="label label-warning">Enregistré</span>
+            {% if( recommendation.status == 1 ) %}
+                <span class="badge badge-warning">Enregistré</span>
             {% elseif( recommendation.status == 2 ) %}
-                <span class="label label-success">Envoyé</span>
+                <span class="badge badge-success">Envoyé</span>
             {% endif %}
         </td>
         <td>
