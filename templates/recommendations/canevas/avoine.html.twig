@@ -76,7 +76,7 @@
                                 <tr>
                                     <td>DICOTS <br> GRAMINEES</td>
                                     <td>
-                                        <button class="btn btn-success btn-block isProduct">CENT 7 <small>0.6 L/ Ha</small></button>
+                                        <button class="btn btn-success btn-block isProduct" product_slug="cent-7" dose="0.6" unit="L/Ha">CENT 7 <small>0.6 L/ Ha</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                 </tr>
@@ -84,7 +84,7 @@
                                     <td>DICOTS</td>
                                     <td></td><td></td>
                                     <td colspan="10">
-                                        <button class="btn btn-success btn-block isProduct">STARANE GOLD <small>1.8 L/ha</small></button>
+                                        <button class="btn btn-success btn-block isProduct" product_slug="starane-gold" dose="1.8" unit="L/Ha">STARANE GOLD <small>1.8 L/ha</small></button>
                                         <button class="btn btn-success mt-2" style="width: 60% !important;">TEKKEN <small>0.25 L/ha</small></button>
                                     </td>
                                     <td></td><td></td>
@@ -93,7 +93,7 @@
                                     <td>REGULATEUR</td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <td colspan="2">
-                                        <button class="btn btn-success btn-block isProduct">MEDAX TOP <small>1 L</small></button>
+                                        <button class="btn btn-success btn-block isProduct" product_slug="medax-top" dose="1" unit="L">MEDAX TOP <small>1 L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td>
                                 </tr>
@@ -101,7 +101,7 @@
                                     <td>FONGICIDES</td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <td colspan="4">
-                                        <button class="btn btn-success btn-block isProduct">PROSARO <small>1L/Ha</small></button>
+                                        <button class="btn btn-success btn-block isProduct" product_slug="prosaro" dose="1" unit="L/Ha">PROSARO <small>1L/Ha</small></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -160,7 +160,9 @@
                         stack: 6
                     });
                     let nameProduct = response.responseJSON['name_product']
-                    let input = '<li><b>'+ nameProduct +'</b> <small>0.75 L/ha</small></li>'
+                    let dose = response.responseJSON['dose']
+                    let unit = response.responseJSON['unit']
+                    let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
                     $('#products_list').append( input )
                 },
                 error : function (code_html, status) {

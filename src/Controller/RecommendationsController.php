@@ -135,7 +135,9 @@ class RecommendationsController extends AbstractController
             $this->em->flush();
 
             return $this->json([
-                'name_product' => $recommendationProducts->getProduct()->getName()
+                'name_product' => $recommendationProducts->getProduct()->getName(),
+                'dose' => $recommendationProducts->getDose(),
+                'unit' => $recommendationProducts->getUnit()
             ], 200);
         }
 
@@ -402,14 +404,25 @@ class RecommendationsController extends AbstractController
      */
     public function indexStaff( RecommendationsRepository $rr ): Response
     {
+            return $this->render('recommendations/index.html.twig');
+    }
+
+    /**
+     * @Route("recommendations/data/{year}", name="recommendations.index.data")
+     * @param RecommendationsRepository $rr
+     * @param $year
+     * @return Response
+     */
+    public function indexStaffData( RecommendationsRepository $rr, $year ): Response
+    {
         //-- If user is technician get recommendation of user of technician
         if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
-            return $this->render('recommendations/index.html.twig', [
-                'recommendations' => $rr->findByExploitationOfTechnician( $this->getUser() )
+            return $this->render('recommendations/data.html.twig', [
+                'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
         } else {
-            return $this->render('recommendations/index.html.twig', [
-                'recommendations' => $rr->findBy( ['status' => [1,2] ] )
+            return $this->render('recommendations/data.html.twig', [
+                'recommendations' => $rr->findAllByYear($year)
             ]);
         }
     }

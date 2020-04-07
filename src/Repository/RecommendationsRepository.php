@@ -33,6 +33,31 @@ class RecommendationsRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findByExploitationOfTechnicianAndYear( $technician, $year )
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin( Exploitation::class,'e','WITH', 'r.exploitation = e.id' )
+            ->leftJoin( Users::class, 'u', 'WITH', 'e.users = u.id')
+            ->where('u.technician = :tech')
+            ->andWhere('year(r.create_at) = :year')
+            ->setParameter('tech', $technician )
+            ->setParameter('year', $year)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findAllByYear($year)
+    {
+
+        return $this->createQueryBuilder('r')
+            ->where('year(r.create_at) = :year')
+            ->setParameter('year', $year)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Recommendations[] Returns an array of Recommendations objects
     //  */
