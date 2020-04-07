@@ -29,7 +29,7 @@ class PanoramaUser
     private $panorama;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $display_at;
 
