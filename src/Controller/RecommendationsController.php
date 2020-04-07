@@ -151,13 +151,18 @@ class RecommendationsController extends AbstractController
      * @Route("recommendations/{id}/add-other-product", name="recommendations.add.other.product")
      * @param Recommendations $recommendations
      * @param Request $request
+     * @param CulturesRepository $cr
      * @return Response
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
-    public function addOtherProduct( Recommendations $recommendations, Request $request )
+    public function addOtherProduct( Recommendations $recommendations, Request $request, CulturesRepository $cr )
     {
         $recommendationProducts = new RecommendationProducts();
         $form = $this->createForm( RecommendationAddProductType::class, $recommendationProducts);
         $form->handleRequest( $request );
+
+        $totalSize = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
 
         if ( $form->isSubmitted() && $form->isValid() ) {
             $recommendationProducts->setRecommendation( $recommendations );
@@ -169,7 +174,8 @@ class RecommendationsController extends AbstractController
 
         return $this->render('recommendations/addProduct.html.twig', [
             'recommendations' => $recommendations,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'totalSize' => $totalSize
         ]);
     }
 
@@ -318,7 +324,8 @@ class RecommendationsController extends AbstractController
 
             //-- Generate PDF
             $pdfOptions = new Options();
-            $pdfOptions->set('defaultFront', 'Arial');
+            $pdfOptions->set( 'defaultFront', 'Arial');
+            $pdfOptions->set( 'isRemoteEnabled', true);
             $pdf = new Dompdf( $pdfOptions );
             $html = $this->render('recommendations/synthesePdf.html.twig', [
                 'products' => $products,
