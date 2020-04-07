@@ -305,11 +305,16 @@ class BsvController extends AbstractController
 
     /**
      * @Route("/user/bsv/history", name="user.bsv.history.index")
+     * @param BsvUsersRepository $bur
      * @return Response
      */
-    public function userHistory(): Response
+    public function userHistory(BsvUsersRepository $bur): Response
     {
-        return $this->render('admin/bsv/history/user/index.html.twig');
+        $year = date('Y');
+        $bsv = $bur->findAllByYearAndCustomer($year, $this->getUser()->getId());
+        return $this->render('admin/bsv/history/user/index.html.twig',[
+            'bsv' => $bsv
+        ]);
     }
 
     /**
