@@ -96,7 +96,7 @@ class CulturesController extends AbstractController
      */
     public function showIlotsByCultures(IndexCultures $indexCulture, IlotsRepository $ir)
     {
-        $ilots = $ir->findByIndexCulture( $indexCulture->getId() );
+        $ilots = $ir->findByIndexCulture( $indexCulture->getId(), $this->getUser()->getExploitation() );
         dump( $ilots );
         return $this->render('cultures/showIlots.html.twig', [
             'indexCulture' => $indexCulture,
