@@ -271,18 +271,6 @@ class PanoramasController extends AbstractController
     {
         //Set form
         $form = $this->createFormBuilder()
-            ->add('display_at', DateType::class, [
-                'widget' => 'single_text',
-                'html5' => false,
-                'mapped' => false,
-                'required' => false,
-                'attr' => [
-                    'class' => 'js-datepicker',
-                    'autocomplete' => 'off'
-                ],
-                'label' => 'Date d\'envoi',
-                'help' => 'Remplir uniquement en cas d\'envoi différé.'
-            ])
             ->add('customers', EntityType::class, [
                 'class' => Users::class,
                 'choice_label' => function(Users $user) {
@@ -297,6 +285,18 @@ class PanoramasController extends AbstractController
                 'label'     => 'Envoyer à :',
                 'expanded'  => true,
                 'multiple'  => true,
+            ])
+            ->add('display_at', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'class' => 'js-datepicker',
+                    'autocomplete' => 'off'
+                ],
+                'label' => 'Date d\'envoi',
+                'help' => 'Remplir uniquement en cas d\'envoi différé.'
             ])
             ->getForm();
         $form->handleRequest($request);
