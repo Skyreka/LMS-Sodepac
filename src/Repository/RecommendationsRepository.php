@@ -28,6 +28,7 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->leftJoin( Users::class, 'u', 'WITH', 'e.users = u.id')
             ->where('u.technician = :tech')
             ->setParameter('tech', $technician )
+            ->orderBy('r.create_at', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -42,6 +43,7 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->andWhere('year(r.create_at) = :year')
             ->setParameter('tech', $technician )
             ->setParameter('year', $year)
+            ->orderBy('r.create_at', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -57,6 +59,7 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->orWhere( 'r.status = :status2' )
             ->setParameter( 'status1',  '1' )
             ->setParameter( 'status2',  '2' )
+            ->orderBy('r.create_at', 'DESC')
             ->getQuery()
             ->getResult()
             ;

@@ -32,7 +32,7 @@ class PanoramaUserRepository extends ServiceEntityRepository
             ->andWhere('b.customers = :customer')
             ->setParameter('year', $year)
             ->setParameter('customer', $customer)
-            ->orderBy('b.display_at', 'ASC')
+            ->orderBy('b.display_at', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -51,7 +51,7 @@ class PanoramaUserRepository extends ServiceEntityRepository
             ->andWhere('b.sender = :sender')
             ->setParameter('year', $year)
             ->setParameter('sender', $sender)
-            ->orderBy('b.display_at', 'ASC')
+            ->orderBy('b.display_at', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -67,7 +67,7 @@ class PanoramaUserRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->where('year(p.display_at) = :year')
             ->setParameter('year', $year)
-            ->orderBy('p.display_at', 'ASC')
+            ->orderBy('p.display_at', 'DESC')
             ->getQuery()
             ->getResult()
             ;

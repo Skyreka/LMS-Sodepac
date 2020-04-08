@@ -32,7 +32,7 @@ class BsvUsersRepository extends ServiceEntityRepository
             ->andWhere('b.customers = :customer')
             ->setParameter('year', $year)
             ->setParameter('customer', $customer)
-            ->orderBy('b.display_at', 'ASC')
+            ->orderBy('b.display_at', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -48,7 +48,7 @@ class BsvUsersRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('b')
             ->where('year(b.display_at) = :year')
             ->setParameter('year', $year)
-            ->orderBy('b.display_at', 'ASC')
+            ->orderBy('b.display_at', 'DESC')
             ->getQuery()
             ->getResult()
             ;
