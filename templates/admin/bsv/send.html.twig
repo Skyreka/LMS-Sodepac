@@ -41,7 +41,8 @@
                 weekStart:0,
                 time: 1,
                 format:"yyyy-mm-dd",
-                lang:"fr"
+                lang:"fr",
+                todayHighlight: true
             });
         });
     </script>
@@ -72,12 +73,12 @@
                     weekStart:0,
                     time: 1,
                     format:"yyyy-mm-dd",
-                    lang:"fr"
+                    lang:"fr",
+                    todayHighlight: true
                 });
                 let $input = $(data).find('#bsv_send_user')
-                //let $date = $(data).find('#bsv_send_display_at')
                 $('#bsv_send_user').replaceWith( $input )
-                //$($form).append( $date )
+                $('#bsv_send_user').append( "<input type=\"checkbox\" name=\"select-all\" id=\"select-all\" />" )
             })
         })
     </script>
