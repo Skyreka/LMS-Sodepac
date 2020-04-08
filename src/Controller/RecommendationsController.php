@@ -411,7 +411,16 @@ class RecommendationsController extends AbstractController
      */
     public function indexStaff( RecommendationsRepository $rr ): Response
     {
-            return $this->render('recommendations/index.html.twig');
+        $year = date('Y');
+        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
+            return $this->render('recommendations/index.html.twig', [
+                'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
+            ]);
+        } else {
+            return $this->render('recommendations/index.html.twig', [
+                'recommendations' => $rr->findAllByYear($year)
+            ]);
+        }
     }
 
     /**
