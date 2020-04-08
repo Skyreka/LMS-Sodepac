@@ -363,7 +363,7 @@ class RecommendationsController extends AbstractController
             */
 
             $this->em->flush();
-            $this->addFlash('success', 'Recommendation envoyé avec succès');
+            $this->addFlash('success', 'Recommandation envoyé avec succès');
         }
         return $this->redirectToRoute('recommendations.index');
     }
