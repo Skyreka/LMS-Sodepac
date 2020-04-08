@@ -107,53 +107,19 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.binage.new', {id: culture.id}) }}">
-                                                <h6>Binage</h6>
+                                            <a href="{{ path('interventions.fertilisant.new', {id: culture.id}) }}">
+                                                <h6>Fertilisant</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Binage', culture) %}
+                                                    {% if ir.findIfInterventionExist('Fertilisant', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
-                                                        <span class="badge badge-warning">Aucune binage existante</span>
+                                                        <span class="badge badge-warning">Aucune fertilisant existant</span>
                                                     {% endif %}
                                                 </small>
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ path('interventions.binage.new', {id: culture.id}) }}" class="btn btn-block btn-success">Binage</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('interventions.labour.new', {id: culture.id}) }}">
-                                                <h6>Labour</h6>
-                                                <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Labour', culture) %}
-                                                        <span class="badge badge-primary">Effectué</span>
-                                                    {% else %}
-                                                        <span class="badge badge-warning">Aucun labour existant</span>
-                                                    {% endif %}
-                                                </small>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('interventions.labour.new', {id: culture.id}) }}" class="btn btn-block btn-success">Labour</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('interventions.epandage.new', {id: culture.id}) }}">
-                                                <h6>Epandage</h6>
-                                                <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Epandage', culture) %}
-                                                        <span class="badge badge-primary">Effectué</span>
-                                                    {% else %}
-                                                        <span class="badge badge-warning">Aucun épandage existant</span>
-                                                    {% endif %}
-                                                </small>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ path('interventions.epandage.new', {id: culture.id}) }}" class="btn btn-block btn-success">Épandage</a>
+                                            <a href="{{ path('interventions.fertilisant.new', {id: culture.id}) }}" class="btn btn-block btn-success">Fertilisant</a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -175,19 +141,53 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.fertilisant.new', {id: culture.id}) }}">
-                                                <h6>Fertilisant</h6>
+                                            <a href="{{ path('interventions.labour.new', {id: culture.id}) }}">
+                                                <h6>Labour</h6>
                                                 <small class="text-muted">
-                                                    {% if ir.findIfInterventionExist('Fertilisant', culture) %}
+                                                    {% if ir.findIfInterventionExist('Labour', culture) %}
                                                         <span class="badge badge-primary">Effectué</span>
                                                     {% else %}
-                                                        <span class="badge badge-warning">Aucune fertilisant existant</span>
+                                                        <span class="badge badge-warning">Aucun labour existant</span>
                                                     {% endif %}
                                                 </small>
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ path('interventions.fertilisant.new', {id: culture.id}) }}" class="btn btn-block btn-success">Fertilisant</a>
+                                            <a href="{{ path('interventions.labour.new', {id: culture.id}) }}" class="btn btn-block btn-success">Labour</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('interventions.binage.new', {id: culture.id}) }}">
+                                                <h6>Binage</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Binage', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucune binage existante</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.binage.new', {id: culture.id}) }}" class="btn btn-block btn-success">Binage</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('interventions.epandage.new', {id: culture.id}) }}">
+                                                <h6>Epandage</h6>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Epandage', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucun épandage existant</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('interventions.epandage.new', {id: culture.id}) }}" class="btn btn-block btn-success">Épandage</a>
                                         </td>
                                     </tr>
                                     <tr>
