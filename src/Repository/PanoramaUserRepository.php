@@ -57,6 +57,22 @@ class PanoramaUserRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param $year
+     * @return mixed
+     */
+    public function findAllByYear($year)
+    {
+
+        return $this->createQueryBuilder('p')
+            ->where('year(p.display_at) = :year')
+            ->setParameter('year', $year)
+            ->orderBy('p.display_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return PanoramaUser[] Returns an array of PanoramaUser objects
     //  */

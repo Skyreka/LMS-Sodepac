@@ -364,8 +364,8 @@ class PanoramasController extends AbstractController
     public function list(PanoramaUserRepository $pur, $year): Response
     {
         $user = $this->getUser();
-        if ($user->getRoles() == 'ROLE_ADMIN') {
-            $panoramas = $this->repositoryPanoramas->findAllByYear($year);
+        if ($user->getStatus() == 'ROLE_ADMIN') { 
+            $panoramas = $pur->findAllByYear($year);
         } else {
             $panoramas = $pur->findAllByYearAndSender($year, $this->getUser());
         }
