@@ -24,86 +24,61 @@
         <div class="row">
             <div class="col-md-6 d-none d-md-block">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title mb-0">Bulletin Sanitaire du Végétal</h4>
+                    <div class="card-body pb-0">
+                        <h4 class="card-title">Bulletin Sanitaire du Végétal</h4>
                     </div>
-                    <div class="card-body collapse show bg-info">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item flex-column active">
-                                    <h3 class="text-white font-weight-light">Découvrez vos derniers bulletin sanitaire végétal</h3>
-                                    <div class="text-white mt-3">
-                                        <i>- L'équipe Sodepac | </i>
-                                        <a href="{{ path('user.bsv.history.index') }}" class="font-medium">
-                                            <i>Voir plus</i>
-                                        </a>
-                                    </div>
-                                </div>
-                                {% for bsv in bsvs %}
-                                    {% if date(bsv.displayAt) <= date() and bsv.checked == 0 %}
-                                        <div class="carousel-item flex-column">
-                                            <h3 class="text-white font-weight-light">{{ bsv.bsv.text }} <button class="btn btn-secondary waves-effect waves-light" type="button"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le BSV</button></h3>
-                                            <div class="text-white mt-3">
-                                                <p class="text-white">
-                                                    - L'équipe Sodepac |
-                                                    <i class="fa fa-bell text-white"></i>  {{ bsv.displayAt|date('d M y à h:m') }} -
-                                                    <i class="fa fa-exclamation"></i> Non lu
-                                                    <form method="POST" action="{{ path('user.bsv.check', {id: bsv.id}) }}" style="display: inline-block">
-                                                        <input type="hidden" name="_method" value="CHECK">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token('check' ~ bsv.id) }}">
-                                                        <button class="btn btn-danger">Ne plus voir</button>
-                                                    </form>
-                                                </p>
-                                            </div>
+                    <div class="comment-widgets position-relative mb-2 common-widget">
+                        <div class="d-flex flex-row comment-row p-3">
+                            {% for bsv in bsvs %}
+                                {% if date(bsv.displayAt) <= date() and bsv.checked == 0 %}
+                                    <div class="comment-text w-100 p-3">
+                                        <h5>BSV du {{ bsv.displayAt|date('d M') }}</h5>
+                                        <p class="mb-1 overflow-hidden">{{ bsv.bsv.text }}</p>
+                                        <div class="comment-footer">
+                                            <span class="text-muted pull-right">{{ bsv.displayAt|date('d M y à h:m') }}</span>
+                                            <span class="badge badge-info">Non lu</span>
+                                            <span class="action-icons">
+                                                <form method="POST" action="{{ path('user.bsv.check', {id: bsv.id}) }}" style="display: inline-block">
+                                                    <input type="hidden" name="_method" value="CHECK">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ bsv.id) }}">
+                                                    <button class="btn btn-success btn-xs"><i class="ti-check"></i> Ne plus voir</button>
+                                                </form>
+                                            </span>
                                         </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-6 d-none d-md-block">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title mb-0">Panorama</h4>
+                    <div class="card-body pb-0">
+                        <h4 class="card-title">Panorama</h4>
                     </div>
-                    <div class="card-body collapse show bg-primary">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item flex-column active">
-                                    <h3 class="text-white font-weight-light">Découvrez vos derniers panoramas</h3>
-                                    <div class="text-white mt-3">
-                                        <i>- L'équipe Sodepac | </i>
-                                        <a href="{{ path('user.panoramas.history.index') }}" class="font-medium">
-                                            <i>Voir plus</i>
-                                        </a>
-                                    </div>
-                                </div>
-                                {% for panorama in panoramas %}
-                                    {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
-                                        <div class="carousel-item flex-column">
-                                            <h3 class="text-white font-weight-light">{{ panorama.panorama.text }}
-                                                {% if panorama.panorama.firstFile %}
-                                                    <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.firstFile) }}" class="btn btn-secondary waves-effect waves-light" target="_blank"><span class="mr-1"><i class="fa fa-check"></i></span>Télécharger le Panorama</a>
-                                                {% endif %}
-                                            </h3>
-                                            <div class="text-white mt-3">
-                                                <p class="text-white">
-                                                    - L'équipe Sodepac |
-                                                    <i class="fa fa-bell text-white"></i>  {{ panorama.displayAt|date('d M y à h:m') }} -
-                                                    <i class="fa fa-exclamation"></i> Non lu
-                                                    <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
-                                                        <input type="hidden" name="_method" value="CHECK">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
-                                                        <button class="btn btn-danger">Ne plus voir</button>
-                                                    </form>
-                                                </p>
-                                            </div>
+                    <div class="comment-widgets position-relative mb-2 common-widget">
+                        <div class="d-flex flex-row comment-row p-3">
+                            {% for panorama in panoramas %}
+                                {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
+                                    <div class="comment-text w-100 p-3">
+                                        <h5>Panorama du {{ panorama.displayAt|date('d M') }}</h5>
+                                        <p class="mb-1 overflow-hidden">{{ panorama.panorama.text }}</p>
+                                        <div class="comment-footer">
+                                            <span class="text-muted pull-right">{{ panorama.displayAt|date('d M y à h:m') }}</span>
+                                            <span class="badge badge-info">Non lu</span>
+                                            <span class="action-icons">
+                                                <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
+                                                    <input type="hidden" name="_method" value="CHECK">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
+                                                    <button class="btn btn-success btn-xs">Ne plus voir</button>
+                                                </form>
+                                            </span>
                                         </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
