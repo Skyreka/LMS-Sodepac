@@ -42,7 +42,7 @@ class BsvType extends AbstractType
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k'
+                        'maxSize' => '5000k'
                     ])
                 ],
             ])
@@ -55,7 +55,7 @@ class BsvType extends AbstractType
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k'
+                        'maxSize' => '5000k'
                     ])
                 ],
             ])
