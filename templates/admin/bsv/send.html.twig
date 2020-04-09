@@ -78,7 +78,11 @@
                 });
                 let $input = $(data).find('#bsv_send_user')
                 $('#bsv_send_user').replaceWith( $input )
-                $('#bsv_send_user').append( "<input type=\"checkbox\" name=\"select-all\" id=\"select-all\" />" )
+                $('#bsv_send_user').append( "<input id=\"selectAll\" type=\"checkbox\"><label for='selectAll'>Sélectioner tous</label>" )
+                $("#selectAll").click(function(){
+                    $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+
+                });
             })
         })
     </script>
