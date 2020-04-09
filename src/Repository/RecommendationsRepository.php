@@ -49,6 +49,20 @@ class RecommendationsRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findByExploitationOfCustomerAndYear( $customer, $year )
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin( Exploitation::class,'e','WITH', 'r.exploitation = e.id' )
+            ->where('e.users = :customer')
+            ->andWhere('year(r.create_at) = :year')
+            ->setParameter('customer', $customer )
+            ->setParameter('year', $year)
+            ->orderBy('r.create_at', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findAllByYear($year)
     {
 

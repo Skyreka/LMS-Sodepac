@@ -444,14 +444,28 @@ class RecommendationsController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/recommendations", name="exploitation.recommendations.index")
-     * @param RecommendationsRepository $rr
-     * @return Response
-     */
+ * @Route("exploitation/recommendations", name="exploitation.recommendations.index")
+ * @param RecommendationsRepository $rr
+ * @return Response
+ */
     public function indexUser( RecommendationsRepository $rr ): Response
     {
+        $year = date('Y');
         return $this->render('exploitation/recommendations/index.html.twig', [
-            'recommendations' => $rr->findBy( ['exploitation' => $this->getUser()->getExploitation() ] )
+            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year )
+        ]);
+    }
+
+    /**
+     * @Route("exploitation/recommendations/data/{year}", name="exploitation.recommendations.data")
+     * @param RecommendationsRepository $rr
+     * @param $year
+     * @return Response
+     */
+    public function dataUser( RecommendationsRepository $rr, $year ): Response
+    {
+        return $this->render('exploitation/recommendations/data.html.twig', [
+            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year )
         ]);
     }
 
