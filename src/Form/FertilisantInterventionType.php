@@ -72,7 +72,7 @@ class FertilisantInterventionType extends AbstractType
                     'choices' => [],
                     'required' => false,
                     'auto_initialize' => false,
-                    'placeholder' => 'Selectionner un produit avant de choisir une dose'
+                    'placeholder' => 'Sélectionner un produit avant de choisir une dose'
                 ]
             );
         } else {

@@ -33,7 +33,7 @@ class PhytoInterventionType extends AbstractType
                     return $sr->findProductInStockByExploitation( $options['user']->getExploitation() );
                 },
                 'mapped' => false,
-                'placeholder' => 'Selectionner votre produit de fumure'
+                'placeholder' => 'Sélectionner votre produit de fumure'
             ])
         ;
 
@@ -73,7 +73,7 @@ class PhytoInterventionType extends AbstractType
                     'choices' => [],
                     'required' => false,
                     'auto_initialize' => false,
-                    'placeholder' => 'Selectionner un produit avant de choisir une dose'
+                    'placeholder' => 'Sélectionner un produit avant de choisir une dose'
                 ]
             );
         } else {
@@ -91,7 +91,7 @@ class PhytoInterventionType extends AbstractType
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
-                    'placeholder' => 'Selectionner votre produit de fumure'
+                    'placeholder' => 'Sélectionner votre produit de fumure'
                 ]
             );
         }
