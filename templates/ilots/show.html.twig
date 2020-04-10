@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Cultures liée(s)</h4>
+                            <h4 class="card-title">Cultures en cours</h4>
                             <div class="ml-auto">
                                 <a href="{{ path('cultures.new', {id: ilot.id}) }}" class="btn btn-success">Ajouter</a>
                             </div>
@@ -39,21 +39,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {% for culture in cultures %}
-                                        <tr>
-                                            <td>
-                                                <a href="{{ path('cultures.show', {id: culture.id}) }}">
-                                                    <h6>{{ culture.name.name }} ({{ culture.comments }})</h6><small class="text-muted">{{ culture.size }} ha</small>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <form method="POST" action="{{ path('cultures.delete', {id: culture.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette culture?')">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ culture.id) }}">
-                                                    <button class="btn btn-danger">Supprimer</button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                    {% for culture in culturesInProgress %}
+                                        {% if culture.interventions.toArray is empty %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                        <h6>{{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span></h6><small class="text-muted">{{ culture.size }} ha</small>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <form method="POST" action="{{ path('cultures.delete', {id: culture.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette culture?')">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ culture.id) }}">
+                                                        <button class="btn btn-danger">Supprimer</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
                                     {% endfor %}
                                 </tbody>
                             </table>
@@ -86,8 +88,46 @@
                     <button class="btn btn-block btn-danger">Supprimer l'ilot</button>
                 </form>
             </div>
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-toggle="collapse" href="#cultures" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                                <i class="mdi mdi-arrow-expand"></i>
+                            </a>
+                        </div>
+                        <h4 class="card-title mb-0">Cultures récoltées</h4>
+                    </div>
+                    <div class="card-body collapse" id="cultures">
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Cultures</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for culture in culturesFinish %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                <h6>{{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span></h6><small class="text-muted">{{ culture.size }} ha</small>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-info text-white" href="{{ path('cultures.synthese', {id: culture.id}) }}">Synthese</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
     </div>
 
 {% endblock %}

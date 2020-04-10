@@ -6,6 +6,7 @@ use App\Entity\Cultures;
 use App\Entity\Exploitation;
 use App\Entity\Ilots;
 use App\Entity\IndexCultures;
+use App\Entity\Interventions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
@@ -76,6 +77,39 @@ class CulturesRepository extends ServiceEntityRepository
             ->leftJoin(Ilots::class, 'i', 'WITH', 'i.id = c.ilot')
             ->where('i.exploitation = :exploitation')
             ->setParameter('exploitation', $exploitation)
+            ;
+    }
+
+    /**
+     * Find All Culture By ilot
+     * @param $ilot
+     * @return mixed
+     */
+    public function findByIlot( $ilot )
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.ilot = :ilot')
+            ->setParameter('ilot', $ilot)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * Find Cultures by illot Recolted
+     * @param $ilot
+     * @return mixed
+     */
+    public function findByIlotFinish( $ilot )
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin( Interventions::class, 'i', 'WITH', 'c.id = i.culture')
+            ->where('c.ilot = :ilot')
+            ->setParameter('ilot', $ilot)
+            ->andWhere('i.type = :type' )
+            ->setParameter('type', 'Récolte')
+            ->getQuery()
+            ->getResult()
             ;
     }
 

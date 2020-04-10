@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Synthese de culture{% endblock %}
+
+{% block stylesheets %}
+    <link href="{{ asset('plugins/css-chart/css-chart.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('cultures.index') }}">Cultures</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ culture.ilot.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ culture.name.name }}</a></li>
+                    <li class="breadcrumb-item active">Synthese</li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-md-flex no-block">
+                            <h4 class="card-title">Cultures récoltées</h4>
+                        </div>
+                        <div class="month-table">
+                            <div class="table-responsive mt-3">
+                                <table class="table stylish-table mb-0">
+                                    <tbody>
+                                    {% for culture in cultures %}
+                                        <tr>
+                                            <td>
+                                                <a class="culture" href="{{ path('cultures.synthese.data', {id: culture.id}) }} ">
+                                                    <h6>{{ culture.name.name }} </h6><small class="text-muted">{{ culture.size }} ha</small>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9" id="insert_culture"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).on('click', 'a.culture', function (event) {
+            event.preventDefault();
+            let $field = $(this)
+            let url = $field.attr('href')
+            $.post(url).then(function (data) {
+                let content = $('#insert_culture')
+                content.empty()
+                content.append( data )
+            })
+        })
+    </script>
+{% endblock %}

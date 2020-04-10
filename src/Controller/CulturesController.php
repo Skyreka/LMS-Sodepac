@@ -119,4 +119,34 @@ class CulturesController extends AbstractController
         }
         return $this->redirectToRoute('ilots.show', ['id' => $culture->getIlot()->getId()]);
     }
+
+    /**
+     * @Route("cultures/synthese/{id}", name="cultures.synthese")
+     * @param Cultures $culture
+     * @param CulturesRepository $cr
+     * @return Response
+     */
+    public function synthese(Cultures $culture, CulturesRepository $cr): Response
+    {
+        $cultures = $cr->findByIlotFinish( $culture->getIlot() );
+
+        return $this->render('cultures/synthese.html.twig', [
+            'cultures' => $cultures,
+            'culture' => $culture
+        ]);
+    }
+
+    /**
+     * @Route("cultures/synthese/{id}/data", name="cultures.synthese.data")
+     * @param Cultures $culture
+     * @param InterventionsRepository $interventionsRepository
+     * @return Response
+     */
+    public function syntheseData(Cultures $culture, InterventionsRepository $interventionsRepository): Response
+    {
+        return $this->render('cultures/syntheseData.html.twig', [
+            'culture' => $culture,
+            'interventions' => $interventionsRepository
+        ]);
+    }
 }
