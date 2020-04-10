@@ -22,6 +22,11 @@
                     <div class="card-body">
                         <div class="d-flex no-block">
                             <h4 class="card-title">Vos Ilots</h4>
+                            <div class="ml-auto">
+                                {% if app.user.exploitation is not empty %}
+                                    <a href="{{ path('ilots.new') }}" class="btn btn-success">Ajouter</a>
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="table-responsive m-t-20">
                             <table class="table stylish-table">
