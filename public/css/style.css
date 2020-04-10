@@ -12355,6 +12355,7 @@ use profile section
   width: 100%;
   border-radius: 100%; }
 .user-profile .profile-text {
+  padding: 5px 0px;
   position: relative; }
 .user-profile .profile-text > a {
   color: #fff !important;
@@ -12362,6 +12363,10 @@ use profile section
   padding: 6px 30px;
   background: rgba(0, 0, 0, 0.5);
   display: block; }
+.user-profile .profile-text > a:after {
+  position: absolute;
+  right: 20px;
+  top: 20px; }
 .user-profile .dropdown-menu {
   left: 0px;
   right: 0px;
