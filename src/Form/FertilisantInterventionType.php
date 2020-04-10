@@ -32,7 +32,7 @@ class FertilisantInterventionType extends AbstractType
                     return $sr->findProductInStockByExploitation( $options['user']->getExploitation() );
                 },
                 'mapped' => false,
-                'placeholder' => 'Selectionner votre produit de fumure'
+                'placeholder' => 'Sélectionner un produit dans votre stock'
             ])
         ;
 
