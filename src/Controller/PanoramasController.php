@@ -343,7 +343,7 @@ class PanoramasController extends AbstractController
             $this->em->flush();
         }
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('user.panoramas.history.index');
     }
 
     /**

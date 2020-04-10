@@ -300,7 +300,7 @@ class BsvController extends AbstractController
             $this->em->flush();
         }
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('user.bsv.history.index');
     }
 
     /**

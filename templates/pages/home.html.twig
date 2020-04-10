@@ -41,7 +41,7 @@
                                                 <form method="POST" action="{{ path('user.bsv.check', {id: bsv.id}) }}" style="display: inline-block">
                                                     <input type="hidden" name="_method" value="CHECK">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('check' ~ bsv.id) }}">
-                                                    <button class="btn btn-success btn-xs"><i class="ti-check"></i> Ne plus voir</button>
+                                                    <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>
                                                 </form>
                                             </span>
                                         </div>
@@ -72,7 +72,7 @@
                                                 <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
                                                     <input type="hidden" name="_method" value="CHECK">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
-                                                    <button class="btn btn-success btn-xs">Ne plus voir</button>
+                                                    <button class="btn btn-success btn-xs">Lire</button>
                                                 </form>
                                             </span>
                                         </div>
