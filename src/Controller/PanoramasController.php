@@ -46,7 +46,7 @@ class PanoramasController extends AbstractController
      */
     public function index(): Response
     {
-        $panoramas = $this->repositoryPanoramas->findAllNotSent();
+        $panoramas = $this->repositoryPanoramas->findAllNotDeleted();
         return $this->render('panoramas/index.html.twig', [
             'panoramas' => $panoramas
         ]);
@@ -61,7 +61,7 @@ class PanoramasController extends AbstractController
     public function delete(Panoramas $panoramas, Request $request)
     {
         if ($this->isCsrfTokenValid('delete' . $panoramas->getId(), $request->get('_token'))) {
-            $this->em->remove($panoramas);
+            $panoramas->setArchive(0);
             $this->em->flush();
             $this->addFlash('success', 'Panorama supprimé avec succès');
         }

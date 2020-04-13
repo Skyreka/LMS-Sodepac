@@ -41,7 +41,7 @@ class BsvController extends AbstractController
      */
     public function index(): Response
     {
-        $bsv = $this->repositoryBsv->findAllNotSent();
+        $bsv = $this->repositoryBsv->findAllNotDeleted();
         return $this->render('admin/bsv/index.html.twig', [
             'bsv' => $bsv
         ]);
@@ -255,7 +255,7 @@ class BsvController extends AbstractController
     public function delete(Bsv $bsv, Request $request)
     {
         if ($this->isCsrfTokenValid('delete' . $bsv->getId(), $request->get('_token'))) {
-            $this->em->remove($bsv);
+            $bsv->setArchive(1);
             $this->em->flush();
             $this->addFlash('success', 'BSV supprimé avec succès');
         }

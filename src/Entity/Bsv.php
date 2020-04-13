@@ -58,6 +58,11 @@ class Bsv
      */
     private $customers;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $archive = 0;
+
     public function __construct()
     {
         $this->customers = new ArrayCollection();
@@ -179,6 +184,18 @@ class Bsv
                 $customer->setBsv(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getArchive(): ?bool
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(bool $archive): self
+    {
+        $this->archive = $archive;
 
         return $this;
     }
