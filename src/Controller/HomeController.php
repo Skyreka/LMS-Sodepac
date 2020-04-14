@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
 use App\Repository\PanoramasRepository;
 use App\Repository\UsersRepository;
@@ -30,13 +31,18 @@ class HomeController extends AbstractController {
      * @Route("/home", name="home")
      * @param IlotsRepository $ir
      * @param UsersRepository $ur
+     * @param CulturesRepository $cr
      * @return Response
      */
-    public function homeUsers(IlotsRepository $ir, UsersRepository $ur): Response
+    public function homeUsers(IlotsRepository $ir, UsersRepository $ur, CulturesRepository $cr): Response
     {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $bsvs = $this->getUser()->getBsvs();
         $panoramas = $this->getUser()->getPanoramas();
+
+        //-- Numbers
+        $countCulture = $cr->countCulturesOfUser( $this->getUser() );
+        $countIlots = $ir->countIlotsOfUser( $this->getUser() );
         return $this->render('pages/home.html.twig', [
             'bsvs' => $bsvs,
             'panoramas' => $panoramas,

@@ -31,7 +31,7 @@ class IrrigationType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'Pluviométrie' => 'Pluviometrie',
-                    'Arrosage' => 'Arrosage'
+                    'Irrigation' => 'Irrigation'
                 ]
             ])
             ->add('quantity', NumberType::class, [
