@@ -40,7 +40,6 @@
                                 </thead>
                                 <tbody>
                                     {% for culture in culturesInProgress %}
-                                        {% if culture.interventions.toArray is empty %}
                                             <tr>
                                                 <td>
                                                     <a href="{{ path('cultures.show', {id: culture.id}) }}">
@@ -55,7 +54,6 @@
                                                     </form>
                                                 </td>
                                             </tr>
-                                        {% endif %}
                                     {% endfor %}
                                 </tbody>
                             </table>
