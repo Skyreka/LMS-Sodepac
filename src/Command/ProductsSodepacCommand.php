@@ -13,9 +13,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use TreeHouse\Slugifier\Slugifier;
 
-class ProductsCommand extends Command
+class ProductsSodepacCommand extends Command
 {
-    protected static $defaultName = 'app:importProducts';
+    protected static $defaultName = 'app:importProductsSodepac';
     /**
      * @var ContainerInterface
      */
