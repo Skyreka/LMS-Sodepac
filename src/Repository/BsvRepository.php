@@ -19,10 +19,10 @@ class BsvRepository extends ServiceEntityRepository
         parent::__construct($registry, Bsv::class);
     }
 
-    public function findAllNotSent ()
+    public function findAllNotDeleted ()
     {
         return $this->createQueryBuilder('p')
-            ->where('p.sent = 0')
+            ->where('p.archive = 0')
             ->getQuery()
             ->getResult();
     }

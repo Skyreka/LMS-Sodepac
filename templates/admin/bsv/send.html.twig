@@ -49,24 +49,14 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script>
         $('.select2').select2();
-        $(document).on('change', '#bsv_send_cultures', function () {
-            let $field = $(this)
-            let $form = $field.closest('form')
-            let data = {}
-            data[$field.attr('name')] = $field.val()
-            $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('.form-group')
-                let $button = $(data).find('.btn')
-                $($form).html( $input )
-                $($form).append( $button )
-            })
-        })
     </script>
     <script>
         $(document).on('change', '#bsv_send_cultures', function () {
             let $field = $(this)
+            let $token = $('#bsv_send_token')
             let $form = $field.closest('form')
             let data = {}
+            data[$token.attr('name')] = $token.val()
             data[$field.attr('name')] = $field.val()
             $.post($form.attr('action'), data).then(function (data) {
                 $('.js-datepicker').datepicker({

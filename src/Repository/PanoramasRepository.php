@@ -54,10 +54,10 @@ class PanoramasRepository extends ServiceEntityRepository
      * @param null $limit
      * @return mixed
      */
-    public function findAllNotSent ($limit = null)
+    public function findAllNotDeleted ($limit = null)
     {
         $req = $this->createQueryBuilder('p')
-            ->where('p.sent = 0')
+            ->where('p.archive = 0')
             ;
 
         if (false === is_null($limit)) {

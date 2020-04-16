@@ -20,7 +20,7 @@ class HomeController extends AbstractController {
     public function homeTechnicians( UsersRepository $ur, PanoramasRepository $pr)
     {
         $customers = $ur->findAllCustomersOfTechnician( $this->getUser()->getId(), 10 );
-        $panoramas = $pr->findAllNotSent(3);
+        $panoramas = $pr->findAllNotDeleted(3);
         return $this->render('technician/home.html.twig', [
             'customers' => $customers,
             'panoramas' => $panoramas

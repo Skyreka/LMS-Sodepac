@@ -49,15 +49,6 @@
                                             {% endif %}
                                         </td>
                                         <td>
-                                            {% if panorama.firstFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
-                                            {% endif %}
-                                            {% if panorama.secondFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
-                                            {% endif %}
-                                            {% if panorama.thirdFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
-                                            {% endif %}
                                             {% if app.user.status == 'ROLE_ADMIN' %}
                                                 <form method="POST" action="{{ path('panoramas.delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
                                                     <input type="hidden" name="_method" value="DELETE">
@@ -76,6 +67,15 @@
                                                 {% if panorama.validate == 1 %}
                                                     <a title="Envoyer ce panorama" href="{{ path('panoramas.send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
                                                 {% endif %}
+                                            {% endif %}
+                                            {% if panorama.firstFile %}
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                                            {% endif %}
+                                            {% if panorama.secondFile %}
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                                            {% endif %}
+                                            {% if panorama.thirdFile %}
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
                                             {% endif %}
                                         </td>
                                     </tr>
