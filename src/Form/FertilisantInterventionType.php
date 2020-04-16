@@ -90,7 +90,7 @@ class FertilisantInterventionType extends AbstractType
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
-                    'placeholder' => 'Selectionner votre produit de fumure'
+                    'placeholder' => 'Choisir le dosage'
                 ]
             );
         }

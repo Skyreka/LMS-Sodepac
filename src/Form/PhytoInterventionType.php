@@ -91,7 +91,7 @@ class PhytoInterventionType extends AbstractType
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
-                    'placeholder' => 'Sélectionner votre produit de fumure'
+                    'placeholder' => 'Choisir le dosage'
                 ]
             );
         }
