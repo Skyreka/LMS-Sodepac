@@ -57,7 +57,7 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->andWhere('year(r.create_at) = :year')
             ->setParameter('customer', $customer )
             ->setParameter('year', $year)
-            ->orderBy('r.create_at', 'DESC')
+            ->orderBy('r.create_at', 'ASC')
             ->getQuery()
             ->getResult()
             ;
@@ -73,7 +73,7 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->orWhere( 'r.status = :status2' )
             ->setParameter( 'status1',  '1' )
             ->setParameter( 'status2',  '2' )
-            ->orderBy('r.create_at', 'DESC')
+            ->orderBy('r.create_at', 'ASC')
             ->getQuery()
             ->getResult()
             ;
