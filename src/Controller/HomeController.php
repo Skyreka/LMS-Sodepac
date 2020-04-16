@@ -40,9 +40,6 @@ class HomeController extends AbstractController {
         $bsvs = $this->getUser()->getBsvs();
         $panoramas = $this->getUser()->getPanoramas();
 
-        //-- Numbers
-        $countCulture = $cr->countCulturesOfUser( $this->getUser() );
-        $countIlots = $ir->countIlotsOfUser( $this->getUser() );
         return $this->render('pages/home.html.twig', [
             'bsvs' => $bsvs,
             'panoramas' => $panoramas,

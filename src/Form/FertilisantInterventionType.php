@@ -115,11 +115,17 @@ class FertilisantInterventionType extends AbstractType
     {
 
         if ($dose) {
+            // Znt
+            if ($options['culture']->getZnt()) {
+                $znt = $options['culture']->getZnt();
+            } else {
+                $znt = 1;
+            }
             // Get Total Quantity
             $unitEnable = ['kg/ha', 'L/ha'];
             if (in_array($dose->getUnit(), $unitEnable)) {
-                $totalQuantity = 'Valeur calculée: '. $dose->getDose() * $options['culture']->getSize();
-                $resultMessage = 'Résultat de la dose préconisé : '.$dose->getDose().' * '.$options['culture']->getSize().'ha Taille de la culture en Ha';
+                $totalQuantity = 'Valeur calculée: '. $dose->getDose() * $znt  * $options['culture']->getSize();
+                $resultMessage = 'Résultat de la dose préconisé : '.$dose->getDose().' * ZNT ('. $znt .') * '.$options['culture']->getSize().'ha Taille de la culture en Ha';
             } else {
                 $totalQuantity = '- Calcul non disponible avec cette unité';
                 $resultMessage = 'Aucun calcul effectué';
