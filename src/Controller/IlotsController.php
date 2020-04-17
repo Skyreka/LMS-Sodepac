@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Cultures;
 use App\Entity\Ilots;
 use App\Form\IlotsType;
 use App\Repository\CulturesRepository;
@@ -86,6 +87,8 @@ class IlotsController extends AbstractController
     public function delete(Ilots $ilot, Request $request)
     {
         if ($this->isCsrfTokenValid( 'deleteIlot', $request->get('_token') )) {
+            $culture = new Cultures();
+            $ilot->removeCulture( $culture );
             $this->em->remove( $ilot );
             $this->em->flush();
             $this->addFlash('success', 'Ilot supprimé avec succès');

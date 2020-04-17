@@ -35,7 +35,7 @@ class Ilots
     private $size;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cultures", mappedBy="ilot")
+     * @ORM\OneToMany(targetEntity="App\Entity\Cultures", mappedBy="ilot", orphanRemoval=true)
      */
     private $cultures;
 
