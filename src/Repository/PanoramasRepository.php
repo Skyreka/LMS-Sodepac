@@ -58,6 +58,7 @@ class PanoramasRepository extends ServiceEntityRepository
     {
         $req = $this->createQueryBuilder('p')
             ->where('p.archive = 0')
+            ->orderBy('p.creation_date', 'DESC')
             ;
 
         if (false === is_null($limit)) {

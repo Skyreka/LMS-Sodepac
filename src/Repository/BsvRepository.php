@@ -23,6 +23,7 @@ class BsvRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('p.archive = 0')
+            ->orderBy('p.creation_date', 'DESC')
             ->getQuery()
             ->getResult();
     }
