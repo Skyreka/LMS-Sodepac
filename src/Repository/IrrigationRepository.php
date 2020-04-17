@@ -40,6 +40,33 @@ class IrrigationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @param $exploitation
+     * @param $year
+     * @param $type
+     * @param null $limit
+     * @return mixed
+     */
+    public function findByExploitationYearAndType( $exploitation, $year, $type, $limit = null )
+    {
+        $query = $this->createQueryBuilder('i')
+            ->andWhere('i.exploitation = :exp')
+            ->andWhere('i.type = :type')
+            ->andWhere('year(i.intervention_at) = :year')
+            ->setParameter('exp', $exploitation)
+            ->setParameter('type', $type)
+            ->setParameter('year', $year)
+            ->orderBy('i.intervention_at', 'ASC')
+        ;
+
+        if ($limit != NULL) {
+            $query = $query->setMaxResults( $limit );
+        }
+
+        return $query->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Irrigation[] Returns an array of Irrigation objects
     //  */

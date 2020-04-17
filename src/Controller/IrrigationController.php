@@ -68,4 +68,49 @@ class IrrigationController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("exploitation/pluviometrie/synthese", name="exploitation.pluviometrie.synthese")
+     * @param IrrigationRepository $ir
+     * @return Response
+     */
+
+    public function pluviometrie(IrrigationRepository $ir): Response
+    {
+        $year = date('Y');
+        $irrigations = $ir->findByExploitationYearAndType($this->getUser()->getExploitation(), $year, 'Pluviometrie');
+        return $this->render('exploitation/irrigation/synthese/pluviometrie.html.twig',[
+            'irrigations' => $irrigations
+        ]);
+    }
+
+    /**
+     * @Route("exploitation/arrosage/synthese", name="exploitation.arrosage.synthese")
+     * @param IrrigationRepository $ir
+     * @return Response
+     */
+
+    public function arrosage(IrrigationRepository $ir): Response
+    {
+        $year = date('Y');
+        $irrigations = $ir->findByExploitationYearAndType($this->getUser()->getExploitation(), $year, 'Arrosage');
+        return $this->render('exploitation/irrigation/synthese/arrosage.html.twig',[
+            'irrigations' => $irrigations
+        ]);
+    }
+
+    /**
+     * @Route("/exploitation/irrigation/{year}/{type}", name="user.exploitation.irrigation.data")
+     * @param $year
+     * @param $type
+     * @param IrrigationRepository $ir
+     * @return Response
+     */
+    public function userList($year, $type, IrrigationRepository $ir): Response
+    {
+        $irrigations = $ir->findByExploitationYearAndType($this->getUser()->getExploitation(), $year, $type);
+        return $this->render('exploitation/irrigation/synthese/data.html.twig', [
+            'irrigations' => $irrigations
+        ]);
+    }
 }
