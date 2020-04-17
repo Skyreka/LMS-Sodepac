@@ -19,6 +19,28 @@ class BsvUsersRepository extends ServiceEntityRepository
         parent::__construct($registry, BsvUsers::class);
     }
 
+
+    /**
+     * @param $customer
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllByCustomer($customer, $limit = null)
+    {
+
+        $req = $this->createQueryBuilder('b')
+            ->andWhere('b.customers = :customer')
+            ->setParameter('customer', $customer)
+            ->orderBy('b.display_at', 'ASC')
+            ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
     /**
      * @param $year
      * @param $customer
