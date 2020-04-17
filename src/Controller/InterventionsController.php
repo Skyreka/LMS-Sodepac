@@ -16,6 +16,7 @@ use App\Form\EpandageInterventionType;
 use App\Form\FertilisantInterventionType;
 use App\Form\PhytoAddAdjuvantType;
 use App\Form\PhytoInterventionType;
+use App\Form\RecolteType;
 use App\Form\SemisInterventionType;
 use App\Repository\StocksRepository;
 use App\Repository\UsedProductsRepository;
@@ -53,7 +54,7 @@ class InterventionsController extends AbstractController
     {
         $name = "Récolte";
         $intervention = new Recolte();
-        $form = $this->createForm( DefaultInterventionType::class, $intervention);
+        $form = $this->createForm( RecolteType::class, $intervention);
         $form->handleRequest( $request );
 
         $intervention->setCulture( $culture );

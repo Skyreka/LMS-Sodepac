@@ -113,7 +113,29 @@ abstract class Interventions
  */
 class Recolte extends Interventions
 {
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $rendement;
 
+    /**
+     * @return mixed
+     */
+    public function getRendement()
+    {
+        return $this->rendement;
+    }
+
+    /**
+     * @param mixed $quantity
+     * @return Recolte
+     */
+    public function setRendement($quantity): self
+    {
+        $this->rendement = $quantity;
+
+        return $this;
+    }
 }
 /**
  * @ORM\Entity()
