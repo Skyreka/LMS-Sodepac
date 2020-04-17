@@ -18,7 +18,7 @@ class IlotsType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('size', IntegerType::class, [
+            ->add('size', NumberType::class, [
                 'attr' => [
                     'min' => 0,
                     'max' => $options['max_size']
