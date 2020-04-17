@@ -32,10 +32,10 @@ class IrrigationController extends AbstractController
 
     public function index(IrrigationRepository $irrigationRepository): Response
     {
-        $irrigations = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Irrigation' ] );
-        $pluvios = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Pluviometrie' ] );
+        $arrosages = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Arrosage' ], null, 3 );
+        $pluvios = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Pluviometrie' ], null, 3 );
         return $this->render('exploitation/irrigation/index.html.twig', [
-            'irrigations' => $irrigations,
+            'arrosages' => $arrosages,
             'pluvios' => $pluvios
         ]);
     }
