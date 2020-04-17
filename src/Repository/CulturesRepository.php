@@ -37,8 +37,10 @@ class CulturesRepository extends ServiceEntityRepository
         try {
             $totalSize = $this->createQueryBuilder('t')
                 ->select('SUM(t.size)')
-                ->andWhere('t.ilot = :ilot')
+                ->where('t.ilot = :ilot')
+                ->andWhere('t.status = :status')
                 ->setParameter('ilot', $ilot)
+                ->setParameter('status', 0)
                 ->getQuery()
                 ->getSingleScalarResult();
         } catch (NoResultException $e) {
@@ -90,24 +92,6 @@ class CulturesRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->where('c.ilot = :ilot')
             ->setParameter('ilot', $ilot)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    /**
-     * Find Cultures by illot Recolted
-     * @param $ilot
-     * @return mixed
-     */
-    public function findByIlotFinish( $ilot )
-    {
-        return $this->createQueryBuilder('c')
-            ->leftJoin( Interventions::class, 'i', 'WITH', 'c.id = i.culture')
-            ->where('c.ilot = :ilot')
-            ->setParameter('ilot', $ilot)
-            ->andWhere('i.type = :type' )
-            ->setParameter('type', 'Récolte')
             ->getQuery()
             ->getResult()
             ;

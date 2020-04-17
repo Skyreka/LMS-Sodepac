@@ -69,13 +69,11 @@ class IlotsController extends AbstractController
      */
     public function show(Ilots $ilot, CulturesRepository $culturesRepository): Response
     {
-        $culturesInProgress = $culturesRepository->findByIlot( $ilot );
-        $culturesFinish = $culturesRepository->findByIlotFinish( $ilot );
+        $cultures = $culturesRepository->findByIlot( $ilot );
 
         return $this->render('ilots/show.html.twig', [
             'ilot' => $ilot,
-            'culturesInProgress' => $culturesInProgress,
-            'culturesFinish' => $culturesFinish
+            'cultures' => $cultures
         ]);
     }
 

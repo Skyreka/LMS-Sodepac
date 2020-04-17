@@ -75,6 +75,11 @@ class Cultures
      */
     private $interventions;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $status = 0;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
@@ -241,5 +246,17 @@ class Cultures
         return serialize([
             $this->id
         ]);
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }

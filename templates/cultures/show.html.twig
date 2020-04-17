@@ -260,7 +260,7 @@
                         <small class="text-muted">Culture précédent:</small>
                         <h6>{{ culture.precedent.name }}</h6>
                         <small class="text-muted pt-4 d-block">Effluent:</small>
-                        <h6>{{ culture.effluent.name }}</h6>
+                        <h6>{{ culture.effluent.name|default("Non") }}</h6>
                     </div>
                 </div>
             </div>

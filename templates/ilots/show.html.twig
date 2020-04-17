@@ -39,7 +39,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {% for culture in culturesInProgress %}
+                                    {% for culture in cultures %}
+                                        {% if culture.status == 0 %}
                                             <tr>
                                                 <td>
                                                     <a href="{{ path('cultures.show', {id: culture.id}) }}">
@@ -54,6 +55,7 @@
                                                     </form>
                                                 </td>
                                             </tr>
+                                        {% endif %}
                                     {% endfor %}
                                 </tbody>
                             </table>
@@ -107,17 +109,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for culture in culturesFinish %}
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('cultures.show', {id: culture.id}) }}">
-                                                <h6>{{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span></h6><small class="text-muted">{{ culture.size }} ha</small>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-info text-white" href="{{ path('cultures.synthese', {id: culture.id}) }}">Synthese</a>
-                                        </td>
-                                    </tr>
+                                {% for culture in cultures %}
+                                    {% if culture.status == 1 %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('cultures.show', {id: culture.id}) }}">
+                                                    <h6>{{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span></h6><small class="text-muted">{{ culture.size }} ha</small>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-info text-white" href="{{ path('cultures.synthese', {id: culture.id}) }}">Synthese</a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                                 </tbody>
                             </table>
