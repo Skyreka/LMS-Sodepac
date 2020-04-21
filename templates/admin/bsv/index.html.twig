@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des BSV{% endblock %}
+{% block title %}Listes des Flashs{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <h3 class="text-themecolor">Accueil</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ path('admin.bsv.index') }}">BSV</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ path('admin.bsv.index') }}">Flashs</a></li>
                 </ol>
             </div>
         </div>
@@ -21,10 +21,10 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Liste des BSV en attente d'envoi</h4>
+                            <h4 class="card-title">Liste des Flashs en attente d'envoi</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('admin.bsv.new') }}" class="btn btn-success">Créer un BSV</a>
-                                <a href="{{ path('admin.bsv.history.index') }}" class="btn btn-info">Historique des BSV</a>
+                                <a href="{{ path('admin.bsv.new') }}" class="btn btn-success">Créer un Flash</a>
+                                <a href="{{ path('admin.bsv.history.index') }}" class="btn btn-info">Historique des Flash</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
