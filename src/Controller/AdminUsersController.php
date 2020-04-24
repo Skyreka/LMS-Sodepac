@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Exploitation;
 use App\Entity\Users;
+use App\Form\ExploitationType;
 use App\Form\UserType;
 use App\Repository\UsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -136,5 +138,28 @@ class AdminUsersController extends AbstractController {
             $this->addFlash('success', 'Utilisateur supprimé avec succès');
         }
         return $this->redirectToRoute('admin.users.index');
+    }
+
+    /**
+     * @Route("/admin/users/edit/exploitation/{id}", name="admin.users.edit.exploitation")
+     * @param Exploitation $exploitation
+     * @param Request $request
+     * @return Response
+     */
+    public function editExploitation(Exploitation $exploitation, Request $request): Response
+    {
+        $form = $this->createForm(ExploitationType::class, $exploitation);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist( $exploitation );
+            $this->em->flush();
+            $this->addFlash('success', 'Exploitation modifiée avec succès');
+            return $this->redirectToRoute( 'admin.users.index' );
+        }
+
+        return $this->render('technician/customers/size.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

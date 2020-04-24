@@ -51,7 +51,9 @@
                                                     {% if user.exploitation is null %}
                                                         <h6>Aucune exploitation</h6>
                                                     {% else %}
-                                                        <h6>{{ user.exploitation.size }} ha</h6>
+                                                        <a href="{{ path('admin.users.edit.exploitation', {id: user.exploitation.id}) }}">
+                                                            <h6>{{ user.exploitation.size }} ha</h6>
+                                                        </a>
                                                     {% endif %}
                                                 </h6>
                                             </td>
