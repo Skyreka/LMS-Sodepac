@@ -277,6 +277,11 @@ class PanoramasController extends AbstractController
                     'choice_label' => function(Users $user) {
                         return $user->getFirstname() . ' ' . $user->getLastname();
                     },
+                    'query_builder' => function (UsersRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->andWhere('u.status = :role')
+                            ->setParameter('role', 'ROLE_USER' );
+                    },
                     'label'     => 'Envoyer à :',
                     'expanded'  => true,
                     'multiple'  => true,
