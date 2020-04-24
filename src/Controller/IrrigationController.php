@@ -32,8 +32,8 @@ class IrrigationController extends AbstractController
 
     public function index(IrrigationRepository $irrigationRepository): Response
     {
-        $arrosages = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Arrosage' ], null, 3 );
-        $pluvios = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Pluviometrie' ], null, 3 );
+        $arrosages = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Arrosage' ], ['intervention_at' => 'DESC'], 3 );
+        $pluvios = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Pluviometrie' ], ['intervention_at' => 'DESC'], 3 );
         return $this->render('exploitation/irrigation/index.html.twig', [
             'arrosages' => $arrosages,
             'pluvios' => $pluvios
