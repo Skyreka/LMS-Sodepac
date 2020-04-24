@@ -91,7 +91,11 @@
                         <h3 class="m-b-0">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</h3>
                         <div class="row text-center m-t-20">
                             <div class="col-12 m-t-20">
-                                <h3 class="m-b-0 font-light">{{ app.user.exploitation.size is defined }} ha</h3><small>Exploitation</small>
+                                <h3 class="m-b-0 font-light">
+                                    {% if app.user.exploitation.size is defined %}
+                                        {{ app.user.exploitation.size }}
+                                    {% endif %}
+                                    ha</h3><small>Exploitation</small>
                             </div>
                         </div>
                     </div>
