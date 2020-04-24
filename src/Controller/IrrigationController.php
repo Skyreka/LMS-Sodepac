@@ -32,8 +32,8 @@ class IrrigationController extends AbstractController
 
     public function index(IrrigationRepository $irrigationRepository): Response
     {
-        $arrosages = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Arrosage' ], null, 3 );
-        $pluvios = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Pluviometrie' ], null, 3 );
+        $arrosages = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Arrosage' ], ['intervention_at' => 'DESC'], 3 );
+        $pluvios = $irrigationRepository->findBy( ['exploitation' => $this->getUser()->getExploitation(), 'type' => 'Pluviometrie' ], ['intervention_at' => 'DESC'], 3 );
         return $this->render('exploitation/irrigation/index.html.twig', [
             'arrosages' => $arrosages,
             'pluvios' => $pluvios
@@ -54,7 +54,6 @@ class IrrigationController extends AbstractController
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $irrigation->setInterventionAt( new \DateTime());
             $irrigation->setExploitation( $this->getUser()->getExploitation() );
             $this->em->persist($irrigation);
             $this->em->flush();
@@ -79,8 +78,13 @@ class IrrigationController extends AbstractController
     {
         $year = date('Y');
         $irrigations = $ir->findByExploitationYearAndType($this->getUser()->getExploitation(), $year, 'Pluviometrie');
+        $total = 0;
+        foreach ($irrigations as $irrigation) {
+            $total = $total + $irrigation->getQuantity();
+        }
         return $this->render('exploitation/irrigation/synthese/pluviometrie.html.twig',[
-            'irrigations' => $irrigations
+            'irrigations' => $irrigations,
+            'total' => $total
         ]);
     }
 
@@ -94,8 +98,13 @@ class IrrigationController extends AbstractController
     {
         $year = date('Y');
         $irrigations = $ir->findByExploitationYearAndType($this->getUser()->getExploitation(), $year, 'Arrosage');
+        $total = 0;
+        foreach ($irrigations as $irrigation) {
+            $total = $total + $irrigation->getQuantity();
+        }
         return $this->render('exploitation/irrigation/synthese/arrosage.html.twig',[
-            'irrigations' => $irrigations
+            'irrigations' => $irrigations,
+            'total' => $total
         ]);
     }
 
@@ -109,8 +118,13 @@ class IrrigationController extends AbstractController
     public function userList($year, $type, IrrigationRepository $ir): Response
     {
         $irrigations = $ir->findByExploitationYearAndType($this->getUser()->getExploitation(), $year, $type);
+        $total = 0;
+        foreach ($irrigations as $irrigation) {
+            $total = $total + $irrigation->getQuantity();
+        }
         return $this->render('exploitation/irrigation/synthese/data.html.twig', [
-            'irrigations' => $irrigations
+            'irrigations' => $irrigations,
+            'total' => $total
         ]);
     }
 }

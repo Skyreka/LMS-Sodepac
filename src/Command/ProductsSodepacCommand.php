@@ -43,12 +43,11 @@ class ProductsSodepacCommand extends Command
         ini_set("memory_limit", "-1");
 
         // On récupere le csv
-        $csv = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'products.csv';
+        $csv = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'productsSodepac.csv';
         $lines = explode("\n", file_get_contents($csv));
 
         // Declaration des tableaux
         $products = [];
-        $applications = [];
 
         //Declaration de slugify
         $slugify = new Slugifier();
@@ -57,29 +56,23 @@ class ProductsSodepacCommand extends Command
         foreach ($lines as $k => $line) {
             $line = explode(';', $line);
             // On sauvegarde le product && Prend uniquement juste une donnée
-            if (!key_exists($line[2], $products) && !in_array($line[2], $products)) {
                 //-- Add new products
                 $product = new Products();
-                $product->setName($line[2]);
-                $product->setSlug( $slugify->slugify( $line[2] ) );
-                $products[$line[2]] = $products;
+                $product->setName('S-'.$line[1]);
+                $product->setSlug( $slugify->slugify( 's-'.$line[1] ) );
+                $products[$line[1]] = $products;
                 $em->persist($product);
-            }
-            if (!key_exists($line[17], $applications)) {
                 //-- Add new doses
                 $doses = new Doses();
                 $doses->setProduct( $product );
-                $doses->setDose($line[17]);
-                $doses->setUnit($line[18]);
-                $doses->setApplication($line[12]);
-                $applications[$line[14]] = $applications;
+                $doses->setDose(0);
+                $doses->setUnit(' ');
+                $doses->setApplication('Cliquez ici');
                 $em->persist($doses);
-            }
         }
         $em->flush();
         // On donne des information des résultats
         $output->writeln(count($products) . ' produits importées');
-        $output->writeln(count($applications) . ' doses importées');
         return 1;
     }
 }

@@ -30,7 +30,10 @@ class BsvUsersRepository extends ServiceEntityRepository
 
         $req = $this->createQueryBuilder('b')
             ->andWhere('b.customers = :customer')
+            ->andWhere('b.checked = 0')
+            ->andWhere('b.display_at < :now')
             ->setParameter('customer', $customer)
+            ->setParameter('now', new \DateTime('now'))
             ->orderBy('b.display_at', 'ASC')
             ;
 
@@ -52,8 +55,10 @@ class BsvUsersRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('b')
             ->where('year(b.display_at) = :year')
             ->andWhere('b.customers = :customer')
+            ->andWhere('b.display_at < :now')
             ->setParameter('year', $year)
             ->setParameter('customer', $customer)
+            ->setParameter('now', new \DateTime('now'))
             ->orderBy('b.display_at', 'DESC')
             ->getQuery()
             ->getResult()
