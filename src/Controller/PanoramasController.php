@@ -270,35 +270,61 @@ class PanoramasController extends AbstractController
     public function send(Panoramas $panoramas, Request $request): Response
     {
         //Set form
-        $form = $this->createFormBuilder()
-            ->add('customers', EntityType::class, [
-                'class' => Users::class,
-                'choice_label' => function(Users $user) {
-                    return $user->getFirstname() . ' ' . $user->getLastname();
-                },
-                'query_builder' => function (UsersRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.status', 'ASC')
-                        ->andWhere('u.technician = :technician')
-                        ->setParameter('technician', $this->getUser()->getId() );
-                },
-                'label'     => 'Envoyer à :',
-                'expanded'  => true,
-                'multiple'  => true,
-            ])
-            ->add('display_at', DateType::class, [
-                'widget' => 'single_text',
-                'html5' => false,
-                'mapped' => false,
-                'required' => false,
-                'attr' => [
-                    'class' => 'js-datepicker',
-                    'autocomplete' => 'off'
-                ],
-                'label' => 'Date d\'envoi',
-                'help' => 'Remplir uniquement en cas d\'envoi différé.'
-            ])
-            ->getForm();
+        if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
+            $form = $this->createFormBuilder()
+                ->add('customers', EntityType::class, [
+                    'class' => Users::class,
+                    'choice_label' => function(Users $user) {
+                        return $user->getFirstname() . ' ' . $user->getLastname();
+                    },
+                    'label'     => 'Envoyer à :',
+                    'expanded'  => true,
+                    'multiple'  => true,
+                ])
+                ->add('display_at', DateType::class, [
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'mapped' => false,
+                    'required' => false,
+                    'attr' => [
+                        'class' => 'js-datepicker',
+                        'autocomplete' => 'off'
+                    ],
+                    'label' => 'Date d\'envoi',
+                    'help' => 'Remplir uniquement en cas d\'envoi différé.'
+                ])
+                ->getForm();
+        } else {
+            $form = $this->createFormBuilder()
+                ->add('customers', EntityType::class, [
+                    'class' => Users::class,
+                    'choice_label' => function(Users $user) {
+                        return $user->getFirstname() . ' ' . $user->getLastname();
+                    },
+                    'query_builder' => function (UsersRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->orderBy('u.status', 'ASC')
+                            ->andWhere('u.technician = :technician')
+                            ->setParameter('technician', $this->getUser()->getId() );
+                    },
+                    'label'     => 'Envoyer à :',
+                    'expanded'  => true,
+                    'multiple'  => true,
+                ])
+                ->add('display_at', DateType::class, [
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'mapped' => false,
+                    'required' => false,
+                    'attr' => [
+                        'class' => 'js-datepicker',
+                        'autocomplete' => 'off'
+                    ],
+                    'label' => 'Date d\'envoi',
+                    'help' => 'Remplir uniquement en cas d\'envoi différé.'
+                ])
+                ->getForm();
+        }
         $form->handleRequest($request);
 
         //Submit form

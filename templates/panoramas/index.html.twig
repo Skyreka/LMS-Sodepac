@@ -68,6 +68,9 @@
                                                         <button class="btn btn-success">Valider</button>
                                                     </form>
                                                 {% endif %}
+                                                {% if panorama.validate == 1 %}
+                                                    <a title="Envoyer ce panorama" href="{{ path('panoramas.send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
+                                                {% endif %}
                                             {% elseif app.user.status == 'ROLE_TECHNICIAN' %}
                                                 {% if panorama.validate == 1 %}
                                                     <a title="Envoyer ce panorama" href="{{ path('panoramas.send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
