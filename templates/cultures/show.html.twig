@@ -21,6 +21,9 @@
         {% for message in app.flashes('warning') %}
             <div class="alert alert-warning">{{ message }}</div>
         {% endfor %}
+        {% if app.session.get('listCulture') %}
+            <div class="alert alert-warning">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées</div>
+        {% endif %}
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">
@@ -266,6 +269,4 @@
             </div>
         </div>
     </div>
-    </div>
-
 {% endblock %}

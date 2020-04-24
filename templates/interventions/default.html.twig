@@ -21,6 +21,9 @@
                 </ol>
             </div>
         </div>
+        {% if app.session.get('listCulture') %}
+            <div class="alert alert-warning">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées</div>
+        {% endif %}
         <div class="row">
             <div class="col-lg-12">
                     <h4 class="card-title">Créer un(e) {{ intervention }}</h4>

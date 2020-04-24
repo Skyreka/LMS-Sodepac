@@ -18,6 +18,7 @@ use App\Form\PhytoAddAdjuvantType;
 use App\Form\PhytoInterventionType;
 use App\Form\RecolteType;
 use App\Form\SemisInterventionType;
+use App\Repository\CulturesRepository;
 use App\Repository\StocksRepository;
 use App\Repository\UsedProductsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -33,15 +34,21 @@ class InterventionsController extends AbstractController
      * @var ObjectManager
      */
     private $om;
+    /**
+     * @var CulturesRepository
+     */
+    private $cr;
 
     /**
      * InterventionsController constructor.
-     * @param ObjectManager $om
+     * @param EntityManagerInterface $om
+     * @param CulturesRepository $cr
      */
-    public function __construct(EntityManagerInterface $om)
+    public function __construct(EntityManagerInterface $om, CulturesRepository $cr)
     {
 
         $this->om = $om;
+        $this->cr = $cr;
     }
 
     /**
@@ -57,15 +64,30 @@ class InterventionsController extends AbstractController
         $form = $this->createForm( RecolteType::class, $intervention);
         $form->handleRequest( $request );
 
-        $intervention->setCulture( $culture );
-        $intervention->setType( $name );
-
         //-- Culture update status
-        $culture->setStatus( 1 );
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->om->persist( $intervention );
-            $this->om->flush();
+            //-- If is multiple intervention
+            if ($this->container->get('session')->get('listCulture')) {
+                //-- Foreach of all culture selected
+                $listCulture = $this->container->get('session')->get('listCulture');
+                foreach ($listCulture as $culture) {
+                    $intervention->setCulture( $culture );
+                    $intervention->setType( $name );
+                    $culture->setStatus( 1 );
+                    $this->om->merge( $intervention );
+                    $this->om->flush();
+                }
+
+                //-- Clear listCulture
+                $this->container->get('session')->remove('listCulture');
+            } else {
+                //-- Simple intervention for one culture
+                $intervention->setCulture( $culture );
+                $intervention->setType( $name );
+                $culture->setStatus( 1 );
+                $this->om->persist( $intervention );
+                $this->om->flush();
+            }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'ilots.show', ['id' => $culture->getIlot()->getId()] );
         }

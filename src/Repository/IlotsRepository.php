@@ -57,20 +57,26 @@ class IlotsRepository extends ServiceEntityRepository
 
     /**
      * @param $indexNameId
+     * @param $exploitation
+     * @param null $onlyQuery
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findByIndexCulture( $indexNameId, $exploitation )
+    public function findByIndexCulture( $indexNameId, $exploitation, $onlyQuery = null )
     {
-        return $this->createQueryBuilder('i')
+        $query = $this->createQueryBuilder('i')
             ->leftJoin(Cultures::class, 'c', 'WITH', 'i.id = c.ilot')
             ->leftJoin( Ilots::class, 'il', 'WITH', 'il.id = c.ilot' )
             ->where('c.name = :nameId')
             ->andWhere('il.exploitation = :exploitation')
             ->setParameter('nameId', $indexNameId)
             ->setParameter('exploitation', $exploitation)
-            ->getQuery()
-            ->getResult()
         ;
+
+        if ($onlyQuery) {
+            return $query;
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     /*
