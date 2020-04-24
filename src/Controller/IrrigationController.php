@@ -54,7 +54,6 @@ class IrrigationController extends AbstractController
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $irrigation->setInterventionAt( new \DateTime());
             $irrigation->setExploitation( $this->getUser()->getExploitation() );
             $this->em->persist($irrigation);
             $this->em->flush();
