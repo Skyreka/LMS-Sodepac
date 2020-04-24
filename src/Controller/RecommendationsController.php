@@ -416,6 +416,10 @@ class RecommendationsController extends AbstractController
             return $this->render('recommendations/index.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
+        } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
+            return $this->render('recommendations/index.html.twig', [
+                'recommendations' => $rr->findAll()
+            ]);
         } else {
             return $this->render('recommendations/index.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
@@ -435,6 +439,10 @@ class RecommendationsController extends AbstractController
         if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
             return $this->render('recommendations/data.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
+            ]);
+        } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
+            return $this->render('recommendations/data.html.twig', [
+                'recommendations' => $rr->findAll()
             ]);
         } else {
             return $this->render('recommendations/data.html.twig', [

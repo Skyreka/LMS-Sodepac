@@ -42,7 +42,7 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.semis.new', {id: culture.id}) }}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id}) }}">
                                                 <h6>Semis</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Semis', culture) %}
@@ -59,7 +59,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Désherbant'}) }}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id, name: 'Désherbant'}) }}">
                                                 <h6>Désherbage</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Désherbant', culture) %}
@@ -76,7 +76,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Fongicide'}) }}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id, name: 'Fongicide'}) }}">
                                                 <h6>Fongicide</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Fongicide', culture) %}
@@ -93,7 +93,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Insecticide'}) }}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id, name: 'Insecticide'}) }}">
                                                 <h6>Insecticide</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Insecticide', culture) %}
@@ -110,7 +110,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.fertilisant.new', {id: culture.id}) }}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id}) }}">
                                                 <h6>Fertilisant</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Fertilisant', culture) %}
@@ -127,7 +127,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Nutrition'}) }}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id, name: 'Nutrition'}) }}">
                                                 <h6>Nutrition</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Nutrition', culture) %}
@@ -144,7 +144,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.labour.new', {id: culture.id}) }}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id}) }}">
                                                 <h6>Labour</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Labour', culture) %}
@@ -161,7 +161,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.binage.new', {id: culture.id}) }}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id}) }}">
                                                 <h6>Binage</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Binage', culture) %}
@@ -178,7 +178,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.epandage.new', {id: culture.id}) }}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id}) }}">
                                                 <h6>Epandage</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Epandage', culture) %}
@@ -195,7 +195,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="{{ path('interventions.recolte.new', {id: culture.id}) }}}">
+                                            <a href="{{ path('cultures.synthese', {id: culture.id}) }}}">
                                                 <h6>Récolte</h6>
                                                 <small class="text-muted">
                                                     {% if ir.findIfInterventionExist('Recolte', culture) %}
