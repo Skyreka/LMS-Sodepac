@@ -44,11 +44,10 @@ class InterventionsController extends AbstractController
      * @param EntityManagerInterface $om
      * @param CulturesRepository $cr
      */
-    public function __construct(EntityManagerInterface $om, CulturesRepository $cr)
+    public function __construct(EntityManagerInterface $om)
     {
 
         $this->om = $om;
-        $this->cr = $cr;
     }
 
     /**
@@ -75,6 +74,7 @@ class InterventionsController extends AbstractController
                     $intervention->setType( $name );
                     $culture->setStatus( 1 );
                     $this->om->merge( $intervention );
+                    $this->om->merge( $culture );
                     $this->om->flush();
                 }
 
@@ -112,12 +112,26 @@ class InterventionsController extends AbstractController
         $form = $this->createForm( DefaultInterventionType::class, $intervention);
         $form->handleRequest( $request );
 
-        $intervention->setCulture( $culture );
-        $intervention->setType( $name );
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->om->persist( $intervention );
-            $this->om->flush();
+            //-- If is multiple intervention
+            if ($this->container->get('session')->get('listCulture')) {
+                //-- Foreach of all culture selected
+                $listCulture = $this->container->get('session')->get('listCulture');
+                foreach ($listCulture as $culture) {
+                    $intervention->setCulture( $culture );
+                    $intervention->setType( $name );
+                    $this->om->merge( $intervention );
+                    $this->om->flush();
+                }
+
+                //-- Clear listCulture
+                $this->container->get('session')->remove('listCulture');
+            } else {
+                $intervention->setCulture( $culture );
+                $intervention->setType( $name );
+                $this->om->persist( $intervention );
+                $this->om->flush();
+            }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
         }
@@ -142,12 +156,26 @@ class InterventionsController extends AbstractController
         $form = $this->createForm( DefaultInterventionType::class, $intervention);
         $form->handleRequest( $request );
 
-        $intervention->setCulture( $culture );
-        $intervention->setType( $name );
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->om->persist( $intervention );
-            $this->om->flush();
+            //-- If is multiple intervention
+            if ($this->container->get('session')->get('listCulture')) {
+                //-- Foreach of all culture selected
+                $listCulture = $this->container->get('session')->get('listCulture');
+                foreach ($listCulture as $culture) {
+                    $intervention->setCulture( $culture );
+                    $intervention->setType( $name );
+                    $this->om->merge( $intervention );
+                    $this->om->flush();
+                }
+
+                //-- Clear listCulture
+                $this->container->get('session')->remove('listCulture');
+            } else {
+                $intervention->setCulture( $culture );
+                $intervention->setType( $name );
+                $this->om->persist( $intervention );
+                $this->om->flush();
+            }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
         }
@@ -172,12 +200,25 @@ class InterventionsController extends AbstractController
         $form = $this->createForm( EpandageInterventionType::class, $intervention);
         $form->handleRequest( $request );
 
-        $intervention->setCulture( $culture );
-        $intervention->setType( $name );
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->om->persist( $intervention );
-            $this->om->flush();
+            if ($this->container->get('session')->get('listCulture')) {
+                //-- Foreach of all culture selected
+                $listCulture = $this->container->get('session')->get('listCulture');
+                foreach ($listCulture as $culture) {
+                    $intervention->setCulture( $culture );
+                    $intervention->setType( $name );
+                    $this->om->merge( $intervention );
+                    $this->om->flush();
+                }
+
+                //-- Clear listCulture
+                $this->container->get('session')->remove('listCulture');
+            } else {
+                $intervention->setCulture( $culture );
+                $intervention->setType( $name );
+                $this->om->persist( $intervention );
+                $this->om->flush();
+            }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
         }
@@ -202,12 +243,25 @@ class InterventionsController extends AbstractController
         $form = $this->createForm( SemisInterventionType::class, $intervention);
         $form->handleRequest( $request );
 
-        $intervention->setCulture( $culture );
-        $intervention->setType( $name );
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->om->persist( $intervention );
-            $this->om->flush();
+            if ($this->container->get('session')->get('listCulture')) {
+                //-- Foreach of all culture selected
+                $listCulture = $this->container->get('session')->get('listCulture');
+                foreach ($listCulture as $culture) {
+                    $intervention->setCulture( $culture );
+                    $intervention->setType( $name );
+                    $this->om->merge( $intervention );
+                    $this->om->flush();
+                }
+
+                //-- Clear listCulture
+                $this->container->get('session')->remove('listCulture');
+            } else {
+                $intervention->setCulture( $culture );
+                $intervention->setType( $name );
+                $this->om->persist( $intervention );
+                $this->om->flush();
+            }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
         }

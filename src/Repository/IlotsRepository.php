@@ -79,6 +79,32 @@ class IlotsRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    /**
+     * @param $indexNameId
+     * @param $exploitation
+     * @param null $onlyQuery
+     * @return \Doctrine\ORM\QueryBuilder|mixed
+     */
+    public function findByIndexCultureInProgress( $indexNameId, $exploitation, $onlyQuery = null )
+    {
+        $query = $this->createQueryBuilder('i')
+            ->leftJoin(Cultures::class, 'c', 'WITH', 'i.id = c.ilot')
+            ->leftJoin( Ilots::class, 'il', 'WITH', 'il.id = c.ilot' )
+            ->where('c.name = :nameId')
+            ->andWhere('c.status != :status')
+            ->andWhere('il.exploitation = :exploitation')
+            ->setParameter('status', 1)
+            ->setParameter('nameId', $indexNameId)
+            ->setParameter('exploitation', $exploitation)
+        ;
+
+        if ($onlyQuery) {
+            return $query;
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
     /*
     public function findOneBySomeField($value): ?Ilots
     {

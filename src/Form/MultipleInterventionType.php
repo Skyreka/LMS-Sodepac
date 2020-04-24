@@ -75,7 +75,7 @@ class MultipleInterventionType extends AbstractType
                         return $ilot->getName();
                     },
                     'query_builder' => function (IlotsRepository $ir) use ($indexCultures, $options) {
-                        return $ir->findByIndexCulture($indexCultures->getId(), $options['user']->getExploitation(), true);
+                        return $ir->findByIndexCultureInProgress($indexCultures->getId(), $options['user']->getExploitation(), true);
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
