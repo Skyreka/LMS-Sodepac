@@ -19,6 +19,31 @@ class PanoramaUserRepository extends ServiceEntityRepository
         parent::__construct($registry, PanoramaUser::class);
     }
 
+
+    /**
+     * @param $customer
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllByCustomer($customer, $limit = null)
+    {
+
+        $req = $this->createQueryBuilder('b')
+            ->andWhere('b.customers = :customer')
+            ->andWhere('b.checked = 0')
+            ->andWhere('b.display_at < :now')
+            ->setParameter('customer', $customer)
+            ->setParameter('now', new \DateTime('now'))
+            ->orderBy('b.display_at', 'ASC')
+        ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
     /**
      * @param $year
      * @param $customer

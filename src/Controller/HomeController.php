@@ -5,6 +5,7 @@ use App\Repository\BsvUsersRepository;
 use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
 use App\Repository\PanoramasRepository;
+use App\Repository\PanoramaUserRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,13 +35,14 @@ class HomeController extends AbstractController {
      * @param UsersRepository $ur
      * @param CulturesRepository $cr
      * @param BsvUsersRepository $bur
+     * @param PanoramaUserRepository $pur
      * @return Response
      */
-    public function homeUsers(IlotsRepository $ir, UsersRepository $ur, CulturesRepository $cr, BsvUsersRepository $bur): Response
+    public function homeUsers(IlotsRepository $ir, UsersRepository $ur, CulturesRepository $cr, BsvUsersRepository $bur, PanoramaUserRepository $pur): Response
     {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $bsvs = $bur->findAllByCustomer($this->getUser(), 3);
-        $panoramas = $this->getUser()->getPanoramas();
+        $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
 
         return $this->render('pages/home.html.twig', [
             'bsvs' => $bsvs,

@@ -31,7 +31,9 @@ class BsvUsersRepository extends ServiceEntityRepository
         $req = $this->createQueryBuilder('b')
             ->andWhere('b.customers = :customer')
             ->andWhere('b.checked = 0')
+            ->andWhere('b.display_at < :now')
             ->setParameter('customer', $customer)
+            ->setParameter('now', new \DateTime('now'))
             ->orderBy('b.display_at', 'ASC')
             ;
 
