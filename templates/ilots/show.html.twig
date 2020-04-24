@@ -47,7 +47,10 @@
                                                         <h6>{{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span></h6><small class="text-muted">{{ culture.size }} ha</small>
                                                     </a>
                                                 </td>
-                                                <td>
+                                                <td class="d-block d-sm-none">
+                                                    <img src="{{ asset('images/users/1.jpg') }}" alt="user" class="rounded-circle" style="max-width: 30% !important;">
+                                                </td>
+                                                <td class="d-none d-sm-block">
                                                     <form method="POST" action="{{ path('cultures.delete', {id: culture.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette culture?')">
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ culture.id) }}">
@@ -88,7 +91,7 @@
                     <button class="btn btn-block btn-danger">Supprimer l'ilot</button>
                 </form>
             </div>
-            <div class="col-8">
+            <div class="col-md-8 col-12 mt-3">
                 <div class="card">
                     <div class="card-header">
                         <div class="card-actions">
