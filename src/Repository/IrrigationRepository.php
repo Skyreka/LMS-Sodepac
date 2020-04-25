@@ -67,6 +67,26 @@ class IrrigationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function countTotalOfYear( $exploitation, $year, $type )
+    {
+        //TODO: Catch ?
+        try {
+            $totalSize = $this->createQueryBuilder('i')
+                ->select('SUM(i.quantity)')
+                ->andWhere('i.exploitation = :exp')
+                ->andWhere('i.type = :type')
+                ->andWhere('year(i.intervention_at) = :year')
+                ->setParameter('exp', $exploitation)
+                ->setParameter('type', $type)
+                ->setParameter('year', $year)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
+        return $totalSize;
+    }
+
     // /**
     //  * @return Irrigation[] Returns an array of Irrigation objects
     //  */

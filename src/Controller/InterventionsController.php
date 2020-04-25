@@ -19,6 +19,7 @@ use App\Form\PhytoInterventionType;
 use App\Form\RecolteType;
 use App\Form\SemisInterventionType;
 use App\Repository\CulturesRepository;
+use App\Repository\InterventionsRepository;
 use App\Repository\StocksRepository;
 use App\Repository\UsedProductsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -279,9 +280,11 @@ class InterventionsController extends AbstractController
      * @param $name
      * @param Request $request
      * @param StocksRepository $sr
+     * @param InterventionsRepository $ir
      * @return Response
+     * @throws \Exception
      */
-    public function phyto(Cultures $culture, $name, Request $request, StocksRepository $sr): Response
+    public function phyto(Cultures $culture, $name, Request $request, StocksRepository $sr, InterventionsRepository $ir): Response
     {
         $intervention = new Phyto();
         $form = $this->createForm( PhytoInterventionType::class, $intervention, [
@@ -289,6 +292,15 @@ class InterventionsController extends AbstractController
             'culture' => $culture
         ]);
         $form->handleRequest( $request );
+
+        //-- Warning Message of already intervention last 48 hours
+        $lastPhyto = $ir->findPhyto( $culture );
+        $last2Days = new \DateTime();
+        $last2Days->modify( '-2 days');
+        $warningMessage = false;
+        if ( $lastPhyto && $lastPhyto->getInterventionAt() >= $last2Days ) {
+            $warningMessage = true;
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             //-- Get data
@@ -321,7 +333,8 @@ class InterventionsController extends AbstractController
         return $this->render('interventions/phyto.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'warningMessage' => $warningMessage
         ]);
     }
 
@@ -372,9 +385,11 @@ class InterventionsController extends AbstractController
      * @param Cultures $culture
      * @param Request $request
      * @param StocksRepository $sr
+     * @param InterventionsRepository $ir
      * @return Response
+     * @throws \Exception
      */
-    public function fertilisant(Cultures $culture, Request $request, StocksRepository $sr): Response
+    public function fertilisant(Cultures $culture, Request $request, StocksRepository $sr, InterventionsRepository $ir): Response
     {
         $name = 'Fertilisant';
         $intervention = new Fertilisant();
@@ -383,6 +398,15 @@ class InterventionsController extends AbstractController
             'culture' => $culture
         ]);
         $form->handleRequest( $request );
+
+        //-- Warning Message of already intervention last 48 hours
+        $lastPhyto = $ir->findPhyto( $culture );
+        $last2Days = new \DateTime();
+        $last2Days->modify( '-2 days');
+        $warningMessage = false;
+        if ( $lastPhyto && $lastPhyto->getInterventionAt() >= $last2Days ) {
+            $warningMessage = true;
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             //-- Get data
@@ -410,7 +434,8 @@ class InterventionsController extends AbstractController
         return $this->render('interventions/fertilisant.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'warningMessage' => $warningMessage
         ]);
     }
 }
