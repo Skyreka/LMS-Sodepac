@@ -5,6 +5,7 @@
 {% block stylesheets %}
     <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
     <link href="plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
@@ -75,8 +76,10 @@
     <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('.select2').select2();
             $('.js-datepicker').datepicker({
                 weekStart:0,
                 time: 1,

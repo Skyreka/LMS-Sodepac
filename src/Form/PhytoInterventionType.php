@@ -33,7 +33,10 @@ class PhytoInterventionType extends AbstractType
                     return $sr->findProductInStockByExploitation( $options['user']->getExploitation() );
                 },
                 'mapped' => false,
-                'placeholder' => 'Sélectionner un produit dans votre stock'
+                'placeholder' => 'Sélectionner un produit dans votre stock',
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
         ;
 
