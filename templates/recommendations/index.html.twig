@@ -46,6 +46,9 @@
                                     <th>Exploitation</th>
                                     <th>Culture</th>
                                     <th>Status</th>
+                                    {% if app.user.status == 'ROLE_ADMIN' %}
+                                        <th>Technicien</th>
+                                    {% endif %}
                                     <th>Crée le</th>
                                     <th>Action</th>
                                 </tr>
@@ -69,6 +72,9 @@
                                                 <span class="badge badge-success">Envoyé</span>
                                             {% endif %}
                                         </td>
+                                        {% if app.user.status == 'ROLE_ADMIN' %}
+                                            <td>{{ recommendation.exploitation.users.technician.identity }}</td>
+                                        {% endif %}
                                         <td>
                                             {{ recommendation.createAt | date('d M Y H:i') }}
                                         </td>
