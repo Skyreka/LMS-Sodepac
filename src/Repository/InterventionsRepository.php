@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Interventions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\Connection;
 
 /**
  * @method Interventions|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +20,11 @@ class InterventionsRepository extends ServiceEntityRepository
         parent::__construct($registry, Interventions::class);
     }
 
+    /**
+     * @param $nameOfIntervention
+     * @param $culture
+     * @return mixed
+     */
     public function findIfInterventionExist( $nameOfIntervention, $culture )
     {
         return $this->createQueryBuilder('s')
@@ -31,6 +37,11 @@ class InterventionsRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @param $type
+     * @param $culture
+     * @return mixed
+     */
     public function findByTypeAndCulture( $type, $culture )
     {
         return $this->createQueryBuilder('i')
@@ -43,6 +54,26 @@ class InterventionsRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    /**
+     * @param $type
+     * @param $culture
+     * @return mixed
+     */
+    public function findPhyto( $culture )
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.culture = :culture')
+            ->andWhere('i.type IN (:type)')
+            ->setParameter('culture', $culture)
+            ->setParameter('type', ['Fongicide', 'Désherbant', 'Fongicide', 'Insecticide', 'Fertilisant', 'Nutrition'], Connection::PARAM_STR_ARRAY)
+            ->orderBy('i.intervention_at', 'DESC')
+            ->setMaxResults( 1 )
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
 
     // /**
     //  * @return Interventions[] Returns an array of Interventions objects

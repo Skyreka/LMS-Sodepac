@@ -21,6 +21,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 abstract class Interventions
 {
+    public function __construct()
+    {
+        $this->intervention_at = new \DateTime();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
