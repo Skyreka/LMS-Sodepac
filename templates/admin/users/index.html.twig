@@ -2,6 +2,10 @@
 
 {% block title %}Listes des utilisateurs{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/
+{% endblock %}
+
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
@@ -27,7 +31,7 @@
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
-                            <table class="table stylish-table">
+                            <table class="table stylish-table" id="datatable">
                                 <thead>
                                 <tr>
                                     <th>Informations</th>
@@ -36,6 +40,7 @@
                                     <th>Ville</th>
                                     <th>Certification</th>
                                     <th>Technicien</th>
+                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -51,7 +56,9 @@
                                                     {% if user.exploitation is null %}
                                                         <h6>Aucune exploitation</h6>
                                                     {% else %}
-                                                        <h6>{{ user.exploitation.size }} ha</h6>
+                                                        <a href="{{ path('admin.users.edit.exploitation', {id: user.exploitation.id}) }}">
+                                                            <h6>{{ user.exploitation.size }} ha</h6>
+                                                        </a>
                                                     {% endif %}
                                                 </h6>
                                             </td>
@@ -59,8 +66,7 @@
                                             <td>{{ user.city }}</td>
                                             <td>{{ user.certificationPhyto }}</td>
                                             <td>{{ user.technician.identity }}</td>
-                                            <td><a href="{{ path('admin.users.edit', {id: user.id}) }}" class="btn btn-primary">Editer</a></td>
-                                            <td>
+                                            <td><a href="{{ path('admin.users.edit', {id: user.id}) }}" class="btn btn-primary">Editer</a>
                                                 <form method="POST" action="{{ path('admin.users.delete', {id: user.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer {{ user.firstname }} {{ user.lastname }}?')">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
@@ -78,4 +84,68 @@
         </div>
     </div>
 
+{% endblock %}
+
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script>
+        $('#datatable').DataTable({
+            dom: 'Bfrtip',
+            responsive: true,
+            "language": {
+                "sProcessing":     "Traitement en cours...",
+                "sSearch":         "Rechercher&nbsp;:",
+                "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix":    "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst":      "Premier",
+                    "sPrevious":   "Pr&eacute;c&eacute;dent",
+                    "sNext":       "Suivant",
+                    "sLast":       "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes séléctionnées",
+                        0: "Aucune ligne séléctionnée",
+                        1: "1 ligne séléctionnée"
+                    }
+                }
+            },
+            buttons: [
+                {
+                    extend: 'pdf',
+                    text: 'Exporter les utilisateurs',
+                    title: 'Liste des utilisateurs',
+                    message: 'Exporté le {{ "now"|date('d-m-Y H:i') }} avec l\'application LMS-Sodepac',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5],
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                }
+            ]
+        });
+    </script>
 {% endblock %}
