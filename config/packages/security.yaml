@@ -40,6 +40,7 @@ security:
         - { path: ^/panoramas, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
         - { path: ^/view/user, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
         - { path: ^/recommendations, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
+        - { path: ^/recommendation-download, roles: [ROLE_ADMIN, ROLE_TECHNICIAN, ROLE_USER] }
         # - { path: ^/profile, roles: ROLE_USER }
     encoders:
         App\Entity\Users:

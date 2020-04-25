@@ -369,7 +369,7 @@ class RecommendationsController extends AbstractController
     }
 
     /**
-     * @Route("recommendations/{id}/download", name="recommendations.download", methods="DOWNLOAD")
+     * @Route("recommendation-download/{id}", name="recommendations.download", methods="DOWNLOAD")
      * @param Recommendations $recommendations
      * @param Request $request
      * @param CulturesRepository $cr
