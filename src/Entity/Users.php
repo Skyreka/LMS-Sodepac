@@ -170,7 +170,7 @@ class Users implements UserInterface, \Serializable
 
     public function getIdentity(): ?string
     {
-        return $this->getFirstname().' '.$this->getLastname();
+        return $this->getLastname().' '.$this->getFirstname();
     }
 
     public function getCity(): ?string
