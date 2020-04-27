@@ -43,7 +43,6 @@ class InterventionsController extends AbstractController
     /**
      * InterventionsController constructor.
      * @param EntityManagerInterface $om
-     * @param CulturesRepository $cr
      */
     public function __construct(EntityManagerInterface $om)
     {
@@ -436,6 +435,29 @@ class InterventionsController extends AbstractController
             'intervention' => $name,
             'form' => $form->createView(),
             'warningMessage' => $warningMessage
+        ]);
+    }
+
+    /**
+     * @Route("interventions/edit/{id}", name="interventions.edit")
+     * @param Interventions $intervention
+     * @param Request $request
+     * @return Response
+     */
+    public function edit( Interventions $intervention, Request $request ) {
+        $form = $this->createForm( DefaultInterventionType::class, $intervention );
+        $form->handleRequest( $request );
+
+        if ( $form->isSubmitted() && $form->isValid()) {
+            $this->om->flush();
+            $this->addFlash('success', 'Intervention modifiée avec succès');
+            return $this->redirectToRoute( 'cultures.synthese', ['id' => $intervention->getCulture()->getId()] );
+        }
+
+        return $this->render('interventions/edit.html.twig', [
+            'culture' => $intervention->getCulture(),
+            'intervention' => $intervention->getType(),
+            'form' => $form->createView()
         ]);
     }
 }
