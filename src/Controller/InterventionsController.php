@@ -12,6 +12,7 @@ use App\Entity\Recolte;
 use App\Entity\Semis;
 use App\Entity\UsedProducts;
 use App\Form\DefaultInterventionType;
+use App\Form\EditInterventionQuantityType;
 use App\Form\EpandageInterventionType;
 use App\Form\FertilisantInterventionType;
 use App\Form\PhytoAddAdjuvantType;
@@ -445,7 +446,42 @@ class InterventionsController extends AbstractController
      * @return Response
      */
     public function edit( Interventions $intervention, Request $request ) {
-        $form = $this->createForm( DefaultInterventionType::class, $intervention );
+        dump( $intervention );
+        switch ($intervention->getType()) {
+            case 'Récolte':
+                $form = $this->createForm( RecolteType::class, $intervention );
+                break;
+
+            case 'Epandage':
+                $form = $this->createForm( EpandageInterventionType::class, $intervention );
+                break;
+
+            case 'Désherbant':
+                $form = $this->createForm( EditInterventionQuantityType::class, $intervention );
+                break;
+
+            case 'Insecticide':
+                $form = $this->createForm( EditInterventionQuantityType::class, $intervention );
+                break;
+
+            case 'Nutrition':
+                $form = $this->createForm( EditInterventionQuantityType::class, $intervention );
+                break;
+
+            case 'Fertilisant':
+                $form = $this->createForm( EditInterventionQuantityType::class, $intervention );
+                break;
+
+            case 'Fongicide':
+                $form = $this->createForm( EditInterventionQuantityType::class, $intervention );
+                break;
+
+            default:
+                $form = $this->createForm( DefaultInterventionType::class, $intervention );
+        }
+        dump( $form );
+
+
         $form->handleRequest( $request );
 
         if ( $form->isSubmitted() && $form->isValid()) {
