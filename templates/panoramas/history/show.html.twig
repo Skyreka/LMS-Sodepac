@@ -4,7 +4,7 @@
             <h4 class="card-title">Listes des panoramas envoyés en {{ year }}</h4>
         </div>
         <div class="table-responsive m-t-20">
-            <table class="table stylish-table">
+            <table class="table stylish-table" id="datatable">
                 <thead>
                 <tr>
                     <th>Date de création</th>
@@ -14,6 +14,7 @@
                     {% endif %}
                     <th>Texte</th>
                     <th>Destinataire</th>
+                    <th>Fichiers</th>
                 </tr>
                 </thead>
                 <tbody>
