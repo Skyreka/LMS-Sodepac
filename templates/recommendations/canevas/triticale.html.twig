@@ -1,0 +1,248 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Canevas{% endblock %}
+
+{% block stylesheets %}
+    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
+    <style>
+        .table thead th {
+            padding: 0 !important;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">Recommandation</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Canevas</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ culture.name }}</a></li>
+                </ol>
+            </div>
+            <div class="">
+                <button id="open-right-sidebar" class="right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right ml-2"><i class="ti-settings text-white"></i></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="card-title">Canevas {{ culture.name }} <span class="badge badge-warning">Taille total {{ totalSize }} ha</span></h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered no-wrap">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/1.png') }}" /><br />
+                                        <p class="text-center">Semi</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/2 a.png') }}" /><br />
+                                        <p class="text-center">Levée</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/2 b.png') }}" /><br />
+                                        <p class="text-center">3 Feuilles</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/3.png') }}" /><br />
+                                        <p class="text-center">Début taillage</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/4.png') }}" /><br />
+                                        <p class="text-center">Mi taillage</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/5.png') }}" /><br />
+                                        <p class="text-center">Fin taillage</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/6.png') }}" /><br />
+                                        <p class="text-center">Epi 1cm</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/7.png') }}" /><br />
+                                        <p class="text-center">1 noeud</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/8.png') }}" /><br />
+                                        <p class="text-center">2 noeuds</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/9.png') }}" /><br />
+                                        <p class="text-center">DFP</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/10.png') }}" /><br />
+                                        <p class="text-center">DFE</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/vergers.png') }}" /><br />
+                                        <p class="text-center">Gonflement</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/vergers.png') }}" /><br />
+                                        <p class="text-center">Epiaison</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/prune-dante/vergers.png') }}" /><br />
+                                        <p class="text-center">Floraison</p>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Fumure</td>
+                                    <td></td><td></td>
+                                    <td colspan="3">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">15/22 + S03 <small>200 à 250Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="" dose="" unit="">10-16-12 Zn <small>300 à 400Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-diamic-mo-07-15-03" dose="300" unit="Kg">DIAMIC OM 7.15.3 <small>300Kg</small></button>
+                                    </td>
+                                    <td colspan="2">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-azote-26-13-so3" dose="250" unit="Kg">AZOTE 26+13 S03 <small>250Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="" dose="" unit="">SULFONITRATE 25 + S03 <small>250 à 300Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-ammonitre-33-5-franaise" dose="250" unit="Kg">AMMONITRE 33.5 <small>250Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-nelix-lintec-36-24-so3" dose="250" unit="Kg">NELIX 36/24 <small>250Kg</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td>
+                                    <td colspan="3">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-ino-tonic-smn-10-l-bio" dose="5" unit="L">INO TONIC SMN <small>5L</small></button>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Pucerons</td>
+                                    <td></td><td></td>
+                                    <td colspan="2">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-country-gold" dose="0.125" unit="L">COUNTRY GOLD <small>0.125 L</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td colspan="3">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-country-gold" dose="0.15" unit="L">COUNTRY GOLD <small>0.15 L</small></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td><td></td><td></td>
+                                    <td colspan="6">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="cossack-star" dose="0.2" unit="Kg">COSSACK STAR<small>0.2 Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="actirob-b" dose="1" unit="L">ACTIROB DUO<small>1 L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-auzon-duo-5-l" dose="1" unit="L">AUZON DUO<small>1 L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="" dose="" unit="">PULVI-X<small>0.5 L</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Graminées</td>
+                                    <td></td><td></td><td></td>
+                                    <td colspan="6">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-axeo-5-l" dose="0.9" unit="L">AXEO <small>0.9 à 1.2 L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-fenova-super-5-l" dose="0.8" unit="L">FENOVA SUPER <small>0.8 à 1.2 L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="" dose="" unit="">PULVI-X <small>0.1 L</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td>
+                                </tr>
+                                <tr>
+                                    <td>Dicots</td>
+                                    <td></td><td></td><td></td>
+                                    <td colspan="6">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-el-nino-1-l" dose="0.25" unit="L">EL NINO <small>0.25 L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-crossfire-450-grs" dose="50" unit="gr">CROSSFIRE <small>50 à 90 gr</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td>
+                                </tr>
+                                <tr>
+                                    <td>Fongicides</td>
+                                    <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td><td></td><td></td>
+                                    <td colspan="5">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-pack-revystar-3d-revystar-xl-5-l-oxar-5-l" dose="10" unit="Ha">PACK REVYXAR <small>10 à 11 Ha</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-pack-macfare-twist-5-1" dose="6" unit="Ha">PACK MACFARE + TWIST <small>6 Ha</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-elatus-era-5-l" dose="0.7" unit="L">ELATUS ERA <small>0.7 L</small></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-success">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </div>
+            </div>
+        </div>
+    </div>
+    <div id="right-sidebar" class="right-sidebar">
+        <div class="slimscrollright">
+            <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
+            </div>
+            <div class="r-panel-body">
+                <ul class="mt-2" id="products_list">
+                </ul>
+                <a href="{{ path('recommendations.synthese.products', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('plugins/toast/toast.js') }}"></script>
+    <script>
+        $("#open-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).addClass( "shw-rside" )
+        });
+        $("#close-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).removeClass( "shw-rside" )
+        });
+        $(".isProduct").click(function (e) {
+            let name = $(this).text()
+            $(this).addClass('btn-light-danger')
+            $.ajax({
+                url: '/recommendations/add-product',
+                type: 'POST',
+                data: {
+                    'product_slug': $(this).attr('product_slug'),
+                    'recommendation_id': {{ recommendations.id }},
+                    'dose': $(this).attr('dose'),
+                    'unit': $(this).attr('unit')
+                },
+                dataType: 'JSON',
+                complete : function (response) {
+                    $.toast({
+                        heading: 'Produit ajouté avec succès',
+                        text: 'Ajout de ' + name,
+                        position: 'bottom-left',
+                        loaderBg: '#ff6849',
+                        icon: 'success',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                    let nameProduct = response.responseJSON['name_product']
+                    let dose = response.responseJSON['dose']
+                    let unit = response.responseJSON['unit']
+                    let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
+                    $('#products_list').append( input )
+                },
+                error : function (code_html, status) {
+                    $.toast({
+                        heading: 'Une erreur est survenue',
+                        text: 'Veuillez ressayer',
+                        position: 'bottom-right',
+                        loaderBg: '#ff6849',
+                        icon: 'error',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                }
+            })
+        })
+    </script>
+{% endblock %}
