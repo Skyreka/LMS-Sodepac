@@ -170,6 +170,7 @@
         });
         $(".isProduct").click(function (e) {
             let name = $(this).text()
+            $(this).addClass('btn-light-danger')
             $.ajax({
                 url: '/recommendations/add-product',
                 type: 'POST',
