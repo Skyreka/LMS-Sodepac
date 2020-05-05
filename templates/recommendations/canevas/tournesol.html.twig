@@ -1,0 +1,236 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Canevas{% endblock %}
+
+{% block stylesheets %}
+    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
+    <style>
+        .table thead th {
+            padding: 0 !important;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">Recommandation</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Canevas</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ culture.name }}</a></li>
+                </ol>
+            </div>
+            <div class="">
+                <button id="open-right-sidebar" class="right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right ml-2"><i class="ti-settings text-white"></i></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="card-title">Canevas {{ culture.name }} <span class="badge badge-warning">Taille total {{ totalSize }} ha</span></h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered no-wrap">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        <p class="text-center">Semi</p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">Germination</p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">Leve dicotyledones</p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">Phase végétative</p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">Passage limite tracteur</p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">Bouton floral</p>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Fertilisation</td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Insecticides du sol</td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">BELEM <small> 12Kg</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Anti limaces</td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">IRON MAX MG <small> 4 à 7Kg</small></button>
+                                    </td>
+                                    <td></td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">HELEXIOM DUO <small> 4Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">IRONMAX PRO <small> 5 à 7Kg</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Desherbage de pré leve</td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">ELINA <small> 1.04L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">PROMAN <small> 3.5L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">ATIC AQUA <small> 2.2L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">RACER <small> 2L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">ELINA <small> 1.05L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">PROMAN <small> 2L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">ACTI AQUA <small> 2L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">ELINA <small> 1.4L</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Rattrapage anti-graminées</td>
+                                    <td></td><td></td><td></td>
+                                    <td colspan="2">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">STRATOS + DASH</button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">PILOT <small> 1.2L</small></button>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Desherbage clearfield</td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">ACTI AQUA <small> 2.2L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">ELINA <small> 1.05L</small></button>
+                                    </td>
+                                    <td></td><td></td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">PULSAR <small> 1.25L</small></button>
+                                    </td>
+                                    <td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Desherbage express</td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">ACTI AQUA <small> 2.2L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">ELINA <small> 1.05L</small></button>
+                                    </td>
+                                    <td></td><td></td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">EXPRESS <small> 45g</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">TREND</button>
+                                    </td>
+                                    <td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Oligo éléments</td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">INO-CHEL B <small> 2L</small></button>
+                                    </td>
+                                    <td></td><td></td>
+                                    <td colspan="3">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">INO BOR ULTRA <small> 3L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">INO MIX BMO <small> 3L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">INO BOOST BMO <small> 3L</small></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phoma phomopsis</td>
+                                    <td></td><td></td><td></td><td></td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">JET SET <small> 0.4 L/Ha</small></button>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Scletrotina</td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg">CONTANS <small> 4Kg</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-success">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </div>
+            </div>
+        </div>
+    </div>
+    <div id="right-sidebar" class="right-sidebar">
+        <div class="slimscrollright">
+            <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
+            </div>
+            <div class="r-panel-body">
+                <ul class="mt-2" id="products_list">
+                </ul>
+                <a href="{{ path('recommendations.synthese.products', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('plugins/toast/toast.js') }}"></script>
+    <script>
+        $("#open-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).addClass( "shw-rside" )
+        });
+        $("#close-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).removeClass( "shw-rside" )
+        });
+        $(".isProduct").click(function (e) {
+            let name = $(this).text()
+            $(this).addClass('btn-light-danger')
+            $.ajax({
+                url: '/recommendations/add-product',
+                type: 'POST',
+                data: {
+                    'product_slug': $(this).attr('product_slug'),
+                    'recommendation_id': {{ recommendations.id }},
+                    'dose': $(this).attr('dose'),
+                    'unit': $(this).attr('unit')
+                },
+                dataType: 'JSON',
+                complete : function (response) {
+                    $.toast({
+                        heading: 'Produit ajouté avec succès',
+                        text: 'Ajout de ' + name,
+                        position: 'bottom-left',
+                        loaderBg: '#ff6849',
+                        icon: 'success',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                    let nameProduct = response.responseJSON['name_product']
+                    let dose = response.responseJSON['dose']
+                    let unit = response.responseJSON['unit']
+                    let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
+                    $('#products_list').append( input )
+                },
+                error : function (code_html, status) {
+                    $.toast({
+                        heading: 'Une erreur est survenue',
+                        text: 'Veuillez ressayer',
+                        position: 'bottom-right',
+                        loaderBg: '#ff6849',
+                        icon: 'error',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                }
+            })
+        })
+    </script>
+{% endblock %}
