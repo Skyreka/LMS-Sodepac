@@ -8,6 +8,7 @@ use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Form\RecommendationAddProductType;
 use App\Form\RecommendationAddType;
+use App\Form\RecommendationMentionsType;
 use App\Repository\CulturesRepository;
 use App\Repository\ProductsRepository;
 use App\Repository\RecommendationProductsRepository;
@@ -15,7 +16,11 @@ use App\Repository\RecommendationsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Dompdf\Exception;
+use iio\libmergepdf\Merger;
+use iio\libmergepdf\Pages;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -96,7 +101,8 @@ class RecommendationsController extends AbstractController
             return $this->render('recommendations/canevas/'.$indexCultures->getSlug().'.html.twig', [
                 'recommendations' => $recommendations,
                 'totalSize' => $totalSize,
-                'culture' => $indexCultures
+                'culture' => $indexCultures,
+                'printRequest' => false
             ]);
         } else {
             $this->addFlash('error', 'Aucun canevas existant pour cette culture');
@@ -275,6 +281,28 @@ class RecommendationsController extends AbstractController
     }
 
     /**
+     * @Route("recommendations/{id}/mentions", name="recommendations.mentions")
+     * @param Recommendations $recommendations
+     * @param Request $request
+     * @return Response
+     */
+    public function mentions( Recommendations $recommendations, Request $request )
+    {
+        $form = $this->createForm(RecommendationMentionsType::class, $recommendations );
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            return $this->redirectToRoute('recommendations.synthese', ['id' => $recommendations->getId()]);
+        }
+
+        return $this->render('recommendations/mentions.html.twig', [
+            'recommendations' => $recommendations,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("recommendations/{id}/synthese", name="recommendations.synthese")
      * @param Recommendations $recommendations
      * @param CulturesRepository $cr
@@ -373,14 +401,20 @@ class RecommendationsController extends AbstractController
      * @param Recommendations $recommendations
      * @param Request $request
      * @param CulturesRepository $cr
-     * @return Response
+     * @return RedirectResponse
      * @throws NoResultException
      * @throws NonUniqueResultException
+     * @throws \iio\libmergepdf\Exception
      */
     public function download( Recommendations $recommendations, Request $request, CulturesRepository $cr )
     {
-        if ($this->isCsrfTokenValid('download', $request->get('_token'))) {
+        set_time_limit(300);
+        ini_set('max_execution_time', 300);
+        $token = $request->get('_token');
+        if ($this->isCsrfTokenValid('download', $token)) {
             //-- Init @Var
+            $fileSystem = new Filesystem();
+            $fileSystem->mkdir( '../public/uploads/recommendations/'.$token );
             $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
             $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
             $customer = $recommendations->getExploitation()->getUsers();
@@ -389,17 +423,51 @@ class RecommendationsController extends AbstractController
             //-- Generate PDF
             $pdfOptions = new Options();
             $pdfOptions->set('defaultFront', 'Arial');
-            $pdf = new Dompdf( $pdfOptions );
+
+            //-- First Page
+            $recommendationDoc = new Dompdf( $pdfOptions );
             $html = $this->render('recommendations/synthesePdf.html.twig', [
                 'products' => $products,
                 'recommendations' => $recommendations,
                 'customer' => $customer,
                 'cultureTotal' => $cultureTotal
             ]);
-            $pdf->loadHtml( $html->getContent() );
-            $pdf->setPaper('A4', 'portrait');
-            $pdf->render();
-            $pdf->stream( $fileName );
+            $recommendationDoc->loadHtml( $html->getContent() );
+            $recommendationDoc->setPaper('A4', 'portrait');
+            $recommendationDoc->render();
+            $outputFirstFile = $recommendationDoc->output();
+            file_put_contents( '../public/uploads/recommendations/'.$token.'/1.pdf', $outputFirstFile);
+
+            //-- Canevas
+            $canevasPage = new Dompdf( $pdfOptions );
+            $html =  $this->render('recommendations/canevas/'.$recommendations->getCulture()->getSlug().'.html.twig', [
+                'recommendations' => $recommendations,
+                'totalSize' => 0,
+                'culture' => $recommendations->getCulture(),
+                'printRequest' => true
+            ]);
+            $canevasPage->loadHtml( $html->getContent() );
+            $canevasPage->setPaper('A4', 'landscape');
+            $canevasPage->render();
+            $outputFirstFile = $canevasPage->output();
+            file_put_contents( '../public/uploads/recommendations/'.$token.'/2.pdf', $outputFirstFile);
+
+            //-- Merge All Documents
+            $merger = new Merger();
+            $merger->addFile( '../public/uploads/recommendations/'.$token.'/1.pdf' );
+            $merger->addFile( '../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf' );
+            $merger->addFile( '../public/uploads/recommendations/'.$token.'/2.pdf' );
+
+            if ( $recommendations->getMention() != NULL OR $recommendations->getMentionTxt() != NULL ) {
+                $merger->addFile('../public/mentions/' . $recommendations->getMention() . '.pdf');
+            }
+
+            
+            $finalDocument = $merger->merge();
+            file_put_contents( '../public/uploads/recommendations/final.pdf', $finalDocument);
+
+
+            readfile( '../public/uploads/recommendations/final.pdf', $finalDocument );
         }
         return $this->redirectToRoute('recommendations.index');
     }

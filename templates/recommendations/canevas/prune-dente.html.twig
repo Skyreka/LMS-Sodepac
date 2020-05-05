@@ -1,4 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends printRequest == false
+    ? 'base.html.twig'
+    : 'print.html.twig' %}
 
 {% block title %}Canevas{% endblock %}
 
@@ -10,9 +12,28 @@
             text-align: center;
         }
     </style>
+    {% if printRequest == true %}
+        <style>
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            img {
+                display: none !important;
+            }
+            td {
+                padding: 0.5rem 0 0.5rem 0 !important;
+                margin: 0.5rem 0 0 0 !important;
+            }
+            button {
+                font-size: 0.7rem !important;
+            }
+        </style>
+    {% endif %}
 {% endblock %}
 
 {% block body %}
+    {% if printRequest == false %}
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
@@ -33,6 +54,7 @@
                 <h4 class="card-title">Canevas {{ culture.name }} <span class="badge badge-warning">Taille total {{ totalSize }} ha</span></h4>
                 <div class="card">
                     <div class="card-body">
+    {% endif  %}
                         <div class="table-responsive">
                             <table class="table table-bordered no-wrap">
                                 <thead>
@@ -292,75 +314,81 @@
                         </div>
                     </div>
                 </div>
-                <div class="alert alert-success">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </div>
+                {% if printRequest == false %}
+                     <div class="alert alert-success">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </div>
+                {% endif %}
             </div>
         </div>
     </div>
-    <div id="right-sidebar" class="right-sidebar">
-        <div class="slimscrollright">
-            <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
-            </div>
-            <div class="r-panel-body">
-                <ul class="mt-2" id="products_list">
-                </ul>
-                <a href="{{ path('recommendations.synthese.products', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
-            </div>
+    {% if printRequest == false %}
+        <div id="right-sidebar" class="right-sidebar">
+            <div class="slimscrollright">
+                <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
+                </div>
+                <div class="r-panel-body">
+                    <ul class="mt-2" id="products_list">
+                    </ul>
+                    <a href="{{ path('recommendations.synthese.products', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
+                </div>
 
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('plugins/toast/toast.js') }}"></script>
-    <script>
-        $("#open-right-sidebar").click(function(e){
-            let sidebar = $('#right-sidebar');
-            $(sidebar).addClass( "shw-rside" )
-        });
-        $("#close-right-sidebar").click(function(e){
-            let sidebar = $('#right-sidebar');
-            $(sidebar).removeClass( "shw-rside" )
-        });
-        $(".isProduct").click(function (e) {
-            let name = $(this).text()
-            $(this).addClass('btn-light-danger')
-            $.ajax({
-                url: '/recommendations/add-product',
-                type: 'POST',
-                data: {
-                    'product_slug': $(this).attr('product_slug'),
-                    'recommendation_id': {{ recommendations.id }},
-                    'dose': $(this).attr('dose'),
-                    'unit': $(this).attr('unit')
-                },
-                dataType: 'JSON',
-                complete : function (response) {
-                    $.toast({
-                        heading: 'Produit ajouté avec succès',
-                        text: 'Ajout de ' + name,
-                        position: 'bottom-left',
-                        loaderBg: '#ff6849',
-                        icon: 'success',
-                        hideAfter: 3000,
-                        stack: 6
-                    });
-                    let nameProduct = response.responseJSON['name_product']
-                    let dose = response.responseJSON['dose']
-                    let unit = response.responseJSON['unit']
-                    let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
-                    $('#products_list').append( input )
-                },
-                error : function (code_html, status) {
-                    $.toast({
-                        heading: 'Une erreur est survenue',
-                        text: 'Veuillez ressayer',
-                        position: 'bottom-right',
-                        loaderBg: '#ff6849',
-                        icon: 'error',
-                        hideAfter: 3000,
-                        stack: 6
-                    });
-                }
+    {% if printRequest == false %}
+        <script src="{{ asset('plugins/toast/toast.js') }}"></script>
+        <script>
+            $("#open-right-sidebar").click(function(e){
+                let sidebar = $('#right-sidebar');
+                $(sidebar).addClass( "shw-rside" )
+            });
+            $("#close-right-sidebar").click(function(e){
+                let sidebar = $('#right-sidebar');
+                $(sidebar).removeClass( "shw-rside" )
+            });
+            $(".isProduct").click(function (e) {
+                let name = $(this).text()
+                $(this).addClass('btn-light-danger')
+                $.ajax({
+                    url: '/recommendations/add-product',
+                    type: 'POST',
+                    data: {
+                        'product_slug': $(this).attr('product_slug'),
+                        'recommendation_id': {{ recommendations.id }},
+                        'dose': $(this).attr('dose'),
+                        'unit': $(this).attr('unit')
+                    },
+                    dataType: 'JSON',
+                    complete : function (response) {
+                        $.toast({
+                            heading: 'Produit ajouté avec succès',
+                            text: 'Ajout de ' + name,
+                            position: 'bottom-left',
+                            loaderBg: '#ff6849',
+                            icon: 'success',
+                            hideAfter: 3000,
+                            stack: 6
+                        });
+                        let nameProduct = response.responseJSON['name_product']
+                        let dose = response.responseJSON['dose']
+                        let unit = response.responseJSON['unit']
+                        let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
+                        $('#products_list').append( input )
+                    },
+                    error : function (code_html, status) {
+                        $.toast({
+                            heading: 'Une erreur est survenue',
+                            text: 'Veuillez ressayer',
+                            position: 'bottom-right',
+                            loaderBg: '#ff6849',
+                            icon: 'error',
+                            hideAfter: 3000,
+                            stack: 6
+                        });
+                    }
+                })
             })
-        })
+        {% endif %}
     </script>
 {% endblock %}

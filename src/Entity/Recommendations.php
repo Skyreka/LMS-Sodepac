@@ -58,6 +58,16 @@ class Recommendations
      */
     private $recommendationProducts;
 
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $mention;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $mention_txt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -141,6 +151,30 @@ class Recommendations
                 $recommendationProduct->setRecommendation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMention(): ?string
+    {
+        return $this->mention;
+    }
+
+    public function setMention(?string $mention): self
+    {
+        $this->mention = $mention;
+
+        return $this;
+    }
+
+    public function getMentionTxt(): ?string
+    {
+        return $this->mention_txt;
+    }
+
+    public function setMentionTxt(?string $mention_txt): self
+    {
+        $this->mention_txt = $mention_txt;
 
         return $this;
     }

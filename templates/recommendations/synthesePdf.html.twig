@@ -19,11 +19,14 @@
     </style>
 </head>
 <body>
-    <h1 class="text-center h2 float-right">LMS Sodepac</h1>
+    <div class="row">
+        <h1 class="text-center h2 float-right d-block">LMS Sodepac</h1>
+    </div>
+    <br /><br><br><br><br><br><br>
+    <h4 class="card-title text-center">Recommendation pour {{ customer.identity }} </h4>
     <div class="card-body little-profile center text-center">
-        <h3 class="mb-0">{{ customer.identity }}</h3>
-        <p>{{ recommendations.culture.name }}</span></p>
-        <p>{{ customer.certificationPhyto }}</span></p>
+        <p>{{ recommendations.culture.name }}</p>
+        <p>{{ customer.certificationPhyto }}</p>
     </div>
     <h4 class="card-title text-center">Synthese des produits choisis</h4>
     <div class="card">

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits - Recommandation{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.index') }}">Recommandation</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.exploitation.users.identity }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.culture.name }}</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Mentions Obligatoires</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Mentions obligatoires</h4>
+                        {{ form_start(form) }}
+                            {{ form_rest(form) }}
+                            <button class="btn btn-primary">Sauvegarder</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            <div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>
+    <script>
+        $('#edit-table').Tabledit({
+            url: '/recommendations/edit-dose',
+            editButton: false,
+            hideIdentifier: true,
+            columns: {
+                identifier: [0, 'id'],
+                editable: [[3, 'dose']]
+            }
+        });
+    </script>
+{% endblock %}

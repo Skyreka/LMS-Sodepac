@@ -19,7 +19,7 @@
         </div>
         <div class="row">
             <div class="col-lg-8">
-                <h4 class="card-title">Liste des produits</h4>
+                <h5 class="card-title">Liste des produits</h5>
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -46,6 +46,19 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+                <h5 class="card-title">Mentions</h5>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <p class="text-dark"><strong>Méthode Alternative</strong>: {{ recommendations.mention }}</p>
+                        </div>
+                        {% if recommendations.mentionTxt is not null %}
+                            <div class="form-group">
+                                <p class="text-dark"><strong>Champs Libre</strong>: {{ recommendations.mentionTxt }}</p>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 <form method="POST" action="{{ path('recommendations.send', {id: recommendations.id}) }}">
