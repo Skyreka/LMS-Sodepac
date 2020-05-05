@@ -462,14 +462,32 @@ class RecommendationsController extends AbstractController
                 $merger->addFile('../public/mentions/' . $recommendations->getMention() . '.pdf');
             }
 
-            
             $finalDocument = $merger->merge();
-            file_put_contents( '../public/uploads/recommendations/final.pdf', $finalDocument);
+            //-- Finale File
+            file_put_contents( '../public/uploads/recommendations/'.$token.'/final.pdf', $finalDocument);
 
+            //-- Download for user
+            $this->forceDownLoad( '../public/uploads/recommendations/'.$token.'/final.pdf', $fileName );
 
-            readfile( '../public/uploads/recommendations/final.pdf', $finalDocument );
+            //-- Remove temp folder
+            $fileSystem->remove('../public/uploads/recommendations/'.$token);
         }
         return $this->redirectToRoute('recommendations.index');
+    }
+
+    private function forceDownLoad($filename, $nameOfFile)
+    {
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+        header("Content-Disposition: attachment; filename=".basename($nameOfFile).";");
+        header("Content-Transfer-Encoding: binary");
+        header("Content-Length: ".filesize($filename));
+        @readfile($filename);
+        exit(0);
     }
 
     /**
