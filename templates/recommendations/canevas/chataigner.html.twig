@@ -1,0 +1,336 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Canevas{% endblock %}
+
+{% block stylesheets %}
+    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
+    <style>
+        .table thead th {
+            padding: 0 !important;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">Recommandation</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Canevas</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ culture.name }}</a></li>
+                </ol>
+            </div>
+            <div class="">
+                <button id="open-right-sidebar" class="right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right ml-2"><i class="ti-settings text-white"></i></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="card-title">Canevas {{ culture.name }} <span class="badge badge-warning">Taille total {{ totalSize }} ha</span></h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered no-wrap">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/1.png') }}" /><br />
+                                        <p class="text-center">Bourgeon dormant</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/2.png') }}" /><br />
+                                        <p class="text-center">Gonflement du bourgeon</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/3.png') }}" /><br />
+                                        <p class="text-center">Eclatement du bourgeon</p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">
+                                            <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/4.png') }}" /><br />
+                                            Ecailles vertes plus longues <br> que les brunes
+                                        </p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">
+                                            <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/5.png') }}" /><br />
+                                            Apparition des nervures <br> des feuilles
+                                        </p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">
+                                            <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/6.png') }}" /><br />
+                                            Allongement de la pousse apparition <br> des chatons mâles
+                                        </p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/7-haut.png') }}" /><br />
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/7-bas.png') }}" /><br />
+                                        <p class="text-center">Apparition des étamines</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/8-haut.png') }}" /><br />
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/8-bas.png') }}" /><br />
+                                        <p class="text-center">Pleine floraison</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/9-haut.png') }}" /><br />
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/9-bas.png') }}" /><br />
+                                        <p class="text-center">Brunissement et chute</p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">
+                                            Grossissement <br> JUILLET
+                                        </p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">
+                                            Grossissement <br> AOÛT
+                                        </p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/12.png') }}" /><br />
+                                        <p class="text-center">Déhiscence de la bogue</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/13.png') }}" /><br />
+                                        <p class="text-center">Bogue vidée de ses chataignes</p>
+                                    </th>
+                                    <th>
+                                        <img class="" style="width: 64px" src="{{ asset('images/canevas/chataigner/14.png') }}" /><br />
+                                        <p class="text-center">Chute des chataignes</p>
+                                    </th>
+                                    <th>
+                                        <p class="text-center">POST RECOLTE</p>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        Scolytes <br>
+                                        Xylebores
+                                    </td>
+                                    <td></td><td></td>
+                                    <td colspan="6">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">DECIS PROTECH <small> 0.5L</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Septorioses <br>
+                                        Chancres <br>
+                                        Pourriture du fruit
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td>
+                                    <td colspan="7">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">HORIZON ARBO <small> 750gr</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Tordeuses <br>
+                                        de la chataigne
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td colspan="2">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">KARATE XFLOW <small> 0.075L</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Carpocapses des <br>
+                                        chataignes
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td colspan="4">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">DELFIN <small> 0.75Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">KARATE XFLOW <small> 0.075L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">DECIS PROTECH <small> 0.5L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">GINKO RING <small> 100Dif/Ha</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Balanin des <br>
+                                        chataignes
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td colspan="3">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">KARATE XFLOW <small> 0.110L</small></button>
+                                    </td>
+                                    <td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Coupe <br>
+                                        bourgeons <br>
+                                        peritele gris
+                                    </td>
+                                    <td></td><td></td>
+                                    <td colspan="6">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">KARATE XFLOW <small> 0.075L</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Zeuzere</td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td colspan="5">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">DECIS PROTECH <small> 0.5L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">DELFIN <small> 1Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">KARATE XFLOW <small> 0.075L</small></button>
+                                    </td>
+                                    <td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Cynips</td>
+                                    <td></td><td></td><td></td><td></td><td></td>
+                                    <td colspan="4">
+                                        <button class="btn btn-info btn-block">LÂCHER DE TORYMUS</button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Chloroses <br>
+                                        Manganique
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td colspan="5">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">INO MN 120 <small> 2L</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Nutrition <br>
+                                        foliaire
+                                    </td>
+                                    <td></td><td></td><td></td><td></td><td></td>
+                                    <td colspan="4">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">INO BORE ULTRA <small> 2L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">FOLWIN <small> 2L</small></button>
+
+                                    </td>
+                                    <td colspan="2">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">INO MIX FRUIT <small> 5L</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Desherbage</td>
+                                    <td colspan="3">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">KERB FLO <small> 1.875L</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">SELECTRUM <small> 5L</small></button>
+                                    </td>
+                                    <td></td>
+                                    <td colspan="10">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">ROUNDUP</button>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Fumure</td>
+                                    <td colspan="8">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">ORCHESTRA <small> 500 à 1000Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">EQUINOX 10-4-3 <small> 1T</small></button>
+                                    </td>
+                                    <td></td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">SULFATE K2O</button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">PATENKALI</button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">DIAMIC K25</button>
+                                    </td>
+                                    <td></td><td></td><td></td><td></td>
+                                    <td colspan="1">
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">ORCHESTRA <small> 500Kg</small></button>
+                                        <button class="btn btn-info btn-block isProduct" product_slug="s-0-12-24-sp" dose="300" unit="Kg">GUANUMUS <small> 1.5T</small></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-success">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </div>
+            </div>
+        </div>
+    </div>
+    <div id="right-sidebar" class="right-sidebar">
+        <div class="slimscrollright">
+            <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
+            </div>
+            <div class="r-panel-body">
+                <ul class="mt-2" id="products_list">
+                </ul>
+                <a href="{{ path('recommendations.synthese.products', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('plugins/toast/toast.js') }}"></script>
+    <script>
+        $("#open-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).addClass( "shw-rside" )
+        });
+        $("#close-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).removeClass( "shw-rside" )
+        });
+        $(".isProduct").click(function (e) {
+            let name = $(this).text()
+            $(this).addClass('btn-light-danger')
+            $.ajax({
+                url: '/recommendations/add-product',
+                type: 'POST',
+                data: {
+                    'product_slug': $(this).attr('product_slug'),
+                    'recommendation_id': {{ recommendations.id }},
+                    'dose': $(this).attr('dose'),
+                    'unit': $(this).attr('unit')
+                },
+                dataType: 'JSON',
+                complete : function (response) {
+                    $.toast({
+                        heading: 'Produit ajouté avec succès',
+                        text: 'Ajout de ' + name,
+                        position: 'bottom-left',
+                        loaderBg: '#ff6849',
+                        icon: 'success',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                    let nameProduct = response.responseJSON['name_product']
+                    let dose = response.responseJSON['dose']
+                    let unit = response.responseJSON['unit']
+                    let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
+                    $('#products_list').append( input )
+                },
+                error : function (code_html, status) {
+                    $.toast({
+                        heading: 'Une erreur est survenue',
+                        text: 'Veuillez ressayer',
+                        position: 'bottom-right',
+                        loaderBg: '#ff6849',
+                        icon: 'error',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                }
+            })
+        })
+    </script>
+{% endblock %}
