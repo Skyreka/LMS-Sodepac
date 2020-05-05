@@ -62,6 +62,7 @@ class ProductsCommand extends Command
                 $product = new Products();
                 $product->setName($line[2]);
                 $product->setSlug( $slugify->slugify( $line[2] ) );
+                $product->setCategory( $line[9] );
                 $products[$line[2]] = $products;
                 $em->persist($product);
             }
