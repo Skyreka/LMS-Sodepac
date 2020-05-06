@@ -139,6 +139,9 @@ class FertilisantInterventionType extends AbstractType
                     'help' => $resultMessage
                 ])
                 ->add('reliquat')
+                ->add('n')
+                ->add('p')
+                ->add('k')
                 ->add('comment')
                 ->add('intervention_at', DateType::class, [
                     'widget' => 'single_text',

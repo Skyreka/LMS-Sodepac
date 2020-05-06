@@ -315,6 +315,53 @@ class Fertilisant extends Interventions
     private $name;
 
     /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $n;
+
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $p;
+
+    /**
+     * @return mixed
+     */
+    public function getP()
+    {
+        return $this->p;
+    }
+
+    /**
+     * @param mixed $p
+     */
+    public function setP($p): void
+    {
+        $this->p = $p;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getK()
+    {
+        return $this->k;
+    }
+
+    /**
+     * @param mixed $k
+     */
+    public function setK($k): void
+    {
+        $this->k = $k;
+    }
+
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $k;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Products")
      */
     private $product;
@@ -391,6 +438,22 @@ class Fertilisant extends Interventions
     public function setReliquat($reliquat): void
     {
         $this->reliquat = $reliquat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getN()
+    {
+        return $this->n;
+    }
+
+    /**
+     * @param mixed $n
+     */
+    public function setN($n): void
+    {
+        $this->n = $n;
     }
 }
 
