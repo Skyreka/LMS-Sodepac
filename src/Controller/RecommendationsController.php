@@ -90,16 +90,18 @@ class RecommendationsController extends AbstractController
      * @param Recommendations $recommendations
      * @param IndexCultures $indexCultures
      * @param CulturesRepository $cr
+     * @param RecommendationProductsRepository $rpr
      * @return Response
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function canevas( Recommendations $recommendations, IndexCultures $indexCultures, CulturesRepository $cr ): Response
+    public function canevas( Recommendations $recommendations, IndexCultures $indexCultures, CulturesRepository $cr, RecommendationProductsRepository $rpr ): Response
     {
         if ( $this->get('twig')->getLoader()->exists( 'recommendations/canevas/'.$indexCultures->getSlug().'.html.twig' ) ) {
             $totalSize = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
             return $this->render('recommendations/canevas/'.$indexCultures->getSlug().'.html.twig', [
                 'recommendations' => $recommendations,
+                'rpr' => $rpr,
                 'totalSize' => $totalSize,
                 'culture' => $indexCultures,
                 'printRequest' => false
@@ -401,12 +403,12 @@ class RecommendationsController extends AbstractController
      * @param Recommendations $recommendations
      * @param Request $request
      * @param CulturesRepository $cr
+     * @param RecommendationProductsRepository $recommendationProductsRepository
      * @return RedirectResponse
      * @throws NoResultException
      * @throws NonUniqueResultException
-     * @throws \iio\libmergepdf\Exception
      */
-    public function download( Recommendations $recommendations, Request $request, CulturesRepository $cr )
+    public function download( Recommendations $recommendations, Request $request, CulturesRepository $cr, RecommendationProductsRepository $recommendationProductsRepository )
     {
         set_time_limit(300);
         ini_set('max_execution_time', 300);
@@ -442,6 +444,7 @@ class RecommendationsController extends AbstractController
             $canevasPage = new Dompdf( $pdfOptions );
             $html =  $this->render('recommendations/canevas/'.$recommendations->getCulture()->getSlug().'.html.twig', [
                 'recommendations' => $recommendations,
+                'rpr' => $recommendationProductsRepository,
                 'totalSize' => 0,
                 'culture' => $recommendations->getCulture(),
                 'printRequest' => true

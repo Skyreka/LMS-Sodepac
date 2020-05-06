@@ -21,6 +21,10 @@ class RecommendationsRepository extends ServiceEntityRepository
         parent::__construct($registry, Recommendations::class);
     }
 
+    /**
+     * @param $technician
+     * @return mixed
+     */
     public function findByExploitationOfTechnician( $technician )
     {
         return $this->createQueryBuilder('r')
@@ -34,6 +38,11 @@ class RecommendationsRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param $technician
+     * @param $year
+     * @return mixed
+     */
     public function findByExploitationOfTechnicianAndYear( $technician, $year )
     {
         return $this->createQueryBuilder('r')
@@ -49,6 +58,11 @@ class RecommendationsRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param $customer
+     * @param $year
+     * @return mixed
+     */
     public function findByExploitationOfCustomerAndYear( $customer, $year )
     {
         return $this->createQueryBuilder('r')
@@ -63,6 +77,10 @@ class RecommendationsRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param $year
+     * @return mixed
+     */
     public function findAllByYear($year)
     {
 

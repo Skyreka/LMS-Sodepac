@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -17,6 +18,21 @@ class RecommendationProductsRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, RecommendationProducts::class);
+    }
+
+    public function productExist( $recommendation, $slugProduct)
+    {
+        $product = $this->getEntityManager()->getRepository( Products::class );
+        $product = $product->findProductBySlug( $slugProduct );
+
+        return $this->createQueryBuilder('r')
+            ->where('r.product = :product')
+            ->andWhere('r.recommendation = :recommendation')
+            ->setParameter('product', $product )
+            ->setParameter('recommendation',$recommendation)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**
