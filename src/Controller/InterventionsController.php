@@ -314,6 +314,7 @@ class InterventionsController extends AbstractController
             $quantityUsedInStock = $stock->getUsedQuantity();
             $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
             //-- Setters
+            $intervention->setDose( $data['doses']->getData()->getDose() );
             $intervention->setProduct( $stock->getProduct() );
             $intervention->setCulture( $culture );
             $intervention->setType( $name );

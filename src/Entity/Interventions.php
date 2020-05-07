@@ -484,6 +484,31 @@ class Phyto extends Interventions
     private $adjuvant_quantity;
 
     /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $dose = 0;
+
+    /**
+     * Function to get IFT
+     * @return string
+     */
+    public function getIft()
+    {
+        $doseApplique = $this->getQuantity() / $this->getCulture()->getRealSize();
+        $doseHomologue = $this->getDose();
+        $surfaceTraite = $this->getCulture()->getRealSize();
+        $surfaceTotal = $this->getCulture()->getSize();
+
+        //-- Display only if have all value
+        if ($doseApplique != null && $doseHomologue != null && $surfaceTraite != null && $surfaceTotal != null) {
+            $result = ( $doseApplique / $doseHomologue) * ($surfaceTraite / $surfaceTotal);
+            return number_format( $result, 4);
+        } else {
+            return 'Pas disponible';
+        }
+    }
+
+    /**
      * @return mixed
      */
     public function getQuantity()
@@ -561,5 +586,21 @@ class Phyto extends Interventions
     public function setAdjuvantQuantity($adjuvant_quantity): void
     {
         $this->adjuvant_quantity = $adjuvant_quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDose()
+    {
+        return $this->dose;
+    }
+
+    /**
+     * @param mixed $dose
+     */
+    public function setDose($dose): void
+    {
+        $this->dose = $dose;
     }
 }

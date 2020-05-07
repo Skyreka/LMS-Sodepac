@@ -223,31 +223,37 @@
                             <h4 class="card-title mt-2">{{ culture.name.name }} {{ culture.comments }}</h4>
                             <h6 class="card-subtitle">Ilot : {{ culture.ilot.name }} <small>{{ culture.ilot.size }} ha</small></h6>
                             <div class="row text-center justify-content-md-center">
-                                <div class="col-2">
+                                <div class="col-4">
                                     <a href="javascript:void(0)" class="link">
                                         Taille:
                                         <span class="font-medium">{{ culture.size }} ha</span>
                                     </a>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-4">
                                     <a href="javascript:void(0)" class="link">
                                         Bio:
                                         <span class="font-medium">{{ culture.bio ? 'Oui' : 'Non' }}</span>
                                     </a>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-4">
                                     <a href="javascript:void(0)" class="link">
                                         Prod:
                                         <span class="font-medium">{{ culture.production  ? 'Oui' : 'Non' }}</span>
                                     </a>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-4">
+                                    <a href="javascript:void(0)" class="link">
+                                        Taille (ZNT):
+                                        <span class="font-medium">{{ culture.size * culture.znt }} ha</span>
+                                    </a>
+                                </div>
+                                <div class="col-4">
                                     <a href="javascript:void(0)" class="link">
                                         ZNT:
                                         <span class="font-medium">{{ culture.znt  ? culture.znt : 'Non' }}</span>
                                     </a>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-4">
                                     <a href="javascript:void(0)" class="link">
                                         Résidu
                                         <span class="font-medium">{{ culture.residue  ? 'Oui': 'Non' }}</span>

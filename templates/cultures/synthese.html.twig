@@ -260,6 +260,7 @@
                                         <tr>
                                             <th>Produit</th>
                                             <th>Quantité</th>
+                                            <th>IFT</th>
                                             <th>Adjuvant</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
@@ -267,9 +268,11 @@
                                         </thead>
                                         <tbody>
                                         {% for intervention in interventions.findByTypeAndCulture('desherbant', culture) %}
+                                            {% dump( intervention) %}
                                             <tr>
                                                 <td>{{ intervention.product.name }}</td>
                                                 <td>{{ intervention.quantity }}</td>
+                                                <td>{{ intervention.getIft }}</td>
                                                 {% if intervention.adjuvant is not null %}
                                                     <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
                                                 {% else %}

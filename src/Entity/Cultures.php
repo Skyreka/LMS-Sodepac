@@ -198,6 +198,11 @@ class Cultures
         return $this;
     }
 
+    public function getRealSize()
+    {
+        return $this->getSize() * $this->getZnt();
+    }
+
     public function getZnt(): ?float
     {
         return $this->znt;
