@@ -222,50 +222,24 @@
                         <div class="text-center mt-3">
                             <h4 class="card-title mt-2">{{ culture.name.name }} {{ culture.comments }}</h4>
                             <h6 class="card-subtitle">Ilot : {{ culture.ilot.name }} <small>{{ culture.ilot.size }} ha</small></h6>
-                            <div class="row text-center justify-content-md-center">
-                                <div class="col-4">
-                                    <a href="javascript:void(0)" class="link">
-                                        Taille:
-                                        <span class="font-medium">{{ culture.size }} ha</span>
-                                    </a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="javascript:void(0)" class="link">
-                                        Bio:
-                                        <span class="font-medium">{{ culture.bio ? 'Oui' : 'Non' }}</span>
-                                    </a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="javascript:void(0)" class="link">
-                                        Prod:
-                                        <span class="font-medium">{{ culture.production  ? 'Oui' : 'Non' }}</span>
-                                    </a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="javascript:void(0)" class="link">
-                                        Taille (ZNT):
-                                        <span class="font-medium">{{ culture.size * culture.znt }} ha</span>
-                                    </a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="javascript:void(0)" class="link">
-                                        ZNT:
-                                        <span class="font-medium">{{ culture.znt  ? culture.znt : 'Non' }}</span>
-                                    </a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="javascript:void(0)" class="link">
-                                        Résidu
-                                        <span class="font-medium">{{ culture.residue  ? 'Oui': 'Non' }}</span>
-                                    </a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div>
                         <hr>
                     </div>
                     <div class="card-body">
+                        <small class="text-muted">Taille:</small>
+                        <h6>{{ culture.size }} ha</h6>
+                        <small class="text-muted">Taille avec ZNT:</small>
+                        <h6>{{ culture.size * culture.znt }} ha</h6>
+                        <small class="text-muted">ZNT:</small>
+                        <h6>{{ culture.znt  ? culture.znt : 'Non' }}</h6>
+                        <small class="text-muted">Production:</small>
+                        <h6>{{ culture.production  ? 'Oui' : 'Non' }}</h6>
+                        <small class="text-muted">Bio:</small>
+                        <h6>{{ culture.bio ? 'Oui' : 'Non' }}</h6>
+                        <small class="text-muted">Résidu:</small>
+                        <h6>{{ culture.residue  ? 'Oui': 'Non' }}</h6>
                         <small class="text-muted">Culture précédent:</small>
                         <h6>{{ culture.precedent.name }}</h6>
                         <small class="text-muted pt-4 d-block">Effluent:</small>
