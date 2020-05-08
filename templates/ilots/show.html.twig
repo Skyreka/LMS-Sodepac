@@ -42,9 +42,9 @@
                                         {% if culture.status == 0 %}
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="btn btn-block waves-effect waves-light btn-lg btn-success">
+                                                    <a href="{{ path('cultures.show', {id: culture.id}) }}" class="btn waves-effect btn-block waves-light btn-success">
                                                         {{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span></h6><small class="text-dark">{{ culture.size }} ha
-                                                    </button>
+                                                    </a>
                                                 </td>
                                                 <td class="d-block d-sm-none">
                                                     <img src="{{ asset('images/users/1.jpg') }}" alt="user" class="rounded-circle" style="max-width: 30% !important;">
