@@ -59,6 +59,7 @@ class InterventionsRepository extends ServiceEntityRepository
      * @param $type
      * @param $culture
      * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findPhyto( $culture )
     {

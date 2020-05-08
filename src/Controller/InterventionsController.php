@@ -480,7 +480,6 @@ class InterventionsController extends AbstractController
             default:
                 $form = $this->createForm( DefaultInterventionType::class, $intervention );
         }
-        dump( $form );
 
 
         $form->handleRequest( $request );
