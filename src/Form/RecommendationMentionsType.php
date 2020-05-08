@@ -38,7 +38,7 @@ class RecommendationMentionsType extends AbstractType
                 ]
             ])
             ->add('mention_txt', TextareaType::class, [
-                'label' => 'Champs Libre',
+                'label' => 'Commentaire',
                 'required' => false
             ])
         ;
