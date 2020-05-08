@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Cultures en cours</h4>
+                            <h4 class="card-title">Cultures de {{ ilot.name }}</h4>
                             <div class="ml-auto">
                                 <a href="{{ path('cultures.new', {id: ilot.id}) }}" class="btn btn-success">Ajouter</a>
                             </div>
@@ -35,7 +35,6 @@
                                 <thead>
                                 <tr>
                                     <th>Cultures</th>
-                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -43,19 +42,12 @@
                                         {% if culture.status == 0 %}
                                             <tr>
                                                 <td>
-                                                    <a href="{{ path('cultures.show', {id: culture.id}) }}">
-                                                        <h6>{{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span></h6><small class="text-muted">{{ culture.size }} ha</small>
-                                                    </a>
+                                                    <button type="button" class="btn btn-block waves-effect waves-light btn-lg btn-success">
+                                                        {{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span></h6><small class="text-dark">{{ culture.size }} ha
+                                                    </button>
                                                 </td>
                                                 <td class="d-block d-sm-none">
                                                     <img src="{{ asset('images/users/1.jpg') }}" alt="user" class="rounded-circle" style="max-width: 30% !important;">
-                                                </td>
-                                                <td class="d-none d-sm-block">
-                                                    <form method="POST" action="{{ path('cultures.delete', {id: culture.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette culture?')">
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ culture.id) }}">
-                                                        <button class="btn btn-danger">Supprimer</button>
-                                                    </form>
                                                 </td>
                                             </tr>
                                         {% endif %}
