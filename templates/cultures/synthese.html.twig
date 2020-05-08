@@ -197,7 +197,7 @@
                                         <tr>
                                             <th>Effluent</th>
                                             <th>Quantité</th>
-                                            <th>Dosage</th>
+                                            <th>Dosage /ha</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
                                         </tr>
@@ -207,7 +207,7 @@
                                             <tr>
                                                 <td>{{ intervention.effluent.name }}</td>
                                                 <td>{{ intervention.quantity }} <small>tonne/ha</small></td>
-                                                <td>{{ intervention.quantity / intervention.culture.size|round(2, 'floor') }} /ha</td>
+                                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
@@ -230,7 +230,7 @@
                                         <tr>
                                             <th>Produit</th>
                                             <th>Quantité</th>
-                                            <th>Dosage</th>
+                                            <th>Dosage /ha</th>
                                             <th>Reliquat d'azote</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
@@ -241,7 +241,7 @@
                                             <tr>
                                                 <td>{{ intervention.product.name }}</td>
                                                 <td>{{ intervention.quantity }}</td>
-                                                <td>{{ intervention.quantity / intervention.culture.size|round(2, 'floor') }} /ha</td>
+                                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.reliquat }} <small>Unités</small></td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
@@ -266,7 +266,7 @@
                                         <tr>
                                             <th>Produit</th>
                                             <th>Quantité</th>
-                                            <th>Dosage</th>
+                                            <th>Dosage /ha</th>
                                             <th>IFT</th>
                                             <th>Adjuvant</th>
                                             <th>Commentaire</th>
@@ -281,7 +281,7 @@
                                             <tr>
                                                 <td>{{ intervention.product.name }}</td>
                                                 <td>{{ intervention.quantity }}</td>
-                                                <td>{{ intervention.quantity / intervention.culture.size|round(2, 'floor') }} /ha</td>
+                                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
                                                 {% if intervention.adjuvant is not null %}
                                                     <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
@@ -297,11 +297,10 @@
                                                 </td>
                                             </tr>
                                         {% endfor %}
-                                        {% set doseApply = doseApply/culture.size %}
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="alert alert-warning">Vous avez déja épandu {{ doseApply|round(3, 'floor')}}/ha sur cette culture</div>
+                                <div class="alert alert-warning">Vous avez déja épandu {{ ( doseApply/culture.size )|round(3, 'floor')}}/ha sur cette culture</div>
                             </div>
                         </div>
                         <div class="tab-pane" id="fongicide" role="tabpanel">
@@ -312,7 +311,7 @@
                                         <tr>
                                             <th>Produit</th>
                                             <th>Quantité</th>
-                                            <th>Dosage</th>
+                                            <th>Dosage /ha</th>
                                             <th>IFT</th>
                                             <th>Adjuvant</th>
                                             <th>Commentaire</th>
@@ -325,7 +324,7 @@
                                             <tr>
                                                 <td>{{ intervention.product.name }}</td>
                                                 <td>{{ intervention.quantity }}</td>
-                                                <td>{{ intervention.quantity / intervention.culture.size|round(2, 'floor') }} /ha</td>
+                                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
                                                 {% if intervention.adjuvant is not null %}
                                                     <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
@@ -354,7 +353,7 @@
                                         <tr>
                                             <th>Produit</th>
                                             <th>Quantité</th>
-                                            <th>Dosage</th>
+                                            <th>Dosage /ha</th>
                                             <th>IFT</th>
                                             <th>Adjuvant</th>
                                             <th>Commentaire</th>
@@ -367,7 +366,7 @@
                                             <tr>
                                                 <td>{{ intervention.product.name }}</td>
                                                 <td>{{ intervention.quantity }}</td>
-                                                <td>{{ intervention.quantity / intervention.culture.size|round(2, 'floor') }} /ha</td>
+                                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
                                                 {% if intervention.adjuvant is not null %}
                                                     <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
@@ -396,7 +395,7 @@
                                         <tr>
                                             <th>Produit</th>
                                             <th>Quantité</th>
-                                            <th>Dosage</th>
+                                            <th>Dosage /ha</th>
                                             <th>Adjuvant</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
@@ -407,7 +406,7 @@
                                             <tr>
                                                 <td>{{ intervention.product.name }}</td>
                                                 <td>{{ intervention.quantity }}</td>
-                                                <td>{{ intervention.quantity / intervention.culture.size|round(2, 'floor') }} /ha</td>
+                                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 {% if intervention.adjuvant is not null %}
                                                     <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
                                                 {% else %}
@@ -435,7 +434,7 @@
                                         <tr>
                                             <th>Variété</th>
                                             <th>Quantité</th>
-                                            <th>Dosage</th>
+                                            <th>Dosage /ha</th>
                                             <th>Objectif</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
@@ -446,7 +445,7 @@
                                             <tr>
                                                 <td>{{ intervention.name }}</td>
                                                 <td>{{ intervention.quantity }} <small>{{ intervention.unit }}</small></td>
-                                                <td>{{ intervention.quantity / intervention.culture.size|round(2, 'floor') }} /ha</td>
+                                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.objective }} <small>Quitaux</small></td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
