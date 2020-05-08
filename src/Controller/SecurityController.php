@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\PasswordType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,11 +53,11 @@ class SecurityController extends AbstractController {
      * @Route("/active_user/{id}", name="security.active")
      * @param Users $user
      * @param Request $request
-     * @param ObjectManager $em
+     * @param EntityManagerInterface $em
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function active(Users $user, Request $request, ObjectManager $em, UserPasswordEncoderInterface $encoder)
+    public function active(Users $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
     {
         $form = $this->createForm(PasswordType::class, $user);
         $form->handleRequest($request);

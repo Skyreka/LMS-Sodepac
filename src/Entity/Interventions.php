@@ -494,7 +494,7 @@ class Phyto extends Interventions
      */
     public function getIft()
     {
-        $doseApplique = $this->getQuantity() / $this->getCulture()->getRealSize();
+        $doseApplique = $this->getQuantity() / $this->getCulture()->getSize();
         $doseHomologue = $this->getDose();
         $surfaceTraite = $this->getCulture()->getRealSize();
         $surfaceTotal = $this->getCulture()->getSize();
