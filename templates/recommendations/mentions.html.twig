@@ -21,9 +21,10 @@
         {% endfor %}
         <div class="row">
             <div class="col-12">
+                <h4 class="card-title">Mentions obligatoires</h4>
+                <a href="{{ path('recommendations.synthese.products', {'id': recommendations.id}) }}" class="btn btn-light-success mb-3">Revenir liste des produits</a>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Mentions obligatoires</h4>
                         {{ form_start(form) }}
                             {{ form_rest(form) }}
                             <button class="btn btn-primary">Sauvegarder</button>
