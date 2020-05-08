@@ -71,7 +71,7 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->andWhere('year(r.create_at) = :year')
             ->setParameter('customer', $customer )
             ->setParameter('year', $year)
-            ->orderBy('r.create_at', 'ASC')
+            ->orderBy('r.create_at', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -96,33 +96,4 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
-
-    // /**
-    //  * @return Recommendations[] Returns an array of Recommendations objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Recommendations
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
