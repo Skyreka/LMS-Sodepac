@@ -120,6 +120,20 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <a href="{{ path('interventions.phyto.new', {id: culture.id, name: 'Traitement-Divers'}) }}" class="btn waves-effect btn-block waves-light btn btn-success">
+                                                Traitement Divers <br>
+                                                <small class="text-muted">
+                                                    {% if ir.findIfInterventionExist('Traitement-Divers', culture) %}
+                                                        <span class="badge badge-primary">Effectué</span>
+                                                    {% else %}
+                                                        <span class="badge badge-warning">Aucune Nutrition existante</span>
+                                                    {% endif %}
+                                                </small>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <a href="{{ path('interventions.labour.new', {id: culture.id, name: 'Labour'}) }}" class="btn waves-effect btn-block waves-light btn btn-success">
                                                 Labour <br>
                                                 <small class="text-muted">

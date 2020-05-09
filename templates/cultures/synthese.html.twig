@@ -68,6 +68,13 @@
                                 </a>
                             </li>
                         {% endif %}
+                        {% if interventions.findByTypeAndCulture('Traitement-Divers', culture) is not empty %}
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#traitement" role="tab">
+                                    <span class="hidden-xs-down">Traitement-Divers</span>
+                                </a>
+                            </li>
+                        {% endif %}
                         {% if interventions.findByTypeAndCulture('Fongicide', culture) is not empty %}
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#fongicide" role="tab">
@@ -276,6 +283,51 @@
                                         <tbody>
                                         {% set doseApply = 0 %}
                                         {% for intervention in interventions.findByTypeAndCulture('desherbant', culture) %}
+                                            {% set doseApply = doseApply + intervention.dose %}
+                                            {% set totalIft = totalIft + intervention.getIft %}
+                                            <tr>
+                                                <td>{{ intervention.product.name }}</td>
+                                                <td>{{ intervention.quantity }}</td>
+                                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
+                                                <td>{{ intervention.getIft }}</td>
+                                                {% if intervention.adjuvant is not null %}
+                                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
+                                                {% else %}
+                                                    <td>Pas d'adjuvant</td>
+                                                {% endif %}
+                                                <td>{{ intervention.comment }}</td>
+                                                <td>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="alert alert-warning">Vous avez déja épandu {{ ( doseApply/culture.size )|round(3, 'floor')}}/ha sur cette culture</div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="traitement" role="tabpanel">
+                            <div class="p-3">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Produit</th>
+                                            <th>Quantité</th>
+                                            <th>Dosage /ha</th>
+                                            <th>IFT</th>
+                                            <th>Adjuvant</th>
+                                            <th>Commentaire</th>
+                                            <th>Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% set doseApply = 0 %}
+                                        {% for intervention in interventions.findByTypeAndCulture('Traitement-Divers', culture) %}
                                             {% set doseApply = doseApply + intervention.dose %}
                                             {% set totalIft = totalIft + intervention.getIft %}
                                             <tr>
