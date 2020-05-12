@@ -48,11 +48,11 @@
                                         <td>
                                             <h6>
                                                 {% if customer.exploitation is null %}
-                                                    <a href="{{ path('technician.customers.new.exploitation', {id: customer.id}) }}">Ajouter une exploitation</a>
+                                                    <a href="{{ path('technician.customers.new.exploitation', {id: customer.id}) }}">Ajouter une superficie</a>
                                                 {% else %}
                                                     <a href="{{ path('technician.customers.edit.exploitation', {id: customer.exploitation.id}) }}">
-                                                        <h6>{{ customer.exploitation.size }} ha</h6>
-                                                    </a>
+                                                    <h6>{{ customer.exploitation.size }} ha</h6>
+                                                </a>
                                                 {% endif %}
                                             </h6>
                                         </td>
