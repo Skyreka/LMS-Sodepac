@@ -36,7 +36,6 @@
                             {% for bsv in bsvs %}
                                 {% if date(bsv.displayAt) <= date() and bsv.checked == 0 %}
                                     <div class="comment-text w-100 p-3">
-                                        <h5>Flash</h5>
                                         <p class="mb-1 overflow-hidden">{{ bsv.bsv.text }}</p>
                                         <div class="comment-footer">
                                             <span class="text-muted pull-right">{{ bsv.displayAt|date('d M y à h:m') }}</span>
@@ -67,7 +66,6 @@
                             {% for panorama in panoramas %}
                                 {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
                                     <div class="comment-text w-100 p-3">
-                                        <h5>Panorama</h5>
                                         <p class="mb-1 overflow-hidden">{{ panorama.panorama.text }}</p>
                                         <div class="comment-footer">
                                             <span class="text-muted pull-right">{{ panorama.displayAt|date('d M y à h:m') }}</span>
