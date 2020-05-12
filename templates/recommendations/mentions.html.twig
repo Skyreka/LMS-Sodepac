@@ -6,13 +6,13 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Méthodes alternatives</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('recommendations.index') }}">Recommandation</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.exploitation.users.identity }}</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">{{ recommendations.culture.name }}</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Mentions Obligatoires</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Méthodes alternatives</a></li>
                 </ol>
             </div>
         </div>
@@ -21,7 +21,6 @@
         {% endfor %}
         <div class="row">
             <div class="col-12">
-                <h4 class="card-title">Mentions obligatoires</h4>
                 <a href="{{ path('recommendations.synthese.products', {'id': recommendations.id}) }}" class="btn btn-light-success mb-3">Revenir liste des produits</a>
                 <div class="card">
                     <div class="card-body">

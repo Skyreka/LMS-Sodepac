@@ -6,10 +6,10 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Liste des Flashs en attente d'envoi</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ path('admin.bsv.index') }}">Flashs</a></li>
+                    <li class="breadcrumb-item active">Flashs</li>
                 </ol>
             </div>
         </div>
@@ -21,7 +21,6 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Liste des Flashs en attente d'envoi</h4>
                             <div class="ml-auto">
                                 <a href="{{ path('admin.bsv.new') }}" class="btn btn-success">Créer un Flash</a>
                                 <a href="{{ path('admin.bsv.history.index') }}" class="btn btn-info">Historique des Flash</a>
