@@ -43,9 +43,9 @@ class RecommendationsRepository extends ServiceEntityRepository
      * @param $year
      * @return mixed
      */
-    public function findByExploitationOfTechnicianAndYear( $technician, $year )
+    public function findByExploitationOfTechnicianAndYear( $technician, $year, $limit = null)
     {
-        return $this->createQueryBuilder('r')
+        $query = $this->createQueryBuilder('r')
             ->leftJoin( Exploitation::class,'e','WITH', 'r.exploitation = e.id' )
             ->leftJoin( Users::class, 'u', 'WITH', 'e.users = u.id')
             ->where('u.technician = :tech')
@@ -56,6 +56,12 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+
+        if ($limit != NULL) {
+            $query = $query->setMaxResults( $limit );
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     /**
@@ -71,7 +77,7 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->andWhere('year(r.create_at) = :year')
             ->setParameter('customer', $customer )
             ->setParameter('year', $year)
-            ->orderBy('r.create_at', 'DESC')
+            ->orderBy('r.create_at', 'ASC')
             ->getQuery()
             ->getResult()
             ;

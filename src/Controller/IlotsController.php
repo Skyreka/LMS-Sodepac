@@ -127,7 +127,7 @@ class IlotsController extends AbstractController
     public function index( IlotsRepository $ir): Response
     {
         return $this->render('ilots/index.html.twig', [
-            'ilots' => $ir->findBy( ['exploitation' => $this->getUser()->getExploitation() ] )
+            'ilots' => $ir->findBy( ['exploitation' => $this->getUser()->getExploitation() ], ['name' => 'ASC'] )
         ]);
     }
 }

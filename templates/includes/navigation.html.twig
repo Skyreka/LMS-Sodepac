@@ -18,6 +18,7 @@
             {% if app.user.status == 'ROLE_TECHNICIAN' %}
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">Compte Technicien</li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('login.success') }}"><i class="fa fa-home"></i><span class="hide-menu"> Accueil </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('technician.customers.index') }}"><i class="fa fa-users"></i><span class="hide-menu">Compte Client </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('panoramas.index') }}"><i class="fas fa-newspaper"></i></i><span class="hide-menu">Panoramas </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('recommendations.index') }}"><i class="fas fa-thumbs-up"></i><span class="hide-menu"> Recommandation</span></a></li>

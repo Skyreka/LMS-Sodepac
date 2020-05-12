@@ -51,6 +51,11 @@ class InterventionsController extends AbstractController
         $this->om = $om;
     }
 
+    public function viewDose()
+    {
+        return $this->render( 'interventions/' );
+    }
+
     /**
      * @Route("interventions/recolte/{id}", name="interventions.recolte.new")
      * @param Cultures $culture

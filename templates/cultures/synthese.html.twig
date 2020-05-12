@@ -17,7 +17,7 @@
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('cultures.index') }}">Cultures</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('ilots.show', {id: culture.ilot.id})}}">{{ culture.ilot.name }}</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ culture.name.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('cultures.show', {id: culture.id})}}">{{ culture.name.name }}</a></li>
                     <li class="breadcrumb-item active">Synthese</li>
                 </ol>
             </div>
@@ -157,7 +157,7 @@
                                             <tr>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
@@ -184,7 +184,7 @@
                                             <tr>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
@@ -217,7 +217,7 @@
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
@@ -252,7 +252,7 @@
                                                 <td>{{ intervention.reliquat }} <small>Unités</small></td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
@@ -284,7 +284,9 @@
                                         {% for intervention in interventions.findByTypeAndCulture('desherbant', culture) %}
                                             {% set totalIft = totalIft + intervention.getIft %}
                                             <tr>
-                                                <td>{{ intervention.product.name }}</td>
+                                                <td>
+                                                    <a href="">{{ intervention.product.name }}</a>
+                                                </td>
                                                 <td>{{ intervention.quantity }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
@@ -295,7 +297,7 @@
                                                 {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
@@ -337,7 +339,7 @@
                                                 {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
@@ -379,7 +381,7 @@
                                                 {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
@@ -421,7 +423,7 @@
                                                 {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
@@ -460,7 +462,7 @@
                                                 {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
@@ -495,7 +497,7 @@
                                                 <td>{{ intervention.objective }} <small>Quitaux</small></td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>

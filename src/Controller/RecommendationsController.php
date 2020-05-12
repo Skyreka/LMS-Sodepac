@@ -495,22 +495,31 @@ class RecommendationsController extends AbstractController
 
     /**
      * @Route("recommendations", name="recommendations.index")
+     * @return Response
+     */
+    public function indexStaff(): Response
+    {
+        return $this->render('recommendations/index.html.twig');
+    }
+
+    /**
+     * @Route("recommendations/archive", name="recommendations.archive")
      * @param RecommendationsRepository $rr
      * @return Response
      */
-    public function indexStaff( RecommendationsRepository $rr ): Response
+    public function archive( RecommendationsRepository $rr ): Response
     {
         $year = date('Y');
         if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
-            return $this->render('recommendations/index.html.twig', [
+            return $this->render('recommendations/archive.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
         } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
-            return $this->render('recommendations/index.html.twig', [
+            return $this->render('recommendations/archive.html.twig', [
                 'recommendations' => $rr->findAll()
             ]);
         } else {
-            return $this->render('recommendations/index.html.twig', [
+            return $this->render('recommendations/archive.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
         }

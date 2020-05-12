@@ -28,7 +28,7 @@ class IlotsRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('i')
             ->andWhere('i.exploitation = :exploitation')
             ->setParameter('exploitation', $exploitation)
-            ->orderBy('i.id', 'ASC')
+            ->orderBy('i.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;
