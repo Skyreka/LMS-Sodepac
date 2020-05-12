@@ -284,9 +284,7 @@
                                         {% for intervention in interventions.findByTypeAndCulture('desherbant', culture) %}
                                             {% set totalIft = totalIft + intervention.getIft %}
                                             <tr>
-                                                <td>
-                                                    <a href="{{ path('cultures.showDose', {product: intervention.product.id, culture: culture.id}) }}">{{ intervention.product.name }}</a>
-                                                </td>
+                                                <td>{{ intervention.product.name }}</td>
                                                 <td>{{ intervention.quantity }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>

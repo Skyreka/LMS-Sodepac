@@ -31,20 +31,6 @@ class CulturesController extends AbstractController
     }
 
     /**
-     * @Route("cultures/dose/{product}/{culture}", name="cultures.showDose")
-     * @param Products $product
-     * @param Cultures $culture
-     * @return Response
-     */
-    public function viewDose(Products $product, Cultures $culture)
-    {
-        return $this->render( 'cultures/dose.html.twig', [
-            'product' => $product,
-            'culture' => $culture
-        ]);
-    }
-
-    /**
      * @Route("cultures/new/{id}", name="cultures.new")
      * @param Ilots $ilot
      * @param Request $request
