@@ -53,8 +53,6 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->setParameter('tech', $technician )
             ->setParameter('year', $year)
             ->orderBy('r.create_at', 'DESC')
-            ->getQuery()
-            ->getResult()
             ;
 
         if ($limit != NULL) {
