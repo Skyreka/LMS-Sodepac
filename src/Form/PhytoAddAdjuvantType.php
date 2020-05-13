@@ -31,7 +31,7 @@ class PhytoAddAdjuvantType extends AbstractType
                     return $sr->findProductInStockByExploitation( $options['user']->getExploitation() );
                 },
                 'mapped' => false,
-                'placeholder' => 'Selectionner votre adjuvant'
+                'placeholder' => 'Selectionner votre produit'
             ])
         ;
 
@@ -91,7 +91,7 @@ class PhytoAddAdjuvantType extends AbstractType
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
-                    'placeholder' => 'Selectionner votre adjuvant'
+                    'placeholder' => 'Selectionner votre produit'
                 ]
             );
         }

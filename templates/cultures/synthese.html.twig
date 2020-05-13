@@ -272,7 +272,7 @@
                                             <th>Quantité</th>
                                             <th>Dosage /ha</th>
                                             <th>IFT</th>
-                                            <th>Adjuvant</th>
+                                            <th>Produit</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
                                         </tr>
@@ -285,11 +285,6 @@
                                                 <td>{{ intervention.quantity }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
-                                                {% if intervention.adjuvant is not null %}
-                                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
-                                                {% else %}
-                                                    <td>Pas d'adjuvant</td>
-                                                {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
@@ -314,7 +309,6 @@
                                             <th>Quantité</th>
                                             <th>Dosage /ha</th>
                                             <th>IFT</th>
-                                            <th>Adjuvant</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
                                         </tr>
@@ -327,11 +321,6 @@
                                                 <td>{{ intervention.quantity }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
-                                                {% if intervention.adjuvant is not null %}
-                                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
-                                                {% else %}
-                                                    <td>Pas d'adjuvant</td>
-                                                {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
@@ -356,7 +345,6 @@
                                             <th>Quantité</th>
                                             <th>Dosage /ha</th>
                                             <th>IFT</th>
-                                            <th>Adjuvant</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
                                         </tr>
@@ -369,11 +357,6 @@
                                                 <td>{{ intervention.quantity }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
-                                                {% if intervention.adjuvant is not null %}
-                                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
-                                                {% else %}
-                                                    <td>Pas d'adjuvant</td>
-                                                {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
@@ -398,7 +381,6 @@
                                             <th>Quantité</th>
                                             <th>Dosage /ha</th>
                                             <th>IFT</th>
-                                            <th>Adjuvant</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
                                         </tr>
@@ -411,11 +393,6 @@
                                                 <td>{{ intervention.quantity }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
-                                                {% if intervention.adjuvant is not null %}
-                                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
-                                                {% else %}
-                                                    <td>Pas d'adjuvant</td>
-                                                {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
@@ -439,7 +416,6 @@
                                             <th>Produit</th>
                                             <th>Quantité</th>
                                             <th>Dosage /ha</th>
-                                            <th>Adjuvant</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
                                         </tr>
@@ -450,11 +426,6 @@
                                                 <td>{{ intervention.product.name }}</td>
                                                 <td>{{ intervention.quantity }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
-                                                {% if intervention.adjuvant is not null %}
-                                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
-                                                {% else %}
-                                                    <td>Pas d'adjuvant</td>
-                                                {% endif %}
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
