@@ -371,13 +371,15 @@ class RecommendationsController extends AbstractController
             file_put_contents('uploads/recommendations/'.$fileName, $output);
 
             //-- SEND PDF TO USER
+            $link = $request->getUriForPath(' ');
             $message = (new \Swift_Message('Nouvelle recommendation disponible'))
                 ->setFrom('send@lms-sodepac.fr')
                 ->setTo( $customer->getEmail() )
                 ->setBody(
                     $this->renderView(
                         'emails/recommendation.html.twig', [
-                            'identity' => $customer->getIdentity()
+                            'identity' => $customer->getIdentity(),
+                            'link' => $link
                         ]
                     ),
                     'text/html'

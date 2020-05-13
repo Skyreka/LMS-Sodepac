@@ -500,11 +500,14 @@ class Phyto extends Interventions
         $surfaceTotal = $this->getCulture()->getSize();
 
         //-- Display only if have all value
-        if ($doseApplique != null && $doseHomologue != null && $surfaceTraite != null && $surfaceTotal != null) {
+        if ($doseApplique != null &&
+            $doseHomologue != null &&
+            $surfaceTraite != null &&
+            $surfaceTotal != null) {
             $result = ( $doseApplique / $doseHomologue) * ($surfaceTraite / $surfaceTotal);
             return number_format( $result, 4);
         } else {
-            return 'Pas disponible';
+            return 0;
         }
     }
 
