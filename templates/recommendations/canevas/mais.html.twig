@@ -1,0 +1,312 @@
+{% extends printRequest == false
+    ? 'base.html.twig'
+    : 'print.html.twig' %}
+
+{% block title %}Canevas{% endblock %}
+
+{% block stylesheets %}
+    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
+    <style>
+        .table thead th {
+            padding: 0 !important;
+            text-align: center;
+        }
+        .btn-1I {
+            background-color: #F54337 !important;
+        }
+        .btn-2F {
+            background-color: #2196F3 !important;
+        }
+        .btn-3H {
+            background-color: #FF9801 !important;
+        }
+        .btn-4N {
+            background-color: #EA1E63 !important;
+        }
+        .btn-5C {
+            background-color: #00BCD5 !important;
+        }
+        .btn-6Bioc {
+            background-color: #009788 !important;
+        }
+        .btn-7E {
+            background-color: #9D27B3 !important;
+        }
+        .btn-8R {
+            background-color: #3E52B5 !important;
+        }
+        .btn-9HEL {
+            background-color: #FE5722 !important;
+        }
+        .btn-10INC {
+            background-color: #FFEA3C !important;
+        }
+        .btn-11S {
+            background-color: #FEC009 !important;
+        }
+        .btn-12A {
+            background-color: #795547 !important;
+        }
+        .btn-13T {
+            background-color: #CDDC39 !important;
+        }
+        .exist {
+            border: 4px solid #5DB761;
+        }
+    </style>
+    {% if printRequest == true %}
+        <style>
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            img {
+                display: none !important;
+            }
+            td {
+                padding: 0.5rem 0 0.5rem 0 !important;
+                margin: 0.5rem 0 0 0 !important;
+            }
+            button {
+                font-size: 0.7rem !important;
+            }
+        </style>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if printRequest == false %}
+        <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Canevas {{ culture.name }} <span class="badge badge-warning">Taille total {{ totalSize }} ha</span></h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">Recommandation</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Canevas</a></li>
+                    <li class="breadcrumb-item active">{{ culture.name }}</li>
+                </ol>
+            </div>
+            <div class="">
+                <button id="open-right-sidebar" class="right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right ml-2"><i class="ti-settings text-white"></i></button>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-lg-12">
+        <div class="card">
+        <div class="card-body">
+    {% endif  %}
+    <div class="table-responsive">
+        <table class="table table-bordered no-wrap">
+            <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <p class="text-center">Semis</p>
+                </th>
+                <th>
+                    <p class="text-center">Germination</p>
+                </th>
+                <th>
+                    <p class="text-center">1-2 Feuilles</p>
+                </th>
+                <th>
+                    <p class="text-center">3-4 Feuilles</p>
+                </th>
+                <th>
+                    <p class="text-center">5-6 Feuilles</p>
+                </th>
+                <th>
+                    <p class="text-center">7-8 Feuilles</p>
+                </th>
+                <th>
+                    <p class="text-center">9-10 Feuilles</p>
+                </th>
+                <th>
+                    <p class="text-center">10-12 Feuilles</p>
+                </th>
+                <th>
+                    <p class="text-center">Apparition des panicules</p>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Fertilisation</td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="" unit="">8-10-22 <small>400 à 500 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="3.5" unit="Kg">10-16-12 <small>400 à 500 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="3.5" unit="Kg">26-10-12 <small>350 à 450 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-rise-p-1-kg') ? 'exist' }}" product_slug="s-rise-p-1-kg" dose="150" unit="gr">RISE P <small>150 gr</small></button>
+                </td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="" unit="">UREE 46</button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-lintec-46') ? 'exist' }}" product_slug="s-lintec-46" dose="" unit="">LINTEC 46</button>
+                </td>
+                <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Engrais <br>Booster</td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="20" unit="Kg">INO-LOC <small>20 à 25 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="200" unit="Kg">15 30 0 + 0,5% Zn <small>200 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Insecticides <br>Du sol</td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-trika-expert-10-kg') ? 'exist' }}" product_slug="s-trika-expert-10-kg" dose="15" unit="Kg">TRIKA EXPERT <small>15 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-belem-12-kg') ? 'exist' }}" product_slug="s-belem-12-kg" dose="12" unit="Kg">BELLEM <small>12 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'force-20-cs') ? 'exist' }}" product_slug="force-20-cs" dose="" unit="">FORCE 20 CS</button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Sesamies <br>Cicadelles <br>Pyrales</td>
+                <td></td><td></td><td></td><td></td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-karate-xflow-1-l') ? 'exist' }}" product_slug="s-karate-xflow-1-l" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
+                </td>
+                <td></td><td></td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'coragen') ? 'exist' }}" product_slug="coragen" dose="0.125" unit="L">CORAGEN <small>0.125 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="" unit="">TRICHOGRAMMES</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Anti <br>Limaces</td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-ironmax-mg-15-kg') ? 'exist' }}" product_slug="s-ironmax-mg-15-kg" dose="2" unit="Kg">IRONMAX MG <small>2 à 4 Kg</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-helexiom-duo-18-kg') ? 'exist' }}" product_slug="s-helexiom-duo-18-kg" dose="4" unit="Kg">HELEXION DUO <small>4 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="" unit="">IRONMAX <small>5 à 7 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Desherbage <br>De pré levée</td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'adengo-xtra') ? 'exist' }}" product_slug="adengo-xtra" dose="0.44" unit="L">ADENGO XTRA <small>0.44 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'sadengo-xtra') ? 'exist' }}" product_slug="adengo-xtra" dose="0.33" unit="L">ADENGO XTRA <small>0.33 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-spectrum-10-l') ? 'exist' }}" product_slug="s-spectrum-10-l" dose="0.8" unit="L">SPECTRUM <small>0.8 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-calibra-5-l') ? 'exist' }}" product_slug="s-calibra-5-l" dose="2.5" unit="L">CALIBRA <small>2.5 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'merlin-flexx') ? 'exist' }}" product_slug="merlin-flexx" dose="1.6" unit="L">MERLIN FLEX <small>1.6 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-calibra-5-l') ? 'exist' }}" product_slug="s-calibra-5-l" dose="2.5" unit="L">CALIBRA <small>2.5 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-dual-gold-5-l') ? 'exist' }}" product_slug="s-dual-gold-5-l" dose="0.5" unit="L">DUAL GOLD <small>0.5 L</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-calibra-5-l') ? 'exist' }}" product_slug="s-calibra-5-l" dose="2.5" unit="L">CALIBRA <small>2.5 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'merlin-flexx') ? 'exist' }}" product_slug="merlin-flexx" dose="1.6" unit="L">MERLIN FLEX <small>1.6 L</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Desherbage <br>De post levée</td>
+                <td></td><td></td><td></td>
+                <td colspan="4">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-caliboost-5-l') ? 'exist' }}" product_slug="s-caliboost-5-l" dose="0.7" unit="L">CALIBOOST <small>0.7 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'onyx') ? 'exist' }}" product_slug="onyx" dose="1.5" unit="L">ONYX <small>1.5 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-pantani-5-l') ? 'exist' }}" product_slug="s-pantani-5-l" dose="0.4" unit="L">PANTANI <small>0.4 à 1.5 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'biathlon') ? 'exist' }}" product_slug="biathlon" dose="35" unit="gr">BIATHLON <small>35 à 50 gr</small></button>
+                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="0.5" unit="L">DASH <small>0.5 à 0.7 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'laudis-wg') ? 'exist' }}" product_slug="laudis-wg" dose="0.5" unit="Kg">LAUDIS WG <small>0.5 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'actirob-b') ? 'exist' }}" product_slug="actirob-b" dose="1" unit="L">ACTIROB <small>1 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'banvel-4-s') ? 'exist' }}" product_slug="banvel-4-s" dose="0.3" unit="L">BANVEL <small>0.3 à 0.6 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 'starane-gold') ? 'exist' }}" product_slug="starane-gold" dose="1.2" unit="L">STARANE GOLD <small>1.2 L</small></button>
+                </td>
+                <td></td><td></td>
+            </tr>
+            <tr>
+                <td>Soutiens <br>Foliaires</td>
+                <td></td><td></td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-ino-flow-zn680f-folli-bio-5-l') ? 'exist' }}" product_slug="s-ino-flow-zn680f-folli-bio-5-l" dose="5" unit="L">INOFLOW ZN680 <small>1 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-ino-boost-pzn-10-l') ? 'exist' }}" product_slug="s-ino-boost-pzn-10-l" dose="5" unit="L">INOBOOST PZN <small>5 L</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    {% if printRequest == false %}
+        <div class="alert alert-success">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </div>
+    {% endif %}
+    </div>
+    </div>
+    </div>
+    {% if printRequest == false %}
+        <div id="right-sidebar" class="right-sidebar">
+            <div class="slimscrollright">
+                <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
+                </div>
+                <div class="r-panel-body">
+                    <a href="{{ path('recommendations.synthese.products', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
+                    <ul class="mt-2" id="products_list">
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {% if printRequest == false %}
+    <script src="{{ asset('plugins/toast/toast.js') }}"></script>
+    <script>
+        $("#open-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).addClass( "shw-rside" )
+        });
+        $("#close-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).removeClass( "shw-rside" )
+        });
+        $(".isProduct").click(function (e) {
+            let name = $(this).text()
+            $(this).addClass('exist')
+            $.ajax({
+                url: '/recommendations/add-product',
+                type: 'POST',
+                data: {
+                    'product_slug': $(this).attr('product_slug'),
+                    'recommendation_id': {{ recommendations.id }},
+                    'dose': $(this).attr('dose'),
+                    'unit': $(this).attr('unit')
+                },
+                dataType: 'JSON',
+                complete : function (response) {
+                    $.toast({
+                        heading: 'Produit ajouté avec succès',
+                        text: 'Ajout de ' + name,
+                        position: 'bottom-left',
+                        loaderBg: '#ff6849',
+                        icon: 'success',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                    let nameProduct = response.responseJSON['name_product']
+                    let dose = response.responseJSON['dose']
+                    let unit = response.responseJSON['unit']
+                    let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
+                    $('#products_list').append( input )
+                },
+                error : function (code_html, status) {
+                    $.toast({
+                        heading: 'Une erreur est survenue',
+                        text: 'Veuillez ressayer',
+                        position: 'bottom-right',
+                        loaderBg: '#ff6849',
+                        icon: 'error',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                }
+            })
+        })
+        {% endif %}
+    </script>
+{% endblock %}
