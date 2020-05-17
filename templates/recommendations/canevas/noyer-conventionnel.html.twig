@@ -1,0 +1,519 @@
+{% extends printRequest == false
+    ? 'base.html.twig'
+    : 'print.html.twig' %}
+
+{% block title %}Canevas{% endblock %}
+
+{% block stylesheets %}
+    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
+    <style>
+        .table thead th {
+            padding: 0 !important;
+            text-align: center;
+        }
+        .btn-1I {
+            background-color: #F54337 !important;
+        }
+        .btn-2F {
+            background-color: #2196F3 !important;
+        }
+        .btn-3H {
+            background-color: #FF9801 !important;
+        }
+        .btn-4N {
+            background-color: #EA1E63 !important;
+        }
+        .btn-5C {
+            background-color: #00BCD5 !important;
+        }
+        .btn-6Bioc {
+            background-color: #009788 !important;
+        }
+        .btn-7E {
+            background-color: #9D27B3 !important;
+        }
+        .btn-8R {
+            background-color: #3E52B5 !important;
+        }
+        .btn-9HEL {
+            background-color: #FE5722 !important;
+        }
+        .btn-10INC {
+            background-color: #FFEA3C !important;
+        }
+        .btn-11S {
+            background-color: #FEC009 !important;
+        }
+        .btn-12A {
+            background-color: #795547 !important;
+        }
+        .btn-13T {
+            background-color: #CDDC39 !important;
+        }
+        .exist {
+            border: 4px solid #5DB761;
+        }
+    </style>
+    {% if printRequest == true %}
+        <style>
+            * {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            img {
+                display: none !important;
+            }
+            td {
+                padding: 0.5rem 0 0.5rem 0 !important;
+                margin: 0.5rem 0 0 0 !important;
+            }
+            button {
+                font-size: 0.7rem !important;
+            }
+        </style>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if printRequest == false %}
+        <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Canevas {{ culture.name }} <span class="badge badge-warning">Taille total {{ totalSize }} ha</span></h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendations.select') }}">Recommandation</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Canevas</a></li>
+                    <li class="breadcrumb-item active">{{ culture.name }}</li>
+                </ol>
+            </div>
+            <div class="">
+                <button id="open-right-sidebar" class="right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right ml-2"><i class="ti-settings text-white"></i></button>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-lg-12">
+        <div class="card">
+        <div class="card-body">
+    {% endif  %}
+    <div class="table-responsive">
+        <table class="table table-bordered no-wrap">
+            <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/1.png') }}" /><br />
+                    <p class="text-center">Au repos <br>Hivernal</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/2 a.png') }}" /><br />
+                    <p class="text-center">Gonflement</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/2 b.png') }}" /><br />
+                    <p class="text-center">Débourrement</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/3 a.png') }}" /><br />
+                    <p class="text-center">Individualisation <br>Des feuilles</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/3 b.png') }}" /><br />
+                    <p class="text-center">Individualisation <br>Des folioles</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/4.png') }}" /><br />
+                    <p class="text-center">Déploiement <br>des feuilles</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/5.png') }}" /><br />
+                    <p class="text-center">Apparition inflorescence</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/6.png') }}" /><br />
+                    <p class="text-center">Emergeance des <br>Stigmates</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/7.png') }}" /><br />
+                    <p class="text-center">Divergeance des <br>Stigmates</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/8.png') }}" /><br />
+                    <p class="text-center">Stigmates <br>complétement <br>recurvés</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/9.png') }}" /><br />
+                    <p class="text-center">Début de <br>blanchissement des <br>Stigmates</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/10.png') }}" /><br />
+                    <p class="text-center">Stigmates <br>dessèchés</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/11.png') }}" /><br />
+                    <p class="text-center">Mai</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/12.png') }}" /><br />
+                    <p class="text-center">Juin</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/13 a.png') }}" /><br />
+                    <p class="text-center">Début Juillet</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/13 b.png') }}" /><br />
+                    <p class="text-center">15 Juillet</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/14.png') }}" /><br />
+                    <p class="text-center">1er Août</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/14.png') }}" /><br />
+                    <p class="text-center">15 Août</p>
+                </th>
+                <th>
+                    <img class="" style="width: 64px" src="{{ asset('images/canevas/noyer-conventionnel/15.png') }}" /><br />
+                </th>
+                <th>
+                    <p class="text-center">Post-récolte</p>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Anthracnose</td>
+                <td></td>
+                <td colspan="4">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DELAN WG <small>0.5 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SYSTHANE POWER <small>0.375 L</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SIGNUM <small>1 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">HORIZON ARBO <small>750 gr</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DELAN WG <small>0.5 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SYSTHANE POWER <small>0.375 L</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SIGNUM <small>1 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">HORIZON ARBO <small>750 gr</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">HORIZON <small>750 gr</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SYSTHANE POWER <small>0.375 L</small></button>
+                </td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DELAN <small>750 gr</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SIGNUM <small>1 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
+                </td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SIGNUM <small>1 Kg</small></button>
+                </td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">NUTRIGEO <small>25 L</small></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Bactériose</td>
+                <td></td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">BB DG <small>12.5 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">NORDOX 75 WG <small>3.3 Kg</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">NORDOX <small>3.3 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3" unit="Kg">KOCIDE 2000 <small>3 Kg</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">STICOP <small>2 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="1.5" unit="Kg">KOCIDE 2000 <small>1.5 Kg</small></button>
+                </td>
+                <td colspan="6">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">STICOP <small>3 L</small></button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">STICOP <small>2 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="1.5" unit="Kg">KOCIDE 2000 <small>1.5 Kg</small></button>
+                </td>
+                <td colspan="4">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">INO CUIVRE 120 <small>2 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">INOFLOW CA 500 <small>5 L</small></button>
+                </td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">NORDOX <small>3.3 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="1" unit="Kg">KOCIDE 2000 <small>1 Kg</small></button
+                </td>
+            </tr>
+            <tr>
+                <td>Cochenilles <br>Lécanine du <br>cornouiller</td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">ACAKILL <small>25 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">POLITHIOL <small>25 L</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Acariens</td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">ACAKILL <small>25 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">POLITHIOL <small>25 L</small></button>
+                </td>
+                <td></td>
+                <td colspan="6">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">ENVIDOR <small>0.4 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">BACTIMEC <small>0.75 L</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Carpocapses</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="4">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">IMIDAN WG <small>1 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">INSEGAR <small>300 gr</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DECIS <small>0.5 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">KARATE ZEON XFLOW <small>0.75 L</small></button>
+                </td>
+                <td></td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">IMIDAN <small>1 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">CONFIRM <small>0.6 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">CORAGEN <small>1.175 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">INSEGAR <small>0.3 Kg</small></button>
+                </td>
+                <td></td><td></td>
+            </tr>
+            <tr>
+                <td>Chenilles <br>phytophages</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="7">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DELFIN <small>1 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DIPEL <small>1 Kg</small></button>
+                </td>
+                <td></td><td></td>
+            </tr>
+            <tr>
+                <td>Mouches du brou <br>Teignes</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">KARATE SFLOW <small>0.075 L</small></button>
+                </td>
+                <td colspan="5">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DECIS TRAP MB <small>100</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">CORAGEN <small>0.175 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">IMIDAN <small>1.5 Kg</small></button>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Nutrition <br>Foliaire</td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SFERESOL <small>300 Kg</small></button>
+                </td>
+                <td></td><td></td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">INO BORE ULTRA <small>2 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">INO FLOW ZN <small>1 L</small></button>
+                </td>
+                <td></td><td></td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">FOLWIN <small>2 L</small></button>
+                </td>
+                <td></td>
+                <td colspan="8">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">INO MN 120 <small>3 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">MEGAGREEN <small>2 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">K-LEAF <small>10 Kg</small></button>
+                </td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">INO FLOW 600 <small>0.5 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">INO BORE ULTRA <small>2 L</small></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Organo <br>Mineral</td>
+                <td colspan="5">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">EQUINOX 10-4-3 <small>700 à 1200 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">9-3-12 <small>700 à 1200 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">OPTIBLEND <small>100 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">LIMUS / LINTEC</button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">PERLUREE</button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">TROPICOTE</button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DIAMIC K25 <small>300 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SULFATE DE POTASSE <small>200 à 400 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">PATENKALI <small>300 à 400 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">GUANUMUS EVOLUTION <small>1500 à 2000 Kg</small></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Organique</td>
+                <td colspan="5">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">ORCHESTRA <small>500 à 1000 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">OPTIBLEND <small>100 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">LIMUS / LINTEC</button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">PERLUREE</button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">TROPICOTE</button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DIAMIC K25 <small>300 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SULFATE DE POTASSE <small>200 à 400 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">PATENKALI <small>300 à 400 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">ORCHESTRA <small>400 Kg</small></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Chimique</td>
+                <td></td><td></td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">AMMONITRE <small>100 à 200 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SULFONITRATE <small>100 à 200 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">15/22/0 + S <small>300 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">12/10/20 SK <small>400 à 600 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">OPTIBLEND <small>100 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">LIMUS / LINTEC</button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">PERLUREE</button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">TROPICOTE</button>
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">DIAMIC K25 <small>300 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SULFATE DE POTASSE <small>200 à 400 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">PATENKALI <small>300 à 400 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td>
+                <td colspan="1">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">15/22/0 + S <small>200 à 300 Kg</small></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Stimulation <br>Racinaire</td>
+                <td></td><td></td><td></td><td></td>
+                <td colspan="6">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">RISE P VAM <small>0.2 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Désherbage</td>
+                <td colspan="4">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">KERB FLO <small>1.875 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SELECTRUM <small>5 L</small></button>
+                </td>
+                <td></td>
+                <td colspan="13">
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">SPOTLIGHT <small>0.3 %</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">LI 700 <small>0.5 %</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">ROUNDUP GOLD</button>
+                    <button class="btn btn-primary btn-block isProduct {{ rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">FUSILADE MAX <small>2 L</small></button>
+                </td>
+                <td></td><td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    {% if printRequest == false %}
+        <div class="alert alert-success">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </div>
+    {% endif %}
+    </div>
+    </div>
+    </div>
+    {% if printRequest == false %}
+        <div id="right-sidebar" class="right-sidebar">
+            <div class="slimscrollright">
+                <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
+                </div>
+                <div class="r-panel-body">
+                    <a href="{{ path('recommendations.synthese.products', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
+                    <ul class="mt-2" id="products_list">
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {% if printRequest == false %}
+    <script src="{{ asset('plugins/toast/toast.js') }}"></script>
+    <script>
+        $("#open-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).addClass( "shw-rside" )
+        });
+        $("#close-right-sidebar").click(function(e){
+            let sidebar = $('#right-sidebar');
+            $(sidebar).removeClass( "shw-rside" )
+        });
+        $(".isProduct").click(function (e) {
+            let name = $(this).text()
+            $(this).addClass('exist')
+            $.ajax({
+                url: '/recommendations/add-product',
+                type: 'POST',
+                data: {
+                    'product_slug': $(this).attr('product_slug'),
+                    'recommendation_id': {{ recommendations.id }},
+                    'dose': $(this).attr('dose'),
+                    'unit': $(this).attr('unit')
+                },
+                dataType: 'JSON',
+                complete : function (response) {
+                    $.toast({
+                        heading: 'Produit ajouté avec succès',
+                        text: 'Ajout de ' + name,
+                        position: 'bottom-left',
+                        loaderBg: '#ff6849',
+                        icon: 'success',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                    let nameProduct = response.responseJSON['name_product']
+                    let dose = response.responseJSON['dose']
+                    let unit = response.responseJSON['unit']
+                    let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
+                    $('#products_list').append( input )
+                },
+                error : function (code_html, status) {
+                    $.toast({
+                        heading: 'Une erreur est survenue',
+                        text: 'Veuillez ressayer',
+                        position: 'bottom-right',
+                        loaderBg: '#ff6849',
+                        icon: 'error',
+                        hideAfter: 3000,
+                        stack: 6
+                    });
+                }
+            })
+        })
+        {% endif %}
+    </script>
+{% endblock %}
