@@ -34,12 +34,12 @@ class Users implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=80)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=255)
      */
     private $email;
 
