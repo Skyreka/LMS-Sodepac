@@ -27,6 +27,9 @@
                                     <div class="u-text">
                                         <h4>{{ app.user.identity}}</h4>
                                         <p class="text-muted">{{ app.user.email }}</p>
+                                        {% if app.user.pack is not null %}
+                                            <span class="badge badge-success">{{ app.user.pack(true) }}</span>
+                                        {% endif %}
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>

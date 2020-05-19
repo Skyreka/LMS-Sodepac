@@ -151,10 +151,15 @@ class AdminUsersController extends AbstractController {
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist( $exploitation );
-            $this->em->flush();
-            $this->addFlash('success', 'Exploitation modifiée avec succès');
-            return $this->redirectToRoute( 'admin.users.index' );
+            //-- Check if user selected have demo pack only 10 ha max
+            if ( $form->getData()->getUsers()->getPack() === 'PACK_DEMO' && $form->getData()->getSize() > 10 ) {
+                $this->addFlash('error', "L'utilisateur a un pack Démo il ne peut pas avoir une exploitation de plus de 10ha");
+            } else {
+                $this->em->persist( $exploitation );
+                $this->em->flush();
+                $this->addFlash('success', 'Exploitation modifiée avec succès');
+                return $this->redirectToRoute( 'admin.users.index' );
+            }
         }
 
         return $this->render('technician/customers/size.html.twig', [
