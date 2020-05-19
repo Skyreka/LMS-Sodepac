@@ -372,7 +372,12 @@ class InterventionsController extends AbstractController
             $this->om->flush();
             $this->addFlash('success', 'Adjuvant ajouté avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
+            //-- Add new product
+            if ( $data['addNewProduct']->getData() ) {
+                return $this->redirectToRoute('interventions.phyto.adjuvant', ['id' => $interventions->getId()]);
+            }
             return $this->redirectToRoute( 'cultures.show', ['id' => $interventions->getCulture()->getId()] );
+
         }
 
         return $this->render('interventions/phytoAddAdjuvant.html.twig', [

@@ -9,6 +9,7 @@ use App\Repository\DosesRepository;
 use App\Repository\StocksRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -127,6 +128,11 @@ class PhytoAddAdjuvantType extends AbstractType
                 ->add('adjuvantQuantity', NumberType::class, [
                     'label' => 'Quantité Totale '. $totalQuantity,
                     'help' => $resultMessage
+                ])
+                ->add('addNewProduct', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'Voulez-vous ajouter un nouveau produit ?',
+                    'required' => false
                 ])
             ;
         }
