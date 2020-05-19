@@ -22,7 +22,10 @@ class UserType extends AbstractType
             ->add('phone')
             ->add('city')
             ->add('status', ChoiceType::class, [
-                'choices' => $this->getChoices()
+                'choices' => $this->getStatus()
+            ])
+            ->add('pack', ChoiceType::class, [
+                'choices' => $this->getPack()
             ])
             ->add('certification_phyto')
             ->add('technician', EntityType::class, [
@@ -50,9 +53,19 @@ class UserType extends AbstractType
         ]);
     }
 
-    private function getChoices()
+    private function getStatus()
     {
         $choices = Users::STATUS;
+        $output = [];
+        foreach($choices as $k => $v) {
+            $output[$v] = $k;
+        }
+        return $output;
+    }
+
+    private function getPack()
+    {
+        $choices = Users::PACK;
         $output = [];
         foreach($choices as $k => $v) {
             $output[$v] = $k;

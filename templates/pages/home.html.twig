@@ -83,58 +83,66 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body little-profile text-center">
-                        <h3 class="m-b-0">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</h3>
-                        <div class="row text-center m-t-20">
-                            <div class="col-12 m-t-20">
-                                <h3 class="m-b-0 font-light">
-                                    {% if app.user.exploitation.size is defined %}
-                                        {{ app.user.exploitation.size }}
+        {% if app.user.pack != 'PACK_LIGHT' %}
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body little-profile text-center">
+                            <h3 class="m-b-0">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</h3>
+                            <div class="row text-center m-t-20">
+                                <div class="col-12 m-t-20">
+                                    <h3 class="m-b-0 font-light">
+                                        {% if app.user.exploitation.size is defined %}
+                                            {{ app.user.exploitation.size }}
+                                        {% endif %}
+                                        <span class="badge badge-success"></span>
+                                        ha</h3>
+                                        <small>Exploitation</small>
+                                        <br>
+                                        {% if app.user.pack == 'PACK_DEMO' %}
+                                            <span class="badge badge-danger">10ha max. Pack Démo</span>
+                                        {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex no-block">
+                                <h4 class="card-title">Vos Ilots</h4>
+                                <div class="ml-auto">
+                                    {% if app.user.exploitation is not empty %}
+                                        <a href="{{ path('ilots.new') }}" class="btn btn-success">Ajouter</a>
                                     {% endif %}
-                                    ha</h3><small>Exploitation</small>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex no-block">
-                            <h4 class="card-title">Vos Ilots</h4>
-                            <div class="ml-auto">
-                                {% if app.user.exploitation is not empty %}
-                                    <a href="{{ path('ilots.new') }}" class="btn btn-success">Ajouter</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="table-responsive m-t-20">
-                            <table class="table stylish-table" id="datatable">
-                                <thead>
-                                <tr>
-                                    <th>Ilots</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for ilot in ilots %}
+                            <div class="table-responsive m-t-20">
+                                <table class="table stylish-table" id="datatable">
+                                    <thead>
                                     <tr>
-                                        <td>
-                                            <a href="{{ path('ilots.show', {id: ilot.id}) }}">
-                                                <h6>{{ ilot.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type.name }}</small>
-                                            </a>
-                                        </td>
+                                        <th>Ilots</th>
                                     </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {% for ilot in ilots %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('ilots.show', {id: ilot.id}) }}">
+                                                    <h6>{{ ilot.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type.name }}</small>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 
 {% endblock %}

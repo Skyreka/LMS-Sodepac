@@ -21,6 +21,13 @@ class Users implements UserInterface, \Serializable
         'ROLE_ADMIN' => 'Administrateur'
     ];
 
+    const PACK = [
+        'DISABLE' => 'Inactif',
+        'PACK_DEMO' => 'Pack DEMO',
+        'PACK_LIGHT' => 'Pack LIGHT',
+        'PACK_FULL' => 'Pack FULL'
+    ];
+
     const ISACTIVE = [
         1 => 'Activé',
         2 => 'En attente'
@@ -107,6 +114,11 @@ class Users implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="App\Entity\PanoramaUser", mappedBy="sender")
      */
     private $panoramas_sent;
+
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $pack = 'DISABLE';
 
     public function __construct()
     {
@@ -197,8 +209,11 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus( $return = false ): ?string
     {
+        if ($return) {
+            return self::STATUS[$this->status];
+        }
         return $this->status;
     }
 
@@ -423,6 +438,21 @@ class Users implements UserInterface, \Serializable
                 $panoramasSent->setSender(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPack( $return = false ): ?string
+    {
+        if ($return) {
+            return self::PACK[$this->pack];
+        }
+        return $this->pack;
+    }
+
+    public function setPack(?string $pack): self
+    {
+        $this->pack = $pack;
 
         return $this;
     }
