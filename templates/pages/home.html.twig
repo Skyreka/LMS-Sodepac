@@ -24,9 +24,9 @@
         {% endif %}
         <div class="row">
             <div class="col-md-6 d-none d-md-block">
-                <div class="card">
+                <div class="card text-white" style="background-color: #3498db">
                     <div class="card-body pb-0">
-                        <h4 class="card-title">Flashs</h4>
+                        <h4 class="card-title text-white">Flashs</h4>
                     </div>
                     <div class="comment-widgets position-relative mb-2 common-widget">
                         <div class="d-flex flex-row comment-row p-3">
@@ -54,9 +54,9 @@
             </div>
 
             <div class="col-md-6 d-none d-md-block">
-                <div class="card">
+                <div class="card text-white" style="background-color: #1abc9c">
                     <div class="card-body pb-0">
-                        <h4 class="card-title">Panorama</h4>
+                        <h4 class="card-title text-white">Panorama</h4>
                     </div>
                     <div class="comment-widgets position-relative mb-2 common-widget">
                         <div class="d-flex flex-row comment-row p-3">
@@ -85,23 +85,16 @@
         </div>
         {% if app.user.pack != 'PACK_LIGHT' %}
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body little-profile text-center">
-                            <h3 class="m-b-0">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</h3>
+                <div class="col-lg-4 d-none d-md-block">
+                    <div class="card text-white" style="background-color: #e74c3c">
+                        <div class="card-body little-profile">
+                            <h4 class="card-title text-white">Mes dernières interventions</h4>
                             <div class="row text-center m-t-20">
                                 <div class="col-12 m-t-20">
-                                    <h3 class="m-b-0 font-light">
-                                        {% if app.user.exploitation.size is defined %}
-                                            {{ app.user.exploitation.size }}
-                                        {% endif %}
-                                        <span class="badge badge-success"></span>
-                                        ha</h3>
-                                        <small>Exploitation</small>
-                                        <br>
-                                        {% if app.user.pack == 'PACK_DEMO' %}
-                                            <span class="badge badge-danger">10ha max. Pack Démo</span>
-                                        {% endif %}
+                                    <h5 class="m-b-0 font-light">Liquet - Blé - Fongicide - 18 mai</h5>
+                                    <h5 class="m-b-0 font-light">Liquet - Blé - Herbicide - 18 mai</h5>
+                                    <h5 class="m-b-0 font-light">Coste - Maîs - Fongicide - 16 mai</h5>
+                                    <h5 class="m-b-0 font-light">Blanchet - Betterave - Fongicide - 12 mai</h5>
                                 </div>
                             </div>
                         </div>
@@ -129,8 +122,8 @@
                                     {% for ilot in ilots %}
                                         <tr>
                                             <td>
-                                                <a href="{{ path('ilots.show', {id: ilot.id}) }}">
-                                                    <h6>{{ ilot.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type.name }}</small>
+                                                <a href="{{ path('ilots.show', {id: ilot.id}) }}" class="btn waves-effect btn-block waves-light btn-success">
+                                                    {{ ilot.name }} de {{ ilot.size }} ha</h6>
                                                 </a>
                                             </td>
                                         </tr>
