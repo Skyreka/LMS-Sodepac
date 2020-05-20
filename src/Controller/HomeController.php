@@ -44,6 +44,9 @@ class HomeController extends AbstractController {
         $bsvs = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
 
+        //-- Clear listCulture
+        $this->container->get('session')->remove('listCulture');
+
         return $this->render('pages/home.html.twig', [
             'bsvs' => $bsvs,
             'panoramas' => $panoramas,
