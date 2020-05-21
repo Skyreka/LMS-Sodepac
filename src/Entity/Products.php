@@ -38,9 +38,15 @@ class Products
      */
     private $category;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RiskPhase", mappedBy="product")
+     */
+    private $riskPhases;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
+        $this->riskPhases = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,6 +122,37 @@ class Products
     public function setCategory(?string $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RiskPhase[]
+     */
+    public function getRiskPhases(): Collection
+    {
+        return $this->riskPhases;
+    }
+
+    public function addRiskPhase(RiskPhase $riskPhase): self
+    {
+        if (!$this->riskPhases->contains($riskPhase)) {
+            $this->riskPhases[] = $riskPhase;
+            $riskPhase->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRiskPhase(RiskPhase $riskPhase): self
+    {
+        if ($this->riskPhases->contains($riskPhase)) {
+            $this->riskPhases->removeElement($riskPhase);
+            // set the owning side to null (unless already changed)
+            if ($riskPhase->getProduct() === $this) {
+                $riskPhase->setProduct(null);
+            }
+        }
 
         return $this;
     }
