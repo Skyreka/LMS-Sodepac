@@ -505,7 +505,7 @@ class Phyto extends Interventions
             $surfaceTraite != null &&
             $surfaceTotal != null) {
             $result = ( $doseApplique / $doseHomologue) * ($surfaceTraite / $surfaceTotal);
-            return number_format( $result, 4);
+            return $result;
         } else {
             return 0;
         }
