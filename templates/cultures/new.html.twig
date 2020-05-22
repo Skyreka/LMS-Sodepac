@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Ajouter une culture</h3>
+                <h3 class="text-themecolor">Ajouter une culture à {{ ilot.name }}</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('cultures.index') }}">Cultures</a></li>
@@ -26,7 +26,6 @@
                             <div class="row">
                                 <div class="col-12 col-md-3">
                                     {{ form_row(form.name) }}
-                                    {{ form_row(form.precedent) }}
                                 </div>
                                 <div class="col-12 col-md-10">
                                     {{ form_row(form.size) }}
@@ -37,9 +36,6 @@
                                 <div class="col-12 col-md-12">
                                     {{ form_row(form.comments) }}
                                 </div>
-                                <div class="col-12 col-md-12">
-                                    {{ form_row(form.effluent) }}
-                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Options</label>
@@ -49,6 +45,12 @@
                                             {{ form_row(form.residue) }}
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-12 col-md-12">
+                                    {{ form_row(form.effluent) }}
+                                </div>
+                                <div class="col-12 col-md-12">
+                                    {{ form_row(form.precedent) }}
                                 </div>
                             </div>
                             {{ form_rest(form) }}

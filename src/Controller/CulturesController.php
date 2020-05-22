@@ -57,7 +57,8 @@ class CulturesController extends AbstractController
             return $this->redirectToRoute('ilots.show', ['id' => $ilot->getId()]);
         }
         return $this->render('cultures/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'ilot' => $ilot
         ]);
     }
 
