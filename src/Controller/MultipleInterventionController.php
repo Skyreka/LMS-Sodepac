@@ -28,11 +28,12 @@ class MultipleInterventionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->all();
             $listIlots = $data['ilots']->getData();
+            $cultureSelected = $data['selectCulture']->getData();
             $cultureFounded = [];
 
             //Find All Culture selected by group of ilot
             foreach ($listIlots as $ilot) {
-                array_push( $cultureFounded, $cr->findByIlotCultureInProgress( $ilot ));
+                array_push( $cultureFounded, $cr->findByIlotCultureInProgress( $ilot, $cultureSelected ));
             }
 
             $cultureFounded = call_user_func_array('array_merge', $cultureFounded);

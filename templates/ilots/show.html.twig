@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ path('ilots.edit', {id: ilot.id}) }}" class="btn btn-block btn-warning mb-2">Editer l'ilot</a>
+                <a href="{{ path('ilots.edit', {id: ilot.id}) }}" class="btn btn-block btn-warning mb-2">Modifier l'îlot</a>
                 <form method="POST" action="{{ path('ilots.delete', {id: ilot.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr vouloir supprimer l\'ilot ainsi que toutes les cultures liées à cette ilot ?')">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token('deleteIlot') }}">

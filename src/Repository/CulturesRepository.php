@@ -97,13 +97,15 @@ class CulturesRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findByIlotCultureInProgress( $ilot )
+    public function findByIlotCultureInProgress( $ilot, $culture )
     {
         return $this->createQueryBuilder('c')
             ->where('c.ilot = :ilot')
             ->andWhere('c.status != :status')
+            ->andWhere('c.name = :name')
             ->setParameter('status', 1)
             ->setParameter('ilot', $ilot)
+            ->setParameter('name', $culture)
             ->getQuery()
             ->getResult()
             ;
