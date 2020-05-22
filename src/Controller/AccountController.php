@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class AccountController extends AbstractController {
+class  AccountController extends AbstractController {
 
     /**
      * @var UsersRepository

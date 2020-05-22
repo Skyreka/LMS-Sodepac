@@ -7,6 +7,7 @@ use App\Entity\Exploitation;
 use App\Entity\Ilots;
 use App\Entity\Users;
 use App\Form\ExploitationType;
+use App\Form\PasswordType;
 use App\Form\TechnicianCustomersType;
 use App\Form\UserType;
 use App\Repository\AnalyseRepository;
@@ -21,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 use Zumba\JsonSerializer\JsonSerializer;
 
@@ -119,6 +121,31 @@ class TechnicianCustomersController extends AbstractController
         }
 
         return $this->render('technician/customers/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("technician/customers/password/{id}", name="technician.customers.password")
+     * @param Users $user
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return Response
+     */
+    public function password(Users $user, Request $request, UserPasswordEncoderInterface $encoder): Response
+    {
+        $form = $this->createForm( PasswordType::class, $user);
+        $form->handleRequest( $request );
+
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $user->setPassword( $encoder->encodePassword($user, $form['password']->getData()));
+            $this->em->flush();
+            $this->addFlash('success', 'Mot de passe du client modifié avec succès');
+            return $this->redirectToRoute('technician.customers.index');
+        }
+
+        return $this->render('technician/customers/password.html.twig', [
             'user' => $user,
             'form' => $form->createView()
         ]);
