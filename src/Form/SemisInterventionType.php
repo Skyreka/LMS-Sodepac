@@ -17,7 +17,9 @@ class SemisInterventionType extends AbstractType
             ->add('name', null, [
                 'label' => 'Nom de la variété'
             ])
-            ->add('quantity')
+            ->add('quantity', null, [
+                'label' => 'Quantité par Ha'
+            ])
             ->add('unit', ChoiceType::class, [
                 'choices' => [
                     'Quantité en pieds' => 'pieds',
