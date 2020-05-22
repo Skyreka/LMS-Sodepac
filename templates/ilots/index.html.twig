@@ -43,8 +43,8 @@
                                 {% for ilot in ilots %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('ilots.show', {id: ilot.id}) }}">
-                                                <h6>{{ ilot.name }} de {{ ilot.size }} ha</h6><small class="text-muted">{{ ilot.type.name }}</small>
+                                            <a href="{{ path('ilots.show', {id: ilot.id}) }}" class="btn waves-effect btn-block waves-light btn-success">
+                                                {{ ilot.name }} de {{ ilot.size }} ha</h6>
                                             </a>
                                         </td>
                                     </tr>
