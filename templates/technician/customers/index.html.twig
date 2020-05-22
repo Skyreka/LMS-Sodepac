@@ -59,6 +59,7 @@
                                         <td>{{ customer.city }}</td>
                                         <td>{{ customer.certificationPhyto }}</td>
                                         <td><a href="{{ path('technician.customers.edit', {id: customer.id}) }}" class="btn btn-primary">Editer</a></td>
+                                        <td><a href="{{ path('technician.customers.password', {id: customer.id}) }}" class="btn btn-info">Mot de passe</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
