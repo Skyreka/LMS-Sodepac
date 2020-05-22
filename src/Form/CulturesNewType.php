@@ -30,7 +30,10 @@ class CulturesNewType extends AbstractType
                 'attr' => [
                     'class' => 'select2'
                 ],
-                'label' => 'Nom de la culture'
+                'label' => 'Choix de la culture',
+                'label_attr' => array(
+                    'class' => 'font-weight-bold'
+                )
             ])
             ->add('comments', TextType::class, [
                 'label' => 'Commentaire nom de culture',
@@ -41,7 +44,7 @@ class CulturesNewType extends AbstractType
                     'min' => 0,
                     'max' => $options['max_size']
                 ],
-                'label' => 'Taille de la culture',
+                'label' => 'Surface de la culture',
                 'help' => 'En hectare | Espace restant : '. $options['max_size'] .' ha'
             ])
             ->add('bio', null, [
