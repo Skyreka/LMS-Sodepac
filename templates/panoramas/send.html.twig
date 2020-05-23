@@ -19,8 +19,8 @@
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
+                            <input id="selectAll" type="checkbox"><label for='selectAll'>Sélectioner tous les clients</label>
                             {{ form_row(form.customers) }}
-                            <input id="selectAll" type="checkbox"><label for='selectAll'>Sélectioner tous</label>
                             {{ form_rest(form) }}
                         <button class="btn btn-info">Envoyer</button>
                         {{ form_end(form) }}
