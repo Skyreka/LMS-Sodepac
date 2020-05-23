@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Doses;
+use App\Entity\InterventionsProducts;
 use App\Entity\Phyto;
 use App\Entity\Stocks;
 use App\Repository\DosesRepository;
@@ -11,13 +12,14 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PhytoAddAdjuvantType extends AbstractType
+class InterventionAddProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -125,7 +127,7 @@ class PhytoAddAdjuvantType extends AbstractType
                 $resultMessage = 'Aucun calcul effectué';
             }
             $form
-                ->add('adjuvantQuantity', NumberType::class, [
+                ->add('quantity', NumberType::class, [
                     'label' => 'Quantité Totale '. $totalQuantity,
                     'help' => $resultMessage
                 ])
@@ -133,6 +135,9 @@ class PhytoAddAdjuvantType extends AbstractType
                     'mapped' => false,
                     'label' => 'Voulez-vous ajouter un nouveau produit ?',
                     'required' => false
+                ])
+                ->add('submit', SubmitType::class, [
+                    'label' => 'Ajouter'
                 ])
             ;
         }
@@ -142,7 +147,7 @@ class PhytoAddAdjuvantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Phyto::class,
+            'data_class' => InterventionsProducts::class,
             'user' => null,
             'culture' => null
         ]);
