@@ -50,7 +50,7 @@ class SecurityController extends AbstractController {
                 return $this->redirectToRoute('technician.home');
                 break;
             case 'ROLE_ADMIN':
-                return $this->redirectToRoute('admin.users.index');
+                return $this->redirectToRoute('admin.home');
                 break;
         }
     }

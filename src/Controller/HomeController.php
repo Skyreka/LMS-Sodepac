@@ -30,6 +30,22 @@ class HomeController extends AbstractController {
     }
 
     /**
+     * @Route("/admin", name="admin.home")
+     * @param UsersRepository $ur
+     * @param PanoramasRepository $pr
+     * @return Response
+     */
+    public function homeAdmins( UsersRepository $ur, PanoramasRepository $pr)
+    {
+        $customers = $ur->findAllCustomersOfTechnician( $this->getUser()->getId(), 10 );
+        $panoramas = $pr->findAllNotDeleted(3);
+        return $this->render('admin/home.html.twig', [
+            'customers' => $customers,
+            'panoramas' => $panoramas
+        ]);
+    }
+
+    /**
      * @Route("/home", name="home")
      * @param IlotsRepository $ir
      * @param UsersRepository $ur
