@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -474,19 +475,14 @@ class Phyto extends Interventions
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Products")
-     */
-    private $adjuvant;
-
-    /**
-     * @ORM\Column(type="float", length=11, nullable=true)
-     */
-    private $adjuvant_quantity;
-
-    /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $dose = 0;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\InterventionsProducts", mappedBy="intervention")
+     */
+    private $interventionsProducts;
 
     /**
      * Function to get IFT
@@ -509,6 +505,14 @@ class Phyto extends Interventions
         } else {
             return 0;
         }
+    }
+
+    /**
+     * @return Collection|InterventionsProducts[]
+     */
+    public function getInterventionsProducts(): Collection
+    {
+        return $this->interventionsProducts;
     }
 
     /**
@@ -557,38 +561,6 @@ class Phyto extends Interventions
     public function setReliquat($reliquat): void
     {
         $this->reliquat = $reliquat;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAdjuvant()
-    {
-        return $this->adjuvant;
-    }
-
-    /**
-     * @param mixed $adjuvant
-     */
-    public function setAdjuvant($adjuvant): void
-    {
-        $this->adjuvant = $adjuvant;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAdjuvantQuantity()
-    {
-        return $this->adjuvant_quantity;
-    }
-
-    /**
-     * @param $adjuvant_quantity
-     */
-    public function setAdjuvantQuantity($adjuvant_quantity): void
-    {
-        $this->adjuvant_quantity = $adjuvant_quantity;
     }
 
     /**

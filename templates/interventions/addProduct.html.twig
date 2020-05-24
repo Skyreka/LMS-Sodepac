@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajout d'Ajuvant{% endblock %}
+{% block title %}Ajout d'un produit{% endblock %}
 
 {% block stylesheets %}
     <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
@@ -23,13 +23,36 @@
         </div>
         <div class="alert alert-warning">Attention! Vous mélanger plusieurs produits, assurez vous que ce mélange est autorisé en consultant le site officiel <a href="https://ephy.anses.fr" target="_blank">ephy.anses.fr</a></a></div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
                             {{ form_rest(form) }}
-                            <button class="btn btn-primary">Ajouter</button>
                         {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                {% for interventionProduct in interventionProducts %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center mt-3">
+                                <h4 class="card-title mt-2"> {{ interventionProduct.product.name }}</h4>
+                                {% for riskPhase in interventionProduct.product.riskPhases %}
+                                    <h6 class="card-subtitle"><small>{{ riskPhase.shortWording }} - {{ riskPhase.longWording }}</small></h6>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Mélange interdit</h4>
+                    </div>
+                    <div class="card-body collapse show">
+                        <img src="{{ asset('images/Mélange_interdit_V2.jpg') }}" alt="img" class="img-fluid float-right">
                     </div>
                 </div>
             </div>
@@ -38,19 +61,19 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        $(document).on('change', '#phyto_add_adjuvant_productInStock', function () {
+        $(document).on('change', '#intervention_add_product_productInStock', function () {
             let $field = $(this)
             let $form = $field.closest('form')
             let data = {}
             data[$field.attr('name')] = $field.val()
             $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('#phyto_add_adjuvant_doses')
-                $('#phyto_add_adjuvant_doses').replaceWith($input)
+                let $input = $(data).find('#intervention_add_product_doses')
+                $('#intervention_add_product_doses').replaceWith($input)
             })
         })
-        $(document).on('change', '#phyto_add_adjuvant_doses', function () {
+        $(document).on('change', '#intervention_add_product_doses', function () {
             let $field = $(this)
-            let $product = $('#phyto_add_adjuvant_productInStock')
+            let $product = $('#intervention_add_product_productInStock')
             let form = $field.closest('form')
             let data = {}
             data[$product.attr('name')] =  $product.val()

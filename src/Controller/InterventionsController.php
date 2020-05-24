@@ -6,23 +6,23 @@ use App\Entity\Cultures;
 use App\Entity\Epandage;
 use App\Entity\Fertilisant;
 use App\Entity\Interventions;
+use App\Entity\InterventionsProducts;
 use App\Entity\Labour;
 use App\Entity\Phyto;
 use App\Entity\Recolte;
 use App\Entity\Semis;
-use App\Entity\UsedProducts;
 use App\Form\DefaultInterventionType;
 use App\Form\EditInterventionQuantityType;
 use App\Form\EpandageInterventionType;
 use App\Form\FertilisantInterventionType;
-use App\Form\PhytoAddAdjuvantType;
+use App\Form\InterventionAddProductType;
 use App\Form\PhytoInterventionType;
 use App\Form\RecolteType;
 use App\Form\SemisInterventionType;
 use App\Repository\CulturesRepository;
+use App\Repository\InterventionsProductsRepository;
 use App\Repository\InterventionsRepository;
 use App\Repository\StocksRepository;
-use App\Repository\UsedProductsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -323,9 +323,9 @@ class InterventionsController extends AbstractController
             $this->om->flush();
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
-            //-- Redirect to add Adjuvant if checkbox is checked
-            if ( $data['addAdjuvant']->getData() ) {
-                return $this->redirectToRoute('interventions.phyto.adjuvant', ['id' => $intervention->getId()]);
+            //-- Redirect to add new product if checkbox is checked
+            if ( $data['addProduct']->getData() ) {
+                return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
             }
             //-- Or redirect to culture
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
@@ -340,16 +340,17 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * Update Adjuvant on exist intervention
-     * @Route("interventions/phyto/{id}", name="interventions.phyto.adjuvant")
+     * Add product to an intervention
+     * @Route("interventions/phyto/{id}", name="interventions.phyto.product")
      * @param Interventions $interventions
      * @param Request $request
      * @param StocksRepository $sr
      * @return Response
      */
-    public function phytoAddAdjuvant(Interventions $interventions, Request $request, StocksRepository $sr): Response
+    public function addProduct(Interventions $interventions, Request $request, StocksRepository $sr, InterventionsProductsRepository $ipr): Response
     {
-        $form = $this->createForm( PhytoAddAdjuvantType::class, $interventions, [
+        $interventionProduct = new InterventionsProducts();
+        $form = $this->createForm( InterventionAddProductType::class, $interventionProduct, [
             'user' => $this->getUser(),
             'culture' => $interventions->getCulture()
         ]);
@@ -359,6 +360,8 @@ class InterventionsController extends AbstractController
             //-- Get data
             $data = $form->all();
             $stock = $data['productInStock']->getData();
+            $dose = $data['doses']->getData();
+            dump( $dose );
             //-- Update Stock
             $stock = $sr->find( ['id' => $stock] );
             $quantityUsed = $form->getData()->getQuantity();
@@ -366,23 +369,27 @@ class InterventionsController extends AbstractController
             $stock->setQuantity( $quantityOnStock - $quantityUsed);
             $quantityUsedInStock = $stock->getUsedQuantity();
             $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
-            //-- Update Adjuvant
-            $interventions->setAdjuvant( $stock->getProduct() );
+            //-- Add product on db
+            $interventionProduct->setDose( $dose->getDose() );
+            $interventionProduct->setQuantity( $form->getData()->getQuantity() );
+            $interventionProduct->setProduct( $stock->getProduct() );
+            $interventionProduct->setIntervention( $interventions );
+            $this->om->persist( $interventionProduct );
             //-- Flush on db
             $this->om->flush();
             $this->addFlash('success', 'Adjuvant ajouté avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             //-- Add new product
             if ( $data['addNewProduct']->getData() ) {
-                return $this->redirectToRoute('interventions.phyto.adjuvant', ['id' => $interventions->getId()]);
+                return $this->redirectToRoute('interventions.phyto.product', ['id' => $interventions->getId()]);
             }
             return $this->redirectToRoute( 'cultures.show', ['id' => $interventions->getCulture()->getId()] );
-
         }
 
-        return $this->render('interventions/phytoAddAdjuvant.html.twig', [
+        return $this->render('interventions/addProduct.html.twig', [
             'form' => $form->createView(),
-            'culture' => $interventions->getCulture()
+            'culture' => $interventions->getCulture(),
+            'interventionProducts' => $ipr->findBy( ['intervention' => $interventions] )
         ]);
     }
 
