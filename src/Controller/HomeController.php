@@ -30,6 +30,44 @@ class HomeController extends AbstractController {
     }
 
     /**
+     * @Route("/admin", name="admin.home")
+     * @param UsersRepository $ur
+     * @return Response
+     */
+    public function homeAdmins( UsersRepository $ur)
+    {
+        $customers = $ur->findAllByRole('ROLE_USER');
+        $customersCount = count($customers);
+
+        $inactiv = $ur->findAllByPack('DISABLE');
+        $inactivCount = count($inactiv);
+        $inactivPercent = 100 * $inactivCount / $customersCount;
+
+        $full = $ur->findAllByPack('PACK_FULL');
+        $fullCount = count($full);
+        $fullPercent = 100 * $fullCount / $customersCount;
+
+        $light = $ur->findAllByPack('PACK_LIGHT');
+        $lightCount = count($light);
+        $lightPercent = 100 * $lightCount / $customersCount;
+
+        $demo = $ur->findAllByPack('PACK_DEMO');
+        $demoCount = count($demo);
+        $demoPercent = 100 * $demoCount / $customersCount;
+
+        return $this->render('admin/home.html.twig', [
+            'inactivCount' => $inactivCount,
+            'inactivPercent' => $inactivPercent,
+            'fullCount' => $fullCount,
+            'fullPercent' => $fullPercent,
+            'lightCount' => $lightCount,
+            'lightPercent' => $lightPercent,
+            'demoCount' => $demoCount,
+            'demoPercent' => $demoPercent,
+        ]);
+    }
+
+    /**
      * @Route("/home", name="home")
      * @param IlotsRepository $ir
      * @param UsersRepository $ur
