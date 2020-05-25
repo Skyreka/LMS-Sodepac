@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Repository\BsvUsersRepository;
 use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
+use App\Repository\InterventionsRepository;
 use App\Repository\PanoramasRepository;
 use App\Repository\PanoramaUserRepository;
 use App\Repository\UsersRepository;
@@ -63,24 +64,25 @@ class HomeController extends AbstractController {
             'lightCount' => $lightCount,
             'lightPercent' => $lightPercent,
             'demoCount' => $demoCount,
-            'demoPercent' => $demoPercent,
+            'demoPercent' => $demoPercent
         ]);
     }
 
     /**
      * @Route("/home", name="home")
      * @param IlotsRepository $ir
-     * @param UsersRepository $ur
-     * @param CulturesRepository $cr
      * @param BsvUsersRepository $bur
      * @param PanoramaUserRepository $pur
+     * @param InterventionsRepository $intR
      * @return Response
+     * @throws \Exception
      */
-    public function homeUsers(IlotsRepository $ir, UsersRepository $ur, CulturesRepository $cr, BsvUsersRepository $bur, PanoramaUserRepository $pur): Response
+    public function homeUsers(IlotsRepository $ir, BsvUsersRepository $bur, PanoramaUserRepository $pur, InterventionsRepository $intR): Response
     {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $bsvs = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
+        $lastInterventions = $intR->findLastOfUser( $this->getUser(), 3);
 
         //-- Clear listCulture
         $this->container->get('session')->remove('listCulture');

@@ -24,10 +24,10 @@ class PanoramaUserRepository extends ServiceEntityRepository
      * @param $customer
      * @param null $limit
      * @return mixed
+     * @throws \Exception
      */
     public function findAllByCustomer($customer, $limit = null)
     {
-
         $req = $this->createQueryBuilder('b')
             ->andWhere('b.customers = :customer')
             ->andWhere('b.checked = 0')
@@ -48,6 +48,7 @@ class PanoramaUserRepository extends ServiceEntityRepository
      * @param $year
      * @param $customer
      * @return mixed
+     * @throws \Exception
      */
     public function findAllByYearAndCustomer($year, $customer)
     {
@@ -72,7 +73,6 @@ class PanoramaUserRepository extends ServiceEntityRepository
      */
     public function findAllByYearAndSender($year, $sender)
     {
-
         return $this->createQueryBuilder('b')
             ->where('year(b.display_at) = :year')
             ->andWhere('b.sender = :sender')

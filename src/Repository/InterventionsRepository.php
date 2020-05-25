@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Cultures;
 use App\Entity\Interventions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -74,7 +75,6 @@ class InterventionsRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
             ;
     }
-
 
     // /**
     //  * @return Interventions[] Returns an array of Interventions objects
