@@ -81,6 +81,7 @@ class InterventionsController extends AbstractController
 
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                return $this->redirectToRoute('login.success');
             } else {
                 //-- Simple intervention for one culture
                 $intervention->setCulture( $culture );
@@ -124,9 +125,9 @@ class InterventionsController extends AbstractController
                     $this->om->merge( $intervention );
                     $this->om->flush();
                 }
-
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                return $this->redirectToRoute('login.success');
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
@@ -168,9 +169,9 @@ class InterventionsController extends AbstractController
                     $this->om->merge( $intervention );
                     $this->om->flush();
                 }
-
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                return $this->redirectToRoute('login.success');
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
@@ -211,9 +212,9 @@ class InterventionsController extends AbstractController
                     $this->om->merge( $intervention );
                     $this->om->flush();
                 }
-
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                return $this->redirectToRoute('login.success');
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
@@ -254,9 +255,9 @@ class InterventionsController extends AbstractController
                     $this->om->merge( $intervention );
                     $this->om->flush();
                 }
-
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                return $this->redirectToRoute('login.success');
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
@@ -287,10 +288,24 @@ class InterventionsController extends AbstractController
     public function phyto(Cultures $culture, $name, Request $request, StocksRepository $sr, InterventionsRepository $ir): Response
     {
         $intervention = new Phyto();
-        $form = $this->createForm( PhytoInterventionType::class, $intervention, [
-            'user' => $this->getUser(),
-            'culture' => $culture
-        ]);
+        if ($this->container->get('session')->get('listCulture')) {
+            // get total size of selected multiple culture
+            $cultureTotalSize = 0;
+            foreach ( $this->container->get('session')->get('listCulture') as $culture ) {
+                $cultureTotalSize = $cultureTotalSize + $culture->getSize();
+            }
+            // return form for multiple intervention
+            $form = $this->createForm( PhytoInterventionType::class, $intervention, [
+                'user' => $this->getUser(),
+                'culture' => $culture,
+                'totalSizeMultipleIntervention' => $cultureTotalSize
+            ]);
+        } else {
+            $form = $this->createForm( PhytoInterventionType::class, $intervention, [
+                'user' => $this->getUser(),
+                'culture' => $culture
+            ]);
+        }
         $form->handleRequest( $request );
 
         //-- Warning Message of already intervention last 48 hours
@@ -302,6 +317,7 @@ class InterventionsController extends AbstractController
             $warningMessage = true;
         }
 
+        //-- Form Submit
         if ($form->isSubmitted() && $form->isValid()) {
             //-- Get data
             $data = $form->all();
@@ -313,14 +329,34 @@ class InterventionsController extends AbstractController
             $stock->setQuantity( $quantityOnStock - $quantityUsed);
             $quantityUsedInStock = $stock->getUsedQuantity();
             $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
-            //-- Setters
-            $intervention->setDose( $data['doses']->getData()->getDose() );
-            $intervention->setProduct( $stock->getProduct() );
-            $intervention->setCulture( $culture );
-            $intervention->setType( $name );
-            //-- Flush on db
-            $this->om->persist( $intervention );
-            $this->om->flush();
+            //-- Multiple Intervention
+            if ($this->container->get('session')->get('listCulture')) {
+                //-- Foreach of all culture selected
+                $listCulture = $this->container->get('session')->get('listCulture');
+                foreach ($listCulture as $culture) {
+                    //-- Setters
+                    $intervention->setDose( $data['doses']->getData()->getDose() );
+                    $intervention->setProduct( $stock->getProduct() );
+                    $intervention->setCulture( $culture );
+                    $intervention->setType( $name );
+                    //-- Flush on db
+                    $lastIntervention = $this->om->merge( $intervention );
+                    $this->om->flush();
+                }
+                //-- Clear listCulture
+                $this->container->get('session')->remove('listCulture');
+                return $this->redirectToRoute('login.success');
+            } else {
+                //-- Setters
+                $intervention->setDose( $data['doses']->getData()->getDose() );
+                $intervention->setProduct( $stock->getProduct() );
+                $intervention->setCulture( $culture );
+                $intervention->setType( $name );
+                //-- Flush on db
+                $this->om->persist( $intervention );
+                $this->om->flush();
+            }
+            //-- Flash Message
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             //-- Redirect to add new product if checkbox is checked
@@ -342,17 +378,18 @@ class InterventionsController extends AbstractController
     /**
      * Add product to an intervention
      * @Route("interventions/phyto/{id}", name="interventions.phyto.product")
-     * @param Interventions $interventions
+     * @param Interventions $intervention
      * @param Request $request
      * @param StocksRepository $sr
+     * @param InterventionsProductsRepository $ipr
      * @return Response
      */
-    public function addProduct(Interventions $interventions, Request $request, StocksRepository $sr, InterventionsProductsRepository $ipr): Response
+    public function addProduct(Interventions $intervention, Request $request, StocksRepository $sr, InterventionsProductsRepository $ipr): Response
     {
         $interventionProduct = new InterventionsProducts();
         $form = $this->createForm( InterventionAddProductType::class, $interventionProduct, [
             'user' => $this->getUser(),
-            'culture' => $interventions->getCulture()
+            'culture' => $intervention->getCulture()
         ]);
         $form->handleRequest( $request );
 
@@ -361,7 +398,6 @@ class InterventionsController extends AbstractController
             $data = $form->all();
             $stock = $data['productInStock']->getData();
             $dose = $data['doses']->getData();
-            dump( $dose );
             //-- Update Stock
             $stock = $sr->find( ['id' => $stock] );
             $quantityUsed = $form->getData()->getQuantity();
@@ -369,27 +405,25 @@ class InterventionsController extends AbstractController
             $stock->setQuantity( $quantityOnStock - $quantityUsed);
             $quantityUsedInStock = $stock->getUsedQuantity();
             $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
-            //-- Add product on db
             $interventionProduct->setDose( $dose->getDose() );
             $interventionProduct->setQuantity( $form->getData()->getQuantity() );
             $interventionProduct->setProduct( $stock->getProduct() );
-            $interventionProduct->setIntervention( $interventions );
+            $interventionProduct->setIntervention( $intervention );
             $this->om->persist( $interventionProduct );
-            //-- Flush on db
             $this->om->flush();
-            $this->addFlash('success', 'Adjuvant ajouté avec succès');
+            $this->addFlash('success', 'Nouveau produit ajouté avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
-            //-- Add new product
-            if ( $data['addNewProduct']->getData() ) {
-                return $this->redirectToRoute('interventions.phyto.product', ['id' => $interventions->getId()]);
+            //-- Redirect to add new product if checkbox is checked
+            if ( $data['addProduct']->getData() ) {
+                return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
             }
-            return $this->redirectToRoute( 'cultures.show', ['id' => $interventions->getCulture()->getId()] );
+            return $this->redirectToRoute( 'cultures.show', ['id' => $intervention->getCulture()->getId()] );
         }
 
         return $this->render('interventions/addProduct.html.twig', [
             'form' => $form->createView(),
-            'culture' => $interventions->getCulture(),
-            'interventionProducts' => $ipr->findBy( ['intervention' => $interventions] )
+            'culture' => $intervention->getCulture(),
+            'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] )
         ]);
     }
 
@@ -432,13 +466,31 @@ class InterventionsController extends AbstractController
             $stock->setQuantity( $quantityOnStock - $quantityUsed);
             $quantityUsedInStock = $stock->getUsedQuantity();
             $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
-            //-- Setters
-            $intervention->setProduct( $stock->getProduct() );
-            $intervention->setCulture( $culture );
-            $intervention->setType( $name );
-            //-- Flush on db
-            $this->om->persist( $intervention );
-            $this->om->flush();
+            //-- Multiple Intervention
+            if ($this->container->get('session')->get('listCulture')) {
+                //-- Foreach of all culture selected
+                $listCulture = $this->container->get('session')->get('listCulture');
+                foreach ($listCulture as $culture) {
+                    //-- Setters
+                    $intervention->setProduct( $stock->getProduct() );
+                    $intervention->setCulture( $culture );
+                    $intervention->setType( $name );
+                    //-- Flush on db
+                    $this->om->merge( $intervention );
+                    $this->om->flush();
+                }
+                //-- Clear listCulture
+                $this->container->get('session')->remove('listCulture');
+                return $this->redirectToRoute('login.success');
+            } else {
+                //-- Setters
+                $intervention->setProduct( $stock->getProduct() );
+                $intervention->setCulture( $culture );
+                $intervention->setType( $name );
+                //-- Flush on db
+                $this->om->persist( $intervention );
+                $this->om->flush();
+            }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );

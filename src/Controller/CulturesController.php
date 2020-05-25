@@ -70,6 +70,7 @@ class CulturesController extends AbstractController
      */
     public function show(Cultures $culture, InterventionsRepository $ir): Response
     {
+        dump( $this->container->get('session')->get('listCulture') );
         return $this->render('cultures/show.html.twig', [
             'culture' => $culture,
             'ir' => $ir

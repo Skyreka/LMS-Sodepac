@@ -58,7 +58,6 @@ class MultipleInterventionController extends AbstractController
      */
     public function intervention( Request $request ): Response
     {
-        dump( $this->container->get('session')->get('listCulture') );
         return $this->render('multipleIntervention/interventions.html.twig');
     }
 }

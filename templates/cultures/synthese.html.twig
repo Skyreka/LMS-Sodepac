@@ -198,6 +198,7 @@
                                             <th>Dose préconisée</th>
                                             <th>Dosage /ha</th>
                                             <th>IFT</th>
+                                            <th>Produits</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
                                         </tr>
@@ -211,6 +212,11 @@
                                                 <td>{{ intervention.dose }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
+                                                <td>
+                                                    {% for interventionProduct in intervention.getInterventionsProducts.values  %}
+                                                        {{ interventionProduct.product.name }} <br>
+                                                    {% endfor %}
+                                                </td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
@@ -236,6 +242,7 @@
                                             <th>Dose préconisée</th>
                                             <th>Dosage /ha</th>
                                             <th>IFT</th>
+                                            <th>Produits</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
                                         </tr>
@@ -249,6 +256,11 @@
                                                 <td>{{ intervention.dose }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
+                                                <td>
+                                                    {% for interventionProduct in intervention.getInterventionsProducts.values  %}
+                                                        {{ interventionProduct.product.name }} <br>
+                                                    {% endfor %}
+                                                </td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
@@ -344,6 +356,7 @@
                                             <th>Dose préconisée</th>
                                             <th>Dosage /ha</th>
                                             <th>IFT</th>
+                                            <th>Produit</th>
                                             <th>Commentaire</th>
                                             <th>Date</th>
                                         </tr>
@@ -357,6 +370,11 @@
                                                 <td>{{ intervention.dose }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
+                                                <td>
+                                                    {% for interventionProduct in intervention.getInterventionsProducts.values  %}
+                                                        {{ interventionProduct.product.name }} <br>
+                                                    {% endfor %}
+                                                </td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>

@@ -116,6 +116,7 @@ class PhytoInterventionType extends AbstractType
      * Add others inputs
      * @param FormInterface $form
      * @param Doses|null $dose
+     * @param $options
      */
     private function addOthersField(FormInterface $form, ?Doses $dose, $options)
     {
@@ -131,7 +132,13 @@ class PhytoInterventionType extends AbstractType
             $unitEnable = ['kg/ha', 'L/ha'];
             if (in_array($dose->getUnit(), $unitEnable)) {
                 $totalQuantity = 'Valeur calculée: '. $dose->getDose() * $znt * $options['culture']->getSize();
-                $resultMessage = 'Résultat de la dose préconisé : '.$dose->getDose().' * ZNT ('. $znt .') * '.$options['culture']->getSize().'ha Taille de la culture en Ha';
+                // multiple intervention
+                if ( $options['totalSizeMultipleIntervention'] != NULL) {
+                    $size = $options['totalSizeMultipleIntervention'];
+                } else {
+                    $size = $options['culture']->getSize();
+                }
+                $resultMessage = 'Résultat de la dose préconisé : '.$dose->getDose().' * ZNT ('. $znt .') * '.$size.'ha Taille de la culture en Ha';
             } else {
                 $totalQuantity = '- Calcul non disponible avec cette unité';
                 $resultMessage = 'Aucun calcul effectué';
@@ -168,7 +175,8 @@ class PhytoInterventionType extends AbstractType
             'data_class' => Phyto::class,
             'translation_domain' => 'forms',
             'user' => null,
-            'culture' => null
+            'culture' => null,
+            'totalSizeMultipleIntervention' => null
         ]);
     }
 }

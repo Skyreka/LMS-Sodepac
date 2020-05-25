@@ -131,7 +131,7 @@ class InterventionAddProductType extends AbstractType
                     'label' => 'Quantité Totale '. $totalQuantity,
                     'help' => $resultMessage
                 ])
-                ->add('addNewProduct', CheckboxType::class, [
+                ->add('addProduct', CheckboxType::class, [
                     'mapped' => false,
                     'label' => 'Voulez-vous ajouter un nouveau produit ?',
                     'required' => false
