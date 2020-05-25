@@ -63,6 +63,26 @@ class UsersRepository extends ServiceEntityRepository
         return $req->getQuery()->getResult();
     }
 
+    /**
+     * @param $pack
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllByPack( $pack, $limit = NULL )
+    {
+        $req = $this->createQueryBuilder('u')
+            ->andWhere('u.pack = :pack')
+            ->setParameter('pack', $pack)
+            ->orderBy('u.id', 'ASC')
+        ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Users[] Returns an array of Users objects
     //  */
