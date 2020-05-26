@@ -107,6 +107,30 @@ class BsvUsersRepository extends ServiceEntityRepository
         return $req->getQuery()->getResult();
     }
 
+    /**
+     * Find all bsv relations from technician
+     * @param $year
+     * @param $technician
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllByYearAndTechnician($year, $technician, $limit = null)
+    {
+        $req = $this->createQueryBuilder('b')
+            ->leftJoin(Users::class, 'u', 'WITH', 'u.id = b.customers')
+            ->leftJoin(Users::class, 't', 'WITH', 't.id = u.technician')
+            ->where('t.id = :technician')
+            ->andWhere('year(b.display_at) = :year')
+            ->setParameter('technician', $technician)
+            ->setParameter('year', $year)
+        ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
 
     // /**
     //  * @return BsvUsers[] Returns an array of BsvUsers objects

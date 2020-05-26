@@ -331,4 +331,32 @@ class BsvController extends AbstractController
             'year' => $year
         ]);
     }
+
+    /**
+     * @Route("/technician/bsv/history", name="technician.bsv.history.index")
+     * @param BsvUsersRepository $bur
+     * @return Response
+     */
+    public function technicianHistory(BsvUsersRepository $bur): Response
+    {
+        $year = date('Y');
+        $bsv = $bur->findAllByYearAndTechnician($year, $this->getUser()->getId());
+        return $this->render('admin/bsv/history/technician/index.html.twig',[
+            'bsv' => $bsv
+        ]);
+    }
+
+    /**
+     * @Route("/technician/bsv/history/{year}", name="technician.bsv.history.show")
+     * @param BsvUsersRepository $bur
+     * @param $year
+     * @return Response
+     */
+    public function technicianList(BsvUsersRepository $bur, $year): Response
+    {
+        $bsv = $bur->findAllByYearAndTechnician($year, $this->getUser()->getId());
+        return $this->render('admin/bsv/history/technician/show.html.twig', [
+            'bsv' => $bsv
+        ]);
+    }
 }
