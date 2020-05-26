@@ -82,7 +82,6 @@ class HomeController extends AbstractController {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $bsvs = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
-        $lastInterventions = $intR->findLastOfUser( $this->getUser(), 3);
 
         //-- Clear listCulture
         $this->container->get('session')->remove('listCulture');
