@@ -28,6 +28,7 @@ class IndexCulturesRepository extends ServiceEntityRepository
             ->leftJoin(Ilots::class, 'i', 'WITH', 'c.ilot = i.id')
             ->andWhere('i.exploitation = :exp')
             ->setParameter('exp', $exploitation)
+            ->orderBy('c.name', 'ASC')
         ;
 
         //-- Only Query
