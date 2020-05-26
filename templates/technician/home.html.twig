@@ -71,6 +71,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Flashs envoyés aux clients</h4>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Informations</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for bsv in bsvs %}
+                                    <tr>
+                                        <td>
+                                            <h6>{{ bsv.bsv.text }} </h6>
+                                            <small class="text-muted">{{ bsv.displayAt|date("d/m/Y") }}
+                                                - {{ bsv.customers.identity }}
+                                            </small>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center">
+                            <a href="" class="link font-medium"><h6>Voir plus</h6></a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-4">
                 <div class="card">
@@ -78,7 +109,7 @@
                         <h3 class="m-b-0">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</h3>
                         <div class="row text-center m-t-20">
                             <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">11</h3><small>Clients</small>
+                                <h3 class="m-b-0 font-light">{{ customers|length }}</h3><small>Clients</small>
                             </div>
                         </div>
                     </div>
@@ -116,6 +147,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

@@ -18,15 +18,18 @@ class HomeController extends AbstractController {
      * @Route("/technician", name="technician.home")
      * @param UsersRepository $ur
      * @param PanoramasRepository $pr
+     * @param BsvUsersRepository $bur
      * @return Response
      */
-    public function homeTechnicians( UsersRepository $ur, PanoramasRepository $pr)
+    public function homeTechnicians( UsersRepository $ur, PanoramasRepository $pr, BsvUsersRepository $bur)
     {
         $customers = $ur->findAllCustomersOfTechnician( $this->getUser()->getId(), 10 );
         $panoramas = $pr->findAllNotDeleted(3);
+        $bsvs = $bur->findAllByTechnician($this->getUser()->getId(), 3);
         return $this->render('technician/home.html.twig', [
             'customers' => $customers,
-            'panoramas' => $panoramas
+            'panoramas' => $panoramas,
+            'bsvs' => $bsvs
         ]);
     }
 
