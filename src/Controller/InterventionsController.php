@@ -393,6 +393,8 @@ class InterventionsController extends AbstractController
         ]);
         $form->handleRequest( $request );
 
+        dump( $intervention->getProduct()->getName() );
+
         if ($form->isSubmitted() && $form->isValid()) {
             //-- Get data
             $data = $form->all();
@@ -423,6 +425,7 @@ class InterventionsController extends AbstractController
         return $this->render('interventions/addProduct.html.twig', [
             'form' => $form->createView(),
             'culture' => $intervention->getCulture(),
+            'intervention' => $intervention,
             'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] )
         ]);
     }
