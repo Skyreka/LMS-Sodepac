@@ -51,7 +51,7 @@ class Users implements UserInterface, \Serializable
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $lastname;
 
