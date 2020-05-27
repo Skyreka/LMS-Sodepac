@@ -98,6 +98,7 @@ class BsvUsersRepository extends ServiceEntityRepository
             ->leftJoin(Users::class, 't', 'WITH', 't.id = u.technician')
             ->where('t.id = :technician')
             ->setParameter('technician', $technician)
+            ->orderBy('b.display_at',  'DESC')
             ;
 
         if (false === is_null($limit)) {
@@ -123,6 +124,7 @@ class BsvUsersRepository extends ServiceEntityRepository
             ->andWhere('year(b.display_at) = :year')
             ->setParameter('technician', $technician)
             ->setParameter('year', $year)
+            ->orderBy('b.display_at', 'DESC')
         ;
 
         if (false === is_null($limit)) {
