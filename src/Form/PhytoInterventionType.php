@@ -29,7 +29,7 @@ class PhytoInterventionType extends AbstractType
                 'class' => Stocks::class,
                 'label' => 'Produit en stock',
                 'choice_label' => function(Stocks $stock) {
-                    return $stock->getProduct()->getName().' - '.$stock->getProduct()->getCategory();
+                    return $stock->getProduct()->getName().' - '.$stock->getProduct()->getCategory().' - stock : '.$stock->getQuantity().' '.$stock->getUnit();
                 },
                 'query_builder' => function(StocksRepository $sr) use ( $options ) {
                     return $sr->findProductInStockByExploitation( $options['user']->getExploitation() );
