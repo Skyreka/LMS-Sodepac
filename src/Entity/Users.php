@@ -120,6 +120,11 @@ class Users implements UserInterface, \Serializable
      */
     private $pack = 'DISABLE';
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $reset = 0;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
@@ -453,6 +458,18 @@ class Users implements UserInterface, \Serializable
     public function setPack(?string $pack): self
     {
         $this->pack = $pack;
+
+        return $this;
+    }
+
+    public function getReset(): ?bool
+    {
+        return $this->reset;
+    }
+
+    public function setReset(bool $Reset): self
+    {
+        $this->reset = $Reset;
 
         return $this;
     }
