@@ -19,6 +19,9 @@
         {% for message in app.flashes('danger') %}
             <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
+        {% if app.user.reset == 1 %}
+            <div class="alert alert-danger">Votre technicien a modifié votre mot de passe <br> Merci de bien vouloir le modifier pour plus de sécurité.</div>
+        {% endif %}
         {% if app.user.exploitation is null %}
             <div class="alert alert-info">Vous n'avez actuellement pas d'exploitation <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation</div>
         {% endif %}

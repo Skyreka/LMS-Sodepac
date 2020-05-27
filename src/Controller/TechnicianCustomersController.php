@@ -140,6 +140,7 @@ class TechnicianCustomersController extends AbstractController
 
         if ( $form->isSubmitted() && $form->isValid() ) {
             $user->setPassword( $encoder->encodePassword($user, $form['password']->getData()));
+            $user->setReset(1);
             $this->em->flush();
             $this->addFlash('success', 'Mot de passe du client modifié avec succès');
             return $this->redirectToRoute('technician.customers.index');
