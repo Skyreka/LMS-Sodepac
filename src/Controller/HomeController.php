@@ -64,8 +64,6 @@ class HomeController extends AbstractController {
         $totalLitre = $rpr->findQuantityUsedByUnit('L', 'L/Ha');
         $totalKilo = $rpr->findQuantityUsedByUnit('Kg', 'Kg/Ha');
 
-        dump($totalLitre);
-
         return $this->render('admin/home.html.twig', [
             'inactivCount' => $inactivCount,
             'inactivPercent' => $inactivPercent,
