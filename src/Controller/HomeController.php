@@ -7,6 +7,7 @@ use App\Repository\IlotsRepository;
 use App\Repository\InterventionsRepository;
 use App\Repository\PanoramasRepository;
 use App\Repository\PanoramaUserRepository;
+use App\Repository\RecommendationProductsRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,9 +37,10 @@ class HomeController extends AbstractController {
     /**
      * @Route("/admin", name="admin.home")
      * @param UsersRepository $ur
+     * @param RecommendationProductsRepository $rpr
      * @return Response
      */
-    public function homeAdmins( UsersRepository $ur)
+    public function homeAdmins( UsersRepository $ur, RecommendationProductsRepository $rpr)
     {
         $customers = $ur->findAllByRole('ROLE_USER');
         $customersCount = count($customers);
@@ -59,6 +61,11 @@ class HomeController extends AbstractController {
         $demoCount = count($demo);
         $demoPercent = 100 * $demoCount / $customersCount;
 
+        $totalLitre = $rpr->findQuantityUsedByUnit('L', 'L/Ha');
+        $totalKilo = $rpr->findQuantityUsedByUnit('Kg', 'Kg/Ha');
+
+        dump($totalLitre);
+
         return $this->render('admin/home.html.twig', [
             'inactivCount' => $inactivCount,
             'inactivPercent' => $inactivPercent,
@@ -67,7 +74,9 @@ class HomeController extends AbstractController {
             'lightCount' => $lightCount,
             'lightPercent' => $lightPercent,
             'demoCount' => $demoCount,
-            'demoPercent' => $demoPercent
+            'demoPercent' => $demoPercent,
+            'totalLitre' => $totalLitre[1],
+            'totalKilo' => $totalKilo[1]
         ]);
     }
 
