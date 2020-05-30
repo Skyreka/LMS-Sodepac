@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\BsvUsers;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -21,6 +22,7 @@ class BsvUsersRepository extends ServiceEntityRepository
 
 
     /**
+     * Find all bsv relation from customer
      * @param $customer
      * @param null $limit
      * @return mixed
@@ -45,6 +47,7 @@ class BsvUsersRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find all bsv relations from technician and year
      * @param $year
      * @param $customer
      * @return mixed
@@ -66,6 +69,7 @@ class BsvUsersRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find all bsv relations from year
      * @param $year
      * @return mixed
      */
@@ -79,6 +83,55 @@ class BsvUsersRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    /**
+     * Find all bsv relations from technician
+     * @param $technician
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllByTechnician($technician, $limit = null)
+    {
+        $req = $this->createQueryBuilder('b')
+            ->leftJoin(Users::class, 'u', 'WITH', 'u.id = b.customers')
+            ->leftJoin(Users::class, 't', 'WITH', 't.id = u.technician')
+            ->where('t.id = :technician')
+            ->setParameter('technician', $technician)
+            ->orderBy('b.display_at',  'DESC')
+            ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
+    /**
+     * Find all bsv relations from technician
+     * @param $year
+     * @param $technician
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllByYearAndTechnician($year, $technician, $limit = null)
+    {
+        $req = $this->createQueryBuilder('b')
+            ->leftJoin(Users::class, 'u', 'WITH', 'u.id = b.customers')
+            ->leftJoin(Users::class, 't', 'WITH', 't.id = u.technician')
+            ->where('t.id = :technician')
+            ->andWhere('year(b.display_at) = :year')
+            ->setParameter('technician', $technician)
+            ->setParameter('year', $year)
+            ->orderBy('b.display_at', 'DESC')
+        ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
     }
 
     // /**

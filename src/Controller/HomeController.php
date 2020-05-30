@@ -7,6 +7,7 @@ use App\Repository\IlotsRepository;
 use App\Repository\InterventionsRepository;
 use App\Repository\PanoramasRepository;
 use App\Repository\PanoramaUserRepository;
+use App\Repository\RecommendationProductsRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,24 +19,28 @@ class HomeController extends AbstractController {
      * @Route("/technician", name="technician.home")
      * @param UsersRepository $ur
      * @param PanoramasRepository $pr
+     * @param BsvUsersRepository $bur
      * @return Response
      */
-    public function homeTechnicians( UsersRepository $ur, PanoramasRepository $pr)
+    public function homeTechnicians( UsersRepository $ur, PanoramasRepository $pr, BsvUsersRepository $bur)
     {
         $customers = $ur->findAllCustomersOfTechnician( $this->getUser()->getId(), 10 );
         $panoramas = $pr->findAllNotDeleted(3);
+        $bsvs = $bur->findAllByTechnician($this->getUser()->getId(), 3);
         return $this->render('technician/home.html.twig', [
             'customers' => $customers,
-            'panoramas' => $panoramas
+            'panoramas' => $panoramas,
+            'bsvs' => $bsvs
         ]);
     }
 
     /**
      * @Route("/admin", name="admin.home")
      * @param UsersRepository $ur
+     * @param RecommendationProductsRepository $rpr
      * @return Response
      */
-    public function homeAdmins( UsersRepository $ur)
+    public function homeAdmins( UsersRepository $ur, RecommendationProductsRepository $rpr)
     {
         $customers = $ur->findAllByRole('ROLE_USER');
         $customersCount = count($customers);
@@ -56,6 +61,9 @@ class HomeController extends AbstractController {
         $demoCount = count($demo);
         $demoPercent = 100 * $demoCount / $customersCount;
 
+        $totalLitre = $rpr->findQuantityUsedByUnit('L', 'L/Ha');
+        $totalKilo = $rpr->findQuantityUsedByUnit('Kg', 'Kg/Ha');
+
         return $this->render('admin/home.html.twig', [
             'inactivCount' => $inactivCount,
             'inactivPercent' => $inactivPercent,
@@ -64,7 +72,9 @@ class HomeController extends AbstractController {
             'lightCount' => $lightCount,
             'lightPercent' => $lightPercent,
             'demoCount' => $demoCount,
-            'demoPercent' => $demoPercent
+            'demoPercent' => $demoPercent,
+            'totalLitre' => $totalLitre[1],
+            'totalKilo' => $totalKilo[1]
         ]);
     }
 

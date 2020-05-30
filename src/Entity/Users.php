@@ -51,7 +51,7 @@ class Users implements UserInterface, \Serializable
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $lastname;
 
@@ -119,6 +119,11 @@ class Users implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $pack = 'DISABLE';
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $reset = 0;
 
     public function __construct()
     {
@@ -453,6 +458,18 @@ class Users implements UserInterface, \Serializable
     public function setPack(?string $pack): self
     {
         $this->pack = $pack;
+
+        return $this;
+    }
+
+    public function getReset(): ?bool
+    {
+        return $this->reset;
+    }
+
+    public function setReset(bool $Reset): self
+    {
+        $this->reset = $Reset;
 
         return $this;
     }

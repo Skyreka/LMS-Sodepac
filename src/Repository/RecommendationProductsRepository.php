@@ -35,6 +35,26 @@ class RecommendationProductsRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * Get value of quantity used from unit
+     * @param $unit
+     * @param $unit2
+     * @return int|mixed|string|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function FindQuantityUsedByUnit($unit, $unit2)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.unit = :unit')
+            ->orWhere('r.unit = :unit2')
+            ->setParameter('unit', $unit)
+            ->setParameter('unit2', $unit2)
+            ->select('SUM(r.quantity)')
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     // /**
     //  * @return RecommendationProducts[] Returns an array of RecommendationProducts objects
     //  */

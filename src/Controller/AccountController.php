@@ -76,6 +76,7 @@ class  AccountController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword( $encoder->encodePassword($user, $form['password']->getData()));
+            $user->setReset(0);
             $this->em->flush();
             $this->addFlash('success', 'Mot de passe modifié avec succès');
             return $this->redirectToRoute('login.success');
