@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +30,7 @@ class PhytoInterventionType extends AbstractType
                 'class' => Stocks::class,
                 'label' => 'Produit en stock',
                 'choice_label' => function(Stocks $stock) {
-                    return $stock->getProduct()->getName().' - '.$stock->getProduct()->getCategory().' - stock : '.$stock->getQuantity().' '.$stock->getUnit();
+                    return $stock->getProduct()->getName().' - '.$stock->getProduct()->getCategory().' - stock : '.$stock->getQuantity().' '.$stock->getUnit( true );
                 },
                 'query_builder' => function(StocksRepository $sr) use ( $options ) {
                     return $sr->findProductInStockByExploitation( $options['user']->getExploitation() );
@@ -120,7 +121,6 @@ class PhytoInterventionType extends AbstractType
      */
     private function addOthersField(FormInterface $form, ?Doses $dose, $options)
     {
-
         if ($dose) {
             // Znt
             if ($options['culture']->getZnt()) {
@@ -146,7 +146,11 @@ class PhytoInterventionType extends AbstractType
             $form
                 ->add('quantity', NumberType::class, [
                     'label' => 'Quantité Totale '. $totalQuantity,
-                    'help' => $resultMessage
+                    'help' => $resultMessage,
+                    'attr' => [
+                        'max' => $form->get('productInStock')->getData()->getQuantity()
+                    ],
+                    'required'=> true
                 ])
                 ->add('comment')
                 ->add('intervention_at', DateType::class, [
