@@ -30,6 +30,11 @@
                                     <a href="{{ path('tickets.conversation.show', {id: ticket.id}) }}" class="py-3 px-2 border-bottom d-block text-decoration-none view-ticket" id_ticket="{{ ticket.id }}">
                                         <div class="mail-contnet d-inline-block align-middle">
                                             <h5 class="my-1">#{{ ticket.id }} - {{ ticket.title|slice(0, 35) }}..</h5>
+                                            {% if ticket.status == 0 %}
+                                                <span class="badge badge-danger">Fermé</span>
+                                            {% else %}
+                                                <span class="badge badge-success">Ouvert</span>
+                                            {% endif %}
                                         </div>
                                     </a>
                                 </div>

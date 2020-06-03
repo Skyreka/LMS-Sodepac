@@ -131,4 +131,22 @@ class TicketsController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/tickets/{id}", name="tickets.close", methods="CLOSE")
+     * @param Tickets $tickets
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function check(Tickets $tickets, Request $request)
+    {
+        if ($this->isCsrfTokenValid('close' . $tickets->getId(), $request->get('_token'))) {
+            $tickets->setStatus(0);
+            $datetime = New \DateTime();
+            $tickets->setClosedAt($datetime);
+            $this->om->flush();
+        }
+
+        return $this->redirectToRoute('tickets.home');
+    }
 }

@@ -32,8 +32,18 @@
                                         <div class="mail-contnet d-inline-block align-middle">
                                             {% if app.user.status == 'ROLE_TECHNICIAN' %}
                                                 <h5 class="my-1">#{{ ticket.id }} | {{ ticket.user.identity }} - {{ ticket.title|slice(0, 35) }}..</h5>
+                                                {% if ticket.status == 0 %}
+                                                    <span class="badge badge-danger">Fermé</span>
+                                                {% else %}
+                                                    <span class="badge badge-success">Ouvert</span>
+                                                {% endif %}
                                             {% else %}
-                                                <h5 class="my-1">#{{ ticket.id }} - {{ ticket.title|slice(0, 35) }}..</h5>
+                                                <h5 class="my-1">#{{ ticket.id }} - {{ ticket.title|slice(0, 35) }}..
+                                                    {% if ticket.status == 0 %}
+                                                        <span class="badge badge-danger">Fermé</span>
+                                                    {% else %}
+                                                        <span class="badge badge-success">Ouvert</span>
+                                                    {% endif %}
                                             {% endif %}
 
                                         </div>
@@ -45,7 +55,11 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <a href="{{ path('ilots.new') }}" class="btn btn-danger mb-2">Fermer le ticket</a>
+                <form method="POST" action="{{ path('tickets.close', {id: ticket.id}) }}" style="display: inline-block">
+                    <input type="hidden" name="_method" value="CLOSE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('close' ~ ticket.id) }}">
+                    <button class="btn btn-danger mb-2">Fermer le ticket</button>
+                </form>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">#{{ ticket.id }} - {{ ticket.title }}</h4>
@@ -107,11 +121,13 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="card-body border-top">
-                        {{ form_start( form ) }}
+                    {% if ticket.status != 0 %}
+                        <div class="card-body border-top">
+                            {{ form_start( form ) }}
                             {{ form_rest( form ) }}
-                        {{ form_end( form ) }}
-                    </div>
+                            {{ form_end( form ) }}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
