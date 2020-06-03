@@ -125,11 +125,17 @@ class Users implements UserInterface, \Serializable
      */
     private $reset = 0;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Tickets::class, mappedBy="technician", orphanRemoval=true)
+     */
+    private $tickets;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
         $this->panoramas = new ArrayCollection();
         $this->panoramas_sent = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -470,6 +476,37 @@ class Users implements UserInterface, \Serializable
     public function setReset(bool $Reset): self
     {
         $this->reset = $Reset;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tickets[]
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Tickets $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setTechnician($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Tickets $ticket): self
+    {
+        if ($this->tickets->contains($ticket)) {
+            $this->tickets->removeElement($ticket);
+            // set the owning side to null (unless already changed)
+            if ($ticket->getTechnician() === $this) {
+                $ticket->setTechnician(null);
+            }
+        }
 
         return $this;
     }

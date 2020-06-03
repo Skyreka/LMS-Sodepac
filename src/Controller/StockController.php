@@ -21,7 +21,7 @@ class StockController extends AbstractController
 
     /**
      * StockController constructor.
-     * @param ObjectManager $om
+     * @param EntityManagerInterface $om
      */
     public function __construct(EntityManagerInterface $om)
     {

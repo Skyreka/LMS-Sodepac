@@ -7,14 +7,9 @@
         <meta name="description" content="">
         <meta name="author" content="Skyreka">
         <title>{% block title %}Page{% endblock %} - LMS Sodepac</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <!-- DarkMode Auto -->
-        {% if "now" | date('H') < 18 and  "now" | date('H') > 7 %}
-            <link href="{{ asset('css/colors/green.css') }}" id="theme" rel="stylesheet">
-        {% else %}
-            <link href="{{ asset('css/colors/green-dark.css') }}" id="theme" rel="stylesheet">
-        {% endif %}
+        <link href="{{ asset('css/colors/green.css') }}" id="theme" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
     <body class="fix-header card-no-border logo-center">
