@@ -39,6 +39,11 @@ class Tickets
      */
     private $title;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $closed_at;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Tickets
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getClosedAt(): ?\DateTimeInterface
+    {
+        return $this->closed_at;
+    }
+
+    public function setClosedAt(?\DateTimeInterface $closed_at): self
+    {
+        $this->closed_at = $closed_at;
 
         return $this;
     }
