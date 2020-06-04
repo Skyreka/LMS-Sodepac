@@ -140,7 +140,7 @@
         $(document).on('click', '.view-ticket', function (event) {
             event.preventDefault();
             let id = $(this).attr('id_ticket')
-            let url = '/tickets/messages/' + id
+            let url = '/tickets/conversation/' + id
             $.get(url).then(function (data) {
                 let content = $('#insert-data')
                 content.empty()
