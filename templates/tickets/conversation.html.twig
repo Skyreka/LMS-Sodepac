@@ -133,19 +133,3 @@
         </div>
     </div>
 {% endblock %}
-
-{% block javascripts %}
-    <script>
-        $(".chat-box").slimScroll({ position: "right", size: "5px", height: "370", color: "#dcdcdc", start: 'bottom' });
-        $(document).on('click', '.view-ticket', function (event) {
-            event.preventDefault();
-            let id = $(this).attr('id_ticket')
-            let url = '/tickets/conversation/' + id
-            $.get(url).then(function (data) {
-                let content = $('#insert-data')
-                content.empty()
-                content.append( data )
-            })
-        })
-    </script>
-{% endblock %}
