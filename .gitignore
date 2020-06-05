@@ -30,3 +30,5 @@ public/uploads/panorama/
 .idea/php.xml
 
 composer.lock
+
+public/uploads/messages/
