@@ -12,12 +12,15 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Intervention sur {{ culture.name.name }} de {{ culture.size }} <small>ha</small></h3>
+                <h3 class="text-themecolor">Intervention sur {{ culture.name.name }} de {{ culture.size }}
+                    <small>ha</small></h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('cultures.index') }}">Cultures</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('ilots.show', {id: culture.ilot.id})}}">{{ culture.ilot.name }}</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('cultures.show', {id: culture.id})}}">{{ culture.name.name }}</a></li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ path('ilots.show', {id: culture.ilot.id}) }}">{{ culture.ilot.name }}</a></li>
+                    <li class="breadcrumb-item"><a
+                                href="{{ path('cultures.show', {id: culture.id}) }}">{{ culture.name.name }}</a></li>
                     <li class="breadcrumb-item active">Synthese</li>
                 </ol>
             </div>
@@ -126,15 +129,17 @@
                                         <tbody>
                                         {% for intervention in interventions.findByTypeAndCulture('Semis', culture) %}
                                             <tr>
-                                                <td>{{ intervention.name }}</td>
-                                                <td>{{ intervention.quantity }} <small>{{ intervention.unit }}</small></td>
+                                                <td>{{ intervention.name|default('Sans nom') }}</td>
+                                                <td>{{ intervention.quantity }} <small>{{ intervention.unit }}</small>
+                                                </td>
                                                 <td>{{ intervention.objective }} <small>Quintaux</small></td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -169,7 +174,7 @@
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
                                                 <td>
-                                                    {% for interventionProduct in intervention.getInterventionsProducts.values  %}
+                                                    {% for interventionProduct in intervention.getInterventionsProducts.values %}
                                                         {{ interventionProduct.product.name }} <br>
                                                     {% endfor %}
                                                 </td>
@@ -178,7 +183,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -213,7 +219,7 @@
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
                                                 <td>
-                                                    {% for interventionProduct in intervention.getInterventionsProducts.values  %}
+                                                    {% for interventionProduct in intervention.getInterventionsProducts.values %}
                                                         {{ interventionProduct.product.name }} <br>
                                                     {% endfor %}
                                                 </td>
@@ -222,7 +228,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -251,13 +258,13 @@
                                         {% for intervention in interventions.findByTypeAndCulture('Insecticide', culture) %}
                                             {% set totalIft = totalIft + intervention.getIft %}
                                             <tr>
-                                                <td>{{ intervention.product.name }}</td>
+                                                <td>{{ intervention.product.name|default('Sans nom') }}</td>
                                                 <td>{{ intervention.quantity }}</td>
                                                 <td>{{ intervention.dose }}</td>
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
                                                 <td>
-                                                    {% for interventionProduct in intervention.getInterventionsProducts.values  %}
+                                                    {% for interventionProduct in intervention.getInterventionsProducts.values %}
                                                         {{ interventionProduct.product.name }} <br>
                                                     {% endfor %}
                                                 </td>
@@ -266,7 +273,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -301,7 +309,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -336,7 +345,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -371,7 +381,7 @@
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
                                                 <td>
-                                                    {% for interventionProduct in intervention.getInterventionsProducts.values  %}
+                                                    {% for interventionProduct in intervention.getInterventionsProducts.values %}
                                                         {{ interventionProduct.product.name }} <br>
                                                     {% endfor %}
                                                 </td>
@@ -380,7 +390,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -407,7 +418,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -434,7 +446,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -467,7 +480,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -496,7 +510,8 @@
                                                     <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                                    <a href="{{ path('interventions.edit', {id: intervention.id}) }}"
+                                                       class="btn btn-info">Editer</a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -509,6 +524,6 @@
                 </div>
             </div>
         </div>
-        <div class="alert alert-success">IFT de la culture {{ totalIft|round(3, 'floor')}}</div>
+        <div class="alert alert-success">IFT de la culture {{ totalIft|round(3, 'floor') }}</div>
     </div>
 {% endblock %}
