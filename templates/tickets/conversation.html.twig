@@ -29,7 +29,7 @@
                             <div class="message-box contact-box position-relative">
                                 <div class="message-widget contact-widget position-relative">
                                     <a href="{{ path('tickets.conversation.show', {id: ticket.id}) }}" class="py-3 px-2 border-bottom d-block text-decoration-none view-ticket" id_ticket="{{ ticket.id }}">
-                                        <div class="mail-contnet d-inline-block align-middle">
+                                        <div class="mail-content d-inline-block align-middle">
                                             {% if app.user.status == 'ROLE_TECHNICIAN' %}
                                                 <h5 class="my-1">#{{ ticket.id }} | {{ ticket.user.identity }} - {{ ticket.title|slice(0, 35) }}..</h5>
                                                 {% if ticket.status == 0 %}
@@ -90,6 +90,7 @@
                                                     </div
                                                 {% endif %}
                                             </div>
+                                            <div class="chat-time d-inline-block text-right">{{ message.sendAt | date('m/d h:i') }}</div>
                                         </li>
                                     {% else %}
                                         <li class="mt-4" style="list-style: none;">
@@ -115,6 +116,7 @@
                                                     </div
                                                 {% endif %}
                                             </div>
+                                            <div class="chat-time d-inline-block text-right float-right pr-2 pt-4">{{ message.sendAt | date('m/d h:i') }}</div>
                                         </li>
                                     {% endif %}
                                 {% endfor %}
