@@ -25,7 +25,7 @@ class TicketsNewMessageType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '4000k'
+                        'maxSize' => '5000k'
                     ])
                 ]
             ])
