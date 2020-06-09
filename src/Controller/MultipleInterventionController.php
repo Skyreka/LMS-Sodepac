@@ -50,14 +50,4 @@ class MultipleInterventionController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
-    /**
-     * @Route("multiple/interventions", name="multiple.interventions")
-     * @param Request $request
-     * @return Response
-     */
-    public function intervention( Request $request ): Response
-    {
-        return $this->render('multipleIntervention/interventions.html.twig');
-    }
 }
