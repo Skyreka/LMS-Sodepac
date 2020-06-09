@@ -27,6 +27,12 @@
             <div class="alert alert-info">Vous n'avez actuellement pas d'exploitation <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation</div>
         {% endif %}
         <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-warning btn-lg btn-block mb-4">Ilots</button>
+                <button class="btn btn-success btn-lg btn-block mb-4">Cultures</button>
+                <button class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</button>
+                <button class="btn btn-info btn-lg btn-block">Irrigation</button>
+            </div>
             <div class="col-md-6 d-none d-md-block">
                 <div class="card" style="background-color: #d2e7fa;">
                     <div class="card-body pb-0">
@@ -37,7 +43,7 @@
                             {% for bsv in bsvs %}
                                 {% if date(bsv.displayAt) <= date() and bsv.checked == 0 %}
                                     <div class="comment-text w-100 p-3">
-                                        <p class="mb-1 overflow-hidden">{{ bsv.bsv.text }}</p>
+                                        <p class="mb-1 overflow-hidden text-white">{{ bsv.bsv.text }}</p>
                                         <div class="comment-footer">
                                             <span class="text-muted pull-right">{{ bsv.displayAt|date('d M y à h:m') }}</span>
                                             <span class="badge badge-info">Non lu</span>
@@ -55,9 +61,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6 d-none d-md-block">
                 <div class="card" style="background-color: #fedbe2;">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Panorama</h4>
@@ -67,7 +70,7 @@
                             {% for panorama in panoramas %}
                                 {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
                                     <div class="comment-text w-100 p-3">
-                                        <p class="mb-1 overflow-hidden">{{ panorama.panorama.text }}</p>
+                                        <p class="mb-1 overflow-hidden text-white">{{ panorama.panorama.text }}</p>
                                         <div class="comment-footer">
                                             <span class="text-muted pull-right">{{ panorama.displayAt|date('d M y à h:m') }}</span>
                                             <span class="badge badge-info">Non lu</span>
@@ -85,111 +88,27 @@
                         </div>
                     </div>
                 </div>
+                <div class="card" style="background-color: #ff7675;">
+                    <div class="card-body pb-0">
+                        <h4 class="card-title">Tickets</h4>
+                    </div>
+                    <div class="comment-widgets position-relative mb-2 common-widget">
+                        <div class="d-flex flex-row comment-row p-3">
+                            {% for ticket in tickets %}
+                                <div class="comment-text w-100 p-3">
+                                    <p class="mb-1 overflow-hidden text-white">{{ ticket.title }}</p>
+                                    <div class="comment-footer">
+                                        <span class="action-icons">
+                                            <a href="{{ path('tickets.home') }}" class="btn btn-success btn-xs text-white">Lire</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        {% if app.user.pack != 'PACK_LIGHT' %}
-            <div class="row">
-                <div class="col-lg-4 d-none d-md-block">
-                    <div class="card" style="background-color: #fff0d5;">
-                        <div class="card-body little-profile">
-                            <h4 class="card-title">Mes dernières interventions</h4>
-                            <div class="row text-center m-t-20">
-                                <div class="col-12 m-t-20">
-                                    <h5 class="m-b-0 font-light">Liquet - Blé - Fongicide - 18 mai</h5>
-                                    <h5 class="m-b-0 font-light">Liquet - Blé - Herbicide - 18 mai</h5>
-                                    <h5 class="m-b-0 font-light">Coste - Maîs - Fongicide - 16 mai</h5>
-                                    <h5 class="m-b-0 font-light">Blanchet - Betterave - Fongicide - 12 mai</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex no-block">
-                                <h4 class="card-title">Vos Ilots</h4>
-                                <div class="ml-auto">
-                                    {% if app.user.exploitation is not empty %}
-                                        <a href="{{ path('ilots.new') }}" class="btn btn-success">Ajouter</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="table-responsive m-t-20">
-                                <table class="table stylish-table" id="datatable">
-                                    <thead>
-                                    <tr>
-                                        <th>Ilots</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for ilot in ilots %}
-                                        <tr>
-                                            <td>
-                                                <a href="{{ path('ilots.show', {id: ilot.id}) }}" class="btn waves-effect btn-block waves-light btn-success">
-                                                    {{ ilot.name }} de {{ ilot.size }} ha</h6>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
     </div>
 
-{% endblock %}
-
-{% block javascripts %}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.js"></script>
-    <!-- start - This is for export functionality only -->
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-    <script>
-        $('#datatable').DataTable({
-            dom: 'Bfrtip',
-            responsive: true,
-            "language": {
-                "sProcessing":     "Traitement en cours...",
-                "sSearch":         "Rechercher&nbsp;:",
-                "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
-                "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-                "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                "sInfoPostFix":    "",
-                "sLoadingRecords": "Chargement en cours...",
-                "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
-                "oPaginate": {
-                    "sFirst":      "Premier",
-                    "sPrevious":   "Pr&eacute;c&eacute;dent",
-                    "sNext":       "Suivant",
-                    "sLast":       "Dernier"
-                },
-                "oAria": {
-                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
-                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
-                },
-                "select": {
-                    "rows": {
-                        _: "%d lignes séléctionnées",
-                        0: "Aucune ligne séléctionnée",
-                        1: "1 ligne séléctionnée"
-                    }
-                }
-            },
-            buttons: []
-        });
-    </script>
 {% endblock %}

@@ -8,6 +8,7 @@ use App\Repository\InterventionsRepository;
 use App\Repository\PanoramasRepository;
 use App\Repository\PanoramaUserRepository;
 use App\Repository\RecommendationProductsRepository;
+use App\Repository\TicketsRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,7 @@ class HomeController extends AbstractController {
      * @param UsersRepository $ur
      * @param RecommendationProductsRepository $rpr
      * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function homeAdmins( UsersRepository $ur, RecommendationProductsRepository $rpr)
     {
@@ -83,15 +85,16 @@ class HomeController extends AbstractController {
      * @param IlotsRepository $ir
      * @param BsvUsersRepository $bur
      * @param PanoramaUserRepository $pur
-     * @param InterventionsRepository $intR
+     * @param TicketsRepository $tr
      * @return Response
      * @throws \Exception
      */
-    public function homeUsers(IlotsRepository $ir, BsvUsersRepository $bur, PanoramaUserRepository $pur, InterventionsRepository $intR): Response
+    public function homeUsers(IlotsRepository $ir, BsvUsersRepository $bur, PanoramaUserRepository $pur, TicketsRepository $tr): Response
     {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $bsvs = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
+        $tickets = $tr->findAllByUser( $this->getUser(), 3);
 
         //-- Clear listCulture
         $this->container->get('session')->remove('listCulture');
@@ -99,7 +102,8 @@ class HomeController extends AbstractController {
         return $this->render('pages/home.html.twig', [
             'bsvs' => $bsvs,
             'panoramas' => $panoramas,
-            'ilots' => $ilots
+            'ilots' => $ilots,
+            'tickets' => $tickets
         ]);
     }
 
