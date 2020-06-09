@@ -27,31 +27,31 @@
             <div class="alert alert-info">Vous n'avez actuellement pas d'exploitation <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation</div>
         {% endif %}
         <div class="row">
-            <div class="col-3 mb-3">
+            <div class="col-3 mb-3 d-block d-sm-none">
                 <a href="{{ path('user.bsv.history.index') }}">
                     <i class="fa fa-bolt fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">F</span></i>
                 </a>
             </div>
-            <div class="col-3 mb-3">
+            <div class="col-3 mb-3 d-block d-sm-none">
                 <a href="{{ path('user.panoramas.history.index') }}">
                     <i class="fa fa-newspaper-o fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">P</span></i>
                 </a>
             </div>
-            <div class="col-3 mb-3">
+            <div class="col-3 mb-3 d-block d-sm-none">
                 <a href="{{ path('exploitation.recommendations.index') }}">
                     <i class="fa fa-thumbs-up fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">R</span></i>
                 </a>
             </div>
-            <div class="col-3 mb-3">
+            <div class="col-3 mb-3 d-block d-sm-none">
                 <a href="{{ path('tickets.home') }}">
                     <i class="fa fa-comments-o fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">T</span></i>
                 </a>
             </div>
             <div class="col-md-6">
-                <button class="btn btn-warning btn-lg btn-block mb-4">Ilots</button>
-                <button class="btn btn-success btn-lg btn-block mb-4">Cultures</button>
-                <button class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</button>
-                <button class="btn btn-info btn-lg btn-block">Irrigation</button>
+                <a href="{{ path('ilots.index') }}" class="btn btn-warning btn-lg btn-block mb-4">Ilots</a>
+                <a href="{{ path('multiple.interventions') }}" class="btn btn-success btn-lg btn-block mb-4">Cultures</a>
+                <a href="{{ path('exploitation.stock.index') }}" class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</a>
+                <a href="{{ path('exploitation.irrigation.index') }}" class="btn btn-info btn-lg btn-block">Irrigation</a>
             </div>
             <div class="col-md-6 d-none d-md-block">
                 <div class="card" style="background-color: #d2e7fa;">
