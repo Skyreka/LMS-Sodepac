@@ -58,7 +58,7 @@
                 <form method="POST" action="{{ path('tickets.close', {id: ticket.id}) }}" style="display: inline-block">
                     <input type="hidden" name="_method" value="CLOSE">
                     <input type="hidden" name="_token" value="{{ csrf_token('close' ~ ticket.id) }}">
-                    <button class="btn btn-danger mb-2">Fermer le ticket</button>
+                    <button class="btn btn-danger mb-2">Archiver le ticket</button>
                 </form>
                 <div class="card">
                     <div class="card-body">
