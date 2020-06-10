@@ -17,7 +17,7 @@ class AnalyseType extends AbstractType
     {
         $builder
             ->add('measure', NumberType::class, [
-                'help' => "Reliquat d'Azote Observé en Ha/Hectare"
+                'help' => "Reliquat d'Azote Observé en Unité"
             ])
             ->add('ilot', EntityType::class, [
                 'class' => Ilots::class,
