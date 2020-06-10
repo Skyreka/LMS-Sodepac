@@ -54,7 +54,7 @@
                 <a href="{{ path('exploitation.irrigation.index') }}" class="btn btn-info btn-lg btn-block">Irrigation</a>
             </div>
             <div class="col-md-6 d-none d-md-block">
-                <div class="card" style="background-color: #d2e7fa;">
+                <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Flashs</h4>
                     </div>
@@ -63,7 +63,7 @@
                             {% for bsv in bsvs %}
                                 {% if date(bsv.displayAt) <= date() and bsv.checked == 0 %}
                                     <div class="comment-text w-100 p-3">
-                                        <p class="mb-1 overflow-hidden text-white">{{ bsv.bsv.text }}</p>
+                                        <p class="mb-1 overflow-hidden">{{ bsv.bsv.text }}</p>
                                         <div class="comment-footer">
                                             <span class="text-muted pull-right">{{ bsv.displayAt|date('d M y à h:m') }}</span>
                                             <span class="badge badge-info">Non lu</span>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" style="background-color: #fedbe2;">
+                <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Panorama</h4>
                     </div>
@@ -90,7 +90,7 @@
                             {% for panorama in panoramas %}
                                 {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
                                     <div class="comment-text w-100 p-3">
-                                        <p class="mb-1 overflow-hidden text-white">{{ panorama.panorama.text }}</p>
+                                        <p class="mb-1 overflow-hidden">{{ panorama.panorama.text }}</p>
                                         <div class="comment-footer">
                                             <span class="text-muted pull-right">{{ panorama.displayAt|date('d M y à h:m') }}</span>
                                             <span class="badge badge-info">Non lu</span>
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" style="background-color: #ff7675;">
+                <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Tickets</h4>
                     </div>
@@ -116,7 +116,7 @@
                         <div class="d-flex flex-row comment-row p-3">
                             {% for ticket in tickets %}
                                 <div class="comment-text w-100 p-3">
-                                    <p class="mb-1 overflow-hidden text-white">{{ ticket.title }}</p>
+                                    <p class="mb-1 overflow-hidden">{{ ticket.title }}</p>
                                     <div class="comment-footer">
                                         <span class="action-icons">
                                             <a href="{{ path('tickets.home') }}" class="btn btn-success btn-xs text-white">Lire</a>
