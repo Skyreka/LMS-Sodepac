@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Irrigation;
 use App\Form\IrrigationType;
+use App\Repository\IlotsRepository;
 use App\Repository\IrrigationRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -115,7 +116,83 @@ class IrrigationController extends AbstractController
     public function userList($year, $type, IrrigationRepository $ir): Response
     {
         $irrigations = $ir->findByExploitationYearAndType($this->getUser()->getExploitation(), $year, $type);
-        $total = $ir->countTotalOfYear($this->getUser()->getExploitation(), $year, 'Pluviometrie');
+        $total = $ir->countTotalOfYear($this->getUser()->getExploitation(), $year, $type);
+        return $this->render('exploitation/irrigation/synthese/data.html.twig', [
+            'irrigations' => $irrigations,
+            'total' => $total
+        ]);
+    }
+
+    /**
+     * @Route("/exploitation/arrosage/", name="exploitation.synthese.arrosage.ilots.index")
+     * @param IlotsRepository $ir
+     * @return Response
+     */
+    public function arrosageSyntheIlotsIndex(IlotsRepository $ir)
+    {
+        return $this->render('exploitation/irrigation/synthese/ilots/arrosage/index.html.twig',[
+            'ilots' => $ir->findBy( ['exploitation' => $this->getUser()->getExploitation() ], ['name' => 'ASC'] )
+        ]);
+    }
+
+    /**
+     * @Route("/exploitation/arrosage/{ilot}", name="exploitation.synthese.arrosage.ilots.show")
+     * @param $ilot
+     * @param IrrigationRepository $ir
+     * @param IlotsRepository $ilr
+     * @return Response
+     */
+    public function arrosageSyntheIlotsShow($ilot, IrrigationRepository $ir, IlotsRepository $ilr)
+    {
+        $year = date('Y');
+        return $this->render('exploitation/irrigation/synthese/ilots/arrosage/show.html.twig',[
+            'irrigations' => $ir->findByIlotYearAndType($ilot, $year, 'Arrosage'),
+            'total' => $ir->countTotalOfYearOnIlot($ilot, $year, 'Arrosage'),
+            'ilot' => $ilr->find($ilot)
+        ]);
+    }
+
+    /**
+     * @Route("/exploitation/pluviometrie/", name="exploitation.synthese.pluviometrie.ilots.index")
+     * @param IlotsRepository $ir
+     * @return Response
+     */
+    public function pluviometrieSyntheIlotsIndex(IlotsRepository $ir)
+    {
+        return $this->render('exploitation/irrigation/synthese/ilots/pluviometrie/index.html.twig',[
+            'ilots' => $ir->findBy( ['exploitation' => $this->getUser()->getExploitation() ], ['name' => 'ASC'] )
+        ]);
+    }
+
+    /**
+     * @Route("/exploitation/pluviometrie/{ilot}", name="exploitation.synthese.pluviometrie.ilots.show")
+     * @param $ilot
+     * @param IrrigationRepository $ir
+     * @param IlotsRepository $ilr
+     * @return Response
+     */
+    public function pluviometrieSyntheIlotsShow($ilot, IrrigationRepository $ir, IlotsRepository $ilr)
+    {
+        $year = date('Y');
+        return $this->render('exploitation/irrigation/synthese/ilots/pluviometrie/show.html.twig',[
+            'irrigations' => $ir->findByIlotYearAndType($ilot, $year, 'Pluviometrie'),
+            'total' => $ir->countTotalOfYearOnIlot($ilot, $year, 'Pluviometrie'),
+            'ilot' => $ilr->find($ilot)
+        ]);
+    }
+
+    /**
+     * @Route("/exploitation/irrigation/{year}/{type}/{ilot}", name="user.exploitation.irrigation.ilot.data")
+     * @param $year
+     * @param $type
+     * @param $ilot
+     * @param IrrigationRepository $ir
+     * @return Response
+     */
+    public function syntheseIlotData($year, $type,$ilot, IrrigationRepository $ir): Response
+    {
+        $irrigations = $ir->findByIlotYearAndType($ilot, $year, $type);
+        $total = $ir->countTotalOfYearOnIlot($ilot, $year, $type);
         return $this->render('exploitation/irrigation/synthese/data.html.twig', [
             'irrigations' => $irrigations,
             'total' => $total
