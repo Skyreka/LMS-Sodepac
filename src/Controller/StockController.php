@@ -44,21 +44,33 @@ class StockController extends AbstractController
     /**
      * @Route("exploitation/stock/add", name="exploitation.stock.add")
      * @param Request $request
+     * @param StocksRepository $sr
      * @return Response
      */
-    public function add(Request $request): Response
+    public function add(Request $request, StocksRepository $sr): Response
     {
         $stock = new Stocks();
         $form = $this->createForm( StockAddProductType::class, $stock);
         $form->handleRequest( $request );
+
+        $oldStocks = $sr->findBy(array('exploitation' => $this->getUser()->getExploitation()));
+        $stockProducts = [];
+        foreach ($oldStocks as $oldStock) {
+            $stockProducts[] = $oldStock->getProduct()->getId();
+        }
 
         $stock->setExploitation( $this->getUser()->getExploitation() );
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->om->persist($stock);
             //--Setter
-            $this->om->flush();
-            $this->addFlash('success', 'Nouveau produit ajouté avec succès');
+            if (in_array($stock->getProduct()->getId(), $stockProducts)) {
+                $this->addFlash('danger', 'Vous possedez déjà ce produit dans votre stock.');
+            } else {
+                $this->om->flush();
+                $this->addFlash('success', 'Nouveau produit ajouté avec succès');
+            }
+
             return $this->redirectToRoute('exploitation.stock.index');
         }
 
