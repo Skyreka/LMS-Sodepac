@@ -29,12 +29,20 @@
         <div class="row">
             <div class="col-3 mb-3 d-block d-sm-none">
                 <a href="{{ path('user.bsv.history.index') }}">
-                    <i class="fa fa-bolt fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">F</span></i>
+                    <i class="fa fa-bolt fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1"
+                        {% if bsvs|length > 0 %}
+                            style="color: red;"
+                        {% endif %}
+                        >F</span></i>
                 </a>
             </div>
             <div class="col-3 mb-3 d-block d-sm-none">
                 <a href="{{ path('user.panoramas.history.index') }}">
-                    <i class="fa fa-newspaper-o fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">P</span></i>
+                    <i class="fa fa-newspaper-o fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1"
+                        {% if panoramas|length > 0 %}
+                            style="color: red;"
+                        {% endif %}
+                        >P</span></i>
                 </a>
             </div>
             <div class="col-3 mb-3 d-block d-sm-none">
