@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
-                            {{ form_rest(form) }}
+                            {{ form_resst(form) }}
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -56,6 +56,11 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <form method="POST" action="{{ path('interventions.product.delete', {id: interventionProduct.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr vouloir supprimer ce produit ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('deleteProduct') }}">
+                            <button class="btn btn-block btn-danger">Supprimer {{ interventionProduct.product.name }}</button>
+                        </form>
                     </div>
                 {% endfor %}
             </div>

@@ -393,8 +393,6 @@ class InterventionsController extends AbstractController
         ]);
         $form->handleRequest( $request );
 
-        dump( $intervention->getProduct()->getName() );
-
         if ($form->isSubmitted() && $form->isValid()) {
             //-- Get data
             $data = $form->all();
@@ -514,7 +512,6 @@ class InterventionsController extends AbstractController
      * @return Response
      */
     public function edit( Interventions $intervention, Request $request ) {
-        dump( $intervention );
         switch ($intervention->getType()) {
             case 'Récolte':
                 $form = $this->createForm( RecolteType::class, $intervention );
@@ -562,5 +559,22 @@ class InterventionsController extends AbstractController
             'intervention' => $intervention->getType(),
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/intervention-product/delete/{id}", name="interventions.product.delete", methods="DELETE")
+     * @param InterventionsProducts $interventionsProducts
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(InterventionsProducts $interventionsProducts, Request $request)
+    {
+        if ($this->isCsrfTokenValid( 'deleteProduct', $request->get('_token') )) {
+            $this->om->remove( $interventionsProducts );
+            $this->om->flush();
+            $this->addFlash('success', 'Produit supprimé avec succès');
+            return $this->redirectToRoute( 'interventions.phyto.product', ['id' => $interventionsProducts->getIntervention()->getId()] );
+        }
+        return $this->redirectToRoute('home');
     }
 }
