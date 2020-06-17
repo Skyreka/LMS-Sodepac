@@ -37,7 +37,7 @@
                                 </thead>
                                 <tbody>
                                     {% for culture in cultures %}
-                                        {% if culture.status == 0 %}
+                                        {% if culture.status == 0 or culture.permanent == 1 %}
                                             <tr>
                                                 <td>
                                                     <a href="{{ path('cultures.show', {id: culture.id}) }}" class="btn waves-effect btn-block waves-light btn-success">
@@ -100,7 +100,7 @@
                                 </thead>
                                 <tbody>
                                 {% for culture in cultures %}
-                                    {% if culture.status == 1 %}
+                                    {% if culture.status == 1 and culture.permanent == 0 %}
                                         <tr>
                                             <td>
                                                 <a href="{{ path('cultures.synthese', {id: culture.id}) }}">

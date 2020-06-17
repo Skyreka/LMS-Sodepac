@@ -80,6 +80,11 @@ class Cultures
      */
     private $status = 0;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $permanent;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
@@ -261,6 +266,18 @@ class Cultures
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPermanent(): ?bool
+    {
+        return $this->permanent;
+    }
+
+    public function setPermanent(?bool $permanent): self
+    {
+        $this->permanent = $permanent;
 
         return $this;
     }

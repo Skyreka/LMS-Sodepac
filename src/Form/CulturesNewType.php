@@ -50,6 +50,9 @@ class CulturesNewType extends AbstractType
             ->add('bio', null, [
                 'label' => 'Culture bio ?'
             ])
+            ->add('permanent', null, [
+                'label' => 'Culture permanente ?'
+            ])
             ->add('production', null, [
                 'label' => 'Culture en production ?',
                 'attr' => array('checked' => 'checked')
