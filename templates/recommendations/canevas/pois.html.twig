@@ -125,7 +125,7 @@
 
             <tbody>
             <tr>
-                <td>Bactériose</td>
+                <td>Fumure</td>
                 <td colspan="1">
                     <button class="btn btn-B btn-block isProduct" product_slug="" dose="300" unit="Kg">0-12-24 <small>300 Kg</small></button>
                     <button class="btn btn-B btn-block isProduct" product_slug="" dose="300" unit="Kg">0-20-20 <small>300 Kg</small></button>
@@ -136,6 +136,17 @@
                     <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-boost-bmo-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-boost-bmo-10-l" dose="3" unit="L/Ha">INO BORE BOOST BMO <small>3 L/Ha</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Limaces</td>
+                <td colspan="1">
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ironmax-mg-15-kg') ? 'exist' : 'd-none' }}" product_slug="s-ironmax-mg-15-kg" dose="5" unit="Kg">IRON MAX MG <small>5 Kg</small></button>
+                </td>
+                <td colspan="1">
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ironmax-pro-20-kg') ? 'exist' : 'd-none' }}" product_slug="s-ironmax-pro-20-kg" dose="7" unit="Kg">IRON MAX PRO <small>7 Kg</small></button>
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-helexiom-duo-18-kg') ? 'exist' : 'd-none' }}" product_slug="s-helexiom-duo-18-kg" dose="5" unit="Kg">HELEXIOM DUO <small>5 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td>
             </tr>
             <tr>
                 <td>Puceron <br>(virose)</td>
@@ -207,6 +218,7 @@
                 <td></td><td></td><td></td><td></td><td></td>
                 <td colspan="4">
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'prosaro') ? 'exist' : 'd-none' }}" product_slug="prosaro" dose="1" unit="L/Ha">PROSARO <small>1 L/Ha</small></button>
+                    <button class="btn btn-A btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sticman') ? 'exist' : 'd-none' }}" product_slug="sticman" dose="1" unit="L">STICMAN <small>0.15 L</small></button>
                 </td>
                 <td></td>
             </tr>
