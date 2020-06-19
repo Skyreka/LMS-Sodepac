@@ -187,11 +187,11 @@
                 <td>Anthracnose</td>
                 <td></td><td></td><td></td><td></td>
                <td colspan="9">
-                   <button class="btn btn-primary btn-block isProduct" product_slug="" dose="5" unit="Kg">ELITHO SPE <small>5 Kg</small></button>
+                   <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-solispe-elitho-spe-20-kg') ? 'exist' : 'd-none' }}" product_slug="s-solispe-elitho-spe-20-kg" dose="5" unit="Kg">ELITHO SPE <small>5 Kg</small></button>
                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-stimulus-bioprotech-10-l') ? 'exist' : 'd-none' }}" product_slug="s-stimulus-bioprotech-10-l" dose="2" unit="L">STIMULUS BIOPROTECH <small>2 L</small></button>
                </td>
                 <td colspan="6">
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="3" unit="Kg">ELITHO SPE <small>3 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-solispe-elitho-spe-20-kg') ? 'exist' : 'd-none' }}" product_slug="s-solispe-elitho-spe-20-kg" dose="3" unit="Kg">ELITHO SPE <small>3 Kg</small></button>
                     <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-cuivre-120-bio-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-cuivre-120-bio-10-l" dose="2" unit="L">INO CUIVRE 120 <small>2 L</small></button>
                 </td>
                 <td colspan="1">
@@ -202,11 +202,11 @@
                 <td>Bactériose</td>
                 <td></td><td></td>
                 <td colspan="2">
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="12.5" unit="Kg">BB DG <small>12.5 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-bouillie-bordelaise-rsr-dg-15-kg') ? 'exist' : 'd-none' }}" product_slug="s-bouillie-bordelaise-rsr-dg-15-kg" dose="12.5" unit="Kg">BB DG <small>12.5 Kg</small></button>
                     <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-nordox-75-wg-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-nordox-75-wg-10-kg" dose="3.3" unit="Kg">NORDOX 75 WG <small>3.3 Kg</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="3.3" unit="Kg">NORDOX <small>3.3 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-nordox-75-wg-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-nordox-75-wg-10-kg" dose="3.3" unit="Kg">NORDOX <small>3.3 Kg</small></button>
                     <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-kocide-2000-10-kg" dose="3" unit="Kg">KOCIDE 2000 <small>3 Kg</small></button>
                 </td>
                 <td colspan="3">
@@ -222,7 +222,7 @@
                     <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-megagreen-5-kg-bio') ? 'exist' : 'd-none' }}" product_slug="s-megagreen-5-kg-bio" dose="2" unit="Kg">MEGAGREEN <small>2 Kg</small></button>
                 </td>
                 <td colspan="1">
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="3.5" unit="Kg">NORDOX <small>3.3 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-nordox-75-wg-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-nordox-75-wg-10-kg" dose="3.5" unit="Kg">NORDOX <small>3.3 L</small></button>
                     <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-kocide-2000-10-kg" dose="1" unit="Kg">KOCIDE 2000 <small>1 Kg</small></button
                 </td>
             </tr>
@@ -234,7 +234,7 @@
                 <td></td><td></td>
                 <td colspan="2">
                     <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-bore-ultra-bio-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-bore-ultra-bio-10-l" dose="2" unit="L">INO BORE ULTRA <small>2 L</small></button>
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="1" unit="L">INO FLOW ZN <small>1 L</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-flow-zn680f-folli-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-flow-zn680f-folli-bio-5-l" dose="1" unit="L">INO FLOW ZN <small>1 L</small></button>
                 </td>
                 <td></td><td></td>
                 <td colspan="2">
@@ -306,8 +306,8 @@
             <tr>
                 <td>Organique</td>
                 <td colspan="5">
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="500" unit="Kg">ORCHESTRA <small>500 à 1000 Kg</small></button>
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="1000" unit="Kg">GUANUMUS EVOLUTION <small>1000 à 1500 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-orchestra-sol-presto') ? 'exist' : 'd-none' }}" product_slug="s-orchestra-sol-presto" dose="500" unit="Kg">ORCHESTRA <small>500 à 1000 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-guanumus-evolution-c-bio') ? 'exist' : 'd-none' }}" product_slug="s-guanumus-evolution-c-bio" dose="1000" unit="Kg">GUANUMUS EVOLUTION <small>1000 à 1500 Kg</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td>
                 <td colspan="2">
@@ -317,12 +317,12 @@
                 <td></td><td></td>
                 <td colspan="2">
                     <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-diamic-k25-uab-bio') ? 'exist' : 'd-none' }}" product_slug="s-diamic-k25-uab-bio" dose="" unit="">DIAMIC K25</button>
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="200" unit="Kg">SULFATE DE POTASSE <small>200 à 400 Kg</small></button>
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="300" unit="Kg">PATENKALI <small>300 à 400 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sulfate-de-potasse') ? 'exist' : 'd-none' }}" product_slug="s-sulfate-de-potasse" dose="200" unit="Kg">SULFATE DE POTASSE <small>200 à 400 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-patentkali-bio') ? 'exist' : 'd-none' }}" product_slug="s-patentkali-bio" dose="300" unit="Kg">PATENKALI <small>300 à 400 Kg</small></button>
                 </td>
                 <td></td><td></td><td></td>
                 <td colspan="1">
-                    <button class="btn btn-primary btn-block isProduct" product_slug="" dose="400" unit="Kg">ORCHESTRA <small>400 Kg</small></button>
+                    <button class="btn btn-primary btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-orchestra-sol-presto') ? 'exist' : 'd-none' }}" product_slug="s-orchestra-sol-presto" dose="400" unit="Kg">ORCHESTRA <small>400 Kg</small></button>
                 </td>
             </tr>
             <tr>
