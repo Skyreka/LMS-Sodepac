@@ -112,7 +112,7 @@
             <tr>
                 <td>Fumure</td>
                 <td colspan="2">
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="500" unit="Kg">10-16-12 400 <small>500 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-10-16-12-zn') ? 'exist' : 'd-none' }}" product_slug="s-10-16-12-zn" dose="500" unit="Kg">10-16-12 400 <small>500 Kg</small></button>
                     <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-26-10-12-7-so3-bulk') ? 'exist' : 'd-none' }}" product_slug="s-26-10-12-7-so3-bulk" dose="400" unit="Kg">26-10-12 <small>400 Kg</small></button>
                 </td>
                 <td></td>
