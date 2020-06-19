@@ -128,8 +128,8 @@
             <tr>
                 <td>Fumure</td>
                 <td colspan="1">
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="300" unit="Kg">0-12-24 <small>300 Kg</small></button>
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="300" unit="Kg">0-20-20 <small>300 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-12-24-sp') ? 'exist' : 'd-none' }}" product_slug="s-0-12-24-sp" dose="300" unit="Kg">0-12-24 <small>300 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-20-20-sp') ? 'exist' : 'd-none' }}" product_slug="s-0-20-20-sp" dose="300" unit="Kg">0-20-20 <small>300 Kg</small></button>
                 </td>
                 <td></td>
                 <td colspan="2">
@@ -178,7 +178,7 @@
                 <td>Dicots <br>+ <br>graminées en <br>Post-semis/ <br>pre-levée</td>
                 <td colspan="1">
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">CENTIUM <small>0.2 L</small></button>
-                    <button class="btn btn-J btn-block isProduct" product_slug="" dose="4" unit="L">CHALLENGE <small>4 L</small></button>
+                    <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'challenge-600') ? 'exist' : 'd-none' }}" product_slug="challenge-600" dose="4" unit="L">CHALLENGE <small>4 L</small></button>
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'prowl-400') ? 'exist' : 'd-none' }}" product_slug="prowl-400" dose="3" unit="L">PROWL <small>3 L</small></button>
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'nirvana-s') ? 'exist' : 'd-none' }}" product_slug="nirvana-s" dose="3" unit="L">NIRVANA <small>3 L</small></button>
                 </td>
