@@ -115,8 +115,8 @@
             <tr>
                 <td>Fertilisation</td>
                 <td colspan="4">
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="300" unit="Kg/Ha">0-12-24 <small>300 à 500 Kg/Ha</small></button>
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="300" unit="Kg/Ha">0-20-20 <small>300 à 500 Kg/Ha</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-12-24-sp') ? 'exist' : 'd-none' }}" product_slug="s-0-12-24-sp" dose="300" unit="Kg/Ha">0-12-24 <small>300 à 500 Kg/Ha</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-20-20-sp') ? 'exist' : 'd-none' }}" product_slug="s-0-20-20-sp" dose="300" unit="Kg/Ha">0-20-20 <small>300 à 500 Kg/Ha</small></button>
                 </td>
                 <td></td><td></td><td></td>
             </tr>
