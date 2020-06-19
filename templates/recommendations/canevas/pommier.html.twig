@@ -249,14 +249,14 @@
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td>
-                    <button class="btn btn-V btn-block isProduct" product_slug="" dose="" unit="">BB <small>1.2 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-bouillie-bordelaise-rsr-dg-15-kg') ? 'exist' : 'd-none' }}" product_slug="s-bouillie-bordelaise-rsr-dg-15-kg" dose="1.2" unit="Kg">BB <small>1.2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">KOCIDE 2000 <small>3.5 Kg</small></button>
                 </td>
             </tr>
             <tr>
                 <td>Travelure</td>
                 <td colspan="12">
-                    <button class="btn btn-V btn-block isProduct" product_slug="" dose="" unit="">BB <small>12.5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-bouillie-bordelaise-rsr-dg-15-kg') ? 'exist' : 'd-none' }}" product_slug="s-bouillie-bordelaise-rsr-dg-15-kg" dose="12.5" unit="Kg">BB <small>12.5 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'mancowan-plus') ? 'exist' : 'd-none' }}" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'delan-wg') ? 'exist' : 'd-none' }}" product_slug="delan-wg" dose="2" unit="Kg">DELAN WG <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'delan-pro') ? 'exist' : 'd-none' }}" product_slug="delan-pro" dose="2.5" unit="L">DELAN PRO <small>2.5 L</small></button>
