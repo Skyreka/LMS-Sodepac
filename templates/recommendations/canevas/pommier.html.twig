@@ -343,7 +343,7 @@
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="4">
-                    <button class="btn btn-V btn-block isProduct" product_slug="" dose="300" unit="Kg">SULFATE DE K2O <small>300 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sulfate-de-potasse') ? 'exist' : 'd-none' }}" product_slug="s-sulfate-de-potasse" dose="300" unit="Kg">SULFATE DE K2O <small>300 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-diamic-k25-uab-bio') ? 'exist' : 'd-none' }}" product_slug="s-diamic-k25-uab-bio" dose="300" unit="Kg">DIAMIC K25 <small>300 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-patentkali-bio') ? 'exist' : 'd-none' }}" product_slug="s-patentkali-bio" dose="300" unit="Kg">PATENKALI <small>300 Kg</small></button>
                 </td>
