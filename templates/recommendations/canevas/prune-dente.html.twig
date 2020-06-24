@@ -460,7 +460,7 @@
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td>
                                     <td colspan="2">
-                                        <button class="btn btn-B btn-block isProduct" product_slug="" dose="300" unit="Kg">SULFATE DE K20 <small>300 Kg</small></button>
+                                        <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sulfate-de-potasse') ? 'exist' : 'd-none' }}" product_slug="s-sulfate-de-potasse" dose="300" unit="Kg">SULFATE DE K20 <small>300 Kg</small></button>
                                         <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-patentkali-bio') ? 'exist' : 'd-none' }}" product_slug="s-patentkali-bio" dose="300" unit="Kg">PATENTKALI <small>300 Kg</small></button>
                                         <button class="btn btn-B btn-block isProduct" product_slug="" dose="300" unit="Kg">DIAMIC K26 <small>300 Kg</small></button>
                                     </td>
