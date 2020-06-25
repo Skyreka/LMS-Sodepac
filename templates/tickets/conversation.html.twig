@@ -2,6 +2,14 @@
 
 {% block title %}Accueil{% endblock %}
 
+{% block stylesheets %}
+    <style>
+        .custom-file-input ~ .custom-file-label:lang(fr)::after {
+            content: "Photo";
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
