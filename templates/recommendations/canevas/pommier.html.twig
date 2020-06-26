@@ -237,7 +237,7 @@
                 </td>
                 <td></td><td></td><td></td>
                 <td colspan="6">
-                    <button class="btn btn-V btn-block isProduct" product_slug="" dose="" unit="">ALLIETTE X <small>250 gr</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'aliette-flash') ? 'exist' : 'd-none' }}" product_slug="aliette-flash" dose="250" unit="gr">ALLIETTE X <small>250 gr</small></button>
                 </td>
                 <td></td><td></td><td></td>
             </tr>
@@ -294,7 +294,7 @@
                 <td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="9">
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul') ? 'exist' : 'd-none' }}" product_slug="flosul" dose="7.5" unit="L">FLOSUL <small>7.5 L</small></button>
-                    <button class="btn btn-C btn-block isProduct" product_slug="" dose="" unit="">CITROTHIOL DISPERRSS <small>7.5 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-citrothiol-dg-bio-20-kg') ? 'exist' : 'd-none' }}" product_slug="s-citrothiol-dg-bio-20-kg" dose="7.5" unit="Kg">CITROTHIOL DISPERRSS <small>7.5 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'bellis') ? 'exist' : 'd-none' }}" product_slug="bellis" dose="80" unit="gr">BELLIS <small>80 gr</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-natchez-250-grs') ? 'exist' : 'd-none' }}" product_slug="s-natchez-250-grs" dose="150" unit="gr">NATCHEZ <small>150 gr</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'score') ? 'exist' : 'd-none' }}" product_slug="score" dose="0.15" unit="L">SCORE <small>0.15 L</small></button>
