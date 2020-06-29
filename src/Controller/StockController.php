@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Products;
 use App\Entity\Stocks;
+use App\Form\ProductsType;
 use App\Form\StockAddProductType;
 use App\Form\StockEditQuantityType;
 use App\Repository\StocksRepository;
@@ -71,6 +73,40 @@ class StockController extends AbstractController
                 $this->addFlash('success', 'Nouveau produit ajouté avec succès');
             }
 
+            return $this->redirectToRoute('exploitation.stock.index');
+        }
+
+        return $this->render('exploitation/stock/add.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("exploitation/stock/private/add", name="exploitation.stock.add.private")
+     * @param Request $request
+     * @param StocksRepository $sr
+     * @return Response
+     */
+    public function addPrivate(Request $request, StocksRepository $sr): Response
+    {
+        $product = new Products();
+        $form = $this->createForm( ProductsType::class, $product);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //Create product
+            $product->setPrivate(1);
+            $product->setSlug('produit-personnel');
+            $this->om->persist($product);
+            //Create stock
+            $stock = new Stocks();
+            $stock->setProduct($product);
+            $stock->setExploitation($this->getUser()->getExploitation());
+            $stock->setUnit(1);
+            $this->om->persist($stock);
+            $this->om->flush();
+            //Redirect
+            $this->addFlash('success', 'Nouveau produit ajouté avec succès');
             return $this->redirectToRoute('exploitation.stock.index');
         }
 

@@ -43,6 +43,11 @@ class Products
      */
     private $riskPhases;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $private = 0;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -153,6 +158,18 @@ class Products
                 $riskPhase->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrivate(): ?bool
+    {
+        return $this->private;
+    }
+
+    public function setPrivate(bool $private): self
+    {
+        $this->private = $private;
 
         return $this;
     }
