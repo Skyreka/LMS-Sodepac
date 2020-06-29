@@ -101,6 +101,7 @@ class StockController extends AbstractController
             $dose = new Doses();
             $dose->setApplication('Cliquez ici');
             $dose->setProduct($product);
+            $this->om->persist($dose);
             $this->om->persist($product);
             //Create stock
             $stock = new Stocks();
