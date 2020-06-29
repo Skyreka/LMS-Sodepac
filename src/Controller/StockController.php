@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Doses;
 use App\Entity\Products;
 use App\Entity\Stocks;
 use App\Form\ProductsType;
@@ -97,6 +98,9 @@ class StockController extends AbstractController
             //Create product
             $product->setPrivate(1);
             $product->setSlug('produit-personnel');
+            $dose = new Doses();
+            $dose->setApplication('Cliquez ici');
+            $dose->setProduct($product);
             $this->om->persist($product);
             //Create stock
             $stock = new Stocks();
