@@ -40,9 +40,9 @@ class TicketsController extends AbstractController
     public function index( TicketsRepository $tr)
     {
         if ( $this->getUser()->getRoles() == ['ROLE_TECHNICIAN']) {
-            $tickets = $tr->findBy( ['technician' => $this->getUser() ]);
+            $tickets = $tr->findAllByTechnician($this->getUser());
         } else {
-            $tickets = $tr->findBy( ['user' => $this->getUser() ]);
+            $tickets = $tr->findAllByUser($this->getUser());
         }
         return $this->render('tickets/index.html.twig', [
             'tickets' => $tickets
@@ -92,9 +92,9 @@ class TicketsController extends AbstractController
         $messages = $tmr->findBy( ['ticket' => $ticket]);
         // list of tickets on left
         if ( $this->getUser()->getRoles() == ['ROLE_TECHNICIAN']) {
-            $ticketsList = $tr->findBy( ['technician' => $this->getUser() ]);
+            $ticketsList = $tr->findAllByTechnician($this->getUser());
         } else {
-            $ticketsList = $tr->findBy( ['user' => $this->getUser() ]);
+            $ticketsList = $tr->findAllByUser($this->getUser());
         }
         // create form send message
         $ticketsMessages = new TicketsMessages();

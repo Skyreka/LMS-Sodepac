@@ -19,11 +19,27 @@ class TicketsRepository extends ServiceEntityRepository
         parent::__construct($registry, Tickets::class);
     }
 
-    public function findAllByUser( $user, $limit )
+    public function findAllByUser( $user, $limit = null)
     {
         $req = $this->createQueryBuilder('t')
             ->where('t.user = :user')
             ->setParameter('user', $user)
+            ->orderBy('t.id', 'DESC')
+        ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
+    public function findAllByTechnician( $technician, $limit = null)
+    {
+        $req = $this->createQueryBuilder('t')
+            ->where('t.technician = :technician')
+            ->setParameter('technician', $technician)
+            ->orderBy('t.id', 'DESC')
         ;
 
         if (false === is_null($limit)) {
