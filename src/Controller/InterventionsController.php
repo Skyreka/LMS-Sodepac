@@ -9,6 +9,7 @@ use App\Entity\Interventions;
 use App\Entity\InterventionsProducts;
 use App\Entity\Labour;
 use App\Entity\Phyto;
+use App\Entity\Products;
 use App\Entity\Recolte;
 use App\Entity\Semis;
 use App\Form\DefaultInterventionType;
@@ -415,9 +416,15 @@ class InterventionsController extends AbstractController
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             //-- Redirect to add new product if checkbox is checked
             if ( $data['addProduct']->getData() ) {
-                return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
+                return $this->redirectToRoute('interventions.phyto.product.confirm', [
+                    'intervention' => $intervention->getId(),
+                    'interventionsProducts' => $interventionProduct->getId()
+                ]);
             }
-            return $this->redirectToRoute( 'cultures.show', ['id' => $intervention->getCulture()->getId()] );
+            return $this->redirectToRoute('interventions.phyto.product.confirm', [
+                'intervention' => $intervention->getId(),
+                'interventionsProducts' => $interventionProduct->getId()
+            ]);
         }
 
         return $this->render('interventions/addProduct.html.twig', [
@@ -426,6 +433,47 @@ class InterventionsController extends AbstractController
             'intervention' => $intervention,
             'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] )
         ]);
+    }
+
+    /**
+     * Add product to an intervention
+     * @Route("interventions/phyto-confirm/{intervention}/{interventionsProducts}/{loop}", name="interventions.phyto.product.confirm")
+     * @param Interventions $intervention
+     * @param InterventionsProducts $interventionsProducts
+     * @param Request $request
+     * @param InterventionsProductsRepository $ipr
+     * @return Response
+     */
+    public function confirmNewProduct(Interventions $intervention, InterventionsProducts $interventionsProducts, Request $request, InterventionsProductsRepository $ipr)
+    {
+        //-- Delete
+        if ($this->isCsrfTokenValid('delete' . $intervention->getId(), $request->get('_token'))) {
+            $this->om->flush();
+            $this->redirectToRoute('login.success');
+        }
+
+        return $this->render('interventions/confirmNewProduct.html.twig', [
+            'intervention' => $intervention,
+            'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] ),
+            'lastInterventionProducts' => $interventionsProducts
+        ]);
+    }
+
+    /**
+     * @Route("interventions/phyto-delete/{interventionsProducts}", name="interventions.phyto.product.delete", methods="DELETE")
+     * @param InterventionsProducts $interventionsProducts
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteNewProduct(InterventionsProducts $interventionsProducts, Request $request)
+    {
+        $intervention = $interventionsProducts->getIntervention();
+        if ($this->isCsrfTokenValid('delete' . $interventionsProducts->getId(), $request->get('_token'))) {
+            $this->om->remove( $interventionsProducts );
+            $this->om->flush();
+        }
+
+        return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
     }
 
     /**
