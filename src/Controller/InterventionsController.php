@@ -437,7 +437,7 @@ class InterventionsController extends AbstractController
 
     /**
      * Add product to an intervention
-     * @Route("interventions/phyto-confirm/{intervention}/{interventionsProducts}/{loop}", name="interventions.phyto.product.confirm")
+     * @Route("interventions/phyto-confirm/{intervention}/{interventionsProducts}", name="interventions.phyto.product.confirm")
      * @param Interventions $intervention
      * @param InterventionsProducts $interventionsProducts
      * @param Request $request
