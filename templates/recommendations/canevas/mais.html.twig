@@ -127,14 +127,14 @@
                 </td>
                 <td colspan="3">
                     <button class="btn btn-B btn-block isProduct" product_slug="" dose="" unit="">UREE 46</button>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-lintec-46') ? 'exist' : 'd-none' }}" product_slug="s-lintec-46" dose="" unit="">LINTEC 46</button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-lintec-46') ? 'exist' : 'd-none' }}" product_slug="s-lintec-46">LINTEC 46</button>
                 </td>
                 <td></td><td></td><td></td>
             </tr>
             <tr>
                 <td>Engrais <br>Booster</td>
                 <td colspan="2">
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="20" unit="Kg">INO-LOC <small>20 à 25 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-loc-micro-pz-10-40-11-so3-2-zn-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-ino-loc-micro-pz-10-40-11-so3-2-zn-10-kg" dose="20" unit="Kg">INO-LOC <small>20 à 25 Kg</small></button>
                     <button class="btn btn-B btn-block isProduct" product_slug="" dose="200" unit="Kg">15 30 0 + 0,5% Zn <small>200 Kg</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
@@ -209,8 +209,8 @@
                 <td>Soutiens <br>Foliaires</td>
                 <td></td><td></td>
                 <td colspan="3">
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-flow-zn680f-folli-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-flow-zn680f-folli-bio-5-l" dose="5" unit="L">INOFLOW ZN680 <small>1 L</small></button>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-boost-pzn-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-boost-pzn-10-l" dose="5" unit="L">INOBOOST PZN <small>5 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-flow-zn680f-folli-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-flow-zn680f-folli-bio-5-l" dose="5" unit="L">INOFLOW ZN680 <small>1 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-boost-pzn-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-boost-pzn-10-l" dose="5" unit="L">INOBOOST PZN <small>5 L</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td>
             </tr>
