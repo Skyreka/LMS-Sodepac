@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\Exploitation;
 use App\Entity\Users;
 use App\Form\ExploitationType;
+use App\Form\PasswordType;
 use App\Form\UserType;
 use App\Repository\UsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -163,6 +164,32 @@ class AdminUsersController extends AbstractController {
         }
 
         return $this->render('technician/customers/size.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("admin/users/password/{id}", name="admin.users.password")
+     * @param Users $user
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return Response
+     */
+    public function password(Users $user, Request $request, UserPasswordEncoderInterface $encoder): Response
+    {
+        $form = $this->createForm( PasswordType::class, $user);
+        $form->handleRequest( $request );
+
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $user->setPassword( $encoder->encodePassword($user, $form['password']->getData()));
+            $user->setReset(1);
+            $this->em->flush();
+            $this->addFlash('success', 'Mot de passe du client modifié avec succès');
+            return $this->redirectToRoute('admin.users.index');
+        }
+
+        return $this->render('admin/users/password.html.twig', [
+            'user' => $user,
             'form' => $form->createView()
         ]);
     }
