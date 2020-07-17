@@ -233,7 +233,7 @@
                 </td>
                 <td colspan="4">
                     <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-cuivre-120-bio-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-cuivre-120-bio-10-l" dose="2" unit="L">INO CUIVRE 120 <small>2 L</small></button>
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="5" unit="L">INOFLOW CA 500 <small>5 L</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-flow-ca-560-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-flow-ca-560-10-l" dose="5" unit="L">INOFLOW CA 500 <small>5 L</small></button>
                 </td>
                 <td colspan="1">
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-nordox-75-wg-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-nordox-75-wg-10-kg" dose="3.3" unit="L">NORDOX <small>3.3 L</small></button>
@@ -253,7 +253,7 @@
                 <td></td><td></td><td></td><td></td>
                 <td colspan="6">
                     <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'envidor') ? 'exist' : 'd-none' }}" product_slug="envidor" dose="0.4" unit="L">ENVIDOR <small>0.4 L</small></button>
-                    <button class="btn btn-R btn-block isProduct" product_slug="" dose="0.75" unit="L">BACTIMEC <small>0.75 L</small></button>
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-bactimec') ? 'exist' : 'd-none' }}" product_slug="s-bactimec" dose="0.75" unit="L">BACTIMEC <small>0.75 L</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -305,7 +305,7 @@
                 <td></td><td></td>
                 <td colspan="2">
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-bore-ultra-bio-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-bore-ultra-bio-10-l" dose="2" unit="L">INO BORE ULTRA <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct" product_slug="" dose="1" unit="L">INO FLOW ZN <small>1 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-flow-zn680f-folli-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-flow-zn680f-folli-bio-5-l" dose="1" unit="L">INO FLOW ZN <small>1 L</small></button>
                 </td>
                 <td></td><td></td>
                 <td colspan="2">
@@ -318,7 +318,7 @@
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-k-leaf-52-sulf-pot-46-70-so3') ? 'exist' : 'd-none' }}" product_slug="s-k-leaf-52-sulf-pot-46-70-so3" dose="10" unit="Kg">K-LEAF <small>10 Kg</small></button>
                 </td>
                 <td colspan="1">
-                    <button class="btn btn-M btn-block isProduct" product_slug="" dose="3.5" unit="Kg">INO FLOW 600 <small>0.5 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-flow-zn680f-folli-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-flow-zn680f-folli-bio-5-l" dose="3.5" unit="Kg">INO FLOW 600 <small>0.5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-bore-ultra-bio-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-bore-ultra-bio-10-l" dose="2" unit="L">INO BORE ULTRA <small>2 L</small></button>
                 </td>
             </tr>
@@ -326,13 +326,13 @@
                 <td></td>
                 <td colspan="5">
                     <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-equinoxe-10-4-3-2mgo') ? 'exist' : 'd-none' }}" product_slug="s-equinoxe-10-4-3-2mgo" dose="700" unit="Kg">EQUINOX 10-4-3 <small>700 à 1200 Kg</small></button>
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="700" unit="Kg">9-3-12 <small>700 à 1200 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-9-3-12') ? 'exist' : 'd-none' }}" product_slug="s-9-3-12" dose="700" unit="Kg">9-3-12 <small>700 à 1200 Kg</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="3">
                     <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-optiblend-wake-5-bio') ? 'exist' : 'd-none' }}" product_slug="s-optiblend-wake-5-bio" dose="100" unit="Kg">OPTIBLEND <small>100 Kg</small></button>
                     <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-limus-46') ? 'exist' : 'd-none' }}" product_slug="s-limus-46" dose="" unit="">LIMUS / LINTEC</button>
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="" unit="">PERLUREE</button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-uree-gra') ? 'exist' : 'd-none' }}" product_slug="s-uree-gra">PERLUREE</button>
                     <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-tropicote-nitrate-de-calcium') ? 'exist' : 'd-none' }}" product_slug="s-tropicote-nitrate-de-calcium" dose="" unit="">TROPICOTE</button>
                 </td>
                 <td colspan="2">
@@ -388,7 +388,7 @@
                 <td></td>
                 <td colspan="13">
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'spotlight-plus') ? 'exist' : 'd-none' }}" product_slug="spotlight-plus" dose="0.3" unit="%">SPOTLIGHT <small>0.3 %</small></button>
-                    <button class="btn btn-A btn-block isProduct" product_slug="" dose="0.5" unit="%">LI 700 <small>0.5 %</small></button>
+                    <button class="btn btn-A btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-li-700') ? 'exist' : 'd-none' }}" product_slug="s-li-700" dose="0.5" unit="%">LI 700 <small>0.5 %</small></button>
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-roundup-gold-20-l') ? 'exist' : 'd-none' }}" product_slug="s-roundup-gold-20-l" dose="" unit="">ROUNDUP GOLD</button>
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'fusilade-max') ? 'exist' : 'd-none' }}" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
                 </td>
