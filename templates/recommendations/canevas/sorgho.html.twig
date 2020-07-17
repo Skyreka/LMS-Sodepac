@@ -117,7 +117,7 @@
                 </td>
                 <td></td>
                 <td colspan="2">
-                    <button class="btn btn-B btn-block isProduct" product_slug="" dose="200" unit="Kg">UREE 46 <small>200 à 300 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-uree-gra') ? 'exist' : 'd-none' }}" product_slug="s-uree-gra" dose="200" unit="Kg">UREE 46 <small>200 à 300 Kg</small></button>
                     <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-lintec-46') ? 'exist' : 'd-none' }}" product_slug="s-lintec-46" dose="200" unit="Kg">LINTEC 46 <small>200 à 300 Kg</small></button>
                 </td>
                 <td></td>
@@ -148,7 +148,7 @@
                     <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'emblem') ? 'exist' : 'd-none' }}" product_slug="emblem" dose="2" unit="Kg">EMBLEM <small>2 Kg</small></button>
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'biathlon') ? 'exist' : 'd-none' }}" product_slug="biathlon" dose="50" unit="gr">BIATHLON <small>50/70 gr</small></button>
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'basagran-sg') ? 'exist' : 'd-none' }}" product_slug="basagran-sg" dose="1.6" unit="Kg">BASAGRAN <small>1.6 Kg</small></button>
-                    <button class="btn btn-A btn-block isProduct" product_slug="" dose="0.5" unit="L">LI 700 <small>0.5 L</small></button>
+                    <button class="btn btn-A btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-li-700') ? 'exist' : 'd-none' }}" product_slug="s-li-700" dose="0.5" unit="L">LI 700 <small>0.5 L</small></button>
                 </td>
                 <td></td>
             </tr>
