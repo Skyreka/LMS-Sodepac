@@ -137,7 +137,7 @@
                                     <td>COCHENILLES <br>ACARIENS</td>
                                     <td></td>
                                     <td colspan="3">
-                                        <button class="btn-C btn btn-block isProduct" product_slug="" dose="20" unit="L">ACAKILL <small>20 L</small></button>
+                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-acakill-20-l') ? 'exist' : 'd-none' }}" product_slug="s-acakill-20-l" dose="20" unit="L">ACAKILL <small>20 L</small></button>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'polithiol') ? 'exist' : 'd-none' }}" product_slug="polithiol" dose="50" unit="L">POLITHIOL <small>50 L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
