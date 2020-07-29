@@ -97,7 +97,7 @@ class PhytoInterventionType extends AbstractType
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
-                    'placeholder' => 'Choisir le dosage'
+                    'placeholder' => 'Choisir la dose préconisée'
                 ]
             );
         }
