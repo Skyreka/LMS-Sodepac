@@ -426,7 +426,8 @@ class RecommendationsController extends AbstractController
 
             //-- Generate PDF
             $pdfOptions = new Options();
-            $pdfOptions->set('defaultFront', 'Arial');
+            $pdfOptions->set('defaultFront', 'Tahoma');
+            $pdfOptions->setIsRemoteEnabled( true );
 
             //-- First Page
             $recommendationDoc = new Dompdf( $pdfOptions );
