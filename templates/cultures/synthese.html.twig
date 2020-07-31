@@ -135,7 +135,7 @@
                                                 <td>{{ intervention.objective }} <small>Quintaux</small></td>
                                                 <td>{{ intervention.comment }}</td>
                                                 <td>
-                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i') }}</span>
+                                                    <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y') }}</span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ path('interventions.edit', {id: intervention.id}) }}"

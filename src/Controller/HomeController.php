@@ -107,12 +107,4 @@ class HomeController extends AbstractController {
         ]);
     }
 
-    /**
-     * @Route("/", name="index")
-     * @return Response
-     */
-    public function index()
-    {
-        return $this->render('pages/index.html.twig');
-    }
 }
