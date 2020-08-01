@@ -42,7 +42,11 @@
                     <div class="card-body">
                         <div class="text-center mt-3">
                             <h4 class="card-title mt-2">Confirmation de l'ajout du product </h4>
-                            <a href="{{ path('interventions.phyto.product', {id: intervention.id}) }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
+                            {% if loop == 1  %}
+                                <a href="{{ path('interventions.phyto.product', {id: intervention.id}) }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
+                            {% else %}
+                                <a href="{{ path('login.success') }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
+                            {% endif %}
                             <form method="POST" action="{{ path('interventions.phyto.product.delete', {interventionsProducts: lastInterventionProducts.id}) }}" style="display: inline-block">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ lastInterventionProducts.id) }}">
