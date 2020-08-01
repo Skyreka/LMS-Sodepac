@@ -92,6 +92,7 @@ class CulturesRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->where('c.ilot = :ilot')
             ->setParameter('ilot', $ilot)
+            ->orderBy( 'c.name', 'DESC')
             ->getQuery()
             ->getResult()
             ;
