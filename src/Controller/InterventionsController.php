@@ -82,6 +82,7 @@ class InterventionsController extends AbstractController
 
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
                 return $this->redirectToRoute('login.success');
             } else {
                 //-- Simple intervention for one culture
@@ -128,6 +129,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
                 return $this->redirectToRoute('login.success');
             } else {
                 $intervention->setCulture( $culture );
@@ -172,6 +174,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
                 return $this->redirectToRoute('login.success');
             } else {
                 $intervention->setCulture( $culture );
@@ -215,6 +218,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
                 return $this->redirectToRoute('login.success');
             } else {
                 $intervention->setCulture( $culture );
@@ -258,6 +262,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
                 return $this->redirectToRoute('login.success');
             } else {
                 $intervention->setCulture( $culture );
@@ -346,6 +351,11 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
+
+                //--Flash
+                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+                $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
+
                 return $this->redirectToRoute('login.success');
             } else {
                 //-- Setters
@@ -418,12 +428,14 @@ class InterventionsController extends AbstractController
             if ( $data['addProduct']->getData() ) {
                 return $this->redirectToRoute('interventions.phyto.product.confirm', [
                     'intervention' => $intervention->getId(),
-                    'interventionsProducts' => $interventionProduct->getId()
+                    'interventionsProducts' => $interventionProduct->getId(),
+                    'loop' => 1
                 ]);
             }
             return $this->redirectToRoute('interventions.phyto.product.confirm', [
                 'intervention' => $intervention->getId(),
-                'interventionsProducts' => $interventionProduct->getId()
+                'interventionsProducts' => $interventionProduct->getId(),
+                'loop' => 0
             ]);
         }
 
@@ -437,7 +449,7 @@ class InterventionsController extends AbstractController
 
     /**
      * Add product to an intervention
-     * @Route("interventions/phyto-confirm/{intervention}/{interventionsProducts}", name="interventions.phyto.product.confirm")
+     * @Route("interventions/phyto-confirm/{intervention}/{interventionsProducts}/{loop}", name="interventions.phyto.product.confirm")
      * @param Interventions $intervention
      * @param InterventionsProducts $interventionsProducts
      * @param Request $request
@@ -446,16 +458,16 @@ class InterventionsController extends AbstractController
      */
     public function confirmNewProduct(Interventions $intervention, InterventionsProducts $interventionsProducts, Request $request, InterventionsProductsRepository $ipr)
     {
-        //-- Delete
+        //-- If user want to delete last product
         if ($this->isCsrfTokenValid('delete' . $intervention->getId(), $request->get('_token'))) {
             $this->om->flush();
             $this->redirectToRoute('login.success');
         }
-
         return $this->render('interventions/confirmNewProduct.html.twig', [
             'intervention' => $intervention,
             'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] ),
-            'lastInterventionProducts' => $interventionsProducts
+            'lastInterventionProducts' => $interventionsProducts,
+            'loop' => $request->get('loop')
         ]);
     }
 
