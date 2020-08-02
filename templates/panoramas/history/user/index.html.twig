@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des BSV{% endblock %}
+{% block title %}Listes des Panoramas{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -39,6 +39,7 @@
                                     <th>Date d'envoi</th>
                                     <th>Texte</th>
                                     <th>Fichiers</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody id="insert-data">
@@ -55,6 +56,15 @@
                                             {% endif %}
                                             {% if panorama.panorama.thirdFile %}
                                                 <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if panorama.checked == 0 %}
+                                                <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
+                                                    <input type="hidden" name="_method" value="CHECK">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
+                                                    <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>
+                                                </form>
                                             {% endif %}
                                         </td>
                                     </tr>

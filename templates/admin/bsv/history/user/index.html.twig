@@ -38,6 +38,7 @@
                                     <th>Date d'envoi</th>
                                     <th>Texte</th>
                                     <th>Fichiers</th>
+                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody id="insert-data">
@@ -54,6 +55,15 @@
                                             {% endif %}
                                             {% if key.bsv.thirdFile %}
                                                 <a href="{{ asset('uploads/bsv/' ~ key.bsv.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if key.checked == 0 %}
+                                                <form method="POST" action="{{ path('user.bsv.check', {id: key.id}) }}" style="display: inline-block">
+                                                    <input type="hidden" name="_method" value="CHECK">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ key.id) }}">
+                                                    <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>
+                                                </form>
                                             {% endif %}
                                         </td>
                                     </tr>
