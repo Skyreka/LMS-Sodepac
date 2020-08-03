@@ -138,7 +138,7 @@ class PhytoInterventionType extends AbstractType
                 } else {
                     $size = $options['culture']->getSize();
                 }
-                $resultMessage = 'Résultat de la dose préconisé : '.$dose->getDose().' * ZNT ('. $znt .') * '.$size.'ha Taille de la culture en Ha';
+                $resultMessage = 'Résultat de la dose préconisé : '.$dose->getDose().' * '.$size.'ha Taille de la culture en Ha';
             } else {
                 $totalQuantity = '- Calcul non disponible avec cette unité';
                 $resultMessage = 'Aucun calcul effectué';
