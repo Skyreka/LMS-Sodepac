@@ -96,6 +96,9 @@ class RecommendationAddType extends AbstractType
                 'class' => IndexCultures::class,
                 'choice_label' => function (IndexCultures $culture) {
                     return $culture->getName();
+                },
+                'query_builder' => function (IndexCulturesRepository $icr) {
+                    return $icr->findCulturesCanevasAvailable( true );
                 }
             ));
         }
