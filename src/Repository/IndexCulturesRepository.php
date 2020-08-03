@@ -41,10 +41,11 @@ class IndexCulturesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findCulturesCanevasAvailable( $result = NULL)
+    public function findCulturesCanevasAvailable( $result = NULL )
     {
         $query = $this->createQueryBuilder('q')
             ->where('q.canevas = :exp')
+            ->orderBy('q.name', 'DESC')
             ->setParameter('exp', 1)
         ;
 
