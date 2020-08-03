@@ -41,6 +41,24 @@ class IndexCulturesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findCulturesCanevasAvailable( $result = NULL )
+    {
+        $query = $this->createQueryBuilder('q')
+            ->where('q.canevas = :exp')
+            ->orderBy('q.name', 'DESC')
+            ->setParameter('exp', 1)
+        ;
+
+        //-- Only Query
+        if ($result) {
+            return $query;
+        }
+
+        //-- Return Array
+        return $query->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return IndexCultures[] Returns an array of IndexCultures objects
     //  */

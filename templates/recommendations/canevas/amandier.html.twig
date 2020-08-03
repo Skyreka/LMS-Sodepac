@@ -137,7 +137,7 @@
                                     <td>COCHENILLES <br>ACARIENS</td>
                                     <td></td>
                                     <td colspan="3">
-                                        <button class="btn-C btn btn-block isProduct" product_slug="" dose="20" unit="L">ACAKILL <small>20 L</small></button>
+                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-acakill-20-l') ? 'exist' : 'd-none' }}" product_slug="s-acakill-20-l" dose="20" unit="L">ACAKILL <small>20 L</small></button>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'polithiol') ? 'exist' : 'd-none' }}" product_slug="polithiol" dose="50" unit="L">POLITHIOL <small>50 L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
@@ -254,13 +254,13 @@
                                     <td>STIMULATION <br>FOLIAIRE DE LA <br>PHYTOSYNTHESE</td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <td colspan="1">
-                                        <button class="btn-M btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-folwin-bio') ? 'exist' : 'd-none' }}" product_slug="s-folwin-bio" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                                        <button class="btn-M btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-folwin-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-folwin-bio-5-l" dose="2" unit="L">FOLWIN <small>2 L</small></button>
                                     </td>
                                     <td colspan="2">
-                                        <button class="btn-M btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-folwin-bio') ? 'exist' : 'd-none' }}" product_slug="s-folwin-bio" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                                        <button class="btn-M btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-folwin-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-folwin-bio-5-l" dose="2" unit="L">FOLWIN <small>2 L</small></button>
                                     </td>
                                     <td colspan="1">
-                                        <button class="btn-M btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-folwin-bio') ? 'exist' : 'd-none' }}" product_slug="s-folwin-bio" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                                        <button class="btn-M btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-folwin-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-folwin-bio-5-l" dose="2" unit="L">FOLWIN <small>2 L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td>
                                 </tr>
@@ -289,7 +289,7 @@
                                 <tr>
                                     <td>ANTICHLOROSE</td>
                                     <td colspan="4">
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sferesol-bio') ? 'exist' : 'd-none' }}" product_slug="s-sferesol-bio" dose="300" unit="Kg">SFERESOL <small>300 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sferosol-bio') ? 'exist' : 'd-none' }}" product_slug="s-sferosol-bio" dose="300" unit="Kg">SFERESOL <small>300 Kg</small></button>
                                         <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-flow-zn680f-folli-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-flow-zn680f-folli-bio-5-l" dose="1" unit="L">INO FLOW ZN 680 <small>1 L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td>

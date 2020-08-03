@@ -40,6 +40,11 @@ class IndexCultures
      */
     private $cultures;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $canevas = 0;
+
     public function __construct()
     {
         $this->cultures = new ArrayCollection();
@@ -113,6 +118,18 @@ class IndexCultures
                 $culture->setName(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCanevas(): ?bool
+    {
+        return $this->canevas;
+    }
+
+    public function setCanevas(bool $canevas): self
+    {
+        $this->canevas = $canevas;
 
         return $this;
     }
