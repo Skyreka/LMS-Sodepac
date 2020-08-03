@@ -19,5 +19,16 @@
 ###< symfony/web-server-bundle ###
 
 public/uploads/bsv/
-
 public/uploads/panorama/
+
+.idea/encodings.xml
+
+.DS_Store
+
+.idea/LMS-Sodepac.iml
+
+.idea/php.xml
+
+composer.lock
+
+public/uploads/messages/

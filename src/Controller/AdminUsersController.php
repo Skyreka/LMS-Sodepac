@@ -1,10 +1,14 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Exploitation;
 use App\Entity\Users;
+use App\Form\ExploitationType;
+use App\Form\PasswordType;
 use App\Form\UserType;
 use App\Repository\UsersRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +27,7 @@ class AdminUsersController extends AbstractController {
      */
     private $em;
 
-    public function __construct(UsersRepository $repositoryUsers, ObjectManager $em)
+    public function __construct(UsersRepository $repositoryUsers, EntityManagerInterface $em)
     {
         $this->repositoryUsers = $repositoryUsers;
         $this->em = $em;
@@ -34,7 +38,7 @@ class AdminUsersController extends AbstractController {
      */
     public function index(): Response
     {
-        $users = $this->repositoryUsers->findAll();
+        $users = $this->repositoryUsers->findAllByRole('ROLE_USER');
         return $this->render('admin/users/index.html.twig', [
             'users' => $users
         ]);
@@ -94,9 +98,10 @@ class AdminUsersController extends AbstractController {
             $this->em->flush();
 
             //Send Email to user
-            $link = 'http://127.0.0.1:8000/active_user/'.$user->getId();
+            $pathInfo = '/active_user/'.$user->getId();
+            $link = $request->getUriForPath($pathInfo);
             $message = (new \Swift_Message('Votre compte LMS Sodepac est maintenant disponible.'))
-                ->setFrom('send@example.com')
+                ->setFrom('send@lms-sodepac.fr')
                 ->setTo( $user->getEmail() )
                 ->setBody(
                     $this->renderView(
@@ -108,10 +113,9 @@ class AdminUsersController extends AbstractController {
                     'text/html'
                 )
             ;
-            $mailer->send($message);
-
+            $mail = $mailer->send($message);
+            dump ($mail );
             $this->addFlash('success', 'Utilisateur crée avec succès');
-
             return $this->redirectToRoute('admin.users.index');
         }
 
@@ -128,11 +132,65 @@ class AdminUsersController extends AbstractController {
      */
     public function delete(Users $user, Request $request)
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token' ))) {
             $this->em->remove($user);
             $this->em->flush();
             $this->addFlash('success', 'Utilisateur supprimé avec succès');
         }
         return $this->redirectToRoute('admin.users.index');
+    }
+
+    /**
+     * @Route("/admin/users/edit/exploitation/{id}", name="admin.users.edit.exploitation")
+     * @param Exploitation $exploitation
+     * @param Request $request
+     * @return Response
+     */
+    public function editExploitation(Exploitation $exploitation, Request $request): Response
+    {
+        $form = $this->createForm(ExploitationType::class, $exploitation);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //-- Check if user selected have demo pack only 10 ha max
+            if ( $form->getData()->getUsers()->getPack() === 'PACK_DEMO' && $form->getData()->getSize() > 10 ) {
+                $this->addFlash('error', "L'utilisateur a un pack Démo il ne peut pas avoir une exploitation de plus de 10ha");
+            } else {
+                $this->em->persist( $exploitation );
+                $this->em->flush();
+                $this->addFlash('success', 'Exploitation modifiée avec succès');
+                return $this->redirectToRoute( 'admin.users.index' );
+            }
+        }
+
+        return $this->render('technician/customers/size.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("admin/users/password/{id}", name="admin.users.password")
+     * @param Users $user
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return Response
+     */
+    public function password(Users $user, Request $request, UserPasswordEncoderInterface $encoder): Response
+    {
+        $form = $this->createForm( PasswordType::class, $user);
+        $form->handleRequest( $request );
+
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $user->setPassword( $encoder->encodePassword($user, $form['password']->getData()));
+            $user->setReset(1);
+            $this->em->flush();
+            $this->addFlash('success', 'Mot de passe du client modifié avec succès');
+            return $this->redirectToRoute('admin.users.index');
+        }
+
+        return $this->render('admin/users/password.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
     }
 }

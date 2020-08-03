@@ -28,7 +28,7 @@ class IlotsRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('i')
             ->andWhere('i.exploitation = :exploitation')
             ->setParameter('exploitation', $exploitation)
-            ->orderBy('i.id', 'ASC')
+            ->orderBy('i.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;
@@ -57,17 +57,52 @@ class IlotsRepository extends ServiceEntityRepository
 
     /**
      * @param $indexNameId
+     * @param $exploitation
+     * @param null $onlyQuery
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findByIndexCulture($indexNameId )
+    public function findByIndexCulture( $indexNameId, $exploitation, $onlyQuery = null )
     {
-        return $this->createQueryBuilder('i')
+        $query = $this->createQueryBuilder('i')
             ->leftJoin(Cultures::class, 'c', 'WITH', 'i.id = c.ilot')
-            ->andWhere('c.name = :nameId')
+            ->leftJoin( Ilots::class, 'il', 'WITH', 'il.id = c.ilot' )
+            ->where('c.name = :nameId')
+            ->andWhere('il.exploitation = :exploitation')
             ->setParameter('nameId', $indexNameId)
-            ->getQuery()
-            ->getResult()
+            ->setParameter('exploitation', $exploitation)
         ;
+
+        if ($onlyQuery) {
+            return $query;
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @param $indexNameId
+     * @param $exploitation
+     * @param null $onlyQuery
+     * @return \Doctrine\ORM\QueryBuilder|mixed
+     */
+    public function findByIndexCultureInProgress( $indexNameId, $exploitation, $onlyQuery = null )
+    {
+        $query = $this->createQueryBuilder('i')
+            ->leftJoin(Cultures::class, 'c', 'WITH', 'i.id = c.ilot')
+            ->leftJoin( Ilots::class, 'il', 'WITH', 'il.id = c.ilot' )
+            ->where('c.name = :nameId')
+            ->andWhere('c.status != :status')
+            ->andWhere('il.exploitation = :exploitation')
+            ->setParameter('status', 1)
+            ->setParameter('nameId', $indexNameId)
+            ->setParameter('exploitation', $exploitation)
+        ;
+
+        if ($onlyQuery) {
+            return $query;
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     /*

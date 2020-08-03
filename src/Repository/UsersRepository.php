@@ -25,6 +25,7 @@ class UsersRepository extends ServiceEntityRepository
 
     /**
      * @param $idTechnician
+     * @param null $limit
      * @return mixed
      */
     public function findAllCustomersOfTechnician( $idTechnician, $limit = NULL )
@@ -34,6 +35,46 @@ class UsersRepository extends ServiceEntityRepository
             ->setParameter('technician', $idTechnician)
             ->orderBy('u.id', 'ASC')
             ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
+    /**
+     * @param $role
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllByRole( $role, $limit = NULL )
+    {
+        $req = $this->createQueryBuilder('u')
+            ->andWhere('u.status = :role')
+            ->setParameter('role', $role)
+            ->orderBy('u.id', 'ASC')
+        ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
+    /**
+     * @param $pack
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllByPack( $pack, $limit = NULL )
+    {
+        $req = $this->createQueryBuilder('u')
+            ->andWhere('u.pack = :pack')
+            ->setParameter('pack', $pack)
+            ->orderBy('u.id', 'ASC')
+        ;
 
         if (false === is_null($limit)) {
             $req->setMaxResults( $limit );

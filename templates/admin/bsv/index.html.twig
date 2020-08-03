@@ -1,16 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des BSV{% endblock %}
+{% block title %}Listes des Flashs{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/
+{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Liste des Flashs en attente d'envoi</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Admin</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">BSV</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">Flashs</li>
                 </ol>
             </div>
         </div>
@@ -22,14 +25,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Listes des BSV en attente d'envoi</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('admin.bsv.new') }}" class="btn btn-success">Créer un BSV</a>
-                                <a href="{{ path('admin.bsv.history.index') }}" class="btn btn-info">Historique des BSV</a>
+                                <a href="{{ path('admin.bsv.new') }}" class="btn btn-success">Créer un Flash</a>
+                                <a href="{{ path('admin.bsv.history.index') }}" class="btn btn-info">Historique des Flash</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
-                            <table class="table stylish-table">
+                            <table class="table stylish-table" id="datatable">
                                 <thead>
                                 <tr>
                                     <th>Date de création</th>
@@ -40,12 +42,9 @@
                                 <tbody>
                                 {% for key in bsv %}
                                     <tr>
-                                        <td>{{ key.creationDate|date('d m Y') }}</td>
+                                        <td>{{ key.creationDate|date('d M Y') }}</td>
                                         <td>{{ key.text }}</td>
                                         <td>
-                                            {% if key.firstFile %}
-                                                <a href="{{ asset('uploads/bsv/' ~ key.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
-                                            {% endif %}
                                             <a href="{{ path('admin.bsv.edit', {id: key.id}) }}" class="btn btn-primary">Editer</a>
                                             <form method="POST" action="{{ path('admin.bsv.delete', {id: key.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le BSV ?')">
                                                 <input type="hidden" name="_method" value="DELETE">
@@ -53,6 +52,15 @@
                                                 <button class="btn btn-danger">Supprimer</button>
                                             </form>
                                             <a href="{{ path('admin.bsv.send', {id: key.id}) }}" class="btn btn-info">Envoyer</a>
+                                            {% if key.firstFile %}
+                                                <a href="{{ asset('uploads/bsv/' ~ key.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                                            {% endif %}
+                                            {% if key.secondFile %}
+                                                <a href="{{ asset('uploads/bsv/' ~ key.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                                            {% endif %}
+                                            {% if key.thirdFile %}
+                                                <a href="{{ asset('uploads/bsv/' ~ key.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -66,4 +74,68 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script>
+        $('#datatable').DataTable({
+            ordering: false,
+            dom: 'Bfrtip',
+            responsive: true,
+            "language": {
+                "sProcessing":     "Traitement en cours...",
+                "sSearch":         "Rechercher&nbsp;:",
+                "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix":    "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst":      "Premier",
+                    "sPrevious":   "Pr&eacute;c&eacute;dent",
+                    "sNext":       "Suivant",
+                    "sLast":       "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes séléctionnées",
+                        0: "Aucune ligne séléctionnée",
+                        1: "1 ligne séléctionnée"
+                    }
+                }
+            },
+            buttons: [
+                {
+                    extend: 'pdf',
+                    text: 'Exporter les panoramas',
+                    title: 'Liste des panoramas',
+                    message: 'Exporté le {{ "now"|date('d-m-Y H:i') }} avec l\'application LMS-Sodepac',
+                    exportOptions: {
+                        columns: [0,1,2],
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                }
+            ]
+        });
+    </script>
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\PasswordType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController {
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/", name="login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
@@ -30,10 +31,16 @@ class SecurityController extends AbstractController {
 
     /**
      * @Route("/login_success", name="login.success")
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function postLoginRedirection()
     {
+        //-- If user have pack disable redirect to login with error
+        if ( $this->getUser()->getPack() === 'DISABLE' ) {
+            $this->addFlash('danger', "Vous n'avez pas accès à l'application LMS Sodepac, veuillez contacter votre technicien Sodepac.");
+            return $this->redirectToRoute( 'login' );
+        }
+
+        //-- Redirection User By Status
         switch ($this->getUser()->getStatus())
         {
             case 'ROLE_USER':
@@ -43,7 +50,7 @@ class SecurityController extends AbstractController {
                 return $this->redirectToRoute('technician.home');
                 break;
             case 'ROLE_ADMIN':
-                return $this->redirectToRoute('admin.users.index');
+                return $this->redirectToRoute('admin.home');
                 break;
         }
     }
@@ -52,11 +59,11 @@ class SecurityController extends AbstractController {
      * @Route("/active_user/{id}", name="security.active")
      * @param Users $user
      * @param Request $request
-     * @param ObjectManager $em
+     * @param EntityManagerInterface $em
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function active(Users $user, Request $request, ObjectManager $em, UserPasswordEncoderInterface $encoder)
+    public function active(Users $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
     {
         $form = $this->createForm(PasswordType::class, $user);
         $form->handleRequest($request);

@@ -1,31 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un BSV{% endblock %}
+{% block title %}Créer un Flash{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Envoyer le Flash</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Admin</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">BSV</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Envoie</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('admin.bsv.index') }}">Flashs</a></li>
+                    <li class="breadcrumb-item active">Envoie</li>
                 </ol>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <h4 class="card-title">Envoyer le BSV</h4>
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
-                        <div class="row">
-                            <div class="col-12">
-                                {{ form_rest(form) }}
-                            </div>
-                        </div>
+                            {{ form_rest(form) }}
                         <button class="btn btn-info">Envoyer</button>
                         {{ form_end(form) }}
                     </div>
@@ -35,23 +33,6 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script>
-        $(document).on('change', '#bsv_send_cultures', function () {
-            let $field = $(this)
-            let $form = $field.closest('form')
-            let data = {}
-            data[$field.attr('name')] = $field.val()
-            $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('#bsv_send_user')
-                //let $date = $(data).find('#bsv_send_display_at')
-                $('#bsv_send_user').replaceWith( $input )
-                //$($form).append( $date )
-            })
-        })
-    </script>
-    <script src="{{ asset('plugins/moment/moment.js') }}"></script>
-    <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
-    <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -59,8 +40,42 @@
                 weekStart:0,
                 time: 1,
                 format:"yyyy-mm-dd",
-                lang:"fr"
+                lang:"fr",
+                todayHighlight: true
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $('.select2').select2();
+    </script>
+    <script>
+        $(document).on('change', '#bsv_send_cultures', function () {
+            let $field = $(this)
+            let $token = $('#bsv_send_token')
+            let $form = $field.closest('form')
+            let data = {}
+            data[$token.attr('name')] = $token.val()
+            data[$field.attr('name')] = $field.val()
+            $.post($form.attr('action'), data).then(function (data) {
+                $('.js-datepicker').datepicker({
+                    weekStart:0,
+                    time: 1,
+                    format:"yyyy-mm-dd",
+                    lang:"fr",
+                    todayHighlight: true
+                });
+                let $input = $(data).find('#bsv_send_user')
+                $('#bsv_send_user').replaceWith( $input )
+                $('#bsv_send_user').prepend( "<input id=\"selectAll\" type=\"checkbox\"><label for='selectAll'>Sélectioner tous</label>" )
+                $("#selectAll").click(function(){
+                    $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+
+                });
+            })
+        })
+    </script>
+    <script src="{{ asset('plugins/moment/moment.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
 {% endblock %}

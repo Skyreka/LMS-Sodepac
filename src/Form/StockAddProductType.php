@@ -23,6 +23,11 @@ class StockAddProductType extends AbstractType
         $builder
             ->add('product', EntityType::class, [
                 'class' => Products::class,
+                'query_builder' => function (ProductsRepository $pr) use ( $options ) {
+                    return $pr->createQueryBuilder('p')
+                        ->orderBy('p.name', 'ASC')
+                        ->andWhere('p.private = 0');
+                },
                 'choice_label' => 'name',
                 'placeholder' => 'Sélectionnez un produit',
                 'attr' => [

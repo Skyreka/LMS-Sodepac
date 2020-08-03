@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Cultures;
+use App\Entity\Exploitation;
 use App\Entity\Ilots;
 use App\Entity\IndexCultures;
+use App\Entity\Interventions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
@@ -31,11 +33,14 @@ class CulturesRepository extends ServiceEntityRepository
      */
     public function countAvailableSizeCulture( $ilot )
     {
+        //TODO: Catch ?
         try {
             $totalSize = $this->createQueryBuilder('t')
                 ->select('SUM(t.size)')
-                ->andWhere('t.ilot = :ilot')
+                ->where('t.ilot = :ilot')
+                ->andWhere('t.status = :status')
                 ->setParameter('ilot', $ilot)
+                ->setParameter('status', 0)
                 ->getQuery()
                 ->getSingleScalarResult();
         } catch (NoResultException $e) {
@@ -45,6 +50,66 @@ class CulturesRepository extends ServiceEntityRepository
         $ilotSize = $ilot->getSize();
 
         return $ilotSize - $totalSize;
+    }
+
+    /**
+     * @param IndexCultures $culture
+     * @param Exploitation $exploitation
+     * @return mixed
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function countSizeByIndexCulture(IndexCultures $culture, Exploitation $exploitation )
+    {
+        //TODO: Catch ?
+        return $this->createQueryBuilder('c')
+            ->select('SUM(c.size)')
+            ->where('c.name = :name')
+            ->setParameter('name', $culture)
+            ->leftJoin(Ilots::class, 'i', 'WITH', 'i.id = c.ilot')
+            ->andWhere( 'i.exploitation = :exploitation' )
+            ->setParameter( 'exploitation', $exploitation )
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findCultureByExploitation( $exploitation )
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin(Ilots::class, 'i', 'WITH', 'i.id = c.ilot')
+            ->where('i.exploitation = :exploitation')
+            ->setParameter('exploitation', $exploitation)
+            ;
+    }
+
+    /**
+     * Find All Culture By ilot
+     * @param $ilot
+     * @return mixed
+     */
+    public function findByIlot( $ilot )
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.ilot = :ilot')
+            ->setParameter('ilot', $ilot)
+            ->orderBy( 'c.name', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findByIlotCultureInProgress( $ilot, $culture )
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.ilot = :ilot')
+            ->andWhere('c.status != :status')
+            ->andWhere('c.name = :name')
+            ->setParameter('status', 1)
+            ->setParameter('ilot', $ilot)
+            ->setParameter('name', $culture)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

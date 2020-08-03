@@ -1,11 +1,13 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Cultures;
 use App\Entity\Ilots;
 use App\Form\IlotsType;
 use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +21,7 @@ class IlotsController extends AbstractController
      */
     private $em;
 
-    public function __construct(ObjectManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
@@ -37,13 +39,25 @@ class IlotsController extends AbstractController
         // Get Size
         $size = $ir->countAvailableSizeIlot( $this->getUser()->getExploitation() );
 
-        if ($size != 0) {
+        if ($size > 0) {
+
+
             //-- Create form
             $ilot = new Ilots();
             $form = $this->createForm(IlotsType::class, $ilot, ['max_size' => $size]);
             $form->handleRequest( $request );
             $ilot->setExploitation( $this->getUser()->getExploitation()  );
             if ($form->isSubmitted() && $form->isValid()) {
+                //-- If pack demo
+                if ( $this->getUser()->getPack() === 'PACK_DEMO' && $ilot->getSize() > 10 ) {
+                    $this->addFlash('danger', "Vous avez un pack Démo, vous ne pouvez pas créer un ilot de plus 10ha");
+                    return $this->redirectToRoute('login.success');
+                }
+                //-- Check if size available
+                if ( $size < $ilot->getSize() ) {
+                    $this->addFlash('danger', "Vous n'avez pas assez d'espace disponible");
+                    return $this->redirectToRoute('login.success');
+                }
                 $this->em->persist($ilot);
                 $this->em->flush();
                 $this->addFlash('success', 'Ilot crée avec succès');
@@ -56,7 +70,7 @@ class IlotsController extends AbstractController
         } else {
             // Return error no size
             $this->addFlash('danger', "Vous ne pouvez pas créer d'ilot, plus d'espace disponible");
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('login.success');
         }
     }
 
@@ -68,7 +82,8 @@ class IlotsController extends AbstractController
      */
     public function show(Ilots $ilot, CulturesRepository $culturesRepository): Response
     {
-        $cultures = $culturesRepository->findBy( ['ilot' => $ilot] );
+        $cultures = $culturesRepository->findByIlot( $ilot );
+
         return $this->render('ilots/show.html.twig', [
             'ilot' => $ilot,
             'cultures' => $cultures
@@ -84,6 +99,8 @@ class IlotsController extends AbstractController
     public function delete(Ilots $ilot, Request $request)
     {
         if ($this->isCsrfTokenValid( 'deleteIlot', $request->get('_token') )) {
+            $culture = new Cultures();
+            $ilot->removeCulture( $culture );
             $this->em->remove( $ilot );
             $this->em->flush();
             $this->addFlash('success', 'Ilot supprimé avec succès');
@@ -111,6 +128,18 @@ class IlotsController extends AbstractController
         return $this->render('ilots/edit.html.twig', [
             'ilot' => $ilot,
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("ilots", name="ilots.index")
+     * @param IlotsRepository $ir
+     * @return Response
+     */
+    public function index( IlotsRepository $ir): Response
+    {
+        return $this->render('ilots/index.html.twig', [
+            'ilots' => $ir->findBy( ['exploitation' => $this->getUser()->getExploitation() ], ['name' => 'ASC'] )
         ]);
     }
 }

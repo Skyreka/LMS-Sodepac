@@ -6,11 +6,10 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Cultures de {{ ilot.name }}</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Ilots</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ ilot.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">{{ ilot.name }}</li>
                 </ol>
             </div>
         </div>
@@ -25,7 +24,6 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Cultures liée(s)</h4>
                             <div class="ml-auto">
                                 <a href="{{ path('cultures.new', {id: ilot.id}) }}" class="btn btn-success">Ajouter</a>
                             </div>
@@ -35,25 +33,23 @@
                                 <thead>
                                 <tr>
                                     <th>Cultures</th>
-                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     {% for culture in cultures %}
-                                        <tr>
-                                            <td>
-                                                <a href="{{ path('cultures.show', {id: culture.id}) }}">
-                                                    <h6>{{ culture.name.name }} ({{ culture.comments }})</h6><small class="text-muted">{{ culture.size }} ha</small>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <form method="POST" action="{{ path('cultures.delete', {id: culture.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer cette culture?')">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ culture.id) }}">
-                                                    <button class="btn btn-danger">Supprimer</button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                        {% if culture.status == 0 or culture.permanent == 1 %}
+                                            <tr>
+                                                <td style="width: 55px">
+                                                    <img src="{{ asset('images/cultures/' ~ culture.name.slug ~ '.jpg') }}" alt="user" class="img-circle img-fluid d-inline-block" style="width: 54px; height: 54px;"/>
+                                                </td>
+                                                <td>
+
+                                                    <a href="{{ path('cultures.show', {id: culture.id}) }}" class="btn waves-effect btn-block waves-light btn-success d-inline-block">
+                                                        {{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span>     <small class="text-dark">{{ culture.size }} ha
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
                                     {% endfor %}
                                 </tbody>
                             </table>
@@ -79,15 +75,55 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ path('ilots.edit', {id: ilot.id}) }}" class="btn btn-block btn-warning mb-2">Editer l'ilot</a>
+                <a href="{{ path('ilots.edit', {id: ilot.id}) }}" class="btn btn-block btn-warning mb-2">Modifier l'îlot</a>
                 <form method="POST" action="{{ path('ilots.delete', {id: ilot.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr vouloir supprimer l\'ilot ainsi que toutes les cultures liées à cette ilot ?')">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token('deleteIlot') }}">
                     <button class="btn btn-block btn-danger">Supprimer l'ilot</button>
                 </form>
             </div>
+            <div class="col-md-8 col-12 mt-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-toggle="collapse" href="#cultures" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                                <i class="mdi mdi-arrow-expand"></i>
+                            </a>
+                        </div>
+                        <h4 class="card-title mb-0">Cultures récoltées</h4>
+                    </div>
+                    <div class="card-body collapse" id="cultures">
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Cultures</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for culture in cultures %}
+                                    {% if culture.status == 1 and culture.permanent == 0 %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('cultures.synthese', {id: culture.id}) }}">
+                                                    <h6>{{ culture.name.name }} <span class="font-italic">{{ culture.comments }}</span></h6><small class="text-muted">{{ culture.size }} ha</small>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-info text-white" href="{{ path('cultures.synthese', {id: culture.id}) }}">Synthese</a>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
     </div>
 
 {% endblock %}

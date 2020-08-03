@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex no-block">
+            <h4 class="card-title">Listes des panoramas envoyés en {{ year }}</h4>
+        </div>
+        <div class="table-responsive m-t-20">
+            <table class="table stylish-table" id="datatable">
+                <thead>
+                <tr>
+                    <th>Date de création</th>
+                    <th>Date d'envoi</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Expéditeur</th>
+                    {% endif %}
+                    <th>Texte</th>
+                    <th>Destinataire</th>
+                    <th>Fichiers</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for panorama in panoramas %}
+                    <tr>
+                        <td>{{ panorama.panorama.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                        <td>{{ panorama.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y à HH:mm') }}</td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td>{{ panorama.sender.identity }}</td>
+                        {% endif %}
+                        <td>{{ panorama.panorama.text }}</td>
+                        <td>{{ panorama.customers.identity }}</td>
+                        <td>
+                            {% if panorama.panorama.firstFile %}
+                                <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                            {% endif %}
+                            {% if panorama.panorama.secondFile %}
+                                <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                            {% endif %}
+                            {% if panorama.panorama.thirdFile %}
+                                <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

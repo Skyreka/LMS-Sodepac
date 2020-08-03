@@ -8,6 +8,9 @@ use App\Entity\IndexEffluents;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,32 +19,52 @@ class CulturesNewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('bio')
             ->add('precedent', EntityType::class, [
                 'class' => IndexCultures::class,
                 'choice_label' => 'name',
-                'label' => 'Culture Précédent'
+                'label' => 'Culture Précédente'
             ])
             ->add('name', EntityType::class, [
                 'class' => IndexCultures::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'attr' => [
+                    'class' => 'select2'
+                ],
+                'label' => 'Choix de la culture',
+                'label_attr' => array(
+                    'class' => 'font-weight-bold'
+                )
             ])
-            ->add('production')
-            ->add('comments', null, [
-                'label' => 'Commentaire du nom de culture'
+            ->add('comments', TextType::class, [
+                'label' => 'Commentaire',
+                'required' => false,
             ])
-            ->add('size', IntegerType::class, [
+            ->add('size', NumberType::class, [
                 'attr' => [
                     'min' => 0,
                     'max' => $options['max_size']
                 ],
-                'label' => 'Taille de la culture',
+                'label' => 'Surface de la culture',
                 'help' => 'En hectare | Espace restant : '. $options['max_size'] .' ha'
             ])
-            ->add('residue', null, [
-                'help' => 'Avez-vous laissé le résidu ?'
+            ->add('bio', null, [
+                'label' => 'Culture bio ?'
             ])
-            ->add('znt')
+            ->add('permanent', null, [
+                'label' => 'Culture permanente ?'
+            ])
+            ->add('production', null, [
+                'label' => 'Culture en production ?',
+                'attr' => array('checked' => 'checked')
+            ])
+            ->add('residue', null, [
+                'label' => 'Avez-vous laissé le résidu ?'
+            ])
+            ->add('znt', NumberType::class, [
+                'attr' => [
+                    'value' => 1
+                ]
+            ])
             ->add('effluent', EntityType::class, [
                 'class' => IndexEffluents::class,
                 'label' => 'Apport d\'effluents',

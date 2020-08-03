@@ -5,30 +5,37 @@
 {% block stylesheets %}
     <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
     <link href="plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">{{ intervention }}</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ culture.ilot.name }}</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{ culture.name.name }}</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Intervention</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ intervention }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('ilots.show', {id: culture.ilot.id})}}">{{ culture.ilot.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('cultures.show', {id: culture.id})}}">{{ culture.name.name }}</a></li>
+                    <li class="breadcrumb-item active">{{ intervention }}</li>
                 </ol>
             </div>
         </div>
+        {% if warningMessage %}
+            <div class="alert alert-warning">Attention! Vous allez appliquer un produit moins de 48H après une autre application de produit sur cette culture, assurez vous que cette intervention est autorisé en consultant le site officiel <a href="https://ephy.anses.fr/" target="_blank">ephy.anses.fr</a></div>
+        {% endif %}
+        {% if intervention == 'Traitement-Divers' %}
+            <div class="alert alert-warning">Attention, cette intervention rentrera en compte dans le calcul de l'IFT</div>
+        {% endif %}
+        {% if app.session.get('listCulture') %}
+            <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login.success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
+        {% endif %}
         <div class="row">
             <div class="col-lg-12">
-                <h4 class="card-title">Créer un(e) {{ intervention }}</h4>
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
                             {{ form_rest(form) }}
-                            <button class="btn btn-primary">Ajouter</button>
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -59,6 +66,13 @@
             $.post(form.attr('action'), data).then(function (data) {
                 let input = $(data).find('form')
                 $(form).replaceWith( input )
+                $('.js-datepicker').datepicker({
+                    weekStart:0,
+                    time: 1,
+                    format:"yyyy-mm-dd",
+                    lang:"fr",
+                    todayHighlight: true
+                });
             })
         })
     </script>
@@ -66,14 +80,28 @@
     <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('.select2').select2();
             $('.js-datepicker').datepicker({
                 weekStart:0,
                 time: 1,
                 format:"yyyy-mm-dd",
-                lang:"fr"
+                lang:"fr",
+                todayHighlight: true
             });
         });
+        /*
+        $(document).on('keyup', '#phyto_intervention_quantity', function() {
+            var _this = $(this);
+            var min = parseInt(_this.attr('min')) || 1; // if min attribute is not defined, 1 is default
+            var max = parseInt(_this.attr('max')) || 100; // if max attribute is not defined, 100 is default
+            var val = parseInt(_this.val()) || (min - 1); // if input char is not a number the value will be (min - 1) so first condition will be true
+            if (val < min)
+                _this.val(min);
+            if (val > max)
+                _this.val(max);
+        });*/
     </script>
 {% endblock %}

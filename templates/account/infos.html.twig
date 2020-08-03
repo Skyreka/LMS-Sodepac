@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer mes infos{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Editer mes infos</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">Editer mes infos</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-6">
+                                {{ form_row(form.firstname) }}
+                            </div>
+                            <div class="col-6">
+                                {{ form_row(form.lastname) }}
+                            </div>
+                            <div class="d-none">
+                                {{ form_row(form.technician) }}
+                                {{ form_row(form.status) }}
+                                {{ form_row(form.pack) }}
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
+                        <button class="btn btn-primary">Editer</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

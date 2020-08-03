@@ -1,19 +1,25 @@
 <header class="topbar">
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ path('home') }}">
-        <span>
-          <img src="{{ asset('images/logo.png') }}" alt="homepage" class="dark-logo" />
-          <img src="{{ asset('images/logo.png') }}" class="light-logo" alt="homepage" />
-        </span>
+            <a class="navbar-brand" href="{{ path('login.success') }}">
+                <span>
+                  <img src="{{ asset('images/logo.jpg') }}" alt="homepage img-fluid" style="width: 80%;" class="dark-logo" />
+                  <img src="{{ asset('images/logo.jpg') }}" class="light-logo img-fluid" style="width: 80%;" alt="homepage" />
+                </span>
+            </a>
+        </div>
+        <div class="d-block d-sm-none">
+            <a class="navbar-brand" href="{{ path('login.success') }}">
+                <img src="{{ asset('images/logo.png') }}" alt="img-fluid" class="img-fluid float-right" />
             </a>
         </div>
         <div class="navbar-collapse">
             <ul class="navbar-nav mr-auto mt-md-0">
                 <li class="nav-item">
-                    <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
-                        <i class="mdi mdi-menu"></i>
-                    </a>
+                    <a class="nav-link nav-toggler d-block d-md-none text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link sidebartoggler d-none d-md-block text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a>
                 </li>
             </ul>
             <ul class="navbar-nav my-lg-0">
@@ -22,15 +28,19 @@
                     <div class="dropdown-menu dropdown-menu-right scale-up">
                         <ul class="dropdown-user">
                             <li>
-                                <div class="dw-user-box center">
-                                    <div class="u-text center">
-                                        <h4>Test</h4>
-                                    </div>
-                                    <div class="u-text center">
-                                        <p>Espace restant : 0 Ha</p>
-                                    </div>
+                                <div class="dw-user-box">
+                                    <div class="u-text">
+                                        <h4>{{ app.user.identity}}</h4>
+                                        <p class="text-muted">{{ app.user.email }}</p>
+                                        {% if app.user.pack is not null %}
+                                            <span class="badge badge-success">{{ app.user.pack(true) }}</span>
+                                        {% endif %}
                                 </div>
                             </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ path('account') }}"><i class="ti-user"></i> Mes infos</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ path('account.password') }}"><i class="ti-settings"></i> Modifier mot de passe</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ path('logout') }}"><i class="fa fa-power-off"></i> Se Déconnecter</a></li>
                         </ul>

@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des Panoramas{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Accueil</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Historique des Panoramas</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Historique des Panoramas</h4>
+                            <div class="ml-auto">
+                                <select name="" class="custom-select custom-select-lg year-select">
+                                    <option selected>{{ "now"|date('Y') }}</option>
+                                    <option>{{ "now"|date('Y') - 1 }}</option>
+                                    <option>{{ "now"|date('Y') - 2 }}</option>
+                                    <option>{{ "now"|date('Y') - 3 }}</option>
+                                    <option>{{ "now"|date('Y') - 4 }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table" id="datatable">
+                                <thead>
+                                <tr>
+                                    <th>Date d'envoi</th>
+                                    <th>Texte</th>
+                                    <th>Fichiers</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody id="insert-data">
+                                {% for panorama in panoramas %}
+                                    <tr>
+                                        <td>{{ panorama.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                        <td>{{ panorama.panorama.text }}</td>
+                                        <td>
+                                            {% if panorama.panorama.firstFile %}
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                                            {% endif %}
+                                            {% if panorama.panorama.secondFile %}
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                                            {% endif %}
+                                            {% if panorama.panorama.thirdFile %}
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if panorama.checked == 0 %}
+                                                <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
+                                                    <input type="hidden" name="_method" value="CHECK">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
+                                                    <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>
+                                                </form>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).on('change', 'select.year-select', function (event) {
+            event.preventDefault();
+            let year = $(this).val()
+            let url = '/user/panoramas/history/' + year
+            $.get(url).then(function (data) {
+                let content = $('#insert-data')
+                content.empty()
+                content.append( data )
+            })
+        })
+    </script>
+{% endblock %}

@@ -21,12 +21,12 @@ class IndexCultures
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=50)
      */
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=50)
      */
     private $name;
 
@@ -39,6 +39,11 @@ class IndexCultures
      * @ORM\OneToMany(targetEntity="App\Entity\Cultures", mappedBy="name")
      */
     private $cultures;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $canevas = 0;
 
     public function __construct()
     {
@@ -113,6 +118,18 @@ class IndexCultures
                 $culture->setName(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCanevas(): ?bool
+    {
+        return $this->canevas;
+    }
+
+    public function setCanevas(bool $canevas): self
+    {
+        $this->canevas = $canevas;
 
         return $this;
     }

@@ -1,11 +1,15 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Doses;
+use App\Entity\Products;
 use App\Entity\Stocks;
+use App\Form\ProductsType;
 use App\Form\StockAddProductType;
 use App\Form\StockEditQuantityType;
 use App\Repository\StocksRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,9 +24,9 @@ class StockController extends AbstractController
 
     /**
      * StockController constructor.
-     * @param ObjectManager $om
+     * @param EntityManagerInterface $om
      */
-    public function __construct(ObjectManager $om)
+    public function __construct(EntityManagerInterface $om)
     {
         $this->om = $om;
     }
@@ -43,20 +47,70 @@ class StockController extends AbstractController
     /**
      * @Route("exploitation/stock/add", name="exploitation.stock.add")
      * @param Request $request
+     * @param StocksRepository $sr
      * @return Response
      */
-    public function add(Request $request): Response
+    public function add(Request $request, StocksRepository $sr): Response
     {
         $stock = new Stocks();
         $form = $this->createForm( StockAddProductType::class, $stock);
         $form->handleRequest( $request );
+
+        $oldStocks = $sr->findBy(array('exploitation' => $this->getUser()->getExploitation()));
+        $stockProducts = [];
+        foreach ($oldStocks as $oldStock) {
+            $stockProducts[] = $oldStock->getProduct()->getId();
+        }
 
         $stock->setExploitation( $this->getUser()->getExploitation() );
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->om->persist($stock);
             //--Setter
+            if (in_array($stock->getProduct()->getId(), $stockProducts)) {
+                $this->addFlash('danger', 'Vous possedez déjà ce produit dans votre stock.');
+            } else {
+                $this->om->flush();
+                $this->addFlash('success', 'Nouveau produit ajouté avec succès');
+            }
+
+            return $this->redirectToRoute('exploitation.stock.index');
+        }
+
+        return $this->render('exploitation/stock/add.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("exploitation/stock/private/add", name="exploitation.stock.add.private")
+     * @param Request $request
+     * @param StocksRepository $sr
+     * @return Response
+     */
+    public function addPrivate(Request $request, StocksRepository $sr): Response
+    {
+        $product = new Products();
+        $form = $this->createForm( ProductsType::class, $product);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //Create product
+            $product->setPrivate(1);
+            $product->setSlug('produit-personnel');
+            $dose = new Doses();
+            $dose->setApplication('Cliquez ici');
+            $dose->setProduct($product);
+            $this->om->persist($dose);
+            $this->om->persist($product);
+            //Create stock
+            $stock = new Stocks();
+            $stock->setProduct($product);
+            $stock->setExploitation($this->getUser()->getExploitation());
+            $stock->setUnit(1);
+            $this->om->persist($stock);
             $this->om->flush();
+            //Redirect
             $this->addFlash('success', 'Nouveau produit ajouté avec succès');
             return $this->redirectToRoute('exploitation.stock.index');
         }
