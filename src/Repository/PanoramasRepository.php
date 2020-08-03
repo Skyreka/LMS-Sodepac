@@ -50,12 +50,34 @@ class PanoramasRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findAllNotSent ()
+    /**
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllNotDeleted ($limit = null)
     {
-        return $this->createQueryBuilder('p')
-            ->where('p.sent = 0')
+        $req = $this->createQueryBuilder('p')
+            ->where('p.archive = 0')
+            ->orderBy('p.creation_date', 'DESC')
+            ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
+    public function findAllByYear($year)
+    {
+
+        return $this->createQueryBuilder('b')
+            ->where('year(b.send_date) = :year')
+            ->setParameter('year', $year)
+            ->orderBy('b.send_date', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+            ;
     }
 
     // /**

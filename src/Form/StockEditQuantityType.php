@@ -19,7 +19,20 @@ class StockEditQuantityType extends AbstractType
                 'label' => 'Quantité à ajouter',
                 'help' => 'La valeur saisie sera additionné à la quantité de produit déjà enregistré.'
             ])
+            ->add('unit', ChoiceType::class, [
+                'choices' => $this->getChoices()
+            ])
         ;
+    }
+
+    private function getChoices()
+    {
+        $choices = Stocks::UNIT;
+        $output = [];
+        foreach ($choices as $k => $v) {
+            $output[$v] = $k;
+        }
+        return $output;
     }
 
     public function configureOptions(OptionsResolver $resolver)

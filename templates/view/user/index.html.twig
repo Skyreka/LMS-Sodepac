@@ -10,12 +10,11 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Ilots du client</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Technicien</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">{{ customer.identity }}</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Exploitation</a></li>
+                    <li class="breadcrumb-item active">Exploitation</li>
                 </ol>
             </div>
         </div>
@@ -26,9 +25,6 @@
             <div class="col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-md-flex no-block">
-                            <h4 class="card-title">Ilots du client</h4>
-                        </div>
                         <div class="month-table">
                             <div class="table-responsive mt-3">
                                 <table class="table stylish-table mb-0">
@@ -37,7 +33,7 @@
                                             <tr>
                                                 <td>
                                                     <a href="{{ path('view.user.ilot', {id: ilot.id}) }}">
-                                                        <h6>{{ ilot.name }} ({{ ilot.size }} ha)</h6><small class="text-muted">{{ ilot.type }}</small>
+                                                        <h6>{{ ilot.name }} ({{ ilot.size }} ha)</h6><small class="text-muted">{{ ilot.type.name }}</small>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -149,7 +145,7 @@
                                         <tr>
                                             <td>
                                                 <a href="">
-                                                    <h6>{{ stock.product.name }}</h6><small class="text-muted">{{ stock.product.category.name }}</small>
+                                                    <h6>{{ stock.product.name }}</h6>
                                                 </a>
                                             </td>
                                             <td>

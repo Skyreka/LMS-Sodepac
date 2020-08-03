@@ -1,86 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Skyreka">
-    <title>{% block title %}Connexion{% endblock %}</title>
-    <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <title>LMS SODEPAC</title>
+    <meta name="description" content="Offrir plus d’efficacité et une meilleure productivité au quotidien pour toutes les filières agricoles !"/>
+    <link href="https://fonts.googleapis.com/css?family=Dosis:600|Roboto:400,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ asset('landing/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing/css/paper-kit.css?v=2.1.0') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/colors/green-dark.css') }}" rel="stylesheet">
+    <link href="{{ asset('landing/styles/main.css') }}" rel="stylesheet">
 </head>
-<body>
-<div class="preloader">
-    <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-</div>
-<section id="wrapper">
-    <div class="login-register">
-        <div class="login-box card">
-            <div class="card-body">
-                {% if error %}
-                    <div class="alert alert-danger">
-                        {{ error.message }}
+<body id="top">
+<header>
+    <div class="aa-header" style="background-image: url({{ asset('images/bg.jpg') }})">
+        <nav class="navbar navbar-expand-md navbar-transparent" style="">
+            <div class="container"><img class="img-fluid pr-3 aa-logo-img" src="images/logo.png" alt="logo">
+            </div>
+        </nav>
+        <div class="container aa-header-content text-left text-white">
+            <div class="row">
+                <div class="login-box card">
+                    <div class="card-body">
+                        <form class="form-horizontal form-material" id="loginform" method="POST" action="{{ path('login') }}">
+                            <h3 class="p-2 rounded-title mb-3">Connexion</h3>
+                            <div class="form-group ">
+                                <div class="col-xs-12">
+                                    <label form="email">Adresse Email:</label>
+                                    <input class="form-control" id="email" type="text" name="_email" value="{{ last_username }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <label form="password">Mot de passe:</label>
+                                    <input class="form-control" id="password" type="password" name="_password" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-flex no-block align-items-center">
+                                    <div class="checkbox checkbox-primary pt-0">
+                                        <input id="checkbox-signup" type="checkbox" name="_remember_me" checked>
+                                        <label for="checkbox-signup"> Se souvenir de moi </label>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <a href="javascript:void(0)" id="to-recover" class="text-muted"><i class="fa fa-lock mr-1"></i> Oublié?</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group text-center mt-3">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Se connecter</button>
+                                </div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="col-sm-12 text-center">
+                                    Vous n'avez pas de compte? Contacter votre technicien(e) Sodepac
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" id="recoverform" action="index.html">
+                            <div class="form-group ">
+                                <div class="col-xs-12">
+                                    <h3>Vous avez oublié votre mot de passe ?</h3>
+                                    <p class="text-muted">Entrez votre email:  </p>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-xs-12">
+                                    <input class="form-control" type="text" required="" placeholder="Email"> </div>
+                            </div>
+                            <div class="form-group text-center mt-3">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                {% endif %}
-                <form data-toggle="validator" role="form" class="form-horizontal form-material" id="loginform" action="{{ path('login') }}" method="POST">
-                    <h3 class="box-title m-b-20">Se connecter</h3>
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            <label form="email">Adresse Email:</label>
-                            <input class="form-control" id="email" type="text" name="_email" value="{{ last_username }}" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <label form="password">Mot de passe:</label>
-                            <input class="form-control" id="password" type="password" name="_password" required>
-                        </div>
-                    </div>
-                    <div class="form-group text-center m-t-20">
-                        <div class="col-xs-12">
-                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Se connecter</button>
-                        </div>
-                    </div>
-                    <div class="form-group m-b-0">
-                        <div class="col-sm-12 text-center">
-                            Mot de passe oublié ? <a href="<?= $router->generate('register'); ?>" class="text-info m-l-5"><b>Cliquez-ici</b></a>
-                        </div>
-                        <div class="col-sm-12 text-center">
-                            Pas encore de compte <a href="<?= $router->generate('register'); ?>" class="text-info m-l-5"><b>Inscrivez-vous?</b></a>
-                        </div>
-                    </div>
-                </form>
-                <form class="form-horizontal" id="recoverform" action="<?= $router->generate('login'); ?>">
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            <h3>Réinitialiser votre mot de passe</h3>
-                            <p class="text-muted">Entrez votre email et les instructions vous seront envoyées! </p>
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            <input class="form-control" type="text" required="" placeholder="Adresse e-mail" name="email_reset"> </div>
-                    </div>
-                    <div class="form-group text-center m-t-20">
-                        <div class="col-xs-12">
-                            <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" name="reset">Soumettre</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-</section>
-</body>
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
-<script src="{{ asset('js/sidebarmenu.js') }}"></script>
-<script src="{{ asset('js/waves.js') }}"></script>
-<script src="{{ asset('js/custom.min.js') }}"></script>
+</header>
+<div class="page-content">
+    <div>
+        <div class="aa-price-package section" id="pricing">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="title">Découvrez notre application LMS Sodepac </h2>
+                    <p class="pb-5">Enregistrez, collectez et analysez vos données renseignées sur le terrain.</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="h5 mt-0">Cahier de culture</div>
+                                <div class="aa-price-section">Saisissez vos travaux agricoles.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card  text-center">
+                            <div class="card-body">
+                                <div class="h5 mt-0">Calcul de plan prévisionnel fumure (PPF)</div>
+                                <div class="aa-price-section">A chaque fin de saison.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="h5 mt-0">Gestion des stocks</div>
+                                <div class="aa-price-section">Saisissez votre stock au fil de vos achats et exportez votre stock au format PDF.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="h5 mt-0">Module irrigation</div>
+                                <div class="aa-price-section">Gérer votre irrigation, pluviométrie ou artificielle.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <hr/>
+        </div>
+        <div class="aa-testimonials-section section">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="title mt-0">Sodepac est une société de négoce agricole qui apporte auprès de ses clients une solution de conseils en amont et en aval de la collecte de ses cultures (arboriculture, céréale, culture semencière)</h2>
+                    <p>Nous collaborons avec nos clients en leurs fournissant des solutions adaptées à leurs besoins quotidiens (collecte, commercialisation, distribution d'agrofourniture).</p>
+                </div>
+                <div class="aa-testimonials">
+                    <div class="row">
+                        <div class="col-md-12 mb-9">
+                            <div class="aa-testimonials-body">
+                                <p>J'ai souhaité proposer à mes clients une application leur proposant une véritable avancée technologique. Cette application leur allègera des tâches administratives répétitives et énergivores.
+                                    <br> LMS Sodepac est un condensé de ce dont l'agriculture moderne nous impose désormais:
+                                <ul>
+                                    <li>Rigueur, de par la tenue d'un cahier de la culture à jour.</li>
+                                    <li>Traçabilité, de par le suivi de vottre culture, de la semance, à la récolte</li>
+                                    <li>Mise en conformité avec la tenue en temps réel de votre stock de produits phytosanitaire.</li>
+                                    <li>Ergonomie, avec une application simple, intuitive, et accessible à tous.</li>
+                                    <li>Certification grâce aux données collectées par l'application du respect de votre exploitation de la certification au label HVE.</li>
+                                </ul>
+                                C'est pour cette raison que nous avons conçu pour nos clients, l'application LMS SODEPAC, qui vous allégera considérablement de vos saisies au PC, puisque désormais notre application vous permettra de piloter votre exploitation depuis votre smartphone...
+                                </p>
+                                <div class="row pt-3">
+                                    <div class="col-lg-5 col-md-12"></div>
+                                    <div class="col-lg-7 col-md-12 pt-3">
+                                        <div class="h5">Denis Hure</div>
+                                        <p class="text-muted">Sodepac</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer-black aa-footer">
+    <div class="container py-5">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <p class="mt-3">Copyright &copy; <a class="credit" href="https://lmsdesign.fr" target="_blank">LMS DESIGN</a> - SODEPAC</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="{{ asset('landing/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('landing/js/jquery-ui-1.12.1.custom.min.js') }}"></script>
+<script src="{{ asset('landing/js/popper.js') }}js/popper.js"></script>
+<script src="{{ asset('landing/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('landing/paper-kit.js?v=2.1.0') }}"></script>
+<script src="{{ asset('landing/scripts/main.js') }}"></script>
 </body>
 </html>

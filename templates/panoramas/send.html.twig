@@ -6,27 +6,22 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Envoyer le panorama</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Technicien</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Panoramas</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Envoie</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('panoramas.index') }}">Panoramas</a></li>
+                    <li class="breadcrumb-item active">Envoie</li>
                 </ol>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <h4 class="card-title">Envoyer le panorama</h4>
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
-                        <div class="row">
-                            <div class="col-12">
-                                {{ form_row(form.display_at) }}
-                                {{ form_row(form.customers) }}
-                            </div>
-                        </div>
+                            <input id="selectAll" type="checkbox"><label for='selectAll'>Sélectionner tous les clients</label>
+                            {{ form_row(form.customers) }}
+                            {{ form_rest(form) }}
                         <button class="btn btn-info">Envoyer</button>
                         {{ form_end(form) }}
                     </div>
@@ -40,6 +35,12 @@
     <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        $("#selectAll").click(function(){
+            $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('.js-datepicker').datepicker({

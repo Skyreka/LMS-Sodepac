@@ -11,11 +11,14 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PhytoInterventionType extends AbstractType
@@ -27,13 +30,16 @@ class PhytoInterventionType extends AbstractType
                 'class' => Stocks::class,
                 'label' => 'Produit en stock',
                 'choice_label' => function(Stocks $stock) {
-                    return $stock->getProduct()->getName().'   Disponible en stock: '. $stock->getQuantity().''.$stock->getUnit( true );
+                    return $stock->getProduct()->getName().' - '.$stock->getProduct()->getCategory().' - stock : '.$stock->getQuantity().' '.$stock->getUnit( true );
                 },
                 'query_builder' => function(StocksRepository $sr) use ( $options ) {
                     return $sr->findProductInStockByExploitation( $options['user']->getExploitation() );
                 },
                 'mapped' => false,
-                'placeholder' => 'Selectionner votre produit de fumure'
+                'placeholder' => 'Sélectionner un produit dans votre stock',
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
         ;
 
@@ -73,7 +79,7 @@ class PhytoInterventionType extends AbstractType
                     'choices' => [],
                     'required' => false,
                     'auto_initialize' => false,
-                    'placeholder' => 'Selectionner un produit avant de choisir une dose'
+                    'placeholder' => 'Sélectionner un produit avant de choisir une dose'
                 ]
             );
         } else {
@@ -91,7 +97,7 @@ class PhytoInterventionType extends AbstractType
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
-                    'placeholder' => 'Selectionner votre produit de fumure'
+                    'placeholder' => 'Choisir la dose préconisée'
                 ]
             );
         }
@@ -111,16 +117,28 @@ class PhytoInterventionType extends AbstractType
      * Add others inputs
      * @param FormInterface $form
      * @param Doses|null $dose
+     * @param $options
      */
     private function addOthersField(FormInterface $form, ?Doses $dose, $options)
     {
-
         if ($dose) {
+            // Znt
+            if ($options['culture']->getZnt()) {
+                $znt = $options['culture']->getZnt();
+            } else {
+                $znt = 1;
+            }
             // Get Total Quantity
             $unitEnable = ['kg/ha', 'L/ha'];
             if (in_array($dose->getUnit(), $unitEnable)) {
-                $totalQuantity = 'Valeur calculée: '. $dose->getDose() * $options['culture']->getSize();
-                $resultMessage = 'Résultat de la dose préconisé : '.$dose->getDose().' * '.$options['culture']->getSize().'ha Taille de la culture en Ha';
+                $totalQuantity = 'Valeur calculée: '. $dose->getDose() * $znt * $options['culture']->getSize();
+                // multiple intervention
+                if ( $options['totalSizeMultipleIntervention'] != NULL) {
+                    $size = $options['totalSizeMultipleIntervention'];
+                } else {
+                    $size = $options['culture']->getSize();
+                }
+                $resultMessage = 'Résultat de la dose préconisé : '.$dose->getDose().' * ZNT ('. $znt .') * '.$size.'ha Taille de la culture en Ha';
             } else {
                 $totalQuantity = '- Calcul non disponible avec cette unité';
                 $resultMessage = 'Aucun calcul effectué';
@@ -128,19 +146,28 @@ class PhytoInterventionType extends AbstractType
             $form
                 ->add('quantity', NumberType::class, [
                     'label' => 'Quantité Totale '. $totalQuantity,
-                    'help' => $resultMessage
+                    'help' => $resultMessage,
+                    'attr' => [
+                        'max' => $form->get('productInStock')->getData()->getQuantity()
+                    ],
+                    'required'=> true
                 ])
                 ->add('comment')
                 ->add('intervention_at', DateType::class, [
                     'widget' => 'single_text',
                     'html5' => false,
                     'attr' => [
-                        'class' => 'js-datepicker'
+                        'class' => 'js-datepicker',
+                        'value' => date('Y-m-d')
                     ]
                 ])
-                ->add('addAdjuvant', CheckboxType::class, [
+                ->add('addProduct', CheckboxType::class, [
                     'mapped' => false,
-                    'required' => false
+                    'required' => false,
+                    'label' => 'Voulez-vous ajouter un produit ?'
+                ])
+                ->add('submit', SubmitType::class, [
+                    'label' => 'Ajouter'
                 ])
             ;
         }
@@ -152,7 +179,8 @@ class PhytoInterventionType extends AbstractType
             'data_class' => Phyto::class,
             'translation_domain' => 'forms',
             'user' => null,
-            'culture' => null
+            'culture' => null,
+            'totalSizeMultipleIntervention' => null
         ]);
     }
 }

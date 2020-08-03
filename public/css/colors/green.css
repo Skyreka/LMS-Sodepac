@@ -1,11 +1,11 @@
 /*
-Template Name: Monster Admin
+Template Name: Material Pro Admin
 Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
 */
 /*
-Template Name: Monster Admin
+Template Name: Material Pro Admin
 Author: Themedesigner
 Email: niravjoshi87@gmail.com
 File: scss
@@ -151,12 +151,12 @@ a.link:hover, a.link:focus {
 }
 
 .sidebar-nav > ul > li.active > a, .sidebar-nav > ul > li.active:hover > a {
-  color: #ffffff;
-  background: #26c6da;
+  color: #ffffff !important;
+  background: #26c6da !important;
 }
 
 .sidebar-nav > ul > li.active > a i, .sidebar-nav > ul > li.active:hover > a i {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .sidebar-nav > ul > li.active > a:after, .sidebar-nav > ul > li.active:hover > a:after {

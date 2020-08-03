@@ -5,12 +5,14 @@ use App\Entity\Cultures;
 use App\Entity\Ilots;
 use App\Entity\IndexCultures;
 use App\Entity\Interventions;
+use App\Entity\Products;
 use App\Form\CulturesNewType;
 use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
 use App\Repository\IndexCulturesRepository;
 use App\Repository\InterventionsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,13 +25,13 @@ class CulturesController extends AbstractController
      */
     private $om;
 
-    public function __construct(ObjectManager $om)
+    public function __construct(EntityManagerInterface $om)
     {
         $this->om = $om;
     }
 
     /**
-     * @Route("/cultures/new/{id}", name="cultures.new")
+     * @Route("cultures/new/{id}", name="cultures.new")
      * @param Ilots $ilot
      * @param Request $request
      * @param CulturesRepository $cr
@@ -55,7 +57,8 @@ class CulturesController extends AbstractController
             return $this->redirectToRoute('ilots.show', ['id' => $ilot->getId()]);
         }
         return $this->render('cultures/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'ilot' => $ilot
         ]);
     }
 
@@ -67,6 +70,7 @@ class CulturesController extends AbstractController
      */
     public function show(Cultures $culture, InterventionsRepository $ir): Response
     {
+        dump( $this->container->get('session')->get('listCulture') );
         return $this->render('cultures/show.html.twig', [
             'culture' => $culture,
             'ir' => $ir
@@ -95,7 +99,7 @@ class CulturesController extends AbstractController
      */
     public function showIlotsByCultures(IndexCultures $indexCulture, IlotsRepository $ir)
     {
-        $ilots = $ir->findByIndexCulture( $indexCulture->getId() );
+        $ilots = $ir->findByIndexCulture( $indexCulture->getId(), $this->getUser()->getExploitation() );
         dump( $ilots );
         return $this->render('cultures/showIlots.html.twig', [
             'indexCulture' => $indexCulture,
@@ -117,5 +121,19 @@ class CulturesController extends AbstractController
             $this->addFlash('success','Culture supprimé avec succès');
         }
         return $this->redirectToRoute('ilots.show', ['id' => $culture->getIlot()->getId()]);
+    }
+
+    /**
+     * @Route("cultures/synthese/{id}", name="cultures.synthese")
+     * @param Cultures $culture
+     * @param InterventionsRepository $interventions
+     * @return Response
+     */
+    public function synthese(Cultures $culture, InterventionsRepository $interventions): Response
+    {
+        return $this->render('cultures/synthese.html.twig', [
+            'culture' => $culture,
+            'interventions' => $interventions
+        ]);
     }
 }

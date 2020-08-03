@@ -5,6 +5,7 @@ use App\Entity\Analyse;
 use App\Form\AnalyseType;
 use App\Repository\AnalyseRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ class AnalyseController extends AbstractController
      */
     private $em;
 
-    public function __construct(ObjectManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
@@ -30,7 +31,7 @@ class AnalyseController extends AbstractController
 
     public function index(AnalyseRepository $analyseRepository): Response
     {
-        $analyses = $analyseRepository->findByUser( $this->getUser() );
+        $analyses = $analyseRepository->findByExploitation( $this->getUser()->getExploitation() );
         return $this->render('exploitation/analyse/index.html.twig', [
             'analyses' => $analyses
         ]);

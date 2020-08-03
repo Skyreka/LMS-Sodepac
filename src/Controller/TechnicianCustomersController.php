@@ -7,6 +7,7 @@ use App\Entity\Exploitation;
 use App\Entity\Ilots;
 use App\Entity\Users;
 use App\Form\ExploitationType;
+use App\Form\PasswordType;
 use App\Form\TechnicianCustomersType;
 use App\Form\UserType;
 use App\Repository\AnalyseRepository;
@@ -21,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 use Zumba\JsonSerializer\JsonSerializer;
 
@@ -66,7 +68,7 @@ class TechnicianCustomersController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //: Setters
-            $user->setTechnician( $this->getUser()->getId() );
+            $user->setTechnician( $this->getUser() );
             $user->setStatus( 'ROLE_USER' );
 
             //: Update
@@ -74,7 +76,8 @@ class TechnicianCustomersController extends AbstractController
             $this->em->flush();
 
             //Send Email to user
-            $link = 'http://127.0.0.1:8000/active_user/'.$user->getId();
+            $pathInfo = '/active_user/'.$user->getId();
+            $link = $request->getUriForPath($pathInfo);
             $message = (new \Swift_Message('Votre compte LMS Sodepac est maintenant disponible.'))
                 ->setFrom('send@example.com')
                 ->setTo( $user->getEmail() )
@@ -124,11 +127,37 @@ class TechnicianCustomersController extends AbstractController
     }
 
     /**
-     * @Route("technician/customers/new/exploitation/{id}", name="technician.customers.new.exploitation")
+     * @Route("technician/customers/password/{id}", name="technician.customers.password")
      * @param Users $user
      * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
+    public function password(Users $user, Request $request, UserPasswordEncoderInterface $encoder): Response
+    {
+        $form = $this->createForm( PasswordType::class, $user);
+        $form->handleRequest( $request );
+
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $user->setPassword( $encoder->encodePassword($user, $form['password']->getData()));
+            $user->setReset(1);
+            $this->em->flush();
+            $this->addFlash('success', 'Mot de passe du client modifié avec succès');
+            return $this->redirectToRoute('technician.customers.index');
+        }
+
+        return $this->render('technician/customers/password.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+ * @Route("technician/customers/new/exploitation/{id}", name="technician.customers.new.exploitation")
+ * @param Users $user
+ * @param Request $request
+ * @return Response
+ */
     public function newExploitation(Users $user, Request $request): Response
     {
         $exploitation = new Exploitation();
@@ -140,10 +169,34 @@ class TechnicianCustomersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist( $exploitation );
             $this->em->flush();
-            $this->redirectToRoute( 'technician.customers.index' );
+            $this->addFlash('success', 'Ajout d\'une exploitation avec succès');
+            return $this->redirectToRoute( 'technician.customers.index' );
         }
 
         return $this->render('technician/customers/exploitation.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("technician/customers/edit/exploitation/{id}", name="technician.customers.edit.exploitation")
+     * @param Exploitation $exploitation
+     * @param Request $request
+     * @return Response
+     */
+    public function editExploitation(Exploitation $exploitation, Request $request): Response
+    {
+        $form = $this->createForm(ExploitationType::class, $exploitation);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist( $exploitation );
+            $this->em->flush();
+            $this->addFlash('success', 'Exploitation modifiée avec succès');
+            return $this->redirectToRoute( 'technician.customers.index' );
+        }
+
+        return $this->render('technician/customers/size.html.twig', [
             'form' => $form->createView()
         ]);
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr-FR">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,13 +7,12 @@
         <meta name="description" content="">
         <meta name="author" content="Skyreka">
         <title>{% block title %}Page{% endblock %} - LMS Sodepac</title>
-        <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/colors/green-dark.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/colors/green.css') }}" id="theme" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
-    <body class="fix-header fix-sidebar card-no-border logo-center">
-
+    <body class="fix-header card-no-border logo-center">
         <div id="main-wrapper">
             {% include('includes/header.html.twig') %}
             {% include('includes/navigation.html.twig') %}
@@ -21,14 +20,38 @@
                 {% block body %}{% endblock %}
                 {% include('includes/footer.html.twig') %}
             </div>
+            {% block modals %}{% endblock %}
         </div>
-        <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('plugins/popper/popper.min.js') }}"></script>
-        <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
-        <script src="{{ asset('js/sidebarmenu.js') }}"></script>
-        <script src="{{ asset('js/waves.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <!-- Bootstrap Js -->
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <!--  Slimscroll -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
         {% block javascripts %}{% endblock %}
-        <script src="{{ asset('js/custom.min.js') }}"></script>
+        <!-- Waves -->
+        <script src="{{ asset('js/waves.js') }}"></script>
+        <!-- Font Awesome -->
+        <script src="https://use.fontawesome.com/e9e39eeedb.js"></script>
+        <!-- Sidebar -->
+        <script src="{{ asset('js/sidebarmenu.js') }}"></script>
+        <!-- App -->
+        <script src="{{ asset('js/sodepac.js') }}"></script>
+        <script>
+            $(".nav-toggler").click(function(){
+                $("body").toggleClass("show-sidebar")
+            })
+        </script>
+        <!-- Custom Page Script -->
+        <script>
+            $(function()
+            {
+                $('form').submit(function(){
+                    $("button", this)
+                        .attr('disabled', 'disabled');
+                    return true;
+                });
+            });
+        </script>
     </body>
 </html>

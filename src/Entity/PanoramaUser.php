@@ -29,7 +29,7 @@ class PanoramaUser
     private $panorama;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $display_at;
 
@@ -37,6 +37,12 @@ class PanoramaUser
      * @ORM\Column(type="boolean")
      */
     private $checked = 0;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="panoramas_sent")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sender;
 
     public function getId(): ?int
     {
@@ -87,6 +93,18 @@ class PanoramaUser
     public function setChecked(bool $checked): self
     {
         $this->checked = $checked;
+
+        return $this;
+    }
+
+    public function getSender(): ?Users
+    {
+        return $this->sender;
+    }
+
+    public function setSender(?Users $sender): self
+    {
+        $this->sender = $sender;
 
         return $this;
     }

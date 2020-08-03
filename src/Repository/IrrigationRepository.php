@@ -40,6 +40,100 @@ class IrrigationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @param $exploitation
+     * @param $year
+     * @param $type
+     * @param null $limit
+     * @return mixed
+     */
+    public function findByExploitationYearAndType( $exploitation, $year, $type, $limit = null )
+    {
+        $query = $this->createQueryBuilder('i')
+            ->andWhere('i.exploitation = :exp')
+            ->andWhere('i.type = :type')
+            ->andWhere('year(i.intervention_at) = :year')
+            ->setParameter('exp', $exploitation)
+            ->setParameter('type', $type)
+            ->setParameter('year', $year)
+            ->orderBy('i.intervention_at', 'ASC')
+        ;
+
+        if ($limit != NULL) {
+            $query = $query->setMaxResults( $limit );
+        }
+
+        return $query->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param $ilot
+     * @param $year
+     * @param $type
+     * @param null $limit
+     * @return mixed
+     */
+    public function findByIlotYearAndType( $ilot, $year, $type, $limit = null )
+    {
+        $query = $this->createQueryBuilder('i')
+            ->andWhere('i.ilot = :ilot')
+            ->andWhere('i.type = :type')
+            ->andWhere('year(i.intervention_at) = :year')
+            ->setParameter('ilot', $ilot)
+            ->setParameter('type', $type)
+            ->setParameter('year', $year)
+            ->orderBy('i.intervention_at', 'ASC')
+        ;
+
+        if ($limit != NULL) {
+            $query = $query->setMaxResults( $limit );
+        }
+
+        return $query->getQuery()
+            ->getResult();
+    }
+
+    public function countTotalOfYear( $exploitation, $year, $type )
+    {
+        //TODO: Catch ?
+        try {
+            $totalSize = $this->createQueryBuilder('i')
+                ->select('SUM(i.quantity)')
+                ->andWhere('i.exploitation = :exp')
+                ->andWhere('i.type = :type')
+                ->andWhere('year(i.intervention_at) = :year')
+                ->setParameter('exp', $exploitation)
+                ->setParameter('type', $type)
+                ->setParameter('year', $year)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
+        return $totalSize;
+    }
+
+    public function countTotalOfYearOnIlot( $ilot, $year, $type )
+    {
+        //TODO: Catch ?
+        try {
+            $totalSize = $this->createQueryBuilder('i')
+                ->select('SUM(i.quantity)')
+                ->andWhere('i.ilot = :ilot')
+                ->andWhere('i.type = :type')
+                ->andWhere('year(i.intervention_at) = :year')
+                ->setParameter('ilot', $ilot)
+                ->setParameter('type', $type)
+                ->setParameter('year', $year)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
+        return $totalSize;
+    }
+
     // /**
     //  * @return Irrigation[] Returns an array of Irrigation objects
     //  */

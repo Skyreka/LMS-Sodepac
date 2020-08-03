@@ -21,6 +21,13 @@ class Users implements UserInterface, \Serializable
         'ROLE_ADMIN' => 'Administrateur'
     ];
 
+    const PACK = [
+        'DISABLE' => 'Inactif',
+        'PACK_DEMO' => 'Pack DEMO',
+        'PACK_LIGHT' => 'Pack LIGHT',
+        'PACK_FULL' => 'Pack FULL'
+    ];
+
     const ISACTIVE = [
         1 => 'Activé',
         2 => 'En attente'
@@ -34,17 +41,17 @@ class Users implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=80)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $lastname;
 
@@ -84,11 +91,6 @@ class Users implements UserInterface, \Serializable
     private $certification_phyto;
 
     /**
-     * @ORM\Column(type="string", length=11, nullable=true)
-     */
-    private $technician;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Exploitation", mappedBy="users", cascade={"persist", "remove"})
      */
     private $exploitation;
@@ -103,10 +105,37 @@ class Users implements UserInterface, \Serializable
      */
     private $panoramas;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users")
+     */
+    private $technician;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaUser", mappedBy="sender")
+     */
+    private $panoramas_sent;
+
+    /**
+     * @ORM\Column(type="string", length=30, nullable=true)
+     */
+    private $pack = 'DISABLE';
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $reset = 0;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Tickets::class, mappedBy="technician", orphanRemoval=true)
+     */
+    private $tickets;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
         $this->panoramas = new ArrayCollection();
+        $this->panoramas_sent = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,7 +193,7 @@ class Users implements UserInterface, \Serializable
 
     public function getIdentity(): ?string
     {
-        return $this->getFirstname().''.$this->getLastname();
+        return $this->getLastname().' '.$this->getFirstname();
     }
 
     public function getCity(): ?string
@@ -191,26 +220,17 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus( $return = false ): ?string
     {
+        if ($return) {
+            return self::STATUS[$this->status];
+        }
         return $this->status;
     }
 
     public function setStatus(string $status): self
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    public function getTechnician(): ?string
-    {
-        return $this->technician;
-    }
-
-    public function setTechnician($technician): self
-    {
-        $this->technician = $technician;
 
         return $this;
     }
@@ -384,6 +404,107 @@ class Users implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($panorama->getCustomers() === $this) {
                 $panorama->setCustomers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTechnician(): ?self
+    {
+        return $this->technician;
+    }
+
+    public function setTechnician(?self $technician): self
+    {
+        $this->technician = $technician;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PanoramaUser[]
+     */
+    public function getPanoramasSent(): Collection
+    {
+        return $this->panoramas_sent;
+    }
+
+    public function addPanoramasSent(PanoramaUser $panoramasSent): self
+    {
+        if (!$this->panoramas_sent->contains($panoramasSent)) {
+            $this->panoramas_sent[] = $panoramasSent;
+            $panoramasSent->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanoramasSent(PanoramaUser $panoramasSent): self
+    {
+        if ($this->panoramas_sent->contains($panoramasSent)) {
+            $this->panoramas_sent->removeElement($panoramasSent);
+            // set the owning side to null (unless already changed)
+            if ($panoramasSent->getSender() === $this) {
+                $panoramasSent->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPack( $return = false ): ?string
+    {
+        if ($return) {
+            return self::PACK[$this->pack];
+        }
+        return $this->pack;
+    }
+
+    public function setPack(?string $pack): self
+    {
+        $this->pack = $pack;
+
+        return $this;
+    }
+
+    public function getReset(): ?bool
+    {
+        return $this->reset;
+    }
+
+    public function setReset(bool $Reset): self
+    {
+        $this->reset = $Reset;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tickets[]
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Tickets $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setTechnician($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Tickets $ticket): self
+    {
+        if ($this->tickets->contains($ticket)) {
+            $this->tickets->removeElement($ticket);
+            // set the owning side to null (unless already changed)
+            if ($ticket->getTechnician() === $this) {
+                $ticket->setTechnician(null);
             }
         }
 

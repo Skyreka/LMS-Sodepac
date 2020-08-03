@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recommandation{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Recommandations</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">Recommandation</li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{{ path('recommendations.select') }}" class="btn btn-block btn-success">Nouvelle recommandation</a>
+                        <a href="{{ path('recommendations.archive') }}" class="btn btn-block btn-warning">Archive</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

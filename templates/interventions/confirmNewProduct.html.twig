@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation Ajout d'un produit{% endblock %}
+
+{% block stylesheets %}
+    <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Confirmation Ajout d'un produit</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Intervention</a></li>
+                    <li class="breadcrumb-item active">Confirmation Ajout Produit</li>
+                </ol>
+            </div>
+        </div>
+        {% if app.session.get('listCulture') %}
+            <div class="alert alert-warning">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées</div>
+        {% endif %}
+        <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant le site officiel <a href="https://ephy.anses.fr" target="_blank">ephy.anses.fr</a></a></div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Produit en attente</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mt-3">
+                            <h4 class="card-title mt-2"> {{ lastInterventionProducts.product.name }}</h4>
+                            {% for riskPhase in lastInterventionProducts.product.riskPhases %}
+                                <h6 class="card-subtitle"><small>{{ riskPhase.shortWording }} - {{ riskPhase.longWording }}</small></h6>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center mt-3">
+                            <h4 class="card-title mt-2">Confirmation de l'ajout du product </h4>
+                            {% if loop == 1  %}
+                                <a href="{{ path('interventions.phyto.product', {id: intervention.id}) }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
+                            {% else %}
+                                <a href="{{ path('login.success') }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
+                            {% endif %}
+                            <form method="POST" action="{{ path('interventions.phyto.product.delete', {interventionsProducts: lastInterventionProducts.id}) }}" style="display: inline-block">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ lastInterventionProducts.id) }}">
+                                <button class="btn btn-block btn-danger">Annuler le mélange</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Produits ajoutés</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mt-3">
+                            <h4 class="card-title mt-2">{{ intervention.product.name }}</h4>
+                            {% for riskPhase in intervention.product.riskPhases %}
+                                <h6 class="card-subtitle"><small>{{ riskPhase.shortWording }} - {{ riskPhase.longWording }}</small></h6>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% for interventionProduct in interventionProducts %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center mt-3">
+                                <h4 class="card-title mt-2"> {{ interventionProduct.product.name }}</h4>
+                                {% for riskPhase in interventionProduct.product.riskPhases %}
+                                    <h6 class="card-subtitle"><small>{{ riskPhase.shortWording }} - {{ riskPhase.longWording }}</small></h6>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Mélange interdit</h4>
+                    </div>
+                    <div class="card-body collapse show">
+                        <img src="{{ asset('images/Mélange_interdit_V2.jpg') }}" alt="img" class="img-fluid float-right">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).on('change', '#intervention_add_product_productInStock', function () {
+            let $field = $(this);
+            let $form = $field.closest('form');
+            let data = {};
+            data[$field.attr('name')] = $field.val();
+            $.post($form.attr('action'), data).then(function (data) {
+                let $input = $(data).find('#intervention_add_product_doses');
+                $('#intervention_add_product_doses').replaceWith($input)
+            })
+        })
+        $(document).on('change', '#intervention_add_product_doses', function () {
+            let $field = $(this)
+            let $product = $('#intervention_add_product_productInStock');
+            let form = $field.closest('form');
+            let data = {}
+            data[$product.attr('name')] =  $product.val();
+            data[$field.attr('name')] =  $field.val();
+            $.post(form.attr('action'), data).then(function (data) {
+                let input = $(data).find('form');
+                $(form).replaceWith( input )
+            })
+        })
+    </script>
+{% endblock %}

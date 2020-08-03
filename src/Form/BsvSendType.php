@@ -23,6 +23,16 @@ class BsvSendType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('cultures', EntityType::class, [
+                'class' => IndexCultures::class,
+                'choice_label' => 'name',
+                'mapped' => false,
+                'required' => false,
+                'placeholder' => 'Sélectionnez une culture',
+                'attr' => [
+                    'class' => 'select2'
+                ]
+            ])
             ->add('display_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
@@ -34,13 +44,6 @@ class BsvSendType extends AbstractType
                 ],
                 'label' => 'Date d\'envoi',
                 'help' => 'Remplir uniquement en cas d\'envoi différé.'
-            ])
-            ->add('cultures', EntityType::class, [
-                'class' => IndexCultures::class,
-                'choice_label' => 'name',
-                'mapped' => false,
-                'required' => false,
-                'placeholder' => 'Sélectionnez une culture'
             ])
         ;
 
@@ -55,7 +58,6 @@ class BsvSendType extends AbstractType
         $builder->addEventListener(
             FormEvents::POST_SET_DATA,
             function (FormEvent $event) {
-                $data = $event->getData();
                 $form = $event->getForm();
                 $this->addUserField( $form, null );
             }
@@ -80,7 +82,7 @@ class BsvSendType extends AbstractType
             $form->add('user', EntityType::class, [
                 'class' => Users::class,
                 'choice_label' => function(Users $user) {
-                    return $user->getFirstname() . ' ' . $user->getLastname();
+                    return $user->getIdentity();
                 },
                 'query_builder' => function (UsersRepository $er) use ( $indexCultures ) {
                     return $er->createQueryBuilder('u')

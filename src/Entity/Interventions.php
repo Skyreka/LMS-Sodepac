@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "recolte" = "Recolte",
  *     "binage" = "Binage",
  *     "labour" = "Labour",
- *     "fumure" = "Fumure",
+ *     "fertilisant" = "Fertilisant",
  *     "phyto" = "Phyto",
  *     "epandange" = "Epandage",
  *     "semis" = "Semis"
@@ -21,6 +22,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 abstract class Interventions
 {
+    public function __construct()
+    {
+        $this->intervention_at = new \DateTime();
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -113,7 +119,29 @@ abstract class Interventions
  */
 class Recolte extends Interventions
 {
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $rendement;
 
+    /**
+     * @return mixed
+     */
+    public function getRendement()
+    {
+        return $this->rendement;
+    }
+
+    /**
+     * @param mixed $quantity
+     * @return Recolte
+     */
+    public function setRendement($quantity): self
+    {
+        $this->rendement = $quantity;
+
+        return $this;
+    }
 }
 /**
  * @ORM\Entity()
@@ -278,14 +306,61 @@ class Semis extends Interventions
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="int_fumure")
+ * @ORM\Table(name="int_fertilisant")
  */
-class Fumure extends Interventions
+class Fertilisant extends Interventions
 {
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $n;
+
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $p;
+
+    /**
+     * @return mixed
+     */
+    public function getP()
+    {
+        return $this->p;
+    }
+
+    /**
+     * @param mixed $p
+     */
+    public function setP($p): void
+    {
+        $this->p = $p;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getK()
+    {
+        return $this->k;
+    }
+
+    /**
+     * @param mixed $k
+     */
+    public function setK($k): void
+    {
+        $this->k = $k;
+    }
+
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $k;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Products")
@@ -365,6 +440,22 @@ class Fumure extends Interventions
     {
         $this->reliquat = $reliquat;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getN()
+    {
+        return $this->n;
+    }
+
+    /**
+     * @param mixed $n
+     */
+    public function setN($n): void
+    {
+        $this->n = $n;
+    }
 }
 
 /**
@@ -384,14 +475,45 @@ class Phyto extends Interventions
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Products")
-     */
-    private $adjuvant;
-
-    /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
-    private $adjuvant_quantity;
+    private $dose = 0;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\InterventionsProducts", mappedBy="intervention")
+     */
+    private $interventionsProducts;
+
+    /**
+     * Function to get IFT
+     * @return string
+     */
+    public function getIft()
+    {
+        $doseApplique = $this->getQuantity() / $this->getCulture()->getSize();
+        $doseHomologue = $this->getDose();
+        $surfaceTraite = $this->getCulture()->getRealSize();
+        $surfaceTotal = $this->getCulture()->getSize();
+
+        //-- Display only if have all value
+        if ($doseApplique != null &&
+            $doseHomologue != null &&
+            $surfaceTraite != null &&
+            $surfaceTotal != null) {
+            $result = ( $doseApplique / $doseHomologue) * ($surfaceTraite / $surfaceTotal);
+            return $result;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * @return Collection|InterventionsProducts[]
+     */
+    public function getInterventionsProducts(): Collection
+    {
+        return $this->interventionsProducts;
+    }
 
     /**
      * @return mixed
@@ -444,32 +566,16 @@ class Phyto extends Interventions
     /**
      * @return mixed
      */
-    public function getAdjuvant()
+    public function getDose()
     {
-        return $this->adjuvant;
+        return $this->dose;
     }
 
     /**
-     * @param mixed $adjuvant
+     * @param mixed $dose
      */
-    public function setAdjuvant($adjuvant): void
+    public function setDose($dose): void
     {
-        $this->adjuvant = $adjuvant;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAdjuvantQuantity(): ?self
-    {
-        return $this->adjuvant_quantity;
-    }
-
-    /**
-     * @param $adjuvant_quantity
-     */
-    public function setAdjuvantQuantity($adjuvant_quantity): void
-    {
-        $this->adjuvant_quantity = $adjuvant_quantity;
+        $this->dose = $dose;
     }
 }

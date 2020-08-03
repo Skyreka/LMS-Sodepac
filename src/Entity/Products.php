@@ -28,9 +28,30 @@ class Products
      */
     private $stocks;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RiskPhase", mappedBy="product")
+     */
+    private $riskPhases;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $private = 0;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
+        $this->riskPhases = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,5 +105,72 @@ class Products
     public function __toString():string
     {
         return $this->getId();
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?string $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RiskPhase[]
+     */
+    public function getRiskPhases(): Collection
+    {
+        return $this->riskPhases;
+    }
+
+    public function addRiskPhase(RiskPhase $riskPhase): self
+    {
+        if (!$this->riskPhases->contains($riskPhase)) {
+            $this->riskPhases[] = $riskPhase;
+            $riskPhase->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRiskPhase(RiskPhase $riskPhase): self
+    {
+        if ($this->riskPhases->contains($riskPhase)) {
+            $this->riskPhases->removeElement($riskPhase);
+            // set the owning side to null (unless already changed)
+            if ($riskPhase->getProduct() === $this) {
+                $riskPhase->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPrivate(): ?bool
+    {
+        return $this->private;
+    }
+
+    public function setPrivate(bool $private): self
+    {
+        $this->private = $private;
+
+        return $this;
     }
 }

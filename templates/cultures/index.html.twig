@@ -6,10 +6,10 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Vos Cultures</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Sodepac</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Cultures</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">Cultures</li>
                 </ol>
             </div>
         </div>
@@ -17,31 +17,9 @@
             <div class="alert alert-success">{{ message }}</div>
         {% endfor %}
         <div class="row">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body little-profile text-center">
-                        <h3 class="m-b-0">{{ app.user.firstname }} {{ app.user.lastname }}</h3>
-                        <div class="row text-center m-t-20">
-                            <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">1099</h3><small>Ilots</small>
-                            </div>
-                            <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">23,469</h3><small>Cultures</small>
-                            </div>
-                            <div class="col-lg-4 col-md-4 m-t-20">
-                                <h3 class="m-b-0 font-light">{{ app.user.exploitation.size }} ha</h3><small>Exploitation</small>
-                            </div>
-                            <div class="col-md-12 m-b-10"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex no-block">
-                            <h4 class="card-title">Vos Cultures</h4>
-                        </div>
                         <div class="table-responsive m-t-20">
                             <table class="table stylish-table">
                                 <tbody>
@@ -52,7 +30,6 @@
                                                 <h6>{{ culture.name}}</h6>
                                             </a>
                                         </td>
-                                        </a>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

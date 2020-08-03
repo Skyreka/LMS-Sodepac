@@ -75,6 +75,16 @@ class Cultures
      */
     private $interventions;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $status = 0;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $permanent;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
@@ -109,12 +119,12 @@ class Cultures
         return $this;
     }
 
-    public function getSize(): ?int
+    public function getSize(): ?float
     {
         return $this->size;
     }
 
-    public function setSize(int $size): self
+    public function setSize(float $size): self
     {
         $this->size = $size;
 
@@ -193,6 +203,11 @@ class Cultures
         return $this;
     }
 
+    public function getRealSize()
+    {
+        return $this->getSize() * $this->getZnt();
+    }
+
     public function getZnt(): ?float
     {
         return $this->znt;
@@ -241,5 +256,29 @@ class Cultures
         return serialize([
             $this->id
         ]);
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPermanent(): ?bool
+    {
+        return $this->permanent;
+    }
+
+    public function setPermanent(?bool $permanent): self
+    {
+        $this->permanent = $permanent;
+
+        return $this;
     }
 }

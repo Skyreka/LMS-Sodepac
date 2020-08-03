@@ -3,12 +3,16 @@ namespace App\Controller;
 
 use App\Entity\IndexCultures;
 use App\Entity\IndexEffluents;
+use App\Entity\IndexGrounds;
 use App\Form\IndexCulturesType;
 use App\Form\IndexEffluentsType;
+use App\Form\IndexGroundsType;
 use App\Repository\EffluentsRepository;
 use App\Repository\IndexCulturesRepository;
 use App\Repository\IndexEffluentsRepository;
+use App\Repository\IndexGroundsRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +26,7 @@ class IndexsController extends AbstractController
      */
     private $em;
 
-    public function __construct(ObjectManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
@@ -31,15 +35,18 @@ class IndexsController extends AbstractController
      * @Route("/admin/indexs", name="indexs.index")
      * @param IndexCulturesRepository $icr
      * @param IndexEffluentsRepository $ier
+     * @param IndexGroundsRepository $igr
      * @return Response
      */
-    public function index( IndexCulturesRepository $icr, IndexEffluentsRepository $ier): Response
+    public function index( IndexCulturesRepository $icr, IndexEffluentsRepository $ier, IndexGroundsRepository $igr): Response
     {
         $cultures = $icr->findAll();
         $effluents = $ier->findAll();
+        $grounds = $igr->findAll();
         return $this->render('indexs/index.html.twig', [
             'cultures' => $cultures,
-            'effluents' => $effluents
+            'effluents' => $effluents,
+            'grounds' => $grounds
         ]);
     }
 
@@ -62,6 +69,33 @@ class IndexsController extends AbstractController
         }
 
         return $this->render( 'indexs/cultures/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/indexs/grounds/new", name="indexs.grounds.new")
+     * @param Request $request
+     * @return Response
+     */
+    public function newGrounds(Request $request): Response
+    {
+        $indexGrounds = new IndexGrounds();
+        $slugify = new Slugifier();
+        $form = $this->createForm( IndexGroundsType::class, $indexGrounds);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $indexGrounds->setSlug( $slugify->slugify( $form->getData()->getName() ) );
+            $this->em->persist( $indexGrounds );
+            $this->em->flush();
+
+            $this->addFlash('success', 'Type de sol crée avec succès');
+
+            return $this->redirectToRoute('indexs.index');
+        }
+
+        return $this->render( 'indexs/grounds/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
