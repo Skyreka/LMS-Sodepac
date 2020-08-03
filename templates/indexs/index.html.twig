@@ -32,6 +32,7 @@
                                 <tr>
                                     <th>Nom</th>
                                     <th>Permanent</th>
+                                    <th>Canevas</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,6 +43,13 @@
                                         </td>
                                         <td>
                                             {% if culture.permanent == 1 %}
+                                                <span class="badge badge-success">Oui</span>
+                                            {% else %}
+                                                <span class="badge badge-danger">Non</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if culture.canevas == 1 %}
                                                 <span class="badge badge-success">Oui</span>
                                             {% else %}
                                                 <span class="badge badge-danger">Non</span>
