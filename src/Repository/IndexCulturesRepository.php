@@ -45,7 +45,7 @@ class IndexCulturesRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('q')
             ->where('q.canevas = :exp')
-            ->orderBy('q.name', 'DESC')
+            ->orderBy('q.name', 'ASC')
             ->setParameter('exp', 1)
         ;
 
