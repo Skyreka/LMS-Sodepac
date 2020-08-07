@@ -46,7 +46,12 @@
                                     <tr>
                                         <td>
                                             <a href="{{ path('view.user.index', {id: customer.id}) }}">
-                                                <h6>{{ customer.firstname }} {{ customer.lastname }}</h6><small class="text-muted">{{ customer.email }}</small>
+                                                <h6>{{ customer.firstname }} {{ customer.lastname }}</h6>
+                                                {% if customer.email != null %}
+                                                    <small class="text-muted">{{ customer.email }}</small>
+                                                {% else %}
+                                                    <span class="badge badge-danger">Pas de mail</span>
+                                                {% endif %}
                                             </a>
                                         </td>
                                         <td>
