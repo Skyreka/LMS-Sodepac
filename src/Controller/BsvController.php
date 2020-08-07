@@ -118,7 +118,7 @@ class BsvController extends AbstractController
             $this->em->flush();
 
 
-            $this->addFlash('success', 'BSV crée avec succès');
+            $this->addFlash('success', 'Flash crée avec succès');
 
             return $this->redirectToRoute('admin.bsv.index');
         }
@@ -190,7 +190,7 @@ class BsvController extends AbstractController
                 $bsv->setThirdFile($newFilename);
             }
             $this->em->flush();
-            $this->addFlash('success', 'BSV modifié avec succès');
+            $this->addFlash('success', 'Flash modifié avec succès');
             return $this->redirectToRoute('admin.bsv.index');
         }
 
@@ -236,7 +236,7 @@ class BsvController extends AbstractController
                 }
             }
             $this->em->flush();
-            $this->addFlash('success', 'BSV envoyé avec succès');
+            $this->addFlash('success', 'Flash envoyé avec succès');
             return $this->redirectToRoute('admin.bsv.index');
         }
 
@@ -257,7 +257,7 @@ class BsvController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $bsv->getId(), $request->get('_token'))) {
             $bsv->setArchive(1);
             $this->em->flush();
-            $this->addFlash('success', 'BSV supprimé avec succès');
+            $this->addFlash('success', 'Flash supprimé avec succès');
         }
 
         return $this->redirectToRoute('admin.bsv.index');
