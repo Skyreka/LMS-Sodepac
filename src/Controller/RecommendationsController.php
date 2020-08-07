@@ -453,7 +453,7 @@ class RecommendationsController extends AbstractController
                 'printRequest' => true
             ]);
             $canevasPage->loadHtml( $html->getContent() );
-            $canevasPage->setPaper('A3', 'landscape');
+            $canevasPage->setPaper('A2', 'landscape');
             $canevasPage->render();
             $outputFirstFile = $canevasPage->output();
             file_put_contents( '../public/uploads/recommendations/'.$token.'/2.pdf', $outputFirstFile);
