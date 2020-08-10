@@ -26,12 +26,14 @@ class HomeController extends AbstractController {
     public function homeTechnicians( UsersRepository $ur, PanoramasRepository $pr, BsvUsersRepository $bur)
     {
         $customers = $ur->findAllCustomersOfTechnician( $this->getUser()->getId(), 10 );
+        $customersCount = count($ur->findAllCustomersOfTechnician( $this->getUser()->getId() ));
         $panoramas = $pr->findAllNotDeleted(3);
         $bsvs = $bur->findAllByTechnician($this->getUser()->getId(), 3);
         return $this->render('technician/home.html.twig', [
             'customers' => $customers,
             'panoramas' => $panoramas,
-            'bsvs' => $bsvs
+            'bsvs' => $bsvs,
+            'customersCount' => $customersCount
         ]);
     }
 
