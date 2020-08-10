@@ -131,12 +131,14 @@ class PhytoInterventionType extends AbstractType
             // Get Total Quantity
             $unitEnable = ['kg/ha', 'L/ha'];
             if (in_array($dose->getUnit(), $unitEnable)) {
-                $totalQuantity = 'Valeur calculée: '. $dose->getDose() * $znt * $options['culture']->getSize();
+
                 // multiple intervention
                 if ( $options['totalSizeMultipleIntervention'] != NULL) {
                     $size = $options['totalSizeMultipleIntervention'];
+                    $totalQuantity = 'Valeur calculée: '. $dose->getDose() * $znt * $options['totalSizeMultipleIntervention'];
                 } else {
                     $size = $options['culture']->getSize();
+                    $totalQuantity = 'Valeur calculée: '. $dose->getDose() * $znt * $options['culture']->getSize();
                 }
                 $resultMessage = 'Résultat de la dose préconisé : '.$dose->getDose().' * '.$size.'ha Taille de la culture en Ha';
             } else {
