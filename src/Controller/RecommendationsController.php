@@ -453,7 +453,7 @@ class RecommendationsController extends AbstractController
                 'printRequest' => true
             ]);
             $canevasPage->loadHtml( $html->getContent() );
-            $canevasPage->setPaper('A3', 'landscape');
+            $canevasPage->setPaper('A2', 'landscape');
             $canevasPage->render();
             $outputFirstFile = $canevasPage->output();
             file_put_contents( '../public/uploads/recommendations/'.$token.'/2.pdf', $outputFirstFile);
@@ -519,7 +519,7 @@ class RecommendationsController extends AbstractController
             ]);
         } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
             return $this->render('recommendations/archive.html.twig', [
-                'recommendations' => $rr->findAll()
+                'recommendations' => $rr->findAllByYear()
             ]);
         } else {
             return $this->render('recommendations/archive.html.twig', [

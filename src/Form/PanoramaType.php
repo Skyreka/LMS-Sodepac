@@ -66,6 +66,7 @@ class PanoramaType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Panoramas::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

@@ -64,6 +64,27 @@ class UsersRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllUsersAndTechnician( $limit = NULL )
+    {
+        $req = $this->createQueryBuilder('u')
+            ->Where('u.status = :user')
+            ->orWhere('u.status = :tech')
+            ->setParameter('user', 'ROLE_USER')
+            ->setParameter('tech', 'ROLE_TECHNICIAN')
+            ->orderBy('u.id', 'ASC')
+        ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
+    /**
      * @param $pack
      * @param null $limit
      * @return mixed

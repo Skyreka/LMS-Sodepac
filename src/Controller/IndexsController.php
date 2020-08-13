@@ -66,6 +66,9 @@ class IndexsController extends AbstractController
             $indexCultures->setSlug( $slugify->slugify( $form->getData()->getName() ) );
             $this->em->persist( $indexCultures );
             $this->em->flush();
+            $this->addFlash('success', 'Culture créee avec succès');
+
+            return $this->redirectToRoute('indexs.index');
         }
 
         return $this->render( 'indexs/cultures/new.html.twig', [
