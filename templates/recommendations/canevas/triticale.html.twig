@@ -198,22 +198,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="alert alert-success">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </div>
+                {% if printRequest == false %}
+                    <div class="alert alert-success">SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </div>
+                {% endif %}
             </div>
         </div>
     </div>
-    <div id="right-sidebar" class="right-sidebar">
-        <div class="slimscrollright">
-            <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
-            </div>
-            <div class="r-panel-body">
-                <a href="{{ path('recommendations.synthese.products', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
-                <ul class="mt-2" id="products_list">
-                </ul>
-            </div>
+    {% if printRequest == false %}
+        <div id="right-sidebar" class="right-sidebar">
+            <div class="slimscrollright">
+                <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
+                </div>
+                <div class="r-panel-body">
+                    <a href="{{ path('recommendations.synthese.products', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
+                    <ul class="mt-2" id="products_list">
+                    </ul>
+                </div>
 
+            </div>
         </div>
-    </div>
+{% endif %}
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('plugins/toast/toast.js') }}"></script>
