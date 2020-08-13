@@ -18,7 +18,7 @@ class RecolteType extends AbstractType
         $builder
             ->add('comment')
             ->add('rendement', NumberType::class, [
-                'help' => 'Non obligatoire',
+                'help' => 'Quintaux/hectare',
                 'required' => false
             ])
             ->add('intervention_at', DateType::class, [
