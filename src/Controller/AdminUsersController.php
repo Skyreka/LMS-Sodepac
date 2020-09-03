@@ -114,7 +114,6 @@ class AdminUsersController extends AbstractController {
                 )
             ;
             $mail = $mailer->send($message);
-            dump ($mail );
             $this->addFlash('success', 'Utilisateur crée avec succès');
             return $this->redirectToRoute('admin.users.index');
         }
