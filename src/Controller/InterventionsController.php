@@ -371,9 +371,9 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             //-- Redirect to add new product if checkbox is checked
-            if ( $data['addProduct']->getData() ) {
+            /*if ( $data['addProduct']->getData() ) {
                 return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
-            }
+            }*/
             //-- Or redirect to culture
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
         }
@@ -425,13 +425,13 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Nouveau produit ajouté avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             //-- Redirect to add new product if checkbox is checked
-            if ( $data['addProduct']->getData() ) {
+            /*if ( $data['addProduct']->getData() ) {
                 return $this->redirectToRoute('interventions.phyto.product.confirm', [
                     'intervention' => $intervention->getId(),
                     'interventionsProducts' => $interventionProduct->getId(),
                     'loop' => 1
                 ]);
-            }
+            }*/
             return $this->redirectToRoute('interventions.phyto.product.confirm', [
                 'intervention' => $intervention->getId(),
                 'interventionsProducts' => $interventionProduct->getId(),
