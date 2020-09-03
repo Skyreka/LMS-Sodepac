@@ -32,7 +32,9 @@ class UsersRepository extends ServiceEntityRepository
     {
         $req = $this->createQueryBuilder('u')
             ->andWhere('u.technician = :technician')
+            ->andWhere('u.status = :status')
             ->setParameter('technician', $idTechnician)
+            ->setParameter('status', 'ROLE_USER')
             ->orderBy('u.id', 'ASC')
             ;
 
