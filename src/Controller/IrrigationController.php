@@ -42,7 +42,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/irrigation/new", name="exploitation.irrigation.new")
+     * @Route("exploitation/irrigation/new/{type}", name="exploitation.irrigation.new")
      * @param Request $request
      * @return Response
      * @throws \Exception
@@ -56,6 +56,7 @@ class IrrigationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $irrigation->setExploitation( $this->getUser()->getExploitation() );
+            $irrigation->setType( $request->attributes->get('type'));
             $this->em->persist($irrigation);
             $this->em->flush();
 
