@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Cultures;
 use App\Entity\Interventions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Connection;
 
 /**

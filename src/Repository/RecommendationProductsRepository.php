@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method RecommendationProducts|null find($id, $lockMode = null, $lockVersion = null)
