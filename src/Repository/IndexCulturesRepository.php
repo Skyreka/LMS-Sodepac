@@ -59,6 +59,22 @@ class IndexCulturesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllAlpha( $result = NULL )
+    {
+        $query = $this->createQueryBuilder('i')
+            ->orderBy('i.name', 'ASC')
+        ;
+
+        //-- Only Query
+        if ($result) {
+            return $query;
+        }
+
+        //-- Return Array
+        return $query->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return IndexCultures[] Returns an array of IndexCultures objects
     //  */

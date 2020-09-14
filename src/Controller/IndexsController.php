@@ -40,7 +40,7 @@ class IndexsController extends AbstractController
      */
     public function index( IndexCulturesRepository $icr, IndexEffluentsRepository $ier, IndexGroundsRepository $igr): Response
     {
-        $cultures = $icr->findAll();
+        $cultures = $icr->findAllAlpha();
         $effluents = $ier->findAll();
         $grounds = $igr->findAll();
         return $this->render('indexs/index.html.twig', [
