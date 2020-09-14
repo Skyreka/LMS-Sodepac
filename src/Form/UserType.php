@@ -21,9 +21,6 @@ class UserType extends AbstractType
             ->add('email')
             ->add('phone')
             ->add('city')
-            ->add('status', ChoiceType::class, [
-                'choices' => $this->getStatus()
-            ])
             ->add('pack', ChoiceType::class, [
                 'choices' => $this->getPack()
             ])
