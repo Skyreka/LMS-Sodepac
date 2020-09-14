@@ -25,7 +25,8 @@ class Users implements UserInterface, \Serializable
         'DISABLE' => 'Inactif',
         'PACK_DEMO' => 'Pack DEMO',
         'PACK_LIGHT' => 'Pack LIGHT',
-        'PACK_FULL' => 'Pack FULL'
+        'PACK_FULL' => 'Pack FULL',
+        null => 'Aucun pack'
     ];
 
     const ISACTIVE = [
