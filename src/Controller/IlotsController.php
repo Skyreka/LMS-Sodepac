@@ -61,7 +61,7 @@ class IlotsController extends AbstractController
                 $this->em->persist($ilot);
                 $this->em->flush();
                 $this->addFlash('success', 'Ilot crée avec succès');
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('ilots.show', ['id' => $ilot->getId()]);
             }
 
             return $this->render('ilots/new.html.twig', [

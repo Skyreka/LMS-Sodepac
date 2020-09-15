@@ -24,7 +24,7 @@ class MixProducts
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Mix::class)
+     * @ORM\ManyToOne(targetEntity=Mix::class, inversedBy="mixProducts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $mix;

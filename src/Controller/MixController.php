@@ -58,7 +58,7 @@ class MixController extends AbstractController
             $mix->setUser( $this->getUser() );
             $this->em->persist( $mix );
             $this->em->flush();
-            return $this->redirectToRoute('mix.index');
+            return $this->redirectToRoute('mix.view', ['id' => $mix->getId()]);
         }
 
         return $this->render('mix/add.html.twig', [
