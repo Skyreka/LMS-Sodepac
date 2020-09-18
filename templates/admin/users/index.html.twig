@@ -55,7 +55,7 @@
                                                 {% if user.status == 'ROLE_USER'  %}
                                                     <h6>
                                                         {% if user.exploitation is null %}
-                                                            <h6>Aucune exploitation</h6>
+                                                            <a href="{{ path('admin.users.new.exploitation', {id: user.id}) }}">Ajouter une superficie</a>
                                                         {% else %}
                                                             <a href="{{ path('admin.users.edit.exploitation', {id: user.exploitation.id}) }}">
                                                                 <h6>{{ user.exploitation.size }} ha</h6>

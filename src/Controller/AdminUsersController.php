@@ -194,4 +194,31 @@ class AdminUsersController extends AbstractController {
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("admin/users/new/exploitation/{id}", name="admin.users.new.exploitation")
+     * @param Users $user
+     * @param Request $request
+     * @return Response
+     */
+    public function newExploitation(Users $user, Request $request): Response
+    {
+        $exploitation = new Exploitation();
+        $form = $this->createForm(ExploitationType::class, $exploitation);
+        $form->handleRequest( $request );
+
+        $exploitation->setUsers( $user );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist( $exploitation );
+            $this->em->flush();
+            $this->addFlash('success', 'Ajout d\'une exploitation avec succès');
+            return $this->redirectToRoute( 'admin.users.index' );
+        }
+
+        return $this->render('admin/users/exploitation.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 }
