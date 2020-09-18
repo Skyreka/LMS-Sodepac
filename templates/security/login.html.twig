@@ -25,10 +25,9 @@
                 <div class="login-box card">
                     <div class="card-body">
                         {% if error %}
-                            <div class="alert alert-danger">
-                                {{ error.message }}
-                            </div>
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                         {% endif %}
+
                         {% for message in app.flashes('danger') %}
                             <div class="alert alert-danger">{{ message }}</div>
                         {% endfor %}

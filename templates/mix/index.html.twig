@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des mélanges{% endblock %}
+
+{% block stylesheets %}
+    <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Liste de vos mélanges</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Mélanges</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <div class="ml-auto">
+                                <a href="{{ path('mix.add') }}" class="btn btn-success">Ajouter un mélange</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table" id="datatable">
+                                <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for mix in mixs %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('mix.view', {id: mix.id}) }}" class="btn waves-effect btn-block waves-light btn-success">
+                                                {{ mix.title }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ mix.createAt | date('d M Y H:i') }}
+                                        </td>
+                                        <td>
+                                            <form method="POST" action="{{ path('mix.delete', {id: mix.id}) }}" style="display: inline-block;margin-top: 10px;">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ mix.id) }}">
+                                                <button type="submit" class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

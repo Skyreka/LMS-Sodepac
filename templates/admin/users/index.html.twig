@@ -37,6 +37,7 @@
                                     <th>Exploitation</th>
                                     <th>Téléphone</th>
                                     <th>Ville</th>
+                                    <th>Pack</th>
                                     <th>Certification</th>
                                     <th>Technicien</th>
                                     <th>Actions</th>
@@ -67,6 +68,7 @@
                                             </td>
                                             <td>{{ user.phone }}</td>
                                             <td>{{ user.city }}</td>
+                                            <td>{{ user.pack( true ) }}</td>
                                             <td>{{ user.certificationPhyto }}</td>
                                             <td>
                                                 {% if user.status == 'ROLE_USER'  %}

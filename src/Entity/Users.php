@@ -25,7 +25,8 @@ class Users implements UserInterface, \Serializable
         'DISABLE' => 'Inactif',
         'PACK_DEMO' => 'Pack DEMO',
         'PACK_LIGHT' => 'Pack LIGHT',
-        'PACK_FULL' => 'Pack FULL'
+        'PACK_FULL' => 'Pack FULL',
+        null => 'Aucun pack'
     ];
 
     const ISACTIVE = [
@@ -130,12 +131,18 @@ class Users implements UserInterface, \Serializable
      */
     private $tickets;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Mix::class, mappedBy="user")
+     */
+    private $mixes;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
         $this->panoramas = new ArrayCollection();
         $this->panoramas_sent = new ArrayCollection();
         $this->tickets = new ArrayCollection();
+        $this->mixes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -505,6 +512,37 @@ class Users implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($ticket->getTechnician() === $this) {
                 $ticket->setTechnician(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mix[]
+     */
+    public function getMixes(): Collection
+    {
+        return $this->mixes;
+    }
+
+    public function addMix(Mix $mix): self
+    {
+        if (!$this->mixes->contains($mix)) {
+            $this->mixes[] = $mix;
+            $mix->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMix(Mix $mix): self
+    {
+        if ($this->mixes->contains($mix)) {
+            $this->mixes->removeElement($mix);
+            // set the owning side to null (unless already changed)
+            if ($mix->getUser() === $this) {
+                $mix->setUser(null);
             }
         }
 

@@ -7,6 +7,7 @@ use App\Repository\UsersRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,13 +17,30 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
-            ->add('phone')
-            ->add('city')
-            ->add('status', ChoiceType::class, [
-                'choices' => $this->getStatus()
+            ->add('firstname', TextType::class, [
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
+            ])
+            ->add('lastname', TextType::class, [
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
+            ])
+            ->add('email', TextType::class, [
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
+            ])
+            ->add('phone', TextType::class, [
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
+            ])
+            ->add('city', TextType::class, [
+                'attr' => [
+                    'autocomplete' => 'off'
+                ]
             ])
             ->add('pack', ChoiceType::class, [
                 'choices' => $this->getPack()

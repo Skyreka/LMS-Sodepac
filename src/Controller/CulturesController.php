@@ -70,7 +70,6 @@ class CulturesController extends AbstractController
      */
     public function show(Cultures $culture, InterventionsRepository $ir): Response
     {
-        dump( $this->container->get('session')->get('listCulture') );
         return $this->render('cultures/show.html.twig', [
             'culture' => $culture,
             'ir' => $ir
@@ -85,7 +84,6 @@ class CulturesController extends AbstractController
     public function index(IndexCulturesRepository $icr): Response
     {
         $cultures = $icr->findCulturesByExploitation( $this->getUser()->getExploitation() );
-        dump( $cultures );
         return $this->render('cultures/index.html.twig', [
             'cultures' => $cultures
         ]);
@@ -100,7 +98,6 @@ class CulturesController extends AbstractController
     public function showIlotsByCultures(IndexCultures $indexCulture, IlotsRepository $ir)
     {
         $ilots = $ir->findByIndexCulture( $indexCulture->getId(), $this->getUser()->getExploitation() );
-        dump( $ilots );
         return $this->render('cultures/showIlots.html.twig', [
             'indexCulture' => $indexCulture,
             'ilots' => $ilots

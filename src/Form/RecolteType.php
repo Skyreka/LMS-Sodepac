@@ -16,18 +16,9 @@ class RecolteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('comment')
             ->add('rendement', NumberType::class, [
                 'help' => 'Quintaux/hectare',
                 'required' => false
-            ])
-            ->add('intervention_at', DateType::class, [
-                'widget' => 'single_text',
-                'html5' => false,
-                'attr' => [
-                    'class' => 'js-datepicker',
-                    'value' => date('Y-m-d')
-                ]
             ])
         ;
     }

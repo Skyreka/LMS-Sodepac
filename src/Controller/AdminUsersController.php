@@ -87,7 +87,7 @@ class AdminUsersController extends AbstractController {
      * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function new(Request $request, \Swift_Mailer $mailer): Response
+    public function new(Request $request, \Swift_Mailer $mailer, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new Users();
         $form = $this->createForm(UserType::class, $user);
@@ -95,11 +95,13 @@ class AdminUsersController extends AbstractController {
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($user);
+            $user->setPassword( $encoder->encodePassword($user, '0000'));
+            $user->setStatus('ROLE_USER');
+            $user->setIsActive(1);
             $this->em->flush();
 
             //Send Email to user
-            $pathInfo = '/active_user/'.$user->getId();
-            $link = $request->getUriForPath($pathInfo);
+            $link = $request->getUriForPath('/login');
             $message = (new \Swift_Message('Votre compte LMS Sodepac est maintenant disponible.'))
                 ->setFrom('send@lms-sodepac.fr')
                 ->setTo( $user->getEmail() )
@@ -114,7 +116,6 @@ class AdminUsersController extends AbstractController {
                 )
             ;
             $mail = $mailer->send($message);
-            dump ($mail );
             $this->addFlash('success', 'Utilisateur crée avec succès');
             return $this->redirectToRoute('admin.users.index');
         }

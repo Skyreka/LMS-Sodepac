@@ -42,12 +42,27 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/irrigation/new", name="exploitation.irrigation.new")
+     * @Route("exploitation/irrigation/delete/{id}", name="irrigation.delete", methods="DELETE")
+     * @param Irrigation $irrigation
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Irrigation $irrigation, Request $request)
+    {
+        if ($this->isCsrfTokenValid('delete' . $irrigation->getId(), $request->get('_token' ))) {
+            $this->em->remove($irrigation);
+            $this->em->flush();
+            $this->addFlash('success', 'Irrigation supprimée avec succès');
+        }
+        return $this->redirectToRoute('exploitation.irrigation.index');
+    }
+
+    /**
+     * @Route("exploitation/irrigation/new/{type}", name="exploitation.irrigation.new")
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
-
     public function new(Request $request): Response
     {
         $irrigation  = new Irrigation();
@@ -56,6 +71,7 @@ class IrrigationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $irrigation->setExploitation( $this->getUser()->getExploitation() );
+            $irrigation->setType( $request->attributes->get('type'));
             $this->em->persist($irrigation);
             $this->em->flush();
 

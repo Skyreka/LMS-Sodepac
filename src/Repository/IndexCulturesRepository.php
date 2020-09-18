@@ -6,7 +6,7 @@ use App\Entity\Cultures;
 use App\Entity\Ilots;
 use App\Entity\IndexCultures;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method IndexCultures|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,6 +47,22 @@ class IndexCulturesRepository extends ServiceEntityRepository
             ->where('q.canevas = :exp')
             ->orderBy('q.name', 'ASC')
             ->setParameter('exp', 1)
+        ;
+
+        //-- Only Query
+        if ($result) {
+            return $query;
+        }
+
+        //-- Return Array
+        return $query->getQuery()
+            ->getResult();
+    }
+
+    public function findAllAlpha( $result = NULL )
+    {
+        $query = $this->createQueryBuilder('i')
+            ->orderBy('i.name', 'ASC')
         ;
 
         //-- Only Query

@@ -58,9 +58,10 @@ class TechnicianCustomersController extends AbstractController
      * @Route("technician/customers/new", name="technician.customers.new")
      * @param Request $request
      * @param \Swift_Mailer $mailer
+     * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function new( Request $request, \Swift_Mailer $mailer)
+    public function new( Request $request, \Swift_Mailer $mailer, UserPasswordEncoderInterface $encoder)
     {
         $user = new Users();
         $form = $this->createForm( TechnicianCustomersType::class, $user );
@@ -69,6 +70,8 @@ class TechnicianCustomersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //: Setters
             $user->setTechnician( $this->getUser() );
+            $user->setPassword( $encoder->encodePassword($user, '0000'));
+            $user->setIsActive(1);
             $user->setStatus( 'ROLE_USER' );
 
             //: Update
@@ -76,8 +79,7 @@ class TechnicianCustomersController extends AbstractController
             $this->em->flush();
 
             //Send Email to user
-            $pathInfo = '/active_user/'.$user->getId();
-            $link = $request->getUriForPath($pathInfo);
+            $link = $request->getUriForPath('/login');
             $message = (new \Swift_Message('Votre compte LMS Sodepac est maintenant disponible.'))
                 ->setFrom('send@example.com')
                 ->setTo( $user->getEmail() )

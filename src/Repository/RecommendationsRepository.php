@@ -6,7 +6,7 @@ use App\Entity\Exploitation;
 use App\Entity\Recommendations;
 use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Recommendations|null find($id, $lockMode = null, $lockVersion = null)

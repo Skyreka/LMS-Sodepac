@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voir mélange {{ mix.title }}{% endblock %}
+
+{% block stylesheets %}
+    <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">{{ mix.title }}</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Mélanges</a></li>
+                    <li class="breadcrumb-item">Voir</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 pb-3">
+                <a href="{{ path('mix.add.product', {id: mix.id}) }}" class="btn btn-success">Ajouter un produit</a>
+            </div>
+            <div class="col-6">
+                {% for mixProduct in mixProducts %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center mt-3">
+                                <h4 class="card-title mt-2"> {{ mixProduct.product.name }}</h4>
+                                {% for riskPhase in mixProduct.product.riskPhases %}
+                                    <h6 class="card-subtitle"><small>{{ riskPhase.shortWording }} - {{ riskPhase.longWording }}</small></h6>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Mélange interdit</h4>
+                    </div>
+                    <div class="card-body collapse show">
+                        <img src="{{ asset('images/Mélange_interdit_V2.jpg') }}" alt="img" class="img-fluid float-right">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
