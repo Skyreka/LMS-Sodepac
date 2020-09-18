@@ -519,7 +519,7 @@ class RecommendationsController extends AbstractController
             ]);
         } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
             return $this->render('recommendations/archive.html.twig', [
-                'recommendations' => $rr->findAllByYear()
+                'recommendations' => $rr->findAllByYear( $year )
             ]);
         } else {
             return $this->render('recommendations/archive.html.twig', [
