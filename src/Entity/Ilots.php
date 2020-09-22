@@ -55,6 +55,11 @@ class Ilots
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $number;
+
     public function __construct()
     {
         $this->cultures = new ArrayCollection();
@@ -204,6 +209,18 @@ class Ilots
     public function setType(?IndexGrounds $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getNumber(): ?float
+    {
+        return $this->number;
+    }
+
+    public function setNumber(?float $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }
