@@ -104,7 +104,7 @@ class RecommendationsController extends AbstractController
                 'rpr' => $rpr,
                 'totalSize' => $totalSize,
                 'culture' => $indexCultures,
-                'printRequest' => false
+                'printRequest' => true
             ]);
         } else {
             $this->addFlash('error', 'Aucun canevas existant pour cette culture');
