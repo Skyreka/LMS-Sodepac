@@ -371,9 +371,9 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             //-- Redirect to add new product if checkbox is checked
-            /*if ( $data['addProduct']->getData() ) {
+            if ( $data['addProduct']->getData() ) {
                 return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
-            }*/
+            }
             //-- Or redirect to culture
             return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
         }
@@ -425,17 +425,13 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Nouveau produit ajouté avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             //-- Redirect to add new product if checkbox is checked
-            /*if ( $data['addProduct']->getData() ) {
-                return $this->redirectToRoute('interventions.phyto.product.confirm', [
-                    'intervention' => $intervention->getId(),
-                    'interventionsProducts' => $interventionProduct->getId(),
-                    'loop' => 1
+            if ( $data['addProduct']->getData() ) {
+                return $this->redirectToRoute('interventions.phyto.product', [
+                    'id' => $intervention->getId()
                 ]);
-            }*/
-            return $this->redirectToRoute('interventions.phyto.product.confirm', [
-                'intervention' => $intervention->getId(),
-                'interventionsProducts' => $interventionProduct->getId(),
-                'loop' => 0
+            }
+            return $this->redirectToRoute('cultures.show', [
+                'id' => $intervention->getCulture()->getId()
             ]);
         }
 
@@ -444,30 +440,6 @@ class InterventionsController extends AbstractController
             'culture' => $intervention->getCulture(),
             'intervention' => $intervention,
             'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] )
-        ]);
-    }
-
-    /**
-     * Add product to an intervention
-     * @Route("interventions/phyto-confirm/{intervention}/{interventionsProducts}/{loop}", name="interventions.phyto.product.confirm")
-     * @param Interventions $intervention
-     * @param InterventionsProducts $interventionsProducts
-     * @param Request $request
-     * @param InterventionsProductsRepository $ipr
-     * @return Response
-     */
-    public function confirmNewProduct(Interventions $intervention, InterventionsProducts $interventionsProducts, Request $request, InterventionsProductsRepository $ipr)
-    {
-        //-- If user want to delete last product
-        if ($this->isCsrfTokenValid('delete' . $intervention->getId(), $request->get('_token'))) {
-            $this->om->flush();
-            $this->redirectToRoute('login.success');
-        }
-        return $this->render('interventions/confirmNewProduct.html.twig', [
-            'intervention' => $intervention,
-            'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] ),
-            'lastInterventionProducts' => $interventionsProducts,
-            'loop' => $request->get('loop')
         ]);
     }
 
