@@ -37,3 +37,8 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
+    # datatable handler
+    datatable.users:
+        class: App\DataTables\UsersDataTables
+        tags: [{ name: datatable, id: users }]
+        arguments: [ '@doctrine' ]
