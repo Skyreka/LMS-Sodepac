@@ -7,19 +7,26 @@ use DataTables\DataTableQuery;
 use DataTables\DataTableResults;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UsersDataTables implements DataTableHandlerInterface
 {
     protected $doctrine;
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $router;
 
     /**
      * Dependency Injection constructor.
      *
      * @param Registry $doctrine
+     * @param UrlGeneratorInterface $router
      */
-    public function __construct(Registry $doctrine)
+    public function __construct(Registry $doctrine, UrlGeneratorInterface $router)
     {
         $this->doctrine = $doctrine;
+        $this->router = $router;
     }
 
     /**
@@ -81,15 +88,51 @@ class UsersDataTables implements DataTableHandlerInterface
         $users = $query->getQuery()->getResult();
 
         foreach ($users as $user) {
+            // Tech
+            $technician = 'Aucun';
+            if ($user->getStatus() == 'ROLE_USER') {
+                $technician = $user->getTechnician()->getIdentity();
+            }
+
+            // Pack
+            switch ($user->getPack()) {
+                case 'PACK_FULL':
+                    $pack = '<span class="label label-megna">Pack Full</span>';
+                    break;
+                case 'PACK_LIGHT':
+                    $pack = '<span class="label label-info">Pack Light</span>';
+                    break;
+                case 'PACK_DEMO':
+                    $pack = '<span class="label label-light-info">Pack Demo</span>';
+                    break;
+                default:
+                    $pack = '<span class="label label-default">Inactif</span>';
+                    break;
+            }
+
+            // Exploitation
+            if ($user->getExploitation() == NULL) {
+                $exploitation = '<a href="'.$this->router->generate('admin.users.new.exploitation', ['id' => $user->getId()]).'"><span class="label label-info">Ajouter une exploitation</span></a>';
+            } else {
+                $exploitation = '<a href="'.$this->router->generate('admin.users.edit.exploitation', ['id' => $user->getId()]).'"><h6>'.$user->getExploitation()->getSize().' ha</h6></a>';
+            }
+
             $results->data[] = [
-                '<h6>'.$user->getFirstname().' '.$user->getLastname().'</h6>',
-                '<h6>'.$user->getFirstname().' '.$user->getLastname().'</h6>',
-                '<h6>'.$user->getFirstname().' '.$user->getLastname().'</h6>',
-                '<h6>'.$user->getFirstname().' '.$user->getLastname().'</h6>',
-                '<h6>'.$user->getFirstname().' '.$user->getLastname().'</h6>',
-                '<h6>'.$user->getFirstname().' '.$user->getLastname().'</h6>',
-                '<h6>'.$user->getFirstname().' '.$user->getLastname().'</h6>',
-                '<h6>'.$user->getFirstname().' '.$user->getLastname().'</h6>',
+                '<a href="'.$this->router->generate('view.user.index', ['id' => $user->getId()]).'"><h6>'.$user->getLastname().'</h6></a>',
+                $exploitation,
+                $user->getPhone(),
+                $user->getCity(),
+                $pack,
+                $user->getCertificationPhyto(),
+                $technician,
+                '
+                <a href="'.$this->router->generate('admin.users.password', ['id' => $user->getId()]).'" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit">
+                    <i class="ti-lock"></i>
+                </a> 
+                <a href="'.$this->router->generate('admin.users.edit', ['id' => $user->getId()]).'" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete">
+                    <i class="ti-pencil-alt"></i>
+                </a>
+                '
             ];
         }
 

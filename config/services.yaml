@@ -41,4 +41,7 @@ services:
     datatable.users:
         class: App\DataTables\UsersDataTables
         tags: [{ name: datatable, id: users }]
-        arguments: [ '@doctrine' ]
+        arguments: [
+            '@doctrine',
+            '@router'
+        ]
