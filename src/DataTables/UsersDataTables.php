@@ -118,7 +118,11 @@ class UsersDataTables implements DataTableHandlerInterface
             }
 
             $results->data[] = [
-                '<a href="'.$this->router->generate('view.user.index', ['id' => $user->getId()]).'"><h6>'.$user->getLastname().'</h6></a>',
+                '
+                    <a href="'.$this->router->generate('view.user.index', ['id' => $user->getId()]).'">
+                        <h6>'.$user->getIdentity().'</h6><small class="text-muted">'.$user->getEmail().'</small>
+                    </a>
+                ',
                 $exploitation,
                 $user->getPhone(),
                 $user->getCity(),

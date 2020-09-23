@@ -20,6 +20,14 @@ class RecolteType extends AbstractType
                 'help' => 'Quintaux/hectare',
                 'required' => false
             ])
+            ->add('intervention_at', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => [
+                    'class' => 'js-datepicker',
+                    'value' => date('Y-m-d')
+                ]
+            ])
         ;
     }
 
