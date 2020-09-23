@@ -7,6 +7,7 @@ use App\Entity\IndexCultures;
 use App\Entity\IndexEffluents;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -60,7 +61,7 @@ class CulturesNewType extends AbstractType
             ->add('residue', null, [
                 'label' => 'Avez-vous laissé le résidu ?'
             ])
-            ->add('znt', NumberType::class, [
+            ->add('znt', HiddenType::class, [
                 'attr' => [
                     'value' => 1
                 ]
