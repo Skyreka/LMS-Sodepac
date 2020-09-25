@@ -6,6 +6,7 @@ use App\Entity\IndexCultures;
 use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
+use App\Entity\Stocks;
 use App\Form\RecommendationAddProductType;
 use App\Form\RecommendationAddType;
 use App\Form\RecommendationMentionsType;
@@ -13,6 +14,7 @@ use App\Repository\CulturesRepository;
 use App\Repository\ProductsRepository;
 use App\Repository\RecommendationProductsRepository;
 use App\Repository\RecommendationsRepository;
+use App\Repository\StocksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -336,11 +338,12 @@ class RecommendationsController extends AbstractController
      * @param Request $request
      * @param CulturesRepository $cr
      * @param \Swift_Mailer $mailer
+     * @param StocksRepository $sr
      * @return Response
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function send( Recommendations $recommendations, Request $request, CulturesRepository $cr, \Swift_Mailer $mailer )
+    public function send( Recommendations $recommendations, Request $request, CulturesRepository $cr, \Swift_Mailer $mailer, StocksRepository $sr )
     {
         if ($this->isCsrfTokenValid('send', $request->get('_token'))) {
             //-- Update Status of recommendation
@@ -351,6 +354,24 @@ class RecommendationsController extends AbstractController
             $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
             $customer = $recommendations->getExploitation()->getUsers();
             $fileName = 'Recommendation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
+
+            //-- Add products to customer's stock
+            $oldStocks = $sr->findBy(array('exploitation' => $customer->getExploitation()));
+            $stockProducts = [];
+            foreach ($oldStocks as $oldStock) {
+                $stockProducts[] = $oldStock->getProduct()->getId();
+            }
+            foreach ($products as $product)
+            {
+                $stock = new Stocks();
+                $stock
+                    ->setProduct($product->getProduct())
+                    ->setExploitation($customer->getExploitation())
+                    ->setQuantity(0);
+                if (!in_array($stock->getProduct()->getId(), $stockProducts)) {
+                    $this->em->persist($stock);
+                }
+            }
 
             //-- Generate PDF
             $pdfOptions = new Options();

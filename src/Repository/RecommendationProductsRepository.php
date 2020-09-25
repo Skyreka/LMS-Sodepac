@@ -20,19 +20,32 @@ class RecommendationProductsRepository extends ServiceEntityRepository
         parent::__construct($registry, RecommendationProducts::class);
     }
 
-    public function productExist( $recommendation, $slugProduct)
+    public function productExist( $recommendation, $slugProduct, $dose = NULL)
     {
         $product = $this->getEntityManager()->getRepository( Products::class );
         $product = $product->findProductBySlug( $slugProduct );
 
-        return $this->createQueryBuilder('r')
-            ->where('r.product = :product')
-            ->andWhere('r.recommendation = :recommendation')
-            ->setParameter('product', $product )
-            ->setParameter('recommendation',$recommendation)
-            ->getQuery()
-            ->getResult()
-            ;
+        if ($dose) {
+            return $this->createQueryBuilder('r')
+                ->where('r.product = :product')
+                ->andWhere('r.recommendation = :recommendation')
+                ->andWhere('r.dose = :dose')
+                ->setParameter('dose', $dose )
+                ->setParameter('product', $product )
+                ->setParameter('recommendation',$recommendation)
+                ->getQuery()
+                ->getResult()
+                ;
+        } else {
+            return $this->createQueryBuilder('r')
+                ->where('r.product = :product')
+                ->andWhere('r.recommendation = :recommendation')
+                ->setParameter('product', $product )
+                ->setParameter('recommendation',$recommendation)
+                ->getQuery()
+                ->getResult()
+                ;
+        }
     }
 
     /**

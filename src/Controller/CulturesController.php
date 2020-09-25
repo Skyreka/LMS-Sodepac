@@ -121,6 +121,28 @@ class CulturesController extends AbstractController
     }
 
     /**
+     * @Route("cultures/edit/{id}", name="cultures.edit")
+     * @param Cultures $culture
+     * @param Request $request
+     * @return Response
+     */
+    public function edit(Cultures $culture, Request $request): Response
+    {
+        $form = $this->createForm(CulturesNewType::class, $culture);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->om->flush();
+            $this->addFlash('danger', 'Culture modifiée avec succès');
+            return $this->redirectToRoute('cultures.show', ['id' => $culture->getId()]);
+        }
+        return $this->render('cultures/edit.html.twig', [
+            'culture' => $culture,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("cultures/synthese/{id}", name="cultures.synthese")
      * @param Cultures $culture
      * @param InterventionsRepository $interventions

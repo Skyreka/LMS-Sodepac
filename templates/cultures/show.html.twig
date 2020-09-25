@@ -235,6 +235,7 @@
                             <h6>{{ culture.effluent.name|default("Non") }}</h6>
                         </div>
                     </div>
+                    <a href="{{ path('cultures.edit', {id: culture.id}) }}" class="btn btn-block btn-info mb-2">Editer</a>
                     <a href="{{ path('cultures.synthese', {id: culture.id}) }}" class="btn btn-block btn-primary mb-2">Synthèse</a>
                 {% endif %}
         </div>

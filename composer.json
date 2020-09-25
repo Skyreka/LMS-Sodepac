@@ -29,7 +29,8 @@
         "symfony/validator": "4.4.*",
         "symfony/yaml": "4.4.*",
         "treehouselabs/slugifier": "^1.0",
-        "twig/extensions": "^1.5"
+        "twig/extensions": "^1.5",
+        "webinarium/datatables-bundle": "^2.4"
     },
     "require-dev": {
         "doctrine/data-fixtures": "^1.4",

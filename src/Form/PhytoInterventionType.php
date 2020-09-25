@@ -163,11 +163,11 @@ class PhytoInterventionType extends AbstractType
                         'value' => date('Y-m-d')
                     ]
                 ])
-                /*->add('addProduct', CheckboxType::class, [
+                ->add('addProduct', CheckboxType::class, [
                     'mapped' => false,
                     'required' => false,
                     'label' => 'Voulez-vous ajouter un produit ?'
-                ])*/
+                ])
                 ->add('submit', SubmitType::class, [
                     'label' => 'Ajouter'
                 ])

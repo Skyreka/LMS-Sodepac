@@ -7,9 +7,11 @@ use App\Form\ExploitationType;
 use App\Form\PasswordType;
 use App\Form\UserType;
 use App\Repository\UsersRepository;
+use DataTables\DataTablesInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +40,29 @@ class AdminUsersController extends AbstractController {
      */
     public function index(): Response
     {
-        $users = $this->repositoryUsers->findAllUsersAndTechnician();
-        return $this->render('admin/users/index.html.twig', [
-            'users' => $users
-        ]);
+        return $this->render('admin/users/index.html.twig');
+    }
+
+    /**
+     * @Route("/admin/users/data", name="admin.users.data")
+     * @param Request $request
+     * @param DataTablesInterface $datatables
+     * @return JsonResponse
+     */
+    public function data(Request $request, DataTablesInterface $datatables): JsonResponse
+    {
+        try {
+            // Tell the DataTables service to process the request,
+            // specifying ID of the required handler.
+            $results = $datatables->handle($request, 'users');
+
+            return $this->json($results);
+        }
+        catch (HttpException $e) {
+            // In fact the line below returns 400 HTTP status code.
+            // The message contains the error description.
+            return $this->json($e->getMessage(), $e->getStatusCode());
+        }
     }
 
     /**

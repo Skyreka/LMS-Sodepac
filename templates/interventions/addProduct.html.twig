@@ -26,46 +26,12 @@
         {% endif %}
         <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant le site officiel <a href="https://ephy.anses.fr" target="_blank">ephy.anses.fr</a></a></div>
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
                             {{ form_rest(form) }}
                         {{ form_end(form) }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="text-center mt-3">
-                            <h4 class="card-title mt-2">{{ intervention.product.name }}</h4>
-                            {% for riskPhase in intervention.product.riskPhases %}
-                                <h6 class="card-subtitle"><small>{{ riskPhase.shortWording }} - {{ riskPhase.longWording }}</small></h6>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                {% for interventionProduct in interventionProducts %}
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="text-center mt-3">
-                                <h4 class="card-title mt-2"> {{ interventionProduct.product.name }}</h4>
-                                {% for riskPhase in interventionProduct.product.riskPhases %}
-                                    <h6 class="card-subtitle"><small>{{ riskPhase.shortWording }} - {{ riskPhase.longWording }}</small></h6>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title mb-0">Mélange interdit</h4>
-                    </div>
-                    <div class="card-body collapse show">
-                        <img src="{{ asset('images/Mélange_interdit_V2.jpg') }}" alt="img" class="img-fluid float-right">
                     </div>
                 </div>
             </div>

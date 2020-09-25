@@ -17,6 +17,9 @@
     "beberlei/doctrineextensions": {
         "version": "v1.2.6"
     },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -265,6 +268,9 @@
     "symfony/dependency-injection": {
         "version": "v4.1.12"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/doctrine-bridge": {
         "version": "v4.1.12"
     },
@@ -394,6 +400,9 @@
             "./tests/bootstrap.php"
         ]
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.18.1"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.14.0"
     },
@@ -475,6 +484,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.1.12"
+    },
+    "symfony/string": {
+        "version": "v5.1.5"
     },
     "symfony/swiftmailer-bundle": {
         "version": "2.5",
@@ -592,6 +604,9 @@
     },
     "twig/twig": {
         "version": "v2.12.5"
+    },
+    "webinarium/datatables-bundle": {
+        "version": "2.4.0"
     },
     "webmozart/assert": {
         "version": "1.7.0"
