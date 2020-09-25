@@ -11,7 +11,8 @@ class Stocks
 {
     const UNIT = [
         '1' => 'Litres',
-        '2' => 'Kilos'
+        '2' => 'Kilos',
+        null => 'Aucune unité'
     ];
 
     /**

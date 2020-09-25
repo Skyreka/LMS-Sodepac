@@ -366,7 +366,8 @@ class RecommendationsController extends AbstractController
                 $stock = new Stocks();
                 $stock
                     ->setProduct($product->getProduct())
-                    ->setExploitation($customer->getExploitation());
+                    ->setExploitation($customer->getExploitation())
+                    ->setQuantity(0);
                 if (!in_array($stock->getProduct()->getId(), $stockProducts)) {
                     $this->em->persist($stock);
                 }
