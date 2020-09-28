@@ -70,7 +70,6 @@ class StocksRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('s')
             ->leftJoin(Products::class, 'p', 'WITH', 'p.id = s.product')
             ->andWhere('s.exploitation = :exp')
-            ->andWhere('s.quantity > 0')
             ->setParameter('exp', $exp)
             ->orderBy('s.id', 'ASC')
         ;
