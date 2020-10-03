@@ -29,7 +29,7 @@ class Stocks
     private $exploitation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Products", inversedBy="stocks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Products", inversedBy="stocks", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;
