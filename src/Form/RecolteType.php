@@ -15,27 +15,38 @@ class RecolteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('rendement', NumberType::class, [
-                'help' => 'Quintaux/hectare',
-                'required' => false
-            ])
-            ->add('intervention_at', DateType::class, [
-                'widget' => 'single_text',
-                'html5' => false,
-                'attr' => [
-                    'class' => 'js-datepicker',
-                    'value' => date('Y-m-d')
-                ]
-            ])
-        ;
+        // User can update date if edit recolte from synthese but on normal intervention action view datepicker
+        if ( $options['syntheseView'] == true ) {
+            $builder
+                ->add('rendement', NumberType::class, [
+                    'help' => 'Quintaux/hectare',
+                    'required' => false
+                ])
+            ;
+        } else {
+            $builder
+                ->add('rendement', NumberType::class, [
+                    'help' => 'Quintaux/hectare',
+                    'required' => false
+                ])
+                ->add('intervention_at', DateType::class, [
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'attr' => [
+                        'class' => 'js-datepicker',
+                        'value' => date('Y-m-d')
+                    ]
+                ])
+            ;
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Interventions::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'forms',
+            'syntheseView' => false
         ]);
     }
 }

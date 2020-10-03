@@ -602,7 +602,7 @@ class InterventionsController extends AbstractController
     public function edit( Interventions $intervention, Request $request ) {
         switch ($intervention->getType()) {
             case 'Récolte':
-                $form = $this->createForm( RecolteType::class, $intervention );
+                $form = $this->createForm( RecolteType::class, $intervention, ['syntheseView' => true] );
                 break;
 
             case 'Epandage':
