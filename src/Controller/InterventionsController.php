@@ -91,6 +91,15 @@ class InterventionsController extends AbstractController
                 $culture->setStatus( 1 );
                 $this->om->persist( $intervention );
                 $this->om->flush();
+
+                // If is culture multiple create new and archive old
+                if ($culture->getPermanent() == 1) {
+                    $newCulture = clone $culture;
+                    $newCulture->setStatus( 0 );
+                    $this->om->persist($newCulture);
+                    $this->om->flush();
+                    $this->addFlash('warning', 'Duplication de votre culture permanante');
+                }
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'ilots.show', ['id' => $culture->getIlot()->getId()] );
