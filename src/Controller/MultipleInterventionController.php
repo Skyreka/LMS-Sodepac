@@ -27,23 +27,12 @@ class MultipleInterventionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->all();
-            $listIlots = $data['ilots']->getData();
-            $cultureSelected = $data['selectCulture']->getData();
-            $cultureFounded = [];
+            $listCultures = $data['cultures']->getData();
 
-            //Find All Culture selected by group of ilot
-            foreach ($listIlots as $ilot) {
-                array_push( $cultureFounded, $cr->findByIlotCultureInProgress( $ilot, $cultureSelected ));
-            }
+            // Put array to session
+            $this->container->get('session')->set('listCulture', $listCultures);
 
-            $cultureFounded = call_user_func_array('array_merge', $cultureFounded);
-
-            //--Send Info to select Multiple Intervention
-            $this->container->get('session')->set('listCulture', $cultureFounded);
-
-            //-- Get first value of array to display an correct page
-            $cultureFirst = array_values($cultureFounded)[0];
-            return $this->redirectToRoute('cultures.show', ['id' => $cultureFirst->getId()]);
+            return $this->redirectToRoute('cultures.show', ['id' => $listCultures[0]->getId()]);
         }
 
         return $this->render('multipleIntervention/index.html.twig', [
