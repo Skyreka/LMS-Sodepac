@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Stocks
 {
     const UNIT = [
+        '0' => 'Aucune unité',
         '1' => 'Litres',
         '2' => 'Kilos',
         null => 'Aucune unité'
