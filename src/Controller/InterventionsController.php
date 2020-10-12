@@ -98,7 +98,7 @@ class InterventionsController extends AbstractController
                     $newCulture->setStatus( 0 );
                     $this->om->persist($newCulture);
                     $this->om->flush();
-                    $this->addFlash('warning', 'Duplication de votre culture permanante');
+                    $this->addFlash('warning', 'Duplication de votre culture permanente');
                 }
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
