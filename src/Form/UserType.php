@@ -71,16 +71,6 @@ class UserType extends AbstractType
         ]);
     }
 
-    private function getStatus()
-    {
-        $choices = Users::STATUS;
-        $output = [];
-        foreach($choices as $k => $v) {
-            $output[$v] = $k;
-        }
-        return $output;
-    }
-
     private function getPack()
     {
         $choices = Users::PACK;
