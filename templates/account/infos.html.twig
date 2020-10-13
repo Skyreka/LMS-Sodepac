@@ -25,13 +25,8 @@
                             <div class="col-6">
                                 {{ form_row(form.lastname) }}
                             </div>
-                            <div class="d-none">
-                                {{ form_row(form.technician) }}
-                                {{ form_row(form.status) }}
-                                {{ form_row(form.pack) }}
-                            </div>
                         </div>
-                        {{ form_rest(form) }}
+                        {{ form_row(form) }}
                         <button class="btn btn-primary">Editer</button>
                         {{ form_end(form) }}
                     </div>

@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Cultures;
 use App\Entity\Ilots;
 use App\Entity\IndexCultures;
+use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
 use App\Repository\IndexCulturesRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -38,7 +40,7 @@ class MultipleInterventionType extends AbstractType
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($options) {
                 $form = $event->getForm();
-                $this->addIlotsField( $form->getParent(), $form->getData(), $options);
+                $this->addCultureField( $form->getParent(), $form->getData(), $options);
             }
         );
 
@@ -47,16 +49,16 @@ class MultipleInterventionType extends AbstractType
             function (FormEvent $event) use ( $options ) {
                 $data = $event->getData();
                 $form = $event->getForm();
-                $this->addIlotsField( $form, null, null );
+                $this->addCultureField( $form, null, null );
             }
         );
     }
 
-    private function addIlotsField(FormInterface $form, ?IndexCultures $indexCultures, $options)
+    private function addCultureField(FormInterface $form, ?IndexCultures $indexCultures, $options)
     {
         if (is_null($indexCultures)) {
             $builder = $form->getConfig()->getFormFactory()->createNamedBuilder(
-                'ilots',
+                'cultures',
                 HiddenType::class,
                 null,
                 [
@@ -65,21 +67,21 @@ class MultipleInterventionType extends AbstractType
                 ]
             );
         } else {
-            $builder = $form->getConfig()->getFormFactory()->createNamedBuilder('ilots',
+            $builder = $form->getConfig()->getFormFactory()->createNamedBuilder('cultures',
                 EntityType::class,
                 null,
                 [
-                    'class' => Ilots::class,
-                    'label' => 'Ilots incluant votre culture:',
-                    'choice_label' => function (Ilots $ilot) {
-                        return $ilot->getName();
+                    'class' => Cultures::class,
+                    'label' => 'Cultures incluant votre culture choisi:',
+                    'choice_label' => function (Cultures $culture) {
+                        return $culture->getName()->getName() .' - '. $culture->getIlot()->getName() .' '. $culture->getIlot()->getSize() .' ha';
                     },
-                    'query_builder' => function (IlotsRepository $ir) use ($indexCultures, $options) {
-                        return $ir->findByIndexCultureInProgress($indexCultures->getId(), $options['user']->getExploitation(), true);
+                    'query_builder' => function (CulturesRepository $cr) use ($indexCultures, $options) {
+                        return $cr->findByIndexCultureInProgress($indexCultures->getId(), $options['user']->getExploitation(), true);
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
-                    'placeholder' => 'Choisir ilot',
+                    'placeholder' => 'Choisir culture',
                     'expanded' => true,
                     'multiple' => true
                 ]

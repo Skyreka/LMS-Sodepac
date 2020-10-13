@@ -21,7 +21,7 @@
             <div class="alert alert-warning">{{ message }}</div>
         {% endfor %}
         {% if app.session.get('listCulture') %}
-            <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login.success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
+            <div class="alert alert-danger"><b>INTERVENTION MULTIPLE ACTIVÉE</b> <br> <u> <a class="text-active" href="{{ path('login.success') }}">ANNULER</a> </u></div>
         {% endif %}
         <div class="row">
             <div class="col-lg-8">
@@ -221,6 +221,8 @@
                             <h6>{{ culture.size }} ha</h6>
                             <small class="text-muted">Taille avec ZNT:</small>
                             <h6>{{ culture.size * culture.znt }} ha</h6>
+                            <small class="text-muted">Permanant:</small>
+                            <h6>{{ culture.permanent  ? 'Oui' : 'Non' }}</h6>
                             <small class="text-muted">ZNT:</small>
                             <h6>{{ culture.znt  ? culture.znt : 'Non' }}</h6>
                             <small class="text-muted">Production:</small>

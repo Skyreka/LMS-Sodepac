@@ -91,6 +91,15 @@ class InterventionsController extends AbstractController
                 $culture->setStatus( 1 );
                 $this->om->persist( $intervention );
                 $this->om->flush();
+
+                // If is culture multiple create new and archive old
+                if ($culture->getPermanent() == 1) {
+                    $newCulture = clone $culture;
+                    $newCulture->setStatus( 0 );
+                    $this->om->persist($newCulture);
+                    $this->om->flush();
+                    $this->addFlash('warning', 'Duplication de votre culture permanente');
+                }
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'ilots.show', ['id' => $culture->getIlot()->getId()] );
@@ -294,19 +303,21 @@ class InterventionsController extends AbstractController
     public function phyto(Cultures $culture, $name, Request $request, StocksRepository $sr, InterventionsRepository $ir): Response
     {
         $intervention = new Phyto();
+        //-- If multiple action is actived
         if ($this->container->get('session')->get('listCulture')) {
             // get total size of selected multiple culture
             $cultureTotalSize = 0;
             foreach ( $this->container->get('session')->get('listCulture') as $culture ) {
                 $cultureTotalSize = $cultureTotalSize + $culture->getSize();
             }
-            // return form for multiple intervention
+            // return form for multiple intervention and size of total
             $form = $this->createForm( PhytoInterventionType::class, $intervention, [
                 'user' => $this->getUser(),
                 'culture' => $culture,
                 'totalSizeMultipleIntervention' => $cultureTotalSize
             ]);
         } else {
+            //-- Return normal view
             $form = $this->createForm( PhytoInterventionType::class, $intervention, [
                 'user' => $this->getUser(),
                 'culture' => $culture
@@ -335,6 +346,8 @@ class InterventionsController extends AbstractController
             $stock->setQuantity( $quantityOnStock - $quantityUsed);
             $quantityUsedInStock = $stock->getUsedQuantity();
             $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
+            //-- Create Array List Intervention if past have mulitple product intervention
+            $listIntervention = [];
             //-- Multiple Intervention
             if ($this->container->get('session')->get('listCulture')) {
                 //-- Foreach of all culture selected
@@ -348,16 +361,28 @@ class InterventionsController extends AbstractController
                     //-- Flush on db
                     $lastIntervention = $this->om->merge( $intervention );
                     $this->om->flush();
+                    //-- Push to array all interventions id generated on DB
+                    array_push( $listIntervention, $lastIntervention->getId() );
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
 
-                //--Flash
+                //-- Multiple product on mutiple intervention
+                if ( $data['addProduct']->getData() ) {
+                    // Create listIntervention SESSION with array pre generated
+                    $this->container->get('session')->set('listIntervention', $listIntervention);
+                    // Go to page for add product
+                    return $this->redirectToRoute('interventions.phyto.product', ['id' => $lastIntervention->getId()]);
+                }
+
+                //--Flash Message
                 $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
                 $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
 
+                //-- Go to home
                 return $this->redirectToRoute('login.success');
             } else {
+                // Normal Action no multiple
                 //-- Setters
                 $intervention->setDose( $data['doses']->getData()->getDose() );
                 $intervention->setProduct( $stock->getProduct() );
@@ -393,9 +418,10 @@ class InterventionsController extends AbstractController
      * @param Request $request
      * @param StocksRepository $sr
      * @param InterventionsProductsRepository $ipr
+     * @param InterventionsRepository $ir
      * @return Response
      */
-    public function addProduct(Interventions $intervention, Request $request, StocksRepository $sr, InterventionsProductsRepository $ipr): Response
+    public function addProduct(Interventions $intervention, Request $request, StocksRepository $sr, InterventionsProductsRepository $ipr, InterventionsRepository $ir): Response
     {
         $interventionProduct = new InterventionsProducts();
         $form = $this->createForm( InterventionAddProductType::class, $interventionProduct, [
@@ -416,20 +442,59 @@ class InterventionsController extends AbstractController
             $stock->setQuantity( $quantityOnStock - $quantityUsed);
             $quantityUsedInStock = $stock->getUsedQuantity();
             $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
-            $interventionProduct->setDose( $dose->getDose() );
-            $interventionProduct->setQuantity( $form->getData()->getQuantity() );
-            $interventionProduct->setProduct( $stock->getProduct() );
-            $interventionProduct->setIntervention( $intervention );
-            $this->om->persist( $interventionProduct );
-            $this->om->flush();
-            $this->addFlash('success', 'Nouveau produit ajouté avec succès');
-            $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
+            //-- If Multiple Intervention is activated
+            if ($this->container->get('session')->get('listIntervention')) {
+                //-- Get all id of listintervention sesssion
+                $listIntervention = $this->container->get('session')->get('listIntervention');
+                // For of all intervention
+                foreach ($listIntervention as $idIntervention) {
+                    // Get intervention object with id DB
+                    $interventionToPut = $ir->find( $idIntervention );
+                    // Setter of multiple interventoion_product
+                    $interventionProduct->setDose( $dose->getDose() );
+                    $interventionProduct->setQuantity( $form->getData()->getQuantity() );
+                    $interventionProduct->setProduct( $stock->getProduct() );
+                    $interventionProduct->setIntervention( $interventionToPut );
+                    // Save on DB
+                    $this->om->merge( $interventionProduct );
+                    $this->om->flush();
+                }
+
+                //-- Multiple product on mutiple intervention
+                if ( $data['addProduct']->getData() ) {
+                    // If user want to loop
+                    return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
+                } else {
+                    //-- Clear listIntervention only if user not want a loop
+                    $this->container->get('session')->remove('listIntervention');
+                    // Flash message
+                    $this->addFlash('success', 'Nouveau produit ajouté avec succès');
+                    // Go to home
+                    return $this->redirectToRoute('login.success');
+                }
+
+            } else {
+                // Normal Actions
+                // Setters
+                $interventionProduct->setDose( $dose->getDose() );
+                $interventionProduct->setQuantity( $form->getData()->getQuantity() );
+                $interventionProduct->setProduct( $stock->getProduct() );
+                $interventionProduct->setIntervention( $intervention );
+                $this->om->persist( $interventionProduct );
+                $this->om->flush();
+                // Flash Messages
+                $this->addFlash('success', 'Nouveau produit ajouté avec succès');
+                $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
+            }
+
             //-- Redirect to add new product if checkbox is checked
             if ( $data['addProduct']->getData() ) {
                 return $this->redirectToRoute('interventions.phyto.product', [
                     'id' => $intervention->getId()
                 ]);
             }
+
+            // Go to cultures show
             return $this->redirectToRoute('cultures.show', [
                 'id' => $intervention->getCulture()->getId()
             ]);
@@ -546,7 +611,7 @@ class InterventionsController extends AbstractController
     public function edit( Interventions $intervention, Request $request ) {
         switch ($intervention->getType()) {
             case 'Récolte':
-                $form = $this->createForm( RecolteType::class, $intervention );
+                $form = $this->createForm( RecolteType::class, $intervention, ['syntheseView' => true] );
                 break;
 
             case 'Epandage':

@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Stocks
 {
     const UNIT = [
+        '0' => 'Aucune unité',
         '1' => 'Litres',
         '2' => 'Kilos',
         null => 'Aucune unité'
@@ -29,7 +30,7 @@ class Stocks
     private $exploitation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Products", inversedBy="stocks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Products", inversedBy="stocks", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;

@@ -43,13 +43,15 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('pack', ChoiceType::class, [
-                'choices' => $this->getPack()
+                'choices' => $this->getPack(),
+                'disabled' => $options['is_edit']
             ])
             ->add('certification_phyto')
             ->add('technician', EntityType::class, [
                 'class' => Users::class,
                 'expanded'     => false,
                 'multiple'     => false,
+                'disabled' => $options['is_edit'],
                 'query_builder' => function (UsersRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.status', 'ASC')
@@ -67,18 +69,9 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Users::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'forms',
+            'is_edit' => false
         ]);
-    }
-
-    private function getStatus()
-    {
-        $choices = Users::STATUS;
-        $output = [];
-        foreach($choices as $k => $v) {
-            $output[$v] = $k;
-        }
-        return $output;
     }
 
     private function getPack()

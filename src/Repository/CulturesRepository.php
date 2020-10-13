@@ -112,6 +112,29 @@ class CulturesRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @param $indexNameId
+     * @param $exploitation
+     * @param null $onlyQuery
+     * @return \Doctrine\ORM\QueryBuilder|mixed
+     */
+    public function findByIndexCultureInProgress($indexNameId, $exploitation, $onlyQuery = false)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->leftJoin( Ilots::class, 'il', 'WITH', 'il.id = c.ilot')
+            ->where('c.name = :nameId')
+            ->andWhere('il.exploitation = :exploitation')
+            ->setParameter('nameId', $indexNameId)
+            ->setParameter('exploitation', $exploitation)
+        ;
+
+        if ($onlyQuery) {
+            return $query;
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Cultures[] Returns an array of Cultures objects
     //  */

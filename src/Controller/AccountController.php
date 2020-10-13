@@ -42,7 +42,7 @@ class  AccountController extends AbstractController {
             throw $this->createNotFoundException('Utilisateur introuvable.');
         }
 
-        $form = $this->createForm( UserType::class, $user);
+        $form = $this->createForm( UserType::class, $user, ['is_edit' => true]);
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
