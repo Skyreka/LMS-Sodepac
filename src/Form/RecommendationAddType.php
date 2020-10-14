@@ -48,7 +48,10 @@ class RecommendationAddType extends AbstractType
                             ->setParameter('status', 'ROLE_USER');
                     }
                 },
-                'placeholder' => 'Selectionner un utilisateur'
+                'placeholder' => 'Selectionner un utilisateur',
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ])
         ;
 
