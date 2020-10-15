@@ -18,11 +18,13 @@ class UserType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
+                'empty_data' => '',
                 'attr' => [
                     'autocomplete' => 'off'
                 ]
             ])
             ->add('lastname', TextType::class, [
+                'empty_data' => '',
                 'attr' => [
                     'autocomplete' => 'off'
                 ]
@@ -33,11 +35,13 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('phone', TextType::class, [
+                'empty_data' => '',
                 'attr' => [
                     'autocomplete' => 'off'
                 ]
             ])
             ->add('city', TextType::class, [
+                'empty_data' => '',
                 'attr' => [
                     'autocomplete' => 'off'
                 ]
