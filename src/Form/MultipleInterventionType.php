@@ -74,7 +74,7 @@ class MultipleInterventionType extends AbstractType
                     'class' => Cultures::class,
                     'label' => 'Cultures incluant votre culture choisi:',
                     'choice_label' => function (Cultures $culture) {
-                        return $culture->getName()->getName() .' - '. $culture->getIlot()->getName() .' '. $culture->getIlot()->getSize() .' ha';
+                        return $culture->getName()->getName() .' '.$culture->getSize().' ha - '. $culture->getIlot()->getName();
                     },
                     'query_builder' => function (CulturesRepository $cr) use ($indexCultures, $options) {
                         return $cr->findByIndexCultureInProgress($indexCultures->getId(), $options['user']->getExploitation(), true);
