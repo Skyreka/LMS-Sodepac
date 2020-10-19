@@ -353,7 +353,7 @@ class RecommendationsController extends AbstractController
             $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
             $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
             $customer = $recommendations->getExploitation()->getUsers();
-            $fileName = 'Recommendation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
+            $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
 
             //-- Add products to customer's stock
             $oldStocks = $sr->findBy(array('exploitation' => $customer->getExploitation()));
