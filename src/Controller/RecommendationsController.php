@@ -72,6 +72,13 @@ class RecommendationsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->all();
             $customer = $data['exploitation']->getData();
+
+            // Display error if user don't have exploitation
+            if( $customer->getExploitation() == NULL) {
+                $this->addFlash('danger', 'Votre client n\'a aucune superficie déclarée, veuillez modifier son compte pour pouvoir lui établir une recommandation');
+                return $this->redirectToRoute('recommendations.select');
+            }
+
             $recommendation->setExploitation( $customer->getExploitation() );
             $this->em->persist( $recommendation );
             $this->em->flush();
