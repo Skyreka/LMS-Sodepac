@@ -41,6 +41,26 @@ class IrrigationRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param null $limit
+     * @return mixed
+     */
+    public function findByIlot( $ilot, $limit = null )
+    {
+        $query = $this->createQueryBuilder('i')
+            ->andWhere('i.ilot = :ilot')
+            ->setParameter('ilot', $ilot)
+            ->orderBy('i.id', 'DESC')
+        ;
+
+        if ($limit != NULL) {
+            $query = $query->setMaxResults( $limit );
+        }
+
+        return $query->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param $exploitation
      * @param $year
      * @param $type

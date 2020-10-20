@@ -6,6 +6,7 @@ use App\Entity\Ilots;
 use App\Form\IlotsType;
 use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
+use App\Repository\IrrigationRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -94,11 +95,16 @@ class IlotsController extends AbstractController
      * @Route("/ilot/delete/{id}", name="ilots.delete", methods="DELETE")
      * @param Ilots $ilot
      * @param Request $request
+     * @param IrrigationRepository $ir
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Ilots $ilot, Request $request)
+    public function delete(Ilots $ilot, Request $request, IrrigationRepository $ir)
     {
         if ($this->isCsrfTokenValid( 'deleteIlot', $request->get('_token') )) {
+            $irrigations = $ir->findByIlot($ilot);
+            foreach ($irrigations as $irrigation) {
+                $this->em->remove($irrigation);
+            }
             $culture = new Cultures();
             $ilot->removeCulture( $culture );
             $this->em->remove( $ilot );
