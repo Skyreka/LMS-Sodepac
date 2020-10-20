@@ -20,7 +20,6 @@
                     <div class="card-body">
                         {{ form_start(form) }}
                             <input id="selectAll" type="checkbox"><label for='selectAll'>Sélectionner tous les clients</label>
-                            {{ form_row(form.customers) }}
                             {{ form_rest(form) }}
                         <button class="btn btn-info">Envoyer</button>
                         {{ form_end(form) }}
@@ -33,12 +32,11 @@
 {% block javascripts %}
     <script src="{{ asset('plugins/moment/moment.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
-    <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.fr.js') }}"></script>
     <script>
         $("#selectAll").click(function(){
             $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
-
         });
     </script>
     <script>
@@ -46,8 +44,7 @@
             $('.js-datepicker').datepicker({
                 weekStart:0,
                 time: 1,
-                format:"yyyy-mm-dd",
-                lang:"fr"
+                language:"fr"
             });
         });
     </script>

@@ -269,6 +269,8 @@ class PanoramasController extends AbstractController
      */
     public function send(Panoramas $panoramas, Request $request): Response
     {
+
+        //TODO: Clear this
         //Set form
         if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
             $form = $this->createFormBuilder()
@@ -291,6 +293,7 @@ class PanoramasController extends AbstractController
                     'html5' => false,
                     'mapped' => false,
                     'required' => false,
+                    'format' => 'dd/MM/yyyy',
                     'attr' => [
                         'class' => 'js-datepicker',
                         'autocomplete' => 'off'
@@ -321,6 +324,7 @@ class PanoramasController extends AbstractController
                     'html5' => false,
                     'mapped' => false,
                     'required' => false,
+                    'format' => 'dd/MM/yyyy',
                     'attr' => [
                         'class' => 'js-datepicker',
                         'autocomplete' => 'off'
@@ -334,7 +338,7 @@ class PanoramasController extends AbstractController
 
         //Submit form
         if ($form->isSubmitted() && $form->isValid()) {
-            $datetime = New DateTime();
+            $datetime = new DateTime();
             $data = $form->all();
             foreach ($data['customers']->getData() as $customer) {
                 $displayAt = $data['display_at']->getData();
