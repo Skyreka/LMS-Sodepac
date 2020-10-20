@@ -58,7 +58,7 @@ class UserType extends AbstractType
                 'class' => Users::class,
                 'expanded'     => false,
                 'multiple'     => false,
-                'disabled' => $options['is_edit'],
+                'disabled' => $options['is_edit'] or $options['is_technician'],
                 'query_builder' => function (UsersRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->orderBy('u.status', 'ASC')
@@ -77,7 +77,8 @@ class UserType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Users::class,
             'translation_domain' => 'forms',
-            'is_edit' => false
+            'is_edit' => false,
+            'is_technician' => false
         ]);
     }
 
