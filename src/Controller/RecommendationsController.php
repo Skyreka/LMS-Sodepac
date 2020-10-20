@@ -450,7 +450,7 @@ class RecommendationsController extends AbstractController
             $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
             $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
             $customer = $recommendations->getExploitation()->getUsers();
-            $fileName = 'Recommendation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
+            $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
 
             //-- Generate PDF
             $pdfOptions = new Options();
