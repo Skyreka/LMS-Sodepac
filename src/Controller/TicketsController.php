@@ -116,6 +116,7 @@ class TicketsController extends AbstractController
                         $newFileName
                     );
                 } catch ( FileException $e ) {
+                    echo $e->getMessage(); die();
                 }
                 $ticketsMessages->setFile( $newFileName );
             }
