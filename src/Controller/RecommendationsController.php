@@ -303,7 +303,11 @@ class RecommendationsController extends AbstractController
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //Update Status of recommendations
+            $recommendations->setStatus( 1 );
             $this->em->flush();
+            
             return $this->redirectToRoute('recommendations.synthese', ['id' => $recommendations->getId()]);
         }
 
@@ -325,10 +329,6 @@ class RecommendationsController extends AbstractController
     {
         $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
         $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
-
-        //-- Update Status of recommendation
-        $recommendations->setStatus( 1 );
-        $this->em->flush();
 
         return $this->render('recommendations/synthese.html.twig', [
             'recommendations' => $recommendations,
