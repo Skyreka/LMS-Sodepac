@@ -98,7 +98,7 @@
                                                     </div
                                                 {% endif %}
                                             </div>
-                                            <div class="chat-time d-inline-block text-right">{{ message.sendAt | date('m/d h:i') }}</div>
+                                            <div class="chat-time d-inline-block text-right">{{ message.sendAt | date('d/m h:i') }}</div>
                                         </li>
                                     {% else %}
                                         <li class="mt-4" style="list-style: none;">
@@ -124,7 +124,7 @@
                                                     </div
                                                 {% endif %}
                                             </div>
-                                            <div class="chat-time d-inline-block text-right float-right pr-2 pt-4">{{ message.sendAt | date('m/d h:i') }}</div>
+                                            <div class="chat-time d-inline-block text-right float-right pr-2 pt-4">{{ message.sendAt | date('d/m h:i') }}</div>
                                         </li>
                                     {% endif %}
                                 {% endfor %}
