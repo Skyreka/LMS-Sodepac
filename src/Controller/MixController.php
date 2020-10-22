@@ -36,7 +36,7 @@ class MixController extends AbstractController
     {
 
         return $this->render('mix/index.html.twig', [
-            'mixs' => $mr->findAll()
+            'mixs' => $mr->findBy( ['user' => $this->getUser()])
         ]);
     }
 
