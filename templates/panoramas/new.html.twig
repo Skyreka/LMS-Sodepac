@@ -24,20 +24,20 @@
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
-                        <div class="row">
-                            <div class="col-6">
-                                {{ form_row(form.text) }}
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form.text) }}
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    {{ form_row(form.first_file) }}
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    {{ form_row(form.second_file) }}
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    {{ form_row(form.third_file) }}
+                                </div>
                             </div>
-                            <div class="col-2">
-                                {{ form_row(form.first_file) }}
-                            </div>
-                            <div class="col-2">
-                                {{ form_row(form.second_file) }}
-                            </div>
-                            <div class="col-2">
-                                {{ form_row(form.third_file) }}
-                            </div>
-                        </div>
                         <button class="btn btn-primary">Ajouter</button>
                         {{ form_end(form) }}
                     </div>

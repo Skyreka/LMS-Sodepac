@@ -21,6 +21,8 @@ class TechnicianCustomersType extends AbstractType
             ])
             ->add('email', EmailType::class)
             ->add('lastname', TextType::class, [
+                'empty_data' => '',
+                'required' => false,
                 'attr' => [
                     'autocomplete' => 'off'
                 ]
@@ -31,6 +33,8 @@ class TechnicianCustomersType extends AbstractType
                 ]
             ])
             ->add('city', TextType::class, [
+                'empty_data' => '',
+                'required' => false,
                 'attr' => [
                     'autocomplete' => 'off'
                 ]

@@ -174,7 +174,6 @@
                                                 <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                                 <td>{{ intervention.getIft }}</td>
                                                 <td>
-                                                    {% dump(intervention.getInterventionsProducts.values) %}
                                                     {% if intervention.getInterventionsProducts is not empty %}
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#products_{{ intervention.id }}">
                                                         Produits supplémentaires

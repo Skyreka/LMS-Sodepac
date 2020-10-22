@@ -87,6 +87,9 @@ class AdminUsersController extends AbstractController {
     public function edit(Users $user, Request $request): Response
     {
         $form = $this->createForm(UserType::class, $user);
+        if ($user->getStatus() === 'ROLE_TECHNICIAN') {
+            $form = $this->createForm(UserType::class, $user, ['is_technician' => true]);
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

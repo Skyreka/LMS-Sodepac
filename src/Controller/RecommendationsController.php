@@ -72,6 +72,13 @@ class RecommendationsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->all();
             $customer = $data['exploitation']->getData();
+
+            // Display error if user don't have exploitation
+            if( $customer->getExploitation() == NULL) {
+                $this->addFlash('danger', 'Votre client n\'a aucune superficie déclarée, veuillez modifier son compte pour pouvoir lui établir une recommandation');
+                return $this->redirectToRoute('recommendations.select');
+            }
+
             $recommendation->setExploitation( $customer->getExploitation() );
             $this->em->persist( $recommendation );
             $this->em->flush();
@@ -296,7 +303,11 @@ class RecommendationsController extends AbstractController
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //Update Status of recommendations
+            $recommendations->setStatus( 1 );
             $this->em->flush();
+            
             return $this->redirectToRoute('recommendations.synthese', ['id' => $recommendations->getId()]);
         }
 
@@ -318,10 +329,6 @@ class RecommendationsController extends AbstractController
     {
         $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
         $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
-
-        //-- Update Status of recommendation
-        $recommendations->setStatus( 1 );
-        $this->em->flush();
 
         return $this->render('recommendations/synthese.html.twig', [
             'recommendations' => $recommendations,
@@ -353,7 +360,7 @@ class RecommendationsController extends AbstractController
             $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
             $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
             $customer = $recommendations->getExploitation()->getUsers();
-            $fileName = 'Recommendation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
+            $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
 
             //-- Add products to customer's stock
             $oldStocks = $sr->findBy(array('exploitation' => $customer->getExploitation()));
@@ -443,7 +450,7 @@ class RecommendationsController extends AbstractController
             $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
             $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
             $customer = $recommendations->getExploitation()->getUsers();
-            $fileName = 'Recommendation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
+            $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
 
             //-- Generate PDF
             $pdfOptions = new Options();
