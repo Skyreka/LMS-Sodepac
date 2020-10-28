@@ -41,7 +41,7 @@ class CulturesController extends AbstractController
     {
         //-- Get Size
         $size = $cr->countAvailableSizeCulture( $ilot );
-        if ($size === 0) {
+        if ($size >= 0) {
             $this->addFlash('danger', 'Vous ne pouvez pas créer de culture, plus d\'espace disponible dans cette ilot');
             return $this->redirectToRoute('ilots.show', ['id' => $ilot->getId()]);
         }
@@ -124,11 +124,14 @@ class CulturesController extends AbstractController
      * @Route("cultures/edit/{id}", name="cultures.edit")
      * @param Cultures $culture
      * @param Request $request
+     * @param CulturesRepository $cr
      * @return Response
      */
-    public function edit(Cultures $culture, Request $request): Response
+    public function edit(Cultures $culture, Request $request, CulturesRepository $cr): Response
     {
-        $form = $this->createForm(CulturesNewType::class, $culture);
+        $size = $cr->countAvailableSizeCulture( $culture->getIlot() );
+
+        $form = $this->createForm(CulturesNewType::class, $culture, ['max_size' => $size]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
