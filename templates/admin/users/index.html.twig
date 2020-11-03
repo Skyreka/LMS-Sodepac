@@ -106,7 +106,19 @@
             buttons: [
                 {
                     extend: 'pdf',
-                    text: 'Exporter les utilisateurs',
+                    text: 'Exporter en PDF',
+                    title: 'Liste des utilisateurs',
+                    message: 'Exporté le {{ "now"|date('d-m-Y H:i') }} avec l\'application LMS-Sodepac',
+                    exportOptions: {
+                        columns: [0,1,2,3,4,5],
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                },
+                {
+                    extend: 'csv',
+                    text: 'Exporter en CSV',
                     title: 'Liste des utilisateurs',
                     message: 'Exporté le {{ "now"|date('d-m-Y H:i') }} avec l\'application LMS-Sodepac',
                     exportOptions: {
