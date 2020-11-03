@@ -78,6 +78,9 @@ class UsersDataTables implements DataTableHandlerInterface
             if ($order->column == 0) {
                 $query->addOrderBy('u.lastname', $order->dir);
             }
+            if ($order->column == 4) {
+                $query->addOrderBy('u.pack', $order->dir);
+            }
         }
 
         // Restrict results.
