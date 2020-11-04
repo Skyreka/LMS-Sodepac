@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+/**
+ * @Route("/admin/bsv")
+ */
 class BsvController extends AbstractController
 {
     /**
@@ -33,7 +36,7 @@ class BsvController extends AbstractController
     }
 
     /**
-     * @Route("/admin/bsv", name="admin.bsv.index")
+     * @Route("", name="admin_bsv_index", methods={"GET"})
      * @return Response
      */
     public function index(): Response
@@ -45,7 +48,7 @@ class BsvController extends AbstractController
     }
 
     /**
-     * @Route("/admin/bsv/new", name="admin.bsv.new")
+     * @Route("/new", name="admin_bsv_new", methods={"GET"})
      * @param Request $request
      * @return Response
      * @throws \Exception
@@ -64,9 +67,7 @@ class BsvController extends AbstractController
 
             if ($firstFile) {
                 $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
-                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $safeFilename = $originalFilename;
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
                 try {
                     $firstFile->move(
                         $this->getParameter('bsv_directory'),
@@ -78,9 +79,8 @@ class BsvController extends AbstractController
             }
 
             if ($secondFile) {
-                $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $secondFile->guessExtension();
+                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
 
                 try {
                     $secondFile->move(
@@ -93,9 +93,8 @@ class BsvController extends AbstractController
             }
 
             if ($thirdFile) {
-                $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $thirdFile->guessExtension();
+                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
 
                 try {
                     $thirdFile->move(
@@ -126,7 +125,7 @@ class BsvController extends AbstractController
     }
 
     /**
- * @Route("/admin/bsv/edit/{id}", name="admin.bsv.edit", methods="GET|POST")
+ * @Route("edit/{id}", name="admin_bsv_edit", methods={"GET","POST"}, requirements={"id":"\d+"})
  * @param Bsv $bsv
  * @param Request $request
  * @return Response
@@ -144,9 +143,7 @@ class BsvController extends AbstractController
 
             if ($firstFile) {
                 $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
-                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $safeFilename = $originalFilename;
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
                 try {
                     $firstFile->move(
                         $this->getParameter('bsv_directory'),
@@ -158,9 +155,8 @@ class BsvController extends AbstractController
             }
 
             if ($secondFile) {
-                $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $secondFile->guessExtension();
+                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
 
                 try {
                     $secondFile->move(
@@ -173,9 +169,8 @@ class BsvController extends AbstractController
             }
 
             if ($thirdFile) {
-                $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $thirdFile->guessExtension();
+                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
 
                 try {
                     $thirdFile->move(
@@ -198,7 +193,7 @@ class BsvController extends AbstractController
     }
 
     /**
-     * @Route("/admin/bsv/send/{id}", name="admin.bsv.send", methods="GET|POST")
+     * @Route("/send/{id}", name="admin_bsv_send", methods={"GET","POST"}, requirements={"id":"\d+"})
      * @param Bsv $bsv
      * @param Request $request
      * @return Response
@@ -244,7 +239,7 @@ class BsvController extends AbstractController
     }
 
     /**
-     * @Route("/admin/bsv/{id}", name="admin.bsv.delete", methods="DELETE")
+     * @Route("/{id}", name="admin_bsv_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Bsv $bsv
      * @param Request $request
      * @return RedirectResponse
@@ -261,7 +256,7 @@ class BsvController extends AbstractController
     }
 
     /**
-     * @Route("/admin/bsv/history", name="admin.bsv.history.index")
+     * @Route("/history", name="admin_bsv_history_index", methods={"GET"})
      * @return Response
      */
     public function history(): Response
@@ -270,7 +265,7 @@ class BsvController extends AbstractController
     }
 
     /**
-     * @Route("/admin/bsv/history/{year}", name="admin.bsv.history.show")
+     * @Route("/admin/bsv/history/{year}", name="admin.bsv.history.show", methods={"GET"}, requirements={"year":"\d+"})
      * @param BsvUsersRepository $bur
      * @param $year
      * @return Response
@@ -285,7 +280,7 @@ class BsvController extends AbstractController
     }
 
     /**
-     * @Route("/user/bsv/{id}", name="user.bsv.check", methods="CHECK")
+     * @Route("/user/bsv/{id}", name="user.bsv.check", methods="CHECK", requirements={"id":"\d+"})
      * @param BsvUsers $bsvUsers
      * @param Request $request
      * @return RedirectResponse
@@ -301,7 +296,7 @@ class BsvController extends AbstractController
     }
 
     /**
-     * @Route("/user/bsv/history", name="user.bsv.history.index")
+     * @Route("/user/bsv/history", name="user.bsv.history.index", methods={"GET"})
      * @param BsvUsersRepository $bur
      * @return Response
      */
