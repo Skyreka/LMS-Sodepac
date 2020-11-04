@@ -18,11 +18,11 @@
     </head>
     <body class="fix-header card-no-border logo-center">
         <div id="main-wrapper">
-            {% include('includes/header.html.twig') %}
-            {% include('includes/navigation.html.twig') %}
+            {{ include('_header.html.twig') }}
+            {{ include('_navigation.html.twig') }}
             <div class="page-wrapper">
                 {% block body %}{% endblock %}
-                {% include('includes/footer.html.twig') %}
+                {{ include('_footer.html.twig') }}
             </div>
             {% block modals %}{% endblock %}
         </div>
