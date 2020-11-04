@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des Flashs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Historique des Flashs</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('admin_flash_index') }}">Flashs</a></li>
+                    <li class="breadcrumb-item active">Historique</li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-12">
+            <!--begin::Alert-->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Choix de l'année</h4>
+                        <div class="button-group">
+                            {% for i in 0..4 %}
+                                <a href="{{ path('technician_flash_show', {year: "now"|date("Y") - i}) }}" class="btn btn-block waves-effect waves-light btn-info history">{{ "now"|date("Y") - i }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="card" id="insert-table">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Listes des Flashs envoyés à vos clients en {{ "NOW"|date('Y')}}</h4>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Date d'envoi</th>
+                                    <th>Texte</th>
+                                    <th>Client</th>
+                                    <th>Fichiers</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for flash in flashs %}
+                                        <tr>
+                                            <td>{{ flash.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                            <td>{{ flash.bsv.text }}</td>
+                                            <td>{{ flash.customers.identity }}</td>
+                                            <td>
+                                                {% if flash.bsv.firstFile %}
+                                                    <a href="{{ asset('uploads/bsv/' ~ flash.bsv.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                                                {% endif %}
+                                                {% if flash.bsv.secondFile %}
+                                                    <a href="{{ asset('uploads/bsv/' ~ flash.bsv.secondFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
+                                                {% endif %}
+                                                {% if flash.bsv.thirdFile %}
+                                                    <a href="{{ asset('uploads/bsv/' ~ flash.bsv.thirdFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="spinner-border" role="status" id="loading">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).on('click', 'a.history', function (event) {
+            event.preventDefault();
+            let $field = $(this)
+            let url = $field.attr('href')
+            $.post(url).then(function (data) {
+                let content = $('#insert-table')
+                content.empty()
+                content.append( data )
+            })
+        })
+        var $loading = $('#loading').hide();
+        $(document)
+            .ajaxStart(function () {
+                $loading.show();
+            })
+            .ajaxStop(function () {
+                $loading.hide();
+            });
+    </script>
+{% endblock %}

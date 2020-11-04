@@ -36,7 +36,7 @@ class Bsv
     /**
      * @ORM\Column(type="smallint", options={"default" : 0})
      */
-    private $sent;
+    private $sent = 0;
 
     /**
      * @ORM\Column(type="datetime")

@@ -49,7 +49,7 @@ class HomeController extends AbstractController {
     public function homeUsers(IlotsRepository $ir, BsvUsersRepository $bur, PanoramaUserRepository $pur, TicketsRepository $tr): Response
     {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
-        $bsvs = $bur->findAllByCustomer($this->getUser(), 3);
+        $flashs = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
         $tickets = $tr->findAllByUser( $this->getUser(), 3);
 
@@ -57,7 +57,7 @@ class HomeController extends AbstractController {
         $this->container->get('session')->remove('listCulture');
 
         return $this->render('pages/home.html.twig', [
-            'bsvs' => $bsvs,
+            'flashs' => $flashs,
             'panoramas' => $panoramas,
             'ilots' => $ilots,
             'tickets' => $tickets

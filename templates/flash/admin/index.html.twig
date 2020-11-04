@@ -10,24 +10,29 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Liste des Flashs en attente d'envoi</h3>
+                <h3 class="text-themecolor">Liste des Flashs</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
                     <li class="breadcrumb-item active">Flashs</li>
                 </ol>
             </div>
         </div>
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
+        <div class="col-12">
+            <!--begin::Alert-->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
                             <div class="ml-auto">
-                                <a href="{{ path('admin_bsv_new') }}" class="btn btn-success">Créer un Flash</a>
-                                <a href="{{ path('admin_bsv_history_index') }}" class="btn btn-info">Historique des Flash</a>
+                                <a href="{{ path('admin_flash_new') }}" class="btn btn-success">Créer un Flash</a>
+                                <a href="{{ path('admin_flash_history_index') }}" class="btn btn-info">Historique des Flash</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -36,30 +41,28 @@
                                 <tr>
                                     <th>Date de création</th>
                                     <th>Texte</th>
+                                    <th>Envoyé</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for key in bsv %}
+                                {% for flash in flashs %}
                                     <tr>
-                                        <td>{{ key.creationDate|date('d M Y') }}</td>
-                                        <td>{{ key.text }}</td>
+                                        <td>{{ flash.creationDate|date('d M Y') }}</td>
+                                        <td>{{ flash.text }}</td>
+                                        <td>{{ flash.sent ? '<label class="badge badge-success">Oui</label>' : '<label class="badge badge-danger">Non</label>' }}</td>
                                         <td>
-                                            <a href="{{ path('admin_bsv_edit', {id: key.id}) }}" class="btn btn-primary">Editer</a>
-                                            <form method="POST" action="{{ path('admin_bsv_delete', {id: key.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le BSV ?')">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ key.id) }}">
-                                                <button class="btn btn-danger">Supprimer</button>
-                                            </form>
-                                            <a href="{{ path('admin_bsv_send', {id: key.id}) }}" class="btn btn-info">Envoyer</a>
-                                            {% if key.firstFile %}
-                                                <a href="{{ asset('uploads/bsv/' ~ key.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                                            <a href="{{ path('admin_flash_send', {id: flash.id}) }}" class="btn btn-info"><i class="fa fa-paper-plane"></i> </a>
+                                            <a href="{{ path('admin_flash_edit', {id: flash.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i> </a>
+                                            {{ include('admin/flash/_delete.html.twig') }}
+                                            {% if flash.firstFile %}
+                                                <a href="{{ asset('uploads/flash/' ~ flash.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                             {% endif %}
-                                            {% if key.secondFile %}
-                                                <a href="{{ asset('uploads/bsv/' ~ key.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                                            {% if flash.secondFile %}
+                                                <a href="{{ asset('uploads/flash/' ~ flash.secondFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
                                             {% endif %}
-                                            {% if key.thirdFile %}
-                                                <a href="{{ asset('uploads/bsv/' ~ key.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                                            {% if flash.thirdFile %}
+                                                <a href="{{ asset('uploads/flash/' ~ flash.thirdFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
                                             {% endif %}
                                         </td>
                                     </tr>

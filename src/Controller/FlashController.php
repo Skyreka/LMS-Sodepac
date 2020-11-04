@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Bsv;
 use App\Entity\BsvUsers;
 use App\Form\BsvSendType;
@@ -18,45 +17,41 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
- * @Route("/admin/bsv")
+ * Class FlashController
+ * @package App\Controller
  */
-class BsvController extends AbstractController
+class FlashController extends AbstractController
 {
-    /**
-     * @var BsvRepository
-     */
-    private $repositoryBsv;
-
     private $em;
 
-    public function __construct(BsvRepository $repository, EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->repositoryBsv = $repository;
         $this->em = $em;
     }
 
     /**
-     * @Route("", name="admin_bsv_index", methods={"GET"})
+     * @param BsvRepository $bsv
      * @return Response
+     * @Route("/admin/flash", name="admin_flash_index", methods={"GET"})
      */
-    public function index(): Response
+    public function adminIndex( BsvRepository $bsv ): Response
     {
-        $bsv = $this->repositoryBsv->findAllNotDeleted();
-        return $this->render('admin/bsv/index.html.twig', [
-            'bsv' => $bsv
+        $flashs = $bsv->findAllNotDeleted();
+        return $this->render('flash/admin/index.html.twig', [
+            'flashs' => $flashs
         ]);
     }
 
     /**
-     * @Route("/new", name="admin_bsv_new", methods={"GET"})
+     * @Route("/admin/flash/new", name="admin_flash_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
-    public function new(Request $request): Response
+    public function adminNew(Request $request): Response
     {
-        $bsv = new Bsv();
-        $form = $this->createForm(BsvType::class, $bsv);
+        $flash = new Bsv();
+        $form = $this->createForm(BsvType::class, $flash);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -70,12 +65,12 @@ class BsvController extends AbstractController
                 $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
                 try {
                     $firstFile->move(
-                        $this->getParameter('bsv_directory'),
+                        $this->getParameter('flash_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
                 }
-                $bsv->setFirstFile($newFilename);
+                $flash->setFirstFile($newFilename);
             }
 
             if ($secondFile) {
@@ -84,12 +79,12 @@ class BsvController extends AbstractController
 
                 try {
                     $secondFile->move(
-                        $this->getParameter('bsv_directory'),
+                        $this->getParameter('flash_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
                 }
-                $bsv->setSecondFile($newFilename);
+                $flash->setSecondFile($newFilename);
             }
 
             if ($thirdFile) {
@@ -98,39 +93,33 @@ class BsvController extends AbstractController
 
                 try {
                     $thirdFile->move(
-                        $this->getParameter('bsv_directory'),
+                        $this->getParameter('flash_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
                 }
-                $bsv->setThirdFile($newFilename);
+                $flash->setThirdFile($newFilename);
             }
 
-            $datetime = New \DateTime();
-            $bsv->setCreationDate( $datetime );
-            //* TO DO (remove setter (default value))
-            $bsv->setSent( 0 );
-            $this->em->persist($bsv);
+            $flash->setCreationDate( new \DateTime() );
+            $this->em->persist($flash);
             $this->em->flush();
-
-
             $this->addFlash('success', 'Flash crée avec succès');
-
-            return $this->redirectToRoute('admin.bsv.index');
+            return $this->redirectToRoute('admin_flash_index');
         }
 
-        return $this->render('admin/bsv/new.html.twig', [
+        return $this->render('flash/admin/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
- * @Route("edit/{id}", name="admin_bsv_edit", methods={"GET","POST"}, requirements={"id":"\d+"})
- * @param Bsv $bsv
- * @param Request $request
- * @return Response
- */
-    public function edit(Bsv $bsv, Request $request): Response
+     * @Route("/admin/flash/edit/{id}", name="admin_flash_edit", methods={"GET","POST"}, requirements={"id":"\d+"})
+     * @param Bsv $bsv
+     * @param Request $request
+     * @return Response
+     */
+    public function adminEdit(Bsv $bsv, Request $request): Response
     {
         $form = $this->createForm(BsvType::class, $bsv);
         $form->handleRequest($request);
@@ -183,23 +172,23 @@ class BsvController extends AbstractController
             }
             $this->em->flush();
             $this->addFlash('success', 'Flash modifié avec succès');
-            return $this->redirectToRoute('admin.bsv.index');
+            return $this->redirectToRoute('admin_flash_index');
         }
 
-        return $this->render('admin/bsv/edit.html.twig', [
+        return $this->render('flash/admin/edit.html.twig', [
             'bsv' => $bsv,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/send/{id}", name="admin_bsv_send", methods={"GET","POST"}, requirements={"id":"\d+"})
+     * @Route("/admin/flash/send/{id}", name="admin_flash_send", methods={"GET","POST"}, requirements={"id":"\d+"})
      * @param Bsv $bsv
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
-    public function send(Bsv $bsv, Request $request): Response
+    public function adminSend(Bsv $bsv, Request $request): Response
     {
         $bsvUsers = new BsvUsers();
         $form = $this->createForm(BsvSendType::class, $bsvUsers);
@@ -227,24 +216,25 @@ class BsvController extends AbstractController
                     $relation->setDisplayAt($datetime);
                 }
             }
+            $bsv->setSent(1);
             $this->em->flush();
             $this->addFlash('success', 'Flash envoyé avec succès');
-            return $this->redirectToRoute('admin.bsv.index');
+            return $this->redirectToRoute('admin_flash_index');
         }
 
-        return $this->render('admin/bsv/send.html.twig', [
+        return $this->render('flash/admin/send.html.twig', [
             'bsv' => $bsv,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_bsv_delete", methods="DELETE", requirements={"id":"\d+"})
+     * @Route("/admin/flash/delete/{id}", name="admin_flash_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Bsv $bsv
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(Bsv $bsv, Request $request)
+    public function adminDelete(Bsv $bsv, Request $request)
     {
         if ($this->isCsrfTokenValid('delete' . $bsv->getId(), $request->get('_token'))) {
             $bsv->setArchive(1);
@@ -252,103 +242,104 @@ class BsvController extends AbstractController
             $this->addFlash('success', 'Flash supprimé avec succès');
         }
 
-        return $this->redirectToRoute('admin.bsv.index');
+        return $this->redirectToRoute('admin_flash_index');
     }
 
     /**
-     * @Route("/history", name="admin_bsv_history_index", methods={"GET"})
+     * @Route("/admin/flash/history", name="admin_flash_history_index", methods={"GET"})
      * @return Response
      */
-    public function history(): Response
+    public function adminHistory(): Response
     {
-        return $this->render('admin/bsv/history/index.html.twig');
+        return $this->render('flash/admin/history/index.html.twig');
     }
 
     /**
-     * @Route("/admin/bsv/history/{year}", name="admin.bsv.history.show", methods={"GET"}, requirements={"year":"\d+"})
+     * @Route("/admin/flash/history/{year}", name="admin_flash_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      * @param BsvUsersRepository $bur
      * @param $year
      * @return Response
      */
-    public function list(BsvUsersRepository $bur, $year): Response
+    public function adminList(BsvUsersRepository $bur, $year): Response
     {
-        $bsv = $bur->findAllByYear($year);
-        return $this->render('admin/bsv/history/show.html.twig', [
-            'bsv' => $bsv,
+        $flashs = $bur->findAllByYear($year);
+        return $this->render('flash/admin/history/show.html.twig', [
+            'flashs' => $flashs,
             'year' => $year
         ]);
     }
 
     /**
-     * @Route("/user/bsv/{id}", name="user.bsv.check", methods="CHECK", requirements={"id":"\d+"})
+     * @Route("/flash/check/{id}", name="user_flash_check", methods="CHECK", requirements={"id":"\d+"})
      * @param BsvUsers $bsvUsers
      * @param Request $request
      * @return RedirectResponse
      */
-    public function check(BsvUsers $bsvUsers, Request $request)
+    public function userCheck(BsvUsers $bsvUsers, Request $request)
     {
         if ($this->isCsrfTokenValid('check' . $bsvUsers->getId(), $request->get('_token'))) {
             $bsvUsers->setChecked(1);
             $this->em->flush();
         }
 
-        return $this->redirectToRoute('user.bsv.history.index');
+        return $this->redirectToRoute('user_flash_index');
     }
 
     /**
-     * @Route("/user/bsv/history", name="user.bsv.history.index", methods={"GET"})
+     * @Route("/flash", name="user_flash_index", methods={"GET"})
      * @param BsvUsersRepository $bur
      * @return Response
      */
-    public function userHistory(BsvUsersRepository $bur): Response
+    public function userIndex(BsvUsersRepository $bur): Response
     {
-        $year = date('Y');
-        $bsv = $bur->findAllByYearAndCustomer($year, $this->getUser()->getId());
-        return $this->render('admin/bsv/history/user/index.html.twig',[
-            'bsv' => $bsv
+        $currentYear = date('Y');
+        $flashs = $bur->findAllByYearAndCustomer($currentYear, $this->getUser()->getId());
+        return $this->render('flash/user/index.html.twig',[
+            'flashs' => $flashs
         ]);
     }
 
     /**
-     * @Route("/user/bsv/history/{year}", name="user.bsv.history.show")
+     * @Route("/flash/{year}", name="user_flash_history_show", methods={"GET","POST"}, requirements={"year":"\d+"})
      * @param BsvUsersRepository $bur
      * @param $year
      * @return Response
      */
-    public function userList(BsvUsersRepository $bur, $year): Response
+    public function userShow(BsvUsersRepository $bur, $year): Response
     {
-        $bsv = $bur->findAllByYearAndCustomer($year, $this->getUser()->getId());
-        return $this->render('admin/bsv/history/user/show.html.twig', [
-            'bsv' => $bsv,
+        $flashs = $bur->findAllByYearAndCustomer($year, $this->getUser()->getId());
+        return $this->render('flash/user/show.html.twig', [
+            'flashs' => $flashs,
             'year' => $year
         ]);
     }
 
     /**
-     * @Route("/technician/bsv/history", name="technician.bsv.history.index")
+     * @Route("/technician/flash", name="technician_flash_index", methods={"GET"})
      * @param BsvUsersRepository $bur
      * @return Response
      */
-    public function technicianHistory(BsvUsersRepository $bur): Response
+    public function technicianIndex(BsvUsersRepository $bur): Response
     {
         $year = date('Y');
-        $bsv = $bur->findAllByYearAndTechnician($year, $this->getUser()->getId());
-        return $this->render('admin/bsv/history/technician/index.html.twig',[
-            'bsv' => $bsv
+        $flashs = $bur->findAllByYearAndTechnician($year, $this->getUser()->getId());
+        return $this->render('flash/technician/index.html.twig',[
+            'flashs' => $flashs
         ]);
     }
 
     /**
-     * @Route("/technician/bsv/history/{year}", name="technician.bsv.history.show")
+     * @Route("/technician/flash/{year}", name="technician_flash_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      * @param BsvUsersRepository $bur
      * @param $year
      * @return Response
      */
-    public function technicianList(BsvUsersRepository $bur, $year): Response
+    public function technicianShow(BsvUsersRepository $bur, $year): Response
     {
-        $bsv = $bur->findAllByYearAndTechnician($year, $this->getUser()->getId());
-        return $this->render('admin/bsv/history/technician/show.html.twig', [
-            'bsv' => $bsv
+        $flashs = $bur->findAllByYearAndTechnician($year, $this->getUser()->getId());
+        return $this->render('flash/technician/show.html.twig', [
+            'flashs' => $flashs,
+            'year' => $year
         ]);
     }
 }

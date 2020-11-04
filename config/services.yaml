@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    bsv_directory: '%kernel.project_dir%/public/uploads/bsv'
+    flash_directory: '%kernel.project_dir%/public/uploads/flash'
     chat_message_directory: '%kernel.project_dir%/public/uploads/messages'
     panorama_directory: '%kernel.project_dir%/public/uploads/panorama'
     recommendation_directory: '%kernel.project_dir%/public/uploads/recommendations'

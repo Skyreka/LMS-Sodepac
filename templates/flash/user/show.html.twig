@@ -1,0 +1,45 @@
+<div class="card-body">
+    <div class="d-flex no-block">
+        <h4 class="card-title">Listes des Flashs reçu en {{ year }}</h4>
+    </div>
+    <div class="table-responsive m-t-20">
+        <table class="table stylish-table">
+            <thead>
+            <tr>
+                <th>Date de création</th>
+                <th>Date d'envoi</th>
+                <th>Texte</th>
+                <th>Destinataire</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for flash in flashs %}
+                <tr>
+                    <td>{{ flash.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                    <td>{{ flash.bsv.text }}</td>
+                    <td>
+                        {% if flash.bsv.firstFile %}
+                            <a href="{{ asset('uploads/bsv/' ~ flash.bsv.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                        {% endif %}
+                        {% if flash.bsv.secondFile %}
+                            <a href="{{ asset('uploads/bsv/' ~ flash.bsv.secondFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
+                        {% endif %}
+                        {% if flash.bsv.thirdFile %}
+                            <a href="{{ asset('uploads/bsv/' ~ flash.bsv.thirdFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if flash.checked == 0 %}
+                            <form method="POST" action="{{ path('user_bsv_check', {id: flash.id}) }}" style="display: inline-block">
+                                <input type="hidden" name="_method" value="CHECK">
+                                <input type="hidden" name="_token" value="{{ csrf_token('check' ~ key.id) }}">
+                                <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

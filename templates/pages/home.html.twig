@@ -13,15 +13,14 @@
                 <h3 class="text-themecolor">Accueil</h3>
             </div>
         </div>
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-        {% for message in app.flashes('warning') %}
-            <div class="alert alert-warning">{{ message }}</div>
-        {% endfor %}
-        {% for message in app.flashes('danger') %}
-            <div class="alert alert-danger">{{ message }}</div>
-        {% endfor %}
+        <div class="col-12">
+            <!--begin::Alert-->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
         {% if app.user.reset == 1 %}
             <div class="alert alert-danger">Votre technicien a modifié votre mot de passe <br> Merci de bien vouloir le modifier pour plus de sécurité.
                 <br><a href="{{ path('account_index') }}">Modifier mot de passe</a></div>
@@ -31,9 +30,9 @@
         {% endif %}
         <div class="row">
             <div class="col-3 mb-3 d-block d-sm-none">
-                <a href="{{ path('user.bsv.history.index') }}">
+                <a href="{{ path('user_flash_index') }}">
                     <i class="fa fa-bolt fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1"
-                        {% if bsvs|length > 0 %}
+                        {% if flashs|length > 0 %}
                             style="color: red;"
                         {% endif %}
                         >F</span></i>
@@ -71,19 +70,15 @@
                     </div>
                     <div class="comment-widgets position-relative mb-2 common-widget">
                         <div class="d-flex flex-row comment-row p-3">
-                            {% for bsv in bsvs %}
-                                {% if date(bsv.displayAt) <= date() and bsv.checked == 0 %}
+                            {% for flash in flashs %}
+                                {% if date(flash.displayAt) <= date() and flash.checked == 0 %}
                                     <div class="comment-text w-100 p-3">
-                                        <p class="mb-1 overflow-hidden">{{ bsv.bsv.text }}</p>
+                                        <p class="mb-1 overflow-hidden">{{ flash.bsv.text }}</p>
                                         <div class="comment-footer">
-                                            <span class="text-muted pull-right">{{ bsv.displayAt|date('d M y à h:m') }}</span>
+                                            <span class="text-muted pull-right">{{ flash.displayAt|date('d M y à h:m') }}</span>
                                             <span class="badge badge-info">Non lu</span>
                                             <span class="action-icons">
-                                                <form method="POST" action="{{ path('user.bsv.check', {id: bsv.id}) }}" style="display: inline-block">
-                                                    <input type="hidden" name="_method" value="CHECK">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ bsv.id) }}">
-                                                    <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>
-                                                </form>
+                                                {{ include('flash/user/_check.html.twig') }}
                                             </span>
                                         </div>
                                     </div>
