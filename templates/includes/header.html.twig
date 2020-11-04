@@ -35,12 +35,11 @@
                                         {% if app.user.pack is not null %}
                                             <span class="badge badge-success">{{ app.user.pack(true) }}</span>
                                         {% endif %}
+                                    </div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="{{ path('account') }}"><i class="ti-user"></i> Mes infos</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{{ path('account.password') }}"><i class="ti-settings"></i> Modifier mot de passe</a></li>
+                            <li><a href="{{ path('account_index') }}"><i class="ti-user"></i> Mes infos</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ path('logout') }}"><i class="fa fa-power-off"></i> Se Déconnecter</a></li>
                         </ul>
