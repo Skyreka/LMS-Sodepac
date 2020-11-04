@@ -26,8 +26,8 @@
                     <div class="card-body">
                         <div class="d-flex no-block">
                             <div class="ml-auto">
-                                <a href="{{ path('admin.bsv.new') }}" class="btn btn-success">Créer un Flash</a>
-                                <a href="{{ path('admin.bsv.history.index') }}" class="btn btn-info">Historique des Flash</a>
+                                <a href="{{ path('admin_bsv_new') }}" class="btn btn-success">Créer un Flash</a>
+                                <a href="{{ path('admin_bsv_history_index') }}" class="btn btn-info">Historique des Flash</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -45,13 +45,13 @@
                                         <td>{{ key.creationDate|date('d M Y') }}</td>
                                         <td>{{ key.text }}</td>
                                         <td>
-                                            <a href="{{ path('admin.bsv.edit', {id: key.id}) }}" class="btn btn-primary">Editer</a>
-                                            <form method="POST" action="{{ path('admin.bsv.delete', {id: key.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le BSV ?')">
+                                            <a href="{{ path('admin_bsv_edit', {id: key.id}) }}" class="btn btn-primary">Editer</a>
+                                            <form method="POST" action="{{ path('admin_bsv_delete', {id: key.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le BSV ?')">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ key.id) }}">
                                                 <button class="btn btn-danger">Supprimer</button>
                                             </form>
-                                            <a href="{{ path('admin.bsv.send', {id: key.id}) }}" class="btn btn-info">Envoyer</a>
+                                            <a href="{{ path('admin_bsv_send', {id: key.id}) }}" class="btn btn-info">Envoyer</a>
                                             {% if key.firstFile %}
                                                 <a href="{{ asset('uploads/bsv/' ~ key.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
                                             {% endif %}
