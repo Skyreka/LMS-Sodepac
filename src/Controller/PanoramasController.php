@@ -68,7 +68,7 @@ class PanoramasController extends AbstractController
             $this->addFlash('success', 'Panorama supprimé avec succès');
         }
 
-        return $this->redirectToRoute('panoramas.index');
+        return $this->redirectToRoute('panorama_index');
     }
 
     /**
@@ -85,7 +85,7 @@ class PanoramasController extends AbstractController
             $this->addFlash('success', 'Panorama validé avec succès');
         }
 
-        return $this->redirectToRoute('panoramas.index');
+        return $this->redirectToRoute('panorama_index');
     }
 
     /**
@@ -182,7 +182,7 @@ class PanoramasController extends AbstractController
             }
 
             $this->addFlash('success', 'Panorama crée avec succès');
-            return $this->redirectToRoute('panoramas.index');
+            return $this->redirectToRoute('panorama_index');
         }
 
         return $this->render('panoramas/new.html.twig', [
@@ -253,7 +253,7 @@ class PanoramasController extends AbstractController
             }
             $this->em->flush();
             $this->addFlash('success', 'Panorama modifié avec succès');
-            return $this->redirectToRoute('panoramas.index');
+            return $this->redirectToRoute('panorama_index');
         }
 
         return $this->render('panoramas/edit.html.twig', [
@@ -358,7 +358,7 @@ class PanoramasController extends AbstractController
             }
             $this->em->flush();
             $this->addFlash('success', 'Panorama envoyé avec succès');
-            return $this->redirectToRoute('panoramas.index');
+            return $this->redirectToRoute('panorama_index');
         }
 
         return $this->render('panoramas/send.html.twig', [
@@ -380,11 +380,11 @@ class PanoramasController extends AbstractController
             $this->em->flush();
         }
 
-        return $this->redirectToRoute('user.panoramas.history.index');
+        return $this->redirectToRoute('panorama_user_history_index');
     }
 
     /**
-     * @Route("/panoramas/history", name="panoramas.history.index")
+     * @Route("/panoramas/history", name="panorama_history_index")
      * @return Response
      */
     public function history(): Response

@@ -59,7 +59,7 @@
                                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
                                                     <button class="btn btn-danger">Supprimer</button>
                                                 </form>
-                                                <a href="{{ path('panoramas.edit', {id: panorama.id}) }}" class="btn btn-primary">Editer</a>
+                                                <a href="{{ path('panorama_edit', {id: panorama.id}) }}" class="btn btn-primary">Editer</a>
                                                 {% if panorama.validate == 0 %}
                                                     <form method="POST" action="{{ path('panorama_valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
                                                         <input type="hidden" name="_method" value="VALID">
