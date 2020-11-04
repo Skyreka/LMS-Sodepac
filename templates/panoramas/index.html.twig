@@ -26,8 +26,8 @@
                     <div class="card-body">
                         <div class="d-flex no-block">
                             <div class="ml-auto">
-                                <a title="Créer un panorama" href="{{ path('panoramas.new') }}" class="btn btn-success">Créer</a>
-                                <a href="{{ path('panoramas.history.index') }}" class="btn btn-info">Historique des Panoramas</a>
+                                <a title="Créer un panorama" href="{{ path('panorama_new') }}" class="btn btn-success">Créer</a>
+                                <a href="{{ path('panorama_history_index') }}" class="btn btn-info">Historique des Panoramas</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -54,25 +54,25 @@
                                         </td>
                                         <td>
                                             {% if app.user.status == 'ROLE_ADMIN' %}
-                                                <form method="POST" action="{{ path('panoramas.delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
+                                                <form method="POST" action="{{ path('panorama_delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
                                                     <button class="btn btn-danger">Supprimer</button>
                                                 </form>
                                                 <a href="{{ path('panoramas.edit', {id: panorama.id}) }}" class="btn btn-primary">Editer</a>
                                                 {% if panorama.validate == 0 %}
-                                                    <form method="POST" action="{{ path('panoramas.valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
+                                                    <form method="POST" action="{{ path('panorama_valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
                                                         <input type="hidden" name="_method" value="VALID">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
                                                         <button class="btn btn-success">Valider</button>
                                                     </form>
                                                 {% endif %}
                                                 {% if panorama.validate == 1 %}
-                                                    <a title="Envoyer ce panorama" href="{{ path('panoramas.send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
+                                                    <a title="Envoyer ce panorama" href="{{ path('panorama_send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
                                                 {% endif %}
                                             {% elseif app.user.status == 'ROLE_TECHNICIAN' %}
                                                 {% if panorama.validate == 1 %}
-                                                    <a title="Envoyer ce panorama" href="{{ path('panoramas.send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
+                                                    <a title="Envoyer ce panorama" href="{{ path('panorama_send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
                                                 {% endif %}
                                             {% endif %}
                                             {% if panorama.firstFile %}

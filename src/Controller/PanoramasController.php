@@ -22,7 +22,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-
+/**
+ * @Route("/panorama")
+ */
 class PanoramasController extends AbstractController
 {
     /**
@@ -41,7 +43,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas", name="panoramas.index")
+     * @Route("/", name="panorama_index")
      * @return Response
      */
     public function index(): Response
@@ -53,7 +55,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas/{id}", name="panoramas.delete", methods="DELETE")
+     * @Route("/{id}", name="panorama_delete", methods="DELETE")
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse
@@ -70,7 +72,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas/{id}", name="panoramas.valid", methods="VALID")
+     * @Route("/{id}", name="panorama_valid", methods="VALID")
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse
@@ -87,7 +89,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas/new", name="panoramas.new")
+     * @Route("/new", name="panorama_new")
      * @param Request $request
      * @param UsersRepository $ur
      * @param \Swift_Mailer $mailer
@@ -189,7 +191,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panorama/edit/{id}", name="panoramas.edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="panorama_edit", methods="GET|POST")
      * @param Panoramas $panoramas
      * @param Request $request
      * @return Response
@@ -261,7 +263,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas/send/{id}", name="panoramas.send", methods="GET|POST")
+     * @Route("/send/{id}", name="panorama_send", methods="GET|POST")
      * @param Panoramas $panoramas
      * @param Request $request
      * @return Response
@@ -366,7 +368,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/panorama/{id}", name="user.panorama.check", methods="CHECK")
+     * @Route("/user/{id}", name="panorama_user_check", methods="CHECK")
      * @param PanoramaUser $panoramaUser
      * @param Request $request
      * @return RedirectResponse
@@ -391,7 +393,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas/history/{year}", name="panoramas.history.show")
+     * @Route("/history/{year}", name="panorama_history_show")
      * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response
@@ -411,7 +413,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/panoramas/history", name="user.panoramas.history.index")
+     * @Route("/user/history", name="panorama_user_history_index")
      * @param PanoramaUserRepository $pur
      * @return Response
      */
@@ -425,7 +427,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/panoramas/history/{year}", name="user.panoramas.history.show")
+     * @Route("/user/history/{year}", name="panorama_user_history_show")
      * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response
