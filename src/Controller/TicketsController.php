@@ -8,7 +8,6 @@ use App\Form\TicketsNewMessageType;
 use App\Form\TicketsNewType;
 use App\Repository\TicketsMessagesRepository;
 use App\Repository\TicketsRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -16,24 +15,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class TicketsController
+ * @package App\Controller
+ * @Route("/tickets")
+ */
 class TicketsController extends AbstractController
 {
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
-    private $om;
+    private $em;
 
     /**
      * StockController constructor.
-     * @param EntityManagerInterface $om
+     * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManagerInterface $om)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->om = $om;
+        $this->em = $em;
     }
 
     /**
-     * @Route("tickets", name="tickets.home")
+     * @Route("/", name="tickets_index", methods={"GET"})
      * @param TicketsRepository $tr
      * @return Response
      */
@@ -50,7 +54,7 @@ class TicketsController extends AbstractController
     }
 
     /**
-     * @Route("tickets/new", name="tickets.new")
+     * @Route("/new", name="tickets_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -63,10 +67,10 @@ class TicketsController extends AbstractController
         if ( $form->isSubmitted() && $form->isValid() ) {
             $tickets->setTechnician( $this->getUser()->getTechnician());
             $tickets->setUser( $this->getUser() );
-            $this->om->persist( $tickets );
-            $this->om->flush();
+            $this->em->persist( $tickets );
+            $this->em->flush();
             $this->addFlash('success', 'Ticket crée avec succès');
-            return $this->redirectToRoute('tickets.home');
+            return $this->redirectToRoute('tickets_index');
         }
 
         return $this->render('tickets/new.html.twig', [
@@ -75,7 +79,7 @@ class TicketsController extends AbstractController
     }
 
     /**
-     * @Route("tickets/conversation/{id}", name="tickets.conversation.show")
+     * @Route("/conversation/{id}", name="tickets_conversation_show", methods={"POST", "GET"}, requirements={"id":"\d+"})
      * @param Tickets $ticket
      * @param TicketsMessagesRepository $tmr
      * @param TicketsRepository $tr
@@ -120,9 +124,9 @@ class TicketsController extends AbstractController
                 }
                 $ticketsMessages->setFile( $newFileName );
             }
-            $this->om->persist( $ticketsMessages );
-            $this->om->flush();
-            return $this->redirectToRoute('tickets.conversation.show', ['id' => $ticket->getId()]);
+            $this->em->persist( $ticketsMessages );
+            $this->em->flush();
+            return $this->redirectToRoute('tickets_conversation_show', ['id' => $ticket->getId()]);
         }
 
         return $this->render('tickets/conversation.html.twig', [
@@ -134,7 +138,7 @@ class TicketsController extends AbstractController
     }
 
     /**
-     * @Route("/tickets/{id}", name="tickets.close", methods="CLOSE")
+     * @Route("/close/{id}", name="tickets_close", methods="CLOSE", requirements={"id":"\d+"})
      * @param Tickets $tickets
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -145,9 +149,9 @@ class TicketsController extends AbstractController
             $tickets->setStatus(0);
             $datetime = New \DateTime();
             $tickets->setClosedAt($datetime);
-            $this->om->flush();
+            $this->em->flush();
         }
 
-        return $this->redirectToRoute('tickets.home');
+        return $this->redirectToRoute('tickets_index');
     }
 }
