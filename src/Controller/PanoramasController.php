@@ -11,7 +11,6 @@ use App\Repository\PanoramasRepository;
 use App\Repository\PanoramaUserRepository;
 use App\Repository\UsersRepository;
 use DateTime;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +31,7 @@ class PanoramasController extends AbstractController
      */
     private $repositoryPanoramas;
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $em;
 
@@ -43,7 +42,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("", name="panorama_index")
+     * @Route("", name="panorama_index", methods={"GET"})
      * @return Response
      */
     public function index(): Response
@@ -55,7 +54,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="panorama_delete", methods="DELETE")
+     * @Route("/{id}", name="panorama_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse
@@ -72,7 +71,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="panorama_valid", methods="VALID")
+     * @Route("/{id}", name="panorama_valid", methods="VALID", requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse
@@ -89,7 +88,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="panorama_new")
+     * @Route("/new", name="panorama_new", methods={"GET", "POST"})
      * @param Request $request
      * @param UsersRepository $ur
      * @param \Swift_Mailer $mailer
@@ -191,7 +190,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="panorama_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="panorama_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return Response
@@ -259,7 +258,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/send/{id}", name="panorama_send", methods="GET|POST")
+     * @Route("/send/{id}", name="panorama_send", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return Response
@@ -300,7 +299,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/{id}", name="panorama_user_check", methods="CHECK")
+     * @Route("/user/{id}", name="panorama_user_check", methods="CHECK", requirements={"id":"\d+"})
      * @param PanoramaUser $panoramaUser
      * @param Request $request
      * @return RedirectResponse
@@ -316,7 +315,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas/history", name="panorama_history_index")
+     * @Route("/panoramas/history", name="panorama_history_index", methods={"GET"})
      * @return Response
      */
     public function history(): Response
@@ -325,7 +324,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/history/{year}", name="panorama_history_show")
+     * @Route("/history/{year}", name="panorama_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response
@@ -345,9 +344,10 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/history", name="panorama_user_history_index")
+     * @Route("/user/history", name="panorama_user_history_index", methods={"GET"})
      * @param PanoramaUserRepository $pur
      * @return Response
+     * @throws \Exception
      */
     public function userHistory(PanoramaUserRepository $pur): Response
     {
@@ -359,7 +359,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/history/{year}", name="panorama_user_history_show")
+     * @Route("/user/history/{year}", name="panorama_user_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response
