@@ -66,6 +66,22 @@ class UsersRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param $role
+     * @return int|mixed|string
+     */
+    public function countAllByRole($role)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.status = :role')
+            ->setParameter('role', $role)
+            ->orderBy('u.id', 'ASC')
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    /**
      * @param null $limit
      * @return mixed
      */
@@ -104,6 +120,23 @@ class UsersRepository extends ServiceEntityRepository
         }
 
         return $req->getQuery()->getResult();
+    }
+
+    /**
+     * @param $pack
+     * @param null $limit
+     * @return mixed
+     */
+    public function countAllByPack( $pack)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.pack = :pack')
+            ->setParameter('pack', $pack)
+            ->orderBy('u.id', 'ASC')
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
     }
 
     // /**

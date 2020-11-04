@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="d-flex no-block">
                             <div class="ml-auto">
-                                <a href="{{ path('admin.users.new') }}" class="btn btn-success">Ajouter un utilisateur</a>
+                                <a href="{{ path('admin_users_new') }}" class="btn btn-success">Ajouter un utilisateur</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -72,7 +72,7 @@
         $('#datatable').DataTable({
             dom: 'Bfrtip',
             serverSide: true,
-            ajax: '{{ path('admin.users.data') }}',
+            ajax: '{{ path('admin_users_data') }}',
             responsive: true,
             "language": {
                 "sProcessing":     "Traitement en cours...",

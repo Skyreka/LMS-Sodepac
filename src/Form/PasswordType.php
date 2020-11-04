@@ -15,8 +15,8 @@ class PasswordType extends AbstractType
         $builder
             ->add('password', RepeatedType::class, array(
                 'type' => \Symfony\Component\Form\Extension\Core\Type\PasswordType::class,
-                'first_options'  => array('label' => 'Votre nouveau mot de passe'),
-                'second_options' => array('label' => 'Confirmation de votre nouveau mot de passe'),
+                'first_options'  => array('label' => 'Nouveau mot de passe'),
+                'second_options' => array('label' => 'Confirmation nouveau mot de passe'),
                 'invalid_message' => 'Les 2 mots de passe ne sont pas identiques.',
             ))
         ;

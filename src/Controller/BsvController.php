@@ -9,7 +9,6 @@ use App\Form\BsvSendType;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
 use App\Repository\BsvUsersRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,9 +23,7 @@ class BsvController extends AbstractController
      * @var BsvRepository
      */
     private $repositoryBsv;
-    /**
-     * @var ObjectManager
-     */
+
     private $em;
 
     public function __construct(BsvRepository $repository, EntityManagerInterface $em)

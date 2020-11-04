@@ -13,6 +13,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
+ * Class AccountController
+ * @package App\Controller
  * @Route("/account")
  */
 class  AccountController extends AbstractController {
@@ -36,7 +38,7 @@ class  AccountController extends AbstractController {
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function account(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function index(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
         if (!$user) {
