@@ -43,7 +43,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/", name="panorama_index")
+     * @Route("", name="panorama_index")
      * @return Response
      */
     public function index(): Response
@@ -209,9 +209,7 @@ class PanoramasController extends AbstractController
 
             if ($firstFile) {
                 $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
-                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $safeFilename = $originalFilename;
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
                 try {
                     $firstFile->move(
                         $this->getParameter('panorama_directory'),
@@ -224,8 +222,8 @@ class PanoramasController extends AbstractController
 
             if ($secondFile) {
                 $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $secondFile->guessExtension();
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+
 
                 try {
                     $secondFile->move(
@@ -239,8 +237,6 @@ class PanoramasController extends AbstractController
 
             if ($thirdFile) {
                 $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $thirdFile->guessExtension();
 
                 try {
                     $thirdFile->move(
@@ -271,71 +267,7 @@ class PanoramasController extends AbstractController
      */
     public function send(Panoramas $panoramas, Request $request): Response
     {
-
-        //TODO: Clear this
-        //Set form
-        if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
-            $form = $this->createFormBuilder()
-                ->add('customers', EntityType::class, [
-                    'class' => Users::class,
-                    'choice_label' => function(Users $user) {
-                        return $user->getFirstname() . ' ' . $user->getLastname();
-                    },
-                    'query_builder' => function (UsersRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->andWhere('u.status = :role')
-                            ->setParameter('role', 'ROLE_USER' );
-                    },
-                    'label'     => 'Envoyer à :',
-                    'expanded'  => true,
-                    'multiple'  => true,
-                ])
-                ->add('display_at', DateType::class, [
-                    'widget' => 'single_text',
-                    'html5' => false,
-                    'mapped' => false,
-                    'required' => false,
-                    'format' => 'dd/MM/yyyy',
-                    'attr' => [
-                        'class' => 'js-datepicker',
-                        'autocomplete' => 'off'
-                    ],
-                    'label' => 'Date d\'envoi',
-                    'help' => 'Remplir uniquement en cas d\'envoi différé.'
-                ])
-                ->getForm();
-        } else {
-            $form = $this->createFormBuilder()
-                ->add('customers', EntityType::class, [
-                    'class' => Users::class,
-                    'choice_label' => function(Users $user) {
-                        return $user->getFirstname() . ' ' . $user->getLastname();
-                    },
-                    'query_builder' => function (UsersRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->orderBy('u.status', 'ASC')
-                            ->andWhere('u.technician = :technician')
-                            ->setParameter('technician', $this->getUser()->getId() );
-                    },
-                    'label'     => 'Envoyer à :',
-                    'expanded'  => true,
-                    'multiple'  => true,
-                ])
-                ->add('display_at', DateType::class, [
-                    'widget' => 'single_text',
-                    'html5' => false,
-                    'mapped' => false,
-                    'required' => false,
-                    'format' => 'dd/MM/yyyy',
-                    'attr' => [
-                        'class' => 'js-datepicker',
-                        'autocomplete' => 'off'
-                    ],
-                    'label' => 'Date d\'envoi',
-                    'help' => 'Remplir uniquement en cas d\'envoi différé.'
-                ])
-                ->getForm();
-        }
+        $form = $this->createForm(PanoramaSendType::class);
         $form->handleRequest($request);
 
         //Submit form
