@@ -49,7 +49,7 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/", name="technician_customers_index", merhods={"GET"})
+     * @Route("/", name="technician_customers_index", methods={"GET"})
      */
     public function index(): Response
     {
