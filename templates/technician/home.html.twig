@@ -84,12 +84,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for bsv in bsvs %}
+                                {% for flash in flashs %}
                                     <tr>
                                         <td>
-                                            <h6>{{ bsv.bsv.text }} </h6>
-                                            <small class="text-muted">{{ bsv.displayAt|date("d/m/Y") }}
-                                                - {{ bsv.customers.identity }}
+                                            <h6>{{ flash.bsv.text }} </h6>
+                                            <small class="text-muted">{{ flash.displayAt|date("d/m/Y") }}
+                                                - {{ flash.customers.identity }}
                                             </small>
                                         </td>
                                     </tr>
