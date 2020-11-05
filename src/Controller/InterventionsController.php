@@ -34,9 +34,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class InterventionsController extends AbstractController
 {
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
-    private $om;
+    private $em;
     /**
      * @var CulturesRepository
      */
@@ -44,16 +44,16 @@ class InterventionsController extends AbstractController
 
     /**
      * InterventionsController constructor.
-     * @param EntityManagerInterface $om
+     * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManagerInterface $om)
+    public function __construct(EntityManagerInterface $em)
     {
 
-        $this->om = $om;
+        $this->em = $em;
     }
 
     /**
-     * @Route("interventions/recolte/{id}", name="interventions.recolte.new")
+     * @Route("interventions/recolte/{id}", name="interventions_recolte_new", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param Request $request
      * @return Response
@@ -75,9 +75,9 @@ class InterventionsController extends AbstractController
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
                     $culture->setStatus( 1 );
-                    $this->om->merge( $intervention );
-                    $this->om->merge( $culture );
-                    $this->om->flush();
+                    $this->em->merge( $intervention );
+                    $this->em->merge( $culture );
+                    $this->em->flush();
                 }
 
                 //-- Clear listCulture
@@ -89,15 +89,15 @@ class InterventionsController extends AbstractController
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
                 $culture->setStatus( 1 );
-                $this->om->persist( $intervention );
-                $this->om->flush();
+                $this->em->persist( $intervention );
+                $this->em->flush();
 
                 // If is culture multiple create new and archive old
                 if ($culture->getPermanent() == 1) {
                     $newCulture = clone $culture;
                     $newCulture->setStatus( 0 );
-                    $this->om->persist($newCulture);
-                    $this->om->flush();
+                    $this->em->persist($newCulture);
+                    $this->em->flush();
                     $this->addFlash('warning', 'Duplication de votre culture permanente');
                 }
             }
@@ -113,7 +113,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("interventions/binage/{id}", name="interventions.binage.new")
+     * @Route("interventions/binage/{id}", name="interventions_binage_new", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param Request $request
      * @return Response
@@ -133,8 +133,8 @@ class InterventionsController extends AbstractController
                 foreach ($listCulture as $culture) {
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
-                    $this->om->merge( $intervention );
-                    $this->om->flush();
+                    $this->em->merge( $intervention );
+                    $this->em->flush();
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
@@ -143,8 +143,8 @@ class InterventionsController extends AbstractController
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
-                $this->om->persist( $intervention );
-                $this->om->flush();
+                $this->em->persist( $intervention );
+                $this->em->flush();
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
@@ -158,7 +158,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("interventions/labour/{id}", name="interventions.labour.new")
+     * @Route("interventions/labour/{id}", name="interventions_labour_new", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param Request $request
      * @return Response
@@ -178,8 +178,8 @@ class InterventionsController extends AbstractController
                 foreach ($listCulture as $culture) {
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
-                    $this->om->merge( $intervention );
-                    $this->om->flush();
+                    $this->em->merge( $intervention );
+                    $this->em->flush();
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
@@ -188,8 +188,8 @@ class InterventionsController extends AbstractController
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
-                $this->om->persist( $intervention );
-                $this->om->flush();
+                $this->em->persist( $intervention );
+                $this->em->flush();
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
@@ -203,7 +203,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("interventions/epandage/{id}", name="interventions.epandage.new")
+     * @Route("interventions/epandage/{id}", name="interventions_epandage_new", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param Request $request
      * @return Response
@@ -222,8 +222,8 @@ class InterventionsController extends AbstractController
                 foreach ($listCulture as $culture) {
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
-                    $this->om->merge( $intervention );
-                    $this->om->flush();
+                    $this->em->merge( $intervention );
+                    $this->em->flush();
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
@@ -232,8 +232,8 @@ class InterventionsController extends AbstractController
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
-                $this->om->persist( $intervention );
-                $this->om->flush();
+                $this->em->persist( $intervention );
+                $this->em->flush();
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
@@ -247,7 +247,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("interventions/semis/{id}", name="interventions.semis.new")
+     * @Route("interventions/semis/{id}", name="interventions_semis_new", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param Request $request
      * @return Response
@@ -266,8 +266,8 @@ class InterventionsController extends AbstractController
                 foreach ($listCulture as $culture) {
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
-                    $this->om->merge( $intervention );
-                    $this->om->flush();
+                    $this->em->merge( $intervention );
+                    $this->em->flush();
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
@@ -276,8 +276,8 @@ class InterventionsController extends AbstractController
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
-                $this->om->persist( $intervention );
-                $this->om->flush();
+                $this->em->persist( $intervention );
+                $this->em->flush();
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
@@ -291,7 +291,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("interventions/phyto/{id}/{name}", name="interventions.phyto.new")
+     * @Route("interventions/phyto/{id}/{name}", name="interventions_phyto_new", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param $name
      * @param Request $request
@@ -359,8 +359,8 @@ class InterventionsController extends AbstractController
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
                     //-- Flush on db
-                    $lastIntervention = $this->om->merge( $intervention );
-                    $this->om->flush();
+                    $lastIntervention = $this->em->merge( $intervention );
+                    $this->em->flush();
                     //-- Push to array all interventions id generated on DB
                     array_push( $listIntervention, $lastIntervention->getId() );
                 }
@@ -372,7 +372,7 @@ class InterventionsController extends AbstractController
                     // Create listIntervention SESSION with array pre generated
                     $this->container->get('session')->set('listIntervention', $listIntervention);
                     // Go to page for add product
-                    return $this->redirectToRoute('interventions.phyto.product', ['id' => $lastIntervention->getId()]);
+                    return $this->redirectToRoute('interventions_phyto_product', ['id' => $lastIntervention->getId()]);
                 }
 
                 //--Flash Message
@@ -389,15 +389,15 @@ class InterventionsController extends AbstractController
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
                 //-- Flush on db
-                $this->om->persist( $intervention );
-                $this->om->flush();
+                $this->em->persist( $intervention );
+                $this->em->flush();
             }
             //-- Flash Message
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             //-- Redirect to add new product if checkbox is checked
             if ( $data['addProduct']->getData() ) {
-                return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
+                return $this->redirectToRoute('interventions_phyto_product', ['id' => $intervention->getId()]);
             }
             //-- Or redirect to culture
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
@@ -413,7 +413,7 @@ class InterventionsController extends AbstractController
 
     /**
      * Add product to an intervention
-     * @Route("interventions/phyto/{id}", name="interventions.phyto.product")
+     * @Route("interventions/phyto/{id}", name="interventions_phyto_product", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Interventions $intervention
      * @param Request $request
      * @param StocksRepository $sr
@@ -456,14 +456,14 @@ class InterventionsController extends AbstractController
                     $interventionProduct->setProduct( $stock->getProduct() );
                     $interventionProduct->setIntervention( $interventionToPut );
                     // Save on DB
-                    $this->om->merge( $interventionProduct );
-                    $this->om->flush();
+                    $this->em->merge( $interventionProduct );
+                    $this->em->flush();
                 }
 
                 //-- Multiple product on mutiple intervention
                 if ( $data['addProduct']->getData() ) {
                     // If user want to loop
-                    return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
+                    return $this->redirectToRoute('interventions_phyto_product', ['id' => $intervention->getId()]);
                 } else {
                     //-- Clear listIntervention only if user not want a loop
                     $this->container->get('session')->remove('listIntervention');
@@ -480,8 +480,8 @@ class InterventionsController extends AbstractController
                 $interventionProduct->setQuantity( $form->getData()->getQuantity() );
                 $interventionProduct->setProduct( $stock->getProduct() );
                 $interventionProduct->setIntervention( $intervention );
-                $this->om->persist( $interventionProduct );
-                $this->om->flush();
+                $this->em->persist( $interventionProduct );
+                $this->em->flush();
                 // Flash Messages
                 $this->addFlash('success', 'Nouveau produit ajouté avec succès');
                 $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
@@ -489,7 +489,7 @@ class InterventionsController extends AbstractController
 
             //-- Redirect to add new product if checkbox is checked
             if ( $data['addProduct']->getData() ) {
-                return $this->redirectToRoute('interventions.phyto.product', [
+                return $this->redirectToRoute('interventions_phyto_product', [
                     'id' => $intervention->getId()
                 ]);
             }
@@ -509,7 +509,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("interventions/phyto-delete/{interventionsProducts}", name="interventions.phyto.product.delete", methods="DELETE")
+     * @Route("interventions/phyto-delete/{interventionsProducts}", name="interventions_phyto_product_delete", methods="DELETE", requirements={"nterventionsProducts":"\d+"})
      * @param InterventionsProducts $interventionsProducts
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -518,15 +518,15 @@ class InterventionsController extends AbstractController
     {
         $intervention = $interventionsProducts->getIntervention();
         if ($this->isCsrfTokenValid('delete' . $interventionsProducts->getId(), $request->get('_token'))) {
-            $this->om->remove( $interventionsProducts );
-            $this->om->flush();
+            $this->em->remove( $interventionsProducts );
+            $this->em->flush();
         }
 
-        return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
+        return $this->redirectToRoute('interventions_phyto_product', ['id' => $intervention->getId()]);
     }
 
     /**
-     * @Route("interventions/fertilisant/{id}", name="interventions.fertilisant.new")
+     * @Route("interventions/fertilisant/{id}", name="interventions.fertilisant.new", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param Request $request
      * @param StocksRepository $sr
@@ -574,8 +574,8 @@ class InterventionsController extends AbstractController
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
                     //-- Flush on db
-                    $this->om->merge( $intervention );
-                    $this->om->flush();
+                    $this->em->merge( $intervention );
+                    $this->em->flush();
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
@@ -586,8 +586,8 @@ class InterventionsController extends AbstractController
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
                 //-- Flush on db
-                $this->om->persist( $intervention );
-                $this->om->flush();
+                $this->em->persist( $intervention );
+                $this->em->flush();
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
@@ -603,7 +603,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("interventions/edit/{id}", name="interventions.edit")
+     * @Route("interventions/edit/{id}", name="interventions_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Interventions $intervention
      * @param Request $request
      * @return Response
@@ -646,7 +646,7 @@ class InterventionsController extends AbstractController
         $form->handleRequest( $request );
 
         if ( $form->isSubmitted() && $form->isValid()) {
-            $this->om->flush();
+            $this->em->flush();
             $this->addFlash('success', 'Intervention modifiée avec succès');
             return $this->redirectToRoute( 'cultures.synthese', ['id' => $intervention->getCulture()->getId()] );
         }
@@ -659,7 +659,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("/intervention-product/delete/{id}", name="interventions.product.delete", methods="DELETE")
+     * @Route("/intervention-product/delete/{id}", name="interventions_product_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param InterventionsProducts $interventionsProducts
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -667,10 +667,10 @@ class InterventionsController extends AbstractController
     public function delete(InterventionsProducts $interventionsProducts, Request $request)
     {
         if ($this->isCsrfTokenValid( 'deleteProduct', $request->get('_token') )) {
-            $this->om->remove( $interventionsProducts );
-            $this->om->flush();
+            $this->em->remove( $interventionsProducts );
+            $this->em->flush();
             $this->addFlash('success', 'Produit supprimé avec succès');
-            return $this->redirectToRoute( 'interventions.phyto.product', ['id' => $interventionsProducts->getIntervention()->getId()] );
+            return $this->redirectToRoute( 'interventions_phyto_product', ['id' => $interventionsProducts->getIntervention()->getId()] );
         }
         return $this->redirectToRoute('home');
     }
