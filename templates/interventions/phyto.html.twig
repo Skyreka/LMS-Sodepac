@@ -21,15 +21,23 @@
                 </ol>
             </div>
         </div>
-        {% if warningMessage %}
-            <div class="alert alert-warning">Attention! Vous allez appliquer un produit moins de 48H après une autre application de produit sur cette culture, assurez vous que cette intervention est autorisé en consultant le site officiel <a href="https://ephy.anses.fr/" target="_blank">ephy.anses.fr</a></div>
-        {% endif %}
-        {% if intervention == 'Traitement-Divers' %}
-            <div class="alert alert-warning">Attention, cette intervention rentrera en compte dans le calcul de l'IFT</div>
-        {% endif %}
-        {% if app.session.get('listCulture') %}
-            <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login_success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
-        {% endif %}
+        <div class="col-12">
+            {% if warningMessage %}
+                <div class="alert alert-warning">Attention! Vous allez appliquer un produit moins de 48H après une autre application de produit sur cette culture, assurez vous que cette intervention est autorisé en consultant le site officiel <a href="https://ephy.anses.fr/" target="_blank">ephy.anses.fr</a></div>
+            {% endif %}
+            {% if intervention == 'Traitement-Divers' %}
+                <div class="alert alert-warning">Attention, cette intervention rentrera en compte dans le calcul de l'IFT</div>
+            {% endif %}
+            {% if app.session.get('listCulture') %}
+                <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login.success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
+            {% endif %}
+            <!--begin::Alert-->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
