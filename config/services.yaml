@@ -11,6 +11,7 @@ parameters:
     recommendation_directory: '%kernel.project_dir%/public/uploads/recommendations'
 
 services:
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
