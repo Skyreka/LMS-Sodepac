@@ -46,7 +46,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/irrigation/delete/{id}", name="irrigation_delete", methods="DELETE")
+     * @Route("/irrigation/delete/{id}", name="irrigation_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Irrigation $irrigation
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
