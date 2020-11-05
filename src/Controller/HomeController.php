@@ -25,7 +25,7 @@ class HomeController extends AbstractController {
      * @return Response
      * @throws \Exception
      */
-    public function homeUsers(IlotsRepository $ir, BsvUsersRepository $bur, PanoramaUserRepository $pur, TicketsRepository $tr): Response
+    public function home(IlotsRepository $ir, BsvUsersRepository $bur, PanoramaUserRepository $pur, TicketsRepository $tr): Response
     {
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $flashs = $bur->findAllByCustomer($this->getUser(), 3);
