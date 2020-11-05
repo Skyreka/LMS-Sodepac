@@ -8,13 +8,17 @@ use App\Form\MixAddProductType;
 use App\Form\MixAddType;
 use App\Repository\MixProductsRepository;
 use App\Repository\MixRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class MixController
+ * @package App\Controller
+ * @Route("/mix")
+ */
 class MixController extends AbstractController
 {
     /**
@@ -30,7 +34,7 @@ class MixController extends AbstractController
     /**
      * @param MixRepository $mr
      * @return Response
-     * @Route("mix", name="mix.index")
+     * @Route("/", name="mix_index", methods={"GET"})
      */
     public function mixIndex( MixRepository $mr ) : Response
     {
@@ -44,9 +48,9 @@ class MixController extends AbstractController
      * @param Request $request
      * @return Response
      * @throws \Exception
-     * @Route("mix/add", name="mix.add")
+     * @Route("/new", name="mix_new", methods={"GET", "POST"})
      */
-    public function mixAdd( Request $request ) : Response
+    public function mixNew( Request $request ) : Response
     {
         $mix = new Mix();
         $form = $this->createForm(MixAddType::class, $mix );
@@ -58,7 +62,7 @@ class MixController extends AbstractController
             $mix->setUser( $this->getUser() );
             $this->em->persist( $mix );
             $this->em->flush();
-            return $this->redirectToRoute('mix.view', ['id' => $mix->getId()]);
+            return $this->redirectToRoute('mix_show', ['id' => $mix->getId()]);
         }
 
         return $this->render('mix/add.html.twig', [
@@ -70,7 +74,7 @@ class MixController extends AbstractController
      * @param Request $request
      * @param Mix $mix
      * @return Response
-     * @Route("mix/add-product/{id}", name="mix.add.product")
+     * @Route("/add-product/{id}", name="mix_add_product", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function mixAddProduct( Request $request, Mix $mix ) : Response
     {
@@ -82,7 +86,7 @@ class MixController extends AbstractController
             $mixProduct->setMix( $mix );
             $this->em->persist( $mixProduct );
             $this->em->flush();
-            return $this->redirectToRoute('mix.view', ['id' => $mix->getId()]);
+            return $this->redirectToRoute('mix_show', ['id' => $mix->getId()]);
         }
 
         return $this->render('mix/addProduct.html.twig', [
@@ -95,9 +99,9 @@ class MixController extends AbstractController
      * @param Mix $mix
      * @param MixProductsRepository $mpr
      * @return Response
-     * @Route("mix/view/{id}", name="mix.view")
+     * @Route("/show/{id}", name="mix_show", methods={"GET"}, requirements={"id":"\d+"})
      */
-    public function mixView( Mix $mix, MixProductsRepository $mpr ) : Response
+    public function mixShow( Mix $mix, MixProductsRepository $mpr ) : Response
     {
         $mixProducts = $mpr->findBy( ['mix' => $mix ]);
         return $this->render('mix/view.html.twig', [
@@ -107,7 +111,7 @@ class MixController extends AbstractController
     }
 
     /**
-     * @Route("mix/delete/{id}", name="mix.delete", methods="DELETE")
+     * @Route("/delete/{id}", name="mix_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Mix $mix
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -121,6 +125,6 @@ class MixController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Mélange supprimée avec succès');
         }
-        return $this->redirectToRoute('mix.index');
+        return $this->redirectToRoute('mix_index');
     }
 }
