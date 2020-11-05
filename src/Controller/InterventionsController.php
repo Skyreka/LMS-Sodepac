@@ -147,7 +147,7 @@ class InterventionsController extends AbstractController
                 $this->om->flush();
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-            return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
+            return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
         return $this->render('interventions/default.html.twig', [
@@ -192,7 +192,7 @@ class InterventionsController extends AbstractController
                 $this->om->flush();
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-            return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
+            return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
         return $this->render('interventions/default.html.twig', [
@@ -236,7 +236,7 @@ class InterventionsController extends AbstractController
                 $this->om->flush();
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-            return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
+            return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
         return $this->render('interventions/default.html.twig', [
@@ -280,7 +280,7 @@ class InterventionsController extends AbstractController
                 $this->om->flush();
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-            return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
+            return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
         return $this->render('interventions/default.html.twig', [
@@ -400,7 +400,7 @@ class InterventionsController extends AbstractController
                 return $this->redirectToRoute('interventions.phyto.product', ['id' => $intervention->getId()]);
             }
             //-- Or redirect to culture
-            return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
+            return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
         return $this->render('interventions/phyto.html.twig', [
@@ -495,7 +495,7 @@ class InterventionsController extends AbstractController
             }
 
             // Go to cultures show
-            return $this->redirectToRoute('cultures.show', [
+            return $this->redirectToRoute('cultures_show', [
                 'id' => $intervention->getCulture()->getId()
             ]);
         }
@@ -591,7 +591,7 @@ class InterventionsController extends AbstractController
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
-            return $this->redirectToRoute( 'cultures.show', ['id' => $culture->getId()] );
+            return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
         return $this->render('interventions/fertilisant.html.twig', [

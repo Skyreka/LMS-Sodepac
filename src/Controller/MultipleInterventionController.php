@@ -32,7 +32,7 @@ class MultipleInterventionController extends AbstractController
             // Put array to session
             $this->container->get('session')->set('listCulture', $listCultures);
 
-            return $this->redirectToRoute('cultures.show', ['id' => $listCultures[0]->getId()]);
+            return $this->redirectToRoute('cultures_show', ['id' => $listCultures[0]->getId()]);
         }
 
         return $this->render('multipleIntervention/index.html.twig', [
