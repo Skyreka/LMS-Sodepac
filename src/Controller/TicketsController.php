@@ -90,7 +90,7 @@ class TicketsController extends AbstractController
     {
         // security check
         if ( $this->getUser() != $ticket->getUser() && $this->getUser() != $ticket->getTechnician() ) {
-            return $this->redirectToRoute('login.success');
+            return $this->redirectToRoute('login_success');
         }
         // get message of ticket
         $messages = $tmr->findBy( ['ticket' => $ticket]);

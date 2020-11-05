@@ -16,13 +16,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController {
 
     /**
-     * @Route("/", name="login")
+     * @Route("/", name="login", methods={"GET", "POST"})
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils) {
         if ($this->getUser() !== null ){
-            return $this->redirectToRoute('login.success');
+            return $this->redirectToRoute('login_success');
         }
 
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -34,7 +34,7 @@ class SecurityController extends AbstractController {
     }
 
     /**
-     * @Route("/login_success", name="login.success")
+     * @Route("/login_success", name="login_success", methods={"GET"})
      */
     public function postLoginRedirection()
     {
@@ -60,7 +60,7 @@ class SecurityController extends AbstractController {
     }
 
     /**
-     * @Route("/active_user/{id}", name="security.active")
+     * @Route("/active_user/{id}", name="security_active", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Users $user
      * @param Request $request
      * @param EntityManagerInterface $em

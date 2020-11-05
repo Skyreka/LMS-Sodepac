@@ -13,7 +13,7 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Confirmation Ajout d'un produit</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Intervention</a></li>
                     <li class="breadcrumb-item active">Confirmation Ajout Produit</li>
                 </ol>
@@ -45,7 +45,7 @@
                             {% if loop == 1  %}
                                 <a href="{{ path('interventions_phyto_product', {id: intervention.id}) }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
                             {% else %}
-                                <a href="{{ path('login.success') }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
+                                <a href="{{ path('login_success') }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
                             {% endif %}
                             <form method="POST" action="{{ path('interventions_phyto_product_delete', {interventionsProducts: lastInterventionProducts.id}) }}" style="display: inline-block">
                                 <input type="hidden" name="_method" value="DELETE">

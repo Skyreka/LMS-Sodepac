@@ -14,7 +14,7 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">{{ intervention }}</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('ilots_show', {id: culture.ilot.id})}}">{{ culture.ilot.name }}</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('cultures_show', {id: culture.id})}}">{{ culture.name.name }}</a></li>
                     <li class="breadcrumb-item active">{{ intervention }}</li>
@@ -25,7 +25,7 @@
             <div class="alert alert-warning">Attention! Vous allez appliquer un produit moins de 48H après une autre application de produit sur cette culture, assurez vous que cette intervention est autorisé en consultant le site officiel <a href="https://ephy.anses.fr/" target="_blank">ephy.anses.fr</a></div>
         {% endif %}
         {% if app.session.get('listCulture') %}
-            <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login.success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
+            <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login_success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
         {% endif %}
         <div class="row">
             <div class="col-lg-12">
