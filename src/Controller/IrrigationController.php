@@ -156,7 +156,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/arrosage/{ilot}", name="exploitation_synthese_arrosage_ilots_show", methods={"GET", "POST"}, requirements={"ilot":"\d+"})
+     * @Route("/exploitation/arrosage/{ilot}", name="exploitation.synthese.arrosage.ilots.show")
      * @param $ilot
      * @param IrrigationRepository $ir
      * @param IlotsRepository $ilr
@@ -173,7 +173,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/pluviometrie/", name="exploitation_synthese_pluviometrie_ilots_index", methods={"GET"})
+     * @Route("/exploitation/pluviometrie/", name="exploitation.synthese.pluviometrie.ilots.index")
      * @param IlotsRepository $ir
      * @return Response
      */
@@ -185,7 +185,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/pluviometrie/{ilot}", name="exploitation.synthese.pluviometrie.ilots.show", methods={"GET"}, requirements={"ilot":"\d+"})
+     * @Route("/exploitation/pluviometrie/{ilot}", name="exploitation.synthese.pluviometrie.ilots.show")
      * @param $ilot
      * @param IrrigationRepository $ir
      * @param IlotsRepository $ilr

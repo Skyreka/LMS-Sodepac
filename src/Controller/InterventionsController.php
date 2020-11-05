@@ -102,7 +102,7 @@ class InterventionsController extends AbstractController
                 }
             }
             $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-            return $this->redirectToRoute( 'ilots.show', ['id' => $culture->getIlot()->getId()] );
+            return $this->redirectToRoute( 'ilots_show', ['id' => $culture->getIlot()->getId()] );
         }
 
         return $this->render('interventions/default.html.twig', [

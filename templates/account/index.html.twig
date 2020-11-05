@@ -29,7 +29,7 @@
                             <h4 class="card-title m-t-10">{{ app.user.identity }} {{ app.user.isActive ? '<i class="mdi mdi-account-check"></i>' : '' }}</h4>
                             <h6 class="card-subtitle">{{  app.user.status(true) }}</h6>
                             <div class="row text-center justify-content-md-center">
-                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">{{ app.user.exploitation ? app.user.exploitation ~ ' Ha' : '0' }}</font></a></div>
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">{{ app.user.exploitation ? app.user.exploitation.size ~ ' Ha' : '0' }}</font></a></div>
                             </div>
                         </center>
                     </div>
