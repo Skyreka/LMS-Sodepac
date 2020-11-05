@@ -13,7 +13,7 @@
                 <h3 class="text-themecolor">Listes des utilisateurs</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ path('technician.customers.index') }}">Clients</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ path('technician_customers_index') }}">Clients</a></li>
                 </ol>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="d-flex no-block">
                             <div class="ml-auto">
-                                <a href="{{ path('technician.customers.new') }}" class="btn btn-success">Ajouter un client</a>
+                                <a href="{{ path('technician_customers_new') }}" class="btn btn-success">Ajouter un client</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -57,9 +57,9 @@
                                         <td>
                                             <h6>
                                                 {% if customer.exploitation is null %}
-                                                    <a href="{{ path('technician.customers.new.exploitation', {id: customer.id}) }}">Ajouter une superficie</a>
+                                                    <a href="{{ path('technician_customers_new_exploitation', {id: customer.id}) }}">Ajouter une superficie</a>
                                                 {% else %}
-                                                    <a href="{{ path('technician.customers.edit.exploitation', {id: customer.exploitation.id}) }}">
+                                                    <a href="{{ path('technician_customers_edit_exploitation', {id: customer.exploitation.id}) }}">
                                                     <h6>{{ customer.exploitation.size }} ha</h6>
                                                 </a>
                                                 {% endif %}
@@ -68,8 +68,8 @@
                                         <td>{{ customer.phone }}</td>
                                         <td>{{ customer.city }}</td>
                                         <td>{{ customer.certificationPhyto }}</td>
-                                        <td><a href="{{ path('technician.customers.edit', {id: customer.id}) }}" class="btn btn-primary">Editer</a>
-                                        <a href="{{ path('technician.customers.password', {id: customer.id}) }}" class="btn btn-info">Mot de passe</a></td>
+                                        <td><a href="{{ path('technician_customers_edit', {id: customer.id}) }}" class="btn btn-primary">Editer</a>
+                                        <a href="{{ path('technician_customers_password', {id: customer.id}) }}" class="btn btn-info">Mot de passe</a></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

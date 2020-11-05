@@ -12,7 +12,7 @@
                     {% if app.user.status == 'ROLE_ADMIN' %}
                         <li class="breadcrumb-item active"><a href="{{ path('admin_users_index') }}">Utilisateurs</a></li>
                     {% elseif app.user.status == 'ROLE_TECHNICIAN' %}
-                        <li class="breadcrumb-item"><a href="{{ path('technician.customers.index') }}">Clients</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('technician_customers_index') }}">Clients</a></li>
                     {% endif %}
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Exploitation</a></li>
                     <li class="breadcrumb-item active">Modification</li>
@@ -26,10 +26,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        {{ form_start(form) }}
-                        {{ form_rest(form) }}
-                        <button class="btn btn-primary">Modifier l'exploitation</button>
-                        {{ form_end(form) }}
+                        {% include 'technician/customers/_size.html.twig' %}
                     </div>
                 </div>
             </div>

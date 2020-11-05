@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Technician;
 
 use App\Entity\Cultures;
 use App\Entity\Exploitation;
@@ -26,7 +26,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 use Zumba\JsonSerializer\JsonSerializer;
 
-class TechnicianCustomersController extends AbstractController
+/**
+ * Class CustomersController
+ * @package App\Controller\Technician
+ * @Route("/technician/customers")
+ */
+class CustomerController extends AbstractController
 {
     /**
      * @var UsersRepository
@@ -44,7 +49,7 @@ class TechnicianCustomersController extends AbstractController
     }
 
     /**
-     * @Route("technician/customers", name="technician.customers.index")
+     * @Route("/", name="technician_customers_index", merhods={"GET"})
      */
     public function index(): Response
     {
@@ -55,7 +60,7 @@ class TechnicianCustomersController extends AbstractController
     }
 
     /**
-     * @Route("technician/customers/new", name="technician.customers.new")
+     * @Route("/new", name="technician_customers_new", methods={"GET", "POST"})
      * @param Request $request
      * @param \Swift_Mailer $mailer
      * @param UserPasswordEncoderInterface $encoder
@@ -97,7 +102,7 @@ class TechnicianCustomersController extends AbstractController
 
             $this->addFlash('success', 'Nouveau client crée avec succès');
 
-            return $this->redirectToRoute('technician.customers.index');
+            return $this->redirectToRoute('technician_customers_index');
         }
 
         return $this->render('technician/customers/new.html.twig', [
@@ -106,7 +111,7 @@ class TechnicianCustomersController extends AbstractController
     }
 
     /**
-     * @Route("technician/customers/edit/{id}", name="technician.customers.edit")
+     * @Route("technician/customers/edit/{id}", name="technician_customers_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Users $user
      * @param Request $request
      * @return Response
@@ -119,7 +124,7 @@ class TechnicianCustomersController extends AbstractController
         if ( $form->isSubmitted() && $form->isValid() ) {
             $this->em->flush();
             $this->addFlash('success', 'Client modifié avec succès');
-            return $this->redirectToRoute('technician.customers.index');
+            return $this->redirectToRoute('technician_customers_index');
         }
 
         return $this->render('technician/customers/edit.html.twig', [
@@ -129,7 +134,7 @@ class TechnicianCustomersController extends AbstractController
     }
 
     /**
-     * @Route("technician/customers/password/{id}", name="technician.customers.password")
+     * @Route("technician/customers/password/{id}", name="technician_customers_password", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Users $user
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
@@ -145,7 +150,7 @@ class TechnicianCustomersController extends AbstractController
             $user->setReset(1);
             $this->em->flush();
             $this->addFlash('success', 'Mot de passe du client modifié avec succès');
-            return $this->redirectToRoute('technician.customers.index');
+            return $this->redirectToRoute('technician_customers_index');
         }
 
         return $this->render('technician/customers/password.html.twig', [
@@ -155,11 +160,11 @@ class TechnicianCustomersController extends AbstractController
     }
 
     /**
- * @Route("technician/customers/new/exploitation/{id}", name="technician.customers.new.exploitation")
- * @param Users $user
- * @param Request $request
- * @return Response
- */
+     * @Route("technician/customers/new/exploitation/{id}", name="technician_customers_new_exploitation", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @param Users $user
+     * @param Request $request
+     * @return Response
+     */
     public function newExploitation(Users $user, Request $request): Response
     {
         $exploitation = new Exploitation();
@@ -172,7 +177,7 @@ class TechnicianCustomersController extends AbstractController
             $this->em->persist( $exploitation );
             $this->em->flush();
             $this->addFlash('success', 'Ajout d\'une exploitation avec succès');
-            return $this->redirectToRoute( 'technician.customers.index' );
+            return $this->redirectToRoute( 'technician_customers_index' );
         }
 
         return $this->render('technician/customers/exploitation.html.twig', [
@@ -181,7 +186,7 @@ class TechnicianCustomersController extends AbstractController
     }
 
     /**
-     * @Route("technician/customers/edit/exploitation/{id}", name="technician.customers.edit.exploitation")
+     * @Route("technician/customers/edit/exploitation/{id}", name="technician_customers_edit_exploitation", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Exploitation $exploitation
      * @param Request $request
      * @return Response
@@ -195,7 +200,7 @@ class TechnicianCustomersController extends AbstractController
             $this->em->persist( $exploitation );
             $this->em->flush();
             $this->addFlash('success', 'Exploitation modifiée avec succès');
-            return $this->redirectToRoute( 'technician.customers.index' );
+            return $this->redirectToRoute( 'technician_customers_index' );
         }
 
         return $this->render('technician/customers/size.html.twig', [
