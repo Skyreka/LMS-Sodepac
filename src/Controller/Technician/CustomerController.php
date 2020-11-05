@@ -2,20 +2,11 @@
 
 namespace App\Controller\Technician;
 
-use App\Entity\Cultures;
 use App\Entity\Exploitation;
-use App\Entity\Ilots;
 use App\Entity\Users;
 use App\Form\ExploitationType;
 use App\Form\PasswordType;
 use App\Form\TechnicianCustomersType;
-use App\Form\UserType;
-use App\Repository\AnalyseRepository;
-use App\Repository\CulturesRepository;
-use App\Repository\IlotsRepository;
-use App\Repository\InterventionsRepository;
-use App\Repository\IrrigationRepository;
-use App\Repository\StocksRepository;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
