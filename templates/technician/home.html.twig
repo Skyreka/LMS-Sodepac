@@ -22,7 +22,7 @@
                         <div class="d-flex no-block">
                             <h4 class="card-title">Vos Clients</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('technician.customers.new') }}" class="btn btn-success">Ajouter</a>
+                                <a href="{{ path('technician_customers_new') }}" class="btn btn-success">Ajouter</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -36,7 +36,7 @@
                                 {% for customer in customers %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('view.user.index', {id: customer.id}) }}">
+                                            <a href="{{ path('management_user_show', {id: customer.id}) }}">
                                                 <h6>{{ customer.firstname }} {{ customer.lastname }}</h6><small class="text-muted">{{ customer.email }}</small>
                                             </a>
                                         </td>
@@ -46,7 +46,7 @@
                             </table>
                         </div>
                         <div class="text-center">
-                            <a href="{{ path('technician.customers.index') }}" class="link font-medium"><h6>Voir plus</h6></a>
+                            <a href="{{ path('technician_customers_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
                         </div>
                     </div>
                 </div>

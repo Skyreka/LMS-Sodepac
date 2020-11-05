@@ -206,7 +206,6 @@
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
-                            <th>Adjuvant</th>
                             <th>Commentaire</th>
                             <th>Date</th>
                         </tr>
@@ -216,11 +215,7 @@
                             <tr>
                                 <td>{{ intervention.product.name }}</td>
                                 <td>{{ intervention.quantity }}</td>
-                                {% if intervention.adjuvant is not null %}
-                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
-                                {% else %}
-                                    <td>Pas d'adjuvant</td>
-                                {% endif %}
+                                <!-- TODO: Add adjuvants  -->
                                 <td>{{ intervention.comment }}</td>
                                 <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
                             </tr>
@@ -238,7 +233,6 @@
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
-                            <th>Adjuvant</th>
                             <th>Commentaire</th>
                             <th>Date</th>
                         </tr>
@@ -248,11 +242,7 @@
                             <tr>
                                 <td>{{ intervention.product.name }}</td>
                                 <td>{{ intervention.quantity }}</td>
-                                {% if intervention.adjuvant is not null %}
-                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
-                                {% else %}
-                                    <td>Pas d'adjuvant</td>
-                                {% endif %}
+                                <!-- TODO: Add adjuvants  -->
                                 <td>{{ intervention.comment }}</td>
                                 <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
                             </tr>
@@ -270,7 +260,6 @@
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
-                            <th>Adjuvant</th>
                             <th>Commentaire</th>
                             <th>Date</th>
                         </tr>
@@ -280,11 +269,7 @@
                             <tr>
                                 <td>{{ intervention.product.name }}</td>
                                 <td>{{ intervention.quantity }}</td>
-                                {% if intervention.adjuvant is not null %}
-                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
-                                {% else %}
-                                    <td>Pas d'adjuvant</td>
-                                {% endif %}
+                                <!-- TODO: Add adjuvants  -->
                                 <td>{{ intervention.comment }}</td>
                                 <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
                             </tr>
@@ -302,7 +287,6 @@
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
-                            <th>Adjuvant</th>
                             <th>Commentaire</th>
                             <th>Date</th>
                         </tr>
@@ -312,11 +296,7 @@
                             <tr>
                                 <td>{{ intervention.product.name }}</td>
                                 <td>{{ intervention.quantity }}</td>
-                                {% if intervention.adjuvant is not null %}
-                                    <td>{{ intervention.adjuvant.name }} <small>{{ intervention.adjuvantQuantity }}</small></td>
-                                {% else %}
-                                    <td>Pas d'adjuvant</td>
-                                {% endif %}
+                                <!-- TODO: Add adjuvants  -->
                                 <td>{{ intervention.comment }}</td>
                                 <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
                             </tr>
