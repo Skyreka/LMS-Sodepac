@@ -5,7 +5,6 @@ use App\Entity\Irrigation;
 use App\Form\IrrigationType;
 use App\Repository\IlotsRepository;
 use App\Repository\IrrigationRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,10 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 
+/**
+ * Class IrrigationController
+ * @package App\Controller
+ * @Route("/exploitation")
+ */
 class IrrigationController extends AbstractController
 {
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $em;
 
@@ -26,7 +30,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/irrigation", name="exploitation.irrigation.index")
+     * @Route("/irrigation", name="exploitation_irrigation_index", methods={"GET"})
      * @param IrrigationRepository $irrigationRepository
      * @return Response
      */
@@ -42,7 +46,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/irrigation/delete/{id}", name="irrigation.delete", methods="DELETE")
+     * @Route("/irrigation/delete/{id}", name="irrigation_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Irrigation $irrigation
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -54,11 +58,11 @@ class IrrigationController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Irrigation supprimée avec succès');
         }
-        return $this->redirectToRoute('exploitation.irrigation.index');
+        return $this->redirectToRoute('exploitation_irrigation_index');
     }
 
     /**
-     * @Route("exploitation/irrigation/new/{type}", name="exploitation.irrigation.new")
+     * @Route("/irrigation/new/{type}", name="exploitation_irrigation_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      * @throws \Exception
@@ -76,7 +80,7 @@ class IrrigationController extends AbstractController
             $this->em->flush();
 
             $this->addFlash('success', 'Nouvelle irrigation crée avec succès');
-            return $this->redirectToRoute('exploitation.irrigation.index');
+            return $this->redirectToRoute('exploitation_irrigation_index');
         }
 
         return $this->render('exploitation/irrigation/new.html.twig', [
@@ -86,7 +90,7 @@ class IrrigationController extends AbstractController
 
 
     /**
-     * @Route("exploitation/pluviometrie/synthese", name="exploitation.pluviometrie.synthese")
+     * @Route("/pluviometrie/synthese", name="exploitation_pluviometrie_synthese", methods={"GET"})
      * @param IrrigationRepository $ir
      * @return Response
      */
@@ -103,7 +107,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/arrosage/synthese", name="exploitation.arrosage.synthese")
+     * @Route("/arrosage/synthese", name="exploitation_arrosage_synthese", methods={"GET"})
      * @param IrrigationRepository $ir
      * @return Response
      */
@@ -123,7 +127,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/exploitation/irrigation/{year}/{type}", name="user.exploitation.irrigation.data")
+     * @Route("/irrigation/{year}/{type}", name="user_exploitation_irrigation_data", methods={"GET", "POST"}, requirements={"year":"\d+"})
      * @param $year
      * @param $type
      * @param IrrigationRepository $ir
@@ -140,7 +144,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/exploitation/arrosage/", name="exploitation.synthese.arrosage.ilots.index")
+     * @Route("/arrosage/", name="exploitation_synthese_arrosage_ilots_index", methods={"GET"})
      * @param IlotsRepository $ir
      * @return Response
      */
@@ -152,7 +156,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/exploitation/arrosage/{ilot}", name="exploitation.synthese.arrosage.ilots.show")
+     * @Route("/arrosage/{ilot}", name="exploitation_synthese_arrosage_ilots_show", methods={"GET", "POST"}, requirements={"ilot":"\d+"})
      * @param $ilot
      * @param IrrigationRepository $ir
      * @param IlotsRepository $ilr
@@ -169,7 +173,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/exploitation/pluviometrie/", name="exploitation.synthese.pluviometrie.ilots.index")
+     * @Route("/pluviometrie/", name="exploitation_synthese_pluviometrie_ilots_index", methods={"GET"})
      * @param IlotsRepository $ir
      * @return Response
      */
@@ -181,7 +185,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/exploitation/pluviometrie/{ilot}", name="exploitation.synthese.pluviometrie.ilots.show")
+     * @Route("/pluviometrie/{ilot}", name="exploitation.synthese.pluviometrie.ilots.show", methods={"GET"}, requirements={"ilot":"\d+"})
      * @param $ilot
      * @param IrrigationRepository $ir
      * @param IlotsRepository $ilr
@@ -198,7 +202,7 @@ class IrrigationController extends AbstractController
     }
 
     /**
-     * @Route("/exploitation/irrigation/{year}/{type}/{ilot}", name="user.exploitation.irrigation.ilot.data")
+     * @Route("/irrigation/{year}/{type}/{ilot}", name="user_exploitation_irrigation_ilot_data", methods={"GET"}, requirements={"year":"\d+", "ilot":"\d+"})
      * @param $year
      * @param $type
      * @param $ilot

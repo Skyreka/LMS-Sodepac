@@ -4,17 +4,21 @@ namespace App\Controller;
 use App\Entity\Analyse;
 use App\Form\AnalyseType;
 use App\Repository\AnalyseRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class AnalyseController
+ * @package App\Controller
+ * @Route("/exploitation/analyse")
+ */
 class AnalyseController extends AbstractController
 {
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $em;
 
@@ -24,7 +28,7 @@ class AnalyseController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/analyse", name="exploitation.analyse.index")
+     * @Route("/", name="exploitation_analyse_index", methods={"GET"})
      * @param AnalyseRepository $analyseRepository
      * @return Response
      */
@@ -38,7 +42,7 @@ class AnalyseController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/analyse/new", name="exploitation.analyse.new")
+     * @Route("/new", name="exploitation_analyse_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      * @throws \Exception
@@ -57,7 +61,7 @@ class AnalyseController extends AbstractController
             $this->em->flush();
 
             $this->addFlash('success', 'Nouvelle analyse de terre crée avec succès');
-            return $this->redirectToRoute('exploitation.analyse.index');
+            return $this->redirectToRoute('exploitation_analyse_index');
         }
 
         return $this->render('exploitation/analyse/new.html.twig', [

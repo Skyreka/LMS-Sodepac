@@ -11,7 +11,6 @@ use App\Repository\EffluentsRepository;
 use App\Repository\IndexCulturesRepository;
 use App\Repository\IndexEffluentsRepository;
 use App\Repository\IndexGroundsRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +18,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use TreeHouse\Slugifier\Slugifier;
 
+/**
+ * Class IndexsController
+ * @package App\Controller
+ * @Route("/admin/indexs")
+ */
 class IndexsController extends AbstractController
 {
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $em;
 
@@ -32,7 +36,7 @@ class IndexsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/indexs", name="indexs.index")
+     * @Route("/", name="indexs_index", methods={"GET"})
      * @param IndexCulturesRepository $icr
      * @param IndexEffluentsRepository $ier
      * @param IndexGroundsRepository $igr
@@ -51,7 +55,7 @@ class IndexsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/indexs/cultures/new", name="indexs.cultures.new")
+     * @Route("/cultures/new", name="indexs_cultures_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -68,7 +72,7 @@ class IndexsController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Culture créee avec succès');
 
-            return $this->redirectToRoute('indexs.index');
+            return $this->redirectToRoute('indexs_index');
         }
 
         return $this->render( 'indexs/cultures/new.html.twig', [
@@ -77,7 +81,7 @@ class IndexsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/indexs/grounds/new", name="indexs.grounds.new")
+     * @Route("/grounds/new", name="indexs_grounds_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -95,7 +99,7 @@ class IndexsController extends AbstractController
 
             $this->addFlash('success', 'Type de sol crée avec succès');
 
-            return $this->redirectToRoute('indexs.index');
+            return $this->redirectToRoute('indexs_index');
         }
 
         return $this->render( 'indexs/grounds/new.html.twig', [
@@ -104,7 +108,7 @@ class IndexsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/indexs/effluents/new", name="indexs.effluents.new")
+     * @Route("/effluents/new", name="indexs_effluents_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -119,8 +123,9 @@ class IndexsController extends AbstractController
             $effluents->setSlug( $slugify->slugify( $form->getData()->getName() ) );
             $this->em->persist( $effluents );
             $this->em->flush();
+            $this->addFlash('success', 'Apport d\'effluents créé avec succès');
 
-            return $this->redirectToRoute('indexs.index');
+            return $this->redirectToRoute('indexs_index');
         }
 
         return $this->render( 'indexs/effluents/new.html.twig', [
