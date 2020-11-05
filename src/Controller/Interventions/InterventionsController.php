@@ -289,7 +289,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("/phyto-{name}/{id}", name="interventions_phyto", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("/phyto-{name}/{id}", name="intervention_phyto", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param $name
      * @param Request $request
@@ -518,7 +518,7 @@ class InterventionsController extends AbstractController
     }
 
     /**
-     * @Route("fertilisant/{id}", name="intervention_fertilisant", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("/fertilisant/{id}", name="intervention_fertilisant", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param Request $request
      * @param StocksRepository $sr
@@ -633,7 +633,7 @@ class InterventionsController extends AbstractController
             default:
                 $form = $this->createForm( DefaultInterventionType::class, $intervention );
         }
-        
+
         $form->handleRequest( $request );
 
         if ( $form->isSubmitted() && $form->isValid()) {
