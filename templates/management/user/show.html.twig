@@ -32,7 +32,7 @@
                                         {% for ilot in ilots %}
                                             <tr>
                                                 <td>
-                                                    <a href="{{ path('view.user.ilot', {id: ilot.id}) }}">
+                                                    <a href="{{ path('management_user_ilot_show', {id: ilot.id}) }}">
                                                         <h6>{{ ilot.name }} ({{ ilot.size }} ha)</h6><small class="text-muted">{{ ilot.type.name }}</small>
                                                     </a>
                                                 </td>
@@ -99,7 +99,7 @@
                         <div class="pro-img"><img src="{{ asset('images/user.png') }}" alt="user" class="rounded-circle shadow-sm"></div>
                         <h3 class="mb-0">{{ customer.identity }}</h3>
                         <p><span class="badge badge-success px-2 py-1">{{ customer.status }}</span></p>
-                        <p>Exploitation de <span class="badge badge-warning px-2 py-1">{{ customer.exploitation.size }} ha</span></p>
+                        <p>Exploitation de <span class="badge badge-warning px-2 py-1">{{ customer.exploitation.size|default('0') }} ha</span></p>
                         <div class="row text-center mt-3 pt-1">
                             <div class="col-12 mt-4">
                                 <h6 class="mb-0 font-weight-light">{{ customer.phone }}</h6><small>Téléphone</small>

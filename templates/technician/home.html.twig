@@ -36,7 +36,7 @@
                                 {% for customer in customers %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('view.user.index', {id: customer.id}) }}">
+                                            <a href="{{ path('management_user_show', {id: customer.id}) }}">
                                                 <h6>{{ customer.firstname }} {{ customer.lastname }}</h6><small class="text-muted">{{ customer.email }}</small>
                                             </a>
                                         </td>

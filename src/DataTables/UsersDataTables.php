@@ -122,7 +122,7 @@ class UsersDataTables implements DataTableHandlerInterface
 
             $results->data[] = [
                 '
-                    <a href="'.$this->router->generate('view.user.index', ['id' => $user->getId()]).'">
+                    <a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'">
                         <h6>'.$user->getIdentity().'</h6><small class="text-muted">'.$user->getEmail().'</small>
                     </a>
                 ',

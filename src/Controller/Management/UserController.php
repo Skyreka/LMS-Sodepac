@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Management;
 
 use App\Entity\Cultures;
 use App\Entity\Ilots;
@@ -15,10 +15,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ViewUserController extends AbstractController
+/**
+ * Class UserController
+ * @package App\Controller\Management
+ * @Route("/management/user")
+ */
+class UserController extends AbstractController
 {
     /**
-     * @Route("view/user/{id}", name="view.user.index")
+     * @Route("/{id}", name="management_user_show", methods={"GET"}, requirements={"id":"\d+"})
      * @param Users $customer
      * @param StocksRepository $sr
      * @param IlotsRepository $ir
@@ -26,14 +31,14 @@ class ViewUserController extends AbstractController
      * @param AnalyseRepository $analyseRepo
      * @return Response
      */
-    public function index(Users $customer, StocksRepository $sr, IlotsRepository $ir, IrrigationRepository $irrigationRepo, AnalyseRepository $analyseRepo): Response
+    public function show(Users $customer, StocksRepository $sr, IlotsRepository $ir, IrrigationRepository $irrigationRepo, AnalyseRepository $analyseRepo): Response
     {
         $exploitationOfCustomer = $customer->getExploitation();
         $usedProducts = $sr->findByExploitation( $exploitationOfCustomer, true );
         $ilots = $ir->findBy( ['exploitation' => $exploitationOfCustomer], null, '7' );
         $irrigations = $irrigationRepo->findByExploitation( $exploitationOfCustomer, 7 );
         $analyses = $analyseRepo->findByExploitation( $exploitationOfCustomer, 7 );
-        return $this->render('view/user/index.html.twig', [
+        return $this->render('management/user/show.html.twig', [
             'customer' => $customer,
             'usedProducts' => $usedProducts,
             'ilots' => $ilots,
@@ -43,7 +48,7 @@ class ViewUserController extends AbstractController
     }
 
     /**
-     * @Route("view/user/ilot/{id}", name="view.user.ilot")
+     * @Route("/ilot/{id}", name="management_user_ilot_show", methods={"GET"}, requirements={"id":"\d+"})
      * @param Ilots $ilot
      * @param CulturesRepository $cr
      * @return Response
@@ -53,7 +58,7 @@ class ViewUserController extends AbstractController
         $customer = $ilot->getExploitation()->getUsers();
         $cultures = $cr->findBy( ['ilot' => $ilot] );
 
-        return $this->render('view/user/ilot.html.twig', [
+        return $this->render('management/user/ilot.html.twig', [
             'customer' => $customer,
             'ilot' => $ilot,
             'cultures' => $cultures
@@ -61,14 +66,14 @@ class ViewUserController extends AbstractController
     }
 
     /**
-     * @Route("view/user/culture/{id}", name="view.user.culture")
+     * @Route("/culture/{id}", name="management_user_culture_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Cultures $culture
      * @param InterventionsRepository $interventionsRepository
      * @return Response
      */
     public function showCulture(Cultures $culture, InterventionsRepository $interventionsRepository): Response
     {
-        return $this->render('view/user/culture.html.twig', [
+        return $this->render('management/user/culture.html.twig', [
             'culture' => $culture,
             'interventions' => $interventionsRepository
         ]);

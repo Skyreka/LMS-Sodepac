@@ -32,7 +32,7 @@
                                         {% for culture in cultures %}
                                             <tr>
                                                 <td>
-                                                    <a class="culture" href="{{ path('view.user.culture', {id: culture.id}) }} ">
+                                                    <a class="culture" href="{{ path('management_user_culture_show', {id: culture.id}) }} ">
                                                         <h6>{{ culture.name.name }} </h6><small class="text-muted">{{ culture.size }} ha</small>
                                                     </a>
                                                 </td>
