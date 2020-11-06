@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class PanoramaSendType extends AbstractType
 {
@@ -18,10 +19,15 @@ class PanoramaSendType extends AbstractType
      * @var AuthorizationCheckerInterface
      */
     protected $auth;
+    /**
+     * @var Security
+     */
+    protected $security;
 
-    public function __construct(AuthorizationCheckerInterface $auth)
+    public function __construct(AuthorizationCheckerInterface $auth, Security $security)
     {
         $this->auth = $auth;
+        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -41,7 +47,7 @@ class PanoramaSendType extends AbstractType
                         return $er->createQueryBuilder('u')
                             ->orderBy('u.status', 'ASC')
                             ->andWhere('u.technician = :technician')
-                            ->setParameter('technician', $this->getUser()->getId() );
+                            ->setParameter('technician', $this->security->getUser()->getId() );
                     }
                 },
                 'label'     => 'Envoyer à :',
