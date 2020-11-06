@@ -73,7 +73,7 @@
                                     Semis
                                 </th>
                                 <th>
-                                    Corylédons
+                                    Cotylédons
                                 </th>
                                 <th>
                                     1 feuille
@@ -112,18 +112,28 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>FERTILISATION</td>
+                                    <td>FUMURE</td>
                                     <td>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-12-24-sp') ? 'exist' : 'd-none' }}" product_slug="s-0-12-24-sp">0-12-24</button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-super-25') ? 'exist' : 'd-none' }}" product_slug="s-super-25">SUPER 25</button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-20-20-sp') ? 'exist' : 'd-none' }}" product_slug="s-0-20-20-sp">0-20-20</button>
-                                    </td>
-                                    <td>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-12-24-sp', '500') ? 'exist' : 'd-none' }}" product_slug="s-0-12-24-sp" dose="500" unit="Kg">0-12-24 <small>500 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-8-10-22', '500') ? 'exist' : 'd-none' }}" product_slug="s-8-10-22" dose="500" unit="Kg">8-10-22 <small>500 Kg</small></button>
+                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-rise-p-1-kg', '150') ? 'exist' : 'd-none' }}" product_slug="s-rise-p-1-kg" dose="150" unit="gr">RISE P<small> 150 gr</small></button>
                                         <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-loc-micro-pz-10-40-11-so3-2-zn-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-ino-loc-micro-pz-10-40-11-so3-2-zn-10-kg" dose="20" unit="Kg">INO LOC<small> 20 Kg</small></button>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-rise-p-1-kg') ? 'exist' : 'd-none' }}" product_slug="s-rise-p-1-kg" dose="150" unit="Kg">RISE P<small> 150 Kg</small></button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-8-10-22') ? 'exist' : 'd-none' }}" product_slug="s-8-10-22">8-10-22</button>
                                     </td>
-                                    <td></td><td></td><td></td><td></td><td></td>
+                                    <td>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-12-24-sp', '500.01') ? 'exist' : 'd-none' }}" product_slug="s-0-12-24-sp" dose="500.01" unit="Kg">0-12-24 <small>500 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-8-10-22', '500.01') ? 'exist' : 'd-none' }}" product_slug="s-8-10-22" dose="500.01" unit="Kg">8-10-22 <small>500 Kg</small></button>
+                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-rise-p-1-kg') ? 'exist' : 'd-none' }}" product_slug="s-rise-p-1-kg" dose="150" unit="Kg">RISE P<small> 150 Kg</small></button>
+                                    </td>
+                                    <td>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-12-24-sp', '500.02') ? 'exist' : 'd-none' }}" product_slug="s-0-12-24-sp" dose="500.02" unit="Kg">0-12-24 <small>500 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-8-10-22', '500.02') ? 'exist' : 'd-none' }}" product_slug="s-8-10-22" dose="500.02" unit="Kg">8-10-22 <small>500 Kg</small></button>
+                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-rise-p-1-kg', '150.01') ? 'exist' : 'd-none' }}" product_slug="s-rise-p-1-kg" dose="150.01" unit="Kg">RISE P<small> 150 Kg</small></button>
+                                    </td>
+                                    <td>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-0-12-24-sp', '500.03') ? 'exist' : 'd-none' }}" product_slug="s-0-12-24-sp" dose="500.03" unit="Kg">0-12-24 <small>500 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-8-10-22', '500.03') ? 'exist' : 'd-none' }}" product_slug="s-8-10-22" dose="500.03" unit="Kg">8-10-22 <small>500 Kg</small></button>
+                                    </td>
+                                    <td></td><td></td><td></td>
                                     <td colspan="5">
                                         <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sulfonitrate-26') ? 'exist' : 'd-none' }}" product_slug="s-sulfonitrate-26">SULFONITRATE</button>
                                         <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-nelix-lintec-36-24-so3') ? 'exist' : 'd-none' }}" product_slug="s-nelix-lintec-36-24-so3">NELIX 36 + 24 SO3</button>
