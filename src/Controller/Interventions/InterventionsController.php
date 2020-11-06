@@ -81,7 +81,7 @@ class InterventionsController extends AbstractController
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
                 $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-                return $this->redirectToRoute('login.success');
+                return $this->redirectToRoute('login_success');
             } else {
                 //-- Simple intervention for one culture
                 $intervention->setCulture( $culture );
@@ -137,7 +137,7 @@ class InterventionsController extends AbstractController
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
                 $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-                return $this->redirectToRoute('login.success');
+                return $this->redirectToRoute('login_success');
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
@@ -182,7 +182,7 @@ class InterventionsController extends AbstractController
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
                 $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-                return $this->redirectToRoute('login.success');
+                return $this->redirectToRoute('login_success');
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
@@ -226,7 +226,7 @@ class InterventionsController extends AbstractController
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
                 $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-                return $this->redirectToRoute('login.success');
+                return $this->redirectToRoute('login_success');
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
@@ -270,7 +270,7 @@ class InterventionsController extends AbstractController
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
                 $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
-                return $this->redirectToRoute('login.success');
+                return $this->redirectToRoute('login_success');
             } else {
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
@@ -381,7 +381,7 @@ class InterventionsController extends AbstractController
                 $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
 
                 //-- Go to home
-                return $this->redirectToRoute('login.success');
+                return $this->redirectToRoute('login_success');
             } else {
                 // Normal Action no multiple
                 //-- Setters
@@ -478,7 +478,7 @@ class InterventionsController extends AbstractController
                     // Flash message
                     $this->addFlash('success', 'Nouveau produit ajouté avec succès');
                     // Go to home
-                    return $this->redirectToRoute('login.success');
+                    return $this->redirectToRoute('login_success');
                 }
 
             } else {
@@ -571,7 +571,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
-                return $this->redirectToRoute('login.success');
+                return $this->redirectToRoute('login_success');
             } else {
                 //-- Setters
                 $intervention->setProduct( $stock->getProduct() );
