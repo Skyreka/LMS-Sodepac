@@ -54,7 +54,7 @@
                                         <td>
                                             <a href="{{ path('admin_flash_send', {id: flash.id}) }}" class="btn btn-info"><i class="fa fa-paper-plane"></i> </a>
                                             <a href="{{ path('admin_flash_edit', {id: flash.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i> </a>
-                                            {{ include('admin/flash/_delete.html.twig') }}
+                                            {{ include('flash/admin/_delete.html.twig') }}
                                             {% if flash.firstFile %}
                                                 <a href="{{ asset('uploads/flash/' ~ flash.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                             {% endif %}
