@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Interventions;
 
 use App\Entity\Cultures;
 use App\Entity\IndexCultures;
@@ -10,10 +10,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class MultipleInterventionController
+ * @package App\Controller\Interventions
+ * @Route("/interventions-multiple")
+ */
 class MultipleInterventionController extends AbstractController
 {
     /**
-     * @Route("multiple/select", name="multiple.intervention.index")
+     * @Route("/select", name="intervention_multiple_index")
      * @param Request $request
      * @param CulturesRepository $cr
      * @return Response
@@ -35,7 +40,7 @@ class MultipleInterventionController extends AbstractController
             return $this->redirectToRoute('cultures_show', ['id' => $listCultures[0]->getId()]);
         }
 
-        return $this->render('multipleIntervention/index.html.twig', [
+        return $this->render('interventions/multiple/index.html.twig', [
             'form' => $form->createView()
         ]);
     }
