@@ -3,53 +3,138 @@
 namespace App\Controller\Management;
 
 use App\Entity\Cultures;
+use App\Entity\Exploitation;
 use App\Entity\Ilots;
 use App\Entity\Users;
+use App\Form\ExploitationType;
+use App\Form\PasswordType;
+use App\Form\TechnicianCustomersType;
+use App\Form\UserType;
 use App\Repository\AnalyseRepository;
 use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
 use App\Repository\InterventionsRepository;
 use App\Repository\IrrigationRepository;
 use App\Repository\StocksRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserController
+ * Management Controller nly for view information of user let's ilots / culture .. for edit is only switch by role of user view profil
  * @package App\Controller\Management
  * @Route("/management/user")
  */
 class UserController extends AbstractController
 {
     /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    public function __construct(EntityManagerInterface $em) {
+        $this->em = $em;
+    }
+
+    /**
      * View information of user for tech and admin
-     * @Route("/{id}", name="management_user_show", methods={"GET"}, requirements={"id":"\d+"})
-     * @param Users $customer
+     * @Route("/{id}", name="management_user_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @param Users $user
      * @param StocksRepository $sr
      * @param IlotsRepository $ir
      * @param IrrigationRepository $irrigationRepo
      * @param AnalyseRepository $analyseRepo
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function show(Users $customer, StocksRepository $sr, IlotsRepository $ir, IrrigationRepository $irrigationRepo, AnalyseRepository $analyseRepo): Response
+    public function index(
+        Users $user,
+        StocksRepository $sr,
+        IlotsRepository $ir,
+        IrrigationRepository $irrigationRepo,
+        AnalyseRepository $analyseRepo,
+        Request $request,
+        UserPasswordEncoderInterface $encoder
+        ): Response
     {
+        $isTechnician = false; $isAdmin = false;
+        if ($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
+            $isTechnician = true;
+        } elseif($this->getUser()->getStatus() == 'ROLE_ADMIN') {
+            $isAdmin = true;
+        }
+
         // Security for technican can't view customer of other technican
-        if ( $this->getUser()->getStatus() == 'ROLE_TECHNICIAN' AND $customer->getTechnician() != $this->getUser() ) {
+        if ( $this->getUser()->getStatus() == 'ROLE_TECHNICIAN' AND $user->getTechnician() != $this->getUser() ) {
             throw $this->createNotFoundException('Cette utilisateur ne vous appartient pas.');
         }
 
-        $exploitationOfCustomer = $customer->getExploitation();
-        $usedProducts = $sr->findByExploitation( $exploitationOfCustomer, true );
-        $ilots = $ir->findBy( ['exploitation' => $exploitationOfCustomer], null, '7' );
-        $irrigations = $irrigationRepo->findByExploitation( $exploitationOfCustomer, 7 );
-        $analyses = $analyseRepo->findByExploitation( $exploitationOfCustomer, 7 );
-        return $this->render('management/user/show.html.twig', [
-            'customer' => $customer,
+        // Get informations of user
+        $exploitation = $user->getExploitation();
+        $usedProducts = $sr->findByExploitation( $exploitation, true );
+        $ilots = $ir->findBy( ['exploitation' => $exploitation], null );
+        $irrigations = $irrigationRepo->findByExploitation( $exploitation );
+        $analyses = $analyseRepo->findByExploitation( $exploitation );
+
+        // Edit Password
+        $formPassword = $this->createForm( PasswordType::class, $user);
+        $formPassword->handleRequest( $request );
+        if ( $formPassword->isSubmitted() && $formPassword->isValid() ) {
+            $user->setPassword( $encoder->encodePassword($user, $formPassword['password']->getData()));
+            //To display alert on user
+            $user->setReset(1);
+            $this->em->flush();
+            $this->addFlash('success', 'Mot de passe modifié avec succès');
+            return $this->redirectToRoute('management_user_show', ['id' => $user->getId()]);
+        }
+
+        // Edit Information
+        if ($isTechnician) {
+            $formInformation = $this->createForm( TechnicianCustomersType::class, $user);
+        } elseif($isAdmin) {
+            $formInformation = $this->createForm( UserType::class, $user);
+        }
+        $formInformation->handleRequest( $request );
+        if ( $formInformation->isSubmitted() && $formInformation->isValid() ) {
+            $this->em->flush();
+            $this->addFlash('success', 'Utilisateur modifié avec succès');
+            return $this->redirectToRoute('management_user_show', ['id' => $user->getId()]);
+        }
+
+        // Edit Exploitation
+        if ($user->getExploitation() == NULL) {
+            $exploitation = new Exploitation();
+            $exploitation->setUsers( $user );
+        } else {
+            $exploitation = $user->getExploitation();
+        }
+        $formExploitation = $this->createForm(ExploitationType::class, $exploitation);
+        $formExploitation->handleRequest( $request );
+        if ($formExploitation->isSubmitted() && $formExploitation->isValid()) {
+            if ($user->getExploitation() == NULL) {
+                $this->em->persist( $exploitation );
+            }
+            $this->em->flush();
+            $this->addFlash('success', 'Exploitation modifiée avec succès');
+            return $this->redirectToRoute( 'management_user_show', ['id' => $user->getId()] );
+        }
+
+        return $this->render('management/user/index.html.twig', [
+            'user' => $user,
+
             'usedProducts' => $usedProducts,
             'ilots' => $ilots,
             'irrigations' => $irrigations,
-            'analyses' => $analyses
+            'analyses' => $analyses,
+
+            'form_password' => $formPassword->createView(),
+            'form_information' => $formInformation->createView(),
+            'form_exploitation' => $formExploitation->createView()
         ]);
     }
 

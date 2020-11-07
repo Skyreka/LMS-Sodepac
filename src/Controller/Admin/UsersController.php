@@ -60,57 +60,6 @@ class UsersController extends AbstractController {
     }
 
     /**
-     * @Route("/edit/{id}", name="admin_users_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Users $user
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $encoder
-     * @return Response
-     */
-    public function edit(Users $user, Request $request, UserPasswordEncoderInterface $encoder): Response
-    {
-        // Edit information user
-        $form = $this->createForm(UserType::class, $user);
-        if ($user->getStatus() === 'ROLE_TECHNICIAN') {
-            $form = $this->createForm(UserType::class, $user, ['is_technician' => true]);
-        }
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
-            $this->addFlash('success', 'Utilisateur modifié avec succès');
-            return $this->redirectToRoute('admin_users_edit', ['id' => $user->getId()]);
-        }
-
-        // Edit Password User
-        $formPassword = $this->createForm( PasswordType::class, $user);
-        $formPassword->handleRequest( $request );
-
-        if ( $formPassword->isSubmitted() && $formPassword->isValid() ) {
-            $user->setPassword( $encoder->encodePassword($user, $formPassword['password']->getData()));
-            $user->setReset(1);
-            $this->em->flush();
-            $this->addFlash('success', 'Mot de passe modifié avec succès');
-            return $this->redirectToRoute('admin_users_edit', ['id' => $user->getId()]);
-        }
-
-        // Edit Exploitation User
-        $formExploitation = $this->createForm( ExploitationType::class, $user->getExploitation());
-        $formExploitation->handleRequest( $request );
-
-        if ( $formExploitation->isSubmitted() && $formExploitation->isValid() ) {
-            $this->em->flush();
-            $this->addFlash('success', 'Exploitation mis à jour avec succès');
-            return $this->redirectToRoute('admin_users_edit', ['id' => $user->getId()]);
-        }
-
-        return $this->render('admin/users/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-            'form_password' => $formPassword->createView(),
-            'form_exploitation' => $formExploitation->createView()
-        ]);
-    }
-
-    /**
      * @Route("/new", name="admin_users_new", methods={"GET", "POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
@@ -170,36 +119,4 @@ class UsersController extends AbstractController {
         }
         return $this->redirectToRoute('admin_users_index');
     }
-
-    /**
-     * @Route("/exploitation_new/{id}", name="admin_users_exploitation_new", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Users $user
-     * @param Request $request
-     * @return Response
-     */
-    public function exploitationNew(Users $user, Request $request): Response
-    {
-        $exploitation = $this->getUser()->getExploitation();
-        if ($exploitation) {
-            throw $this->createNotFoundException('Exploitation déjà crée pour cet utilisateur.');
-        }
-
-        $exploitation = new Exploitation();
-        $form = $this->createForm(ExploitationType::class, $exploitation);
-        $form->handleRequest( $request );
-
-        $exploitation->setUsers( $user );
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist( $exploitation );
-            $this->em->flush();
-            $this->addFlash('success', 'Ajout d\'une exploitation avec succès');
-            return $this->redirectToRoute( 'admin_users_edit', ['id' => $user->getId()] );
-        }
-
-        return $this->render('admin/users/exploitation.html.twig', [
-            'form_exploitation' => $form->createView()
-        ]);
-    }
-
 }

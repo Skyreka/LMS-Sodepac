@@ -57,9 +57,9 @@
                                         <td>
                                             <h6>
                                                 {% if customer.exploitation is null %}
-                                                    <a href="{{ path('technician_customers_new_exploitation', {id: customer.id}) }}">Ajouter une superficie</a>
+                                                    <a href="{{ path('management_user_show', {id: customer.id}) }}">Ajouter une superficie</a>
                                                 {% else %}
-                                                    <a href="{{ path('technician_customers_edit_exploitation', {id: customer.exploitation.id}) }}">
+                                                    <a href="{{ path('management_user_show', {id: customer.id}) }}">
                                                     <h6>{{ customer.exploitation.size }} ha</h6>
                                                 </a>
                                                 {% endif %}
@@ -68,8 +68,10 @@
                                         <td>{{ customer.phone }}</td>
                                         <td>{{ customer.city }}</td>
                                         <td>{{ customer.certificationPhyto }}</td>
-                                        <td><a href="{{ path('technician_customers_edit', {id: customer.id}) }}" class="btn btn-primary">Editer</a>
-                                        <a href="{{ path('technician_customers_password', {id: customer.id}) }}" class="btn btn-info">Mot de passe</a></td>
+                                        <td>
+                                            <a href="{{ path('management_user_show', {id: customer.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{ path('management_user_show', {id: customer.id}) }}" class="btn btn-info"><i class="ti-lock"></i></a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

@@ -117,7 +117,7 @@ class UsersDataTables implements DataTableHandlerInterface
             if ($user->getExploitation() == NULL) {
                 $exploitation = '<a href="'.$this->router->generate('admin_users_exploitation_new', ['id' => $user->getId()]).'"><span class="label label-info">Ajouter une exploitation</span></a>';
             } else {
-                $exploitation = '<a href="'.$this->router->generate('admin_users_edit', ['id' => $user->getId()]).'"><h6>'.$user->getExploitation()->getSize().' ha</h6></a>';
+                $exploitation = '<a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'"><h6>'.$user->getExploitation()->getSize().' ha</h6></a>';
             }
 
             $results->data[] = [
@@ -133,10 +133,10 @@ class UsersDataTables implements DataTableHandlerInterface
                 $user->getCertificationPhyto(),
                 $technician,
                 '
-                <a href="'.$this->router->generate('admin_users_edit', ['id' => $user->getId()]).'" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit">
+                <a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit">
                     <i class="ti-lock"></i>
                 </a> 
-                <a href="'.$this->router->generate('admin_users_edit', ['id' => $user->getId()]).'" class="text-inverse p-r-10" title="" data-toggle="tooltip" data-original-title="Delete">
+                <a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'" class="text-inverse p-r-10" title="" data-toggle="tooltip" data-original-title="Delete">
                     <i class="ti-pencil-alt"></i>
                 </a>
                 '
