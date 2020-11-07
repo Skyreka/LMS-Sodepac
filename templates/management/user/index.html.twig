@@ -82,7 +82,7 @@
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#ilots" role="tab">Ilots</a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#irrigation" role="tab">Irrigation</a> </li>
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#analyse" role="tab">Analyses</a> </li>
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#analyse" role="tab">Stocks</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#stock" role="tab">Stocks</a> </li>
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="ilots" role="tabpanel">
@@ -149,6 +149,13 @@
                                             <div class="month-table">
                                                 <div class="table-responsive mt-3">
                                                     <table class="table stylish-table mb-0">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Nom</th>
+                                                            <th>Quantité Actuelle</th>
+                                                            <th>Quantité utilisée</th>
+                                                        </tr>
+                                                        </thead>
                                                         <tbody>
                                                         {% for stock in usedProducts %}
                                                             <tr>
