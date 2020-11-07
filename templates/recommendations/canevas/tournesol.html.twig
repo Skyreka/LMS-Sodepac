@@ -98,7 +98,22 @@
                                 <tbody>
                                 <tr>
                                     <td>Fertilisation</td>
-                                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                                    <td>
+                                        <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-8-10-22', '500') ? 'exist' : 'd-none' }}" product_slug="s-8-10-22" dose="500" unit="Kg">8-10-22 <small> 500Kg</small></button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-8-10-22', '500.001') ? 'exist' : 'd-none' }}" product_slug="s-8-10-22" dose="500.001" unit="Kg">8-10-22 <small> 500Kg</small></button>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-uree-gra', '200') ? 'exist' : 'd-none' }}" product_slug="s-uree-gra" dose="200" unit="Kg">UREE <small> 200Kg</small></button>
+                                        <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-limus-46', '200') ? 'exist' : 'd-none' }}" product_slug="s-limus-46" dose="200" unit="Kg">LIMUS <small> 200Kg</small></button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-uree-gra', '200.001') ? 'exist' : 'd-none' }}" product_slug="s-uree-gra" dose="200.001" unit="Kg">UREE <small> 200Kg</small></button>
+                                        <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-limus-46', '200.001') ? 'exist' : 'd-none' }}" product_slug="s-limus-46" dose="200.001" unit="Kg">LIMUS <small> 200Kg</small></button>
+                                    </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>Insecticides du sol</td>
@@ -120,7 +135,7 @@
                                     <td></td><td></td><td></td>
                                 </tr>
                                 <tr>
-                                    <td>Desherbage de pré leve</td>
+                                    <td>Herbicides <br>Desherbage de pré leve</td>
                                     <td colspan="1">
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-elina-10-l') ? 'exist' : 'd-none' }}" product_slug="s-elina-10-l" dose="1.04" unit="L">ELINA <small> 1.04L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'proman') ? 'exist' : 'd-none' }}" product_slug="proman" dose="3.5" unit="L">PROMAN <small> 3.5L</small></button>
@@ -130,7 +145,7 @@
                                     <td></td><td></td><td></td><td></td><td></td>
                                 </tr>
                                 <tr>
-                                    <td>Rattrapage anti-graminées</td>
+                                    <td>Herbicide <br>Rattrapage anti-graminées</td>
                                     <td></td><td></td><td></td>
                                     <td colspan="2">
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'stratos-ultra') ? 'exist' : 'd-none' }}" product_slug="stratos-ultra">STRATOS</button>
@@ -140,7 +155,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td>Desherbage clearfield</td>
+                                    <td>Herbicide <br>Desherbage clearfield</td>
                                     <td colspan="1">
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'atic-aqua') ? 'exist' : 'd-none' }}" product_slug="atic-aqua" dose="2.2" unit="L">ACTI AQUA <small> 2.2L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-elina-10-l') ? 'exist' : 'd-none' }}" product_slug="s-elina-10-l" dose="1.5" unit="L">ELINA <small> 1.5L</small></button>
@@ -152,7 +167,7 @@
                                     <td></td><td></td>
                                 </tr>
                                 <tr>
-                                    <td>Desherbage express</td>
+                                    <td>Herbicide <br>Desherbage express</td>
                                     <td></td><td></td><td></td>
                                     <td colspan="1">
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-pack-express-sx-trend-0-09-0-5') ? 'exist' : 'd-none' }}" product_slug="s-pack-express-sx-trend-0-09-0-5" dose="45" unit="g">EXPRESS <small> 45g</small> + TREND</button>
@@ -172,7 +187,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Phoma phomopsis</td>
+                                    <td>Fongicides <br>Phoma phomopsis</td>
                                     <td></td><td></td><td></td><td></td>
                                     <td colspan="1">
                                         <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-jetset-5-l') ? 'exist' : 'd-none' }}" product_slug="s-jetset-5-l" dose="0.4" unit="L/Ha">JET SET <small> 0.4 L/Ha</small></button>
