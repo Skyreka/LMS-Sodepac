@@ -10,10 +10,10 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Cultures dans l'ilot</h3>
+                <h3 class="text-themecolor">Ilot ({{ ilot.name }}) de {{ user.identity }}</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item active">Ilot ({{ ilot.name }}) de {{ customer.identity }}</li>
+                    <li class="breadcrumb-item active">Information d'ilot</li>
                 </ol>
             </div>
         </div>
@@ -22,7 +22,7 @@
         {% endfor %}
         <div class="row">
             <div class="col-lg-3">
-                <a class="btn btn-light-success mb-3" onclick="window.history.go(-1)">Retour</a>
+                <a class="btn btn-success mb-3" href="{{ path('management_user_show', {id: user.id}) }}" >Retour vers {{ user.identity }}</a>
                 <div class="card">
                     <div class="card-body">
                         <div class="month-table">

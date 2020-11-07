@@ -70,7 +70,7 @@ class UserController extends AbstractController
         }
 
         // Security for technican can't view customer of other technican
-        if ( $this->getUser()->getStatus() == 'ROLE_TECHNICIAN' AND $user->getTechnician() != $this->getUser() ) {
+        if ( $isTechnician AND $user->getTechnician() != $this->getUser() ) {
             throw $this->createNotFoundException('Cette utilisateur ne vous appartient pas.');
         }
 
@@ -139,18 +139,23 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/ilot/{id}", name="management_user_ilot_show", methods={"GET"}, requirements={"id":"\d+"})
+     * @Route("/{user}/ilot/{ilot}", name="management_user_ilot_show", methods={"GET"}, requirements={"id":"\d+"})
+     * @param Users $user
      * @param Ilots $ilot
      * @param CulturesRepository $cr
      * @return Response
      */
-    public function showIlots(Ilots $ilot, CulturesRepository $cr): Response
+    public function showIlots(Users $user, Ilots $ilot, CulturesRepository $cr): Response
     {
-        $customer = $ilot->getExploitation()->getUsers();
+        // Security for technican can't view customer of other technican
+        if ( $this->getUser()->getStatus() == 'ROLE_TECHNICIAN' AND $user->getTechnician() != $this->getUser() ) {
+            throw $this->createNotFoundException('Cette utilisateur ne vous appartient pas.');
+        }
+
         $cultures = $cr->findBy( ['ilot' => $ilot] );
 
         return $this->render('management/user/ilot.html.twig', [
-            'customer' => $customer,
+            'user' => $user,
             'ilot' => $ilot,
             'cultures' => $cultures
         ]);

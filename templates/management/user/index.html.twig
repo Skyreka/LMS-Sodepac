@@ -87,9 +87,6 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="ilots" role="tabpanel">
                                         <div class="card-body">
-                                            <div class="d-md-flex no-block">
-                                                <h4 class="card-title">Ilots</h4>
-                                            </div>
                                             <div class="month-table">
                                                 <div class="table-responsive mt-3">
                                                     <table class="table stylish-table mb-0">
@@ -97,8 +94,8 @@
                                                         {% for ilot in ilots %}
                                                             <tr>
                                                                 <td>
-                                                                    <a href="{{ path('management_user_ilot_show', {id: ilot.id}) }}">
-                                                                        <h6>{{ ilot.name }} ({{ ilot.size }} ha)</h6><small class="text-muted">{{ ilot.type.name }}</small>
+                                                                    <a href="{{ path('management_user_ilot_show', {user: user.id, ilot: ilot.id}) }}">
+                                                                        <h6>{{ ilot.name }} ({{ ilot.size }} ha) <span class="badge badge-dark">PAC: {{ ilot.number }}</span></h6><small class="text-muted">{{ ilot.type.name }}</small>
                                                                     </a>
                                                                 </td>
                                                             </tr>
@@ -111,9 +108,6 @@
                                     </div>
                                     <div class="tab-pane" id="irrigation" role="tabpanel">
                                         <div class="card-body">
-                                            <div class="d-md-flex no-block">
-                                                <h4 class="card-title">Irrigation</h4>
-                                            </div>
                                             <div class="month-table">
                                                 <div class="table-responsive mt-3">
                                                     <table class="table stylish-table mb-0">
@@ -133,9 +127,6 @@
                                     </div>
                                     <div class="tab-pane" id="analyse" role="tabpanel">
                                         <div class="card-body">
-                                            <div class="d-md-flex no-block">
-                                                <h4 class="card-title">Analyse</h4>
-                                            </div>
                                             <div class="month-table">
                                                 <div class="table-responsive mt-3">
                                                     <table class="table stylish-table mb-0">
@@ -155,9 +146,6 @@
                                     </div>
                                     <div class="tab-pane" id="stock" role="tabpanel">
                                         <div class="card-body">
-                                            <div class="d-md-flex no-block">
-                                                <h4 class="card-title">Stock</h4>
-                                            </div>
                                             <div class="month-table">
                                                 <div class="table-responsive mt-3">
                                                     <table class="table stylish-table mb-0">
