@@ -23,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
+     * View information of user for tech and admin
      * @Route("/{id}", name="management_user_show", methods={"GET"}, requirements={"id":"\d+"})
      * @param Users $customer
      * @param StocksRepository $sr
@@ -33,6 +34,11 @@ class UserController extends AbstractController
      */
     public function show(Users $customer, StocksRepository $sr, IlotsRepository $ir, IrrigationRepository $irrigationRepo, AnalyseRepository $analyseRepo): Response
     {
+        // Security for technican can't view customer of other technican
+        if ( $this->getUser()->getStatus() == 'ROLE_TECHNICIAN' AND $customer->getTechnician() != $this->getUser() ) {
+            throw $this->createNotFoundException('Cette utilisateur ne vous appartient pas.');
+        }
+
         $exploitationOfCustomer = $customer->getExploitation();
         $usedProducts = $sr->findByExploitation( $exploitationOfCustomer, true );
         $ilots = $ir->findBy( ['exploitation' => $exploitationOfCustomer], null, '7' );
