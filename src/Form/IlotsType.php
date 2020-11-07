@@ -19,7 +19,8 @@ class IlotsType extends AbstractType
         $builder
             ->add('name')
             ->add('number', NumberType::class, [
-                'label' => 'Numéro PAC'
+                'label' => 'Numéro PAC',
+                'required' => false
             ])
             ->add('size', NumberType::class, [
                 'attr' => [

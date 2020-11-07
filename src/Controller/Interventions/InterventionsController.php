@@ -372,7 +372,7 @@ class InterventionsController extends AbstractController
                     // Go to page for add product
                     return $this->redirectToRoute('interventions_phyto_product', [
                         'name' => $name,
-                        'id' => $intervention->getId()
+                        'id' => $lastIntervention->getId()
                     ]);
                 }
 
@@ -469,7 +469,7 @@ class InterventionsController extends AbstractController
                 if ( $data['addProduct']->getData() ) {
                     // If user want to loop
                     return $this->redirectToRoute('interventions_phyto_product', [
-                        'name' => $intervention->getName(),
+                        'name' => $name,
                         'id' => $intervention->getId()
                     ]);
                 } else {
