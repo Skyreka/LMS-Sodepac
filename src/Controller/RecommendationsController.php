@@ -563,50 +563,53 @@ class RecommendationsController extends AbstractController
     }
 
     /**
-     * @Route("recommendations/archive", name="recommendations.archive")
+     * @Route("recommendations/synthese", name="recommendation_synthese")
      * @param RecommendationsRepository $rr
      * @return Response
      */
-    public function archive( RecommendationsRepository $rr ): Response
+    public function synthese( RecommendationsRepository $rr ): Response
     {
         $year = date('Y');
         if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
-            return $this->render('recommendations/archive.html.twig', [
+            return $this->render('recommendations/staff/synthese/index.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
         } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
-            return $this->render('recommendations/archive.html.twig', [
+            return $this->render('recommendations/staff/synthese/index.html.twig', [
                 'recommendations' => $rr->findAllByYear( $year )
             ]);
         } else {
-            return $this->render('recommendations/archive.html.twig', [
+            return $this->render('recommendations/staff/synthese/index.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
         }
     }
 
     /**
-     * @Route("recommendations/data/{year}", name="recommendation_index.data")
+     * @Route("recommendations/synthese/data/{year}", name="recommendation_synthese_data")
      * @param RecommendationsRepository $rr
      * @param $year
      * @return Response
      */
-    public function indexStaffData( RecommendationsRepository $rr, $year ): Response
+    public function syntheseData( RecommendationsRepository $rr, $year ): Response
     {
         //-- If user is technician get recommendation of user of technician
-        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
-            return $this->render('recommendations/data.html.twig', [
+        /*if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
+            return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
         } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
-            return $this->render('recommendations/data.html.twig', [
+            return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
         } else {
-            return $this->render('recommendations/data.html.twig', [
+            return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
-        }
+        }*/
+        return $this->render('recommendations/staff/synthese/data.html.twig', [
+            'recommendations' => $rr->findAllByYear( $year )
+        ]);
     }
 
     /**

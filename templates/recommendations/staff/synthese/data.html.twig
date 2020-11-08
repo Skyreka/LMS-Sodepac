@@ -1,0 +1,38 @@
+{% for recommendation in recommendations %}
+    <tr>
+        <td>
+            <a href="{{ path('recommendation_summary', {id: recommendation.id}) }}">{{ recommendation.id }}</a>
+        </td>
+        <td>
+            <a href="{{ path('management_user_show', {id: recommendation.exploitation.users.id}) }}">
+                <h6>{{ recommendation.exploitation.users.identity }}</h6><small class="text-muted">{{ recommendation.exploitation.users.email }}</small>
+            </a>
+        </td>
+        <td>{{ recommendation.culture.name }}</td>
+        <td>
+            {% if( recommendation.status == 1 ) %}
+                <span class="badge badge-warning">Créee</span>
+            {% elseif( recommendation.status == 2 ) %}
+                <span class="badge badge-info">Générée</span>
+            {% elseif( recommendation.status == 3 ) %}
+                <span class="badge badge-success">Envoyée</span>
+            {% endif %}
+        </td>
+        {% if app.user.status == 'ROLE_ADMIN' %}
+            <td>{{ recommendation.exploitation.users.technician.identity ? recommendation.exploitation.users.technician.identity : 'Aucun' }}</td>
+        {% endif %}
+        <td>
+            {{ recommendation.createAt | date('d M Y H:i') }}
+        </td>
+        <td>
+            <div style="display: flex">
+                <a class="btn btn-success" href="{{ path('recommendation_summary', {id: recommendation.id}) }}"><i class="fa fa-eye text-white"></i></a>
+                {% if( recommendation.status > 1 ) %}
+                    {{ include('recommendations/staff/_send.html.twig') }}
+                {% endif %}
+                {{ include('recommendations/staff/_download.html.twig') }}
+                {{ include('recommendations/staff/_delete.html.twig') }}
+            </div>
+        </td>
+    </tr>
+{% endfor %}
