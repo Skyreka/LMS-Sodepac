@@ -18,7 +18,7 @@
                     <li><a class="waves-effect waves-dark" href="{{ path('mix_index') }}"><i class="fas fa-american-sign-language-interpreting"></i><span class="hide-menu">Mélange </span></a></li>
                 </ul>
             {% endif %}
-            {% if is_granted('ROLE_TECHNICIAN') %}
+            {% if app.user.status == 'ROLE_TECHNICIAN' %}
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">Compte Technicien</li>
                     <li><a class="waves-effect waves-dark" href="{{ path('login_success') }}"><i class="fa fa-home"></i><span class="hide-menu"> Accueil </span></a></li>
@@ -31,7 +31,7 @@
                     <li><a class="waves-effect waves-dark" href="{{ path('mix_index') }}"><i class="fas fa-american-sign-language-interpreting"></i><span class="hide-menu">Mélange </span></a></li>
                 </ul>
             {% endif %}
-            {% if is_granted('ROLE_USER') %}
+            {% if app.user.status == 'ROLE_USER' %}
                 <ul id="sidebarnav">
                     <li class="nav-small-cap">Compte Utilisateur</li>
                     <li><a class="waves-effect waves-dark" href="{{ path('home') }}"><i class="fa fa-home"></i><span class="hide-menu"> Accueil </span></a></li>
