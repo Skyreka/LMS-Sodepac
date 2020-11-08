@@ -23,8 +23,40 @@
         </div>
         <div class="row">
             <!-- Column -->
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
                 <div class="card card-inverse card-primary">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="m-r-20 align-self-center">
+                                <h1 class="text-white"><i class="ti-share"></i></h1>
+                            </div>
+                            <div>
+                                <h3 class="card-title">{{ totalCreate }}</h3>
+                                <h6 class="card-subtitle">Recommendations créees</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-lg-3 col-md-3">
+                <div class="card card-inverse card-success">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="m-r-20 align-self-center">
+                                <h1 class="text-white"><i class="ti-cloud-down"></i></h1>
+                            </div>
+                            <div>
+                                <h3 class="card-title">{{ totalGenerated }}</h3>
+                                <h6 class="card-subtitle">Recommendations générées</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-lg-3 col-md-3">
+                <div class="card card-inverse card-info">
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="m-r-20 align-self-center">
@@ -38,23 +70,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Column -->
-            <div class="col-lg-4 col-md-4">
-                <div class="card card-inverse card-success">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="m-r-20 align-self-center">
-                                <h1 class="text-white"><i class="ti-cloud-down"></i></h1>
-                            </div>
-                            <div>
-                                <h3 class="card-title">{{ totalSaved }}</h3>
-                                <h6 class="card-subtitle">Recommendations crées</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-3 col-md-3">
                 <a href="{{ path('recommendation_new') }}" class="btn btn-success pull-right ml-4">Nouvelle recommandation</a>
                 <a href="{{ path('recommendations.archive') }}" class="btn btn-warning pull-right">Archive</a>
             </div>
@@ -62,7 +78,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Dernière recommendations</h4>
-                        <h6 class="card-subtitle">Add class <code>.table</code></h6>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -92,9 +107,11 @@
                                         <td>{{ recommendation.culture.name }}</td>
                                         <td>
                                             {% if( recommendation.status == 1 ) %}
-                                                <span class="badge badge-warning">Enregistré</span>
+                                                <span class="badge badge-warning">Créee</span>
                                             {% elseif( recommendation.status == 2 ) %}
-                                                <span class="badge badge-success">Envoyé</span>
+                                                <span class="badge badge-info">Générée</span>
+                                            {% elseif( recommendation.status == 3 ) %}
+                                                <span class="badge badge-success">Envoyée</span>
                                             {% endif %}
                                         </td>
                                         {% if app.user.status == 'ROLE_ADMIN' %}
@@ -106,7 +123,9 @@
                                         <td>
                                             <div style="display: flex">
                                                 <a class="btn btn-success" href="{{ path('recommendation_summary', {id: recommendation.id}) }}"><i class="fa fa-eye text-white"></i></a>
-                                                {{ include('recommendations/staff/_send.html.twig') }}
+                                                {% if( recommendation.status > 1 ) %}
+                                                    {{ include('recommendations/staff/_send.html.twig') }}
+                                                {% endif %}
                                                 {{ include('recommendations/staff/_download.html.twig') }}
                                                 {{ include('recommendations/staff/_delete.html.twig') }}
                                             </div>

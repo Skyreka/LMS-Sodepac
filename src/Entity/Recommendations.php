@@ -14,7 +14,8 @@ class Recommendations
 {
     const STATUS = [
         '0' => 'Draft',
-        '1' => 'Saved',
+        '1' => 'Create',
+        '2' => 'Generate',
         '2' => 'Sended'
     ];
 
@@ -67,6 +68,11 @@ class Recommendations
      * @ORM\Column(type="text", nullable=true)
      */
     private $mention_txt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pdf;
 
     public function getId(): ?int
     {
@@ -175,6 +181,18 @@ class Recommendations
     public function setMentionTxt(?string $mention_txt): self
     {
         $this->mention_txt = $mention_txt;
+
+        return $this;
+    }
+
+    public function getPdf(): ?string
+    {
+        return $this->pdf;
+    }
+
+    public function setPdf(?string $pdf): self
+    {
+        $this->pdf = $pdf;
 
         return $this;
     }

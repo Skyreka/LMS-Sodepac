@@ -113,7 +113,7 @@ class RecommendationsRepository extends ServiceEntityRepository
 
         $query = $this->createQueryBuilder('r')
             ->where('year(r.create_at) = :year')
-            ->andWhere('r.status = 1 OR r.status = 2')
+            ->andWhere('r.status >= 1')
             ->setParameter('year', $year)
             ->orderBy('r.create_at', 'ASC')
             ;

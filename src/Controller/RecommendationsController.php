@@ -69,15 +69,17 @@ class RecommendationsController extends AbstractController
     public function indexStaff( RecommendationsRepository $rr): Response
     {
         //Counters
-        $recommendationsSended = $rr->countAllByStatus( 2 );
-        $recommendationsSaved = $rr->countAllByStatus( 1 );
+        $recommendationsSended = $rr->countAllByStatus( 3 );
+        $recommendationsGenerated = $rr->countAllByStatus( 2 );
+        $recommendationsCreate = $rr->countAllByStatus( 1 );
 
         // Get Last Recommendations
         $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
 
         return $this->render('recommendations/staff/index.html.twig', [
             'totalSended' =>  $recommendationsSended,
-            'totalSaved' => $recommendationsSaved,
+            'totalGenerated' => $recommendationsGenerated,
+            'totalCreate' => $recommendationsCreate,
             'lastRecommendations' => $lastRecommendations
         ]);
     }
@@ -368,7 +370,7 @@ class RecommendationsController extends AbstractController
             $recommendations->setStatus( 1 );
             $this->em->flush();
 
-            $this->addFlash('info', 'La recommendation est maintenant en status Enregistré');
+            $this->addFlash('info', 'La recommendation est maintenant en status Créee');
             $this->addFlash('success', 'Recommendation crée avec succès');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
@@ -416,76 +418,29 @@ class RecommendationsController extends AbstractController
     {
         if ($this->isCsrfTokenValid('send', $request->get('_token'))) {
             //-- Update Status of recommendation
-            $recommendations->setStatus( 2 );
-
-            //-- Init @Var
-            $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-            $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
-            $customer = $recommendations->getExploitation()->getUsers();
-            $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
-
-            //-- Add products to customer's stock
-            $oldStocks = $sr->findBy(array('exploitation' => $customer->getExploitation()));
-            $stockProducts = [];
-            foreach ($oldStocks as $oldStock) {
-                $stockProducts[] = $oldStock->getProduct()->getId();
-            }
-            foreach ($products as $product)
-            {
-                $stock = new Stocks();
-                $stock
-                    ->setProduct($product->getProduct())
-                    ->setExploitation($customer->getExploitation())
-                    ->setQuantity(0);
-                if (!in_array($stock->getProduct()->getId(), $stockProducts)) {
-                    $this->em->persist($stock);
-                }
-            }
-
-            //-- Generate PDF
-            $pdfOptions = new Options();
-            $pdfOptions->set( 'defaultFront', 'Arial');
-            $pdfOptions->set( 'isRemoteEnabled', true);
-            $pdf = new Dompdf( $pdfOptions );
-            $html = $this->render('recommendations/synthesePdf.html.twig', [
-                'products' => $products,
-                'recommendations' => $recommendations,
-                'customer' => $customer,
-                'cultureTotal' => $cultureTotal
-            ]);
-            $pdf->loadHtml( $html->getContent() );
-            $pdf->setPaper('A4', 'portrait');
-            $pdf->render();
-            $output = $pdf->output();
-            //-- Put file on folder
-            file_put_contents('uploads/recommendations/'.$fileName, $output);
+            $recommendations->setStatus( 3 );
+            $this->em->flush();
 
             //-- SEND PDF TO USER
             $link = $request->getUriForPath(' ');
             $message = (new \Swift_Message('Nouvelle recommendation disponible'))
                 ->setFrom('send@lms-sodepac.fr')
-                ->setTo( $customer->getEmail() )
+                ->setTo( $recommendations->getExploitation()->getUsers()->getEmail() )
                 ->setBody(
                     $this->renderView(
                         'emails/recommendation.html.twig', [
-                            'identity' => $customer->getIdentity(),
+                            'identity' => $recommendations->getExploitation()->getUsers()->getIdentity(),
                             'link' => $link
                         ]
                     ),
                     'text/html'
                 )
-                ->attach( \Swift_Attachment::fromPath( 'uploads/recommendations/'.$fileName ) )
+                ->attach( \Swift_Attachment::fromPath( 'uploads/recommendations/'.$recommendations->getPdf() ) )
             ;
             $mailer->send($message);
 
-            // Delete File
-            /*
-            $fileSystem = new Filesystem();
-            $fileSystem->remove(['uploads/recommendations/'.$fileName]);
-            */
-
-            $this->em->flush();
-            $this->addFlash('success', 'Recommandation envoyée avec succès');
+            $this->addFlash('success', 'Email envoyé avec succès. Status de la recommendation: Envoyée');
+            return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
         return $this->redirectToRoute('recommendation_index');
     }
@@ -502,73 +457,95 @@ class RecommendationsController extends AbstractController
      */
     public function download( Recommendations $recommendations, Request $request, CulturesRepository $cr, RecommendationProductsRepository $recommendationProductsRepository )
     {
-        //set_time_limit(300);
-        //ini_set('max_execution_time', 300);
+        set_time_limit(300);
+        ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '-1');
         $token = $request->get('_token');
         if ($this->isCsrfTokenValid('download', $token)) {
-            //-- Init @Var
-            $fileSystem = new Filesystem();
-            $fileSystem->mkdir( '../public/uploads/recommendations/'.$token );
-            $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-            $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
-            $customer = $recommendations->getExploitation()->getUsers();
-            $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
+            try {
+                //-- Init @Var
+                $fileSystem = new Filesystem();
+                $fileSystem->mkdir( '../public/uploads/recommendations/process/'.$token );
+                $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
+                $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
+                $customer = $recommendations->getExploitation()->getUsers();
+                $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
 
-            //-- Generate PDF
-            $pdfOptions = new Options();
-            $pdfOptions->set('defaultFront', 'Tahoma');
-            $pdfOptions->setIsRemoteEnabled( true );
+                //-- Generate PDF
+                $pdfOptions = new Options();
+                $pdfOptions->set('defaultFront', 'Tahoma');
+                $pdfOptions->setIsRemoteEnabled( true );
 
-            //-- First Page
-            $recommendationDoc = new Dompdf( $pdfOptions );
-            $html = $this->render('recommendations/synthesePdf.html.twig', [
-                'products' => $products,
-                'recommendations' => $recommendations,
-                'customer' => $customer,
-                'cultureTotal' => $cultureTotal
-            ]);
-            $recommendationDoc->loadHtml( $html->getContent() );
-            $recommendationDoc->setPaper('A4', 'portrait');
-            $recommendationDoc->render();
-            $outputFirstFile = $recommendationDoc->output();
-            file_put_contents( '../public/uploads/recommendations/'.$token.'/1.pdf', $outputFirstFile);
+                //-- First Page
+                $recommendationDoc = new Dompdf( $pdfOptions );
+                $html = $this->render('recommendations/synthesePdf.html.twig', [
+                    'products' => $products,
+                    'recommendations' => $recommendations,
+                    'customer' => $customer,
+                    'cultureTotal' => $cultureTotal
+                ]);
+                $recommendationDoc->loadHtml( $html->getContent() );
+                $recommendationDoc->setPaper('A4', 'portrait');
+                $recommendationDoc->render();
+                $outputFirstFile = $recommendationDoc->output();
+                file_put_contents( '../public/uploads/recommendations/process/'.$token.'/1.pdf', $outputFirstFile);
 
-            //-- Canevas
-            $canevasPage = new Dompdf( $pdfOptions );
-            $html =  $this->render('recommendations/canevas/assets/'.$recommendations->getCulture()->getSlug().'.html.twig', [
-                'recommendations' => $recommendations,
-                'rpr' => $recommendationProductsRepository,
-                'totalSize' => 0,
-                'culture' => $recommendations->getCulture(),
-                'printRequest' => true
-            ]);
-            $canevasPage->loadHtml( $html->getContent() );
-            $canevasPage->setPaper('A2', 'landscape');
-            $canevasPage->render();
-            $outputFirstFile = $canevasPage->output();
-            file_put_contents( '../public/uploads/recommendations/'.$token.'/2.pdf', $outputFirstFile);
+                //-- Canevas
+                $canevasPage = new Dompdf( $pdfOptions );
+                $html =  $this->render('recommendations/canevas/assets/'.$recommendations->getCulture()->getSlug().'.html.twig', [
+                    'recommendations' => $recommendations,
+                    'rpr' => $recommendationProductsRepository,
+                    'totalSize' => 0,
+                    'culture' => $recommendations->getCulture(),
+                    'printRequest' => true
+                ]);
+                set_time_limit(300);
+                ini_set('max_execution_time', 300);
+                ini_set('memory_limit', '-1');
+                $canevasPage->loadHtml( $html->getContent() );
+                $canevasPage->setPaper('A4', 'landscape');
+                $canevasPage->render();
+                $outputFirstFile = $canevasPage->output();
+                file_put_contents( '../public/uploads/recommendations/process/'.$token.'/2.pdf', $outputFirstFile);
 
-            //-- Merge All Documents
-            $merger = new Merger();
-            $merger->addFile( '../public/uploads/recommendations/'.$token.'/1.pdf' );
-            $merger->addFile( '../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf' );
-            $merger->addFile( '../public/uploads/recommendations/'.$token.'/2.pdf' );
+                //-- Merge All Documents
+                $merger = new Merger();
+                $merger->addFile( '../public/uploads/recommendations/process/'.$token.'/1.pdf' );
 
-            if ( $recommendations->getMention() != NULL OR $recommendations->getMentionTxt() != NULL ) {
-                $merger->addFile('../public/mentions/' . $recommendations->getMention() . '.pdf');
+                if($fileSystem->exists('../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf')) {
+                    $merger->addFile( '../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf' );
+                }
+
+                $merger->addFile( '../public/uploads/recommendations/process/'.$token.'/2.pdf' );
+
+                if ( $recommendations->getMention() != NULL OR $recommendations->getMentionTxt() != NULL ) {
+                    $merger->addFile('../public/mentions/' . $recommendations->getMention() . '.pdf');
+                }
+
+                $finalDocument = $merger->merge();
+                //-- Finale File
+                file_put_contents( '../public/uploads/recommendations/'.$token.'.pdf', $finalDocument);
+
+                // Save file to DB
+                $recommendations
+                    ->setPdf( $token . '.pdf' )
+                    ->setStatus(2);
+
+                $this->em->flush();
+
+                //-- Download for user
+                $this->forceDownLoad( '../public/uploads/recommendations/'.$token.'.pdf', $fileName );
+
+                //-- Remove temp folder
+                $fileSystem->remove('../public/uploads/recommendations/process/'.$token);
+
+                $this->addFlash('success', 'Document généré avec succès. Status de la recommendation: Générée');
+                return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
+            } catch (Exception $e) {
+                $this->addFlash('danger', 'Une erreur est survenue');
+                return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
             }
-
-            $finalDocument = $merger->merge();
-            //-- Finale File
-            file_put_contents( '../public/uploads/recommendations/'.$token.'/final.pdf', $finalDocument);
-
-            //-- Download for user
-            $this->forceDownLoad( '../public/uploads/recommendations/'.$token.'/final.pdf', $fileName );
-
-            //-- Remove temp folder
-            $fileSystem->remove('../public/uploads/recommendations/'.$token);
         }
-        return $this->redirectToRoute('recommendation_index');
     }
 
     private function forceDownLoad($filename, $nameOfFile)
@@ -583,7 +560,6 @@ class RecommendationsController extends AbstractController
         header("Content-Transfer-Encoding: binary");
         header("Content-Length: ".filesize($filename));
         @readfile($filename);
-        exit(0);
     }
 
     /**
