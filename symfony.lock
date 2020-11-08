@@ -584,6 +584,9 @@
     "tecnickcom/tcpdf": {
         "version": "6.3.5"
     },
+    "tetranz/select2entity-bundle": {
+        "version": "v3.1.0"
+    },
     "treehouselabs/slugifier": {
         "version": "v1.0.1"
     },

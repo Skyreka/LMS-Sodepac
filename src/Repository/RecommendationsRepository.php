@@ -22,6 +22,22 @@ class RecommendationsRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param $status
+     * @return int|mixed|string
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countAllByStatus( $status ) {
+        return $this->createQueryBuilder('r')
+            ->where('r.status = :status')
+            ->setParameter('status', $status)
+            ->select('COUNT(r.id)')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    /**
      * @param $technician
      * @return mixed
      */
@@ -89,19 +105,23 @@ class RecommendationsRepository extends ServiceEntityRepository
 
     /**
      * @param $year
+     * @param null $limit
      * @return mixed
      */
-    public function findAllByYear($year)
+    public function findAllByYear( $year, $limit = null )
     {
 
-        return $this->createQueryBuilder('r')
+        $query = $this->createQueryBuilder('r')
             ->where('year(r.create_at) = :year')
+            ->andWhere('r.status = 1 OR r.status = 2')
             ->setParameter('year', $year)
-            ->andWhere( 'r.status = :status' )
-            ->setParameter('status', '2')
             ->orderBy('r.create_at', 'ASC')
-            ->getQuery()
-            ->getResult()
             ;
+
+        if( $limit != NULL) {
+            $query->setMaxResults( $limit );
+        }
+
+        return $query->getQuery()->getResult();
     }
 }

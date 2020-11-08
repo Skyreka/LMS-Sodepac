@@ -1,0 +1,5 @@
+<form method="POST" action="{{ path('recommendation_download', {id: recommendation.id}) }}">
+    <input type="hidden" name="_method" value="DOWNLOAD">
+    <input type="hidden" name="_token" value="{{ csrf_token('download') }}">
+    <button class="btn btn-success ml-2"><i class="fas fa-download"></i> {{ button_label|default('') }}</button>
+</form>
