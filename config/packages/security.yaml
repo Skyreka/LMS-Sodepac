@@ -12,6 +12,7 @@ security:
             security: false
         main:
             anonymous: true
+            user_checker: App\Security\UserChecker
             form_login:
                 login_path: login
                 check_path: login
