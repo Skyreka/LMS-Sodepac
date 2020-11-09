@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Form\PasswordType;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
