@@ -33,7 +33,8 @@ class RecommendationAddType extends AbstractType
                 'cache' => true,
                 'cache_timeout' => 60000, // if 'cache' is true
                 'language' => 'fr',
-                'placeholder' => 'Choisir un utilisateur'
+                'placeholder' => 'Choisir un utilisateur',
+                'help' => 'Utilisateur ayant une exploitation active uniquement visible.'
             ])
             ->add('culture', EntityType::class, array(
                 'class' => IndexCultures::class,

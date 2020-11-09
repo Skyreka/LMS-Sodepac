@@ -73,11 +73,8 @@
                 <div style="display: flex" class="mb-3">
                     {% if( recommendation.status > 1 ) %}
                         {% include 'recommendations/staff/_send.html.twig' with {'button_label': 'Envoyer'} %}
-                        <a target="_blanck" href="{{ asset('uploads/recommendations/' ~ recommendation.pdf) }}" class="btn btn-success ml-2"><i class="fas fa-download"></i> Télécharger</a>
                     {% endif %}
-                    {% if( recommendation.status == 1 ) %}
-                        {% include 'recommendations/staff/_download.html.twig' with {'button_label': 'Générer'} %}
-                    {% endif %}
+                    {% include 'recommendations/staff/_download.html.twig' with {'button_label': 'Générer'} %}
                     {% include 'recommendations/staff/_delete.html.twig' with {'button_label': 'Supprimer'} %}
                 </div>
                 <div class="card">

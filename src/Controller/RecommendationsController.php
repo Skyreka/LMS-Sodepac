@@ -7,6 +7,7 @@ use App\Entity\IndexCultures;
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Entity\Stocks;
+use App\Entity\Users;
 use App\Form\RecommendationAddProductType;
 use App\Form\RecommendationAddType;
 use App\Form\RecommendationMentionsType;
@@ -74,7 +75,16 @@ class RecommendationsController extends AbstractController
         $recommendationsCreate = $rr->countAllByStatus( 1 );
 
         // Get Last Recommendations
-        $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
+        if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
+            $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
+
+            //Counters
+            $recommendationsSended = $rr->countAllByStatus( 3 );
+            $recommendationsGenerated = $rr->countAllByStatus( 2 );
+            $recommendationsCreate = $rr->countAllByStatus( 1 );
+        } else {
+            $lastRecommendations = $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), date('Y'), 5 );
+        }
 
         return $this->render('recommendations/staff/index.html.twig', [
             'totalSended' =>  $recommendationsSended,
@@ -88,6 +98,7 @@ class RecommendationsController extends AbstractController
      * @Route("recommendation/new_data_ajax", name="recommendations_select_data")
      * @param Request $request
      * @param UsersRepository $ur
+     * @param Users $users
      * @return JsonResponse
      */
     public function selectData(Request $request, UsersRepository $ur): JsonResponse
@@ -97,17 +108,34 @@ class RecommendationsController extends AbstractController
         $limit = $request->query->get('page_limit');
 
         //Query of like call
-        $users = $ur->createQueryBuilder('u')
-            ->where('u.lastname LIKE :lastname')
-            ->orWhere('u.firstname LIKE :firstname')
-            ->setParameter('lastname', '%' . $term . '%')
-            ->setParameter('firstname', '%' . $term . '%')
-            ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
-            ->andWhere('u.id = e.users')
-            ->setMaxResults( $limit )
-            ->getQuery()
-            ->getResult()
+        if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
+            $users = $ur->createQueryBuilder('u')
+                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.firstname LIKE :firstname')
+                ->setParameter('lastname', '%' . $term . '%')
+                ->setParameter('firstname', '%' . $term . '%')
+                ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
+                ->andWhere('u.id = e.users')
+                ->setMaxResults( $limit )
+                ->getQuery()
+                ->getResult()
             ;
+        } else {
+            // Technician view only them users
+            $users = $ur->createQueryBuilder('u')
+                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.firstname LIKE :firstname')
+                ->setParameter('lastname', '%' . $term . '%')
+                ->setParameter('firstname', '%' . $term . '%')
+                ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
+                ->andWhere('u.id = e.users')
+                ->andWhere('u.technician = :tech')
+                ->setParameter(':tech', $this->getUser())
+                ->setMaxResults( $limit )
+                ->getQuery()
+                ->getResult()
+            ;
+        }
 
         // Return Array of key = id && text = value
         $array = [];
@@ -613,20 +641,19 @@ class RecommendationsController extends AbstractController
     }
 
     /**
- * @Route("exploitation/recommendations", name="exploitation.recommendation_index")
+ * @Route("exploitation/recommendations", name="exploitation_recommendation_index")
  * @param RecommendationsRepository $rr
  * @return Response
  */
     public function indexUser( RecommendationsRepository $rr ): Response
     {
-        $year = date('Y');
         return $this->render('exploitation/recommendations/index.html.twig', [
-            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year )
+            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser(), date('Y') )
         ]);
     }
 
     /**
-     * @Route("exploitation/recommendations/data/{year}", name="exploitation.recommendations.data")
+     * @Route("exploitation/recommendations/data/{year}", name="exploitation_recommendation_data")
      * @param RecommendationsRepository $rr
      * @param $year
      * @return Response
@@ -639,7 +666,7 @@ class RecommendationsController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/recommendations/{id}", name="exploitation.recommendations.show")
+     * @Route("exploitation/recommendations/{id}", name="exploitation_recommendation_show")
      * @param Recommendations $recommendations
      * @param CulturesRepository $cr
      * @return Response
@@ -648,6 +675,9 @@ class RecommendationsController extends AbstractController
      */
     public function showUser( Recommendations $recommendations, CulturesRepository $cr ): Response
     {
+        if ($this->getUser() != $recommendations->getExploitation()->getUsers()) {
+            throw $this->createNotFoundException('Cette recommendation ne vous appartient pas.');
+        }
         $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
         $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
         return $this->render('exploitation/recommendations/show.html.twig', [
