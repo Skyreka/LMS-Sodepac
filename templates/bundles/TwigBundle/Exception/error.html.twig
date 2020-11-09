@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title>ERROR {{ status_code }} - LMS SodePac</title>
+    <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/colors/green-dark.css') }}" rel="stylesheet">
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+<section id="wrapper" class="error-page">
+    <div class="error-box">
+        <div class="error-body text-center">
+            <h1 class="text-info">{{ status_code }}</h1>
+            <p class="text-muted mt-4 mb-4">{{ status_text }}</p>
+            <a href="{{ path('home') }}" class="btn btn-info btn-rounded waves-effect waves-light mb-5">Accueil</a> </div>
+        <footer class="footer text-center">© LMS Sodepac.</footer>
+    </div>
+</section>
+</body>
+
+</html>
