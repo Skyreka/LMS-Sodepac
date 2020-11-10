@@ -119,7 +119,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/web-profiler-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/web-server-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/tattali/calendar-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tcpdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tetranz/select2entity-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/treehouselabs/slugifier" />
