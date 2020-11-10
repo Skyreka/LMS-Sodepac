@@ -531,7 +531,7 @@ class RecommendationsController extends AbstractController
                 ini_set('max_execution_time', 300);
                 ini_set('memory_limit', '-1');
                 $canevasPage->loadHtml( $html->getContent() );
-                $canevasPage->setPaper('A4', 'landscape');
+                $canevasPage->setPaper('A2', 'landscape');
                 $canevasPage->render();
                 $outputFirstFile = $canevasPage->output();
                 file_put_contents( '../public/uploads/recommendations/process/'.$token.'/2.pdf', $outputFirstFile);

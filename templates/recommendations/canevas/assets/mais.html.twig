@@ -156,7 +156,7 @@
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'adengo-xtra', '0.331') ? 'exist' : 'd-none' }}" product_slug="adengo-xtra" dose="0.331" unit="L">ADENGO XTRA <small>0.33 L</small></button>
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-spectrum-10-l', '1.001') ? 'exist' : 'd-none' }}" product_slug="s-spectrum-10-l" dose="1.001" unit="L">SPECTRUM <small>1 L</small></button>
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-calibra-5-l', '2.503') ? 'exist' : 'd-none' }}" product_slug="s-calibra-5-l" dose="2.503" unit="L">CALIBRA <small>2.5 L</small></button>
-                    <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'merlin-flexx', '1.601') ? 'exist' : 'd-none' }}" product_slug="merlin-flexx" dose="1.601" unit="L">MERLIN FLEX<small>1.8 L</small></button>
+                    <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'merlin-flexx', '1.601') ? 'exist' : 'd-none' }}" product_slug="merlin-flexx" dose="1.601" unit="L">MERLIN FLEX<small>1.6 L</small></button>
                     <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-dual-gold-5-l', '0.503') ? 'exist' : 'd-none' }}" product_slug="s-dual-gold-5-l" dose="0.503" unit="L">DUAL GOLD<small>0.5 L</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td>
@@ -256,61 +256,4 @@
             </div>
         </div>
     {% endif %}
-{% endblock %}
-{% block javascripts %}
-    {% if printRequest == false %}
-    <script src="{{ asset('plugins/toast/toast.js') }}"></script>
-    <script>
-        $("#open-right-sidebar").click(function(e){
-            let sidebar = $('#right-sidebar');
-            $(sidebar).addClass( "shw-rside" )
-        });
-        $("#close-right-sidebar").click(function(e){
-            let sidebar = $('#right-sidebar');
-            $(sidebar).removeClass( "shw-rside" )
-        });
-        $(".isProduct").click(function (e) {
-            let name = $(this).text()
-            $(this).addClass('exist')
-            $.ajax({
-                url: '/recommendations/add-product',
-                type: 'POST',
-                data: {
-                    'product_slug': $(this).attr('product_slug'),
-                    'recommendation_id': {{ recommendations.id }},
-                    'dose': $(this).attr('dose'),
-                    'unit': $(this).attr('unit')
-                },
-                dataType: 'JSON',
-                complete : function (response) {
-                    $.toast({
-                        heading: 'Produit ajouté avec succès',
-                        text: 'Ajout de ' + name,
-                        position: 'bottom-left',
-                        loaderBg: '#ff6849',
-                        icon: 'success',
-                        hideAfter: 3000,
-                        stack: 6
-                    });
-                    let nameProduct = response.responseJSON['name_product']
-                    let dose = response.responseJSON['dose']
-                    let unit = response.responseJSON['unit']
-                    let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
-                    $('#products_list').append( input )
-                },
-                error : function (code_html, status) {
-                    $.toast({
-                        heading: 'Une erreur est survenue',
-                        text: 'Veuillez ressayer',
-                        position: 'bottom-right',
-                        loaderBg: '#ff6849',
-                        icon: 'error',
-                        hideAfter: 3000,
-                        stack: 6
-                    });
-                }
-            })
-        })
-        {% endif %}
-    </script>
 {% endblock %}
