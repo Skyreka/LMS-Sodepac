@@ -34,8 +34,10 @@ class SemisInterventionType extends AbstractType
             ->add('intervention_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
+                'format' => 'dd/MM/yyyy',
                 'attr' => [
-                    'class' => 'js-datepicker'
+                    'class' => 'js-datepicker',
+                    'value' => date('d/m/Y')
                 ]
             ])
         ;
