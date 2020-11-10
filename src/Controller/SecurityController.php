@@ -38,7 +38,7 @@ class SecurityController extends AbstractController {
     public function postLoginRedirection()
     {
         //-- If user have pack disable redirect to login with error
-        if ( $this->getUser()->getPack() === 'DISABLE' ) {
+        if ( $this->getUser()->getPack() === 'DISABLE' AND $this->getUser()->getStatus() == 'ROLE_USER' ) {
             $this->addFlash('danger', "Vous n'avez pas accès à l'application LMS Sodepac, veuillez contacter votre technicien Sodepac.");
             return $this->redirectToRoute( 'login' );
         }
