@@ -158,7 +158,7 @@ class RecommendationsController extends AbstractController
     public function new( Request $request ): Response
     {
         $recommendation = new Recommendations();
-        $form = $this->createForm( RecommendationAddType::class, $recommendation, [ 'user' => $this->getUser() ]);
+        $form = $this->createForm( RecommendationAddType::class, $recommendation);
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {

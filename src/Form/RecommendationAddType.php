@@ -51,8 +51,7 @@ class RecommendationAddType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Recommendations::class,
-            'user' => null
+            'data_class' => Recommendations::class
         ]);
     }
 }
