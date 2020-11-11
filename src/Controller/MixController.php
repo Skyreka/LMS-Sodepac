@@ -36,7 +36,7 @@ class MixController extends AbstractController
      * @return Response
      * @Route("/", name="mix_index", methods={"GET"})
      */
-    public function mixIndex( MixRepository $mr ) : Response
+    public function index( MixRepository $mr ) : Response
     {
 
         return $this->render('mix/index.html.twig', [
@@ -50,7 +50,7 @@ class MixController extends AbstractController
      * @throws \Exception
      * @Route("/new", name="mix_new", methods={"GET", "POST"})
      */
-    public function mixNew( Request $request ) : Response
+    public function new( Request $request ) : Response
     {
         $mix = new Mix();
         $form = $this->createForm(MixAddType::class, $mix );
@@ -65,7 +65,7 @@ class MixController extends AbstractController
             return $this->redirectToRoute('mix_show', ['id' => $mix->getId()]);
         }
 
-        return $this->render('mix/add.html.twig', [
+        return $this->render('mix/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -76,7 +76,7 @@ class MixController extends AbstractController
      * @return Response
      * @Route("/add-product/{id}", name="mix_add_product", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
-    public function mixAddProduct( Request $request, Mix $mix ) : Response
+    public function addProduct( Request $request, Mix $mix ) : Response
     {
         $mixProduct = new MixProducts();
         $form = $this->createForm( MixAddProductType::class, $mixProduct);
@@ -101,7 +101,7 @@ class MixController extends AbstractController
      * @return Response
      * @Route("/show/{id}", name="mix_show", methods={"GET"}, requirements={"id":"\d+"})
      */
-    public function mixShow( Mix $mix, MixProductsRepository $mpr ) : Response
+    public function show( Mix $mix, MixProductsRepository $mpr ) : Response
     {
         $mixProducts = $mpr->findBy( ['mix' => $mix ]);
         return $this->render('mix/view.html.twig', [
