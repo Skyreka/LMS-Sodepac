@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class PasswordType extends AbstractType
 {
@@ -18,6 +19,12 @@ class PasswordType extends AbstractType
                 'first_options'  => array('label' => 'Nouveau mot de passe'),
                 'second_options' => array('label' => 'Confirmation nouveau mot de passe'),
                 'invalid_message' => 'Les 2 mots de passe ne sont pas identiques.',
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Le mot de passe doit faire au moins 6 caractères '
+                    ])
+                ]
             ))
         ;
     }
