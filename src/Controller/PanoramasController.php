@@ -78,7 +78,7 @@ class PanoramasController extends AbstractController
      */
     public function valid(Panoramas $panoramas, Request $request)
     {
-        if ($this->isCsrfTokenValid('delete' . $panoramas->getId(), $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('valid' . $panoramas->getId(), $request->get('_token'))) {
             $panoramas->setValidate(1);
             $this->em->flush();
             $this->addFlash('success', 'Panorama validé avec succès');
@@ -332,7 +332,7 @@ class PanoramasController extends AbstractController
     public function list(PanoramaUserRepository $pur, $year): Response
     {
         $user = $this->getUser();
-        if ($user->getStatus() == 'ROLE_ADMIN') { 
+        if ($user->getStatus() == 'ROLE_ADMIN') {
             $panoramas = $pur->findAllByYear($year);
         } else {
             $panoramas = $pur->findAllByYearAndSender($year, $this->getUser());
