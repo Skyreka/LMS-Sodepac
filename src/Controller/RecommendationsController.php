@@ -562,7 +562,7 @@ class RecommendationsController extends AbstractController
                 $this->em->flush();
 
                 //-- Download for user
-                $this->forceDownLoad( '../public/uploads/recommendations/'.$token.'.pdf', $fileName );
+                //$this->forceDownLoad( '../public/uploads/recommendations/'.$token.'.pdf', $fileName );
 
                 //-- Remove temp folder
                 $fileSystem->remove('../public/uploads/recommendations/process/'.$token);
