@@ -26,7 +26,9 @@
         </div>
         <div class="row">
             <div class="col-lg-8">
-                <a href="{{ path('recommendation_mentions', {'id': recommendation.id}) }}" class="btn btn-light-success mb-3">Revenir méthodes alternatives</a>
+                {% if recommendation.status <= 1 %}
+                    <a href="{{ path('recommendation_mentions', {'id': recommendation.id}) }}" class="btn btn-light-success mb-3">Revenir méthodes alternatives</a>
+                {% endif %}
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
