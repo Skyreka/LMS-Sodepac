@@ -74,7 +74,15 @@
                     {% if( recommendation.status > 1 ) %}
                         {% include 'recommendations/staff/_send.html.twig' with {'button_label': 'Envoyer'} %}
                     {% endif %}
-                    {% include 'recommendations/staff/_download.html.twig' with {'button_label': 'Générer'} %}
+                    <button class="btn btn-primary" type="button" id="loading-button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Génération...
+                    </button>
+                    {% if( recommendation.status <= 1 ) %}
+                        {% include 'recommendations/staff/_download.html.twig' with {'button_label': 'Générer'} %}
+                    {% else %}
+                        {% include 'recommendations/staff/_download.html.twig' with {'button_label': 'Télécharger'} %}
+                    {% endif %}
                     {% include 'recommendations/staff/_delete.html.twig' with {'button_label': 'Supprimer'} %}
                 </div>
                 <div class="card">
@@ -117,5 +125,10 @@
                 editable: [[4, 'quantity']]
             }
         });
+        $('#loading-button').hide();
+        function loading() {
+            $('#generate-button').hide();
+            $('#loading-button').show();
+        }
     </script>
 {% endblock %}

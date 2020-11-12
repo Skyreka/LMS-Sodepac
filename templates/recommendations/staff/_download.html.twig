@@ -2,7 +2,7 @@
     <form method="POST" action="{{ path('recommendation_download', {id: recommendation.id}) }}">
         <input type="hidden" name="_method" value="DOWNLOAD">
         <input type="hidden" name="_token" value="{{ csrf_token('download') }}">
-        <button class="btn btn-info ml-2"><i class="fas fa-redo"></i> {{ button_label|default('') }}</button>
+        <button class="btn btn-info ml-2" id="generate-button" onclick="loading()"><i class="fas fa-redo"></i> {{ button_label|default('') }}</button>
     </form>
 {% else %}
     <a class="btn btn-success ml-2" href="{{ asset('uploads/recommendations/' ~ recommendation.pdf) }}" target="_blanck"><i class="fas fa-download"></i> {{ button_label|default('') }}</a>
