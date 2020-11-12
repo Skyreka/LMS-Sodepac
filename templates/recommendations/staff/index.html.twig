@@ -126,6 +126,9 @@
                                                 {% if( recommendation.status > 1 ) %}
                                                     {{ include('recommendations/staff/_send.html.twig') }}
                                                 {% endif %}
+                                                <button class="btn btn-primary loading-button m-l-5" recommendation-id="{{ recommendation.id }}" type="button" disabled>
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                </button>
                                                 {{ include('recommendations/staff/_download.html.twig') }}
                                                 {{ include('recommendations/staff/_delete.html.twig') }}
                                             </div>
@@ -143,4 +146,15 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $('.loading-button').hide();
+        $('.generate-buttons').click( function(e) {
+            let recommendationId = $(this).attr('recommendation-id')
+            let loadingButton = $("button[recommendation-id='" + recommendationId +"']");
+            $(this).hide();
+            loadingButton.show();
+        } )
+    </script>
 {% endblock %}

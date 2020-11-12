@@ -76,7 +76,7 @@
                     {% if( recommendation.status > 1 ) %}
                         {% include 'recommendations/staff/_send.html.twig' with {'button_label': 'Envoyer'} %}
                     {% endif %}
-                    <button class="btn btn-primary" type="button" id="loading-button" disabled>
+                    <button class="btn btn-primary loading-button" recommendation-id="{{ recommendation.id }}" type="button" id="loading-button" disabled>
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Génération...
                     </button>
@@ -129,10 +129,12 @@
                 }
             });
         {% endif %}
-        $('#loading-button').hide();
-        function loading() {
-            $('#generate-button').hide();
-            $('#loading-button').show();
-        }
+        $('.loading-button').hide();
+        $('.generate-buttons').click( function(e) {
+            let recommendationId = $(this).attr('recommendation-id')
+            let loadingButton = $("button[recommendation-id='" + recommendationId +"']");
+            $(this).hide();
+            loadingButton.show();
+        } )
     </script>
 {% endblock %}
