@@ -398,8 +398,8 @@ class RecommendationsController extends AbstractController
             $recommendations->setStatus( 1 );
             $this->em->flush();
 
-            $this->addFlash('info', 'La recommendation est maintenant en status Créee');
-            $this->addFlash('success', 'Recommendation crée avec succès');
+            $this->addFlash('info', 'La recommandation est maintenant en status Créée');
+            $this->addFlash('success', 'Recommandation créée avec succès');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
 
@@ -467,7 +467,7 @@ class RecommendationsController extends AbstractController
             ;
             $mailer->send($message);
 
-            $this->addFlash('success', 'Email envoyé avec succès. Status de la recommendation: Envoyée');
+            $this->addFlash('success', 'Email envoyé avec succès. Status de la recommandation: Envoyée');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
         return $this->redirectToRoute('recommendation_index');
@@ -567,7 +567,7 @@ class RecommendationsController extends AbstractController
                 //-- Remove temp folder
                 $fileSystem->remove('../public/uploads/recommendations/process/'.$token);
 
-                $this->addFlash('success', 'Document généré avec succès. Status de la recommendation: Générée');
+                $this->addFlash('success', 'Document généré avec succès. Status de la recommandation: Générée');
                 return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
             } catch (Exception $e) {
                 $this->addFlash('danger', 'Une erreur est survenue');
