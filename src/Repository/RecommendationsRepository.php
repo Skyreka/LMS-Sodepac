@@ -114,7 +114,7 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->where('year(r.create_at) = :year')
             ->andWhere('r.status >= 1')
             ->setParameter('year', $year)
-            ->orderBy('r.create_at', 'ASC')
+            ->orderBy('r.create_at', 'DESC')
             ;
 
         if( $limit != NULL) {
