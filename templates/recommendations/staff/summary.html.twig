@@ -116,15 +116,17 @@
 {% block javascripts %}
     <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>
     <script>
-        $('#edit-table').Tabledit({
-            url: '/recommendations/edit-total-quantity',
-            editButton: false,
-            hideIdentifier: true,
-            columns: {
-                identifier: [0, 'id'],
-                editable: [[4, 'quantity']]
-            }
-        });
+        {% if recommendation.status <= 1 %}
+            $('#edit-table').Tabledit({
+                url: '/recommendations/edit-total-quantity',
+                editButton: false,
+                hideIdentifier: true,
+                columns: {
+                    identifier: [0, 'id'],
+                    editable: [[4, 'quantity']]
+                }
+            });
+        {% endif %}
         $('#loading-button').hide();
         function loading() {
             $('#generate-button').hide();
