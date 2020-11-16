@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier en cours{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row pt-5">
+            <!-- Column -->
+            <div class="col-12">
+                <!--begin::Alert-->
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">{{ message }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col-md-9 col-lg-9">
+                <div class="card">
+                    <div class="card-header bg-info">
+                        <h5 class="mb-0 text-white">Votre panier <span class="badge-warning">{{ order.idNumber }}</span></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table product-overview" id="edit-table">
+                                <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Produit</th>
+                                    <th>Condi.</th>
+                                    <th>Quantité</th>
+                                    <th>Prix HT</th>
+                                    <th>Remise %</th>
+                                    <th style="text-align:center">Total HT</th>
+                                    <th>Tva %</th>
+                                    <th style="text-align:center">Total TTC</th>
+                                    <th style="text-align:center"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for article in products %}
+                                    <tr>
+                                        <td>{{ article.id }}</td>
+                                        <td width="550">
+                                            <h5 class="font-500">{{ article.product.name }}</h5>
+                                        </td>
+                                        <td>{{ article.conditioning }}</td>
+                                        <td class="quantity">{{ article.totalQuantity }}</td>
+                                        <td class="price" width="100">
+                                            {{ article.unitPrice }}
+                                        </td>
+                                        <td class="discount" width="150">{{ article.discount }}</td>
+                                        <td width="150" align="center" class="total_ht"></td>
+                                        <td width="100" align="center" class="taxe">{{ article.taxe }}</td>
+                                        <td width="150" align="center" class="font-500 total_ttc"></td>
+                                        <td align="center">
+                                            {% include 'management/order/_delete.html.twig' %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <hr>
+                            <div class="d-flex no-block align-items-center">
+                                <a href="javascript:history.go(-1)" class="btn btn-dark btn-outline"><i class="fas fa-arrow-left"></i> Revenir à la recommendation</a>
+                                <div class="ml-auto">
+                                    <button class="btn btn-danger"><i class="fa fa fa-shopping-cart"></i> Commander</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-md-3 col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">RÉSUMÉ DU PANIER</h5>
+                        <hr>
+                        <small>Prix hors RPD</small>
+                        <h4 id="totalHT"></h4>
+                        <small>Prix avec RPD</small>
+                        <h2 id="totalTTC"></h2>
+                        <hr>
+                        <button class="btn btn-success">Commander</button>
+                        <button class="btn btn-secondary btn-outline">Annuler</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Besoin d'aide ?</h5>
+                        <hr>
+                        <h4><i class="ti-mobile"></i>+33 7 90 28 92 XX</h4> <small>Veuillez nous contacter si vous avez des questions. Nous sommes disponibles 24h / 24.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>$
+    <script>
+        $('#edit-table').Tabledit({
+            url: '{{ path('order_product_edit') }}',
+            editButton: false,
+            hideIdentifier: true,
+            onSuccess: function(response, textStatus) {
+                refresh();
+            },
+            columns: {
+                identifier: [0, 'id'],
+                editable: [
+                    [2, 'conditioning'],
+                    [3, 'totalQuantity'],
+                    [4, 'unitPrice'],
+                    [5, 'discount'],
+                    [6, 'taxe']
+                ]
+            }
+        });
+
+        refresh();
+
+        function refresh() {
+            // Refresh total of column
+            let currency = new Intl.NumberFormat('fr-FR',  {
+                style: 'currency',
+                currency: 'EUR',
+            });
+            let totalSumTTC = 0
+            let totalSumHT = 0
+            $('.total_ttc').each( function (e) {
+                let price = $(this).closest('tr').children('.price').text()
+                let quantity = $(this).closest('tr').children('.quantity').text()
+                let priceQuantity = parseFloat(price) * parseFloat(quantity);
+
+                // Discount
+                let discount = ( $(this).closest('tr').children('.discount').text() / 100)
+                let priceQuantityDiscount = parseFloat(price) * parseFloat(quantity) * discount;
+                let sumWithDiscount = priceQuantity - priceQuantityDiscount;
+
+                // Taxe
+                let taxe = ( $(this).closest('tr').children('.taxe').text() / 100 ) // 7.5
+                let priceQuantityDiscountAndTaxe = sumWithDiscount * taxe; //
+                let totalTTC = sumWithDiscount + priceQuantityDiscountAndTaxe;
+
+                // Total HT
+                let totalHTText = $(this).closest('tr').children('.total_ht')
+                $(totalHTText).text( currency.format(sumWithDiscount) )
+
+                // Total TTC
+                $(this).text( currency.format(totalTTC) )
+
+                totalSumTTC += totalTTC;
+                totalSumHT += sumWithDiscount;
+            })
+
+            $('#totalHT').text( currency.format(totalSumHT) + ' TTC' )
+            $('#totalTTC').text( currency.format(totalSumTTC) + ' TTC' )
+
+        }
+    </script>
+{% endblock %}

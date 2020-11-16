@@ -17,7 +17,7 @@ class RecommendationProducts
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Products", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;

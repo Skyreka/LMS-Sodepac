@@ -136,6 +136,11 @@ class Users implements UserInterface, \Serializable
      */
     private $mixes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Orders::class, mappedBy="creator")
+     */
+    private $orders;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
@@ -143,6 +148,7 @@ class Users implements UserInterface, \Serializable
         $this->panoramas_sent = new ArrayCollection();
         $this->tickets = new ArrayCollection();
         $this->mixes = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -543,6 +549,36 @@ class Users implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($mix->getUser() === $this) {
                 $mix->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Orders $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Orders $orders): self
+    {
+        if ($this->orders->removeElement($orders)) {
+            // set the owning side to null (unless already changed)
+            if ($orders->getCreator() === $this) {
+                $orders->setCreator(null);
             }
         }
 

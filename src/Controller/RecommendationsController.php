@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Exploitation;
 use App\Entity\IndexCultures;
+
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Entity\Stocks;
@@ -419,6 +420,8 @@ class RecommendationsController extends AbstractController
      */
     public function summary( Recommendations $recommendation, CulturesRepository $cr ): Response
     {
+        //$this->container->get('session')->remove('currentOrder');
+        dump($this->container->get('session')->get('currentOrder'));
         $products = $this->rpr->findBy( ['recommendation' => $recommendation] );
         $cultureTotal = $cr->countSizeByIndexCulture( $recommendation->getCulture(), $recommendation->getExploitation() );
 
