@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recommandation{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Synthèse Commandes</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">Synthèse Commandes</li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-12">
+            <!--begin::Alert-->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-12 pull-right mb-2">
+                <a href="{{ path('order_new') }}" class="btn btn-success pull-right ml-2">Créer un panier</a>
+                <a href="{{ path('order_synthesis') }}" class="btn btn-warning pull-right">Synthèse</a>
+            </div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Récapitulatif</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Client</th>
+                                    {% if app.user.status == 'ROLE_ADMIN' %}
+                                        <th>Technicien</th>
+                                    {% endif %}
+                                    <th>Crée</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for order in orders %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('order_show', {id_number: order.idNumber}) }}"> {{ order.idNumber }} <br> </a>{% if( order.status == 0 ) %}⚠️ <small>Suppression Vendredi prochain 00h</small> {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('management_user_show', {id: order.customer.id}) }}">
+                                                <h6>{{ order.customer.identity }}</h6><small class="text-muted">{{ order.customer.email }}</small>
+                                            </a>
+                                        </td>
+                                        {% if app.user.status == 'ROLE_ADMIN' %}
+                                            <td>
+                                                <a href="{{ path('management_user_show', {id: order.customer.id}) }}">
+                                                    <h6>{{ order.creator.identity }}</h6><small class="text-muted">{{ order.customer.email }}</small>
+                                                </a>
+                                            </td>
+                                        {% endif %}
+                                        <td>{{ order.createDate | date('d M Y H:i') }}</td>
+                                        <td>
+                                            {% if( order.status == 0 ) %}
+                                                <span class="badge badge-danger">⚠️ Temporaire ⚠️</span>
+                                            {% elseif( order.status == 1 ) %}
+                                                <span class="badge badge-info">Enregistrée</span>
+                                            {% elseif( order.status == 2 ) %}
+                                                <span class="badge badge-success">Validée</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div style="display: flex">
+                                                <a class="btn btn-success" href="{{ path('order_show', {id_number: order.idNumber}) }}"><i class="fa fa-eye text-white"></i></a>
+                                                {%  if( order.status == 2 ) %}
+                                                    <a class="btn btn-info ml-2" href="{{ path('order_pdf_view', {id_number: order.idNumber}) }}"><i class="fa fa-file-pdf text-white"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $('.loading-button').hide();
+        $('.generate-buttons').click( function(e) {
+            let recommendationId = $(this).attr('recommendation-id')
+            let loadingButton = $("button[recommendation-id='" + recommendationId +"']");
+            $(this).hide();
+            loadingButton.show();
+        } )
+    </script>
+{% endblock %}

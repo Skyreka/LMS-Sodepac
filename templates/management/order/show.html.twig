@@ -123,7 +123,9 @@
                         <p><i class="ti-mobile"></i> {{ order.customer.phone ? order.customer.phone : '' }}</p>
                         <p><i class="ti-pin"></i>
                             {% if order.customer.warehouse %}
-                                <span id="warehouse-define">{{ order.customer.warehouse.name }}</span>
+                                <span id="warehouse-define">{{ order.customer.warehouse.name }}</span> <br>
+                                <span id="warehouse-define">{{ order.customer.warehouse.email }}</span> <br>
+                                <span id="warehouse-define">{{ order.customer.warehouse.address }}</span>
                             {% else %}
                                 Dépot: <a id="warehouse-not-define" href="{{ path('management_user_show', {id: order.customer.id}) }}">A DÉFINIR</a>
                             {% endif %}

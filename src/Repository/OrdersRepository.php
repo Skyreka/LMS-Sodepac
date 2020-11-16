@@ -4,6 +4,7 @@ namespace App\Repository;
 
 
 use App\Entity\Orders;
+use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,6 +19,34 @@ class OrdersRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Orders::class);
+    }
+
+    public function findByTechnician( Users $tech, $limit = null )
+    {
+        $req = $this->createQueryBuilder('o')
+            ->andWhere('o.creator = :val')
+            ->setParameter('val', $tech)
+            ->orderBy('o.createDate', 'ASC')
+            ;
+
+        if ($limit) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
+    public function findByUser( Users $user )
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.customer = :val')
+            ->andWhere('o.status = 2')
+            ->setParameter('val', $user)
+            ->orderBy('o.createDate', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

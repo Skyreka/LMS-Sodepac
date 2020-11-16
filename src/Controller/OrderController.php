@@ -1,13 +1,16 @@
 <?php
-namespace App\Controller\Management;
+namespace App\Controller;
 
 use App\Entity\Orders;
 use App\Entity\OrdersProduct;
 use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
+use App\Form\OrdersType;
 use App\Repository\OrdersProductRepository;
 use App\Repository\CulturesRepository;
+use App\Repository\OrdersRepository;
+use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -21,7 +24,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class CardController
  * @package App\Controller\Management
- * @Route("/order")
  */
 class OrderController extends AbstractController
 {
@@ -36,7 +38,25 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/pdf/{id_number}/{print}", name="order_pdf_view", methods={"GET", "POST"}, defaults={"print"=false}, requirements={"print":"true|false"})
+     * @Route("/management/order", name="order_index", methods={"GET"})
+     * @param OrdersRepository $op
+     * @return Response
+     */
+    public function index(OrdersRepository $op): Response
+    {
+        if ($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
+            $orders = $op->findByTechnician( $this->getUser(), 10 );
+        } else {
+            $orders = $op->findBy( null, null, 10);
+        }
+
+        return $this->render('management/order/index.html.twig', [
+            'orders' => $orders
+        ]);
+    }
+
+    /**
+     * @Route("/order/pdf/{id_number}/{print}", name="order_pdf_view", methods={"GET", "POST"}, defaults={"print"=false}, requirements={"print":"true|false"})
      * @param Orders $order
      * @param OrdersProductRepository $opr
      * @param Request $request
@@ -63,14 +83,13 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id_number}", name="order_show", methods={"GET", "POST"})
+     * @Route("management/order/show/{id_number}", name="order_show", methods={"GET", "POST"})
      * @param Orders $orders
      * @param OrdersProductRepository $cpr
      * @return Response
      */
     public function show(Orders $orders, OrdersProductRepository $cpr): Response
     {
-
         $products = $cpr->findBy( ['orders' => $orders] );
 
         return $this->render('management/order/show.html.twig', [
@@ -80,8 +99,90 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/product/add/{product}/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
-     * @Route("/product/add/{id}", name="order_product_other_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
+     * @Route("management/order/new", name="order_new", methods={"GET", "POST"})
+     * @return Response
+     */
+    public function new( Request $request ): Response
+    {
+        $order = new Orders;
+        $form = $this->createForm( OrdersType::class, $order);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $order->setStatus( 0 );
+            $order->setIdNumber( strtoupper(uniqid( 'C' )) );
+            $order->setCreator( $this->getUser() );
+
+            $this->em->persist( $order );
+            $this->em->flush();
+
+            // Add id to session and reset if exist
+            $this->container->get('session')->remove('currentOrder');
+            $this->container->get('session')->set('currentOrder', $order);
+
+            $this->addFlash('success', 'Nouveau panier temporaire crée avec succès');
+            return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
+        }
+
+        return $this->render('management/order/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("management/order/new/order_select_data", name="order_select_data")
+     * @param Request $request
+     * @param UsersRepository $ur
+     * @return JsonResponse
+     */
+    public function newSelectData( Request $request, UsersRepository $ur): JsonResponse
+    {
+        //Get information from ajax call
+        $term = $request->query->get('q');
+        $limit = $request->query->get('page_limit');
+
+        //Query of like call
+        if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
+            $users = $ur->createQueryBuilder('u')
+                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.firstname LIKE :firstname')
+                ->setParameter('lastname', '%' . $term . '%')
+                ->setParameter('firstname', '%' . $term . '%')
+                ->setMaxResults( $limit )
+                ->getQuery()
+                ->getResult()
+            ;
+        } else {
+            // Technician view only them users
+            $users = $ur->createQueryBuilder('u')
+                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.firstname LIKE :firstname')
+                ->setParameter('lastname', '%' . $term . '%')
+                ->setParameter('firstname', '%' . $term . '%')
+                ->andWhere('u.technician = :tech')
+                ->setParameter(':tech', $this->getUser())
+                ->setMaxResults( $limit )
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
+        // Return Array of key = id && text = value
+        $array = [];
+        foreach ($users as $user) {
+            $array[] = array(
+                'id' => $user->getId(),
+                'text' => $user->getIdentity()
+            );
+        }
+
+        // Return JsonResponse of code 200
+        return new JsonResponse( $array, 200);
+    }
+
+    /**
+     * @Route("management/order/product/add/{product}/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
+     * @Route("management/order/product/add/{id}", name="order_product_other_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
      * @param RecommendationProducts $product
      * @param Recommendations $recommendation
      * @param OrdersProductRepository $opr
@@ -164,7 +265,7 @@ class OrderController extends AbstractController
 
     /**
      * Edit Dose with editable Ajax Table
-     * @Route("/product/edit", name="order_product_edit")
+     * @Route("management/order/product/edit", name="order_product_edit")
      * @param Request $request
      * @param CulturesRepository $cr
      * @return JsonResponse
@@ -215,7 +316,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/product/delete/{id}", name="order_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
+     * @Route("management/order/product/delete/{id}", name="order_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      * @param OrdersProduct $product
      * @param Request $request
      * @return RedirectResponse
@@ -231,7 +332,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/save/{id}", name="order_save", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("management/order/save/{id}", name="order_save", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
      * @return Response
      */
@@ -241,13 +342,16 @@ class OrderController extends AbstractController
         if ( $order->getStatus() == 0 ) {
             $order->setStatus( 1 );
             $this->em->flush();
+
+            //Remove Cart
+            $this->container->get('session')->remove('currentOrder');
         }
 
         return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
     }
 
     /**
-     * @Route("/valid/{id}", name="order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("management/order/valid/{id}", name="order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
      * @param \Swift_Mailer $mailer
      * @param OrdersProductRepository $opr
@@ -267,7 +371,19 @@ class OrderController extends AbstractController
                 ->setTo( $order->getCustomer()->getWarehouse()->getEmail() )
                 ->setBody(
                     $this->renderView(
-                        'management/order/email/warehouse.html.twig', [
+                        'management/order/email/send.html.twig', [
+                            'order' => $order
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+            $messageCustomer = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
+                ->setFrom('send@lms-sodepac.fr')
+                ->setTo( $order->getCustomer()->getEmail() )
+                ->setBody(
+                    $this->renderView(
+                        'management/order/email/send.html.twig', [
                             'order' => $order
                         ]
                     ),
@@ -275,6 +391,7 @@ class OrderController extends AbstractController
                 )
             ;
             $mailer->send($message);
+            $mailer->send($messageCustomer);
 
             $this->em->flush();
 
@@ -283,5 +400,36 @@ class OrderController extends AbstractController
         }
 
         return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
+    }
+
+    /**
+     * @Route("/orders", name="user_order_index", methods={"GET", "POST"})
+     * @param OrdersRepository $op
+     * @return Response
+     */
+    public function userIndex( OrdersRepository $op ): Response
+    {
+        return $this->render('exploitation/orders/index.html.twig', [
+            'orders' => $op->findByUser( $this->getUser() )
+        ]);
+    }
+
+
+    /**
+     * @Route("/management/order/synthesis", name="order_synthesis", methods={"GET", "POST"})
+     * @param OrdersRepository $op
+     * @return Response
+     */
+    public function synthesis( OrdersRepository $op ): Response
+    {
+        if ($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
+            $orders = $op->findByTechnician( $this->getUser() );
+        } else {
+            $orders = $op->findAll();
+        }
+
+        return $this->render('management/order/synthesis/index.html.twig', [
+            'orders' => $orders
+        ]);
     }
 }
