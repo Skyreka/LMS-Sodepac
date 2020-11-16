@@ -182,7 +182,7 @@ class OrderController extends AbstractController
 
     /**
      * @Route("management/order/product/add/{product}/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
-     * @Route("management/order/product/add/{id}", name="order_product_other_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
+     * @Route("management/order/product/add/{id}", name="order_product_other_add", methods={"ADDTOORDER"}, requirements={"id":"\d+"})
      * @param RecommendationProducts $product
      * @param Recommendations $recommendation
      * @param OrdersProductRepository $opr
@@ -200,6 +200,11 @@ class OrderController extends AbstractController
 
         // Check if order already exist on this session
         if ($this->container->get('session')->get('currentOrder') == NULL) {
+            if ( $isOther = 1) {
+                $this->addFlash('danger', 'Vous ne pouvez pas ajouter de produit aucun panier existe.');
+                return $this->redirectToRoute('login_success');
+            }
+
             $order = new Orders();
             $order->setStatus( 0 );
             $order->setIdNumber( strtoupper(uniqid( 'C' )) );

@@ -94,7 +94,13 @@ class ProductsDataTables implements DataTableHandlerInterface
 
             $results->data[] = [
                 $product->getName(),
-                $product->getCategory()
+                $product->getCategory(),
+                '
+                <form method="POST" action="'.$this->router->generate('order_product_other_add', ['id' => $product->getId()]).'">
+                    <input type="hidden" name="_method" value="ADDTOORDER">
+                    <button class="btn btn-info ml-2"><i class="fas fa-shopping-cart"></i></button>
+                </form>
+                '
             ];
         }
 

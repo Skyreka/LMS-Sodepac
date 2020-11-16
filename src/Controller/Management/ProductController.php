@@ -23,7 +23,7 @@ class ProductController extends AbstractController
      */
     public function admin( ProductsRepository $pd): Response
     {
-        return $this->render('products/index.html.twig');
+        return $this->render('management/products/index.html.twig');
     }
 
     /**
