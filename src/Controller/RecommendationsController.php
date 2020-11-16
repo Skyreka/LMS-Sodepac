@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Exploitation;
 use App\Entity\IndexCultures;
+
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Entity\Stocks;

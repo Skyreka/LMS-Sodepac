@@ -136,6 +136,16 @@ class Users implements UserInterface, \Serializable
      */
     private $mixes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Orders::class, mappedBy="creator")
+     */
+    private $orders;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Warehouse::class, inversedBy="users")
+     */
+    private $warehouse;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
@@ -143,6 +153,7 @@ class Users implements UserInterface, \Serializable
         $this->panoramas_sent = new ArrayCollection();
         $this->tickets = new ArrayCollection();
         $this->mixes = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -545,6 +556,48 @@ class Users implements UserInterface, \Serializable
                 $mix->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Orders $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Orders $orders): self
+    {
+        if ($this->orders->removeElement($orders)) {
+            // set the owning side to null (unless already changed)
+            if ($orders->getCreator() === $this) {
+                $orders->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getWarehouse(): ?Warehouse
+    {
+        return $this->warehouse;
+    }
+
+    public function setWarehouse(?Warehouse $warehouse): self
+    {
+        $this->warehouse = $warehouse;
 
         return $this;
     }
