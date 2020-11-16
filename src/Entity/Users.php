@@ -141,6 +141,11 @@ class Users implements UserInterface, \Serializable
      */
     private $orders;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Warehouse::class, inversedBy="users")
+     */
+    private $warehouse;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
@@ -581,6 +586,18 @@ class Users implements UserInterface, \Serializable
                 $orders->setCreator(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWarehouse(): ?Warehouse
+    {
+        return $this->warehouse;
+    }
+
+    public function setWarehouse(?Warehouse $warehouse): self
+    {
+        $this->warehouse = $warehouse;
 
         return $this;
     }

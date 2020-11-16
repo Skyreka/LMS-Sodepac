@@ -420,8 +420,6 @@ class RecommendationsController extends AbstractController
      */
     public function summary( Recommendations $recommendation, CulturesRepository $cr ): Response
     {
-        //$this->container->get('session')->remove('currentOrder');
-        dump($this->container->get('session')->get('currentOrder'));
         $products = $this->rpr->findBy( ['recommendation' => $recommendation] );
         $cultureTotal = $cr->countSizeByIndexCulture( $recommendation->getCulture(), $recommendation->getExploitation() );
 

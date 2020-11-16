@@ -3,6 +3,7 @@ namespace App\Controller\Management;
 
 use App\Entity\Orders;
 use App\Entity\OrdersProduct;
+use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Repository\OrdersProductRepository;
@@ -34,6 +35,32 @@ class OrderController extends AbstractController
         $this->em = $em;
     }
 
+    /**
+     * @Route("/pdf/{id_number}/{print}", name="order_pdf_view", methods={"GET", "POST"}, defaults={"print"=false}, requirements={"print":"true|false"})
+     * @param Orders $order
+     * @param OrdersProductRepository $opr
+     * @param Request $request
+     * @return Response
+     */
+    public function pdfView( Orders $order, OrdersProductRepository $opr, Request $request): Response
+    {
+        // Security
+        if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $request->get('print') == false) {
+            throw $this->createNotFoundException('Vous n\'avez pas la permission de voir ce document.');
+        }
+        if( $order->getStatus() < 2) {
+            throw $this->createNotFoundException('Cette commande n\'est pas encore validée.');
+        }
+
+        // List of product
+        $products = $opr->findBy( ['orders' => $order] );
+
+        return $this->render('management/order/pdf.html.twig', [
+            'order' =>$order,
+            'products' =>  $products,
+            'print' => $request->get('print')
+        ]);
+    }
 
     /**
      * @Route("/show/{id_number}", name="order_show", methods={"GET", "POST"})
@@ -53,14 +80,23 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/product/add/{product}/{recommendation}", name="order_product_add", methods={"ADDTOCARD"}, requirements={"product":"\d+", "recommendation":"\d+"})
+     * @Route("/product/add/{product}/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
+     * @Route("/product/add/{id}", name="order_product_other_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
      * @param RecommendationProducts $product
      * @param Recommendations $recommendation
      * @param OrdersProductRepository $opr
+     * @param Products $id
      * @return RedirectResponse
      */
-    public function addProduct( RecommendationProducts $product, Recommendations $recommendation, OrdersProductRepository $opr): RedirectResponse
+    public function addProduct( ?RecommendationProducts $product, ?Recommendations $recommendation, OrdersProductRepository $opr, ?Products $id): RedirectResponse
     {
+        $isOther = 0;
+        // Get Action
+        if ($recommendation == NULL) {
+            $isOther = 1;
+            $product = $id;
+        }
+
         // Check if order already exist on this session
         if ($this->container->get('session')->get('currentOrder') == NULL) {
             $order = new Orders();
@@ -92,8 +128,13 @@ class OrderController extends AbstractController
 
             // Get current Order
             $currentOrder = $this->container->get('session')->get('currentOrder');
-            if ($opr->findBy(['orders' => $currentOrder, 'product' => $product->getProduct()])) {
-                $this->addFlash('danger', 'Le produit '. $product->getProduct()->getName() .' est déjà présent dans le panier. ('. $currentOrder->getIdNumber() .')');
+            if ($isOther) {
+                $p = $product;
+            } else {
+                $p = $product->getProduct();
+            }
+            if ($opr->findBy(['orders' => $currentOrder, 'product' => $p])) {
+                $this->addFlash('danger', 'Le produit '. $p->getName() .' est déjà présent dans le panier. ('. $currentOrder->getIdNumber() .')');
                 return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId()]);
             }
             // Check duplicate
@@ -102,15 +143,21 @@ class OrderController extends AbstractController
             // Add new product
             $orderProduct = new OrdersProduct();
             $orderProduct->setOrder( $currentOrder );
-            $orderProduct->setProduct( $product->getProduct() );
-            $orderProduct->setTotalQuantity( $product->getQuantity() );
+            $orderProduct->setProduct( $p );
+            if (!$isOther) {
+                $orderProduct->setTotalQuantity( $product->getQuantity() );
+            }
             $this->em->merge( $orderProduct );
             $this->em->flush();
 
             // Alert
-            $this->addFlash('info', 'Le produit '. $product->getProduct()->getName() .' a été ajouté au panier. ('. $currentOrder->getIdNumber() .')');
+            $this->addFlash('info', 'Le produit '. $p->getName() .' a été ajouté au panier. ('. $currentOrder->getIdNumber() .')');
         }
 
+        // Return to product select
+        if ($isOther) {
+            return $this->redirectToRoute('management_products');
+        }
         //Return to summary
         return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId()]);
     }
@@ -124,7 +171,7 @@ class OrderController extends AbstractController
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function editDose(Request $request, OrdersProductRepository $cr )
+    public function editProduct(Request $request, OrdersProductRepository $cr ): JsonResponse
     {
         if ($request->isXmlHttpRequest()) {
             $orderProduct = $cr->find($request->get('id'));
@@ -173,7 +220,7 @@ class OrderController extends AbstractController
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(OrdersProduct $product, Request $request )
+    public function delete(OrdersProduct $product, Request $request ): RedirectResponse
     {
         if ($this->isCsrfTokenValid('deleteOrderArticle' . $product->getId(), $request->get('_token'))) {
             $this->em->remove( $product );
@@ -181,5 +228,60 @@ class OrderController extends AbstractController
             $this->addFlash('success', 'Produit supprimé avec succès');
         }
         return $this->redirectToRoute('order_show', ['id_number' => $product->getOrder()->getIdNumber()]);
+    }
+
+    /**
+     * @Route("/save/{id}", name="order_save", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @param Orders $order
+     * @return Response
+     */
+    public function save( Orders $order ): Response
+    {
+        //Update status
+        if ( $order->getStatus() == 0 ) {
+            $order->setStatus( 1 );
+            $this->em->flush();
+        }
+
+        return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
+    }
+
+    /**
+     * @Route("/valid/{id}", name="order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @param Orders $order
+     * @param \Swift_Mailer $mailer
+     * @param OrdersProductRepository $opr
+     * @return Response
+     */
+    public function valid( Orders $order, \Swift_Mailer $mailer, OrdersProductRepository $opr): Response
+    {
+        //Security
+        if ( $order->getStatus() == 1 ) {
+            // Update status
+            $order->setStatus( 2 );
+            $order->setCreateDate( new \DateTime() );
+
+            // Send to depot
+            $message = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
+                ->setFrom('send@lms-sodepac.fr')
+                ->setTo( $order->getCustomer()->getWarehouse()->getEmail() )
+                ->setBody(
+                    $this->renderView(
+                        'management/order/email/warehouse.html.twig', [
+                            'order' => $order
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+
+            $this->em->flush();
+
+            // Msg
+            $this->addFlash('success', 'Commande validé avec succès, envoie au dépot en cours...');
+        }
+
+        return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
     }
 }

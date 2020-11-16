@@ -61,14 +61,38 @@
                             </table>
                             <hr>
                             <div class="d-flex no-block align-items-center">
-                                <a href="javascript:history.go(-1)" class="btn btn-dark btn-outline"><i class="fas fa-arrow-left"></i> Revenir à la recommendation</a>
+                                <a href="javascript:history.go(-1)" class="btn btn-dark btn-outline"><i class="fas fa-arrow-left"></i> Revenir</a>
+                                {% if order.status != 2 %}
+                                    <a href="{{ path('management_products') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit</a>
+                                {% endif %}
                                 <div class="ml-auto">
-                                    <button class="btn btn-danger"><i class="fa fa fa-shopping-cart"></i> Commander</button>
+                                    {% if order.status == 0 %}
+                                        <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer</a>
+                                    {% endif %}
+
+                                    {% if order.status == 1 %}
+                                        <button data-toggle="modal" data-target="#validModal" class="btn btn-success btn-valid"><i class="fa fa fa-shopping-cart"></i> Commander</button>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% if order.status == 0 %}
+                    <div class="alert alert-info" role="alert">
+                        <strong>Information - </strong> Votre panier est actuellement temporaire sans enregistrement il sera détruit.
+                    </div>
+                {% endif %}
+                {% if order.status == 1 %}
+                    <div class="alert alert-success" role="alert">
+                        <strong>Information - </strong> Cette commande est enregistré, vous pouvez le consulter à tout moment
+                    </div>
+                {% endif %}
+                {% if order.status == 2 %}
+                    <div class="alert alert-success" role="alert">
+                        <strong>Information - </strong> Cette commande est validé et en cours de traitement dans dépot.
+                    </div>
+                {% endif %}
             </div>
             <!-- Column -->
             <div class="col-md-3 col-lg-3">
@@ -76,27 +100,80 @@
                     <div class="card-body">
                         <h5 class="card-title">RÉSUMÉ DU PANIER</h5>
                         <hr>
-                        <small>Prix hors RPD</small>
+                        <small>Prix HT (hors RPD)</small>
                         <h4 id="totalHT"></h4>
-                        <small>Prix avec RPD</small>
+                        <small>Prix TTC (hors RPD)</small>
                         <h2 id="totalTTC"></h2>
                         <hr>
-                        <button class="btn btn-success">Commander</button>
-                        <button class="btn btn-secondary btn-outline">Annuler</button>
+                        {% if order.status == 0 %}
+                            <button class="btn btn-info">Enregistrer</button>
+                            <button class="btn btn-secondary btn-outline">Annuler</button>
+                        {% endif %}
+                        {% if order.status == 1 %}
+                            <button class="btn btn-success btn-valid" data-toggle="modal" data-target="#validModal">Commander</button>
+                            <button class="btn btn-secondary btn-outline">Annuler</button>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Besoin d'aide ?</h5>
+                        <h5 class="card-title">Client : {{ order.customer.identity }}</h5>
                         <hr>
-                        <h4><i class="ti-mobile"></i>+33 7 90 28 92 XX</h4> <small>Veuillez nous contacter si vous avez des questions. Nous sommes disponibles 24h / 24.</small>
+                        <p><i class="ti-email"></i> {{ order.customer.email ? order.customer.email : '' }}</p>
+                        <p><i class="ti-mobile"></i> {{ order.customer.phone ? order.customer.phone : '' }}</p>
+                        <p><i class="ti-pin"></i>
+                            {% if order.customer.warehouse %}
+                                <span id="warehouse-define">{{ order.customer.warehouse.name }}</span>
+                            {% else %}
+                                Dépot: <a id="warehouse-not-define" href="{{ path('management_user_show', {id: order.customer.id}) }}">A DÉFINIR</a>
+                            {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div id="validModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Vérification avant envoi au dépot</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <table class="table stylish-table mt-4 no-wrap v-middle">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <span id="depot-status" class="round text-white d-inline-block text-center rounded-circle"><i class="ti-close"></i></span></td>
+                            <td>
+                                <h6 class="mb-0 font-weight-medium"><a href="javascript:void(0)" class="link">Dépot défini</a></h6>
+                                <small class="text-muted">Le client à un dépot déclaré </small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="total-status" class=" round text-white d-inline-block text-center rounded-circle"><i class="ti-close"></i></span></td>
+                            <td>
+                                <h6 class="mb-0 font-weight-medium"><a href="javascript:void(0)" class="link">Commande Valide</a></h6>
+                                <small class="text-muted">Tous les produits ont les bonne valeurs</small>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal">Fermer</button>
+                    <form method="POST" action="{{ path('order_valid', {id: order.id}) }}">
+                        <button id="btn-valid" class="btn btn-success waves-effect ml-3" disabled>Valider</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 {% endblock %}
-
 
 {% block javascripts %}
     <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>$
@@ -115,7 +192,7 @@
                     [3, 'totalQuantity'],
                     [4, 'unitPrice'],
                     [5, 'discount'],
-                    [6, 'taxe']
+                    [7, 'taxe']
                 ]
             }
         });
@@ -159,6 +236,30 @@
             $('#totalHT').text( currency.format(totalSumHT) + ' TTC' )
             $('#totalTTC').text( currency.format(totalSumTTC) + ' TTC' )
 
+            // Check Total
+            if ( totalSumTTC >= 0 ) {
+                $('#total-status').addClass('bg-success')
+                $( '#total-status').removeClass( 'bg-danger' );
+            } else {
+                $( '#total-status').addClass( 'bg-danger' );
+                $( '#total-status').removeClass( 'bg-success' );
+            }
+            // Check Dépot
+            let depotNotDefine = $('#warehouse-not-define')
+            if ( depotNotDefine.length ) {
+                $('#depot-status').addClass('bg-danger')
+            }
+
+            let depotDefine = $('#warehouse-define')
+            if ( depotDefine.length ) {
+                $( '#depot-status').addClass( 'bg-success' );
+            }
+
+            // Enable button
+            if ( depotDefine.length && totalSumTTC >= 0 ) {
+                $('#btn-valid').removeAttr("disabled")
+            }
         }
+
     </script>
 {% endblock %}

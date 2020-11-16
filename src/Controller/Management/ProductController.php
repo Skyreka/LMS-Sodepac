@@ -21,7 +21,8 @@ class ProductController extends AbstractController
     public function admin( ProductsRepository $pd): Response
     {
         $products = $pd->findAll();
-        return $this->render('products/index.html.twig', [
+
+        return $this->render('management/products/index.html.twig', [
             'products' => $products
         ]);
     }
