@@ -33,12 +33,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for product in products %}
-                                    <tr>
-                                        <td>{{ product.name }}</td>
-                                        <td>{{ product.category }}</td>
-                                    </tr>
-                                {% endfor %}
+
                                 </tbody>
                             </table>
                         </div>
@@ -65,6 +60,8 @@
     <script>
         $('#datatable').DataTable({
             dom: 'Bfrtip',
+            serverSide: true,
+            ajax: '{{ path('management_products_data') }}',
             responsive: true,
             "language": {
                 "sProcessing":     "Traitement en cours...",

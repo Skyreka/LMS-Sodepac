@@ -46,3 +46,11 @@ services:
             '@doctrine',
             '@router'
         ]
+    datatable.products:
+        class: App\DataTables\ProductsDataTables
+        tags: [{ name: datatable, id: products }]
+        arguments: [
+            '@doctrine',
+            '@router'
+        ]
+
