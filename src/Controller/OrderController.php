@@ -47,7 +47,7 @@ class OrderController extends AbstractController
         if ($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
             $orders = $op->findByTechnician( $this->getUser(), 10 );
         } else {
-            $orders = $op->findBy( null, null, 10);
+            $orders = $op->findByAdmin();
         }
 
         return $this->render('management/order/index.html.twig', [
@@ -200,9 +200,9 @@ class OrderController extends AbstractController
 
         // Check if order already exist on this session
         if ($this->container->get('session')->get('currentOrder') == NULL) {
+            // Redirect to new cart if user want to create from products
             if ( $isOther = 1) {
-                $this->addFlash('danger', 'Vous ne pouvez pas ajouter de produit aucun panier existe.');
-                return $this->redirectToRoute('login_success');
+                return $this->redirectToRoute('order_new');
             }
 
             $order = new Orders();
