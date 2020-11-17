@@ -23,7 +23,15 @@
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
-                            {{ form_rest(form) }}
+                        <div class="form-group">
+                            {{ form_row(form.cultures) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.user) }}
+                        </div>
+                        <div class="form-group m-t-20">
+                            {{ form_row(form.display_at) }}
+                        </div>
                         <button class="btn btn-info">Envoyer</button>
                         {{ form_end(form) }}
                     </div>
@@ -39,8 +47,7 @@
             $('.js-datepicker').datepicker({
                 weekStart:0,
                 time: 1,
-                format:"yyyy-mm-dd",
-                lang:"fr",
+                language:"fr",
                 todayHighlight: true
             });
         });
@@ -61,8 +68,7 @@
                 $('.js-datepicker').datepicker({
                     weekStart:0,
                     time: 1,
-                    format:"yyyy-mm-dd",
-                    lang:"fr",
+                    language:"fr",
                     todayHighlight: true
                 });
                 let $input = $(data).find('#bsv_send_user')
