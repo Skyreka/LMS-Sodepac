@@ -49,6 +49,16 @@ class OrdersRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findByAdmin()
+    {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.createDate', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Cart[] Returns an array of Cart objects
     //  */
