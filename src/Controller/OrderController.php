@@ -183,23 +183,32 @@ class OrderController extends AbstractController
     /**
      * @Route("management/order/product/add/{product}/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
      * @Route("management/order/product/add/{id}", name="order_product_other_add", methods={"ADDTOORDER"}, requirements={"id":"\d+"})
-     * @param RecommendationProducts $product
-     * @param Recommendations $recommendation
+     * @param RecommendationProducts|null $product
+     * @param Recommendations|null $recommendation
+     * @param OrdersRepository $or
      * @param OrdersProductRepository $opr
-     * @param Products $id
+     * @param Request $request
+     * @param Products|null $id
      * @return RedirectResponse
      */
-    public function addProduct( ?RecommendationProducts $product, ?Recommendations $recommendation, OrdersProductRepository $opr, ?Products $id): RedirectResponse
+    public function addProduct(
+        ?RecommendationProducts $product,
+        ?Recommendations $recommendation,
+        OrdersRepository $or,
+        OrdersProductRepository $opr,
+        Request $request,
+        ?Products $id): RedirectResponse
     {
         $isOther = 0;
         // Get Action
         if (!isset($recommendation)) {
             $isOther = 1;
             $product = $id;
+            $orderFromOther = $or->findOneBy( ['id_number' => $request->query->get('orderNumber')] );
         }
 
         // Check if order already exist on this session
-        if ($this->container->get('session')->get('currentOrder') == NULL) {
+        if ($this->container->get('session')->get('currentOrder') == NULL && !isset($orderFromOther)) {
             // Redirect to new cart if user want to create from products
             if ( $isOther == 1) {
                 return $this->redirectToRoute('order_new');
@@ -228,6 +237,20 @@ class OrderController extends AbstractController
             // Alert
             $this->addFlash('success', 'Nouveau panier temporaire crée avec succès');
             $this->addFlash('info', 'Le produit '. $product->getProduct()->getName() .' a été ajouté au panier.');
+        } elseif ($this->container->get('session')->get('currentOrder') == NULL && isset($orderFromOther) && $isOther = 1) {
+            // Function if user want to add produit to saved order
+
+            // Add first product
+            $orderProduct = new OrdersProduct();
+            $orderProduct->setOrder( $orderFromOther );
+            $orderProduct->setProduct( $product );
+            $this->em->persist( $orderProduct );
+
+            $this->em->flush();
+
+            // Alert
+            $this->addFlash('info', 'Le produit '. $product->getName() .' a été ajouté a la commande.');
+            return $this->redirectToRoute('order_show' , ['id_number' => $request->query->get('orderNumber')]);
         } else {
             //Clear Entity Manger
             $this->em->clear();

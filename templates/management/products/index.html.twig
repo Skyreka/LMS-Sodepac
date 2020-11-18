@@ -70,7 +70,7 @@
         $('#datatable').DataTable({
             dom: 'Bfrtip',
             serverSide: true,
-            ajax: '{{ path('management_products_data') }}',
+            ajax: '{{ path('management_products_data', {orderNumber: order}) }}',
             responsive: true,
             "language": {
                 "sProcessing":     "Traitement en cours...",

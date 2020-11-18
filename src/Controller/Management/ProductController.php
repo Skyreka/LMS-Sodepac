@@ -18,12 +18,17 @@ class ProductController extends AbstractController
 {
     /**
      * @Route("/", name="management_products")
-     * @param ProductsRepository $pd
+     * @param Request $request
      * @return Response
      */
-    public function admin( ProductsRepository $pd): Response
+    public function index( Request $request ): Response
     {
-        return $this->render('management/products/index.html.twig');
+        $order = null;
+        if ( $request->query->get('order') ) {
+            $order = $request->query->get('order');
+        }
+
+        return $this->render('management/products/index.html.twig', ['order' => $order]);
     }
 
     /**
