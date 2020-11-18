@@ -36,7 +36,7 @@ class OrdersRepository extends ServiceEntityRepository
         return $req->getQuery()->getResult();
     }
 
-    public function findByUser( Users $user )
+    public function findByUser( $user )
     {
         return $this->createQueryBuilder('o')
             ->andWhere('o.customer = :val')
