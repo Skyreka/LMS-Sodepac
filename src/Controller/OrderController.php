@@ -193,7 +193,7 @@ class OrderController extends AbstractController
     {
         $isOther = 0;
         // Get Action
-        if ($recommendation == NULL) {
+        if (!isset($recommendation)) {
             $isOther = 1;
             $product = $id;
         }
@@ -201,7 +201,7 @@ class OrderController extends AbstractController
         // Check if order already exist on this session
         if ($this->container->get('session')->get('currentOrder') == NULL) {
             // Redirect to new cart if user want to create from products
-            if ( $isOther = 1) {
+            if ( $isOther == 1) {
                 return $this->redirectToRoute('order_new');
             }
 
