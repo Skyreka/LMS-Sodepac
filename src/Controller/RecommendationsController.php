@@ -399,7 +399,7 @@ class RecommendationsController extends AbstractController
             $recommendations->setStatus( 1 );
             $this->em->flush();
 
-            $this->addFlash('info', 'La recommandation est maintenant en status Créée');
+            $this->addFlash('info', 'La recommandation est maintenant en statut Créée');
             $this->addFlash('success', 'Recommandation créée avec succès');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
