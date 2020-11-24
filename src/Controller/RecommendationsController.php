@@ -167,7 +167,7 @@ class RecommendationsController extends AbstractController
 
             // Display error if user don't have exploitation
             if( $data->getExploitation() == NULL) {
-                $this->addFlash('danger', 'Votre client n\'a aucune superficie déclarée, veuillez modifier son compte pour pouvoir lui établir une recommandation');
+                $this->addFlash('danger', 'Votre client n\'a aucune superficie déclarée, veuillez modifier son compte pour pouvoir lui établir un catalogue');
                 return $this->redirectToRoute('recommendation_new');
             }
 
@@ -399,8 +399,8 @@ class RecommendationsController extends AbstractController
             $recommendations->setStatus( 1 );
             $this->em->flush();
 
-            $this->addFlash('info', 'La recommandation est maintenant en statut Créée');
-            $this->addFlash('success', 'Recommandation créée avec succès');
+            $this->addFlash('info', 'Le catalogue est maintenant en statut Créée');
+            $this->addFlash('success', 'Catalogue créé avec succès');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
 
@@ -468,7 +468,7 @@ class RecommendationsController extends AbstractController
             ;
             $mailer->send($message);
 
-            $this->addFlash('success', 'Email envoyé avec succès. Status de la recommandation: Envoyée');
+            $this->addFlash('success', 'Email envoyé avec succès. Status du catalogue: Envoyé');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
         return $this->redirectToRoute('recommendation_index');
@@ -498,7 +498,7 @@ class RecommendationsController extends AbstractController
                 $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
                 $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
                 $customer = $recommendations->getExploitation()->getUsers();
-                $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
+                $fileName = 'Catalogue-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
 
                 //-- Generate PDF
                 $pdfOptions = new Options();
@@ -568,7 +568,7 @@ class RecommendationsController extends AbstractController
                 //-- Remove temp folder
                 $fileSystem->remove('../public/uploads/recommendations/process/'.$token);
 
-                $this->addFlash('success', 'Document généré avec succès. Status de la recommandation: Générée');
+                $this->addFlash('success', 'Document généré avec succès. Status du catalogue: Générée');
                 return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
             } catch (Exception $e) {
                 $this->addFlash('danger', 'Une erreur est survenue');

@@ -43,7 +43,7 @@ class DeleteRecommendationsCommand extends Command
         }
         $em->flush();
         // On donne des information des résultats
-        $output->writeln('Recommandation en status 0 supprimé avec succès');
+        $output->writeln('Catalogues en status 0 supprimés avec succès');
         return 1;
     }
 }
