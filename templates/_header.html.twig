@@ -26,7 +26,7 @@
             <ul class="navbar-nav my-lg-0">
                 {% if app.session.get('currentOrder') %}
                     <li class="nav-item">
-                        <a href="{{ path('order_show', {id_number: app.session.get('currentOrder').getIdNumber() }) }}" target="_blanck" class="nav-link dropdown-toggle text-muted waves-effect waves-dark"> <i class="fa fa-shopping-cart"></i>
+                        <a href="{{ path('order_show', {id_number: app.session.get('currentOrder').getIdNumber() }) }}" target="_blanck" class="nav-link dropdown-toggle text-muted waves-effect waves-dark"> <i class="fas fa-truck"></i>
                             <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                         </a>
                     </li>
