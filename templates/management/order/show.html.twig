@@ -169,14 +169,34 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal">Fermer</button>
-                    <form method="POST" action="{{ path('order_valid', {id: order.id}) }}">
-                        <button id="btn-valid" class="btn btn-success waves-effect ml-3" disabled>Valider</button>
-                    </form>
+                    <button id="btn-valid" class="btn btn-success waves-effect ml-3" data-toggle="modal" data-target="#signModal" disabled>Valider</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
+    </div>
+    <div id="signModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Validation de la commande</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <form method="POST" action="{{ path('order_valid', {id: order.id}) }}">
+                    <div class="modal-body">
+                        <div class="demo-checkbox">
+                            <input type="checkbox" id="basic_checkbox_2" class="filled-in" required />
+                            <label for="basic_checkbox_2">Je, soussigné {{ order.customer.identity }} valide et accepte ce bon de commande</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-success waves-effect ml-3">J'accepte</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
