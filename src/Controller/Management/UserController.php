@@ -91,6 +91,8 @@ class UserController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Mot de passe modifié avec succès');
             return $this->redirectToRoute('management_user_show', ['id' => $user->getId()]);
+        } elseif ( $formPassword->isSubmitted() && $formPassword->isValid() == false ) {
+            $this->addFlash('danger', 'Une erreur est survenue merci de vérifier l\'onglet mot de passe');
         }
 
         // Edit Information
