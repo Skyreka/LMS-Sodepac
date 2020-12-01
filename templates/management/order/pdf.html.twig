@@ -108,7 +108,9 @@
                                 <hr>
                                 <h3><b>Total TTC <small>(hors RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
                             </div>
-                            <div class="clearfix"></div>
+                            <div class="clearfix">
+                                <p>Je, soussigné {{ order.customer.identity }} valide et accepte ce bon de commande</p>
+                            </div>
                             <hr>
                             <div class="text-right">
                                 <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Imprimer</span> </button>
