@@ -6,6 +6,7 @@ use App\Entity\OrdersProduct;
 use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
+use App\Form\OrderAdditionalType;
 use App\Form\OrdersType;
 use App\Repository\OrdersProductRepository;
 use App\Repository\CulturesRepository;
@@ -86,15 +87,25 @@ class OrderController extends AbstractController
      * @Route("management/order/show/{id_number}", name="order_show", methods={"GET", "POST"})
      * @param Orders $orders
      * @param OrdersProductRepository $cpr
+     * @param Request $request
      * @return Response
      */
-    public function show(Orders $orders, OrdersProductRepository $cpr): Response
+    public function show(Orders $orders, OrdersProductRepository $cpr, Request $request): Response
     {
         $products = $cpr->findBy( ['orders' => $orders] );
+        $form = $this->createForm( OrderAdditionalType::class, $orders);
+        $form->handleRequest( $request );
+
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $this->em->flush();
+            $this->addFlash('success', 'Information sauvegardé avec succès');
+            return $this->redirectToRoute('order_show', ['id_number' => $orders->getIdNumber()]);
+        }
 
         return $this->render('management/order/show.html.twig', [
             'order' => $orders,
-            'products' => $products
+            'products' => $products,
+            'form' => $form->createView()
         ]);
     }
 

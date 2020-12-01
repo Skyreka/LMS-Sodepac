@@ -199,7 +199,7 @@ class FlashController extends AbstractController
             $customers = $data['user']->getData();
             $displayAt = $data['display_at']->getData();
             //-- Init
-            $datetime = New \DateTime();
+            $datetime = new \DateTime();
             //-- Update BSV info
             $bsv->setSendDate( $datetime );
             //-- Create relation

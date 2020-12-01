@@ -51,6 +51,16 @@ class Orders
      */
     private $status = 0;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $delivery;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $conditions;
+
     public function __construct()
     {
         $this->createDate = new \DateTime();
@@ -148,6 +158,30 @@ class Orders
     public function setStatus(int $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getDelivery(): ?string
+    {
+        return $this->delivery;
+    }
+
+    public function setDelivery(?string $delivery): self
+    {
+        $this->delivery = $delivery;
+
+        return $this;
+    }
+
+    public function getConditions(): ?string
+    {
+        return $this->conditions;
+    }
+
+    public function setConditions(?string $conditions): self
+    {
+        $this->conditions = $conditions;
 
         return $this;
     }
