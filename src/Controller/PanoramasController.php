@@ -261,10 +261,10 @@ class PanoramasController extends AbstractController
      * @Route("/send/{id}", name="panorama_send", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
+     * @param \Swift_Mailer $mailer
      * @return Response
-     * @throws \Exception
      */
-    public function send(Panoramas $panoramas, Request $request): Response
+    public function send(Panoramas $panoramas, Request $request, \Swift_Mailer $mailer): Response
     {
         $form = $this->createForm(PanoramaSendType::class);
         $form->handleRequest($request);
@@ -279,15 +279,31 @@ class PanoramasController extends AbstractController
                 $this->em->persist($relation);
                 $relation->setPanorama($panoramas);
                 $relation->setCustomers($customer);
-                $relation->setSender($this->getUser());
+                $relation->setSender( $this->getUser() );
                 if ( $displayAt !== null ) {
                     $displayAt->setTime(8,00);
                     $relation->setDisplayAt($displayAt);
                 } else {
                     $relation->setDisplayAt($datetime);
                 }
+
+                //Send email notification
+                $message = (new \Swift_Message('Un nouveau panorama disponible sur LMS-Sodepac.'))
+                    ->setFrom('send@lms-sodepac.fr')
+                    ->setTo( $customer->getEmail() )
+                    ->setBody(
+                        $this->renderView(
+                            'emails/notification/user/panorama.html.twig', [
+                                'first_name' => $customer->getIdentity()
+                            ]
+                        ),
+                        'text/html'
+                    )
+                ;
+                $mailer->send($message);
             }
             $this->em->flush();
+
             $this->addFlash('success', 'Panorama envoyé avec succès');
             return $this->redirectToRoute('panorama_index');
         }
