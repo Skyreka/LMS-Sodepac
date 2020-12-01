@@ -185,10 +185,10 @@ class FlashController extends AbstractController
      * @Route("/admin/flash/send/{id}", name="admin_flash_send", methods={"GET","POST"}, requirements={"id":"\d+"})
      * @param Bsv $bsv
      * @param Request $request
+     * @param \Swift_Mailer $mailer
      * @return Response
-     * @throws \Exception
      */
-    public function adminSend(Bsv $bsv, Request $request): Response
+    public function adminSend(Bsv $bsv, Request $request, \Swift_Mailer $mailer): Response
     {
         $bsvUsers = new BsvUsers();
         $form = $this->createForm(BsvSendType::class, $bsvUsers);
@@ -215,6 +215,21 @@ class FlashController extends AbstractController
                 } else {
                     $relation->setDisplayAt($datetime);
                 }
+
+                //Send email notification
+                $message = (new \Swift_Message('Un nouveau flash est disponible sur LMS-Sodepac.'))
+                    ->setFrom('send@lms-sodepac.fr')
+                    ->setTo( $customer->getEmail() )
+                    ->setBody(
+                        $this->renderView(
+                            'emails/notification/user/flash.html.twig', [
+                                'first_name' => $customer->getIdentity()
+                            ]
+                        ),
+                        'text/html'
+                    )
+                ;
+                $mailer->send($message);
             }
             $bsv->setSent(1);
             $this->em->flush();
