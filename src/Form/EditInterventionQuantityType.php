@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Interventions;
 use App\Entity\Phyto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -30,7 +31,7 @@ class EditInterventionQuantityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Phyto::class,
+            'data_class' => Interventions::class,
             'translation_domain' => 'forms'
         ]);
     }
