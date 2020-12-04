@@ -18,7 +18,8 @@ class Users implements UserInterface, \Serializable
     const STATUS = [
         'ROLE_USER' => 'Client',
         'ROLE_TECHNICIAN' => 'Technicien',
-        'ROLE_ADMIN' => 'Administrateur'
+        'ROLE_ADMIN' => 'Administrateur',
+        'ROLE_SALES' => 'Cours de vente'
     ];
 
     const PACK = [

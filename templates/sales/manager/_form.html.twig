@@ -1,0 +1,30 @@
+{{ form_start(form) }}
+<table class="table color-table purple-table mt-2">
+    <thead>
+    <tr>
+        <th>{{ form_row(form.culture) }}</th>
+        <th>{{ form_row(form.title) }}</th>
+        <th>{{ form_row(form.brs1_txt) }}</th>
+        <th>{{ form_row(form.brs2_txt) }}</th>
+        <th>Variation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td></td>
+        <td>Dépot {{ "now"|date_modify("-1 year")|date("Y") }}</td>
+        <td>{{ form_widget(form.brs1_deposit_value) }}</td>
+        <td>{{ form_widget(form.brs2_deposit_value) }}</td>
+        <td>{{ form_widget(form.brs_deposit_variation) }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Récolte {{ "now"|date('Y') }}</td>
+        <td>{{ form_widget(form.brs1_crop_value) }}</td>
+        <td>{{ form_widget(form.brs2_crop_value) }}</td>
+        <td>{{ form_widget(form.brs_crop_variation) }}</td>
+    </tr>
+    </tbody>
+</table>
+<button class="btn btn-primary">Sauvegarder</button>
+{{ form_end(form) }}

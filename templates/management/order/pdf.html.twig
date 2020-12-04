@@ -109,7 +109,9 @@
                                 <h3><b>Total TTC <small>(hors RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
                             </div>
                             <div class="clearfix">
-                                <p>Je, soussigné {{ order.customer.identity }} valide et accepte ce bon de commande</p>
+                                <p class="m-t-5"><b>Conditions :</b> {{ order.conditions }}</p>
+                                <p class="m-t-5"><b>Délai et livraison :</b> {{ order.delivery }}</p>
+                                <p class="m-t-5">Je, soussigné {{ order.customer.identity }} valide et accepte ce bon de commande</p>
                             </div>
                             <hr>
                             <div class="text-right">

@@ -52,6 +52,15 @@ class AppFixtures extends Fixture
         $user->setIsActive( 1 );
         $user->setTechnician( $tech );
 
+        $user = new Users();
+        $user->setFirstname( 'sales' );
+        $user->setEmail('sales@sodepac.dev');
+        $user->setPhone('+337803135363');
+        $password = $this->encoder->encodePassword( $user, 'dev');
+        $user->setPassword( $password );
+        $user->setStatus('ROLE_SALES');
+        $user->setIsActive( 1 );
+
 
         $manager->persist($admin);
         $manager->persist($tech);
