@@ -61,8 +61,7 @@ class FlashController extends AbstractController
             $thirdFile = $form->get('third_file')->getData();
 
             if ($firstFile) {
-                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                $newFilename = uniqid() . '.' . $firstFile->guessExtension();
                 try {
                     $firstFile->move(
                         $this->getParameter('flash_directory'),
@@ -74,8 +73,7 @@ class FlashController extends AbstractController
             }
 
             if ($secondFile) {
-                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                $newFilename = uniqid() . '.' . $firstFile->guessExtension();
 
                 try {
                     $secondFile->move(
@@ -88,8 +86,7 @@ class FlashController extends AbstractController
             }
 
             if ($thirdFile) {
-                $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                $newFilename = uniqid() . '.' . $firstFile->guessExtension();
 
                 try {
                     $thirdFile->move(
