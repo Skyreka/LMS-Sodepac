@@ -12,7 +12,7 @@
     <tbody>
     <tr>
         <td></td>
-        <td>Dépot {{ "now"|date('Y') }}</td>
+        <td>Dépot {{ "now"|date_modify("-1 year")|date("Y") }}</td>
         <td>{{ form_widget(form.brs1_deposit_value) }}</td>
         <td>{{ form_widget(form.brs2_deposit_value) }}</td>
         <td>{{ form_widget(form.brs_deposit_variation) }}</td>
