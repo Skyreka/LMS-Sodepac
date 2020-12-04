@@ -73,7 +73,7 @@ class FlashController extends AbstractController
             }
 
             if ($secondFile) {
-                $newFilename = uniqid() . '.' . $firstFile->guessExtension();
+                $newFilename = uniqid() . '.' . $secondFile->guessExtension();
 
                 try {
                     $secondFile->move(
@@ -86,7 +86,7 @@ class FlashController extends AbstractController
             }
 
             if ($thirdFile) {
-                $newFilename = uniqid() . '.' . $firstFile->guessExtension();
+                $newFilename = uniqid() . '.' . $thirdFile->guessExtension();
 
                 try {
                     $thirdFile->move(
