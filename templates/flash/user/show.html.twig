@@ -8,7 +8,8 @@
             <tr>
                 <th>Date d'envoi</th>
                 <th>Texte</th>
-                <th>Destinataire</th>
+                <th>Fichiers</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -29,11 +30,9 @@
                     </td>
                     <td>
                         {% if flash.checked == 0 %}
-                            <form method="POST" action="{{ path('user_flash_check', {id: flash.id}) }}" style="display: inline-block">
-                                <input type="hidden" name="_method" value="CHECK">
-                                <input type="hidden" name="_token" value="{{ csrf_token('check' ~ flash.id) }}">
-                                <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>
-                            </form>
+                            {{ include('flash/user/_check.html.twig') }}
+                        {% else %}
+                            <i class="ti-eye"></i> Lu
                         {% endif %}
                     </td>
                 </tr>
