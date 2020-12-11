@@ -47,3 +47,5 @@ composer.lock
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
+
+public/uploads/flash/

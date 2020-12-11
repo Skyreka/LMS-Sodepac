@@ -20,13 +20,13 @@
                     <td>{{ flash.customers.identity }}</td>
                     <td>
                         {% if flash.bsv.firstFile %}
-                            <a href="{{ asset('uploads/bsv/' ~ flash.bsv.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                            <a href="{{ asset('uploads/flash/' ~ flash.bsv.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                         {% endif %}
                         {% if flash.bsv.secondFile %}
-                            <a href="{{ asset('uploads/bsv/' ~ flash.bsv.secondFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
+                            <a href="{{ asset('uploads/flash/' ~ flash.bsv.secondFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
                         {% endif %}
                         {% if flash.bsv.thirdFile %}
-                            <a href="{{ asset('uploads/bsv/' ~ flash.bsv.thirdFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
+                            <a href="{{ asset('uploads/flash/' ~ flash.bsv.thirdFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
                         {% endif %}
                     </td>
                 </tr>
