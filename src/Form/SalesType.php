@@ -24,24 +24,37 @@ class SalesType extends AbstractType
                     'placeholder' => 'Ex: 76/220/11'
                 ]
             ])
-            ->add('brs1_txt', TextType::class, [
+            ->add('column1_txt', TextType::class, [
                 'attr' => [
                     'value' => 'BRS 07/09'
                 ]
             ])
-            ->add('brs1_deposit_value')
-            ->add('brs1_crop_value')
-
-            ->add('brs_crop_variation')
-            ->add('brs_deposit_variation')
-
-            ->add('brs2_txt', TextType::class, [
+            ->add('column2_txt', TextType::class, [
                 'attr' => [
                     'value' => 'BRS 10/12'
                 ]
             ])
-            ->add('brs2_deposit_value')
-            ->add('brs2_crop_value')
+
+            ->add('l1_title')
+            ->add('l1c1_value')
+            ->add('l1c2_value')
+
+            ->add('l2_title')
+            ->add('l2c1_value')
+            ->add('l2c2_value')
+
+            ->add('l3_title')
+            ->add('l3c1_value')
+            ->add('l3c2_value')
+
+            ->add('l4_title')
+            ->add('l4c1_value')
+            ->add('l4c2_value')
+
+            ->add('l1_variation')
+            ->add('l2_variation')
+            ->add('l3_variation')
+            ->add('l4_variation')
         ;
     }
 

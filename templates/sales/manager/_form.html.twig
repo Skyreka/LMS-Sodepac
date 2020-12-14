@@ -4,25 +4,39 @@
     <tr>
         <th>{{ form_row(form.culture) }}</th>
         <th>{{ form_row(form.title) }}</th>
-        <th>{{ form_row(form.brs1_txt) }}</th>
-        <th>{{ form_row(form.brs2_txt) }}</th>
+        <th>{{ form_row(form.column1_txt) }}</th>
+        <th>{{ form_row(form.column2_txt) }}</th>
         <th>Variation</th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <td></td>
-        <td>Dépot {{ "now"|date_modify("-1 year")|date("Y") }}</td>
-        <td>{{ form_widget(form.brs1_deposit_value) }}</td>
-        <td>{{ form_widget(form.brs2_deposit_value) }}</td>
-        <td>{{ form_widget(form.brs_deposit_variation) }}</td>
+        <td>{{ form_widget(form.l1_title) }}</td>
+        <td>{{ form_widget(form.l1c1_value) }}</td>
+        <td>{{ form_widget(form.l1c2_value) }}</td>
+        <td>{{ form_widget(form.l1_variation) }}</td>
     </tr>
     <tr>
         <td></td>
-        <td>Récolte {{ "now"|date('Y') }}</td>
-        <td>{{ form_widget(form.brs1_crop_value) }}</td>
-        <td>{{ form_widget(form.brs2_crop_value) }}</td>
-        <td>{{ form_widget(form.brs_crop_variation) }}</td>
+        <td>{{ form_widget(form.l2_title) }}</td>
+        <td>{{ form_widget(form.l2c1_value) }}</td>
+        <td>{{ form_widget(form.l2c2_value) }}</td>
+        <td>{{ form_widget(form.l2_variation) }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>{{ form_widget(form.l3_title) }}</td>
+        <td>{{ form_widget(form.l3c1_value) }}</td>
+        <td>{{ form_widget(form.l3c2_value) }}</td>
+        <td>{{ form_widget(form.l3_variation) }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>{{ form_widget(form.l4_title) }}</td>
+        <td>{{ form_widget(form.l4c1_value) }}</td>
+        <td>{{ form_widget(form.l4c2_value) }}</td>
+        <td>{{ form_widget(form.l4_variation) }}</td>
     </tr>
     </tbody>
 </table>

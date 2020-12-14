@@ -30,12 +30,12 @@ class Sales
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $brs1_txt;
+    private $column1_txt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $brs2_txt;
+    private $column2_txt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -52,35 +52,86 @@ class Sales
      */
     private $isActive = 1;
 
+    // line 1
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $l1_title;
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $brs1_deposit_value;
+    private $l1_c1_value;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $brs1_crop_value;
+    private $l1_c2_value;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $brs2_deposit_value;
+    private $l1_variation;
+
+    // line 2
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $l2_title;
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $l2_c1_value;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $brs2_crop_value;
+    private $l2_c2_value;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $brs_deposit_variation;
+    private $l2_variation;
+
+
+    // line 3
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $l3_title;
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $l3_c1_value;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $brs_crop_variation;
+    private $l3_c2_value;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $l3_variation;
+
+    // line 4
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $l4_title;
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $l4_c1_value;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $l4_c2_value;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $l4_variation;
 
     public function getId(): ?int
     {
@@ -107,30 +158,6 @@ class Sales
     public function setTitle(?string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getBrs1Txt(): ?string
-    {
-        return $this->brs1_txt;
-    }
-
-    public function setBrs1Txt(?string $brs1_txt): self
-    {
-        $this->brs1_txt = $brs1_txt;
-
-        return $this;
-    }
-
-    public function getBrs2Txt(): ?string
-    {
-        return $this->brs2_txt;
-    }
-
-    public function setBrs2Txt(?string $brs2_txt): self
-    {
-        $this->brs2_txt = $brs2_txt;
 
         return $this;
     }
@@ -171,75 +198,291 @@ class Sales
         return $this;
     }
 
-    public function getBrs1DepositValue(): ?float
+    /**
+     * @return mixed
+     */
+    public function getL1C1Value()
     {
-        return $this->brs1_deposit_value;
+        return $this->l1_c1_value;
     }
 
-    public function setBrs1DepositValue(?float $brs1_deposit_value): self
+    /**
+     * @param mixed $l1_c1_value
+     */
+    public function setL1C1Value($l1_c1_value): void
     {
-        $this->brs1_deposit_value = $brs1_deposit_value;
-
-        return $this;
+        $this->l1_c1_value = $l1_c1_value;
     }
 
-    public function getBrs1CropValue(): ?float
+    /**
+     * @return mixed
+     */
+    public function getL1C2Value()
     {
-        return $this->brs1_crop_value;
+        return $this->l1_c2_value;
     }
 
-    public function setBrs1CropValue(?float $brs1_crop_value): self
+    /**
+     * @param mixed $l1_c2_value
+     */
+    public function setL1C2Value($l1_c2_value): void
     {
-        $this->brs1_crop_value = $brs1_crop_value;
-
-        return $this;
+        $this->l1_c2_value = $l1_c2_value;
     }
 
-    public function getBrs2DepositValue(): ?float
+    /**
+     * @return mixed
+     */
+    public function getL1Variation()
     {
-        return $this->brs2_deposit_value;
+        return $this->l1_variation;
     }
 
-    public function setBrs2DepositValue(?float $brs2_deposit_value): self
+    /**
+     * @param mixed $l1_variation
+     */
+    public function setL1Variation($l1_variation): void
     {
-        $this->brs2_deposit_value = $brs2_deposit_value;
-
-        return $this;
+        $this->l1_variation = $l1_variation;
     }
 
-    public function getBrs2CropValue(): ?float
+    /**
+     * @return mixed
+     */
+    public function getL2C1Value()
     {
-        return $this->brs2_crop_value;
+        return $this->l2_c1_value;
     }
 
-    public function setBrs2CropValue(?float $brs2_crop_value): self
+    /**
+     * @param mixed $l2_c1_value
+     */
+    public function setL2C1Value($l2_c1_value): void
     {
-        $this->brs2_crop_value = $brs2_crop_value;
-
-        return $this;
+        $this->l2_c1_value = $l2_c1_value;
     }
 
-    public function getBrsDepositVariation(): ?float
+    /**
+     * @return mixed
+     */
+    public function getL2C2Value()
     {
-        return $this->brs_deposit_variation;
+        return $this->l2_c2_value;
     }
 
-    public function setBrsDepositVariation(?float $brs_deposit_variation): self
+    /**
+     * @param mixed $l2_c2_value
+     */
+    public function setL2C2Value($l2_c2_value): void
     {
-        $this->brs_deposit_variation = $brs_deposit_variation;
-
-        return $this;
+        $this->l2_c2_value = $l2_c2_value;
     }
 
-    public function getBrsCropVariation(): ?float
+    /**
+     * @return mixed
+     */
+    public function getL2Variation()
     {
-        return $this->brs_crop_variation;
+        return $this->l2_variation;
     }
 
-    public function setBrsCropVariation(?float $brs_crop_variation): self
+    /**
+     * @param mixed $l2_variation
+     */
+    public function setL2Variation($l2_variation): void
     {
-        $this->brs_crop_variation = $brs_crop_variation;
+        $this->l2_variation = $l2_variation;
+    }
 
-        return $this;
+    /**
+     * @return mixed
+     */
+    public function getL3C1Value()
+    {
+        return $this->l3_c1_value;
+    }
+
+    /**
+     * @param mixed $l3_c1_value
+     */
+    public function setL3C1Value($l3_c1_value): void
+    {
+        $this->l3_c1_value = $l3_c1_value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getL3C2Value()
+    {
+        return $this->l3_c2_value;
+    }
+
+    /**
+     * @param mixed $l3_c2_value
+     */
+    public function setL3C2Value($l3_c2_value): void
+    {
+        $this->l3_c2_value = $l3_c2_value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getL3Variation()
+    {
+        return $this->l3_variation;
+    }
+
+    /**
+     * @param mixed $l3_variation
+     */
+    public function setL3Variation($l3_variation): void
+    {
+        $this->l3_variation = $l3_variation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getL4C1Value()
+    {
+        return $this->l4_c1_value;
+    }
+
+    /**
+     * @param mixed $l4_c1_value
+     */
+    public function setL4C1Value($l4_c1_value): void
+    {
+        $this->l4_c1_value = $l4_c1_value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getL4C2Value()
+    {
+        return $this->l4_c2_value;
+    }
+
+    /**
+     * @param mixed $l4_c2_value
+     */
+    public function setL4C2Value($l4_c2_value): void
+    {
+        $this->l4_c2_value = $l4_c2_value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getL4Variation()
+    {
+        return $this->l4_variation;
+    }
+
+    /**
+     * @param mixed $l4_variation
+     */
+    public function setL4Variation($l4_variation): void
+    {
+        $this->l4_variation = $l4_variation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getColumn1Txt()
+    {
+        return $this->column1_txt;
+    }
+
+    /**
+     * @param mixed $column1_txt
+     */
+    public function setColumn1Txt($column1_txt): void
+    {
+        $this->column1_txt = $column1_txt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getColumn2Txt()
+    {
+        return $this->column2_txt;
+    }
+
+    /**
+     * @param mixed $column2_txt
+     */
+    public function setColumn2Txt($column2_txt): void
+    {
+        $this->column2_txt = $column2_txt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getL4Title()
+    {
+        return $this->l4_title;
+    }
+
+    /**
+     * @param mixed $l4_title
+     */
+    public function setL4Title($l4_title): void
+    {
+        $this->l4_title = $l4_title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getL3Title()
+    {
+        return $this->l3_title;
+    }
+
+    /**
+     * @param mixed $l3_title
+     */
+    public function setL3Title($l3_title): void
+    {
+        $this->l3_title = $l3_title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getL1Title()
+    {
+        return $this->l1_title;
+    }
+
+    /**
+     * @param mixed $l1_title
+     */
+    public function setL1Title($l1_title): void
+    {
+        $this->l1_title = $l1_title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getL2Title()
+    {
+        return $this->l2_title;
+    }
+
+    /**
+     * @param mixed $l2_title
+     */
+    public function setL2Title($l2_title): void
+    {
+        $this->l2_title = $l2_title;
     }
 }

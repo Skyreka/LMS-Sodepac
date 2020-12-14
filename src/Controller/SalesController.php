@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Sales;
+use App\Entity\SalesInformation;
+use App\Form\SalesInformationType;
 use App\Form\SalesType;
+use App\Repository\SalesInformationRepository;
 use App\Repository\SalesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,15 +38,18 @@ class SalesController extends AbstractController
 
     /**
      * @param SalesRepository $sr
+     * @param SalesInformationRepository $sir
      * @return Response
      * @Route("/", name="sales_index", methods={"GET"})
      */
-    public function index( SalesRepository $sr ): Response
+    public function index( SalesRepository $sr, SalesInformationRepository $sir ): Response
     {
         $sales = $sr->findBy( ['isActive' => 1] );
+        $salesInformation = $sir->find( 1 );
 
         return $this->render('sales/index.html.twig', [
-            'sales' => $sales
+            'sales' => $sales,
+            'sales_information' => $salesInformation
         ]);
     }
 
@@ -133,5 +139,37 @@ class SalesController extends AbstractController
             $this->addFlash('success', 'Enregistrement supprimé avec succès');
         }
         return $this->redirectToRoute('sales_manager_index');
+    }
+
+    /**
+     * @param Request $request
+     * @param SalesInformationRepository $sir
+     * @return Response
+     * @Route("/manager/information", name="sales_manager_information", methods={"GET", "POST"})
+     * @IsGranted("ROLE_SALES")
+     */
+    public function information( Request $request, SalesInformationRepository $sir): Response
+    {
+        // If no have already on db create after just edit
+        if ( $sir->find( 1 ) ) {
+            $salesInformation = $sir->find( 1 );
+        } else {
+            $salesInformation = new SalesInformation();
+        }
+
+        $form = $this->createForm( SalesInformationType::class, $salesInformation );
+        $form->handleRequest( $request );
+
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $this->em->persist( $salesInformation );
+            $this->em->flush();
+
+            $this->addFlash('success', 'Message mis à jour avec succès');
+            return $this->redirectToRoute( 'sales_manager_index' );
+        }
+
+        return $this->render('sales/manager/information.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
