@@ -41,7 +41,7 @@
                                         <tr>
                                             <td>{{ product.id }}</td>
                                             <td>{{ product.product.name }}</td>
-                                            <td class="text-danger">{{ product.dose }} <small>{{ product.unit }}</small></td>
+                                            <td class="text-danger">{{ product.dose|round(2, 'floor') }} <small>{{ product.unit }}</small></td>
                                             <td>{{ product.dose }}</td>
                                             <td>{{ product.unit }}</td>
                                             <td class="text-nowrap">
