@@ -128,6 +128,8 @@ class PhytoInterventionType extends AbstractType
             } else {
                 $znt = 1;
             }
+            /*
+             * Disable 14 december 2020 for jquery system on /templates/intervention/phyto
             // Get Total Quantity
             $unitEnable = ['kg/ha', 'L/ha'];
             if (in_array($dose->getUnit(), $unitEnable)) {
@@ -144,13 +146,20 @@ class PhytoInterventionType extends AbstractType
             } else {
                 $totalQuantity = '- Calcul non disponible avec cette unité';
                 $resultMessage = 'Aucun calcul effectué';
-            }
+            }*/
             $form
+                ->add('doseHectare', NumberType::class, [
+                    'label' => 'Dose appliqué à l\'hectare',
+                    'required'=> false,
+                    'mapped' => false
+                ])
                 ->add('quantity', NumberType::class, [
-                    'label' => 'Quantité Totale '. $totalQuantity,
-                    'help' => $resultMessage,
+                    'label' => 'Dose appliquée totale:',
                     'attr' => [
                         'max' => $form->get('productInStock')->getData()->getQuantity()
+                    ],
+                    'label_attr' => [
+                        'id' => 'quantityLabel'
                     ],
                     'required'=> true
                 ])
