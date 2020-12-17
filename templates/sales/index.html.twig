@@ -35,10 +35,10 @@
         {% endfor %}
         <div class="row">
             <div class="col-lg-12">
-                {% if sales_information.topMessage  %}
+                {% if sales_information  %}
                     <div class="card">
                         <div class="card-body">
-                            <p class="text-center">{{ sales_information.topMessage }}</p>
+                            <p class="text-center">{{ sales_information.topMessage|default(' ') }}</p>
                         </div>
                     </div>
                 {% endif %}
@@ -105,10 +105,10 @@
                         {% endfor %}
                     </div>
                 </div>
-                {% if sales_information.footerMessage %}
+                {% if sales_information %}
                     <div class="card">
                         <div class="card-body">
-                            <p class="text-center">{{ sales_information.footerMessage }}</p>
+                            <p class="text-center">{{ sales_information.footerMessage|default(' ') }}</p>
                         </div>
                     </div>
                 {% endif %}
