@@ -13,6 +13,7 @@ class Stocks
         '0' => 'Aucune unité',
         '1' => 'Litres',
         '2' => 'Kilos',
+        '3' => 'Pack',
         null => 'Aucune unité'
     ];
 
