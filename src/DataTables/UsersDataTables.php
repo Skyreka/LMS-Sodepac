@@ -131,15 +131,7 @@ class UsersDataTables implements DataTableHandlerInterface
                 $user->getCity(),
                 $pack,
                 $user->getCertificationPhyto(),
-                $technician,
-                '
-                <a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit">
-                    <i class="ti-lock"></i>
-                </a> 
-                <a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'" class="text-inverse p-r-10" title="" data-toggle="tooltip" data-original-title="Delete">
-                    <i class="ti-pencil-alt"></i>
-                </a>
-                '
+                $technician
             ];
         }
 
