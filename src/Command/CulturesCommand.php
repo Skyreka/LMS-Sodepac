@@ -8,6 +8,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Cocur\Slugify\Slugify;
 
 class CulturesCommand extends command
 {
@@ -39,26 +40,44 @@ class CulturesCommand extends command
         ini_set("memory_limit", "-1");
 
         // On récupere le csv
-        $csv = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'cultures.csv';
+        $csv = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'lex.csv';
         $lines = explode("\n", file_get_contents($csv));
 
         // Declaration des tableaux
         $cultures = [];
+        $slugify = new Slugify();
+        $v = 0;
 
         // Boucle par line du csv
         foreach ($lines as $k => $line) {
-            $line = explode(';', $line);
-            // On sauvegarde le product && Prend uniquement juste une donnée
-            if (key_exists(1, $line))
-            {
-                $culture = new IndexCultures();
-                $culture->setSlug($line[0]);
-                $culture->setName($line[1]);
-                $culture->setPermanent($line[2]);
-                $cultures[$line[1]] = $cultures;
-                $em->persist($culture);
+            $line = explode(',', $line);
+            $v = $v + 1;
+            dump( $v );
+
+            if ( !empty( $line[1] )) {
+
+                // Define Index
+                $name = $line[0];
+                $idLex = $line[1];
+
+                if ( !in_array( $name, $cultures)) {
+                    array_push( $cultures, $name );
+
+                    $culture = new IndexCultures();
+                    $culture->setIdLex( $idLex );
+                    $culture->setName( $name );
+                    $culture->setIsDisplay( 0 );
+                    $culture->setPermanent( 0 );
+                    $culture->setSlug( $slugify->slugify( $name ) );
+
+                    $em->persist( $culture );
+                }
             }
         }
+
+        // Debug
+        dump( $cultures );
+
         $em->flush();
         // On donne des information des résultats
         $output->writeln(count($cultures) . ' cultures importées');

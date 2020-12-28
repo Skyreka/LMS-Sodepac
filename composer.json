@@ -39,6 +39,7 @@
         "webinarium/datatables-bundle": "^2.4"
     },
     "require-dev": {
+        "cocur/slugify": "^4.0",
         "doctrine/data-fixtures": "^1.4",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "sensiolabs/security-checker": "^6.0",

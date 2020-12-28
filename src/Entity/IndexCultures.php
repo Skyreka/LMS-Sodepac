@@ -45,9 +45,25 @@ class IndexCultures
      */
     private $canevas = 0;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $id_lex;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDisplay;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Doses::class, mappedBy="indexCulture")
+     */
+    private $doses;
+
     public function __construct()
     {
         $this->cultures = new ArrayCollection();
+        $this->doses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,6 +146,60 @@ class IndexCultures
     public function setCanevas(bool $canevas): self
     {
         $this->canevas = $canevas;
+
+        return $this;
+    }
+
+    public function getIdLex(): ?int
+    {
+        return $this->id_lex;
+    }
+
+    public function setIdLex(?int $id_lex): self
+    {
+        $this->id_lex = $id_lex;
+
+        return $this;
+    }
+
+    public function getIsDisplay(): ?bool
+    {
+        return $this->isDisplay;
+    }
+
+    public function setIsDisplay(bool $isDisplay): self
+    {
+        $this->isDisplay = $isDisplay;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Doses[]
+     */
+    public function getDoses(): Collection
+    {
+        return $this->doses;
+    }
+
+    public function addDose(Doses $dose): self
+    {
+        if (!$this->doses->contains($dose)) {
+            $this->doses[] = $dose;
+            $dose->setIndexCulture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDose(Doses $dose): self
+    {
+        if ($this->doses->removeElement($dose)) {
+            // set the owning side to null (unless already changed)
+            if ($dose->getIndexCulture() === $this) {
+                $dose->setIndexCulture(null);
+            }
+        }
 
         return $this;
     }
