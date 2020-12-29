@@ -115,7 +115,7 @@ class UsersDataTables implements DataTableHandlerInterface
 
             // Exploitation
             if ($user->getExploitation() == NULL) {
-                $exploitation = '<a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'"><span class="label label-info">Ajouter une exploitation</span></a>';
+                $exploitation = '<small>Aucune</small>';
             } else {
                 $exploitation = '<a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'"><h6>'.$user->getExploitation()->getSize().' ha</h6></a>';
             }
@@ -123,7 +123,7 @@ class UsersDataTables implements DataTableHandlerInterface
             $results->data[] = [
                 '
                     <a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'">
-                        <h6>'.$user->getIdentity().'</h6><small class="text-muted">'.$user->getEmail().'</small>
+                        <h6 class="text-info">'.$user->getIdentity().'</h6><small class="text-muted">'.$user->getEmail().'</small>
                     </a>
                 ',
                 $exploitation,

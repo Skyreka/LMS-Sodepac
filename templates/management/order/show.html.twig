@@ -117,7 +117,7 @@
                         <h2 id="totalTTC"></h2>
                         <hr>
                         {% if order.status == 0 %}
-                            <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Finaliser</a>
+                            <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer</a>
                             <button class="btn btn-success btn-valid" data-toggle="modal" data-target="#validModal">Commander</button>
                         {% endif %}
                         {% if order.status == 1 %}
@@ -192,6 +192,10 @@
                 </div>
                 <form method="POST" action="{{ path('order_valid', {id: order.id}) }}">
                     <div class="modal-body">
+                        <div class="demo-checkbox mb-5">
+                            <input type="checkbox" id="basic_checkbox_2" class="filled-in" required />
+                            <label for="basic_checkbox_2">Je, soussigné {{ order.customer.identity }} valide et accepte ce bon de commande</label>
+                        </div>
                         <div class="demo-checkbox">
                             <input type="checkbox" id="basic_checkbox_2" class="filled-in" required />
                             <label for="basic_checkbox_2">Je, soussigné {{ order.customer.identity }} valide et accepte ce bon de commande</label>

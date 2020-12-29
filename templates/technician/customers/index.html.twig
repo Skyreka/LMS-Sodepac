@@ -34,7 +34,6 @@
                                 <thead>
                                 <tr>
                                     <th>Informations</th>
-                                    <th>Exploitation</th>
                                     <th>Téléphone</th>
                                     <th>Ville</th>
                                     <th>Certification</th>
@@ -53,17 +52,6 @@
                                                     <span class="badge badge-danger">Pas de mail</span>
                                                 {% endif %}
                                             </a>
-                                        </td>
-                                        <td>
-                                            <h6>
-                                                {% if customer.exploitation is null %}
-                                                    <a href="{{ path('management_user_show', {id: customer.id}) }}">Ajouter une superficie</a>
-                                                {% else %}
-                                                    <a href="{{ path('management_user_show', {id: customer.id}) }}">
-                                                    <h6>{{ customer.exploitation.size }} ha</h6>
-                                                </a>
-                                                {% endif %}
-                                            </h6>
                                         </td>
                                         <td>{{ customer.phone }}</td>
                                         <td>{{ customer.city }}</td>
