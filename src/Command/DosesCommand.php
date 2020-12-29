@@ -81,7 +81,15 @@ class DosesCommand extends Command
             if ( !empty($line[0]) ) {
                 //Index
                 $doseIndex = $line[6];
+                dump( $doseIndex );
+                if ( $doseIndex == NULL ) {
+                    $doseIndex = 0;
+                }
                 $doseUnit = $line[7];
+                dump( $doseUnit );
+                if ( $doseUnit == NULL ) {
+                    $doseUnit = 0;
+                }
                 $productIdLex = $line[4];
                 $cultureIdLex = $line[1];
                 $znt = $line[9];
