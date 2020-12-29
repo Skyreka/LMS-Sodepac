@@ -25,9 +25,7 @@
         </div>
         <div class="row">
             <div class="col-lg-8">
-                {% if recommendation.status <= 1 %}
-                    <a href="{{ path('recommendation_mentions', {'id': recommendation.id}) }}" class="btn btn-light-success mb-3">Revenir méthodes alternatives</a>
-                {% endif %}
+                <!-- DISABLE 29/12/2020 <a href="{{ path('recommendation_mentions', {'id': recommendation.id}) }}" class="btn btn-light-success mb-3">Revenir méthodes alternatives</a>-->
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -62,6 +60,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Disable 29/12/2020
                 <h4 class="card-title">Méthodes alternatives</h4>
                 <div class="card">
                     <div class="card-body">
@@ -74,7 +73,7 @@
                             </div>
                         {% endif %}
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="col-md-4">
                 <div style="display: flex" class="mb-3">

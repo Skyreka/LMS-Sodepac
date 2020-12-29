@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Exploitation;
+use App\Entity\IndexCanevas;
 use App\Entity\IndexCultures;
 
 use App\Entity\RecommendationProducts;
@@ -194,20 +195,18 @@ class RecommendationsController extends AbstractController
      * Display canevas by id of culture
      * @Route("recommendations/{recommendations}/canevas/{slug}", name="recommendation_canevas", methods={"GET", "POST"}, requirements={"recommendations":"\d+"})
      * @param Recommendations $recommendations
-     * @param IndexCultures $indexCultures
+     * @param IndexCanevas $indexCanevas
      * @param CulturesRepository $cr
      * @param RecommendationProductsRepository $rpr
      * @return Response
-     * @throws NoResultException
-     * @throws NonUniqueResultException
      */
-    public function canevas( Recommendations $recommendations, IndexCultures $indexCultures, CulturesRepository $cr, RecommendationProductsRepository $rpr ): Response
+    public function canevas( Recommendations $recommendations, IndexCanevas $indexCanevas, CulturesRepository $cr, RecommendationProductsRepository $rpr ): Response
     {
-        if ( $this->get('twig')->getLoader()->exists( 'recommendations/canevas/assets/'.$indexCultures->getSlug().'.html.twig' ) ) {
-            return $this->render('recommendations/canevas/assets/'.$indexCultures->getSlug().'.html.twig', [
+        if ( $this->get('twig')->getLoader()->exists( 'recommendations/canevas/assets/'.$indexCanevas->getSlug().'.html.twig' ) ) {
+            return $this->render('recommendations/canevas/assets/'.$indexCanevas->getSlug().'.html.twig', [
                 'recommendations' => $recommendations,
                 'rpr' => $rpr,
-                'culture' => $indexCultures,
+                'culture' => $indexCanevas,
                 'printRequest' => false
             ]);
         } else {

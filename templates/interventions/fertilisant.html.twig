@@ -22,7 +22,8 @@
             </div>
         </div>
         {% if warningMessage %}
-            <div class="alert alert-warning">Attention! Vous allez appliquer un produit moins de 48H après une autre application de produit sur cette culture, assurez vous que cette intervention est autorisé en consultant le site officiel <a href="https://ephy.anses.fr/" target="_blank">ephy.anses.fr</a></div>
+            <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant <a href="https://www.melanges.arvalisinstitutduvegetal.fr" target="_blank">melanges.arvalisinstitutduvegetal.fr</a>   En cas de doute, consulter votre conseiller.
+</div>
         {% endif %}
         {% if app.session.get('listCulture') %}
             <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login_success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>

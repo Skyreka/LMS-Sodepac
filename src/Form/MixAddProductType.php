@@ -30,7 +30,7 @@ class MixAddProductType extends AbstractType
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Envoyer'
+                'label' => 'Entrer'
             ])
         ;
     }

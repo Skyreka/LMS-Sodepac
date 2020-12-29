@@ -24,7 +24,8 @@
         <input type="hidden" id="cultureHectare" value="{{ culture.size }}" />
         <div class="col-12">
             {% if warningMessage %}
-                <div class="alert alert-warning">Attention! Vous allez appliquer un produit moins de 48H après une autre application de produit sur cette culture, assurez vous que cette intervention est autorisé en consultant le site officiel <a href="https://ephy.anses.fr/" target="_blank">ephy.anses.fr</a></div>
+                <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant <a href="https://www.melanges.arvalisinstitutduvegetal.fr" target="_blank">melanges.arvalisinstitutduvegetal.fr</a>   En cas de doute, consulter votre conseiller.
+</div>
             {% endif %}
             {% if intervention == 'Traitement-Divers' %}
                 <div class="alert alert-warning">Attention, cette intervention rentrera en compte dans le calcul de l'IFT</div>
