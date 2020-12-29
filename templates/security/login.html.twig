@@ -17,7 +17,12 @@
 <header>
     <div class="aa-header" style="background-image: url({{ asset('images/bg.jpg') }})">
         <nav class="navbar navbar-expand-md navbar-transparent" style="">
-            <div class="container"><img class="img-fluid pr-3 aa-logo-img" src="images/logo.png" alt="logo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <img class="img-fluid pr-3" src="{{ asset('images/logo.png') }}" alt="logo">
+                    </div>
+                </div>
             </div>
         </nav>
         <div class="container aa-header-content text-left text-white">
