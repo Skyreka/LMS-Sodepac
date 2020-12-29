@@ -27,7 +27,8 @@
                                     <th>id</th>
                                     <th>Produit</th>
                                     <th>Condi.</th>
-                                    <th>Quantité</th>
+                                    <th>Qte Totales</th>
+                                    <th>Qte Commandées</th>
                                     <th>Prix HT</th>
                                     <th>Remise %</th>
                                     <th style="text-align:center">Total HT</th>
@@ -44,6 +45,7 @@
                                             <h5 class="font-500">{{ article.product.name }}</h5>
                                         </td>
                                         <td>{{ article.conditioning }}</td>
+                                        <td>{{ article.quantity }}</td>
                                         <td class="quantity">{{ article.totalQuantity }}</td>
                                         <td class="price" width="100">
                                             {{ article.unitPrice }}
@@ -68,15 +70,6 @@
                                 {% if order.status == 1 %}
                                     <a href="{{ path('management_products', {order: order.idNumber}) }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit</a>
                                 {% endif %}
-                                <div class="ml-auto">
-                                    {% if order.status == 0 %}
-                                        <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer</a>
-                                    {% endif %}
-
-                                    {% if order.status == 1 %}
-                                        <button data-toggle="modal" data-target="#validModal" class="btn btn-success btn-valid"><i class="fa fa fa-shopping-cart"></i> Commander</button>
-                                    {% endif %}
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -91,7 +84,7 @@
                                 {{ form_row( form.conditions ) }}
                             </div>
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Sauvegarder</button>
+                                <button type="submit" class="btn btn-outline-light-danger"> <i class="fa fa-check"></i> Enregistrer la livraison et le paiement</button>
                             </div>
                         {{ form_end( form ) }}
                     </div>
@@ -124,12 +117,11 @@
                         <h2 id="totalTTC"></h2>
                         <hr>
                         {% if order.status == 0 %}
-                            <button class="btn btn-info">Enregistrer</button>
-                            <button class="btn btn-secondary btn-outline">Annuler</button>
+                            <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Finaliser</a>
+                            <button class="btn btn-success btn-valid" data-toggle="modal" data-target="#validModal">Commander</button>
                         {% endif %}
                         {% if order.status == 1 %}
                             <button class="btn btn-success btn-valid" data-toggle="modal" data-target="#validModal">Commander</button>
-                            <button class="btn btn-secondary btn-outline">Annuler</button>
                         {% endif %}
                     </div>
                 </div>
@@ -230,10 +222,11 @@
                     identifier: [0, 'id'],
                     editable: [
                         [2, 'conditioning'],
-                        [3, 'totalQuantity'],
-                        [4, 'unitPrice'],
-                        [5, 'discount'],
-                        [7, 'taxe']
+                        [3, 'quantity'],
+                        [4, 'totalQuantity'],
+                        [5, 'unitPrice'],
+                        [6, 'discount'],
+                        [8, 'taxe']
                     ]
                 }
             });

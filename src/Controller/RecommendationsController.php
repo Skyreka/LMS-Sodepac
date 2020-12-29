@@ -167,12 +167,18 @@ class RecommendationsController extends AbstractController
 
             // Display error if user don't have exploitation
             if( $data->getExploitation() == NULL) {
-                $this->addFlash('danger', 'Votre client n\'a aucune superficie déclarée, veuillez modifier son compte pour pouvoir lui établir un catalogue');
+                $this->addFlash('danger', 'Votre client n\'a aucune exploitation déclarée, veuillez modifier son compte pour pouvoir lui établir un catalogue');
                 return $this->redirectToRoute('recommendation_new');
             }
 
             $this->em->persist( $recommendation );
             $this->em->flush();
+
+            // Other recommendation ( Go directly on list product page no canevas display)
+            if ( $recommendation->getCulture()->getSlug() == 'other') {
+                return $this->redirectToRoute('recommendation_product_list', ['id' => $recommendation->getId()]);
+            }
+
             return $this->redirectToRoute('recommendation_canevas', [
                 'recommendations' => $recommendation->getId(),
                 'slug' => $recommendation->getCulture()->getSlug()
@@ -198,11 +204,9 @@ class RecommendationsController extends AbstractController
     public function canevas( Recommendations $recommendations, IndexCultures $indexCultures, CulturesRepository $cr, RecommendationProductsRepository $rpr ): Response
     {
         if ( $this->get('twig')->getLoader()->exists( 'recommendations/canevas/assets/'.$indexCultures->getSlug().'.html.twig' ) ) {
-            $totalSize = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
             return $this->render('recommendations/canevas/assets/'.$indexCultures->getSlug().'.html.twig', [
                 'recommendations' => $recommendations,
                 'rpr' => $rpr,
-                'totalSize' => $totalSize,
                 'culture' => $indexCultures,
                 'printRequest' => false
             ]);
@@ -228,7 +232,7 @@ class RecommendationsController extends AbstractController
         if ($request->isXmlHttpRequest()) {
             $product = $pr->findProductBySlug( $request->get('product_slug') );
             $recommendation = $rr->find( $request->get('recommendation_id'));
-            $cultureTotal = $cr->countSizeByIndexCulture( $recommendation->getCulture(), $recommendation->getExploitation() );
+            $cultureTotal = $recommendation->getCultureSize();
             //-- SETTERS
             $recommendationProducts = new RecommendationProducts();
             $recommendationProducts->setProduct( $product );
@@ -270,7 +274,7 @@ class RecommendationsController extends AbstractController
         $form = $this->createForm( RecommendationAddProductType::class, $recommendationProducts);
         $form->handleRequest( $request );
 
-        $totalSize = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
+        $totalSize = $recommendations->getCultureSize();
 
         if ( $form->isSubmitted() && $form->isValid() ) {
             $recommendationProducts->setRecommendation( $recommendations );
@@ -384,6 +388,8 @@ class RecommendationsController extends AbstractController
     }
 
     /**
+     * This function is disable 29/12/2020
+     * From list product technician go to directly to summary
      * @Route("recommendations/{id}/mentions", name="recommendation_mentions", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Recommendations $recommendations
      * @param Request $request
@@ -421,7 +427,15 @@ class RecommendationsController extends AbstractController
     public function summary( Recommendations $recommendation, CulturesRepository $cr ): Response
     {
         $products = $this->rpr->findBy( ['recommendation' => $recommendation] );
-        $cultureTotal = $cr->countSizeByIndexCulture( $recommendation->getCulture(), $recommendation->getExploitation() );
+        $cultureTotal = 0;
+
+        // After modification of 29/12/2020 (Disable mentions) User go to summary directly by list product page
+        if ( $recommendation->getStatus() == 0 ) {
+
+            $recommendation->setStatus( 1 );
+            $this->em->flush();
+
+        }
 
         return $this->render('recommendations/staff/summary.html.twig', [
             'recommendation' => $recommendation,

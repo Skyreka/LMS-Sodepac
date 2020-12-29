@@ -25,6 +25,7 @@ class OrdersRepository extends ServiceEntityRepository
     {
         $req = $this->createQueryBuilder('o')
             ->andWhere('o.creator = :val')
+            ->andWhere('o.status != 0')
             ->setParameter('val', $tech)
             ->orderBy('o.createDate', 'ASC')
             ;

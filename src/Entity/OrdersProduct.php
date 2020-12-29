@@ -53,6 +53,11 @@ class OrdersProduct
      */
     private $taxe;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $quantity;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +143,18 @@ class OrdersProduct
     public function setTaxe(?float $taxe): self
     {
         $this->taxe = $taxe;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?float
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?float $quantity): self
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }

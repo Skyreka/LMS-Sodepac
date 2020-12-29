@@ -55,7 +55,8 @@
                     </div>
                 </div>
                 <a href="{{ path('recommendation_product_add', {id: recommendations.id}) }}" class="btn btn-primary">Ajouter un produit hors canevas</a>
-                <a href="{{ path('recommendation_mentions', {id: recommendations.id}) }}" class="btn btn-success float-right">Valider la liste des produits choisis</a>
+                <!-- DISABLE 29/12/2020  <a href="{{ path('recommendation_mentions', {id: recommendations.id}) }}" class="btn btn-success float-right">Valider la liste des produits choisis</a>-->
+                <a href="{{ path('recommendation_summary', {id: recommendations.id}) }}" class="btn btn-success float-right">Valider la liste des produits choisis</a>
             </div>
         </div>
     </div>

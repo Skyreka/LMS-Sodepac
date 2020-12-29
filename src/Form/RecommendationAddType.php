@@ -3,13 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Exploitation;
+use App\Entity\IndexCanevas;
 use App\Entity\IndexCultures;
 use App\Entity\Recommendations;
 use App\Entity\Users;
+use App\Repository\IndexCanevasRepository;
 use App\Repository\IndexCulturesRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -37,14 +40,20 @@ class RecommendationAddType extends AbstractType
                 'help' => 'Utilisateur ayant une exploitation active uniquement visible.'
             ])
             ->add('culture', EntityType::class, array(
-                'class' => IndexCultures::class,
-                'choice_label' => function (IndexCultures $culture) {
-                    return $culture->getName();
+                'class' => IndexCanevas::class,
+                'choice_label' => function (IndexCanevas $canevas) {
+                    return $canevas->getName();
                 },
-                'query_builder' => function (IndexCulturesRepository $icr) {
-                    return $icr->findCulturesCanevasAvailable( true );
+                'query_builder' => function (IndexCanevasRepository $icr) {
+                    return $icr->findAllCanevas();
                 }
-            ));
+            ))
+            ->add('cultureSize', NumberType::class, [
+                'label' => 'Taille de la culture',
+                'attr' => [
+                    'min' => 0
+                ]
+            ]);
         ;
     }
 

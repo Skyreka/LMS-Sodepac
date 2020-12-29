@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
  * Class CardController
@@ -240,7 +241,8 @@ class OrderController extends AbstractController
             $orderProduct = new OrdersProduct();
             $orderProduct->setOrder( $order );
             $orderProduct->setProduct( $product->getProduct() );
-            $orderProduct->setTotalQuantity( $product->getQuantity() );
+            $orderProduct->setQuantity( $product->getQuantity() );
+            $orderProduct->setUnitPrice( 0 );
             $this->em->persist( $orderProduct );
 
             $this->em->flush();
@@ -273,8 +275,15 @@ class OrderController extends AbstractController
             } else {
                 $p = $product->getProduct();
             }
-            if ($opr->findBy(['orders' => $currentOrder, 'product' => $p])) {
-                $this->addFlash('danger', 'Le produit '. $p->getName() .' est déjà présent dans le panier. ('. $currentOrder->getIdNumber() .')');
+            // product already on this order and same
+            $productOnDb = $opr->findOneBy(['orders' => $currentOrder, 'product' => $p]);
+            if ( $productOnDb ) {
+                if ( $isOther) {
+                    $this->addFlash('danger', 'Ce produit est déjà dans le panier en cours.');
+                    return $this->redirectToRoute('management_products');
+                }
+                $productOnDb->setQuantity( $productOnDb->getQuantity() + $product->getQuantity() );
+                $this->em->flush();
                 return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId()]);
             }
             // Check duplicate
@@ -284,8 +293,12 @@ class OrderController extends AbstractController
             $orderProduct = new OrdersProduct();
             $orderProduct->setOrder( $currentOrder );
             $orderProduct->setProduct( $p );
+            $orderProduct->setUnitPrice( 0 );
             if (!$isOther) {
-                $orderProduct->setTotalQuantity( $product->getQuantity() );
+                $orderProduct->setQuantity( $product->getQuantity() );
+                $orderProduct->setTotalQuantity( 0 );
+            } else {
+                $orderProduct->setTotalQuantity( 0 );
             }
             $this->em->merge( $orderProduct );
             $this->em->flush();

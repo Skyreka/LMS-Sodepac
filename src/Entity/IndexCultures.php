@@ -41,11 +41,6 @@ class IndexCultures
     private $cultures;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $canevas = 0;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $id_lex;
@@ -134,18 +129,6 @@ class IndexCultures
                 $culture->setName(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getCanevas(): ?bool
-    {
-        return $this->canevas;
-    }
-
-    public function setCanevas(bool $canevas): self
-    {
-        $this->canevas = $canevas;
 
         return $this;
     }
