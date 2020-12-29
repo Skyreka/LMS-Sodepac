@@ -1,0 +1,249 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Centre d'aide{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Centre d'aide</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-5">Tutoriels</h1>
+            </div>
+            <div class="col-12 col-md-2 offset-md-2">
+                <div class="card card-inverse card-success" data-toggle="modal" data-target="#communication">
+                    <div class="card-body">
+                        <p class="text-center text-white h6">Communication</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="card card-inverse card-info" data-toggle="modal" data-target="#createCulture">
+                    <div class="card-body">
+                        <p class="text-center text-white h6">Création d'une culture</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="card card-inverse card-warning" data-toggle="modal" data-target="#createIlot">
+                    <div class="card-body">
+                        <p class="text-center text-white h6">Création des îlots</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="card card-inverse card-info" data-toggle="modal" data-target="#analyse">
+                    <div class="card-body">
+                        <p class="text-center text-white h6">Analyse de la terre</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-2 offset-md-2">
+                <div class="card card-inverse card-primary" data-toggle="modal" data-target="#sIntervention">
+                    <div class="card-body">
+                        <p class="text-center text-white h6">Synthèse Interventions</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="card card-inverse card-danger" data-toggle="modal" data-target="#stock">
+                    <div class="card-body">
+                        <p class="text-center text-white h6">Gestion des stocks</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="card card-inverse card-info" data-toggle="modal" data-target="#password">
+                    <div class="card-body">
+                        <p class="text-center text-white h6">Mot de passe</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="card card-inverse card-primary" data-toggle="modal" data-target="#createIntervention">
+                    <div class="card-body">
+                        <p class="text-center text-white h6">Créer interventions</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <h1 class="text-center mb-5">Centre d'aide</h1>
+            </div>
+            <div class="col-12 col-md-2 offset-md-3">
+                <div class="card card-inverse card-dark">
+                    <div class="card-body">
+                        <h6 class="text-center text-white">Conditions de vente</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="card card-inverse card-dark">
+                    <div class="card-body">
+                        <h6 class="text-center text-white">Mentions Légales</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="card card-inverse card-dark">
+                    <div class="card-body">
+                        <h6 class="text-center text-white">Politique de condidentialité</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <h2 class="text-center mb-2">Nous contacter</h2>
+            </div>
+            <div class="col-12 col-md-6 offset-md-3">
+                <div class="card card-inverse">
+                    <div class="card-body">
+                        <p class="text-center mt-2">Par téléphone: 07 XX XX XX XX</p>
+                        <p class="text-center">Par E-mail: sodepac@lmsdesign.fr</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    <!-- Communication -->
+    <div class="modal fade" id="communication" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Communication</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ asset('tutorials/communication.pdf') }}" style="border: none;" height="780" width="100%"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Create Culture -->
+    <div class="modal fade" id="createCulture" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Communication</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ asset('tutorials/create_culture.pdf') }}" style="border: none;" height="780" width="100%"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Create Ilot -->
+    <div class="modal fade" id="createIlot" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Création d'un îlot</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ asset('tutorials/create_ilot.pdf') }}" style="border: none;" height="780" width="100%"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Analyse -->
+    <div class="modal fade" id="analyse" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Analyse Terre</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ asset('tutorials/analyse_terre.pdf') }}" style="border: none;" height="780" width="100%"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Synthese -->
+    <div class="modal fade" id="sIntervention" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Synthèse intervention</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ asset('tutorials/s_interventions.pdf') }}" style="border: none;" height="780" width="100%"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Stock -->
+    <div class="modal fade" id="stock" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Gestion des stocks</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ asset('tutorials/stocks.pdf') }}" style="border: none;" height="780" width="100%"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Password -->
+    <div class="modal fade" id="password" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Modifier votre mot de passe</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ asset('tutorials/password.pdf') }}" style="border: none;" height="780" width="100%"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Create intervention -->
+    <div class="modal fade" id="createIntervention" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Créer une intervention</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ asset('tutorials/create_intervention.pdf') }}" style="border: none;" height="780" width="100%"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
