@@ -1,9 +1,5 @@
 <aside class="left-sidebar">
     <div class="scroll-sidebar" style="max-height: 100%; overflow-y: auto;">
-        <div class="user-profile" style="background: url({{ asset('images/background/field.jpg')}}) no-repeat;">
-            <div class="profile-img"> <img src="{{ asset('images/user.png') }}" alt="user" /> </div>
-            <div class="profile-text"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{{ app.user.identity }}</a></div>
-        </div>
         <nav class="sidebar-nav">
             {% if is_granted('ROLE_ADMIN') %}
                 <ul id="sidebarnav">
@@ -41,8 +37,13 @@
                         <li class="nav-devider"></li>
                         {% if app.user.pack != 'PACK_LIGHT' %}
                             <li class="nav-small-cap">Mon Exploitation</li>
-                            <li><a class="waves-effect waves-dark" href="{{ path('ilots_index') }}"><i class="fa fa-list"></i><span class="hide-menu"> Ilots </span></a></li>
-                            <li><a class="waves-effect waves-dark" href="{{ path('intervention_multiple_index') }}"><i class="mdi mdi-flower"></i><span class="hide-menu"> Cultures </span></a></li>
+                            <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-info"></i><span
+                                            class="hide-menu">Interventions</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="{{ path('ilots_index') }}"><i class="fa fa-list"></i> Ilots</a></li>
+                                    <li><a href="{ path('intervention_multiple_index') }}"><i class="mdi mdi-flower"></i> Cultures</a></li>
+                                </ul>
+                            </li>
                             <li><a class="waves-effect waves-dark" href="{{ path('exploitation_stock_index') }}"><i class="fas fa-box"></i><span class="hide-menu">Gestion des stocks </span></a></li>
                             <li><a class="waves-effect waves-dark" href="{{ path('exploitation_irrigation_index') }}"><i class="fa fa-tint"></i><span class="hide-menu">Irrigation </span></a></li>
                             <li><a class="waves-effect waves-dark" href="{{ path('exploitation_analyse_index') }}"><i class="fas fa-vial"></i><span class="hide-menu">Analyses </span></a></li>

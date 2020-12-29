@@ -58,8 +58,8 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <a href="{{ path('ilots_index') }}" class="btn btn-warning btn-lg btn-block mb-4">Ilots</a>
-                <a href="{{ path('intervention_multiple_index') }}" class="btn btn-success btn-lg btn-block mb-4">Cultures</a>
+                <a href="{{ path('ilots_index') }}" class="btn btn-warning btn-lg btn-block mb-4">Interventions Ilots</a>
+                <a href="{{ path('intervention_multiple_index') }}" class="btn btn-success btn-lg btn-block mb-4">Interventions Cultures</a>
                 <a href="{{ path('exploitation_stock_index') }}" class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</a>
                 <a href="{{ path('exploitation_irrigation_index') }}" class="btn btn-info btn-lg btn-block">Irrigation</a>
             </div>
@@ -67,69 +67,80 @@
                 <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Flashs</h4>
-                    </div>
-                    <div class="comment-widgets position-relative mb-2 common-widget">
-                        <div class="d-flex flex-row comment-row p-3">
-                            {% for flash in flashs %}
-                                {% if date(flash.displayAt) <= date() and flash.checked == 0 %}
-                                    <div class="comment-text w-100 p-3">
-                                        <p class="mb-1 overflow-hidden">{{ flash.bsv.text }}</p>
-                                        <div class="comment-footer">
-                                            <span class="text-muted pull-right">{{ flash.displayAt|date('d M y à h:m') }}</span>
-                                            <span class="badge badge-info">Non lu</span>
-                                            <span class="action-icons">
-                                                {{ include('flash/user/_check.html.twig') }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <tbody>
+                                {% for flash in flashs %}
+                                    {% if date(flash.displayAt) <= date() and flash.checked == 0 %}
+                                        <tr>
+                                            <td style="width:50px;">
+                                                <span class="round">F</span>
+                                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                            </td>
+                                            <td>
+                                                <h6>{{ flash.bsv.text }} </h6><small class="text-muted">{{ flash.displayAt|date('d M y à h:m') }}</small>
+                                            </td>
+                                            <td>
+                                            {{ include('flash/user/_check.html.twig') }}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Panorama</h4>
-                    </div>
-                    <div class="comment-widgets position-relative mb-2 common-widget">
-                        <div class="d-flex flex-row comment-row p-3">
-                            {% for panorama in panoramas %}
-                                {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
-                                    <div class="comment-text w-100 p-3">
-                                        <p class="mb-1 overflow-hidden">{{ panorama.panorama.text }}</p>
-                                        <div class="comment-footer">
-                                            <span class="text-muted pull-right">{{ panorama.displayAt|date('d M y à h:m') }}</span>
-                                            <span class="badge badge-info">Non lu</span>
-                                            <span class="action-icons">
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <tbody>
+                                {% for panorama in panoramas %}
+                                    {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
+                                        <tr>
+                                            <td style="width:50px;">
+                                                <span class="round">P</span>
+                                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                            </td>
+                                            <td>
+                                                <h6>{{ panorama.panorama.text }} </h6><small class="text-muted">{{ panorama.displayAt|date('d M y à h:m') }}</small>
+                                            </td>
+                                            <td>
                                                 <form method="POST" action="{{ path('panorama_user_check', {id: panorama.id}) }}" style="display: inline-block">
                                                     <input type="hidden" name="_method" value="CHECK">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
                                                     <button class="btn btn-success btn-xs">Lire</button>
                                                 </form>
-                                            </span>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Tickets</h4>
-                    </div>
-                    <div class="comment-widgets position-relative mb-2 common-widget">
-                        <div class="d-flex flex-row comment-row p-3">
-                            {% for ticket in tickets %}
-                                <div class="comment-text w-100 p-3">
-                                    <p class="mb-1 overflow-hidden">{{ ticket.title }}</p>
-                                    <div class="comment-footer">
-                                        <span class="action-icons">
-                                            <a href="{{ path('tickets_index') }}" class="btn btn-success btn-xs text-white">Lire</a>
-                                        </span>
-                                    </div>
-                                </div>
-                            {% endfor %}
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <tbody>
+                                {% for ticket in tickets %}
+                                    <tr>
+                                        <td style="width:20px;">
+                                            <span class="round">T</span>
+                                            <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                        </td>
+                                        <td>
+                                            <h6>{{ ticket.title }}</h6>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('tickets_conversation_show', {id: ticket.id}) }}" class="btn btn-success btn-xs text-white">Lire</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
                         </div>
                     </div>
                 </div>

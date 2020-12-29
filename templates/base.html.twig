@@ -33,18 +33,11 @@
         {% block javascripts %}{% endblock %}
         <!-- Waves -->
         <script src="{{ asset('js/waves.js') }}"></script>
-        <!-- Font Awesome -->
+        <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
+        <script src="{{ asset('js/jquery.sticky-kit.min.js') }}"></script>
         <script src="https://use.fontawesome.com/e9e39eeedb.js"></script>
-        <!-- Sidebar -->
         <script src="{{ asset('js/sidebarmenu.js') }}"></script>
-        <!-- App -->
         <script src="{{ asset('js/sodepac.js') }}"></script>
-        <script>
-            $(".nav-toggler").click(function(){
-                $("body").toggleClass("show-sidebar")
-            })
-        </script>
-        <!-- Custom Page Script -->
         <script>
             $(function()
             {
