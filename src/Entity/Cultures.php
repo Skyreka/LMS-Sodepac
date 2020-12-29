@@ -25,7 +25,7 @@ class Cultures
     private $ilot;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\IndexCultures", inversedBy="cultures")
+     * @ORM\ManyToOne(targetEntity="App\Entity\IndexCultures", inversedBy="cultures", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $name;
