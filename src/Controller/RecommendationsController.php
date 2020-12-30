@@ -334,15 +334,15 @@ class RecommendationsController extends AbstractController
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function editDose( Request $request, CulturesRepository $cr )
+    public function editDose( Request $request )
     {
         if ($request->isXmlHttpRequest()) {
-            $recommendation = $this->rpr->find( $request->get('id'));
-            $cultureTotal = $recommendation->getCultureSize();
-            $recommendation->setDose( $request->get('dose'));
+            $recommendationProduct = $this->rpr->find( $request->get('id'));
+            $cultureTotal = $recommendationProduct->getRecommendation()->getCultureSize();
+            $recommendationProduct->setDose( $request->get('dose'));
             //-- Calcul total of quantity with new dose
-            $result = $cultureTotal * $recommendation->getDose();
-            $recommendation->setQuantity( $result );
+            $result = $cultureTotal * $recommendationProduct->getDose();
+            $recommendationProduct->setQuantity( $result );
             $this->em->flush();
             return new JsonResponse(["type" => 'success'], 200);
         }
