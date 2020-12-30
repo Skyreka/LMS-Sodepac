@@ -426,7 +426,7 @@ class RecommendationsController extends AbstractController
     public function summary( Recommendations $recommendation, CulturesRepository $cr ): Response
     {
         $products = $this->rpr->findBy( ['recommendation' => $recommendation] );
-        $cultureTotal = 0;
+        $cultureTotal = $recommendation->getCultureSize();
 
         // After modification of 29/12/2020 (Disable mentions) User go to summary directly by list product page
         if ( $recommendation->getStatus() == 0 ) {

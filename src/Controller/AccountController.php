@@ -65,7 +65,7 @@ class  AccountController extends AbstractController {
             $user->setReset( 0 );
             $this->em->flush();
             $this->addFlash('success', 'Mot de passe modifié avec succès');
-            return $this->redirectToRoute('account_index');
+                return $this->redirectToRoute('account_index');
         }
 
         return $this->render('account/index.html.twig', [
