@@ -27,39 +27,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex no-block">
-                            <h4 class="card-title">Vos Clients</h4>
-                            <div class="ml-auto">
-                                <a href="{{ path('technician_customers_new') }}" class="btn btn-success">Valider</a>
-                            </div>
-                        </div>
-                        <div class="table-responsive m-t-20">
-                            <table class="table stylish-table">
-                                <thead>
-                                <tr>
-                                    <th>Informations</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for customer in customers %}
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('management_user_show', {id: customer.id}) }}">
-                                                <h6>{{ customer.firstname }} {{ customer.lastname }}</h6><small class="text-muted">{{ customer.email }}</small>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-center">
-                            <a href="{{ path('technician_customers_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="col-12 col-lg-6">
                 <div class="card">
@@ -112,40 +79,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="m-b-0">Vos Panoramas</h4>
-                        <div class="table-responsive m-t-20">
-                            <table class="table stylish-table">
-                                <thead>
-                                <tr>
-                                    <th>Informations</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for panorama in panoramas %}
-                                    <tr>
-                                        <td>
-                                            <h6>{{ panorama.text }} </h6>
-                                            <small class="text-muted">{{ panorama.creationDate|date("d/m/Y") }}
-                                                {% if panorama.validate == 1 %}
-                                                    <span class="badge badge-success">Validé</span>
-                                                {% elseif panorama.validate == 0 %}
-                                                    <span class="badge badge-warning">En attente de validation</span>
-                                                {% endif %}
-                                            </small>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-center">
-                            <a href="{{ path('panorama_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

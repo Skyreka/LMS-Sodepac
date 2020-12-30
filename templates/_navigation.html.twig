@@ -11,6 +11,7 @@
                     <li><a class="waves-effect waves-dark" href="{{ path('recommendation_index') }}"><i class="fas fa-book"></i><span class="hide-menu"> Catalogue</span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('management_products') }}"><i class="fa fa-flask"></i><span class="hide-menu"> Produits</span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('mix_index') }}"><i class="fas fa-american-sign-language-interpreting"></i><span class="hide-menu">Mélange </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('sales_index') }}"><i class="fas fa-chart-line"></i><span class="hide-menu">Cours de vente </span></a></li>
                 </ul>
             {% endif %}
             {% if app.user.status == 'ROLE_TECHNICIAN' %}
@@ -24,6 +25,7 @@
                     <li><a class="waves-effect waves-dark" href="{{ path('tickets_index') }}"><i class="fa fa-comments-o"></i><span class="hide-menu"> Tickets</span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('management_products') }}"><i class="fa fa-flask"></i><span class="hide-menu"> Produits</span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('mix_index') }}"><i class="fas fa-vial"></i><span class="hide-menu">Mélange </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('sales_index') }}"><i class="fas fa-chart-line"></i><span class="hide-menu">Cours de vente </span></a></li>
                 </ul>
             {% endif %}
             {% if app.user.status == 'ROLE_USER' %}
