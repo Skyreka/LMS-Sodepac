@@ -45,10 +45,10 @@
                 <div class="card">
                     <div class="card-body">
                         {% for sale in sales %}
-                            <table class="table mt-2 text-center mt-5">
+                            <h2>{{ sale.culture }}</h2>
+                            <table class="table text-center">
                                 <thead>
                                 <tr>
-                                    <th class="blue text-white" style="width: 250px !important;">{{ sale.culture }}</th>
                                     <th>{{ sale.title }}</th>
                                     <th>{{ sale.column1Txt }}</th>
                                     <th>{{ sale.column2Txt }}</th>
