@@ -12,8 +12,8 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Historique des panoramas</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('panoramas.index') }}">Panoramas</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('panorama_index') }}">Panoramas</a></li>
                     <li class="breadcrumb-item active">Historique</li>
                 </ol>
             </div>
@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <div class="button-group">
                             {% for i in 0..4 %}
-                                <a href="{{ path('panoramas.history.show', {year: "now"|date("Y") - i}) }}" class="btn waves-effect waves-light btn-lg btn-info history">{{ "now"|date("Y") - i }}</a>
+                                <a href="{{ path('panorama_history_show', {year: "now"|date("Y") - i}) }}" class="btn waves-effect waves-light btn-lg btn-info history">{{ "now"|date("Y") - i }}</a>
                             {% endfor %}
                         </div>
                     </div>

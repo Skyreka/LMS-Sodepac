@@ -18,7 +18,8 @@ class Users implements UserInterface, \Serializable
     const STATUS = [
         'ROLE_USER' => 'Client',
         'ROLE_TECHNICIAN' => 'Technicien',
-        'ROLE_ADMIN' => 'Administrateur'
+        'ROLE_ADMIN' => 'Administrateur',
+        'ROLE_SALES' => 'Cours de vente'
     ];
 
     const PACK = [
@@ -136,6 +137,31 @@ class Users implements UserInterface, \Serializable
      */
     private $mixes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Orders::class, mappedBy="creator")
+     */
+    private $orders;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Warehouse::class, inversedBy="users")
+     */
+    private $warehouse;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $company;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $postalCode;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
@@ -143,6 +169,7 @@ class Users implements UserInterface, \Serializable
         $this->panoramas_sent = new ArrayCollection();
         $this->tickets = new ArrayCollection();
         $this->mixes = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -545,6 +572,84 @@ class Users implements UserInterface, \Serializable
                 $mix->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Orders $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Orders $orders): self
+    {
+        if ($this->orders->removeElement($orders)) {
+            // set the owning side to null (unless already changed)
+            if ($orders->getCreator() === $this) {
+                $orders->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getWarehouse(): ?Warehouse
+    {
+        return $this->warehouse;
+    }
+
+    public function setWarehouse(?Warehouse $warehouse): self
+    {
+        $this->warehouse = $warehouse;
+
+        return $this;
+    }
+
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?string $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
 
         return $this;
     }

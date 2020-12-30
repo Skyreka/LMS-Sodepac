@@ -78,6 +78,9 @@ class UsersDataTables implements DataTableHandlerInterface
             if ($order->column == 0) {
                 $query->addOrderBy('u.lastname', $order->dir);
             }
+            if ($order->column == 4) {
+                $query->addOrderBy('u.pack', $order->dir);
+            }
         }
 
         // Restrict results.
@@ -112,15 +115,15 @@ class UsersDataTables implements DataTableHandlerInterface
 
             // Exploitation
             if ($user->getExploitation() == NULL) {
-                $exploitation = '<a href="'.$this->router->generate('admin.users.new.exploitation', ['id' => $user->getId()]).'"><span class="label label-info">Ajouter une exploitation</span></a>';
+                $exploitation = '<small>Aucune</small>';
             } else {
-                $exploitation = '<a href="'.$this->router->generate('admin.users.edit.exploitation', ['id' => $user->getId()]).'"><h6>'.$user->getExploitation()->getSize().' ha</h6></a>';
+                $exploitation = '<a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'"><h6>'.$user->getExploitation()->getSize().' ha</h6></a>';
             }
 
             $results->data[] = [
                 '
-                    <a href="'.$this->router->generate('view.user.index', ['id' => $user->getId()]).'">
-                        <h6>'.$user->getIdentity().'</h6><small class="text-muted">'.$user->getEmail().'</small>
+                    <a href="'.$this->router->generate('management_user_show', ['id' => $user->getId()]).'">
+                        <h6 class="text-info">'.$user->getIdentity().'</h6><small class="text-muted">'.$user->getEmail().'</small>
                     </a>
                 ',
                 $exploitation,
@@ -128,15 +131,7 @@ class UsersDataTables implements DataTableHandlerInterface
                 $user->getCity(),
                 $pack,
                 $user->getCertificationPhyto(),
-                $technician,
-                '
-                <a href="'.$this->router->generate('admin.users.password', ['id' => $user->getId()]).'" class="text-inverse p-r-10" data-toggle="tooltip" title="" data-original-title="Edit">
-                    <i class="ti-lock"></i>
-                </a> 
-                <a href="'.$this->router->generate('admin.users.edit', ['id' => $user->getId()]).'" class="text-inverse" title="" data-toggle="tooltip" data-original-title="Delete">
-                    <i class="ti-pencil-alt"></i>
-                </a>
-                '
+                $technician
             ];
         }
 

@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Exploitation;
+use App\Entity\IndexCanevas;
 use App\Entity\IndexCultures;
-use App\Entity\Products;
+
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Entity\Stocks;
+use App\Entity\Users;
 use App\Form\RecommendationAddProductType;
 use App\Form\RecommendationAddType;
 use App\Form\RecommendationMentionsType;
@@ -15,6 +18,7 @@ use App\Repository\ProductsRepository;
 use App\Repository\RecommendationProductsRepository;
 use App\Repository\RecommendationsRepository;
 use App\Repository\StocksRepository;
+use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -30,6 +34,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Symfony\Component\Validator\Constraints\Json;
 
 /**
  * Class RecommendationsController
@@ -58,72 +63,155 @@ class RecommendationsController extends AbstractController
     }
 
     /**
-     * @Route("recommendations/select", name="recommendations.select")
+     * @Route("recommendations", name="recommendation_index", methods={"GET"})
+     * @param RecommendationsRepository $rr
+     * @return Response
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function indexStaff( RecommendationsRepository $rr): Response
+    {
+        //Counters
+        $recommendationsCreate = $rr->countAllByStatus( 1 );
+
+        // Get Last Recommendations
+        if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
+            $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
+
+            //Counters
+            $recommendationsCreate = $rr->countAllByStatus( 1 );
+        } else {
+            $lastRecommendations = $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), date('Y'), 5 );
+        }
+
+        return $this->render('recommendations/staff/index.html.twig', [
+            'totalCreate' => $recommendationsCreate,
+            'lastRecommendations' => $lastRecommendations
+        ]);
+    }
+
+    /**
+     * @Route("recommendation/new_data_ajax", name="recommendations_select_data")
+     * @param Request $request
+     * @param UsersRepository $ur
+     * @param Users $users
+     * @return JsonResponse
+     */
+    public function selectData(Request $request, UsersRepository $ur): JsonResponse
+    {
+        //Get information from ajax call
+        $term = $request->query->get('q');
+        $limit = $request->query->get('page_limit');
+
+        //Query of like call
+        if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
+            $users = $ur->createQueryBuilder('u')
+                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.firstname LIKE :firstname')
+                ->setParameter('lastname', '%' . $term . '%')
+                ->setParameter('firstname', '%' . $term . '%')
+                ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
+                ->andWhere('u.id = e.users')
+                ->setMaxResults( $limit )
+                ->getQuery()
+                ->getResult()
+            ;
+        } else {
+            // Technician view only them users
+            $users = $ur->createQueryBuilder('u')
+                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.firstname LIKE :firstname')
+                ->setParameter('lastname', '%' . $term . '%')
+                ->setParameter('firstname', '%' . $term . '%')
+                ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
+                ->andWhere('u.id = e.users')
+                ->andWhere('u.technician = :tech')
+                ->setParameter(':tech', $this->getUser())
+                ->setMaxResults( $limit )
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
+        // Return Array of key = id && text = value
+        $array = [];
+        foreach ($users as $user) {
+            $array[] = array(
+                'id' => $user->getExploitation()->getId(),
+                'text' => $user->getIdentity()
+            );
+        }
+
+        // Return JsonResponse of code 200
+        return new JsonResponse( $array, 200);
+    }
+
+    /**
+     * @Route("recommendations/new", name="recommendation_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
-    public function select( Request $request ): Response
+    public function new( Request $request ): Response
     {
         $recommendation = new Recommendations();
-        $form = $this->createForm( RecommendationAddType::class, $recommendation, [ 'user' => $this->getUser() ]);
+        $form = $this->createForm( RecommendationAddType::class, $recommendation);
         $form->handleRequest( $request );
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->all();
-            $customer = $data['exploitation']->getData();
+            $data = $form->getData();
 
             // Display error if user don't have exploitation
-            if( $customer->getExploitation() == NULL) {
-                $this->addFlash('danger', 'Votre client n\'a aucune superficie déclarée, veuillez modifier son compte pour pouvoir lui établir une recommandation');
-                return $this->redirectToRoute('recommendations.select');
+            if( $data->getExploitation() == NULL) {
+                $this->addFlash('danger', 'Votre client n\'a aucune exploitation déclarée, veuillez modifier son compte pour pouvoir lui établir un catalogue');
+                return $this->redirectToRoute('recommendation_new');
             }
 
-            $recommendation->setExploitation( $customer->getExploitation() );
             $this->em->persist( $recommendation );
             $this->em->flush();
-            return $this->redirectToRoute('recommendations.canevas', [
+
+            // Other recommendation ( Go directly on list product page no canevas display)
+            if ( $recommendation->getCulture()->getSlug() == 'other') {
+                return $this->redirectToRoute('recommendation_product_list', ['id' => $recommendation->getId()]);
+            }
+
+            return $this->redirectToRoute('recommendation_canevas', [
                 'recommendations' => $recommendation->getId(),
                 'slug' => $recommendation->getCulture()->getSlug()
             ]);
         }
 
-        return $this->render('recommendations/select.html.twig', [
+        return $this->render('recommendations/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
      * Display canevas by id of culture
-     * @Route("recommendations/{recommendations}/canevas/{slug}", name="recommendations.canevas")
+     * @Route("recommendations/{recommendations}/canevas/{slug}", name="recommendation_canevas", methods={"GET", "POST"}, requirements={"recommendations":"\d+"})
      * @param Recommendations $recommendations
-     * @param IndexCultures $indexCultures
+     * @param IndexCanevas $indexCanevas
      * @param CulturesRepository $cr
      * @param RecommendationProductsRepository $rpr
      * @return Response
-     * @throws NoResultException
-     * @throws NonUniqueResultException
      */
-    public function canevas( Recommendations $recommendations, IndexCultures $indexCultures, CulturesRepository $cr, RecommendationProductsRepository $rpr ): Response
+    public function canevas( Recommendations $recommendations, IndexCanevas $indexCanevas, CulturesRepository $cr, RecommendationProductsRepository $rpr ): Response
     {
-        if ( $this->get('twig')->getLoader()->exists( 'recommendations/canevas/'.$indexCultures->getSlug().'.html.twig' ) ) {
-            $totalSize = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
-            return $this->render('recommendations/canevas/'.$indexCultures->getSlug().'.html.twig', [
+        if ( $this->get('twig')->getLoader()->exists( 'recommendations/canevas/assets/'.$indexCanevas->getSlug().'.html.twig' ) ) {
+            return $this->render('recommendations/canevas/assets/'.$indexCanevas->getSlug().'.html.twig', [
                 'recommendations' => $recommendations,
                 'rpr' => $rpr,
-                'totalSize' => $totalSize,
-                'culture' => $indexCultures,
+                'culture' => $indexCanevas,
                 'printRequest' => false
             ]);
         } else {
-            $this->addFlash('error', 'Aucun canevas existant pour cette culture');
-            return $this->redirectToRoute('recommendations.index' );
+            $this->addFlash('danger', 'Aucun canevas existant pour cette culture');
+            return $this->redirectToRoute('recommendation_index' );
         }
     }
 
     /**
      * Add product by click button on canevas
-     * @Route("recommendations/add-product", name="recommendations.add.product", methods={"POST"})
+     * @Route("recommendations/canevas/add-product", name="recommendations_canevas_product_add", methods={"GET", "POST"})
      * @param Request $request
      * @param ProductsRepository $pr
      * @param RecommendationsRepository $rr
@@ -137,7 +225,7 @@ class RecommendationsController extends AbstractController
         if ($request->isXmlHttpRequest()) {
             $product = $pr->findProductBySlug( $request->get('product_slug') );
             $recommendation = $rr->find( $request->get('recommendation_id'));
-            $cultureTotal = $cr->countSizeByIndexCulture( $recommendation->getCulture(), $recommendation->getExploitation() );
+            $cultureTotal = $recommendation->getCultureSize();
             //-- SETTERS
             $recommendationProducts = new RecommendationProducts();
             $recommendationProducts->setProduct( $product );
@@ -151,7 +239,7 @@ class RecommendationsController extends AbstractController
             $this->em->persist($recommendationProducts);
             $this->em->flush();
 
-            return $this->json([
+            return new JsonResponse([
                 'name_product' => $recommendationProducts->getProduct()->getName(),
                 'dose' => $recommendationProducts->getDose(),
                 'unit' => $recommendationProducts->getUnit()
@@ -161,11 +249,11 @@ class RecommendationsController extends AbstractController
         return new JsonResponse([
             'message' => 'AJAX Only',
             'type' => 'error'
-        ]);
+        ], 404);
     }
 
     /**
-     * @Route("recommendations/{id}/add-other-product", name="recommendations.add.other.product")
+     * @Route("recommendations/{id}/add-other-product", name="recommendation_product_add", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Recommendations $recommendations
      * @param Request $request
      * @param CulturesRepository $cr
@@ -173,23 +261,30 @@ class RecommendationsController extends AbstractController
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function addOtherProduct( Recommendations $recommendations, Request $request, CulturesRepository $cr )
+    public function newOtherProduct( Recommendations $recommendations, Request $request, CulturesRepository $cr )
     {
         $recommendationProducts = new RecommendationProducts();
         $form = $this->createForm( RecommendationAddProductType::class, $recommendationProducts);
         $form->handleRequest( $request );
 
-        $totalSize = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
+        $totalSize = $recommendations->getCultureSize();
 
         if ( $form->isSubmitted() && $form->isValid() ) {
+            $dose = $form->get('dose')->getData();
+
             $recommendationProducts->setRecommendation( $recommendations );
+            $recommendationProducts->setDose( $dose->getDose() );
+            //$recommendationProducts->setUnit( $dose->getUnit() );
+            // Auto Calc dose x total size
+            $recommendationProducts->setQuantity( $recommendations->getCultureSize() * $dose->getDose() );
+
             $this->em->persist( $recommendationProducts );
             $this->em->flush();
             $this->addFlash('success', 'Produit ' . $recommendationProducts->getProduct()->getName() . ' ajouté avec succès');
-            return $this->redirectToRoute('recommendations.synthese.products', ['id' => $recommendations->getId()]);
+            return $this->redirectToRoute('recommendation_product_list', ['id' => $recommendations->getId()]);
         }
 
-        return $this->render('recommendations/addProduct.html.twig', [
+        return $this->render('recommendations/staff/product/new.html.twig', [
             'recommendations' => $recommendations,
             'form' => $form->createView(),
             'totalSize' => $totalSize
@@ -197,7 +292,7 @@ class RecommendationsController extends AbstractController
     }
 
     /**
-     * @Route("recommendations/product/{id}/delete", name="recommendations.delete.product", methods={"DELETE"})
+     * @Route("recommendations/product/{id}/delete", name="recommendation_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      * @param RecommendationProducts $product
      * @param Request $request
      * @return RedirectResponse
@@ -209,11 +304,11 @@ class RecommendationsController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Produit supprimé avec succès');
         }
-        return $this->redirectToRoute('recommendations.synthese.products', ['id' => $product->getRecommendation()->getId()]);
+        return $this->redirectToRoute('recommendation_product_list', ['id' => $product->getRecommendation()->getId()]);
     }
 
     /**
-     * @Route("recommendations/{id}/delete", name="recommendations.delete", methods={"DELETE"})
+     * @Route("recommendations/{id}/delete", name="recommendation_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      * @param Recommendations $recommendation
      * @param Request $request
      * @return RedirectResponse
@@ -227,12 +322,12 @@ class RecommendationsController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Recommendation supprimé avec succès');
         }
-        return $this->redirectToRoute('recommendations.index');
+        return $this->redirectToRoute('recommendation_index');
     }
 
     /**
      * Edit Dose with editable Ajax Table
-     * @Route("recommendations/edit-dose", name="recommendations.edit.dose")
+     * @Route("recommendations/product/edit/dose", name="recommendation_product_dose_edit")
      * @param Request $request
      * @param CulturesRepository $cr
      * @return JsonResponse
@@ -243,17 +338,18 @@ class RecommendationsController extends AbstractController
     {
         if ($request->isXmlHttpRequest()) {
             $recommendation = $this->rpr->find( $request->get('id'));
-            $cultureTotal = $cr->countSizeByIndexCulture( $recommendation->getRecommendation()->getCulture(), $recommendation->getRecommendation()->getExploitation() );
+            $cultureTotal = $recommendation->getCultureSize();
             $recommendation->setDose( $request->get('dose'));
             //-- Calcul total of quantity with new dose
             $result = $cultureTotal * $recommendation->getDose();
             $recommendation->setQuantity( $result );
             $this->em->flush();
-            return $this->json(["type" => 'success'], 200);
+            return new JsonResponse(["type" => 'success'], 200);
         }
         return new JsonResponse([
             'message' => 'AJAX Only',
-            'type' => 'error'
+            'type' => 'error',
+            404
         ]);
     }
 
@@ -278,21 +374,23 @@ class RecommendationsController extends AbstractController
     }
 
     /**
-     * @Route("recommendations/{id}/list-products", name="recommendations.synthese.products")
+     * @Route("recommendations/{id}/list-products", name="recommendation_product_list", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Recommendations $recommendations
      * @return Response
      */
-    public function syntheseProducts( Recommendations $recommendations )
+    public function listProduct( Recommendations $recommendations )
     {
         $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-        return $this->render( 'recommendations/listProducts.html.twig', [
+        return $this->render( 'recommendations/staff/product/list.html.twig', [
             'recommendations' => $recommendations,
             'products' => $products
         ]);
     }
 
     /**
-     * @Route("recommendations/{id}/mentions", name="recommendations.mentions")
+     * This function is disable 29/12/2020
+     * From list product technician go to directly to summary
+     * @Route("recommendations/{id}/mentions", name="recommendation_mentions", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Recommendations $recommendations
      * @param Request $request
      * @return Response
@@ -303,133 +401,106 @@ class RecommendationsController extends AbstractController
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             //Update Status of recommendations
             $recommendations->setStatus( 1 );
             $this->em->flush();
-            
-            return $this->redirectToRoute('recommendations.synthese', ['id' => $recommendations->getId()]);
+
+            $this->addFlash('info', 'Le catalogue est maintenant en statut Créé');
+            $this->addFlash('success', 'Catalogue créé avec succès');
+            return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
 
-        return $this->render('recommendations/mentions.html.twig', [
+        return $this->render('recommendations/staff/mentions.html.twig', [
             'recommendations' => $recommendations,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("recommendations/{id}/synthese", name="recommendations.synthese")
-     * @param Recommendations $recommendations
+     * @Route("recommendations/{id}/summary", name="recommendation_summary")
+     * @param Recommendations $recommendation
      * @param CulturesRepository $cr
      * @return Response
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function synthese( Recommendations $recommendations, CulturesRepository $cr ): Response
+    public function summary( Recommendations $recommendation, CulturesRepository $cr ): Response
     {
-        $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-        $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
+        $products = $this->rpr->findBy( ['recommendation' => $recommendation] );
+        $cultureTotal = $recommendation->getCultureSize();
 
-        return $this->render('recommendations/synthese.html.twig', [
-            'recommendations' => $recommendations,
+        // After modification of 29/12/2020 (Disable mentions) User go to summary directly by list product page
+        if ( $recommendation->getStatus() == 0 ) {
+
+            $recommendation->setStatus( 1 );
+            $this->em->flush();
+
+        }
+
+        return $this->render('recommendations/staff/summary.html.twig', [
+            'recommendation' => $recommendation,
             'products' => $products,
-            'culture' => $recommendations->getCulture(),
-            'customer' => $recommendations->getExploitation()->getUsers(),
+            'culture' => $recommendation->getCulture(),
+            'customer' => $recommendation->getExploitation()->getUsers(),
             'cultureTotal' => $cultureTotal
         ]);
     }
 
     /**
-     * @Route("recommendations/{id}/send", name="recommendations.send", methods="SEND")
+     * @Route("recommendations/{id}/send", name="recommendation_send", methods="SEND")
      * @param Recommendations $recommendations
      * @param Request $request
-     * @param CulturesRepository $cr
      * @param \Swift_Mailer $mailer
      * @param StocksRepository $sr
+     * @param RecommendationProductsRepository $rpr
      * @return Response
-     * @throws NoResultException
-     * @throws NonUniqueResultException
      */
-    public function send( Recommendations $recommendations, Request $request, CulturesRepository $cr, \Swift_Mailer $mailer, StocksRepository $sr )
+    public function send( Recommendations $recommendations, Request $request, \Swift_Mailer $mailer, StocksRepository $sr, RecommendationProductsRepository $rpr )
     {
         if ($this->isCsrfTokenValid('send', $request->get('_token'))) {
             //-- Update Status of recommendation
-            $recommendations->setStatus( 2 );
+            $recommendations->setStatus( 3 );
 
-            //-- Init @Var
-            $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-            $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
-            $customer = $recommendations->getExploitation()->getUsers();
-            $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
-
-            //-- Add products to customer's stock
-            $oldStocks = $sr->findBy(array('exploitation' => $customer->getExploitation()));
-            $stockProducts = [];
-            foreach ($oldStocks as $oldStock) {
-                $stockProducts[] = $oldStock->getProduct()->getId();
-            }
-            foreach ($products as $product)
-            {
+            //-- Add to stock
+            $products = $rpr->findBy( ['recommendation' => $recommendations ]);
+            foreach ( $products as $product ) {
                 $stock = new Stocks();
-                $stock
-                    ->setProduct($product->getProduct())
-                    ->setExploitation($customer->getExploitation())
-                    ->setQuantity(0);
-                if (!in_array($stock->getProduct()->getId(), $stockProducts)) {
-                    $this->em->persist($stock);
-                }
+                $stock->setExploitation( $recommendations->getExploitation() );
+                $stock->setProduct( $product->getProduct() );
+                $stock->setQuantity( $product->getQuantity() );
+
+                $this->em->persist( $stock );
             }
 
-            //-- Generate PDF
-            $pdfOptions = new Options();
-            $pdfOptions->set( 'defaultFront', 'Arial');
-            $pdfOptions->set( 'isRemoteEnabled', true);
-            $pdf = new Dompdf( $pdfOptions );
-            $html = $this->render('recommendations/synthesePdf.html.twig', [
-                'products' => $products,
-                'recommendations' => $recommendations,
-                'customer' => $customer,
-                'cultureTotal' => $cultureTotal
-            ]);
-            $pdf->loadHtml( $html->getContent() );
-            $pdf->setPaper('A4', 'portrait');
-            $pdf->render();
-            $output = $pdf->output();
-            //-- Put file on folder
-            file_put_contents('uploads/recommendations/'.$fileName, $output);
+            // Save to Db
+            $this->em->flush();
 
             //-- SEND PDF TO USER
             $link = $request->getUriForPath(' ');
             $message = (new \Swift_Message('Nouvelle recommendation disponible'))
                 ->setFrom('send@lms-sodepac.fr')
-                ->setTo( $customer->getEmail() )
+                ->setTo( $recommendations->getExploitation()->getUsers()->getEmail() )
                 ->setBody(
                     $this->renderView(
                         'emails/recommendation.html.twig', [
-                            'identity' => $customer->getIdentity(),
+                            'identity' => $recommendations->getExploitation()->getUsers()->getIdentity(),
                             'link' => $link
                         ]
                     ),
                     'text/html'
                 )
-                ->attach( \Swift_Attachment::fromPath( 'uploads/recommendations/'.$fileName ) )
+                ->attach( \Swift_Attachment::fromPath( 'uploads/recommendations/'.$recommendations->getPdf() ) )
             ;
             $mailer->send($message);
 
-            // Delete File
-            /*
-            $fileSystem = new Filesystem();
-            $fileSystem->remove(['uploads/recommendations/'.$fileName]);
-            */
-
-            $this->em->flush();
-            $this->addFlash('success', 'Recommandation envoyée avec succès');
+            $this->addFlash('success', 'Email envoyé avec succès. Status du catalogue: Envoyé');
+            return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
-        return $this->redirectToRoute('recommendations.index');
+        return $this->redirectToRoute('recommendation_index');
     }
 
     /**
-     * @Route("recommendation-download/{id}", name="recommendations.download", methods="DOWNLOAD")
+     * @Route("recommendation/{id}/download", name="recommendation_download", methods="DOWNLOAD")
      * @param Recommendations $recommendations
      * @param Request $request
      * @param CulturesRepository $cr
@@ -442,71 +513,98 @@ class RecommendationsController extends AbstractController
     {
         set_time_limit(300);
         ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '-1');
         $token = $request->get('_token');
         if ($this->isCsrfTokenValid('download', $token)) {
-            //-- Init @Var
-            $fileSystem = new Filesystem();
-            $fileSystem->mkdir( '../public/uploads/recommendations/'.$token );
-            $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-            $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
-            $customer = $recommendations->getExploitation()->getUsers();
-            $fileName = 'Recommandation-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
+            try {
+                //-- Init @Var
+                $fileSystem = new Filesystem();
+                $fileSystem->mkdir( '../public/uploads/recommendations/process/'.$token );
+                $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
+                $cultureTotal = $recommendations->getCultureSize();
+                $customer = $recommendations->getExploitation()->getUsers();
+                $fileName = 'Catalogue-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
 
-            //-- Generate PDF
-            $pdfOptions = new Options();
-            $pdfOptions->set('defaultFront', 'Tahoma');
-            $pdfOptions->setIsRemoteEnabled( true );
+                //-- Generate PDF
+                $pdfOptions = new Options();
+                $pdfOptions->set('defaultFront', 'Tahoma');
+                $pdfOptions->setIsRemoteEnabled( true );
 
-            //-- First Page
-            $recommendationDoc = new Dompdf( $pdfOptions );
-            $html = $this->render('recommendations/synthesePdf.html.twig', [
-                'products' => $products,
-                'recommendations' => $recommendations,
-                'customer' => $customer,
-                'cultureTotal' => $cultureTotal
-            ]);
-            $recommendationDoc->loadHtml( $html->getContent() );
-            $recommendationDoc->setPaper('A4', 'portrait');
-            $recommendationDoc->render();
-            $outputFirstFile = $recommendationDoc->output();
-            file_put_contents( '../public/uploads/recommendations/'.$token.'/1.pdf', $outputFirstFile);
+                //-- First Page
+                $recommendationDoc = new Dompdf( $pdfOptions );
+                $html = $this->render('recommendations/synthesePdf.html.twig', [
+                    'products' => $products,
+                    'recommendations' => $recommendations,
+                    'customer' => $customer,
+                    'cultureTotal' => $cultureTotal
+                ]);
+                $recommendationDoc->loadHtml( $html->getContent() );
+                $recommendationDoc->setPaper('A4', 'portrait');
+                $recommendationDoc->render();
+                $outputFirstFile = $recommendationDoc->output();
+                file_put_contents( '../public/uploads/recommendations/process/'.$token.'/1.pdf', $outputFirstFile);
 
-            //-- Canevas
-            $canevasPage = new Dompdf( $pdfOptions );
-            $html =  $this->render('recommendations/canevas/'.$recommendations->getCulture()->getSlug().'.html.twig', [
-                'recommendations' => $recommendations,
-                'rpr' => $recommendationProductsRepository,
-                'totalSize' => 0,
-                'culture' => $recommendations->getCulture(),
-                'printRequest' => true
-            ]);
-            $canevasPage->loadHtml( $html->getContent() );
-            $canevasPage->setPaper('A2', 'landscape');
-            $canevasPage->render();
-            $outputFirstFile = $canevasPage->output();
-            file_put_contents( '../public/uploads/recommendations/'.$token.'/2.pdf', $outputFirstFile);
+                //-- Canevas
+                // Only if culture is not other
+                if ( $recommendations->getCulture()->getSlug() != 'other') {
+                    $canevasPage = new Dompdf( $pdfOptions );
+                    $html =  $this->render('recommendations/canevas/assets/'.$recommendations->getCulture()->getSlug().'.html.twig', [
+                        'recommendations' => $recommendations,
+                        'rpr' => $recommendationProductsRepository,
+                        'totalSize' => 0,
+                        'culture' => $recommendations->getCulture(),
+                        'printRequest' => true
+                    ]);
+                    set_time_limit(300);
+                    ini_set('max_execution_time', 300);
+                    ini_set('memory_limit', '-1');
+                    $canevasPage->loadHtml( $html->getContent() );
+                    $canevasPage->setPaper('A2', 'landscape');
+                    $canevasPage->render();
+                    $outputFirstFile = $canevasPage->output();
+                    file_put_contents( '../public/uploads/recommendations/process/'.$token.'/2.pdf', $outputFirstFile);
+                }
 
-            //-- Merge All Documents
-            $merger = new Merger();
-            $merger->addFile( '../public/uploads/recommendations/'.$token.'/1.pdf' );
-            $merger->addFile( '../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf' );
-            $merger->addFile( '../public/uploads/recommendations/'.$token.'/2.pdf' );
+                //-- Merge All Documents
+                $merger = new Merger();
+                $merger->addFile( '../public/uploads/recommendations/process/'.$token.'/1.pdf' );
 
-            if ( $recommendations->getMention() != NULL OR $recommendations->getMentionTxt() != NULL ) {
-                $merger->addFile('../public/mentions/' . $recommendations->getMention() . '.pdf');
+                if($fileSystem->exists('../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf')) {
+                    $merger->addFile( '../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf' );
+                }
+
+                if ( $recommendations->getCulture()->getSlug() != 'other') {
+                    $merger->addFile('../public/uploads/recommendations/process/' . $token . '/2.pdf');
+                };
+
+                if ( $recommendations->getMention() != NULL OR $recommendations->getMentionTxt() != NULL ) {
+                    $merger->addFile('../public/mentions/' . $recommendations->getMention() . '.pdf');
+                }
+
+                $finalDocument = $merger->merge();
+                //-- Finale File
+                file_put_contents( '../public/uploads/recommendations/'.$token.'.pdf', $finalDocument);
+
+                // Save file to DB
+                $recommendations
+                    ->setPdf( $token . '.pdf' )
+                    ->setStatus(2);
+
+                $this->em->flush();
+
+                //-- Download for user
+                //$this->forceDownLoad( '../public/uploads/recommendations/'.$token.'.pdf', $fileName );
+
+                //-- Remove temp folder
+                $fileSystem->remove('../public/uploads/recommendations/process/'.$token);
+
+                $this->addFlash('success', 'Document généré avec succès. Status du catalogue: Générée');
+                return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
+            } catch (Exception $e) {
+                $this->addFlash('danger', 'Une erreur est survenue');
+                return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
             }
-
-            $finalDocument = $merger->merge();
-            //-- Finale File
-            file_put_contents( '../public/uploads/recommendations/'.$token.'/final.pdf', $finalDocument);
-
-            //-- Download for user
-            $this->forceDownLoad( '../public/uploads/recommendations/'.$token.'/final.pdf', $fileName );
-
-            //-- Remove temp folder
-            $fileSystem->remove('../public/uploads/recommendations/'.$token);
         }
-        return $this->redirectToRoute('recommendations.index');
     }
 
     private function forceDownLoad($filename, $nameOfFile)
@@ -521,80 +619,72 @@ class RecommendationsController extends AbstractController
         header("Content-Transfer-Encoding: binary");
         header("Content-Length: ".filesize($filename));
         @readfile($filename);
-        exit(0);
     }
 
     /**
-     * @Route("recommendations", name="recommendations.index")
-     * @return Response
-     */
-    public function indexStaff(): Response
-    {
-        return $this->render('recommendations/index.html.twig');
-    }
-
-    /**
-     * @Route("recommendations/archive", name="recommendations.archive")
+     * @Route("recommendations/synthese", name="recommendation_synthese")
      * @param RecommendationsRepository $rr
      * @return Response
      */
-    public function archive( RecommendationsRepository $rr ): Response
+    public function synthese( RecommendationsRepository $rr ): Response
     {
         $year = date('Y');
         if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
-            return $this->render('recommendations/archive.html.twig', [
+            return $this->render('recommendations/staff/synthese/index.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
         } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
-            return $this->render('recommendations/archive.html.twig', [
+            return $this->render('recommendations/staff/synthese/index.html.twig', [
                 'recommendations' => $rr->findAllByYear( $year )
             ]);
         } else {
-            return $this->render('recommendations/archive.html.twig', [
+            return $this->render('recommendations/staff/synthese/index.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
         }
     }
 
     /**
-     * @Route("recommendations/data/{year}", name="recommendations.index.data")
+     * @Route("recommendations/synthese/data/{year}", name="recommendation_synthese_data")
      * @param RecommendationsRepository $rr
      * @param $year
      * @return Response
      */
-    public function indexStaffData( RecommendationsRepository $rr, $year ): Response
+    public function syntheseData( RecommendationsRepository $rr, $year ): Response
     {
         //-- If user is technician get recommendation of user of technician
-        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
-            return $this->render('recommendations/data.html.twig', [
+        /*if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
+            return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
         } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
-            return $this->render('recommendations/data.html.twig', [
+            return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
         } else {
-            return $this->render('recommendations/data.html.twig', [
+            return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
-        }
+        }*/
+        return $this->render('recommendations/staff/synthese/data.html.twig', [
+            'recommendations' => $rr->findAllByYear( $year )
+        ]);
     }
 
     /**
- * @Route("exploitation/recommendations", name="exploitation.recommendations.index")
+ * @Route("exploitation/recommendations", name="exploitation_recommendation_index")
  * @param RecommendationsRepository $rr
  * @return Response
  */
     public function indexUser( RecommendationsRepository $rr ): Response
     {
-        $year = date('Y');
         return $this->render('exploitation/recommendations/index.html.twig', [
-            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year )
+            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser(), date('Y') )
         ]);
     }
 
     /**
-     * @Route("exploitation/recommendations/data/{year}", name="exploitation.recommendations.data")
+     * @Route("exploitation/recommendations/data/{year}", name="exploitation_recommendation_data")
      * @param RecommendationsRepository $rr
      * @param $year
      * @return Response
@@ -607,7 +697,7 @@ class RecommendationsController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/recommendations/{id}", name="exploitation.recommendations.show")
+     * @Route("exploitation/recommendations/{id}", name="exploitation_recommendation_show")
      * @param Recommendations $recommendations
      * @param CulturesRepository $cr
      * @return Response
@@ -616,8 +706,11 @@ class RecommendationsController extends AbstractController
      */
     public function showUser( Recommendations $recommendations, CulturesRepository $cr ): Response
     {
+        if ($this->getUser() != $recommendations->getExploitation()->getUsers()) {
+            throw $this->createNotFoundException('Cette recommendation ne vous appartient pas.');
+        }
         $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-        $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
+        $cultureTotal = $recommendations->getCultureSize();
         return $this->render('exploitation/recommendations/show.html.twig', [
             'recommendations' => $recommendations,
             'products' => $products,

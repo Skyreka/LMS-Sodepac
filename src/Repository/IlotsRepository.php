@@ -56,6 +56,23 @@ class IlotsRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param $exploitation
+     * @return int|mixed|string
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function countIlotByExploitation( $exploitation )
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->andWhere('t.exploitation = :exp')
+            ->setParameter('exp', $exploitation)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    /**
      * @param $indexNameId
      * @param $exploitation
      * @param null $onlyQuery

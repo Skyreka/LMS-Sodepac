@@ -11,7 +11,6 @@ use App\Repository\PanoramasRepository;
 use App\Repository\PanoramaUserRepository;
 use App\Repository\UsersRepository;
 use DateTime;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +21,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-
+/**
+ * @Route("/panorama")
+ */
 class PanoramasController extends AbstractController
 {
     /**
@@ -30,7 +31,7 @@ class PanoramasController extends AbstractController
      */
     private $repositoryPanoramas;
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $em;
 
@@ -41,7 +42,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas", name="panoramas.index")
+     * @Route("", name="panorama_index", methods={"GET"})
      * @return Response
      */
     public function index(): Response
@@ -53,7 +54,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas/{id}", name="panoramas.delete", methods="DELETE")
+     * @Route("/{id}", name="panorama_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse
@@ -66,28 +67,28 @@ class PanoramasController extends AbstractController
             $this->addFlash('success', 'Panorama supprimé avec succès');
         }
 
-        return $this->redirectToRoute('panoramas.index');
+        return $this->redirectToRoute('panorama_index');
     }
 
     /**
-     * @Route("/panoramas/{id}", name="panoramas.valid", methods="VALID")
+     * @Route("/{id}", name="panorama_valid", methods="VALID", requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse
      */
     public function valid(Panoramas $panoramas, Request $request)
     {
-        if ($this->isCsrfTokenValid('delete' . $panoramas->getId(), $request->get('_token'))) {
+        if ($this->isCsrfTokenValid('valid' . $panoramas->getId(), $request->get('_token'))) {
             $panoramas->setValidate(1);
             $this->em->flush();
             $this->addFlash('success', 'Panorama validé avec succès');
         }
 
-        return $this->redirectToRoute('panoramas.index');
+        return $this->redirectToRoute('panorama_index');
     }
 
     /**
-     * @Route("/panoramas/new", name="panoramas.new")
+     * @Route("/new", name="panorama_new", methods={"GET", "POST"})
      * @param Request $request
      * @param UsersRepository $ur
      * @param \Swift_Mailer $mailer
@@ -180,7 +181,7 @@ class PanoramasController extends AbstractController
             }
 
             $this->addFlash('success', 'Panorama crée avec succès');
-            return $this->redirectToRoute('panoramas.index');
+            return $this->redirectToRoute('panorama_index');
         }
 
         return $this->render('panoramas/new.html.twig', [
@@ -189,7 +190,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panorama/edit/{id}", name="panoramas.edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="panorama_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return Response
@@ -207,9 +208,7 @@ class PanoramasController extends AbstractController
 
             if ($firstFile) {
                 $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
-                //$safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $safeFilename = $originalFilename;
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
                 try {
                     $firstFile->move(
                         $this->getParameter('panorama_directory'),
@@ -222,8 +221,8 @@ class PanoramasController extends AbstractController
 
             if ($secondFile) {
                 $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $secondFile->guessExtension();
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
+
 
                 try {
                     $secondFile->move(
@@ -237,8 +236,6 @@ class PanoramasController extends AbstractController
 
             if ($thirdFile) {
                 $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $thirdFile->guessExtension();
 
                 try {
                     $thirdFile->move(
@@ -251,7 +248,7 @@ class PanoramasController extends AbstractController
             }
             $this->em->flush();
             $this->addFlash('success', 'Panorama modifié avec succès');
-            return $this->redirectToRoute('panoramas.index');
+            return $this->redirectToRoute('panorama_index');
         }
 
         return $this->render('panoramas/edit.html.twig', [
@@ -261,79 +258,15 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas/send/{id}", name="panoramas.send", methods="GET|POST")
+     * @Route("/send/{id}", name="panorama_send", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
+     * @param \Swift_Mailer $mailer
      * @return Response
-     * @throws \Exception
      */
-    public function send(Panoramas $panoramas, Request $request): Response
+    public function send(Panoramas $panoramas, Request $request, \Swift_Mailer $mailer): Response
     {
-
-        //TODO: Clear this
-        //Set form
-        if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
-            $form = $this->createFormBuilder()
-                ->add('customers', EntityType::class, [
-                    'class' => Users::class,
-                    'choice_label' => function(Users $user) {
-                        return $user->getFirstname() . ' ' . $user->getLastname();
-                    },
-                    'query_builder' => function (UsersRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->andWhere('u.status = :role')
-                            ->setParameter('role', 'ROLE_USER' );
-                    },
-                    'label'     => 'Envoyer à :',
-                    'expanded'  => true,
-                    'multiple'  => true,
-                ])
-                ->add('display_at', DateType::class, [
-                    'widget' => 'single_text',
-                    'html5' => false,
-                    'mapped' => false,
-                    'required' => false,
-                    'format' => 'dd/MM/yyyy',
-                    'attr' => [
-                        'class' => 'js-datepicker',
-                        'autocomplete' => 'off'
-                    ],
-                    'label' => 'Date d\'envoi',
-                    'help' => 'Remplir uniquement en cas d\'envoi différé.'
-                ])
-                ->getForm();
-        } else {
-            $form = $this->createFormBuilder()
-                ->add('customers', EntityType::class, [
-                    'class' => Users::class,
-                    'choice_label' => function(Users $user) {
-                        return $user->getFirstname() . ' ' . $user->getLastname();
-                    },
-                    'query_builder' => function (UsersRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->orderBy('u.status', 'ASC')
-                            ->andWhere('u.technician = :technician')
-                            ->setParameter('technician', $this->getUser()->getId() );
-                    },
-                    'label'     => 'Envoyer à :',
-                    'expanded'  => true,
-                    'multiple'  => true,
-                ])
-                ->add('display_at', DateType::class, [
-                    'widget' => 'single_text',
-                    'html5' => false,
-                    'mapped' => false,
-                    'required' => false,
-                    'format' => 'dd/MM/yyyy',
-                    'attr' => [
-                        'class' => 'js-datepicker',
-                        'autocomplete' => 'off'
-                    ],
-                    'label' => 'Date d\'envoi',
-                    'help' => 'Remplir uniquement en cas d\'envoi différé.'
-                ])
-                ->getForm();
-        }
+        $form = $this->createForm(PanoramaSendType::class);
         $form->handleRequest($request);
 
         //Submit form
@@ -346,17 +279,33 @@ class PanoramasController extends AbstractController
                 $this->em->persist($relation);
                 $relation->setPanorama($panoramas);
                 $relation->setCustomers($customer);
-                $relation->setSender($this->getUser());
+                $relation->setSender( $this->getUser() );
                 if ( $displayAt !== null ) {
                     $displayAt->setTime(8,00);
                     $relation->setDisplayAt($displayAt);
                 } else {
                     $relation->setDisplayAt($datetime);
                 }
+
+                //Send email notification
+                $message = (new \Swift_Message('Un nouveau panorama disponible sur LMS-Sodepac.'))
+                    ->setFrom('send@lms-sodepac.fr')
+                    ->setTo( $customer->getEmail() )
+                    ->setBody(
+                        $this->renderView(
+                            'emails/notification/user/panorama.html.twig', [
+                                'first_name' => $customer->getIdentity()
+                            ]
+                        ),
+                        'text/html'
+                    )
+                ;
+                $mailer->send($message);
             }
             $this->em->flush();
+
             $this->addFlash('success', 'Panorama envoyé avec succès');
-            return $this->redirectToRoute('panoramas.index');
+            return $this->redirectToRoute('panorama_index');
         }
 
         return $this->render('panoramas/send.html.twig', [
@@ -366,7 +315,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/panorama/{id}", name="user.panorama.check", methods="CHECK")
+     * @Route("/user/{id}", name="panorama_user_check", methods="CHECK", requirements={"id":"\d+"})
      * @param PanoramaUser $panoramaUser
      * @param Request $request
      * @return RedirectResponse
@@ -378,11 +327,11 @@ class PanoramasController extends AbstractController
             $this->em->flush();
         }
 
-        return $this->redirectToRoute('user.panoramas.history.index');
+        return $this->redirectToRoute('panorama_user_history_index');
     }
 
     /**
-     * @Route("/panoramas/history", name="panoramas.history.index")
+     * @Route("/panoramas/history", name="panorama_history_index", methods={"GET"})
      * @return Response
      */
     public function history(): Response
@@ -391,7 +340,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/panoramas/history/{year}", name="panoramas.history.show")
+     * @Route("/history/{year}", name="panorama_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response
@@ -399,7 +348,7 @@ class PanoramasController extends AbstractController
     public function list(PanoramaUserRepository $pur, $year): Response
     {
         $user = $this->getUser();
-        if ($user->getStatus() == 'ROLE_ADMIN') { 
+        if ($user->getStatus() == 'ROLE_ADMIN') {
             $panoramas = $pur->findAllByYear($year);
         } else {
             $panoramas = $pur->findAllByYearAndSender($year, $this->getUser());
@@ -411,9 +360,10 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/panoramas/history", name="user.panoramas.history.index")
+     * @Route("/user/history", name="panorama_user_history_index", methods={"GET"})
      * @param PanoramaUserRepository $pur
      * @return Response
+     * @throws \Exception
      */
     public function userHistory(PanoramaUserRepository $pur): Response
     {
@@ -425,7 +375,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/panoramas/history/{year}", name="user.panoramas.history.show")
+     * @Route("/user/history/{year}", name="panorama_user_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response

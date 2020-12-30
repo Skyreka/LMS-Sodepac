@@ -14,22 +14,32 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">{{ intervention }}</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('ilots.show', {id: culture.ilot.id})}}">{{ culture.ilot.name }}</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('cultures.show', {id: culture.id})}}">{{ culture.name.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('ilots_show', {id: culture.ilot.id})}}">{{ culture.ilot.name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('cultures_show', {id: culture.id})}}">{{ culture.name.name }}</a></li>
                     <li class="breadcrumb-item active">{{ intervention }}</li>
                 </ol>
             </div>
         </div>
-        {% if warningMessage %}
-            <div class="alert alert-warning">Attention! Vous allez appliquer un produit moins de 48H après une autre application de produit sur cette culture, assurez vous que cette intervention est autorisé en consultant le site officiel <a href="https://ephy.anses.fr/" target="_blank">ephy.anses.fr</a></div>
-        {% endif %}
-        {% if intervention == 'Traitement-Divers' %}
-            <div class="alert alert-warning">Attention, cette intervention rentrera en compte dans le calcul de l'IFT</div>
-        {% endif %}
-        {% if app.session.get('listCulture') %}
-            <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login.success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
-        {% endif %}
+        <input type="hidden" id="cultureHectare" value="{{ culture.size }}" />
+        <div class="col-12">
+            {% if warningMessage %}
+                <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant <a href="https://www.melanges.arvalisinstitutduvegetal.fr" target="_blank">melanges.arvalisinstitutduvegetal.fr</a>   En cas de doute, consulter votre conseiller.
+</div>
+            {% endif %}
+            {% if intervention == 'Traitement-Divers' %}
+                <div class="alert alert-warning">Attention, cette intervention rentrera en compte dans le calcul de l'IFT</div>
+            {% endif %}
+            {% if app.session.get('listCulture') %}
+                <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login_success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
+            {% endif %}
+            <!--begin::Alert-->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -65,11 +75,23 @@
             data[$field.attr('name')] =  $field.val()
             $.post(form.attr('action'), data).then(function (data) {
                 let input = $(data).find('form')
+
                 $(form).replaceWith( input )
+
                 $('.js-datepicker').datepicker({
                     weekStart:0,
                     time: 1,
                     language:"fr"
+                });
+
+                $('#phyto_intervention_doseHectare').on('input', function () {
+
+                    let doseHectare = $(this).val();
+                    let hectare = $('#cultureHectare').val()
+
+                    let total = doseHectare * hectare;
+
+                    $('#quantityLabel').text( 'Dose appliqué totale : ' + total.toFixed(2) + '  (' + doseHectare + ' x ' + hectare + 'ha )' );
                 });
             })
         })
@@ -99,5 +121,30 @@
             if (val > max)
                 _this.val(max);
         });*/
+    </script>
+
+    <script>
+        $(document).on('change', '#intervention_add_product_productInStock', function () {
+            let $field = $(this);
+            let $form = $field.closest('form');
+            let data = {};
+            data[$field.attr('name')] = $field.val();
+            $.post($form.attr('action'), data).then(function (data) {
+                let $input = $(data).find('#intervention_add_product_doses');
+                $('#intervention_add_product_doses').replaceWith($input)
+            })
+        })
+        $(document).on('change', '#intervention_add_product_doses', function () {
+            let $field = $(this)
+            let $product = $('#intervention_add_product_productInStock');
+            let form = $field.closest('form');
+            let data = {}
+            data[$product.attr('name')] =  $product.val();
+            data[$field.attr('name')] =  $field.val();
+            $.post(form.attr('action'), data).then(function (data) {
+                let input = $(data).find('form');
+                $(form).replaceWith( input )
+            })
+        })
     </script>
 {% endblock %}

@@ -124,7 +124,9 @@ class CulturesRepository extends ServiceEntityRepository
             ->leftJoin( Ilots::class, 'il', 'WITH', 'il.id = c.ilot')
             ->where('c.name = :nameId')
             ->andWhere('il.exploitation = :exploitation')
+            ->andWhere('c.status = :status')
             ->setParameter('nameId', $indexNameId)
+            ->setParameter('status', 0)
             ->setParameter('exploitation', $exploitation)
         ;
 

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Users;
+use App\Entity\Warehouse;
 use App\Repository\UsersRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -30,6 +31,7 @@ class UserType extends AbstractType
                     'autocomplete' => 'off'
                 ]
             ])
+            ->add('company')
             ->add('email', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'off'
@@ -42,6 +44,8 @@ class UserType extends AbstractType
                     'autocomplete' => 'off'
                 ]
             ])
+            ->add('address')
+            ->add('postal_code')
             ->add('city', TextType::class, [
                 'empty_data' => '',
                 'required' => false,
@@ -52,6 +56,14 @@ class UserType extends AbstractType
             ->add('pack', ChoiceType::class, [
                 'choices' => $this->getPack(),
                 'disabled' => $options['is_edit']
+            ])
+            ->add('warehouse', EntityType::class, [
+                'required' => 'false',
+                'class' => Warehouse::class,
+                'disabled' => $options['is_edit'],
+                'choice_label' => function(Warehouse $warehouse) {
+                    return $warehouse->getName();
+                },
             ])
             ->add('certification_phyto')
             ->add('technician', EntityType::class, [

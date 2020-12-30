@@ -13,34 +13,33 @@
                 <h3 class="text-themecolor">Accueil</h3>
             </div>
         </div>
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-        {% for message in app.flashes('warning') %}
-            <div class="alert alert-warning">{{ message }}</div>
-        {% endfor %}
-        {% for message in app.flashes('danger') %}
-            <div class="alert alert-danger">{{ message }}</div>
-        {% endfor %}
+        <div class="col-12">
+            <!--begin::Alert-->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
         {% if app.user.reset == 1 %}
             <div class="alert alert-danger">Votre technicien a modifié votre mot de passe <br> Merci de bien vouloir le modifier pour plus de sécurité.
-                <br><a href="{{ path('account.password') }}">Modifier mot de passe</a></div>
+                <br><a href="{{ path('account_index') }}">Modifier mot de passe</a></div>
         {% endif %}
         {% if app.user.exploitation is null %}
-            <div class="alert alert-info">Vous n'avez actuellement pas d'exploitation <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation</div>
+            <div class="alert alert-warning">Vous n'avez actuellement pas d'exploitation disponible. <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation.</div>
         {% endif %}
         <div class="row">
             <div class="col-3 mb-3 d-block d-sm-none">
-                <a href="{{ path('user.bsv.history.index') }}">
+                <a href="{{ path('user_flash_index') }}">
                     <i class="fa fa-bolt fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1"
-                        {% if bsvs|length > 0 %}
+                        {% if flashs|length > 0 %}
                             style="color: red;"
                         {% endif %}
                         >F</span></i>
                 </a>
             </div>
             <div class="col-3 mb-3 d-block d-sm-none">
-                <a href="{{ path('user.panoramas.history.index') }}">
+                <a href="{{ path('panorama_user_history_index') }}">
                     <i class="fa fa-newspaper-o fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1"
                         {% if panoramas|length > 0 %}
                             style="color: red;"
@@ -49,92 +48,99 @@
                 </a>
             </div>
             <div class="col-3 mb-3 d-block d-sm-none">
-                <a href="{{ path('exploitation.recommendations.index') }}">
-                    <i class="fa fa-thumbs-up fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">R</span></i>
+                <a href="{{ path('exploitation_recommendation_index') }}">
+                    <i class="fa fa-book fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">C</span></i>
                 </a>
             </div>
             <div class="col-3 mb-3 d-block d-sm-none">
-                <a href="{{ path('tickets.home') }}">
+                <a href="{{ path('tickets_index') }}">
                     <i class="fa fa-comments-o fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">T</span></i>
                 </a>
             </div>
             <div class="col-md-6">
-                <a href="{{ path('ilots.index') }}" class="btn btn-warning btn-lg btn-block mb-4">Ilots</a>
-                <a href="{{ path('multiple.intervention.index') }}" class="btn btn-success btn-lg btn-block mb-4">Cultures</a>
-                <a href="{{ path('exploitation.stock.index') }}" class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</a>
-                <a href="{{ path('exploitation.irrigation.index') }}" class="btn btn-info btn-lg btn-block">Irrigation</a>
+                <a href="{{ path('ilots_index') }}" class="btn btn-warning btn-lg btn-block mb-4">Interventions Ilots</a>
+                <a href="{{ path('intervention_multiple_index') }}" class="btn btn-success btn-lg btn-block mb-4">Interventions Cultures</a>
+                <a href="{{ path('exploitation_stock_index') }}" class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</a>
+                <a href="{{ path('exploitation_irrigation_index') }}" class="btn btn-info btn-lg btn-block">Irrigation</a>
             </div>
             <div class="col-md-6 d-none d-md-block">
                 <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Flashs</h4>
-                    </div>
-                    <div class="comment-widgets position-relative mb-2 common-widget">
-                        <div class="d-flex flex-row comment-row p-3">
-                            {% for bsv in bsvs %}
-                                {% if date(bsv.displayAt) <= date() and bsv.checked == 0 %}
-                                    <div class="comment-text w-100 p-3">
-                                        <p class="mb-1 overflow-hidden">{{ bsv.bsv.text }}</p>
-                                        <div class="comment-footer">
-                                            <span class="text-muted pull-right">{{ bsv.displayAt|date('d M y à h:m') }}</span>
-                                            <span class="badge badge-info">Non lu</span>
-                                            <span class="action-icons">
-                                                <form method="POST" action="{{ path('user.bsv.check', {id: bsv.id}) }}" style="display: inline-block">
-                                                    <input type="hidden" name="_method" value="CHECK">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ bsv.id) }}">
-                                                    <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>
-                                                </form>
-                                            </span>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <tbody>
+                                {% for flash in flashs %}
+                                    {% if date(flash.displayAt) <= date() and flash.checked == 0 %}
+                                        <tr>
+                                            <td style="width:50px;">
+                                                <span class="round">F</span>
+                                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                            </td>
+                                            <td>
+                                                <h6>{{ flash.bsv.text }} </h6><small class="text-muted">{{ flash.displayAt|date('d M y à h:m') }}</small>
+                                            </td>
+                                            <td>
+                                            {{ include('flash/user/_check.html.twig') }}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Panorama</h4>
-                    </div>
-                    <div class="comment-widgets position-relative mb-2 common-widget">
-                        <div class="d-flex flex-row comment-row p-3">
-                            {% for panorama in panoramas %}
-                                {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
-                                    <div class="comment-text w-100 p-3">
-                                        <p class="mb-1 overflow-hidden">{{ panorama.panorama.text }}</p>
-                                        <div class="comment-footer">
-                                            <span class="text-muted pull-right">{{ panorama.displayAt|date('d M y à h:m') }}</span>
-                                            <span class="badge badge-info">Non lu</span>
-                                            <span class="action-icons">
-                                                <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <tbody>
+                                {% for panorama in panoramas %}
+                                    {% if date(panorama.displayAt) <= date() and panorama.checked == 0 %}
+                                        <tr>
+                                            <td style="width:50px;">
+                                                <span class="round">P</span>
+                                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                            </td>
+                                            <td>
+                                                <h6>{{ panorama.panorama.text }} </h6><small class="text-muted">{{ panorama.displayAt|date('d M y à h:m') }}</small>
+                                            </td>
+                                            <td>
+                                                <form method="POST" action="{{ path('panorama_user_check', {id: panorama.id}) }}" style="display: inline-block">
                                                     <input type="hidden" name="_method" value="CHECK">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
                                                     <button class="btn btn-success btn-xs">Lire</button>
                                                 </form>
-                                            </span>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Tickets</h4>
-                    </div>
-                    <div class="comment-widgets position-relative mb-2 common-widget">
-                        <div class="d-flex flex-row comment-row p-3">
-                            {% for ticket in tickets %}
-                                <div class="comment-text w-100 p-3">
-                                    <p class="mb-1 overflow-hidden">{{ ticket.title }}</p>
-                                    <div class="comment-footer">
-                                        <span class="action-icons">
-                                            <a href="{{ path('tickets.home') }}" class="btn btn-success btn-xs text-white">Lire</a>
-                                        </span>
-                                    </div>
-                                </div>
-                            {% endfor %}
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <tbody>
+                                {% for ticket in tickets %}
+                                    <tr>
+                                        <td style="width:20px;">
+                                            <span class="round">T</span>
+                                            <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                        </td>
+                                        <td>
+                                            <h6>{{ ticket.title }}</h6>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('tickets_conversation_show', {id: ticket.id}) }}" class="btn btn-success btn-xs text-white">Lire</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
                         </div>
                     </div>
                 </div>

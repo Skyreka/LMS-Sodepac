@@ -28,7 +28,7 @@ class InterventionAddProductType extends AbstractType
                 'class' => Stocks::class,
                 'label' => 'Produit en stock',
                 'choice_label' => function(Stocks $stock) {
-                    return $stock->getProduct()->getName().' - '.$stock->getProduct()->getCategory().' - stock : '.$stock->getQuantity().' '.$stock->getUnit( true );
+                    return $stock->getProduct()->getName().' ( '.$stock->getProduct()->getType().' ) Stock : '.$stock->getQuantity().' '.$stock->getUnit( true );
                 },
                 'query_builder' => function(StocksRepository $sr) use ( $options ) {
                     return $sr->findProductInStockByExploitation( $options['user']->getExploitation() );
@@ -89,8 +89,8 @@ class InterventionAddProductType extends AbstractType
                     'choice_label' => function(Doses $dose) {
                         return $dose->getApplication().' '.$dose->getDose().' '.$dose->getUnit();
                     },
-                    'query_builder' => function(DosesRepository $dr) use ( $stock ) {
-                        return $dr->findByProduct( $stock->getProduct() );
+                    'query_builder' => function(DosesRepository $dr) use ( $stock, $options ) {
+                        return $dr->findDose( $stock->getProduct(), $options['culture']->getName() );
                     },
                     'auto_initialize' => false,
                     'mapped' => false,

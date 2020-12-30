@@ -1,0 +1,12 @@
+{{ form_start(form_information) }}
+    <div class="row">
+        <div class="col-6">
+            {{ form_row(form_information.firstname) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(form_information.lastname) }}
+        </div>
+    </div>
+    {{ form_rest(form_information) }}
+    <button class="btn btn-primary">Valider</button>
+{{ form_end(form_information) }}

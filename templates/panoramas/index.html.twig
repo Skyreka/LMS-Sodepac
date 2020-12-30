@@ -12,7 +12,7 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Liste des Panoramas</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item active">Panoramas</li>
                 </ol>
             </div>
@@ -26,8 +26,8 @@
                     <div class="card-body">
                         <div class="d-flex no-block">
                             <div class="ml-auto">
-                                <a title="Créer un panorama" href="{{ path('panoramas.new') }}" class="btn btn-success">Créer</a>
-                                <a href="{{ path('panoramas.history.index') }}" class="btn btn-info">Historique des Panoramas</a>
+                                <a title="Créer un panorama" href="{{ path('panorama_new') }}" class="btn btn-success">Créer</a>
+                                <a href="{{ path('panorama_history_index') }}" class="btn btn-info">Historique</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -54,35 +54,35 @@
                                         </td>
                                         <td>
                                             {% if app.user.status == 'ROLE_ADMIN' %}
-                                                <form method="POST" action="{{ path('panoramas.delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
+                                                <form method="POST" action="{{ path('panorama_delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
-                                                    <button class="btn btn-danger">Supprimer</button>
+                                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                                 </form>
-                                                <a href="{{ path('panoramas.edit', {id: panorama.id}) }}" class="btn btn-primary">Editer</a>
+                                                <a href="{{ path('panorama_edit', {id: panorama.id}) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                                                 {% if panorama.validate == 0 %}
-                                                    <form method="POST" action="{{ path('panoramas.valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
+                                                    <form method="POST" action="{{ path('panorama_valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
                                                         <input type="hidden" name="_method" value="VALID">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
-                                                        <button class="btn btn-success">Valider</button>
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('valid' ~ panorama.id) }}">
+                                                        <button class="btn btn-success"><i class="fa fa-check"></i></button>
                                                     </form>
                                                 {% endif %}
                                                 {% if panorama.validate == 1 %}
-                                                    <a title="Envoyer ce panorama" href="{{ path('panoramas.send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
+                                                    <a title="Envoyer ce panorama" href="{{ path('panorama_send', {id: panorama.id}) }}" class="btn btn-info"><i class="fab fa-telegram-plane"></i></a>
                                                 {% endif %}
                                             {% elseif app.user.status == 'ROLE_TECHNICIAN' %}
                                                 {% if panorama.validate == 1 %}
-                                                    <a title="Envoyer ce panorama" href="{{ path('panoramas.send', {id: panorama.id}) }}" class="btn btn-info">Envoyer</a>
+                                                    <a title="Envoyer ce panorama" href="{{ path('panorama_send', {id: panorama.id}) }}" class="btn btn-info"><i class="fab fa-telegram-plane"></i></a>
                                                 {% endif %}
                                             {% endif %}
                                             {% if panorama.firstFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                             {% endif %}
                                             {% if panorama.secondFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-image-o"></i></a>
                                             {% endif %}
                                             {% if panorama.thirdFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" class="btn btn-success ml-3" target="_blank"><i class="fa fa-picture-o"></i></a>
                                             {% endif %}
                                         </td>
                                     </tr>

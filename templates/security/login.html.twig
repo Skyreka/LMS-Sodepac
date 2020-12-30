@@ -17,7 +17,12 @@
 <header>
     <div class="aa-header" style="background-image: url({{ asset('images/bg.jpg') }})">
         <nav class="navbar navbar-expand-md navbar-transparent" style="">
-            <div class="container"><img class="img-fluid pr-3 aa-logo-img" src="images/logo.png" alt="logo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <img class="img-fluid pr-3" src="{{ asset('images/logo.png') }}" alt="logo">
+                    </div>
+                </div>
             </div>
         </nav>
         <div class="container aa-header-content text-left text-white">
@@ -84,6 +89,16 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="https://play.google.com/store/apps/details?id=com.sodepac.app">
+                                <img alt="Badge Google Play" class="img-fluid text-center" src="{{ asset('images/google-play-badge.png') }}" />
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <img alt="Badge Apple" class="img-fluid text-center" src="{{ asset('images/apple-play-badge.png') }}" />
+                        </div>
                     </div>
                 </div>
             </div>

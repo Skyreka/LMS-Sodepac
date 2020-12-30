@@ -13,7 +13,7 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">{{ mix.title }}</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Mélanges</a></li>
                     <li class="breadcrumb-item">Voir</li>
                 </ol>
@@ -21,7 +21,7 @@
         </div>
         <div class="row">
             <div class="col-12 pb-3">
-                <a href="{{ path('mix.add.product', {id: mix.id}) }}" class="btn btn-success">Ajouter un produit</a>
+                <a href="{{ path('mix_add_product', {id: mix.id}) }}" class="btn btn-success">Ajouter un produit</a>
             </div>
             <div class="col-6">
                 {% for mixProduct in mixProducts %}

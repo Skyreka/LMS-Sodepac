@@ -14,13 +14,15 @@ class Recommendations
 {
     const STATUS = [
         '0' => 'Draft',
-        '1' => 'Saved',
+        '1' => 'Create',
+        '2' => 'Generate',
         '2' => 'Sended'
     ];
 
     public function __construct()
     {
         $this->setCreateAt( new \DateTime() );
+        $this->culture_size = 0;
         $this->recommendationProducts = new ArrayCollection();
     }
 
@@ -38,7 +40,7 @@ class Recommendations
     private $exploitation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\IndexCultures")
+     * @ORM\ManyToOne(targetEntity="App\Entity\IndexCanevas")
      * @ORM\JoinColumn(nullable=false)
      */
     private $culture;
@@ -68,6 +70,16 @@ class Recommendations
      */
     private $mention_txt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pdf;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $culture_size = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,14 +97,14 @@ class Recommendations
         return $this;
     }
 
-    public function getCulture(): ?IndexCultures
+    public function getCulture(): ?IndexCanevas
     {
         return $this->culture;
     }
 
-    public function setCulture(?IndexCultures $culture): self
+    public function setCulture(?IndexCanevas $canevas): self
     {
-        $this->culture = $culture;
+        $this->culture = $canevas;
 
         return $this;
     }
@@ -175,6 +187,30 @@ class Recommendations
     public function setMentionTxt(?string $mention_txt): self
     {
         $this->mention_txt = $mention_txt;
+
+        return $this;
+    }
+
+    public function getPdf(): ?string
+    {
+        return $this->pdf;
+    }
+
+    public function setPdf(?string $pdf): self
+    {
+        $this->pdf = $pdf;
+
+        return $this;
+    }
+
+    public function getCultureSize(): ?float
+    {
+        return $this->culture_size;
+    }
+
+    public function setCultureSize(float $culture_size): self
+    {
+        $this->culture_size = $culture_size;
 
         return $this;
     }

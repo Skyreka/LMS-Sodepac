@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits - Catalogue{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Méthodes alternatives</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">Catalogue</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_new') }}">{{ recommendations.exploitation.users.identity }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_new') }}">{{ recommendations.culture.name }}</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Méthodes alternatives</a></li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-12">
+                <a href="{{ path('recommendation_product_list', {'id': recommendations.id}) }}" class="btn btn-light-success mb-3">Revenir à la liste des produits</a>
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            {{ form_rest(form) }}
+                            <button class="btn btn-primary">Générer le Catalogue</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            <div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>
+    <script>
+        $('#edit-table').Tabledit({
+            url: '/recommendations/edit-dose',
+            editButton: false,
+            hideIdentifier: true,
+            columns: {
+                identifier: [0, 'id'],
+                editable: [[3, 'dose']]
+            }
+        });
+    </script>
+{% endblock %}

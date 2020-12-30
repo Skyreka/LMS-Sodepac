@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Interventions;
 use App\Entity\Phyto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -19,9 +20,9 @@ class EditInterventionQuantityType extends AbstractType
             ->add('intervention_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
+                'format' => 'dd/MM/yyyy',
                 'attr' => [
-                    'class' => 'js-datepicker',
-                    'value' => date('Y-m-d')
+                    'class' => 'js-datepicker'
                 ]
             ])
         ;
@@ -30,7 +31,7 @@ class EditInterventionQuantityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Phyto::class,
+            'data_class' => Interventions::class,
             'translation_domain' => 'forms'
         ]);
     }

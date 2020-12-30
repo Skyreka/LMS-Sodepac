@@ -38,9 +38,11 @@ class BsvSendType extends AbstractType
                 'html5' => false,
                 'mapped' => false,
                 'required' => false,
+                'format' => 'dd/MM/yyyy',
                 'attr' => [
                     'class' => 'js-datepicker',
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'value' => date('d/m/Y')
                 ],
                 'label' => 'Date d\'envoi',
                 'help' => 'Remplir uniquement en cas d\'envoi différé.'

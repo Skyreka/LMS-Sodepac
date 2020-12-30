@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des clients{% endblock %}
+
+{% block stylesheets %}
+    <link href="{{ asset('plugins/css-chart/css-chart.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">{{ user.identity }}
+                -
+                </h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    {% if app.user.status == 'ROLE_ADMIN' %}
+                        <li class="breadcrumb-item"><span class="badge badge-danger">Vue Admin</span></li>
+                    {% else %}
+                        <li class="breadcrumb-item"><span class="badge badge-warning">Vue Technicien</span></li>
+                    {% endif %}
+                    <li class="breadcrumb-item active">Information de {{ user.identity }}</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!--begin::Alert-->
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">{{ message }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <center class="m-t-30"> <img src="{{ asset('images/users/1.jpg') }}" class="img-circle" width="150" />
+                            <h4 class="card-title m-t-10">{{ user.identity }} {{ user.isActive ? '<i class="mdi mdi-account-check"></i>' : '' }}</h4>
+                            <h6 class="card-subtitle">{{  user.status(true) }} | Pack : {{  user.pack ? user.pack }}</h6>
+                            <div class="row text-center justify-content-md-center">
+                                <div class="col-12"><a href="{{ path('management_user_show', {id: user.id}) }}" class="link"><i class="icon-picture"></i> <font class="font-medium">{{ user.exploitation ? user.exploitation.size ~ ' Ha' : 'Aucune exploitation' }}</font></a></div>
+                            </div>
+                        </center>
+                    </div>
+                    <div>
+                        <hr> </div>
+                    <div class="card-body">
+                        <small class="text-muted">E-mail </small>
+                        <h6>{{ user.email }}</h6>
+                        <small class="text-muted">Utilisateur Activé</small>
+                        <h6>{{ user.isActive ? 'Oui': 'Non' }}</h6>
+                        <small class="text-muted">Mot de passe</small>
+                        <h6>{{ user.password ? 'Oui': 'Pas de mot de passe' }}</h6>
+                        <small class="text-muted">Dernière activité</small>
+                        <h6>{{ user.lastActivity ? user.lastActivity|date('Y:m:d H:i'): 'Aucune' }}</h6>
+                        <small class="text-muted db">Technicien</small>
+                        <h6>{{ user.technician ? user.technician.identity : 'Aucun' }}</h6>
+                        <small class="text-muted db">Téléphone</small>
+                        <h6>{{ user.phone ? user.phone : 'Aucun' }}</h6>
+                        <small class="text-muted db">Ville</small>
+                        <h6>{{ user.city ? user.city : 'Aucune' }}</h6>
+                        <small class="text-muted db">Certification Phyto</small>
+                        <h6>{{ user.certificationPhyto ? user.certificationPhyto : 'Aucune' }}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-xlg-9 col-md-7">
+                <div class="card">
+                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#general" role="tab">Général</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#information" role="tab">Information</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#password" role="tab">Mot de passe</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#exploitation" role="tab">Exploitation</a> </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="general" role="tabpanel">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs profile-tab" role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#ilots" role="tab">Ilots</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#irrigation" role="tab">Irrigation</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#analyse" role="tab">Analyses</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#stock" role="tab">Stocks</a> </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="ilots" role="tabpanel">
+                                        <div class="card-body">
+                                            <div class="month-table">
+                                                <div class="table-responsive mt-3">
+                                                    <table class="table stylish-table mb-0">
+                                                        <tbody>
+                                                        {% for ilot in ilots %}
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="{{ path('management_user_ilot_show', {user: user.id, ilot: ilot.id}) }}">
+                                                                        <h6>{{ ilot.name }} ({{ ilot.size }} ha) <span class="badge badge-dark">PAC: {{ ilot.number }}</span></h6><small class="text-muted">{{ ilot.type.name }}</small>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="irrigation" role="tabpanel">
+                                        <div class="card-body">
+                                            <div class="month-table">
+                                                <div class="table-responsive mt-3">
+                                                    <table class="table stylish-table mb-0">
+                                                        <tbody>
+                                                        {% for irrigation in irrigations %}
+                                                            <tr>
+                                                                <td>
+                                                                    <h6>{{ irrigation.type }} sur {{ irrigation.ilot.name }}</h6><small class="text-muted">{{ irrigation.quantity}} mm.</small>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="analyse" role="tabpanel">
+                                        <div class="card-body">
+                                            <div class="month-table">
+                                                <div class="table-responsive mt-3">
+                                                    <table class="table stylish-table mb-0">
+                                                        <tbody>
+                                                        {% for analyse in analyses %}
+                                                            <tr>
+                                                                <td>
+                                                                    <h6>Analyse sur {{ analyse.ilot.name }}</h6><small class="text-muted">{{ analyse.measure }} HA/ha.</small>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="stock" role="tabpanel">
+                                        <div class="card-body">
+                                            <div class="month-table">
+                                                <div class="table-responsive mt-3">
+                                                    <table class="table stylish-table mb-0">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Nom</th>
+                                                            <th>Quantité Actuelle</th>
+                                                            <th>Quantité utilisée</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for stock in usedProducts %}
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="">
+                                                                        <h6>{{ stock.product.name }}</h6>
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <h6>{{ stock.quantity }} {{ stock.unit( true ) }}</h6>
+                                                                </td>
+                                                                <td>
+                                                                    <h6>{{ stock.usedQuantity }} {{ stock.unit( true ) }}</h6>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="information" role="tabpanel">
+                            <div class="card-body">
+                                {{ include('management/user/_form_information.html.twig') }}
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="exploitation" role="tabpanel">
+                            <div class="card-body">
+                                {{ include('management/user/_form_exploitation.html.twig') }}
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="password" role="tabpanel">
+                            <div class="card-body">
+                                {% if user.email is empty %}
+                                    <div class="alert alert-danger">Merci d'attribuer une adresse e-mail avant de mettre à jour le mot de passe de l'utilisateur</div>
+                                {% else %}
+                                    {{ include('management/user/_form_password.html.twig') }}
+                                {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

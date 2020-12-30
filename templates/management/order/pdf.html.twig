@@ -1,0 +1,152 @@
+{% extends print == false
+    ? 'base.html.twig'
+    : 'management/order/print.html.twig' %}
+
+{% block title %}{{ order.idNumber }}{% endblock %}
+
+{% block stylesheets %}
+    {% if print == true %}
+    <style>
+        .disable-screen {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: white;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+        }
+    </style>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="disable-screen"></div>
+    <div class="container-fluid">
+        <div class="row pt-5">
+            <div class="col-md-12">
+                <div class="card card-body printableArea">
+                    <h3><b>BON DE COMMANDE</b> <span>#{{ order.IdNumber }}</span></h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-left">
+                                <address>
+                                    <h3> &nbsp;<b class="text-danger">SODEPAC SAS</b></h3>
+                                    <p class="text-muted ml-1">Rue de l'Egalité,
+                                        <br/> 47500 Montsempron Libos
+                                        <br/> 05 53 40 91 60
+                                    </p>
+                                </address>
+                            </div>
+                            <div class="pull-right text-right">
+                                <address>
+                                    <h3>Pour,</h3>
+                                    <h4 class="font-bold">{{ order.customer.identity }},</h4>
+                                    <p class="text-muted ml-4">{{ order.customer.email }}
+                                        <br/> {{ order.customer.phone }}
+                                    </p>
+                                    <p class="mt-4"><b>Date :</b> <i class="fa fa-calendar"></i> {{ order.createDate | date(' d M Y') }}</p>
+                                    <p class="mt-4"><b>Dépôt :</b> <i class="fa fa-industry"></i></p>
+                                    <p class="text-muted ml-1">{{ order.customer.warehouse.name }}
+                                        <br/> {{ order.customer.warehouse.email }}
+                                        <br/> {{ order.customer.warehouse.address }}
+                                    </p>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-responsive mt-5" style="clear: both;">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>Condi.</th>
+                                        <th>Quantité</th>
+                                        <th>Prix HT</th>
+                                        <th>Remise %</th>
+                                        <th style="text-align:center">Total HT</th>
+                                        <th>Tva %</th>
+                                        <th style="text-align:center">Total TTC</th>
+                                        <th style="text-align:center"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% set subTotal = 0 %}
+                                    {% set taxeTotal = 0 %}
+                                    {% set total = 0 %}
+                                        {% for article in products %}
+                                            <tr>
+                                                <td width="550">
+                                                    <h5 class="font-500">{{ article.product.name }}</h5>
+                                                </td>
+                                                <td>{{ article.conditioning }}</td>
+                                                <td class="quantity">{{ article.totalQuantity }}</td>
+                                                <td class="price" width="100">
+                                                    {{ article.unitPrice|localizedcurrency('EUR') }}
+                                                </td>
+                                                <td class="discount" width="150">{{ article.discount ? article.discount ~ '%' : '' }}</td>
+                                                {% set totalHT = (article.unitPrice *  article.totalQuantity) - ((article.unitPrice *  article.totalQuantity) * (article.discount / 100)) %}
+                                                <td width="150" align="center">{{ totalHT|localizedcurrency('EUR') }}</td>
+                                                <td width="100" align="center">{{ article.taxe ? article.taxe ~ '%' : '' }}</td>
+                                                {% set taxes = totalHT * article.taxe / 100 %}
+                                                {% set totalTTC = totalHT + taxes %}
+                                                <td width="150" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
+                                            </tr>
+                                        {% set subTotal = subTotal + totalHT%}
+                                        {% set taxeTotal = taxeTotal + taxes %}
+                                        {% set total = total + totalTTC%}
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="pull-right mt-4 text-right">
+                                <p>Total HT (hors RPD): {{ subTotal|localizedcurrency('EUR') }}</p>
+                                <p>Total TVA : {{ taxeTotal|localizedcurrency('EUR') }} </p>
+                                <hr>
+                                <h3><b>Total TTC <small>(hors RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
+                            </div>
+                            <div class="clearfix">
+                                <p class="m-t-5"><b>Conditions :</b> {{ order.conditions }}</p>
+                                <p class="m-t-5"><b>Délai et livraison :</b> {{ order.delivery }}</p>
+                                <p class="m-t-5">Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande</p>
+                            </div>
+                            <hr>
+                            <div class="text-right">
+                                <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Imprimer</span> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://www.wrappixel.com/demos/admin-templates/materialpro-bootstrap-latest/material-pro/dist/js/pages/samplepages/jquery.PrintArea.js"></script>
+    <script>
+        {% if print %}
+            var mode = 'iframe'; //popup
+            var close = mode == "popup";
+            var options = {
+                mode: mode,
+                popClose: close
+            };
+            $("div.printableArea").printArea(options);
+        {% endif %}
+        $(function() {
+            $("#print").click(function() {
+                var mode = 'iframe'; //popup
+                var close = mode == "popup";
+                var options = {
+                    mode: mode,
+                    popClose: close
+                };
+                $("div.printableArea").printArea(options);
+            });
+        });
+    </script>
+{% endblock %}

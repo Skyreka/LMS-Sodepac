@@ -13,8 +13,8 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Ajouter un Panorama</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('panoramas.index') }}">Panoramas</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('panorama_index') }}">Panoramas</a></li>
                     <li class="breadcrumb-item active">Création</li>
                 </ol>
             </div>
@@ -23,23 +23,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        {{ form_start(form) }}
-                            <div class="row">
-                                <div class="col-12">
-                                    {{ form_row(form.text) }}
-                                </div>
-                                <div class="col-12 col-md-3">
-                                    {{ form_row(form.first_file) }}
-                                </div>
-                                <div class="col-12 col-md-3">
-                                    {{ form_row(form.second_file) }}
-                                </div>
-                                <div class="col-12 col-md-3">
-                                    {{ form_row(form.third_file) }}
-                                </div>
-                            </div>
-                        <button class="btn btn-primary">Ajouter</button>
-                        {{ form_end(form) }}
+                       {% include 'panoramas/_form.html.twig' %}
                     </div>
                 </div>
             </div>
@@ -53,9 +37,9 @@
             // Translated
             $('.dropify-fr').dropify({
                 messages: {
-                    default: 'Glissez-déposez un fichier ici ou cliquez',
-                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
-                    remove: 'Supprimer',
+                    default: '<p style="font-size: 1rem;">Glissez-déposez un fichier ici ou cliquez</p>',
+                    replace: '<p style="font-size: 1rem;">Glissez-déposez un fichier ou cliquez pour remplacer</p>',
+                    remove: '<p style="font-size: 1rem;">Supprimer</p>',
                     error: 'Désolé, le fichier trop volumineux'
                 }
             });

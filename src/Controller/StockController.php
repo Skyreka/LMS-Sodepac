@@ -8,31 +8,35 @@ use App\Form\ProductsType;
 use App\Form\StockAddProductType;
 use App\Form\StockEditQuantityType;
 use App\Repository\StocksRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class StockController
+ * @package App\Controller
+ * @Route("exploitation/stock")
+ */
 class StockController extends AbstractController
 {
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
-    private $om;
+    private $em;
 
     /**
      * StockController constructor.
-     * @param EntityManagerInterface $om
+     * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManagerInterface $om)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->om = $om;
+        $this->em = $em;
     }
 
     /**
-     * @Route("exploitation/stock", name="exploitation.stock.index")
+     * @Route("", name="exploitation_stock_index", methods={"GET"})
      * @param StocksRepository $stocksRepository
      * @return Response
      */
@@ -45,12 +49,12 @@ class StockController extends AbstractController
     }
 
     /**
-     * @Route("exploitation/stock/add", name="exploitation.stock.add")
+     * @Route("/new", name="exploitation_stock_new", methods={"GET", "POST"})
      * @param Request $request
      * @param StocksRepository $sr
      * @return Response
      */
-    public function add(Request $request, StocksRepository $sr): Response
+    public function new(Request $request, StocksRepository $sr): Response
     {
         $stock = new Stocks();
         $form = $this->createForm( StockAddProductType::class, $stock);
@@ -65,30 +69,30 @@ class StockController extends AbstractController
         $stock->setExploitation( $this->getUser()->getExploitation() );
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->om->persist($stock);
+            $this->em->persist($stock);
             //--Setter
             if (in_array($stock->getProduct()->getId(), $stockProducts)) {
                 $this->addFlash('danger', 'Vous possedez déjà ce produit dans votre stock.');
             } else {
-                $this->om->flush();
+                $this->em->flush();
                 $this->addFlash('success', 'Nouveau produit ajouté avec succès');
             }
 
-            return $this->redirectToRoute('exploitation.stock.index');
+            return $this->redirectToRoute('exploitation_stock_index');
         }
 
-        return $this->render('exploitation/stock/add.html.twig', [
+        return $this->render('exploitation/stock/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("exploitation/stock/private/add", name="exploitation.stock.add.private")
+     * @Route("/private/new", name="exploitation_stock_private_new", methods={"GET", "POST"})
      * @param Request $request
      * @param StocksRepository $sr
      * @return Response
      */
-    public function addPrivate(Request $request, StocksRepository $sr): Response
+    public function newPrivate(Request $request, StocksRepository $sr): Response
     {
         $product = new Products();
         $form = $this->createForm( ProductsType::class, $product);
@@ -101,27 +105,27 @@ class StockController extends AbstractController
             $dose = new Doses();
             $dose->setApplication('Cliquez ici');
             $dose->setProduct($product);
-            $this->om->persist($dose);
-            $this->om->persist($product);
+            $this->em->persist($dose);
+            $this->em->persist($product);
             //Create stock
             $stock = new Stocks();
             $stock->setProduct($product);
             $stock->setExploitation($this->getUser()->getExploitation());
             $stock->setUnit(1);
-            $this->om->persist($stock);
-            $this->om->flush();
+            $this->em->persist($stock);
+            $this->em->flush();
             //Redirect
             $this->addFlash('success', 'Nouveau produit ajouté avec succès');
-            return $this->redirectToRoute('exploitation.stock.index');
+            return $this->redirectToRoute('exploitation_stock_index');
         }
 
-        return $this->render('exploitation/stock/add.html.twig', [
+        return $this->render('exploitation/stock/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("exploitation/stock/delete/{id}", name="exploitation.stock.delete", methods="DELETE")
+     * @Route("/delete/{id}", name="exploitation_stock_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Stocks $stock
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -129,19 +133,20 @@ class StockController extends AbstractController
     public function delete(Stocks $stock, Request $request)
     {
         if ($this->isCsrfTokenValid('delete' . $stock->getId(), $request->get('_token'))) {
-            $this->om->remove($stock);
-            $this->om->flush();
+            $this->em->remove($stock);
+            $this->em->flush();
             $this->addFlash('success', 'Produit supprimé avec succès');
         }
-        return $this->redirectToRoute('exploitation.stock.index');
+        return $this->redirectToRoute('exploitation_stock_index');
     }
 
     /**
-     * @Route("exploitation/stock/edit/{id}", name="exploitation.stock.update")
+     * @Route("/edit/{id}", name="exploitation_stock_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Stocks $stock
+     * @param Request $request
      * @return Response
      */
-    public function update(Stocks $stock, Request $request): Response
+    public function edit(Stocks $stock, Request $request): Response
     {
         $form = $this->createForm(StockEditQuantityType::class, $stock);
         $form->handleRequest( $request );
@@ -154,12 +159,12 @@ class StockController extends AbstractController
             $data = $form->all();
             $newQuantity = $data['addQuantity']->getData();
             $stock->setQuantity( $precedentQuantity + $newQuantity );
-            $this->om->flush();
+            $this->em->flush();
             $this->addFlash('success','Mise à jour effectuée avec succès');
-            return $this->redirectToRoute('exploitation.stock.index');
+            return $this->redirectToRoute('exploitation_stock_index');
         }
 
-        return $this->render('exploitation/stock/update.html.twig', [
+        return $this->render('exploitation/stock/edit.html.twig', [
             'stock' => $stock,
             'form' => $form->createView()
         ]);

@@ -48,6 +48,36 @@ class Products
      */
     private $private = 0;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $id_lex;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $substance;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tox;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $risk_phase;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $bio;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $type;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -170,6 +200,78 @@ class Products
     public function setPrivate(bool $private): self
     {
         $this->private = $private;
+
+        return $this;
+    }
+
+    public function getIdLex(): ?string
+    {
+        return $this->id_lex;
+    }
+
+    public function setIdLex(?string $id_lex): self
+    {
+        $this->id_lex = $id_lex;
+
+        return $this;
+    }
+
+    public function getSubstance(): ?string
+    {
+        return $this->substance;
+    }
+
+    public function setSubstance(?string $substance): self
+    {
+        $this->substance = $substance;
+
+        return $this;
+    }
+
+    public function getTox(): ?string
+    {
+        return $this->tox;
+    }
+
+    public function setTox(?string $tox): self
+    {
+        $this->tox = $tox;
+
+        return $this;
+    }
+
+    public function getRiskPhase(): ?string
+    {
+        return $this->risk_phase;
+    }
+
+    public function setRiskPhase(?string $risk_phase): self
+    {
+        $this->risk_phase = $risk_phase;
+
+        return $this;
+    }
+
+    public function getBio(): ?bool
+    {
+        return $this->bio;
+    }
+
+    public function setBio(?bool $bio): self
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

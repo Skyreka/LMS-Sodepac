@@ -5,12 +5,13 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-    bsv_directory: '%kernel.project_dir%/public/uploads/bsv'
+    flash_directory: '%kernel.project_dir%/public/uploads/flash'
     chat_message_directory: '%kernel.project_dir%/public/uploads/messages'
     panorama_directory: '%kernel.project_dir%/public/uploads/panorama'
     recommendation_directory: '%kernel.project_dir%/public/uploads/recommendations'
 
 services:
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -45,3 +46,11 @@ services:
             '@doctrine',
             '@router'
         ]
+    datatable.products:
+        class: App\DataTables\ProductsDataTables
+        tags: [{ name: datatable, id: products }]
+        arguments: [
+            '@doctrine',
+            '@router'
+        ]
+

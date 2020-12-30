@@ -1,0 +1,278 @@
+{% extends printRequest == false
+    ? 'recommendations/canevas/base.html.twig'
+    : 'recommendations/canevas/print.html.twig' %}
+
+{% block title %}Canevas{% endblock %}
+
+{% block stylesheets %}
+    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
+    <style>
+        .table thead th {
+            padding-left: 15px;
+            padding-right: 15px;
+            text-align: center;
+        }
+        .btn-R {
+            background-color: #FFADAD !important;
+        }
+        .btn-O {
+            background-color: #FFD6A5 !important;
+        }
+        .btn-J {
+            background-color: #FDFFB6 !important;
+        }
+        .btn-V {
+            background-color: #CAFFBF !important;
+        }
+        .btn-C {
+            background-color: #9BF6FF !important;
+        }
+        .btn-B {
+            background-color: #A0C4FF !important;
+        }
+        .btn-M {
+            background-color: #FFC6FF !important;
+        }
+        .btn-A {
+            background-color: #D8E2DC !important;
+        }
+        .exist {
+            border: 4px solid #5DB761;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% if printRequest == false %}
+        <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Canevas {{ culture.name }} </h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_new') }}">Catalogue</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Canevas</a></li>
+                    <li class="breadcrumb-item active">{{ culture.name }}</li>
+                </ol>
+            </div>
+            <div class="">
+                <button id="open-right-sidebar" class="right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right ml-2"><i class="ti-settings text-white"></i></button>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-lg-12">
+        <div class="card">
+        <div class="card-body">
+    {% endif  %}
+    <div class="table-responsive">
+        <table class="table table-bordered no-wrap">
+            <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <p class="text-center">Bourgeon <br>d'hiver</p>
+                </th>
+                <th>
+                    <p class="text-center">Bourgeon <br>gonflés</p>
+                </th>
+                <th>
+                    <p class="text-center">Boutons <br>visible</p>
+                </th>
+                <th>
+                    <p class="text-center">Boutons <br>verts <br>séparés</p>
+                </th>
+                <th>
+                    <p class="text-center">20% <br>Boutons <br>Blancs</p>
+                </th>
+                <th>
+                    <p class="text-center">Etamines <br>visibles</p>
+                </th>
+                <th>
+                    <p class="text-center">20% fleurs <br>ouvertes</p>
+                </th>
+                <th>
+                    <p class="text-center">Début chute <br>des pétales</p>
+                </th>
+                <th>
+                    <p class="text-center">Nouaison</p>
+                </th>
+                <th>
+                    <p class="text-center">Chute des <br>collerettes</p>
+                </th>
+                <th>
+                    <p class="text-center">Jeunes <br>fruits</p>
+                </th>
+                <th>
+                    <p class="text-center">15/20 mai</p>
+                </th>
+                <th>
+                    <p class="text-center">10/15 Juin</p>
+                </th>
+                <th>
+                    <p class="text-center">Début <br>Juillet</p>
+                </th>
+                <th>
+                    <p class="text-center">15-Juil</p>
+                </th>
+                <th>
+                    <p class="text-center">Fin Juillet</p>
+                </th>
+                <th>
+                    <p class="text-center">Sept/Oct</p>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Bactéries</td>
+                <td colspan="2">
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">KOCIDE 2000 <small>3.5 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Pucerons</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="4">
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-surround-wp-12-5-kg') ? 'exist' : 'd-none' }}" product_slug="s-surround-wp-12-5-kg">SURROUND</button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Acariens <br>Cochenilles du <br>cornouiller</td>
+                <td></td>
+                <td colspan="3">
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-acakill-20-l') ? 'exist' : 'd-none' }}" product_slug="s-acakill-20-l" dose="20" unit="L">ACAKILL <small>20 L</small></button>
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'polithiol') ? 'exist' : 'd-none' }}" product_slug="polithiol" dose="25" unit="L">POLITHIOL <small>25 L</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Solutions <br>alternatives <br>préventives <br>sur <br>maladies</td>
+                <td></td><td></td><td></td>
+                <td colspan="4">
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'amylo-x-wg') ? 'exist' : 'd-none' }}" product_slug="amylo-x-wg" dose="2.5" unit="Kg">AMYLO - X WG <small>2.5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-stimulus-bioprotech-10-l', '2') ? 'exist' : 'd-none' }}" product_slug="s-stimulus-bioprotech-10-l" dose="2" unit="L">STIMULUS BIOPROTECH <small>2 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-curatio-20-l', '39') ? 'exist' : 'd-none' }}" product_slug="s-curatio-20-l" dose="39" unit="L">CURATIO <small>39 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-curatio-20-l', '24') ? 'exist' : 'd-none' }}" product_slug="s-curatio-20-l" dose="24" unit="L">CURATIO <small>24 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-curatio-20-l', '16') ? 'exist' : 'd-none' }}" product_slug="s-curatio-20-l" dose="16" unit="L">CURATIO <small>16 L</small></button>
+                </td>
+                <td colspan="8">
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-nordox-75-wg-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-nordox-75-wg-10-kg" dose="1.7" unit="Kg">NORDOX 25 Wg <small>1.7 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ss-solispe-elitho-spe-20-kg') ? 'exist' : 'd-none' }}" product_slug="s-solispe-elitho-spe-20-kg" dose="3" unit="Kg">ELITHO SPE <small>3 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-citrothiol-dg-bio-20-kg') ? 'exist' : 'd-none' }}" product_slug="s-citrothiol-dg-bio-20-kg" dose="4" unit="Kg">CITROTHIOL DG <small>4 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-stimulus-bioprotech-10-l', '1') ? 'exist' : 'd-none' }}" product_slug="s-stimulus-bioprotech-10-l" dose="1" unit="L">STIMULUS BIOPROTECH <small>1 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-v-cuivre-bio-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-v-cuivre-bio-10-l" dose="2" unit="L">INO V CUIVRE <small>2 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-cuivre-120-bio-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-cuivre-120-bio-10-l" dose="2" unit="L">INO CUIVRE 120 <small>2 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-curatio-20-l', '16.01') ? 'exist' : 'd-none' }}" product_slug="s-curatio-20-l" dose="16.01" unit="L">CURATIO <small>16 L</small></button>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Confusion <br>Sexuelle</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="4">
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'isomate-ofm-tt') ? 'exist' : 'd-none' }}" product_slug="isomate-ofm-tt" dose="300" unit="Diffuseurs">ISOMATE OFM TT <small>300 DIFFUSEURS</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Phytoptes</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="3">
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-citrothiol-dg-bio-20-kg') ? 'exist' : 'd-none' }}" product_slug="s-citrothiol-dg-bio-20-kg" dose="10" unit="Kg">CITROTHIOL DG <small>10 Kg</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Carpocapses <br>Tordeuses</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="1">
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                </td>
+                <td></td>
+                <td colspan="1">
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1.01') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1.01" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1" unit="L">CARPOVISURINE EVO 2 <small>1 L</small></button>
+                </td>
+                <td colspan="1">
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1.02') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1.02" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1.01') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1.01" unit="L">CARPOVISURINE EVO 2 <small>1 L</small></button>
+                </td>
+                <td colspan="1">
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1.03') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1.03" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1.02') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1.02" unit="L">CARPOVISURINE EVO 2 <small>1 L</small></button>
+                </td>
+                <td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Nutrition <br>Foliaire</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="9">
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ladae-5-l') ? 'exist' : 'd-none' }}" product_slug="s-ladae-5-l" dose="0.8" unit="L/HL">LADAÉ <small>0.8 L/HL</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-geogreen-plus-4-5-2-5-5-bio-10-l') ? 'exist' : 'd-none' }}" product_slug="s-geogreen-plus-4-5-2-5-5-bio-10-l" dose="5" unit="L">GEOGREEN PLUS <small>5 à 10 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-megagreen-5-kg-bio') ? 'exist' : 'd-none' }}" product_slug="s-megagreen-5-kg-bio" dose="2" unit="Kg">MEGAGREEN <small>2 Kg</small></button>
+                </td>
+                <td colspan="1">
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-flow-zn680f-folli-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-flow-zn680f-folli-bio-5-l" dose="1" unit="L">INO FLO ZN 680 F <small>1 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-bore-ultra-bio-10-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-bore-ultra-bio-10-l" dose="2" unit="L">INO BORE ULTRA <small>2 L</small></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Stimulation <br>Foliaire de la <br>Photosynthèse</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="5">
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-folwin-bio-5-l') ? 'exist' : 'd-none' }}" product_slug="s-folwin-bio-5-l" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                </td>
+                <td></td><td></td>
+                <td colspan="2">
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-intracell-bio-2-kg') ? 'exist' : 'd-none' }}" product_slug="s-intracell-bio-2-kg" dose="4" unit="Kg">INTRACELL <small>4 Kg</small></button>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Anti-chlorose</td>
+                <td></td>
+                <td colspan="3">
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sferosol-bio') ? 'exist' : 'd-none' }}" product_slug="s-sferosol-bio" dose="300" unit="Kg">SFEROSOL <small>300 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-chelafer-2aa-6-bio-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-chelafer-2aa-6-bio-10-kg" dose="60" unit="gr/arbres">CHELAFER AA 6% <small>60 à 120 gr/arbre</small></button>
+                </td>
+                <td></td><td></td><td></td>
+                <td colspan="5">
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ino-chel-fe93-edta-bio-1-l') ? 'exist' : 'd-none' }}" product_slug="s-ino-chel-fe93-edta-bio-1-l" dose="1" unit="L">INO CHEL FE 93 EDTA <small>1 L</small></button>
+                </td>
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td>Bactéries</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td colspan="1">
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'bouillie-bordelaise-rsr-disperss') ? 'exist' : 'd-none' }}" product_slug="bouillie-bordelaise-rsr-disperss" dose="12.5" unit="Kg">BB EQUAL <small>12.5 Kg</small></button>
+                    <button class="btn btn-R btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-kocide-2000-10-kg') ? 'exist' : 'd-none' }}" product_slug="s-kocide-2000-10-kg" dose="3.5" unit="Kg">KOCIDE 2000 <small>3.5 Kg</small></button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    {% include 'recommendations/canevas/warning.html.twig' %}
+    </div>
+    </div>
+    </div>
+    {% if printRequest == false %}
+        <div id="right-sidebar" class="right-sidebar">
+            <div class="slimscrollright">
+                <div class="rpanel-title"> LISTE PRODUITS CHOISIS <span><i id="close-right-sidebar" class="ti-close right-side-toggle"></i></span>
+                </div>
+                <div class="r-panel-body">
+                    <a href="{{ path('recommendation_product_list', {id: recommendations.id}) }}" class="btn btn-success btn-block mt-3">Valider les produits</a>
+                    <ul class="mt-2" id="products_list">
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+

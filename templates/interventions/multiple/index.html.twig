@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Vos Cultures {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Interventions Multiples</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">Cultures</li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            {{ form_rest(form) }}
+                            <button class="btn btn-primary">Ajouter une intervention</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on('change', '#multiple_intervention_selectCulture', function () {
+            let $field = $(this)
+            let $form = $field.closest('form')
+            let data = {}
+            data[$field.attr('name')] = $field.val()
+            $.post($form.attr('action'), data).then(function (data) {
+                let $input = $(data).find('#multiple_intervention_cultures')
+                $('#multiple_intervention_cultures').replaceWith($input)
+                $('#multiple_intervention_cultures').append( "<input id=\"selectAll\" type=\"checkbox\"><label for='selectAll'>sélectionner tous</label>" )
+                $("#selectAll").click(function(){
+                    $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+
+                });
+            })
+        })
+    </script>
+{% endblock %}

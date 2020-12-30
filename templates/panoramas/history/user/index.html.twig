@@ -12,7 +12,7 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Accueil</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item active"><a href="javascript:void(0)">Historique des Panoramas</a></li>
                 </ol>
             </div>
@@ -64,7 +64,7 @@
                                         </td>
                                         <td>
                                             {% if panorama.checked == 0 %}
-                                                <form method="POST" action="{{ path('user.panorama.check', {id: panorama.id}) }}" style="display: inline-block">
+                                                <form method="POST" action="{{ path('panorama_user_check', {id: panorama.id}) }}" style="display: inline-block">
                                                     <input type="hidden" name="_method" value="CHECK">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
                                                     <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>

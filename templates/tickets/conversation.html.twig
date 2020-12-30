@@ -16,8 +16,8 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Ticket : {{ ticket.title }}</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('tickets.home') }}">Ticket</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('tickets_index') }}">Ticket</a></li>
                     <li class="breadcrumb-item active">Conversation</li>
                 </ol>
             </div>
@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-4">
                 {% if app.user.status != 'ROLE_TECHNICIAN' %}
-                    <a href="{{ path('tickets.new') }}" class="btn btn-success mb-2">Ouvrir un ticket</a>
+                    <a href="{{ path('tickets_new') }}" class="btn btn-success mb-2">Ouvrir un ticket</a>
                 {% endif %}
                 <div class="card">
                     <div class="card-body bg-info">
@@ -38,7 +38,7 @@
                         {% for ticket in ticketsList %}
                             <div class="message-box contact-box position-relative">
                                 <div class="message-widget contact-widget position-relative">
-                                    <a href="{{ path('tickets.conversation.show', {id: ticket.id}) }}" class="py-3 px-2 border-bottom d-block text-decoration-none view-ticket" id_ticket="{{ ticket.id }}">
+                                    <a href="{{ path('tickets_conversation_show', {id: ticket.id}) }}" class="py-3 px-2 border-bottom d-block text-decoration-none view-ticket" id_ticket="{{ ticket.id }}">
                                         <div class="mail-content d-inline-block align-middle">
                                             {% if app.user.status == 'ROLE_TECHNICIAN' %}
                                                 <h5 class="my-1">#{{ ticket.id }} | {{ ticket.user.identity }} - {{ ticket.title|slice(0, 35) }}..</h5>
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <form method="POST" action="{{ path('tickets.close', {id: ticket.id}) }}" style="display: inline-block">
+                <form method="POST" action="{{ path('tickets_close', {id: ticket.id}) }}" style="display: inline-block">
                     <input type="hidden" name="_method" value="CLOSE">
                     <input type="hidden" name="_token" value="{{ csrf_token('close' ~ ticket.id) }}">
                     <button class="btn btn-danger mb-2">Archiver le ticket</button>
@@ -135,9 +135,7 @@
                     </div>
                     {% if ticket.status != 0 %}
                         <div class="card-body border-top">
-                            {{ form_start( form ) }}
-                            {{ form_rest( form ) }}
-                            {{ form_end( form ) }}
+                            {% include ('tickets/_form.html.twig') %}
                         </div>
                     {% endif %}
                 </div>

@@ -1,0 +1,5 @@
+<form method="POST" action="{{ path('sales_manager_delete', {'id': sale.id}) }}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer cette enregistrement ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sale.id) }}">
+    <button class="btn btn-danger"><i class="ti-trash"></i></button>
+</form>

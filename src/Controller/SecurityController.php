@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Users;
 use App\Form\PasswordType;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,15 +15,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController {
 
     /**
-     * @Route("/", name="login")
+     * @Route("/", name="login", methods={"GET", "POST"})
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils) {
-        if ($this->getUser() !== null ){
-            return $this->redirectToRoute('login.success');
-        }
-
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('security/login.html.twig', [
@@ -34,12 +29,16 @@ class SecurityController extends AbstractController {
     }
 
     /**
-     * @Route("/login_success", name="login.success")
+     * @Route("/login_success", name="login_success", methods={"GET"})
      */
     public function postLoginRedirection()
     {
+        // Check connexion
+        if ( empty($this->getUser())  ) {
+            return $this->redirectToRoute('logout' );
+        }
         //-- If user have pack disable redirect to login with error
-        if ( $this->getUser()->getPack() === 'DISABLE' ) {
+        if ( $this->getUser()->getPack() === 'DISABLE' AND $this->getUser()->getStatus() == 'ROLE_USER' ) {
             $this->addFlash('danger', "Vous n'avez pas accès à l'application LMS Sodepac, veuillez contacter votre technicien Sodepac.");
             return $this->redirectToRoute( 'login' );
         }
@@ -51,16 +50,19 @@ class SecurityController extends AbstractController {
                 return $this->redirectToRoute('home');
                 break;
             case 'ROLE_TECHNICIAN':
-                return $this->redirectToRoute('technician.home');
+                return $this->redirectToRoute('technician_home');
                 break;
             case 'ROLE_ADMIN':
-                return $this->redirectToRoute('admin.home');
+                return $this->redirectToRoute('admin_index');
+                break;
+            case 'ROLE_SALES':
+                return $this->redirectToRoute('sales_manager_index');
                 break;
         }
     }
 
     /**
-     * @Route("/active_user/{id}", name="security.active")
+     * @Route("/active_user/{id}", name="security_active", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Users $user
      * @param Request $request
      * @param EntityManagerInterface $em

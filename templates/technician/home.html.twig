@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil</h3>
+                <h3 class="text-themecolor">Accueil Technicien</h3>
             </div>
         </div>
         {% for message in app.flashes('success') %}
@@ -16,97 +16,10 @@
             <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-12 col-lg-6">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex no-block">
-                            <h4 class="card-title">Vos Clients</h4>
-                            <div class="ml-auto">
-                                <a href="{{ path('technician.customers.new') }}" class="btn btn-success">Ajouter</a>
-                            </div>
-                        </div>
-                        <div class="table-responsive m-t-20">
-                            <table class="table stylish-table">
-                                <thead>
-                                <tr>
-                                    <th>Informations</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for customer in customers %}
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('view.user.index', {id: customer.id}) }}">
-                                                <h6>{{ customer.firstname }} {{ customer.lastname }}</h6><small class="text-muted">{{ customer.email }}</small>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-center">
-                            <a href="{{ path('technician.customers.index') }}" class="link font-medium"><h6>Voir plus</h6></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex no-block">
-                            <h4 class="card-title">Recommandations</h4>
-                        </div>
-                        <div class="table-responsive m-t-20">
-                            <table class="table stylish-table">
-                                <thead>
-                                <tr>
-                                    <th>Informations</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex no-block">
-                            <h4 class="card-title">Flashs envoyés aux clients</h4>
-                        </div>
-                        <div class="table-responsive m-t-20">
-                            <table class="table stylish-table">
-                                <thead>
-                                <tr>
-                                    <th>Informations</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for bsv in bsvs %}
-                                    <tr>
-                                        <td>
-                                            <h6>{{ bsv.bsv.text }} </h6>
-                                            <small class="text-muted">{{ bsv.displayAt|date("d/m/Y") }}
-                                                - {{ bsv.customers.identity }}
-                                            </small>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-center">
-                            <a href="{{ path('technician.bsv.history.index') }}" class="link font-medium"><h6>Voir plus</h6></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body little-profile text-center">
-                        <h3 class="m-b-0">Bonjour, {{ app.user.firstname }} {{ app.user.lastname }}</h3>
+                    <div class="card-body little-profile">
+                        <h4 class="m-b-0">Bonjour, {{ app.user.identity}}</h4>
                         <div class="row text-center m-t-20">
                             <div class="col-lg-4 col-md-4 m-t-20">
                                 <h3 class="m-b-0 font-light">{{ customersCount }}</h3><small>Clients</small>
@@ -114,9 +27,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-12 col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="m-b-0">Vos Panoramas</h4>
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Catalogues</h4>
+                        </div>
                         <div class="table-responsive m-t-20">
                             <table class="table stylish-table">
                                 <thead>
@@ -125,16 +42,31 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for panorama in panoramas %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Flashs envoyés a vos clients</h4>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Informations</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for flash in flashs %}
                                     <tr>
                                         <td>
-                                            <h6>{{ panorama.text }} </h6>
-                                            <small class="text-muted">{{ panorama.creationDate|date("d/m/Y") }}
-                                                {% if panorama.validate == 1 %}
-                                                    <span class="badge badge-success">Validé</span>
-                                                {% elseif panorama.validate == 0 %}
-                                                    <span class="badge badge-warning">En attente de validation</span>
-                                                {% endif %}
+                                            <h6>{{ flash.bsv.text }} </h6>
+                                            <small class="text-muted">{{ flash.displayAt|date("d/m/Y") }}
+                                                - {{ flash.customers.identity }}
                                             </small>
                                         </td>
                                     </tr>
@@ -143,11 +75,10 @@
                             </table>
                         </div>
                         <div class="text-center">
-                            <a href="{{ path('panoramas.index') }}" class="link font-medium"><h6>Voir plus</h6></a>
+                            <a href="{{ path('technician_flash_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

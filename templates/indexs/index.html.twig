@@ -8,7 +8,7 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Indexs</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item active">Indexs</li>
                 </ol>
             </div>
@@ -23,7 +23,7 @@
                         <div class="d-flex no-block">
                             <h4 class="card-title">Cultures</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('indexs.cultures.new') }}" class="btn btn-success">Ajouter</a>
+                                <a href="{{ path('indexs_cultures_new') }}" class="btn btn-success">Valider</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -40,13 +40,6 @@
                                         <td>
                                             <h6>{{ culture.name }}</h6>
                                         </td>
-                                        <td>
-                                            {% if culture.canevas == 1 %}
-                                                <span class="badge badge-success">Oui</span>
-                                            {% else %}
-                                                <span class="badge badge-danger">Non</span>
-                                            {% endif %}
-                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -61,7 +54,7 @@
                         <div class="d-flex no-block">
                             <h4 class="card-title">Apport d'effluents</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('indexs.effluents.new') }}" class="btn btn-success">Ajouter</a>
+                                <a href="{{ path('indexs_effluents_new') }}" class="btn btn-success">Valider</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -91,7 +84,7 @@
                         <div class="d-flex no-block">
                             <h4 class="card-title">Types de sol</h4>
                             <div class="ml-auto">
-                                <a href="{{ path('indexs.grounds.new') }}" class="btn btn-success">Ajouter</a>
+                                <a href="{{ path('indexs_grounds_new') }}" class="btn btn-success">Valider</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">

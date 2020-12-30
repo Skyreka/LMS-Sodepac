@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Flash{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Envoyer le Flash</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('admin_flash_index') }}">Flashs</a></li>
+                    <li class="breadcrumb-item active">Envoie</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            {{ form_row(form.cultures) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.user) }}
+                        </div>
+                        <div class="form-group m-t-20">
+                            {{ form_row(form.display_at) }}
+                        </div>
+                        <button class="btn btn-info">Envoyer</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.fr.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-datepicker').datepicker({
+                weekStart:0,
+                time: 1,
+                language:"fr",
+                todayHighlight: true
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $('.select2').select2();
+    </script>
+    <script>
+        $(document).on('change', '#bsv_send_cultures', function () {
+            let $field = $(this)
+            let $token = $('#bsv_send_token')
+            let $form = $field.closest('form')
+            let data = {}
+            data[$token.attr('name')] = $token.val()
+            data[$field.attr('name')] = $field.val()
+            $.post($form.attr('action'), data).then(function (data) {
+                $('.js-datepicker').datepicker({
+                    weekStart:0,
+                    time: 1,
+                    language:"fr",
+                    todayHighlight: true
+                });
+                let $input = $(data).find('#bsv_send_user')
+                $('#bsv_send_user').replaceWith( $input )
+                $('#bsv_send_user').prepend( "<input id=\"selectAll\" type=\"checkbox\"><label for='selectAll'>Sélectionner tous</label>" )
+                $("#selectAll").click(function(){
+                    $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+
+                });
+            })
+        })
+    </script>
+    <script src="{{ asset('plugins/moment/moment.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+{% endblock %}

@@ -12,10 +12,11 @@ security:
             security: false
         main:
             anonymous: true
+            user_checker: App\Security\UserChecker
             form_login:
                 login_path: login
                 check_path: login
-                default_target_path: login.success
+                default_target_path: login_success
                 always_use_default_target_path: true
                 username_parameter: _email
             logout:
@@ -37,6 +38,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/technician, roles: ROLE_TECHNICIAN }
+        - { path: ^/management, roles: ROLE_TECHNICIAN }
         - { path: ^/panoramas, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
         - { path: ^/view/user, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
         - { path: ^/recommendations, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
@@ -46,3 +48,6 @@ security:
         App\Entity\Users:
             algorithm: bcrypt
             cost: 12
+    role_hierarchy:
+        ROLE_TECHNICIAN: ROLE_USER
+        ROLE_ADMIN: ROLE_TECHNICIAN

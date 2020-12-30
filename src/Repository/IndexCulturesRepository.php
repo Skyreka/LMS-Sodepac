@@ -21,6 +21,17 @@ class IndexCulturesRepository extends ServiceEntityRepository
         parent::__construct($registry, IndexCultures::class);
     }
 
+    /**
+     * Find all index cultures is splay 1
+     */
+    public function findDisplay()
+    {
+        return $this->createQueryBuilder('q')
+            ->where('q.isDisplay = 1')
+            ->orderBy('q.name', 'ASC')
+        ;
+    }
+
     public function findCulturesByExploitation( $exploitation, $result = NULL )
     {
         $query = $this->createQueryBuilder('q')
@@ -29,24 +40,6 @@ class IndexCulturesRepository extends ServiceEntityRepository
             ->andWhere('i.exploitation = :exp')
             ->setParameter('exp', $exploitation)
             ->orderBy('c.name', 'DESC')
-        ;
-
-        //-- Only Query
-        if ($result) {
-            return $query;
-        }
-
-        //-- Return Array
-        return $query->getQuery()
-            ->getResult();
-    }
-
-    public function findCulturesCanevasAvailable( $result = NULL )
-    {
-        $query = $this->createQueryBuilder('q')
-            ->where('q.canevas = :exp')
-            ->orderBy('q.name', 'ASC')
-            ->setParameter('exp', 1)
         ;
 
         //-- Only Query

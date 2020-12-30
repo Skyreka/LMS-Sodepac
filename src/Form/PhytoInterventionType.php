@@ -30,7 +30,7 @@ class PhytoInterventionType extends AbstractType
                 'class' => Stocks::class,
                 'label' => 'Produit en stock',
                 'choice_label' => function(Stocks $stock) {
-                    return $stock->getProduct()->getName().' - '.$stock->getProduct()->getCategory().' - stock : '.$stock->getQuantity().' '.$stock->getUnit( true );
+                    return $stock->getProduct()->getName().' ( '.$stock->getProduct()->getType().' ) Stock : '.$stock->getQuantity().' '.$stock->getUnit( true );
                 },
                 'query_builder' => function(StocksRepository $sr) use ( $options ) {
                     return $sr->findProductInStockByExploitation( $options['user']->getExploitation() );
@@ -92,12 +92,12 @@ class PhytoInterventionType extends AbstractType
                     'choice_label' => function(Doses $dose) {
                         return $dose->getApplication().' '.$dose->getDose().' '.$dose->getUnit();
                     },
-                    'query_builder' => function(DosesRepository $dr) use ( $stock ) {
-                        return $dr->findByProduct( $stock->getProduct() );
+                    'query_builder' => function(DosesRepository $dr) use ( $stock, $options ) {
+                        return $dr->findDose( $stock->getProduct(), $options['culture']->getName() );
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
-                    'placeholder' => 'Choisir la dose préconisée'
+                    'placeholder' => 'Choisir la dose préconisée',
                 ]
             );
         }
@@ -128,6 +128,8 @@ class PhytoInterventionType extends AbstractType
             } else {
                 $znt = 1;
             }
+            /*
+             * Disable 14 december 2020 for jquery system on /templates/intervention/phyto
             // Get Total Quantity
             $unitEnable = ['kg/ha', 'L/ha'];
             if (in_array($dose->getUnit(), $unitEnable)) {
@@ -144,13 +146,20 @@ class PhytoInterventionType extends AbstractType
             } else {
                 $totalQuantity = '- Calcul non disponible avec cette unité';
                 $resultMessage = 'Aucun calcul effectué';
-            }
+            }*/
             $form
+                ->add('doseHectare', NumberType::class, [
+                    'label' => 'Dose appliquée à l\'hectare',
+                    'required'=> false,
+                    'mapped' => false
+                ])
                 ->add('quantity', NumberType::class, [
-                    'label' => 'Quantité Totale '. $totalQuantity,
-                    'help' => $resultMessage,
+                    'label' => 'Dose appliquée totale:',
                     'attr' => [
                         'max' => $form->get('productInStock')->getData()->getQuantity()
+                    ],
+                    'label_attr' => [
+                        'id' => 'quantityLabel'
                     ],
                     'required'=> true
                 ])

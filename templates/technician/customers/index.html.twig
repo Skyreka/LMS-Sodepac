@@ -12,8 +12,8 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Listes des utilisateurs</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item active"><a href="{{ path('technician.customers.index') }}">Clients</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ path('technician_customers_index') }}">Clients</a></li>
                 </ol>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <div class="d-flex no-block">
                             <div class="ml-auto">
-                                <a href="{{ path('technician.customers.new') }}" class="btn btn-success">Ajouter un client</a>
+                                <a href="{{ path('technician_customers_new') }}" class="btn btn-success">Ajouter un client</a>
                             </div>
                         </div>
                         <div class="table-responsive m-t-20">
@@ -34,7 +34,6 @@
                                 <thead>
                                 <tr>
                                     <th>Informations</th>
-                                    <th>Exploitation</th>
                                     <th>Téléphone</th>
                                     <th>Ville</th>
                                     <th>Certification</th>
@@ -45,7 +44,7 @@
                                 {% for customer in customers %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('view.user.index', {id: customer.id}) }}">
+                                            <a href="{{ path('management_user_show', {id: customer.id}) }}">
                                                 <h6>{{ customer.firstname }} {{ customer.lastname }}</h6>
                                                 {% if customer.email != null %}
                                                     <small class="text-muted">{{ customer.email }}</small>
@@ -54,22 +53,12 @@
                                                 {% endif %}
                                             </a>
                                         </td>
-                                        <td>
-                                            <h6>
-                                                {% if customer.exploitation is null %}
-                                                    <a href="{{ path('technician.customers.new.exploitation', {id: customer.id}) }}">Ajouter une superficie</a>
-                                                {% else %}
-                                                    <a href="{{ path('technician.customers.edit.exploitation', {id: customer.exploitation.id}) }}">
-                                                    <h6>{{ customer.exploitation.size }} ha</h6>
-                                                </a>
-                                                {% endif %}
-                                            </h6>
-                                        </td>
                                         <td>{{ customer.phone }}</td>
                                         <td>{{ customer.city }}</td>
                                         <td>{{ customer.certificationPhyto }}</td>
-                                        <td><a href="{{ path('technician.customers.edit', {id: customer.id}) }}" class="btn btn-primary">Editer</a>
-                                        <a href="{{ path('technician.customers.password', {id: customer.id}) }}" class="btn btn-info">Mot de passe</a></td>
+                                        <td>
+                                            <a href="{{ path('management_user_show', {id: customer.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

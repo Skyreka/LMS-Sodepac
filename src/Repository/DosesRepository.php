@@ -35,6 +35,26 @@ class DosesRepository extends ServiceEntityRepository
         return $query;
     }
 
+    public function findDose( $product, $indexCulture, $return = null )
+    {
+        dump( $product );
+        dump( $indexCulture );
+        $query = $this->createQueryBuilder('s')
+            ->andWhere('s.product = :product')
+            ->andWhere('s.indexCulture = :indexCulture')
+            ->setParameter('product', $product)
+            ->setParameter('indexCulture', $indexCulture)
+            ->orderBy('s.id', 'ASC')
+        ;
+
+        if ($return) {
+            $query = $query->getQuery()
+                ->getResult();
+        }
+
+        return $query;
+    }
+
     // /**
     //  * @return Doses[] Returns an array of Doses objects
     //  */

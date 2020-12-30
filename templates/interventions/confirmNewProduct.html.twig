@@ -13,7 +13,7 @@
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Confirmation Ajout d'un produit</h3>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login.success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Intervention</a></li>
                     <li class="breadcrumb-item active">Confirmation Ajout Produit</li>
                 </ol>
@@ -22,7 +22,7 @@
         {% if app.session.get('listCulture') %}
             <div class="alert alert-warning">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées</div>
         {% endif %}
-        <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant le site officiel <a href="https://ephy.anses.fr" target="_blank">ephy.anses.fr</a></a></div>
+        <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant <a href="https://www.melanges.arvalisinstitutduvegetal.fr/">melanges.arvalisinstitutduvegetal.fr</a>  En cas de doute, consulter votre conseiller.</div>
         <div class="row">
             <div class="col-lg-6">
                 <div class="card">
@@ -43,11 +43,11 @@
                         <div class="text-center mt-3">
                             <h4 class="card-title mt-2">Confirmation de l'ajout du product </h4>
                             {% if loop == 1  %}
-                                <a href="{{ path('interventions.phyto.product', {id: intervention.id}) }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
+                                <a href="{{ path('interventions_phyto_product', {id: intervention.id}) }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
                             {% else %}
-                                <a href="{{ path('login.success') }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
+                                <a href="{{ path('login_success') }}" class="btn btn-block btn-success mb-2">Confirmer le mélange</a>
                             {% endif %}
-                            <form method="POST" action="{{ path('interventions.phyto.product.delete', {interventionsProducts: lastInterventionProducts.id}) }}" style="display: inline-block">
+                            <form method="POST" action="{{ path('interventions_phyto_product_delete', {interventionsProducts: lastInterventionProducts.id}) }}" style="display: inline-block">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ lastInterventionProducts.id) }}">
                                 <button class="btn btn-block btn-danger">Annuler le mélange</button>
