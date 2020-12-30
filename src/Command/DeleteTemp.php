@@ -8,9 +8,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class DeleteTempOrder extends Command
+class DeleteTemp extends Command
 {
-    protected static $defaultName = 'app:deleteTempOrder';
+    protected static $defaultName = 'app:deleteTemp';
     /**
      * @var ContainerInterface
      */
@@ -25,7 +25,7 @@ class DeleteTempOrder extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Delete order on status 0')
+            ->setDescription('Delete all temp in order & contract byt')
         ;
     }
 
