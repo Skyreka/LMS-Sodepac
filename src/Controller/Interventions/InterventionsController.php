@@ -643,7 +643,7 @@ class InterventionsController extends AbstractController
 
         if ( $form->isSubmitted() && $form->isValid()) {
             //-- Update Stock
-            $stock = $sr->find( ['id' => $intervention->getProduct() ] );
+            $stock = $sr->findOneBy( ['product' => $intervention->getProduct(), 'exploitation' => $this->getUser()->getExploitation() ] );
             $quantityNew = $form->getData()->getQuantity();
             $quantityOnStock = $stock->getQuantity();
             $diffQuantityIntervention = $quantityNew - $quantityOnIntervention;
