@@ -272,7 +272,14 @@ class RecommendationsController extends AbstractController
         $totalSize = $recommendations->getCultureSize();
 
         if ( $form->isSubmitted() && $form->isValid() ) {
+            $dose = $form->get('dose')->getData();
+
             $recommendationProducts->setRecommendation( $recommendations );
+            $recommendationProducts->setDose( $dose->getDose() );
+            //$recommendationProducts->setUnit( $dose->getUnit() );
+            // Auto Calc dose x total size
+            $recommendationProducts->setQuantity( $recommendations->getCultureSize() * $dose->getDose() );
+
             $this->em->persist( $recommendationProducts );
             $this->em->flush();
             $this->addFlash('success', 'Produit ' . $recommendationProducts->getProduct()->getName() . ' ajouté avec succès');
@@ -529,22 +536,25 @@ class RecommendationsController extends AbstractController
                 file_put_contents( '../public/uploads/recommendations/process/'.$token.'/1.pdf', $outputFirstFile);
 
                 //-- Canevas
-                $canevasPage = new Dompdf( $pdfOptions );
-                $html =  $this->render('recommendations/canevas/assets/'.$recommendations->getCulture()->getSlug().'.html.twig', [
-                    'recommendations' => $recommendations,
-                    'rpr' => $recommendationProductsRepository,
-                    'totalSize' => 0,
-                    'culture' => $recommendations->getCulture(),
-                    'printRequest' => true
-                ]);
-                set_time_limit(300);
-                ini_set('max_execution_time', 300);
-                ini_set('memory_limit', '-1');
-                $canevasPage->loadHtml( $html->getContent() );
-                $canevasPage->setPaper('A2', 'landscape');
-                $canevasPage->render();
-                $outputFirstFile = $canevasPage->output();
-                file_put_contents( '../public/uploads/recommendations/process/'.$token.'/2.pdf', $outputFirstFile);
+                // Only if culture is not other
+                if ( $recommendations->getCulture()->getSlug() != 'other') {
+                    $canevasPage = new Dompdf( $pdfOptions );
+                    $html =  $this->render('recommendations/canevas/assets/'.$recommendations->getCulture()->getSlug().'.html.twig', [
+                        'recommendations' => $recommendations,
+                        'rpr' => $recommendationProductsRepository,
+                        'totalSize' => 0,
+                        'culture' => $recommendations->getCulture(),
+                        'printRequest' => true
+                    ]);
+                    set_time_limit(300);
+                    ini_set('max_execution_time', 300);
+                    ini_set('memory_limit', '-1');
+                    $canevasPage->loadHtml( $html->getContent() );
+                    $canevasPage->setPaper('A2', 'landscape');
+                    $canevasPage->render();
+                    $outputFirstFile = $canevasPage->output();
+                    file_put_contents( '../public/uploads/recommendations/process/'.$token.'/2.pdf', $outputFirstFile);
+                }
 
                 //-- Merge All Documents
                 $merger = new Merger();
@@ -554,7 +564,9 @@ class RecommendationsController extends AbstractController
                     $merger->addFile( '../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf' );
                 }
 
-                $merger->addFile( '../public/uploads/recommendations/process/'.$token.'/2.pdf' );
+                if ( $recommendations->getCulture()->getSlug() != 'other') {
+                    $merger->addFile('../public/uploads/recommendations/process/' . $token . '/2.pdf');
+                };
 
                 if ( $recommendations->getMention() != NULL OR $recommendations->getMentionTxt() != NULL ) {
                     $merger->addFile('../public/mentions/' . $recommendations->getMention() . '.pdf');

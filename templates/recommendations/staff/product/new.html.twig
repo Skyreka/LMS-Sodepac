@@ -43,11 +43,11 @@
             let data = {}
             data[$field.attr('name')] = $field.val()
             $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('#recommendation_add_product_doses')
-                $('#recommendation_add_product_doses').replaceWith($input)
+                let $input = $(data).find('#recommendation_add_product_dose')
+                $('#recommendation_add_product_dose').replaceWith($input)
             })
         })
-        $(document).on('change', '#recommendation_add_product_doses', function () {
+        $(document).on('change', '#recommendation_add_product_dose', function () {
             let $field = $(this)
             let $product = $('#recommendation_add_product_product')
             let form = $field.closest('form')

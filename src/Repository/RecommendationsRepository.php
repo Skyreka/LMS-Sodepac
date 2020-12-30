@@ -93,7 +93,7 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->where('e.users = :customer')
             ->andWhere('year(r.create_at) = :year')
             ->andWhere('r.status = :status')
-            ->setParameter('status', '2' )
+            ->setParameter('status', '3' )
             ->setParameter('customer', $customer )
             ->setParameter('year', $year)
             ->orderBy('r.create_at', 'DESC')

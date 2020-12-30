@@ -56,7 +56,7 @@ class RecommendationAddProductType extends AbstractType
     {
         if (is_null($product)) {
             $builder = $form->getConfig()->getFormFactory()->createNamedBuilder(
-                'doses',
+                'dose',
                 EntityType::class,
                 null,
                 [
@@ -70,7 +70,7 @@ class RecommendationAddProductType extends AbstractType
                 ]
             );
         } else {
-            $builder = $form->getConfig()->getFormFactory()->createNamedBuilder('doses',
+            $builder = $form->getConfig()->getFormFactory()->createNamedBuilder('dose',
                 EntityType::class,
                 null,
                 [
@@ -88,28 +88,7 @@ class RecommendationAddProductType extends AbstractType
             );
         }
 
-        $builder->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) use ($options) {
-                $form = $event->getForm();
-                $this->addOthersField( $form->getParent() );
-            }
-        );
         $form->add($builder->getForm());
-    }
-
-    private function addOthersField(FormInterface $form)
-    {
-        $form->add('quantity', null, [
-                'label' => 'Quantité Totale'
-            ])
-            ->add('quantity_unit', ChoiceType::class, [
-                'label' => 'Unité',
-                'choices' => [
-                    'Kilos' => 2,
-                    'Litres' => 1
-                ]
-            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
