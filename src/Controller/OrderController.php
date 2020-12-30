@@ -376,7 +376,7 @@ class OrderController extends AbstractController
      * @param Request $request
      * @return RedirectResponse
      */
-    public function delete(OrdersProduct $product, Request $request ): RedirectResponse
+    public function deleteProduct(OrdersProduct $product, Request $request ): RedirectResponse
     {
         if ($this->isCsrfTokenValid('deleteOrderArticle' . $product->getId(), $request->get('_token'))) {
             $this->em->remove( $product );
@@ -384,6 +384,24 @@ class OrderController extends AbstractController
             $this->addFlash('success', 'Produit supprimé avec succès');
         }
         return $this->redirectToRoute('order_show', ['id_number' => $product->getOrder()->getIdNumber()]);
+    }
+
+    /**
+     * @Route("management/order/delete/{id}", name="order_delete", methods={"DELETE"}, requirements={"id":"\d+"})
+     * @param OrdersProduct $product
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function delete(OrdersProduct $product, Request $request ): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('deleteOrder' . $product->getId(), $request->get('_token'))) {
+
+            //Remove Cart
+            $this->container->get('session')->remove('currentOrder');
+
+            $this->addFlash('success', 'Panier supprimé avec succès');
+        }
+        return $this->redirectToRoute('login_success' );
     }
 
     /**
@@ -451,7 +469,7 @@ class OrderController extends AbstractController
             $this->em->flush();
 
             // Msg
-            $this->addFlash('success', 'Commande validé avec succès, envoie au dépot en cours...');
+            $this->addFlash('success', 'Commande validée avec succès et envoyée au dépôt.');
         }
 
         return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
