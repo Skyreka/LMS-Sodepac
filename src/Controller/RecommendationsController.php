@@ -467,7 +467,6 @@ class RecommendationsController extends AbstractController
                 $stock = new Stocks();
                 $stock->setExploitation( $recommendations->getExploitation() );
                 $stock->setProduct( $product->getProduct() );
-                $stock->setQuantity( $product->getQuantity() );
 
                 $this->em->persist( $stock );
             }
