@@ -72,8 +72,6 @@ class RecommendationsController extends AbstractController
     public function indexStaff( RecommendationsRepository $rr): Response
     {
         //Counters
-        $recommendationsSended = $rr->countAllByStatus( 3 );
-        $recommendationsGenerated = $rr->countAllByStatus( 2 );
         $recommendationsCreate = $rr->countAllByStatus( 1 );
 
         // Get Last Recommendations
@@ -452,18 +450,29 @@ class RecommendationsController extends AbstractController
      * @Route("recommendations/{id}/send", name="recommendation_send", methods="SEND")
      * @param Recommendations $recommendations
      * @param Request $request
-     * @param CulturesRepository $cr
      * @param \Swift_Mailer $mailer
      * @param StocksRepository $sr
+     * @param RecommendationProductsRepository $rpr
      * @return Response
-     * @throws NoResultException
-     * @throws NonUniqueResultException
      */
-    public function send( Recommendations $recommendations, Request $request, CulturesRepository $cr, \Swift_Mailer $mailer, StocksRepository $sr )
+    public function send( Recommendations $recommendations, Request $request, \Swift_Mailer $mailer, StocksRepository $sr, RecommendationProductsRepository $rpr )
     {
         if ($this->isCsrfTokenValid('send', $request->get('_token'))) {
             //-- Update Status of recommendation
             $recommendations->setStatus( 3 );
+
+            //-- Add to stock
+            $products = $rpr->findBy( ['recommendation' => $recommendations ]);
+            foreach ( $products as $product ) {
+                $stock = new Stocks();
+                $stock->setExploitation( $recommendations->getExploitation() );
+                $stock->setProduct( $product->getProduct() );
+                $stock->setQuantity( $product->getQuantity() );
+
+                $this->em->persist( $stock );
+            }
+
+            // Save to Db
             $this->em->flush();
 
             //-- SEND PDF TO USER

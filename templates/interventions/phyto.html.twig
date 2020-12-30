@@ -91,7 +91,7 @@
 
                     let total = doseHectare * hectare;
 
-                    $('#quantityLabel').text( 'Dose appliqué totale : ' + total.toFixed() + '  (' + doseHectare + ' x ' + hectare + 'ha )' );
+                    $('#quantityLabel').text( 'Dose appliqué totale : ' + total.toFixed(2) + '  (' + doseHectare + ' x ' + hectare + 'ha )' );
                 });
             })
         })
@@ -121,5 +121,30 @@
             if (val > max)
                 _this.val(max);
         });*/
+    </script>
+
+    <script>
+        $(document).on('change', '#intervention_add_product_productInStock', function () {
+            let $field = $(this);
+            let $form = $field.closest('form');
+            let data = {};
+            data[$field.attr('name')] = $field.val();
+            $.post($form.attr('action'), data).then(function (data) {
+                let $input = $(data).find('#intervention_add_product_doses');
+                $('#intervention_add_product_doses').replaceWith($input)
+            })
+        })
+        $(document).on('change', '#intervention_add_product_doses', function () {
+            let $field = $(this)
+            let $product = $('#intervention_add_product_productInStock');
+            let form = $field.closest('form');
+            let data = {}
+            data[$product.attr('name')] =  $product.val();
+            data[$field.attr('name')] =  $field.val();
+            $.post(form.attr('action'), data).then(function (data) {
+                let input = $(data).find('form');
+                $(form).replaceWith( input )
+            })
+        })
     </script>
 {% endblock %}

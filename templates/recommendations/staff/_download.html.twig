@@ -5,5 +5,5 @@
         <button class="btn btn-info ml-2 generate-buttons" id="generate-button" recommendation-id="{{ recommendation.id }}"><i class="fas fa-redo"></i> {{ button_label|default('') }}</button>
     </form>
 {% else %}
-    <a class="btn btn-success mt-2" href="{{ asset('uploads/recommendations/' ~ recommendation.pdf) }}" target="_blanck"><i class="fas fa-download"></i> {{ button_label|default('') }}</a>
+    <a class="btn btn-success ml-2" href="{{ asset('uploads/recommendations/' ~ recommendation.pdf) }}" target="_blanck"><i class="fas fa-download"></i> {{ button_label|default('') }}</a>
 {% endif %}
