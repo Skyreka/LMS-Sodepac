@@ -598,9 +598,10 @@ class InterventionsController extends AbstractController
      * @Route("/edit/{id}", name="intervention_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Interventions $intervention
      * @param Request $request
+     * @param StocksRepository $sr
      * @return Response
      */
-    public function edit( Interventions $intervention, Request $request ) {
+    public function edit( Interventions $intervention, Request $request, StocksRepository $sr ) {
         switch ($intervention->getType()) {
             case 'Récolte':
                 $form = $this->createForm( RecolteType::class, $intervention, ['syntheseView' => true] );
@@ -637,6 +638,25 @@ class InterventionsController extends AbstractController
         $form->handleRequest( $request );
 
         if ( $form->isSubmitted() && $form->isValid()) {
+
+            //-- Get data
+            $data = $form->all();
+
+            //-- Update Stock
+            $stock = $sr->find( ['id' => $intervention->getProduct() ] );
+
+            $quantityUsed = $form->getData()->getQuantity();
+
+            $quantityOnStock = $stock->getQuantity();
+            $stock->setQuantity( $quantityOnStock - $quantityUsed);
+            $quantityUsedInStock = $stock->getUsedQuantity();
+            $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
+
+            dump( $quantityUsed );
+            dump( $quantityOnStock );
+            exit;
+
+
             $this->em->flush();
             $this->addFlash('success', 'Intervention modifiée avec succès');
             return $this->redirectToRoute( 'cultures.synthese', ['id' => $intervention->getCulture()->getId()] );

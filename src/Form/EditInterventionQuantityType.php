@@ -20,9 +20,10 @@ class EditInterventionQuantityType extends AbstractType
             ->add('intervention_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
+                'format' => 'dd/MM/yyyy',
                 'attr' => [
                     'class' => 'js-datepicker',
-                    'value' => date('Y-m-d')
+                    'value' => date('d/m/Y')
                 ]
             ])
         ;
