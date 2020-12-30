@@ -21,6 +21,17 @@ class IndexCulturesRepository extends ServiceEntityRepository
         parent::__construct($registry, IndexCultures::class);
     }
 
+    /**
+     * Find all index cultures is splay 1
+     */
+    public function findDisplay()
+    {
+        return $this->createQueryBuilder('q')
+            ->where('q.isDisplay = 1')
+            ->orderBy('q.name', 'ASC')
+        ;
+    }
+
     public function findCulturesByExploitation( $exploitation, $result = NULL )
     {
         $query = $this->createQueryBuilder('q')

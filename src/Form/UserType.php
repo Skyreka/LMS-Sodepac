@@ -31,6 +31,7 @@ class UserType extends AbstractType
                     'autocomplete' => 'off'
                 ]
             ])
+            ->add('company')
             ->add('email', TextType::class, [
                 'attr' => [
                     'autocomplete' => 'off'
@@ -43,6 +44,8 @@ class UserType extends AbstractType
                     'autocomplete' => 'off'
                 ]
             ])
+            ->add('address')
+            ->add('postal_code')
             ->add('city', TextType::class, [
                 'empty_data' => '',
                 'required' => false,
@@ -63,9 +66,6 @@ class UserType extends AbstractType
                 },
             ])
             ->add('certification_phyto')
-            ->add('company')
-            ->add('address')
-            ->add('postal_code')
             ->add('technician', EntityType::class, [
                 'class' => Users::class,
                 'expanded'     => false,

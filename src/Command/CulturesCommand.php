@@ -66,7 +66,7 @@ class CulturesCommand extends command
                     $culture = new IndexCultures();
                     $culture->setIdLex( $idLex );
                     $culture->setName( $name );
-                    $culture->setIsDisplay( 0 );
+                    $culture->setIsDisplay( 1 );
                     $culture->setPermanent( 0 );
                     $culture->setSlug( $slugify->slugify( $name ) );
 
