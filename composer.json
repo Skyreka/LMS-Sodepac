@@ -37,10 +37,10 @@
         "twig/intl-extra": "^3.1",
         "twig/twig": "^2.12|^3.0",
         "webinarium/datatables-bundle": "^2.4",
-        "sensiolabs/security-checker": "^6.0"
+        "sensiolabs/security-checker": "^6.0",
+        "cocur/slugify": "^4.0"
     },
     "require-dev": {
-        "cocur/slugify": "^4.0",
         "doctrine/data-fixtures": "^1.4",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/debug-pack": "*",
