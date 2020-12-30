@@ -63,6 +63,9 @@ class UserType extends AbstractType
                 },
             ])
             ->add('certification_phyto')
+            ->add('company')
+            ->add('address')
+            ->add('postal_code')
             ->add('technician', EntityType::class, [
                 'class' => Users::class,
                 'expanded'     => false,

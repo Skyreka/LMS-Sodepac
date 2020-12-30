@@ -147,6 +147,21 @@ class Users implements UserInterface, \Serializable
      */
     private $warehouse;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $company;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $postalCode;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
@@ -599,6 +614,42 @@ class Users implements UserInterface, \Serializable
     public function setWarehouse(?Warehouse $warehouse): self
     {
         $this->warehouse = $warehouse;
+
+        return $this;
+    }
+
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?string $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
 
         return $this;
     }
