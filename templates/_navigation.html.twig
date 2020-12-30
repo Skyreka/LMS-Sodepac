@@ -3,7 +3,6 @@
         <nav class="sidebar-nav">
             {% if is_granted('ROLE_ADMIN') %}
                 <ul id="sidebarnav">
-                    <li class="nav-small-cap">Compte Administrateur</li>
                     <li><a class="waves-effect waves-dark" href="{{ path('admin_index') }}"><i class="fa fa-home"></i><span class="hide-menu"> Accueil </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('admin_users_index') }}"><i class="fas fa-users"></i><span class="hide-menu"> Utilisateurs</span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('indexs_index') }}"><i class="fas fa-folder"></i><span class="hide-menu"> Indexs</span></a></li>
@@ -17,7 +16,6 @@
             {% endif %}
             {% if app.user.status == 'ROLE_TECHNICIAN' %}
                 <ul id="sidebarnav">
-                    <li class="nav-small-cap">Compte Technicien</li>
                     <li><a class="waves-effect waves-dark" href="{{ path('login_success') }}"><i class="fa fa-home"></i><span class="hide-menu"> Accueil </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('technician_customers_index') }}"><i class="fa fa-users"></i><span class="hide-menu">Clients </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('panorama_index') }}"><i class="fas fa-newspaper"></i></i><span class="hide-menu">Panoramas </span></a></li>

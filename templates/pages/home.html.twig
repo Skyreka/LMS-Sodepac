@@ -26,7 +26,7 @@
                 <br><a href="{{ path('account_index') }}">Modifier mot de passe</a></div>
         {% endif %}
         {% if app.user.exploitation is null %}
-            <div class="alert alert-info">Vous n'avez actuellement pas d'exploitation <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation</div>
+            <div class="alert alert-warning">Vous n'avez actuellement pas d'exploitation disponible. <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation.</div>
         {% endif %}
         <div class="row">
             <div class="col-3 mb-3 d-block d-sm-none">

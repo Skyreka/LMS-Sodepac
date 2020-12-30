@@ -39,7 +39,7 @@
                                     <div class="u-text">
                                         <h4>{{ app.user.identity}}</h4>
                                         <p class="text-muted">{{ app.user.email }}</p>
-                                        {% if app.user.pack is not null %}
+                                        {% if app.user.pack is not null and app.user.status == 'ROLE_USER' %}
                                             <span class="badge badge-success">{{ app.user.pack(true) }}</span>
                                         {% endif %}
                                     </div>
