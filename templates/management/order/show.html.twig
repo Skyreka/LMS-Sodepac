@@ -197,9 +197,13 @@
                 </div>
                 <form method="POST" action="{{ path('order_valid', {id: order.id}) }}">
                     <div class="modal-body">
+                        <div class="demo-checkbox mb-3">
+                            <input type="checkbox" id="sign1" class="chk-col-green" required />
+                            <label for="sign1">Je certifie être détenteur du certiphyto utilisateur professionnel en cours de validité et atteste être pleinement responsable du choix des spécialités présentées dans ce catalogue.</label>
+                        </div>
                         <div class="demo-checkbox">
-                            <input type="checkbox" id="basic_checkbox_2" class="filled-in" required />
-                            <label for="basic_checkbox_2">Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande</label>
+                            <input type="checkbox" id="sign2" class="chk-col-green" required />
+                            <label for="sign2">Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande.</label>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -505,7 +505,7 @@ class RecommendationsController extends AbstractController
                 $fileSystem = new Filesystem();
                 $fileSystem->mkdir( '../public/uploads/recommendations/process/'.$token );
                 $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-                $cultureTotal = $recommendation->getCultureSize();
+                $cultureTotal = $recommendations->getCultureSize();
                 $customer = $recommendations->getExploitation()->getUsers();
                 $fileName = 'Catalogue-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
 

@@ -75,11 +75,11 @@
                                         <td>{{ recommendation.culture.name }}</td>
                                         <td>
                                             {% if( recommendation.status == 1 ) %}
-                                                <span class="badge badge-warning">Créee</span>
+                                                <span class="badge badge-warning">Crée</span>
                                             {% elseif( recommendation.status == 2 ) %}
-                                                <span class="badge badge-info">Générée</span>
+                                                <span class="badge badge-info">Généré</span>
                                             {% elseif( recommendation.status == 3 ) %}
-                                                <span class="badge badge-success">Envoyée</span>
+                                                <span class="badge badge-success">Envoyé</span>
                                             {% endif %}
                                         </td>
                                         {% if app.user.status == 'ROLE_ADMIN' %}

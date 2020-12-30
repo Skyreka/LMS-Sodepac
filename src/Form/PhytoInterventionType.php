@@ -149,7 +149,7 @@ class PhytoInterventionType extends AbstractType
             }*/
             $form
                 ->add('doseHectare', NumberType::class, [
-                    'label' => 'Dose appliqué à l\'hectare',
+                    'label' => 'Dose appliquée à l\'hectare',
                     'required'=> false,
                     'mapped' => false
                 ])
