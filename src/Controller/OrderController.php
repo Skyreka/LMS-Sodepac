@@ -242,6 +242,7 @@ class OrderController extends AbstractController
             $orderProduct->setOrder( $order );
             $orderProduct->setProduct( $product->getProduct() );
             $orderProduct->setQuantity( $product->getQuantity() );
+            $orderProduct->setTotalQuantity( 0 );
             $orderProduct->setUnitPrice( 0 );
             $this->em->persist( $orderProduct );
 
@@ -257,6 +258,8 @@ class OrderController extends AbstractController
             $orderProduct = new OrdersProduct();
             $orderProduct->setOrder( $orderFromOther );
             $orderProduct->setProduct( $product );
+            $orderProduct->setTotalQuantity( 0 );
+            $orderProduct->setUnitPrice( 0 );
             $this->em->persist( $orderProduct );
 
             $this->em->flush();
