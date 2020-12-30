@@ -41,6 +41,7 @@ class RecommendationAddType extends AbstractType
             ])
             ->add('culture', EntityType::class, array(
                 'class' => IndexCanevas::class,
+                'label' => 'Liste des Canevas',
                 'choice_label' => function (IndexCanevas $canevas) {
                     return $canevas->getName();
                 },
@@ -49,7 +50,7 @@ class RecommendationAddType extends AbstractType
                 }
             ))
             ->add('cultureSize', NumberType::class, [
-                'label' => 'Taille de la culture',
+                'label' => 'Superficie de la culture (Ha)',
                 'attr' => [
                     'min' => 0
                 ]

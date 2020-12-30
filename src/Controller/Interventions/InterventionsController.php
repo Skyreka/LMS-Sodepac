@@ -602,6 +602,10 @@ class InterventionsController extends AbstractController
      * @return Response
      */
     public function edit( Interventions $intervention, Request $request, StocksRepository $sr ) {
+
+        // Freeze var before form
+        $quantityOnIntervention = $intervention->getQuantity();
+
         switch ($intervention->getType()) {
             case 'Récolte':
                 $form = $this->createForm( RecolteType::class, $intervention, ['syntheseView' => true] );
@@ -638,24 +642,14 @@ class InterventionsController extends AbstractController
         $form->handleRequest( $request );
 
         if ( $form->isSubmitted() && $form->isValid()) {
-
-            //-- Get data
-            $data = $form->all();
-
             //-- Update Stock
             $stock = $sr->find( ['id' => $intervention->getProduct() ] );
-
-            $quantityUsed = $form->getData()->getQuantity();
-
+            $quantityNew = $form->getData()->getQuantity();
             $quantityOnStock = $stock->getQuantity();
-            $stock->setQuantity( $quantityOnStock - $quantityUsed);
+            $diffQuantityIntervention = $quantityNew - $quantityOnIntervention;
+            $stock->setQuantity( $quantityOnStock - $diffQuantityIntervention );
             $quantityUsedInStock = $stock->getUsedQuantity();
-            $stock->setUsedQuantity( $quantityUsedInStock + $quantityUsed );
-
-            dump( $quantityUsed );
-            dump( $quantityOnStock );
-            exit;
-
+            $stock->setUsedQuantity( $quantityUsedInStock + $diffQuantityIntervention );
 
             $this->em->flush();
             $this->addFlash('success', 'Intervention modifiée avec succès');

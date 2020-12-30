@@ -22,8 +22,7 @@ class EditInterventionQuantityType extends AbstractType
                 'html5' => false,
                 'format' => 'dd/MM/yyyy',
                 'attr' => [
-                    'class' => 'js-datepicker',
-                    'value' => date('d/m/Y')
+                    'class' => 'js-datepicker'
                 ]
             ])
         ;

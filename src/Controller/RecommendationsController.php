@@ -81,16 +81,12 @@ class RecommendationsController extends AbstractController
             $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
 
             //Counters
-            $recommendationsSended = $rr->countAllByStatus( 3 );
-            $recommendationsGenerated = $rr->countAllByStatus( 2 );
             $recommendationsCreate = $rr->countAllByStatus( 1 );
         } else {
             $lastRecommendations = $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), date('Y'), 5 );
         }
 
         return $this->render('recommendations/staff/index.html.twig', [
-            'totalSended' =>  $recommendationsSended,
-            'totalGenerated' => $recommendationsGenerated,
             'totalCreate' => $recommendationsCreate,
             'lastRecommendations' => $lastRecommendations
         ]);
@@ -337,7 +333,7 @@ class RecommendationsController extends AbstractController
     {
         if ($request->isXmlHttpRequest()) {
             $recommendation = $this->rpr->find( $request->get('id'));
-            $cultureTotal = $cr->countSizeByIndexCulture( $recommendation->getRecommendation()->getCulture(), $recommendation->getRecommendation()->getExploitation() );
+            $cultureTotal = $recommendation->getCultureSize();
             $recommendation->setDose( $request->get('dose'));
             //-- Calcul total of quantity with new dose
             $result = $cultureTotal * $recommendation->getDose();
@@ -509,7 +505,7 @@ class RecommendationsController extends AbstractController
                 $fileSystem = new Filesystem();
                 $fileSystem->mkdir( '../public/uploads/recommendations/process/'.$token );
                 $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-                $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
+                $cultureTotal = $recommendation->getCultureSize();
                 $customer = $recommendations->getExploitation()->getUsers();
                 $fileName = 'Catalogue-'.$recommendations->getCulture()->getName().'-'.date('y-m-d').'-'.$customer->getId().'.pdf';
 
@@ -693,7 +689,7 @@ class RecommendationsController extends AbstractController
             throw $this->createNotFoundException('Cette recommendation ne vous appartient pas.');
         }
         $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
-        $cultureTotal = $cr->countSizeByIndexCulture( $recommendations->getCulture(), $recommendations->getExploitation() );
+        $cultureTotal = $recommendations->getCultureSize();
         return $this->render('exploitation/recommendations/show.html.twig', [
             'recommendations' => $recommendations,
             'products' => $products,

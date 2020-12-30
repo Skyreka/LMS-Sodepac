@@ -23,7 +23,7 @@
         </div>
         <div class="row">
             <!-- Column -->
-            <div class="col-lg-3 col-md-3">
+            <div class="col-12 col-md-2">
                 <div class="card card-inverse card-primary">
                     <div class="card-body">
                         <div class="d-flex">
@@ -38,39 +38,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Column -->
-            <div class="col-lg-3 col-md-3">
-                <div class="card card-inverse card-success">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="m-r-20 align-self-center">
-                                <h1 class="text-white"><i class="ti-cloud-down"></i></h1>
-                            </div>
-                            <div>
-                                <h3 class="card-title">{{ totalGenerated }}</h3>
-                                <h6 class="card-subtitle">catalogues générés</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Column -->
-            <div class="col-lg-3 col-md-3">
-                <div class="card card-inverse card-info">
-                    <div class="card-body">
-                        <div class="d-flex">
-                            <div class="m-r-20 align-self-center">
-                                <h1 class="text-white"><i class="ti-cloud-up"></i></h1>
-                            </div>
-                            <div>
-                                <h3 class="card-title">{{ totalSended }}</h3>
-                                <h6 class="card-subtitle">catalogues envoyés</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3">
+            <div class="col-12 col-md-10">
                 <a href="{{ path('recommendation_new') }}" class="btn btn-success pull-right ml-4">Nouveau Catalogue</a>
                 <a href="{{ path('recommendation_synthese') }}" class="btn btn-warning pull-right">Synthèse</a>
             </div>
