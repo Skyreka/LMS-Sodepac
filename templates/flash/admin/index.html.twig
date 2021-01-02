@@ -53,6 +53,7 @@
                                         <td>{{ flash.sent ? '<label class="badge badge-success">Oui</label>' : '<label class="badge badge-danger">Non</label>' }}</td>
                                         <td>
                                             <a href="{{ path('admin_flash_send', {id: flash.id}) }}" class="btn btn-info"><i class="fa fa-paper-plane"></i> </a>
+                                            {{ include('flash/admin/_send.html.twig') }}
                                             <a href="{{ path('admin_flash_edit', {id: flash.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i> </a>
                                             {{ include('flash/admin/_delete.html.twig') }}
                                             {% if flash.firstFile %}

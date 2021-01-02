@@ -1,0 +1,5 @@
+<form method="POST" action="{{ path('admin_flash_send_all', {id: flash.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir envoyer le flash à tous les utilisateurs ?')">
+    <input type="hidden" name="_method" value="SEND">
+    <input type="hidden" name="_token" value="{{ csrf_token('send' ~ flash.id) }}">
+    <button title="Envoyer à tous les utilisateurs" class="btn btn-success"><i class="fa fa-reply-all"></i></button>
+</form>

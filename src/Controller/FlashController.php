@@ -8,6 +8,7 @@ use App\Form\BsvSendType;
 use App\Form\BsvType;
 use App\Repository\BsvRepository;
 use App\Repository\BsvUsersRepository;
+use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -238,6 +239,49 @@ class FlashController extends AbstractController
             'bsv' => $bsv,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/admin/flash/send/all/{id}", name="admin_flash_send_all", methods="SEND", requirements={"id":"\d+"})
+     * @param Bsv $bsv
+     * @param Request $request
+     * @param \Swift_Mailer $mailer
+     * @param UsersRepository $ur
+     * @return RedirectResponse
+     */
+    public function adminSendAll(Bsv $bsv, Request $request, \Swift_Mailer $mailer, UsersRepository $ur): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('send' . $bsv->getId(), $request->get('_token'))) {
+            $customers = $ur->findAllByRole('ROLE_USER');
+            foreach ($customers as $customer) {
+                $relation = new BsvUsers();
+                $this->em->persist($relation);
+                $relation
+                    ->setBsv($bsv)
+                    ->setCustomers($customer)
+                    ->setChecked(1)
+                    ->setDisplayAt(new \DateTime());
+                //Send email notification
+                $message = (new \Swift_Message('Un nouveau flash est disponible sur LMS-Sodepac.'))
+                    ->setFrom('send@lms-sodepac.fr')
+                    ->setTo( $customer->getEmail() )
+                    ->setBody(
+                        $this->renderView(
+                            'emails/notification/user/flash.html.twig', [
+                                'first_name' => $customer->getIdentity()
+                            ]
+                        ),
+                        'text/html'
+                    )
+                ;
+                $mailer->send($message);
+            }
+            $bsv->setSent(1);
+            $this->em->flush();
+            $this->addFlash('success', 'Flash envoyé avec succès');
+        }
+
+        return $this->redirectToRoute('admin_flash_index');
     }
 
     /**
