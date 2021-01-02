@@ -24,6 +24,9 @@ class CulturesNewType extends AbstractType
         $builder
             ->add('precedent', EntityType::class, [
                 'class' => IndexCultures::class,
+                'attr' => [
+                    'class' => 'select2'
+                ],
                 'choice_label' => 'name',
                 'label' => 'Culture Précédente'
             ])
