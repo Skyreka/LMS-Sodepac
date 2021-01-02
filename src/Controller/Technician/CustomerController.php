@@ -73,7 +73,7 @@ class CustomerController extends AbstractController
             //: Create exploitation
             $exploitation = new Exploitation();
             $exploitation
-                ->setSize(300)
+                ->setSize(150)
                 ->setUsers($user);
 
             //: Update
