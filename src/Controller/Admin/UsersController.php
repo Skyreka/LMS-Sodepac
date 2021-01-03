@@ -82,7 +82,7 @@ class UsersController extends AbstractController {
             //Send Email to user
             $link = $request->getUriForPath('/login');
             $message = (new \Swift_Message('Votre compte LMS Sodepac est maintenant disponible.'))
-                ->setFrom('send@lms-sodepac.fr')
+                ->setFrom('noreply@sodepac.fr')
                 ->setTo( $user->getEmail() )
                 ->setBody(
                     $this->renderView(

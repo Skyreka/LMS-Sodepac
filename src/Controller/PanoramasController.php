@@ -165,7 +165,7 @@ class PanoramasController extends AbstractController
                 $pathInfo = '/panoramas';
                 $link = $request->getUriForPath($pathInfo);
                 $message = (new \Swift_Message('Un panorama est en attente de validation.'))
-                    ->setFrom('send@lms-sodepac.fr')
+                    ->setFrom('noreply@sodepac.fr')
                     ->setTo( $admin->getEmail() )
                     ->setBody(
                         $this->renderView(
@@ -289,7 +289,7 @@ class PanoramasController extends AbstractController
 
                 //Send email notification
                 $message = (new \Swift_Message('Un nouveau panorama disponible sur LMS-Sodepac.'))
-                    ->setFrom('send@lms-sodepac.fr')
+                    ->setFrom('noreply@sodepac.fr')
                     ->setTo( $customer->getEmail() )
                     ->setBody(
                         $this->renderView(

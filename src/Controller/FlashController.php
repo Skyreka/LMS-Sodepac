@@ -216,7 +216,7 @@ class FlashController extends AbstractController
 
                 //Send email notification
                 $message = (new \Swift_Message('Un nouveau flash est disponible sur LMS-Sodepac.'))
-                    ->setFrom('send@lms-sodepac.fr')
+                    ->setFrom('noreply@sodepac.fr')
                     ->setTo( $customer->getEmail() )
                     ->setBody(
                         $this->renderView(
