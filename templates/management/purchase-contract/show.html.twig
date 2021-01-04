@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contract D'Achat{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row pt-5">
+            <!-- Column -->
+            <div class="col-12">
+                <!--begin::Alert-->
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">{{ message }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-info">
+                        <h5 class="mb-0 text-white">Votre contrat d'achat</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table product-overview" id="edit-table">
+                                <thead>
+                                <tr>
+                                    <th>ESPECES</th>
+                                    <th>VOLUMES</th>
+                                    <th>TARIF</th>
+                                    <th>TRANSPORT</th>
+                                    <th>DEPOT</th>
+                                    <th>REPRISE</th>
+                                    <th>DIVERS</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for culture in purchaseContractCulture %}
+                                    <tr>
+                                        <td>{{ culture.culture }}</td>
+                                        <td>{{ culture.volume }}</td>
+                                        <td>{{ culture.price }}</td>
+                                        <td>{{ culture.transport }}</td>
+                                        <td>{{ culture.depot }}</td>
+                                        <td>{{ culture.recovery }}</td>
+                                        <td>{{ culture.divers }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>$
+{% endblock %}

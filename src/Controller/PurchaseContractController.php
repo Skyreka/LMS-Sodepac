@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\PurchaseContract;
+use App\Entity\PurchaseContractCulture;
 use App\Form\PurchaseContractType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,6 +51,14 @@ class PurchaseContractController extends AbstractController
             $purchaseContract->setCreator( $this->getUser() );
 
             $this->em->persist( $purchaseContract );
+
+            foreach ( PurchaseContract::CULTURES as $culture ) {
+                $purchaseContractCulture = new PurchaseContractCulture();
+                $purchaseContractCulture->setCulture( $culture );
+                $purchaseContractCulture->setPurchaseContract( $purchaseContract );
+                $this->em->persist( $purchaseContractCulture );
+            }
+
             $this->em->flush();
 
             $this->addFlash('success', 'Nouveau contract d\'achat crée avec succès');
@@ -68,8 +77,10 @@ class PurchaseContractController extends AbstractController
      */
     public function show( PurchaseContract $purchaseContract ): Response
     {
+
         return $this->render( 'management/purchase-contract/show.html.twig', [
-            'purchaseContract' => $purchaseContract
+            'purchaseContract' => $purchaseContract,
+            'purchaseContractCulture' => $purchaseContract->getCultures()
         ] );
     }
 }

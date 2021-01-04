@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PurchaseContractRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,9 +18,23 @@ class PurchaseContract
         3 => 'C2'
     ];
 
+    const CULTURES = [
+        'Blé Tendre',
+        'Bologna/Izalco',
+        'Orge Mouture',
+        'Triticale',
+        'Colza',
+        'Tournesol Lino',
+        'Tournesol Oleique',
+        'Maïs',
+        'Sorgho',
+        'Soja',
+    ];
+
     public function __construct()
     {
         $this->added_date = new \DateTime();
+        $this->cultures = new ArrayCollection();
     }
 
     /**
@@ -49,6 +65,11 @@ class PurchaseContract
      * @ORM\Column(type="datetime")
      */
     private $added_date;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PurchaseContractCulture::class, mappedBy="purchaseContract", orphanRemoval=true)
+     */
+    private $cultures;
 
     public function getId(): ?int
     {
@@ -99,6 +120,36 @@ class PurchaseContract
     public function setAddedDate(\DateTimeInterface $added_date): self
     {
         $this->added_date = $added_date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseContractCulture[]
+     */
+    public function getCultures(): Collection
+    {
+        return $this->cultures;
+    }
+
+    public function addCulture(PurchaseContractCulture $culture): self
+    {
+        if (!$this->cultures->contains($culture)) {
+            $this->cultures[] = $culture;
+            $culture->setPurchaseContract($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCulture(PurchaseContractCulture $culture): self
+    {
+        if ($this->cultures->removeElement($culture)) {
+            // set the owning side to null (unless already changed)
+            if ($culture->getPurchaseContract() === $this) {
+                $culture->setPurchaseContract(null);
+            }
+        }
 
         return $this;
     }
