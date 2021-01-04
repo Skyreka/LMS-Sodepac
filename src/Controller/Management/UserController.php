@@ -62,6 +62,13 @@ class UserController extends AbstractController
         UserPasswordEncoderInterface $encoder
         ): Response
     {
+        $tab = $request->query->get('tab');
+        if ( empty( $tab )) {
+            $activeTab = 'default';
+        } else {
+            $activeTab = $tab;
+        }
+
         $isTechnician = false; $isAdmin = false;
         if ($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
             $isTechnician = true;
@@ -90,9 +97,10 @@ class UserController extends AbstractController
             $user->setReset(1);
             $this->em->flush();
             $this->addFlash('success', 'Mot de passe modifié avec succès');
-            return $this->redirectToRoute('management_user_show', ['id' => $user->getId()]);
+            return $this->redirectToRoute('management_user_show', ['id' => $user->getId(), 'tab' => 'password']);
         } elseif ( $formPassword->isSubmitted() && $formPassword->isValid() == false ) {
-            $this->addFlash('danger', 'Une erreur est survenue merci de vérifier l\'onglet mot de passe');
+            $this->addFlash('danger', 'Une erreur est survenue. Le mot de passe doit faire au moins 6 caractères et les 2 identiques.');
+            return $this->redirectToRoute('management_user_show', ['id' => $user->getId(), 'tab' => 'password']);
         }
 
         // Edit Information
@@ -136,7 +144,9 @@ class UserController extends AbstractController
 
             'form_password' => $formPassword->createView(),
             'form_information' => $formInformation->createView(),
-            'form_exploitation' => $formExploitation->createView()
+            'form_exploitation' => $formExploitation->createView(),
+
+            'activeTab' => $activeTab
         ]);
     }
 
