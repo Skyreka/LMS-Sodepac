@@ -597,7 +597,7 @@ class RecommendationsController extends AbstractController
                 //-- Remove temp folder
                 $fileSystem->remove('../public/uploads/recommendations/process/'.$token);
 
-                $this->addFlash('success', 'Document généré avec succès. Status du catalogue: Générée');
+                $this->addFlash('success', 'Document généré avec succès. Statut du catalogue: Généré');
                 return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
             } catch (Exception $e) {
                 $this->addFlash('danger', 'Une erreur est survenue');
