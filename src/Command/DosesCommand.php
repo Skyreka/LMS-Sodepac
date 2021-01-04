@@ -13,7 +13,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use TreeHouse\Slugifier\Slugifier;
 
 class DosesCommand extends Command
 {
@@ -28,10 +27,6 @@ class DosesCommand extends Command
      */
     private $pr;
 
-    /**
-     * @var CulturesRepository
-     */
-    private $cr;
     /**
      * @var IndexCulturesRepository
      */
@@ -68,9 +63,15 @@ class DosesCommand extends Command
         $applications = [];
 
         //Declaration de slugify
-        $slugify = new Slugifier();
-
         $v = 0;
+
+        //-- Add new products
+        $emptyDose = new Doses();
+        $emptyDose->setDose( NULL );
+        $emptyDose->setProduct( NULL );
+        $emptyDose->setApplication( 'Définir une dose' );
+
+        $em->persist( $emptyDose );
 
         // Boucle par line du csv
         foreach ($lines as $k => $line) {
