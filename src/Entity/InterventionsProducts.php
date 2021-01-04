@@ -30,7 +30,7 @@ class InterventionsProducts
     private $intervention;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $dose;
 
@@ -73,11 +73,9 @@ class InterventionsProducts
         return $this->dose;
     }
 
-    public function setDose(float $dose): self
+    public function setDose($dose): void
     {
         $this->dose = $dose;
-
-        return $this;
     }
 
     public function getQuantity(): ?float

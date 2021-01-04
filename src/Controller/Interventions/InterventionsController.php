@@ -435,12 +435,26 @@ class InterventionsController extends AbstractController
      */
     public function phytoAddProduct(Interventions $intervention, Request $request, StocksRepository $sr, InterventionsProductsRepository $ipr, InterventionsRepository $ir, $name): Response
     {
+        $isMultiple = false;
+
         $interventionProduct = new InterventionsProducts();
         $form = $this->createForm( InterventionAddProductType::class, $interventionProduct, [
             'user' => $this->getUser(),
             'culture' => $intervention->getCulture()
         ]);
         $form->handleRequest( $request );
+
+        //-- If multiple action is actived
+        if ($this->container->get('session')->get('listCulture')) {
+            $isMultiple = true;
+
+            // get total size of selected multiple culture
+            $cultureTotalSize = 0;
+            foreach ($this->container->get('session')->get('listCulture') as $culture) {
+                $cultureTotalSize = $cultureTotalSize + $culture->getSize();
+            }
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             //-- Get data
@@ -520,7 +534,8 @@ class InterventionsController extends AbstractController
             'form' => $form->createView(),
             'culture' => $intervention->getCulture(),
             'intervention' => $intervention,
-            'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] )
+            'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] ),
+            'cultureSize' => $isMultiple ? $cultureTotalSize : $intervention->getCulture()->getSize()
         ]);
     }
 
