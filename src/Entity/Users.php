@@ -162,6 +162,11 @@ class Users implements UserInterface, \Serializable
      */
     private $postalCode;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PurchaseContract::class, mappedBy="creator", orphanRemoval=true)
+     */
+    private $purchaseContracts;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
@@ -170,6 +175,7 @@ class Users implements UserInterface, \Serializable
         $this->tickets = new ArrayCollection();
         $this->mixes = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->purchaseContracts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -650,6 +656,36 @@ class Users implements UserInterface, \Serializable
     public function setPostalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PurchaseContract[]
+     */
+    public function getPurchaseContracts(): Collection
+    {
+        return $this->purchaseContracts;
+    }
+
+    public function addPurchaseContract(PurchaseContract $purchaseContract): self
+    {
+        if (!$this->purchaseContracts->contains($purchaseContract)) {
+            $this->purchaseContracts[] = $purchaseContract;
+            $purchaseContract->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchaseContract(PurchaseContract $purchaseContract): self
+    {
+        if ($this->purchaseContracts->removeElement($purchaseContract)) {
+            // set the owning side to null (unless already changed)
+            if ($purchaseContract->getCreator() === $this) {
+                $purchaseContract->setCreator(null);
+            }
+        }
 
         return $this;
     }

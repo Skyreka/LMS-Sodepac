@@ -112,6 +112,7 @@ class OrderController extends AbstractController
 
     /**
      * @Route("management/order/new", name="order_new", methods={"GET", "POST"})
+     * @param Request $request
      * @return Response
      */
     public function new( Request $request ): Response
