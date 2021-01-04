@@ -131,7 +131,7 @@
                         let nameProduct = response.responseJSON['name_product']
                         let dose = response.responseJSON['dose']
                         let unit = response.responseJSON['unit']
-                        let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
+                        let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose.toFixed(2) + unit +'</small></li>'
                         $('#products_list').append( input )
                     },
                     error : function (code_html, status) {
