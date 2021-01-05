@@ -37,6 +37,7 @@
                                     <th>Téléphone</th>
                                     <th>Ville</th>
                                     <th>Certification</th>
+                                    <th>Pack</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -56,6 +57,7 @@
                                         <td>{{ customer.phone }}</td>
                                         <td>{{ customer.city }}</td>
                                         <td>{{ customer.certificationPhyto }}</td>
+                                        <td>{{ customer.pack( true ) }}</td>
                                         <td>
                                             <a href="{{ path('management_user_show', {id: customer.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
                                         </td>
