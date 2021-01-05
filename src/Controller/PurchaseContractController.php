@@ -91,7 +91,12 @@ class PurchaseContractController extends AbstractController
      */
     public function show( PurchaseContract $purchaseContract ): Response
     {
-
+        // Security
+        if ( $purchaseContract->getCreator() != $this->getUser()
+            && $this->getUser()->getStatus() != 'ROLE_SALES'
+            && $this->getUser()->getStatus() != 'ROLE_ADMIN' ) {
+             throw $this->createNotFoundException();
+        }
         return $this->render( 'management/purchase-contract/show.html.twig', [
             'purchaseContract' => $purchaseContract,
             'purchaseContractCulture' => $purchaseContract->getCultures()
