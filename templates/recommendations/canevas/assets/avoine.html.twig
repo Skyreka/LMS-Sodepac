@@ -10,9 +10,6 @@
             <div class="row page-titles">
                 <div class="col-md-5 col-8 align-self-center">
                     <h3 class="text-themecolor">Canevas {{ culture.name }}
-                        {% if totalSize != NULL %}
-
-                        {% endif %}
                     </h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
@@ -90,54 +87,54 @@
                                     <td>FUMURE</td>
                                     <td></td>
                                     <td>
-                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-15-22-0-20-so3-modulaire', '200') ? 'exist' : 'd-none' }}" product_slug="s-15-22-0-20-so3-modulaire" dose="200" unit="Kg/Ha">15/22 + S03 <small>200 à 250 Kg/Ha</small></button>
-                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-10-16-12-zn', '300') ? 'exist' : 'd-none' }}"  product_slug="s-10-16-12-zn" dose="300" unit="Kg/Ha">10-16-12 Zn <small>300 à 400 Kg/Ha</small></button>
+                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, '15-22-so3', '200') ? 'exist' : 'd-none' }}" product_slug="15-22-so3" dose="200" unit="Kg/Ha">15/22 + S03 <small>200 à 250 Kg/Ha</small></button>
+                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, '10-16-12-zn', '300') ? 'exist' : 'd-none' }}"  product_slug="10-16-12-zn" dose="300" unit="Kg/Ha">10-16-12 Zn <small>300 à 400 Kg/Ha</small></button>
                                     </td>
                                     <td>
-                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-15-22-0-20-so3-modulaire', '200.001') ? 'exist' : 'd-none' }}" product_slug="s-15-22-0-20-so3-modulaire" dose="200.001" unit="Kg/Ha">15/22 + S03 <small>200 à 250 Kg/Ha</small></button>
-                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-10-16-12-zn', '300.001') ? 'exist' : 'd-none' }}"  product_slug="s-10-16-12-zn" dose="300.001" unit="Kg/Ha">10-16-12 Zn <small>300 à 400 Kg/Ha</small></button>
+                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, '15-22-so3', '200.001') ? 'exist' : 'd-none' }}" product_slug="15-22-so3" dose="200.001" unit="Kg/Ha">15/22 + S03 <small>200 à 250 Kg/Ha</small></button>
+                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, '10-16-12-zn', '300.001') ? 'exist' : 'd-none' }}"  product_slug="10-16-12-zn" dose="300.001" unit="Kg/Ha">10-16-12 Zn <small>300 à 400 Kg/Ha</small></button>
                                     </td>
                                     <td>
-                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-15-22-0-20-so3-modulaire', '200.002') ? 'exist' : 'd-none' }}" product_slug="s-15-22-0-20-so3-modulaire" dose="200.002" unit="Kg/Ha">15/22 + S03 <small>200 à 250 Kg/Ha</small></button>
-                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-10-16-12-zn', '300.002') ? 'exist' : 'd-none' }}"  product_slug="s-10-16-12-zn" dose="300.002" unit="Kg/Ha">10-16-12 Zn <small>300 à 400 Kg/Ha</small></button>
+                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, '15-22-so3', '200.002') ? 'exist' : 'd-none' }}" product_slug="15-22-so3" dose="200.002" unit="Kg/Ha">15/22 + S03 <small>200 à 250 Kg/Ha</small></button>
+                                            <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, '10-16-12-zn', '300.002') ? 'exist' : 'd-none' }}"  product_slug="10-16-12-zn" dose="300.002" unit="Kg/Ha">10-16-12 Zn <small>300 à 400 Kg/Ha</small></button>
                                     </td>
                                     <td>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-15-22-0-20-so3-modulaire', '200.003') ? 'exist' : 'd-none' }}" product_slug="s-15-22-0-20-so3-modulaire" dose="200.003" unit="Kg/Ha">15/22 + S03 <small>200 à 250 Kg/Ha</small></button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-10-16-12-zn', '300.003') ? 'exist' : 'd-none' }}"  product_slug="s-10-16-12-zn" dose="300.003" unit="Kg/Ha">10-16-12 Zn <small>300 à 400 Kg/Ha</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, '15-22-so3', '200.003') ? 'exist' : 'd-none' }}" product_slug="15-22-so3" dose="200.003" unit="Kg/Ha">15/22 + S03 <small>200 à 250 Kg/Ha</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, '10-16-12-zn', '300.003') ? 'exist' : 'd-none' }}"  product_slug="10-16-12-zn" dose="300.003" unit="Kg/Ha">10-16-12 Zn <small>300 à 400 Kg/Ha</small></button>
                                     </td>
                                     <td></td><td></td>
                                     <td>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sulfonitrate-26-agrifert', '150') ? 'exist' : 'd-none' }}" product_slug="s-sulfonitrate-26-agrifert" dose="150" unit="Kg/Ha">SULFONITRATE 26 + S03 <small>150 à 200 Kg/Ha</small></button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ammonitre-33-5-fran-aise', '100') ? 'exist' : 'd-none' }}" product_slug="s-ammonitre-33-5-fran-aise" dose="100" unit="Kg">AMMONITRE 33.5 <small>100 à 150 Kg</small></button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-azote-26-13-so3', '300') ? 'exist' : 'd-none' }}" product_slug="s-azote-26-13-so3" dose="300" unit="Kg">AZOTE 26+13 SO3 <small>300 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sulfonitrate-26', '150') ? 'exist' : 'd-none' }}" product_slug="sulfonitrate-26" dose="150" unit="Kg/Ha">SULFONITRATE 26 + S03 <small>150 à 200 Kg/Ha</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ammonitre-33-5', '100') ? 'exist' : 'd-none' }}" product_slug="ammonitre-33-5" dose="100" unit="Kg">AMMONITRE 33.5 <small>100 à 150 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'azote-26-13-so3', '300') ? 'exist' : 'd-none' }}" product_slug="azote-26-13-so3" dose="300" unit="Kg">AZOTE 26+13 SO3 <small>300 Kg</small></button>
                                     </td>
                                     <td>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sulfonitrate-26-agrifert', '150.001') ? 'exist' : 'd-none' }}" product_slug="s-sulfonitrate-26-agrifert" dose="150.001" unit="Kg/Ha">SULFONITRATE 26 + S03 <small>150 à 200 Kg/Ha</small></button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ammonitre-33-5-fran-aise', '100.001') ? 'exist' : 'd-none' }}" product_slug="s-ammonitre-33-5-fran-aise" dose="100.001" unit="Kg">AMMONITRE 33.5 <small>100 à 150 Kg</small></button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-azote-26-13-so3', '300.001') ? 'exist' : 'd-none' }}" product_slug="s-azote-26-13-so3" dose="300.001" unit="Kg">AZOTE 26+13 SO3 <small>300 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sulfonitrate-26', '150.001') ? 'exist' : 'd-none' }}" product_slug="sulfonitrate-26" dose="150.001" unit="Kg/Ha">SULFONITRATE 26 + S03 <small>150 à 200 Kg/Ha</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ammonitre-33-5', '100.001') ? 'exist' : 'd-none' }}" product_slug="ammonitre-33-5" dose="100.001" unit="Kg">AMMONITRE 33.5 <small>100 à 150 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'azote-26-13-so3', '300.001') ? 'exist' : 'd-none' }}" product_slug="azote-26-13-so3" dose="300.001" unit="Kg">AZOTE 26+13 SO3 <small>300 Kg</small></button>
                                     </td>
                                     <td>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-sulfonitrate-26-agrifert', '150.002') ? 'exist' : 'd-none' }}" product_slug="s-sulfonitrate-26-agrifert" dose="150.002" unit="Kg/Ha">SULFONITRATE 26 + S03 <small>150 à 200 Kg/Ha</small></button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ammonitre-33-5-fran-aise', '100.002') ? 'exist' : 'd-none' }}" product_slug="s-ammonitre-33-5-fran-aise" dose="100.002" unit="Kg">AMMONITRE 33.5 <small>100 à 150 Kg</small></button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-azote-26-13-so3', '300.002') ? 'exist' : 'd-none' }}" product_slug="s-azote-26-13-so3" dose="300.002" unit="Kg">AZOTE 26+13 SO3 <small>300 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sulfonitrate-26', '150.002') ? 'exist' : 'd-none' }}" product_slug="sulfonitrate-26" dose="150.002" unit="Kg/Ha">SULFONITRATE 26 + S03 <small>150 à 200 Kg/Ha</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ammonitre-33-5', '100.002') ? 'exist' : 'd-none' }}" product_slug="ammonitre-33-5" dose="100.002" unit="Kg">AMMONITRE 33.5 <small>100 à 150 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'azote-26-13-so3', '300.002') ? 'exist' : 'd-none' }}" product_slug="azote-26-13-so3" dose="300.002" unit="Kg">AZOTE 26+13 SO3 <small>300 Kg</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td>
                                 </tr>
                                 <tr>
                                     <td>ANTI-LIMACES</td>
                                     <td>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-ironmax-mg-15-kg', '5') ? 'exist' : 'd-none' }}" product_slug="s-ironmax-mg-15-kg" dose="5" unit="Kg">IRON MAX <small>5 Kg</small></button>
+                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ironmax-mg', '5') ? 'exist' : 'd-none' }}" product_slug="ironmax-mg" dose="5" unit="Kg">IRON MAX <small>5 Kg</small></button>
                                     </td>
                                     <td>
-                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-helexiom-duo-18-kg', '4') ? 'exist' : 'd-none' }}" product_slug="s-helexiom-duo-18-kg" dose="4" unit="Kg">HELEXIOM DUO <small>4 Kg</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'helexiom-duo', '4') ? 'exist' : 'd-none' }}" product_slug="helexiom-duo" dose="4" unit="Kg">HELEXIOM DUO <small>4 Kg</small></button>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ironmax-pro', '7') ? 'exist' : 'd-none' }}" product_slug="ironmax-pro" dose="7" unit="Kg">IRON MAX PRO <small>7 Kg</small></button>
                                     </td>
                                     <td>
-                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-helexiom-duo-18-kg', '4.001') ? 'exist' : 'd-none' }}" product_slug="s-helexiom-duo-18-kg" dose="4.001" unit="Kg">HELEXIOM DUO <small>4 Kg</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'helexiom-duo', '4.001') ? 'exist' : 'd-none' }}" product_slug="helexiom-duo" dose="4.001" unit="Kg">HELEXIOM DUO <small>4 Kg</small></button>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ironmax-pro', '7.001') ? 'exist' : 'd-none' }}" product_slug="ironmax-pro" dose="7.001" unit="Kg">IRON MAX PRO <small>7 Kg</small></button>
                                     </td>
                                     <td>
-                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-helexiom-duo-18-kg', '4.002') ? 'exist' : 'd-none' }}" product_slug="s-helexiom-duo-18-kg" dose="4.002" unit="Kg">HELEXIOM DUO <small>4 Kg</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'helexiom-duo', '4.002') ? 'exist' : 'd-none' }}" product_slug="helexiom-duo" dose="4.002" unit="Kg">HELEXIOM DUO <small>4 Kg</small></button>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ironmax-pro', '7.002') ? 'exist' : 'd-none' }}" product_slug="ironmax-pro" dose="7.002" unit="Kg">IRON MAX PRO <small>7 Kg</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
@@ -147,15 +144,15 @@
                                     <td></td><td></td>
                                     <td>
                                         <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.75') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.75" unit="L/H">KARATE XFLO <small>0.75 L/H</small></button>
-                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-country-gold-1-l', '0.125') ? 'exist' : 'd-none' }}" product_slug="s-country-gold-1-l" dose="0.125" unit="L/Ha">COUNTRY GOLD <small>0.125 L/Ha</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'country-gold', '0.125') ? 'exist' : 'd-none' }}" product_slug="country-gold" dose="0.125" unit="L/Ha">COUNTRY GOLD <small>0.125 L/Ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.751') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.751" unit="L/H">KARATE XFLO <small>0.75 L/H</small></button>
-                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-country-gold-1-l', '0.1251') ? 'exist' : 'd-none' }}" product_slug="s-country-gold-1-l" dose="0.1251" unit="L/Ha">COUNTRY GOLD <small>0.125 L/Ha</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'country-gold', '0.1251') ? 'exist' : 'd-none' }}" product_slug="country-gold" dose="0.1251" unit="L/Ha">COUNTRY GOLD <small>0.125 L/Ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.752') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.752" unit="L/H">KARATE XFLO <small>0.75 L/H</small></button>
-                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-country-gold-1-l', '0.1252') ? 'exist' : 'd-none' }}" product_slug="s-country-gold-1-l" dose="0.1252" unit="L/Ha">COUNTRY GOLD <small>0.125 L/Ha</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'country-gold', '0.1252') ? 'exist' : 'd-none' }}" product_slug="country-gold" dose="0.1252" unit="L/Ha">COUNTRY GOLD <small>0.125 L/Ha</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                 </tr>
@@ -166,8 +163,8 @@
                                     </td>
                                     <td></td>
                                     <td>
-                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-kacik-1-kg') ? 'exist' : 'd-none' }}" product_slug="s-kacik-1-kg" dose="0.2" unit="L">KACIK <small>0.2 L</small></button>
-                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'pulvadj') ? 'exist' : 'd-none' }}" product_slug="pulvadj" dose="0.1" unit="L">PULVIX <small>0.1 L</small></button>
+                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'kacik') ? 'exist' : 'd-none' }}" product_slug="kacik" dose="0.2" unit="L">KACIK <small>0.2 L</small></button>
+                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'pulvi-x') ? 'exist' : 'd-none' }}" product_slug="pulvi-x" dose="0.1" unit="L">PULVIX <small>0.1 L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                 </tr>
@@ -176,23 +173,23 @@
                                     <td></td><td></td>
                                     <td>
                                         <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'starane-gold', '1.8') ? 'exist' : 'd-none' }}" product_slug="starane-gold" dose="1.8" unit="L/Ha">STARANE GOLD <small>1.8 L/ha</small></button>
-                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-tekken-2-l', '0.25') ? 'exist' : 'd-none' }}" product_slug="s-tekken-2-l" dose="0.25" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
+                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'tekken', '0.25') ? 'exist' : 'd-none' }}" product_slug="tekken" dose="0.25" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'starane-gold', '1.801') ? 'exist' : 'd-none' }}" product_slug="starane-gold" dose="1.801" unit="L/Ha">STARANE GOLD <small>1.8 L/ha</small></button>
-                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-tekken-2-l', '0.251') ? 'exist' : 'd-none' }}" product_slug="s-tekken-2-l" dose="0.251" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
+                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'tekken', '0.251') ? 'exist' : 'd-none' }}" product_slug="tekken" dose="0.251" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'starane-gold', '1.802') ? 'exist' : 'd-none' }}" product_slug="starane-gold" dose="1.802" unit="L/Ha">STARANE GOLD <small>1.8 L/ha</small></button>
-                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-tekken-2-l', '0.252') ? 'exist' : 'd-none' }}" product_slug="s-tekken-2-l" dose="0.252" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
+                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'tekken', '0.252') ? 'exist' : 'd-none' }}" product_slug="tekken" dose="0.252" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'starane-gold', '1.803') ? 'exist' : 'd-none' }}" product_slug="starane-gold" dose="1.803" unit="L/Ha">STARANE GOLD <small>1.8 L/ha</small></button>
-                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-tekken-2-l', '0.253') ? 'exist' : 'd-none' }}" product_slug="s-tekken-2-l" dose="0.253" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
+                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'tekken', '0.253') ? 'exist' : 'd-none' }}" product_slug="tekken" dose="0.253" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'starane-gold', '1.804') ? 'exist' : 'd-none' }}" product_slug="starane-gold" dose="1.804" unit="L/Ha">STARANE GOLD <small>1.8 L/ha</small></button>
-                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 's-tekken-2-l', '0.254') ? 'exist' : 'd-none' }}" product_slug="s-tekken-2-l" dose="0.254" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
+                                        <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'tekken', '0.254') ? 'exist' : 'd-none' }}" product_slug="tekken" dose="0.254" unit="L/Ha">TEKKEN <small>0.25 L/ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-J btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'starane-gold', '1.805') ? 'exist' : 'd-none' }}" product_slug="starane-gold" dose="1.805" unit="L/Ha">STARANE GOLD <small>1.8 L/ha</small></button>
