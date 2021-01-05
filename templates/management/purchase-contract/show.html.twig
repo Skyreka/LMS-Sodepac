@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contract D'Achat{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://unpkg.com/tableexport@5.2.0/dist/css/tableexport.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row pt-5">
+            <!-- Column -->
+            <div class="col-12">
+                <!--begin::Alert-->
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">{{ message }}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="col-9">
+                <div class="card">
+                    <div class="card-header bg-info">
+                        <h5 class="mb-0 text-white">Votre contrat d'achat</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table product-overview" id="edit-table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>ESPECES</th>
+                                    <th>VOLUMES</th>
+                                    <th>TARIF</th>
+                                    <th>TRANSPORT</th>
+                                    <th>DEPOT</th>
+                                    <th>REPRISE</th>
+                                    <th>DIVERS</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for culture in purchaseContractCulture %}
+                                    <tr>
+                                        <td>{{ culture.id }}</td>
+                                        <td>{{ culture.culture }}</td>
+                                        <td>{{ culture.volume }}</td>
+                                        <td>{{ culture.price }}</td>
+                                        <td>{{ culture.transport( true ) }}</td>
+                                        <td>{{ culture.depot( true ) }}</td>
+                                        <td>{{ culture.recovery( true ) }}</td>
+                                        <td>{{ culture.divers }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                {% if purchaseContract.status == 0 %}
+                                    <tfoot>
+                                        <tr>
+                                            <td>
+
+                                                <a class="btn btn-info" href="{{ path('management_purchase_contract_addLine', {id: purchaseContract.id}) }}">Ajouter</a>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">RÉSUMÉ DU CONTRAT</h5>
+                        <hr>
+                        <small>Type</small>
+                        <h4>{{ purchaseContract.cultureType( true ) }}</h4>
+                        <hr>
+                        {% if purchaseContract.status == 0 %}
+                            <a href="{{ path('management_purchase_contract_valid', {'id': purchaseContract.id}) }}" class="btn btn-info"><i class="fa fa-send"></i> Envoyer</a>
+                        {% endif %}
+                        <form class="d-inline" method="POST" action="{{ path('purchase_contract_delete', {'id': purchaseContract.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce contrat d\'achat ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('deletePurchaseContract' ~ purchaseContract.id) }}">
+                            <button class="btn btn-danger ml-3"><i class="fa fa-trash"></i> {{ button_label|default('') }}</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Client : {{ purchaseContract.customer.identity }}</h5>
+                        <hr>
+                        <p><i class="ti-email"></i> {{ purchaseContract.customer.email ? purchaseContract.customer.email : '' }}</p>
+                        <p><i class="ti-mobile"></i> {{ purchaseContract.customer.phone ? purchaseContract.customer.phone : '' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>
+    <script src="{{ asset('plugins/table-export/xlsx.core.min.js') }}"></script>
+    <script src="{{ asset('plugins/table-export/FileSaver.js') }}"></script>
+    <script src="{{ asset('plugins/table-export/tableexport.min.js') }}"></script>
+    <script>
+        {% if purchaseContract.status == 0 %}
+            $('#edit-table').Tabledit({
+                url: '{{ path('purchase_contract_culture_edit') }}',
+                editButton: false,
+                hideIdentifier: true,
+                columns: {
+                    identifier: [0, 'id'],
+                    editable: [
+                        [1, 'culture'],
+                        [2, 'volume'],
+                        [3, 'price'],
+                        [4, 'transport', '{"0": "Choisir", "1": "Client", "2": "Sodepac"}'],
+                        [5, 'depot', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
+                        [6, 'recovery', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
+                        [7, 'divers'],
+                    ]
+                }
+            });
+        {% endif %}
+
+        {% if purchaseContract.status == 1 %}
+            $('#edit-table').tableExport({
+                    headers: true,                      // (Boolean), display table headers (th or td elements) in the <thead>, (default: true)
+                    footers: true,                      // (Boolean), display table footers (th or td elements) in the <tfoot>, (default: false)
+                    formats: ["xlsx"],    // (String[]), filetype(s) for the export, (default: ['xlsx', 'csv', 'txt'])
+                    filename: "Contract-Achat-" + {{ purchaseContract.id }},                     // (id, String), filename for the downloaded file, (default: 'id')
+                    bootstrap: false,                   // (Boolean), style buttons using bootstrap, (default: true)
+                    exportButtons: true,                // (Boolean), automatically generate the built-in export buttons for each of the specified formats (default: true)
+                    position: "top",                 // (top, bottom), position of the caption element relative to table, (default: 'bottom')
+                    ignoreRows: null,                   // (Number, Number[]), row indices to exclude from the exported file(s) (default: null)
+                    ignoreCols: 0,                   // (Number, Number[]), column indices to exclude from the exported file(s) (default: null)
+                    trimWhitespace: true,               // (Boolean), remove all leading/trailing newlines, spaces, and tabs from cell text in the exported file(s) (default: false)
+                    RTL: false
+                });
+        {% endif %}
+    </script>
+{% endblock %}

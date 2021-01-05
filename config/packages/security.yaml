@@ -38,7 +38,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/technician, roles: ROLE_TECHNICIAN }
-        - { path: ^/management, roles: ROLE_TECHNICIAN }
+        - { path: ^/management, roles: [ROLE_TECHNICIAN, ROLE_SALES] }
         - { path: ^/panoramas, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
         - { path: ^/view/user, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
         - { path: ^/recommendations, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
