@@ -33,7 +33,6 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Client</th>
                                     {% if app.user.status == 'ROLE_ADMIN' %}
                                         <th>Technicien</th>
@@ -44,9 +43,35 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!--
-
-                                -->
+                                    {% for contract in purchaseContracts %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('management_user_show', {id: contract.customer.id}) }}">
+                                                    <h6>{{ contract.customer.identity }}</h6><small class="text-muted">{{ contract.customer.email }}</small>
+                                                </a>
+                                            </td>
+                                            {% if app.user.status == 'ROLE_ADMIN' %}
+                                                <td>
+                                                    <a href="{{ path('management_user_show', {id: contract.creator.id}) }}">
+                                                        <h6>{{ contract.creator.identity }}</h6><small class="text-muted">{{ contract.creator.email }}</small>
+                                                    </a>
+                                                </td>
+                                            {% endif %}
+                                            <td>{{ contract.addedDate | date('d M Y H:i') }}</td>
+                                            <td>
+                                                {% if( contract.status == 0 ) %}
+                                                    <span class="badge badge-warning">En cours️</span>
+                                                {% elseif( contract.status == 1 ) %}
+                                                    <span class="badge badge-info">Envoyé</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <div style="display: flex">
+                                                    <a class="btn btn-success" href="{{ path('management_purchase_contract_show', {id: contract.id}) }}"><i class="fa fa-eye text-white"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

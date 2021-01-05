@@ -6,6 +6,7 @@ use App\Entity\PurchaseContract;
 use App\Entity\PurchaseContractCulture;
 use App\Form\PurchaseContractType;
 use App\Repository\PurchaseContractCultureRepository;
+use App\Repository\PurchaseContractRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -31,12 +32,17 @@ class PurchaseContractController extends AbstractController
     }
 
     /**
+     * @param PurchaseContractRepository $pcr
      * @return Response
      * @Route("/management/purchase-contract/", name="management_purchase_contract_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index( PurchaseContractRepository $pcr ): Response
     {
-        return $this->render( 'management/purchase-contract/index.html.twig' );
+        $purchaseContracts = $pcr->findBy( ['creator' => $this->getUser() ]);
+
+        return $this->render( 'management/purchase-contract/index.html.twig', [
+            'purchaseContracts' => $purchaseContracts
+        ] );
     }
 
     /**
