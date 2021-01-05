@@ -48,6 +48,16 @@
                                     </tr>
                                 {% endfor %}
                                 </tbody>
+                                {% if purchaseContract.status == 0 %}
+                                    <tfoot>
+                                        <tr>
+                                            <td>
+
+                                                <a class="btn btn-info" href="{{ path('management_purchase_contract_addLine', {id: purchaseContract.id}) }}">Ajouter</a>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                {% endif %}
                             </table>
                         </div>
                     </div>
@@ -61,7 +71,9 @@
                         <small>Type</small>
                         <h4>{{ purchaseContract.cultureType( true ) }}</h4>
                         <hr>
-                        <a href="" class="btn btn-info"><i class="fa fa-send"></i> Envoyer</a>
+                        {% if purchaseContract.status == 0 %}
+                            <a href="{{ path('management_purchase_contract_valid', {'id': purchaseContract.id}) }}" class="btn btn-info"><i class="fa fa-send"></i> Envoyer</a>
+                        {% endif %}
                         <form class="d-inline" method="POST" action="{{ path('purchase_contract_delete', {'id': purchaseContract.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce contrat d\'achat ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('deletePurchaseContract' ~ purchaseContract.id) }}">
@@ -85,21 +97,24 @@
 {% block javascripts %}
     <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>
     <script>
-        $('#edit-table').Tabledit({
-            url: '{{ path('purchase_contract_culture_edit') }}',
-            editButton: false,
-            hideIdentifier: true,
-            columns: {
-                identifier: [0, 'id'],
-                editable: [
-                    [2, 'volume'],
-                    [3, 'price'],
-                    [4, 'transport', '{"0": "Choisir", "1": "Client", "2": "Sodepac"}'],
-                    [5, 'depot', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
-                    [6, 'recovery', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
-                    [7, 'divers'],
-                ]
-            }
-        });
+        {% if purchaseContract.status == 0 %}
+            $('#edit-table').Tabledit({
+                url: '{{ path('purchase_contract_culture_edit') }}',
+                editButton: false,
+                hideIdentifier: true,
+                columns: {
+                    identifier: [0, 'id'],
+                    editable: [
+                        [1, 'culture'],
+                        [2, 'volume'],
+                        [3, 'price'],
+                        [4, 'transport', '{"0": "Choisir", "1": "Client", "2": "Sodepac"}'],
+                        [5, 'depot', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
+                        [6, 'recovery', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
+                        [7, 'divers'],
+                    ]
+                }
+            });
+        {% endif %}
     </script>
 {% endblock %}

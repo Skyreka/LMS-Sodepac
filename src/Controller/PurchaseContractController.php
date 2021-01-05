@@ -52,6 +52,7 @@ class PurchaseContractController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $purchaseContract->setCreator( $this->getUser() );
+            $purchaseContract->setStatus( 0 );
 
             $this->em->persist( $purchaseContract );
 
@@ -99,6 +100,10 @@ class PurchaseContractController extends AbstractController
     {
         if ($request->isXmlHttpRequest()) {
             $purchaseContractProduct = $pccr->find($request->get('id'));
+
+            if ($request->get('culture')) {
+                $purchaseContractProduct->setCulture( $request->get('culture' ) );
+            }
 
             if ($request->get('volume')) {
                 $purchaseContractProduct->setVolume( (float) $request->get('volume' ) );
@@ -151,5 +156,36 @@ class PurchaseContractController extends AbstractController
             $this->addFlash('success', 'Contrat d\'achat supprimé avec succès');
         }
         return $this->redirectToRoute('login_success' );
+    }
+
+    /**
+     * @param PurchaseContract $purchaseContract
+     * @return RedirectResponse
+     * @Route("/management/purchase-contract/addline/{id}", name="management_purchase_contract_addLine", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     */
+    public function addLine( PurchaseContract $purchaseContract ): RedirectResponse
+    {
+        $purchaseContractCulture = new PurchaseContractCulture();
+        $purchaseContractCulture->setPurchaseContract( $purchaseContract );
+        $purchaseContractCulture->setCulture( 'Nouvelle ligne' );
+
+        $this->em->persist( $purchaseContractCulture );
+        $this->em->flush();
+
+        $this->addFlash('success', 'Nouvelle ligne ajoutée avec succès');
+        return $this->redirectToRoute('management_purchase_contract_show', ['id' => $purchaseContract->getId()]);
+    }
+
+    /**
+     * @Route("management/purchase-contract/valid/{id}", name="management_purchase_contract_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @param PurchaseContract $purchaseContract
+     * @return RedirectResponse
+     */
+    public function valid( PurchaseContract $purchaseContract ): RedirectResponse
+    {
+        $purchaseContract->setStatus( 1 );
+        $this->em->flush();
+        $this->addFlash('success', 'Contract envoyé avec succès');
+        return $this->redirectToRoute('management_purchase_contract_show', ['id' => $purchaseContract->getId()]);
     }
 }
