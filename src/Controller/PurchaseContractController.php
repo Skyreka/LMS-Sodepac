@@ -38,7 +38,11 @@ class PurchaseContractController extends AbstractController
      */
     public function index( PurchaseContractRepository $pcr ): Response
     {
-        $purchaseContracts = $pcr->findBy( ['creator' => $this->getUser() ]);
+        if ( $this->getUser()->getStatus() ==  'ROLE_TECHNICIAN') {
+            $purchaseContracts = $pcr->findBy( ['creator' => $this->getUser() ]);
+        } else {
+            $purchaseContracts = $pcr->findBy( ['status' => 1]);
+        }
 
         return $this->render( 'management/purchase-contract/index.html.twig', [
             'purchaseContracts' => $purchaseContracts
