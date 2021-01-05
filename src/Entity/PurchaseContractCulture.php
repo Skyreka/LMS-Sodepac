@@ -10,6 +10,24 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PurchaseContractCulture
 {
+    const DEPOT = [
+        null => '',
+        1 => 'Oui',
+        2 => 'Non'
+    ];
+
+    const RECOVERY = [
+        null => '',
+        1 => 'Oui',
+        2 => 'Non'
+    ];
+
+    const TRANSPORT = [
+        null => '',
+        1 => 'Client',
+        2 => 'Sodepac'
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -111,8 +129,11 @@ class PurchaseContractCulture
         return $this;
     }
 
-    public function getTransport(): ?int
+    public function getTransport( $return = false ): string
     {
+        if ( $return ) {
+            return self::TRANSPORT[ $this->transport ];
+        }
         return $this->transport;
     }
 
@@ -123,8 +144,11 @@ class PurchaseContractCulture
         return $this;
     }
 
-    public function getDepot(): ?int
+    public function getDepot( $return = false ): string
     {
+        if ( $return ) {
+            return self::DEPOT[ $this->depot ];
+        }
         return $this->depot;
     }
 
@@ -135,8 +159,11 @@ class PurchaseContractCulture
         return $this;
     }
 
-    public function getRecovery(): ?int
+    public function getRecovery( $return = false ): string
     {
+        if ( $return ) {
+            return self::RECOVERY[ $this->recovery ];
+        }
         return $this->recovery;
     }
 

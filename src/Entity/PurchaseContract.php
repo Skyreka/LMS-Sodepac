@@ -71,6 +71,11 @@ class PurchaseContract
      */
     private $cultures;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -100,8 +105,11 @@ class PurchaseContract
         return $this;
     }
 
-    public function getCultureType(): ?int
+    public function getCultureType( $return = false ): ?string
     {
+        if ( $return ) {
+            return self::CULTURETYPE[ $this->cultureType ];
+        }
         return $this->cultureType;
     }
 
@@ -150,6 +158,18 @@ class PurchaseContract
                 $culture->setPurchaseContract(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

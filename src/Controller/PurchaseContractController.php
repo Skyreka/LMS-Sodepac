@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\PurchaseContract;
 use App\Entity\PurchaseContractCulture;
 use App\Form\PurchaseContractType;
+use App\Repository\PurchaseContractCultureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -82,5 +85,71 @@ class PurchaseContractController extends AbstractController
             'purchaseContract' => $purchaseContract,
             'purchaseContractCulture' => $purchaseContract->getCultures()
         ] );
+    }
+
+
+    /**
+     * Edit Dose with editable Ajax Table
+     * @Route("management/purchase-contract/culture/edit", name="purchase_contract_culture_edit")
+     * @param Request $request
+     * @param PurchaseContractCultureRepository $pccr
+     * @return JsonResponse
+     */
+    public function editProduct(Request $request, PurchaseContractCultureRepository $pccr ): JsonResponse
+    {
+        if ($request->isXmlHttpRequest()) {
+            $purchaseContractProduct = $pccr->find($request->get('id'));
+
+            if ($request->get('volume')) {
+                $purchaseContractProduct->setVolume( (float) $request->get('volume' ) );
+            }
+
+            if ($request->get('price')) {
+                $purchaseContractProduct->setPrice( (float) $request->get('price' ) );
+            }
+
+            if ($request->get('transport')) {
+                $purchaseContractProduct->setTransport( $request->get('transport' ) );
+            }
+
+            if ($request->get('depot')) {
+                $purchaseContractProduct->setDepot( $request->get('depot' ) );
+            }
+
+            if ($request->get('recovery')) {
+                $purchaseContractProduct->setRecovery( $request->get('recovery' ) );
+            }
+
+            if ($request->get('divers')) {
+                $purchaseContractProduct->setDivers( $request->get('divers' ) );
+            }
+
+            $this->em->flush();
+
+            return new JsonResponse(["type" => 'success'], 200);
+        }
+        return new JsonResponse([
+            'message' => 'AJAX Only',
+            'type' => 'error',
+            404
+        ]);
+    }
+
+
+    /**
+     * @Route("management/purchase-contract/delete/{id}", name="purchase_contract_delete", methods={"DELETE"}, requirements={"id":"\d+"})
+     * @param PurchaseContract $purchaseContract
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function delete(PurchaseContract $purchaseContract, Request $request ): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('deletePurchaseContract' . $purchaseContract->getId(), $request->get('_token'))) {
+            $this->em->remove( $purchaseContract );
+            $this->em->flush();
+
+            $this->addFlash('success', 'Contrat d\'achat supprimé avec succès');
+        }
+        return $this->redirectToRoute('login_success' );
     }
 }

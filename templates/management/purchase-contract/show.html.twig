@@ -14,7 +14,7 @@
                     {% endfor %}
                 {% endfor %}
             </div>
-            <div class="col-12">
+            <div class="col-9">
                 <div class="card">
                     <div class="card-header bg-info">
                         <h5 class="mb-0 text-white">Votre contrat d'achat</h5>
@@ -24,6 +24,7 @@
                             <table class="table product-overview" id="edit-table">
                                 <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>ESPECES</th>
                                     <th>VOLUMES</th>
                                     <th>TARIF</th>
@@ -36,12 +37,13 @@
                                 <tbody>
                                 {% for culture in purchaseContractCulture %}
                                     <tr>
+                                        <td>{{ culture.id }}</td>
                                         <td>{{ culture.culture }}</td>
                                         <td>{{ culture.volume }}</td>
                                         <td>{{ culture.price }}</td>
-                                        <td>{{ culture.transport }}</td>
-                                        <td>{{ culture.depot }}</td>
-                                        <td>{{ culture.recovery }}</td>
+                                        <td>{{ culture.transport( true ) }}</td>
+                                        <td>{{ culture.depot( true ) }}</td>
+                                        <td>{{ culture.recovery( true ) }}</td>
                                         <td>{{ culture.divers }}</td>
                                     </tr>
                                 {% endfor %}
@@ -51,10 +53,53 @@
                     </div>
                 </div>
             </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">RÉSUMÉ DU CONTRAT</h5>
+                        <hr>
+                        <small>Type</small>
+                        <h4>{{ purchaseContract.cultureType( true ) }}</h4>
+                        <hr>
+                        <a href="" class="btn btn-info"><i class="fa fa-send"></i> Envoyer</a>
+                        <form class="d-inline" method="POST" action="{{ path('purchase_contract_delete', {'id': purchaseContract.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce contrat d\'achat ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('deletePurchaseContract' ~ purchaseContract.id) }}">
+                            <button class="btn btn-danger ml-3"><i class="fa fa-trash"></i> {{ button_label|default('') }}</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Client : {{ purchaseContract.customer.identity }}</h5>
+                        <hr>
+                        <p><i class="ti-email"></i> {{ purchaseContract.customer.email ? purchaseContract.customer.email : '' }}</p>
+                        <p><i class="ti-mobile"></i> {{ purchaseContract.customer.phone ? purchaseContract.customer.phone : '' }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>$
+    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>
+    <script>
+        $('#edit-table').Tabledit({
+            url: '{{ path('purchase_contract_culture_edit') }}',
+            editButton: false,
+            hideIdentifier: true,
+            columns: {
+                identifier: [0, 'id'],
+                editable: [
+                    [2, 'volume'],
+                    [3, 'price'],
+                    [4, 'transport', '{"0": "Choisir", "1": "Client", "2": "Sodepac"}'],
+                    [5, 'depot', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
+                    [6, 'recovery', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
+                    [7, 'divers'],
+                ]
+            }
+        });
+    </script>
 {% endblock %}
