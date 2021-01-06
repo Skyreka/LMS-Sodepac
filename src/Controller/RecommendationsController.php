@@ -492,7 +492,7 @@ class RecommendationsController extends AbstractController
             ;
             $mailer->send($message);
 
-            $this->addFlash('success', 'Email envoyé avec succès. Status du catalogue: Envoyé');
+            $this->addFlash('success', 'Email envoyé avec succès. Statut du catalogue: Envoyé');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
         return $this->redirectToRoute('recommendation_index');
