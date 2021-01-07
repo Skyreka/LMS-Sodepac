@@ -108,6 +108,7 @@
             $('#edit-table').Tabledit({
                 url: '{{ path('purchase_contract_culture_edit') }}',
                 editButton: false,
+                deleteButton: false,
                 hideIdentifier: true,
                 columns: {
                     identifier: [0, 'id'],
@@ -115,9 +116,9 @@
                         [1, 'culture'],
                         [2, 'volume'],
                         [3, 'price'],
-                        [4, 'transport', '{"0": "Choisir", "1": "Client", "2": "Sodepac"}'],
-                        [5, 'depot', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
-                        [6, 'recovery', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
+                        [4, 'transport', 'select', '{"0": "Choisir", "1": "Client", "2": "Sodepac"}'],
+                        [5, 'depot', 'select', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
+                        [6, 'recovery', 'select', '{"0": "Choisir", "1": "Oui", "2": "Non"}'],
                         [7, 'divers'],
                     ]
                 }
