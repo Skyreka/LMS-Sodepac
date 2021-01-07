@@ -1,0 +1,5 @@
+<form method="POST" action="{{ path('panorama_user_check', {id: panorama.id}) }}" style="display: inline-block">
+    <input type="hidden" name="_method" value="CHECK">
+    <input type="hidden" name="_token" value="{{ csrf_token('check' ~ panorama.id) }}">
+    <button class="btn btn-success btn-xs"><i class="ti-check"></i> Lire</button>
+</form>
