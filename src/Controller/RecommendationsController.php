@@ -461,14 +461,26 @@ class RecommendationsController extends AbstractController
             //-- Update Status of recommendation
             $recommendations->setStatus( 3 );
 
+            //-- Add oldStock
+            $oldStocks = $sr->findBy(array('exploitation' => $recommendations->getExploitation()));
+            $stockProducts = [];
+            foreach ($oldStocks as $oldStock) {
+                $stockProducts[] = $oldStock->getProduct()->getId();
+            }
+
             //-- Add to stock
             $products = $rpr->findBy( ['recommendation' => $recommendations ]);
             foreach ( $products as $product ) {
-                $stock = new Stocks();
-                $stock->setExploitation( $recommendations->getExploitation() );
-                $stock->setProduct( $product->getProduct() );
+                if (!in_array($product->getProduct()->getId(), $stockProducts)) {
+                    $stock = new Stocks();
+                    $stock->setExploitation( $recommendations->getExploitation() );
+                    $stock->setProduct( $product->getProduct() );
 
-                $this->em->persist( $stock );
+                    //--Add product to stock list
+                    $stockProducts[] = $stock->getProduct()->getId();
+
+                    $this->em->persist( $stock );
+                }
             }
 
             // Save to Db
