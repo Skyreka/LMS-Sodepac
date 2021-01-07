@@ -8,6 +8,7 @@ use App\Repository\InterventionsRepository;
 use App\Repository\PanoramasRepository;
 use App\Repository\PanoramaUserRepository;
 use App\Repository\RecommendationProductsRepository;
+use App\Repository\RecommendationsRepository;
 use App\Repository\TicketsRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,15 +23,19 @@ class HomeController extends AbstractController {
      * @param BsvUsersRepository $bur
      * @param PanoramaUserRepository $pur
      * @param TicketsRepository $tr
+     * @param RecommendationsRepository $rr
      * @return Response
      * @throws \Exception
      */
-    public function home(IlotsRepository $ir, BsvUsersRepository $bur, PanoramaUserRepository $pur, TicketsRepository $tr): Response
+    public function home(IlotsRepository $ir, BsvUsersRepository $bur, PanoramaUserRepository $pur, TicketsRepository $tr, RecommendationsRepository $rr): Response
     {
+        $datetime = new \DateTime();
         $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $flashs = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
+        $recommendations = $rr->findByExploitationOfCustomerAndYear($this->getUser(), $datetime->format('Y'));
         $tickets = $tr->findAllByUser( $this->getUser(), 3);
+        dump($recommendations);
 
         //-- Clear listCulture
         $this->container->get('session')->remove('listCulture');
@@ -39,7 +44,8 @@ class HomeController extends AbstractController {
             'flashs' => $flashs,
             'panoramas' => $panoramas,
             'ilots' => $ilots,
-            'tickets' => $tickets
+            'tickets' => $tickets,
+            'recommendations' => $recommendations
         ]);
     }
 
