@@ -30,7 +30,6 @@ class HomeController extends AbstractController {
     public function home(IlotsRepository $ir, BsvUsersRepository $bur, PanoramaUserRepository $pur, TicketsRepository $tr, RecommendationsRepository $rr): Response
     {
         $datetime = new \DateTime();
-        $ilots = $ir->findIlotsFromUser( $this->getUser()->getExploitation() );
         $flashs = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
         $recommendations = $rr->findByExploitationOfCustomerAndYear($this->getUser(), $datetime->format('Y'));
@@ -42,7 +41,6 @@ class HomeController extends AbstractController {
         return $this->render('pages/home.html.twig', [
             'flashs' => $flashs,
             'panoramas' => $panoramas,
-            'ilots' => $ilots,
             'tickets' => $tickets,
             'recommendations' => $recommendations
         ]);
