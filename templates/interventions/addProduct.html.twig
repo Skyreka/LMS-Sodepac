@@ -5,11 +5,14 @@
 {% block stylesheets %}
     <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
     <link href="plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
+            <input type="hidden" id="cultureHectare" value="{{ cultureSize }}" />
             <div class="col-md-5 col-8 align-self-center">
                 <h3 class="text-themecolor">Ajout d'un produit</h3>
                 <ol class="breadcrumb">
@@ -29,7 +32,7 @@
                 {% endfor %}
             {% endfor %}
             {% if app.session.get('listCulture') %}
-                <div class="alert alert-warning">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées</div>
+                <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login_success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
             {% endif %}
         </div>
         <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant le site officiel <a href="https://ephy.anses.fr" target="_blank">ephy.anses.fr</a></a></div>
@@ -47,7 +50,16 @@
     </div>
 {% endblock %}
 {% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+            $('.js-datepicker').datepicker({
+                weekStart:0,
+                time: 1,
+                language:"fr"
+            });
+        });
         $(document).on('change', '#intervention_add_product_productInStock', function () {
             let $field = $(this);
             let $form = $field.closest('form');
@@ -68,6 +80,16 @@
             $.post(form.attr('action'), data).then(function (data) {
                 let input = $(data).find('form');
                 $(form).replaceWith( input )
+
+                $('#intervention_add_product_doseHectare').on('input', function () {
+
+                    let doseHectare = $(this).val();
+                    let hectare = $('#cultureHectare').val()
+
+                    let total = doseHectare * hectare;
+
+                    $('#quantityLabel').text( 'Dose appliqué totale : ' + total.toFixed(2) + '  (' + doseHectare + ' x ' + hectare + 'ha )' );
+                });
             })
         })
     </script>

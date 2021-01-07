@@ -26,7 +26,7 @@
                 <div class="card" id="insert-table">
                     <div class="card-body">
                         <div class="d-flex no-block">
-                            <h4 class="card-title">Listes des Flashs reçu en {{ "NOW"|date('Y') }}</h4>
+                            <h4 class="card-title">Liste des Flashs reçu en {{ "NOW"|date('Y') }}</h4>
                         </div>
                         <div class="table-responsive m-t-20">
                             <table class="table stylish-table">
@@ -45,13 +45,13 @@
                                         <td>{{ flash.bsv.text }}</td>
                                         <td>
                                             {% if flash.bsv.firstFile %}
-                                                <a href="{{ asset('uploads/flash/' ~ flash.bsv.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                                                <a href="{{ asset('uploads/flash/' ~ flash.bsv.firstFile) }}" download="Flash_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                             {% endif %}
                                             {% if flash.bsv.secondFile %}
-                                                <a href="{{ asset('uploads/flash/' ~ flash.bsv.secondFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
+                                                <a href="{{ asset('uploads/flash/' ~ flash.bsv.secondFile) }}" download="Flash_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
                                             {% endif %}
                                             {% if flash.bsv.thirdFile %}
-                                                <a href="{{ asset('uploads/flash/' ~ flash.bsv.thirdFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
+                                                <a href="{{ asset('uploads/flash/' ~ flash.bsv.thirdFile) }}" download="Flash_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
                                             {% endif %}
                                         </td>
                                         <td>

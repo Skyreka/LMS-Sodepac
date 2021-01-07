@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des clients{% endblock %}
+{% block title %}Liste des clients{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/
@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Listes des utilisateurs</h3>
+                <h3 class="text-themecolor">Liste des utilisateurs</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item active"><a href="{{ path('technician_customers_index') }}">Clients</a></li>
@@ -37,6 +37,7 @@
                                     <th>Téléphone</th>
                                     <th>Ville</th>
                                     <th>Certification</th>
+                                    <th>Pack</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -56,6 +57,7 @@
                                         <td>{{ customer.phone }}</td>
                                         <td>{{ customer.city }}</td>
                                         <td>{{ customer.certificationPhyto }}</td>
+                                        <td>{{ customer.pack( true ) }}</td>
                                         <td>
                                             <a href="{{ path('management_user_show', {id: customer.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
                                         </td>

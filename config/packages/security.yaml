@@ -19,6 +19,7 @@ security:
                 default_target_path: login_success
                 always_use_default_target_path: true
                 username_parameter: _email
+                remember_me: true
             logout:
                 path: /logout
                 target: /
@@ -38,7 +39,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/technician, roles: ROLE_TECHNICIAN }
-        - { path: ^/management, roles: ROLE_TECHNICIAN }
+        - { path: ^/management, roles: [ROLE_TECHNICIAN, ROLE_SALES] }
         - { path: ^/panoramas, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
         - { path: ^/view/user, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
         - { path: ^/recommendations, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }

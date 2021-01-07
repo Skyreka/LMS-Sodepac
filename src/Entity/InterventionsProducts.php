@@ -30,7 +30,7 @@ class InterventionsProducts
     private $intervention;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $dose;
 
@@ -73,11 +73,9 @@ class InterventionsProducts
         return $this->dose;
     }
 
-    public function setDose(float $dose): self
+    public function setDose($dose): void
     {
         $this->dose = $dose;
-
-        return $this;
     }
 
     public function getQuantity(): ?float
@@ -90,5 +88,29 @@ class InterventionsProducts
         $this->quantity = $quantity;
 
         return $this;
+    }
+
+    /**
+     * Function to get IFT
+     * @return string
+     */
+    public function getIft()
+    {
+        // IF MAKE CHANGE HERE CHANGE ON INTERVENTION
+        $surfaceTotal = $this->getIntervention()->getCulture()->getSize();
+        $doseApplique = $this->getQuantity() / $surfaceTotal;
+        $doseHomologue = $this->getDose();
+        $surfaceTraite = $this->getIntervention()->getCulture()->getRealSize();
+
+        //-- Display only if have all value
+        if ($doseApplique != null &&
+            $doseHomologue != null &&
+            $surfaceTraite != null &&
+            $surfaceTotal != null) {
+            $result = ( $doseApplique / $doseHomologue) * ($surfaceTraite / $surfaceTotal);
+            return $result;
+        } else {
+            return 0;
+        }
     }
 }

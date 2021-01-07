@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Listes des Flashs{% endblock %}
+{% block title %}Liste des Flashs{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/
@@ -53,6 +53,7 @@
                                         <td>{{ flash.sent ? '<label class="badge badge-success">Oui</label>' : '<label class="badge badge-danger">Non</label>' }}</td>
                                         <td>
                                             <a href="{{ path('admin_flash_send', {id: flash.id}) }}" class="btn btn-info"><i class="fa fa-paper-plane"></i> </a>
+                                            {{ include('flash/admin/_send.html.twig') }}
                                             <a href="{{ path('admin_flash_edit', {id: flash.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i> </a>
                                             {{ include('flash/admin/_delete.html.twig') }}
                                             {% if flash.firstFile %}

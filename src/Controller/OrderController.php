@@ -112,6 +112,7 @@ class OrderController extends AbstractController
 
     /**
      * @Route("management/order/new", name="order_new", methods={"GET", "POST"})
+     * @param Request $request
      * @return Response
      */
     public function new( Request $request ): Response
@@ -440,7 +441,7 @@ class OrderController extends AbstractController
 
             // Send to depot
             $message = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
-                ->setFrom('send@lms-sodepac.fr')
+                ->setFrom('noreply@sodepac.fr')
                 ->setTo( $order->getCustomer()->getWarehouse()->getEmail() )
                 ->setBody(
                     $this->renderView(
@@ -452,7 +453,7 @@ class OrderController extends AbstractController
                 )
             ;
             $messageCustomer = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
-                ->setFrom('send@lms-sodepac.fr')
+                ->setFrom('noreply@sodepac.fr')
                 ->setTo( $order->getCustomer()->getEmail() )
                 ->setBody(
                     $this->renderView(

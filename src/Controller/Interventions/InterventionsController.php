@@ -301,13 +301,19 @@ class InterventionsController extends AbstractController
     public function phyto(Cultures $culture, $name, Request $request, StocksRepository $sr, InterventionsRepository $ir): Response
     {
         $intervention = new Phyto();
+
+        // For total Size
+        $isMultiple = false;
+
         //-- If multiple action is actived
         if ($this->container->get('session')->get('listCulture')) {
+            $isMultiple = true;
             // get total size of selected multiple culture
             $cultureTotalSize = 0;
             foreach ( $this->container->get('session')->get('listCulture') as $culture ) {
                 $cultureTotalSize = $cultureTotalSize + $culture->getSize();
             }
+
             // return form for multiple intervention and size of total
             $form = $this->createForm( PhytoInterventionType::class, $intervention, [
                 'user' => $this->getUser(),
@@ -411,7 +417,8 @@ class InterventionsController extends AbstractController
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView(),
-            'warningMessage' => $warningMessage
+            'warningMessage' => $warningMessage,
+            'cultureSize' => $isMultiple ? $cultureTotalSize : $culture->getSize()
         ]);
     }
 
@@ -428,12 +435,26 @@ class InterventionsController extends AbstractController
      */
     public function phytoAddProduct(Interventions $intervention, Request $request, StocksRepository $sr, InterventionsProductsRepository $ipr, InterventionsRepository $ir, $name): Response
     {
+        $isMultiple = false;
+
         $interventionProduct = new InterventionsProducts();
         $form = $this->createForm( InterventionAddProductType::class, $interventionProduct, [
             'user' => $this->getUser(),
             'culture' => $intervention->getCulture()
         ]);
         $form->handleRequest( $request );
+
+        //-- If multiple action is actived
+        if ($this->container->get('session')->get('listCulture')) {
+            $isMultiple = true;
+
+            // get total size of selected multiple culture
+            $cultureTotalSize = 0;
+            foreach ($this->container->get('session')->get('listCulture') as $culture) {
+                $cultureTotalSize = $cultureTotalSize + $culture->getSize();
+            }
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             //-- Get data
@@ -513,7 +534,8 @@ class InterventionsController extends AbstractController
             'form' => $form->createView(),
             'culture' => $intervention->getCulture(),
             'intervention' => $intervention,
-            'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] )
+            'interventionProducts' => $ipr->findBy( ['intervention' => $intervention] ),
+            'cultureSize' => $isMultiple ? $cultureTotalSize : $intervention->getCulture()->getSize()
         ]);
     }
 
@@ -528,6 +550,7 @@ class InterventionsController extends AbstractController
      */
     public function fertilisant(Cultures $culture, Request $request, StocksRepository $sr, InterventionsRepository $ir): Response
     {
+        $isMultiple = false;
         $name = 'Fertilisant';
         $intervention = new Fertilisant();
         $form = $this->createForm( FertilisantInterventionType::class, $intervention, [
@@ -543,6 +566,16 @@ class InterventionsController extends AbstractController
         $warningMessage = false;
         if ( $lastPhyto && $lastPhyto->getInterventionAt() >= $last2Days ) {
             $warningMessage = true;
+        }
+
+        if ($this->container->get('session')->get('listCulture')) {
+            $isMultiple = true;
+
+            // get total size of selected multiple culture
+            $cultureTotalSize = 0;
+            foreach ( $this->container->get('session')->get('listCulture') as $culture ) {
+                $cultureTotalSize = $cultureTotalSize + $culture->getSize();
+            }
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -590,7 +623,8 @@ class InterventionsController extends AbstractController
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView(),
-            'warningMessage' => $warningMessage
+            'warningMessage' => $warningMessage,
+            'cultureSize' => $isMultiple ? $cultureTotalSize : $culture->getSize()
         ]);
     }
 

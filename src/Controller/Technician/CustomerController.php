@@ -70,8 +70,15 @@ class CustomerController extends AbstractController
             $user->setIsActive(1);
             $user->setStatus( 'ROLE_USER' );
 
+            //: Create exploitation
+            $exploitation = new Exploitation();
+            $exploitation
+                ->setSize(150)
+                ->setUsers($user);
+
             //: Update
             $this->em->persist($user);
+            $this->em->persist($exploitation);
             $this->em->flush();
 
             //Send Email to user

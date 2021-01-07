@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Catalogue{% endblock %}
+{% block title %}Commandes{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -23,7 +23,7 @@
         </div>
         <div class="row">
             <div class="col-12 pull-right mb-2">
-                <a href="{{ path('order_new') }}" class="btn btn-success pull-right ml-2">Créer un panier</a>
+                <a href="{{ path('order_new') }}" class="btn btn-success pull-right ml-2">Créer une commande</a>
                 <a href="{{ path('order_synthesis') }}" class="btn btn-warning pull-right">Synthèse</a>
             </div>
             <div class="col-lg-12">

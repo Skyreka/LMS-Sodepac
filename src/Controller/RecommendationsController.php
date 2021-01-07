@@ -232,7 +232,7 @@ class RecommendationsController extends AbstractController
             $recommendationProducts->setRecommendation( $recommendation );
             $recommendationProducts->setDose( $request->get('dose') );
             $recommendationProducts->setUnit( $request->get('unit') );
-            $result = $cultureTotal * $recommendationProducts->getDose();
+            $result = $cultureTotal * round($recommendationProducts->getDose(), 2);
             $recommendationProducts->setQuantity( $result );
 
             //-- Go to db new entry
@@ -334,15 +334,15 @@ class RecommendationsController extends AbstractController
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function editDose( Request $request, CulturesRepository $cr )
+    public function editDose( Request $request )
     {
         if ($request->isXmlHttpRequest()) {
-            $recommendation = $this->rpr->find( $request->get('id'));
-            $cultureTotal = $recommendation->getCultureSize();
-            $recommendation->setDose( $request->get('dose'));
+            $recommendationProduct = $this->rpr->find( $request->get('id'));
+            $cultureTotal = $recommendationProduct->getRecommendation()->getCultureSize();
+            $recommendationProduct->setDose( $request->get('dose'));
             //-- Calcul total of quantity with new dose
-            $result = $cultureTotal * $recommendation->getDose();
-            $recommendation->setQuantity( $result );
+            $result = $cultureTotal * $recommendationProduct->getDose();
+            $recommendationProduct->setQuantity( $result );
             $this->em->flush();
             return new JsonResponse(["type" => 'success'], 200);
         }
@@ -461,15 +461,26 @@ class RecommendationsController extends AbstractController
             //-- Update Status of recommendation
             $recommendations->setStatus( 3 );
 
+            //-- Add oldStock
+            $oldStocks = $sr->findBy(array('exploitation' => $recommendations->getExploitation()));
+            $stockProducts = [];
+            foreach ($oldStocks as $oldStock) {
+                $stockProducts[] = $oldStock->getProduct()->getId();
+            }
+
             //-- Add to stock
             $products = $rpr->findBy( ['recommendation' => $recommendations ]);
             foreach ( $products as $product ) {
-                $stock = new Stocks();
-                $stock->setExploitation( $recommendations->getExploitation() );
-                $stock->setProduct( $product->getProduct() );
-                $stock->setQuantity( $product->getQuantity() );
+                if (!in_array($product->getProduct()->getId(), $stockProducts)) {
+                    $stock = new Stocks();
+                    $stock->setExploitation( $recommendations->getExploitation() );
+                    $stock->setProduct( $product->getProduct() );
 
-                $this->em->persist( $stock );
+                    //--Add product to stock list
+                    $stockProducts[] = $stock->getProduct()->getId();
+
+                    $this->em->persist( $stock );
+                }
             }
 
             // Save to Db
@@ -478,7 +489,7 @@ class RecommendationsController extends AbstractController
             //-- SEND PDF TO USER
             $link = $request->getUriForPath(' ');
             $message = (new \Swift_Message('Nouvelle recommendation disponible'))
-                ->setFrom('send@lms-sodepac.fr')
+                ->setFrom('noreply@sodepac.fr')
                 ->setTo( $recommendations->getExploitation()->getUsers()->getEmail() )
                 ->setBody(
                     $this->renderView(
@@ -493,7 +504,7 @@ class RecommendationsController extends AbstractController
             ;
             $mailer->send($message);
 
-            $this->addFlash('success', 'Email envoyé avec succès. Status du catalogue: Envoyé');
+            $this->addFlash('success', 'Email envoyé avec succès. Statut du catalogue: Envoyé');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
         return $this->redirectToRoute('recommendation_index');
@@ -559,7 +570,7 @@ class RecommendationsController extends AbstractController
                     ini_set('max_execution_time', 300);
                     ini_set('memory_limit', '-1');
                     $canevasPage->loadHtml( $html->getContent() );
-                    $canevasPage->setPaper('A2', 'landscape');
+                    $canevasPage->setPaper('A1', 'landscape');
                     $canevasPage->render();
                     $outputFirstFile = $canevasPage->output();
                     file_put_contents( '../public/uploads/recommendations/process/'.$token.'/2.pdf', $outputFirstFile);
@@ -598,7 +609,7 @@ class RecommendationsController extends AbstractController
                 //-- Remove temp folder
                 $fileSystem->remove('../public/uploads/recommendations/process/'.$token);
 
-                $this->addFlash('success', 'Document généré avec succès. Status du catalogue: Générée');
+                $this->addFlash('success', 'Document généré avec succès. Statut du catalogue: Généré');
                 return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
             } catch (Exception $e) {
                 $this->addFlash('danger', 'Une erreur est survenue');

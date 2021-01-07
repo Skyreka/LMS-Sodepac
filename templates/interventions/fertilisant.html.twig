@@ -22,7 +22,7 @@
             </div>
         </div>
         {% if warningMessage %}
-            <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant <a href="https://www.melanges.arvalisinstitutduvegetal.fr" target="_blank">melanges.arvalisinstitutduvegetal.fr</a>   En cas de doute, consulter votre conseiller.
+            <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant <a href="https://www.phyto.sodepac.fr" target="_blank">phyto.sodepac.fr</a>   En cas de doute, consulter votre conseiller.
 </div>
         {% endif %}
         {% if app.session.get('listCulture') %}
@@ -74,8 +74,10 @@
     <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.fr.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            $('.select2').select2();
             $('.js-datepicker').datepicker({
                 weekStart:0,
                 time: 1,

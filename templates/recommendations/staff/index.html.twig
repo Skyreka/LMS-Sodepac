@@ -90,7 +90,7 @@
                                         </td>
                                         <td>
                                             <div style="display: flex">
-                                                <a class="btn btn-success" href="{{ path('recommendation_summary', {id: recommendation.id}) }}"><i class="fa fa-eye text-white"></i></a>
+                                                <a title="Voir" class="btn btn-success" href="{{ path('recommendation_summary', {id: recommendation.id}) }}"><i class="fa fa-eye text-white"></i></a>
                                                 {% if( recommendation.status > 1 ) %}
                                                     {{ include('recommendations/staff/_send.html.twig') }}
                                                 {% endif %}

@@ -88,7 +88,7 @@ class PhytoInterventionType extends AbstractType
                 null,
                 [
                     'class' => Doses::class,
-                    'label' => 'Doses:',
+                    'label' => 'Dose préconisée:',
                     'choice_label' => function(Doses $dose) {
                         return $dose->getApplication().' '.$dose->getDose().' '.$dose->getUnit();
                     },
@@ -97,7 +97,7 @@ class PhytoInterventionType extends AbstractType
                     },
                     'auto_initialize' => false,
                     'mapped' => false,
-                    'placeholder' => 'Choisir la dose préconisée',
+                    'placeholder' => 'Choisir la dose préconisée'
                 ]
             );
         }

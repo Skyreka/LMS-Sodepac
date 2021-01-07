@@ -37,8 +37,6 @@ class DosesRepository extends ServiceEntityRepository
 
     public function findDose( $product, $indexCulture, $return = null )
     {
-        dump( $product );
-        dump( $indexCulture );
         $query = $this->createQueryBuilder('s')
             ->andWhere('s.product = :product')
             ->andWhere('s.indexCulture = :indexCulture')
@@ -46,6 +44,12 @@ class DosesRepository extends ServiceEntityRepository
             ->setParameter('indexCulture', $indexCulture)
             ->orderBy('s.id', 'ASC')
         ;
+
+        // Default value for select
+        if ( empty($query->getQuery()->getResult()) ) {
+            $query = $this->createQueryBuilder( 'd' )
+                ->where('d.id = 0');
+        }
 
         if ($return) {
             $query = $query->getQuery()

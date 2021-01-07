@@ -18,7 +18,7 @@ class Doses
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Products")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $product;
 

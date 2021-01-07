@@ -10,11 +10,14 @@ use App\Repository\RecommendationProductsRepository;
 use App\Repository\UsersRepository;
 use DataTables\DataTablesInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -59,6 +62,78 @@ class UsersController extends AbstractController {
         }
     }
 
+    private function getData(): array
+    {
+        $list= [];
+        $users = $this->em->getRepository(Users::class)->findAll();
+
+        foreach ($users as $user) {
+            switch ($user->getPack()) {
+                case 'PACK_FULL':
+                    $pack = 'PACK FULL';
+                    break;
+                case 'PACK_LIGHT':
+                    $pack = 'PACK LIGHT';
+                    break;
+                case 'PACK_DEMO':
+                    $pack = 'PACK DEMO';
+                    break;
+                default:
+                    $pack = 'INACTIF';
+                    break;
+            }
+            $technician = 'Aucun';
+            if ($user->getStatus() == 'ROLE_USER') {
+                $technician = $user->getTechnician()->getIdentity();
+            }
+            $list[] = [
+                $user->getIdentity(),
+                $user->getEmail(),
+                $user->getPhone(),
+                $user->getCity(),
+                $pack,
+                $user->getCertificationPhyto(),
+                $technician
+            ];
+        }
+        return $list;
+    }
+
+    /**
+     * @Route("/export", name="admin_users_export", methods={"GET", "POST"})
+     * @return Response
+     */
+    public function export(): Response
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setTitle('Liste des utilisateurs');
+
+        $sheet->getCell('A1')->setValue('Informations');
+        $sheet->getCell('B1')->setValue('Email');
+        $sheet->getCell('C1')->setValue('Téléphone');
+        $sheet->getCell('D1')->setValue('Ville');
+        $sheet->getCell('E1')->setValue('Pack');
+        $sheet->getCell('F1')->setValue('Certification');
+        $sheet->getCell('G1')->setValue('Technicien');
+
+        $sheet->fromArray($this->getData(), null, 'A2', true);
+
+        $writer = new Xlsx($spreadsheet);
+
+        $response =  new StreamedResponse(
+            function () use ($writer) {
+                $writer->save('php://output');
+            }
+        );
+        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+        $response->headers->set('Content-Disposition', 'attachment;filename="Utilisateurs.xls"');
+        $response->headers->set('Cache-Control','max-age=0');
+        return $response;
+    }
+
     /**
      * @Route("/new", name="admin_users_new", methods={"GET", "POST"})
      * @param Request $request
@@ -82,7 +157,7 @@ class UsersController extends AbstractController {
             //Send Email to user
             $link = $request->getUriForPath('/login');
             $message = (new \Swift_Message('Votre compte LMS Sodepac est maintenant disponible.'))
-                ->setFrom('send@lms-sodepac.fr')
+                ->setFrom('noreply@sodepac.fr')
                 ->setTo( $user->getEmail() )
                 ->setBody(
                     $this->renderView(

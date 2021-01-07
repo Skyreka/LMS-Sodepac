@@ -11,15 +11,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class SecurityController extends AbstractController {
 
     /**
      * @Route("/", name="login", methods={"GET", "POST"})
      * @param AuthenticationUtils $authenticationUtils
+     * @param AuthorizationCheckerInterface $checker
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils) {
+    public function login(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $checker ) {
+        // Auto Redirect
+        if ( !empty($this->getUser()) && $checker->isGranted('IS_AUTHENTICATED_REMEMBERED') ) {
+            return $this->redirectToRoute( 'login_success' );
+        }
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('security/login.html.twig', [
