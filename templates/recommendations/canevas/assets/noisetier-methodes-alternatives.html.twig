@@ -85,7 +85,7 @@
                 <td>Fomitiporia</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="4">
-                    <button class="btn btn-C btn-block isProduct" product_slug="" dose="" unit="">METHODES PROPHYLACTIQUES</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'methodes-prophylactiques') ? 'exist' : 'd-none' }}" product_slug="methodes-prophylactiques">METHODES PROPHYLACTIQUES</button>
                 </td>
             </tr>
             <tr>
