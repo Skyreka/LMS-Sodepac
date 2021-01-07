@@ -35,7 +35,6 @@ class HomeController extends AbstractController {
         $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
         $recommendations = $rr->findByExploitationOfCustomerAndYear($this->getUser(), $datetime->format('Y'));
         $tickets = $tr->findAllByUser( $this->getUser(), 3);
-        dump($recommendations);
 
         //-- Clear listCulture
         $this->container->get('session')->remove('listCulture');
