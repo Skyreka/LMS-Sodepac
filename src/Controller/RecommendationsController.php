@@ -232,7 +232,7 @@ class RecommendationsController extends AbstractController
             $recommendationProducts->setRecommendation( $recommendation );
             $recommendationProducts->setDose( $request->get('dose') );
             $recommendationProducts->setUnit( $request->get('unit') );
-            $result = $cultureTotal * $recommendationProducts->getDose();
+            $result = $cultureTotal * round($recommendationProducts->getDose(), 2);
             $recommendationProducts->setQuantity( $result );
 
             //-- Go to db new entry
