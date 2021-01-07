@@ -76,13 +76,13 @@
                                                 {% endif %}
                                             {% endif %}
                                             {% if panorama.firstFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                             {% endif %}
                                             {% if panorama.secondFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-image-o"></i></a>
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-image-o"></i></a>
                                             {% endif %}
                                             {% if panorama.thirdFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" class="btn btn-success ml-3" target="_blank"><i class="fa fa-picture-o"></i></a>
+                                                <a href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-picture-o"></i></a>
                                             {% endif %}
                                         </td>
                                     </tr>
