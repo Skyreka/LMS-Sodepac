@@ -232,7 +232,7 @@ class RecommendationsController extends AbstractController
             $recommendationProducts->setRecommendation( $recommendation );
             $recommendationProducts->setDose( $request->get('dose') );
             $recommendationProducts->setUnit( $request->get('unit') );
-            $result = $cultureTotal * $recommendationProducts->getDose();
+            $result = $cultureTotal * round($recommendationProducts->getDose(), 2);
             $recommendationProducts->setQuantity( $result );
 
             //-- Go to db new entry
@@ -461,14 +461,26 @@ class RecommendationsController extends AbstractController
             //-- Update Status of recommendation
             $recommendations->setStatus( 3 );
 
+            //-- Add oldStock
+            $oldStocks = $sr->findBy(array('exploitation' => $recommendations->getExploitation()));
+            $stockProducts = [];
+            foreach ($oldStocks as $oldStock) {
+                $stockProducts[] = $oldStock->getProduct()->getId();
+            }
+
             //-- Add to stock
             $products = $rpr->findBy( ['recommendation' => $recommendations ]);
             foreach ( $products as $product ) {
-                $stock = new Stocks();
-                $stock->setExploitation( $recommendations->getExploitation() );
-                $stock->setProduct( $product->getProduct() );
+                if (!in_array($product->getProduct()->getId(), $stockProducts)) {
+                    $stock = new Stocks();
+                    $stock->setExploitation( $recommendations->getExploitation() );
+                    $stock->setProduct( $product->getProduct() );
 
-                $this->em->persist( $stock );
+                    //--Add product to stock list
+                    $stockProducts[] = $stock->getProduct()->getId();
+
+                    $this->em->persist( $stock );
+                }
             }
 
             // Save to Db
@@ -558,7 +570,7 @@ class RecommendationsController extends AbstractController
                     ini_set('max_execution_time', 300);
                     ini_set('memory_limit', '-1');
                     $canevasPage->loadHtml( $html->getContent() );
-                    $canevasPage->setPaper('A2', 'landscape');
+                    $canevasPage->setPaper('A1', 'landscape');
                     $canevasPage->render();
                     $outputFirstFile = $canevasPage->output();
                     file_put_contents( '../public/uploads/recommendations/process/'.$token.'/2.pdf', $outputFirstFile);
@@ -691,7 +703,8 @@ class RecommendationsController extends AbstractController
     public function dataUser( RecommendationsRepository $rr, $year ): Response
     {
         return $this->render('exploitation/recommendations/data.html.twig', [
-            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year )
+            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year ),
+            'year' => $year 
         ]);
     }
 

@@ -19,6 +19,7 @@ security:
                 default_target_path: login_success
                 always_use_default_target_path: true
                 username_parameter: _email
+                remember_me: true
             logout:
                 path: /logout
                 target: /

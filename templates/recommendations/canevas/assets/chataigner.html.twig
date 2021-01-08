@@ -152,13 +152,13 @@
                                         <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.5') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.5" unit="L">DECIS PROTECH <small> 0.5L</small></button>
                                     </td>
                                     <td colspan="1">
-                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.49') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.49" unit="L">DECIS PROTECH <small> 0.5L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.50001') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.50001" unit="L">DECIS PROTECH <small> 0.5L</small></button>
                                     </td>
                                     <td colspan="1">
-                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.51') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.51" unit="L">DECIS PROTECH <small> 0.5L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.50002') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.50002" unit="L">DECIS PROTECH <small> 0.5L</small></button>
                                     </td>
                                     <td colspan="2">
-                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.52') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.52" unit="L">DECIS PROTECH <small> 0.5L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.50003') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.50003" unit="L">DECIS PROTECH <small> 0.5L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                 </tr>
@@ -296,7 +296,7 @@
                                     <td>Cynips</td>
                                     <td></td><td></td><td></td><td></td><td></td>
                                     <td colspan="4">
-                                        <button class="btn-C btn btn-block">LÂCHER DE TORYMUS</button>
+                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'lacher-de-torymus') ? 'exist' : 'd-none' }}" product_slug="lacher-de-torymus">LÂCHER DE TORYMUS <small> 0.075L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td>
                                 </tr>
@@ -424,59 +424,4 @@
             </div>
         </div>
     {% endif %}
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ asset('plugins/toast/toast.js') }}"></script>
-    <script>
-        $("#open-right-sidebar").click(function(e){
-            let sidebar = $('#right-sidebar');
-            $(sidebar).addClass( "shw-rside" )
-        });
-        $("#close-right-sidebar").click(function(e){
-            let sidebar = $('#right-sidebar');
-            $(sidebar).removeClass( "shw-rside" )
-        });
-        $(".isProduct").click(function (e) {
-            let name = $(this).text()
-            $(this).addClass('btn-light-danger')
-            $.ajax({
-                url: '/recommendations/add-product',
-                type: 'POST',
-                data: {
-                    'product_slug': $(this).attr('product_slug'),
-                    'recommendation_id': {{ recommendations.id }},
-                    'dose': $(this).attr('dose'),
-                    'unit': $(this).attr('unit')
-                },
-                dataType: 'JSON',
-                complete : function (response) {
-                    $.toast({
-                        heading: 'Produit ajouté avec succès',
-                        text: 'Ajout de ' + name,
-                        position: 'bottom-left',
-                        loaderBg: '#ff6849',
-                        icon: 'success',
-                        hideAfter: 3000,
-                        stack: 6
-                    });
-                    let nameProduct = response.responseJSON['name_product']
-                    let dose = response.responseJSON['dose']
-                    let unit = response.responseJSON['unit']
-                    let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose + unit +'</small></li>'
-                    $('#products_list').append( input )
-                },
-                error : function (code_html, status) {
-                    $.toast({
-                        heading: 'Une erreur est survenue',
-                        text: 'Veuillez ressayer',
-                        position: 'bottom-right',
-                        loaderBg: '#ff6849',
-                        icon: 'error',
-                        hideAfter: 3000,
-                        stack: 6
-                    });
-                }
-            })
-        })
-    </script>
 {% endblock %}
