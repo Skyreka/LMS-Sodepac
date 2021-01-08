@@ -703,7 +703,8 @@ class RecommendationsController extends AbstractController
     public function dataUser( RecommendationsRepository $rr, $year ): Response
     {
         return $this->render('exploitation/recommendations/data.html.twig', [
-            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year )
+            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year ),
+            'year' => $year 
         ]);
     }
 
