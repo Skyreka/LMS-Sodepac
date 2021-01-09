@@ -488,7 +488,7 @@ class RecommendationsController extends AbstractController
 
             //-- SEND PDF TO USER
             $link = $request->getUriForPath(' ');
-            $message = (new \Swift_Message('Nouvelle recommendation disponible'))
+            $message = (new \Swift_Message('Nouvelle recommandation disponible'))
                 ->setFrom('noreply@sodepac.fr')
                 ->setTo( $recommendations->getExploitation()->getUsers()->getEmail() )
                 ->setBody(
