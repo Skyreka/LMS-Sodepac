@@ -99,7 +99,7 @@ class OrderController extends AbstractController
 
         if ( $form->isSubmitted() && $form->isValid() ) {
             $this->em->flush();
-            $this->addFlash('success', 'Information sauvegardé avec succès');
+            $this->addFlash('success', 'Information sauvegardée avec succès');
             return $this->redirectToRoute('order_show', ['id_number' => $orders->getIdNumber()]);
         }
 
