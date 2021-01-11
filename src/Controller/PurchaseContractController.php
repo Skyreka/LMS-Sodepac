@@ -75,7 +75,7 @@ class PurchaseContractController extends AbstractController
 
             $this->em->flush();
 
-            $this->addFlash('success', 'Nouveau contract d\'achat crée avec succès');
+            $this->addFlash('success', 'Nouveau contrat d\'achat crée avec succès');
             return $this->redirectToRoute('management_purchase_contract_show', ['id' => $purchaseContract->getId()]);
         }
 
