@@ -37,7 +37,7 @@ class IrrigationType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'attr' => [
                     'class' => 'js-datepicker',
-                    'value' => date('d/m/yy')
+                    'value' => date('d/m/Y')
                 ]
             ])
             ->add('comment')
