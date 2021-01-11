@@ -489,7 +489,7 @@ class RecommendationsController extends AbstractController
             //-- SEND PDF TO USER
             $link = $request->getUriForPath(' ');
             $message = (new \Swift_Message('Nouveau canevas disponible'))
-                ->setFrom('noreply@sodepac.fr')
+                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
                 ->setTo( $recommendations->getExploitation()->getUsers()->getEmail() )
                 ->setBody(
                     $this->renderView(
@@ -704,7 +704,7 @@ class RecommendationsController extends AbstractController
     {
         return $this->render('exploitation/recommendations/data.html.twig', [
             'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year ),
-            'year' => $year 
+            'year' => $year
         ]);
     }
 
