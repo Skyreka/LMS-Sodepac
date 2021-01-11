@@ -57,13 +57,13 @@
                                             <a href="{{ path('admin_flash_edit', {id: flash.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i> </a>
                                             {{ include('flash/admin/_delete.html.twig') }}
                                             {% if flash.firstFile %}
-                                                <a href="{{ asset('uploads/flash/' ~ flash.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                                                <a title="PDF" href="{{ asset('uploads/flash/' ~ flash.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                             {% endif %}
                                             {% if flash.secondFile %}
-                                                <a href="{{ asset('uploads/flash/' ~ flash.secondFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
+                                                <a title="Image" href="{{ asset('uploads/flash/' ~ flash.secondFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
                                             {% endif %}
                                             {% if flash.thirdFile %}
-                                                <a href="{{ asset('uploads/flash/' ~ flash.thirdFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
+                                                <a title="Image" href="{{ asset('uploads/flash/' ~ flash.thirdFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
                                             {% endif %}
                                         </td>
                                     </tr>

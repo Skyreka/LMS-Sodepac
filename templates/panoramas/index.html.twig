@@ -57,14 +57,14 @@
                                                 <form method="POST" action="{{ path('panorama_delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
-                                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                    <button title="Supprimer" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                                 </form>
                                                 <a href="{{ path('panorama_edit', {id: panorama.id}) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                                                 {% if panorama.validate == 0 %}
                                                     <form method="POST" action="{{ path('panorama_valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
                                                         <input type="hidden" name="_method" value="VALID">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('valid' ~ panorama.id) }}">
-                                                        <button class="btn btn-success"><i class="fa fa-check"></i></button>
+                                                        <button title="Valider" class="btn btn-success"><i class="fa fa-check"></i></button>
                                                     </form>
                                                 {% endif %}
                                                 {% if panorama.validate == 1 %}
@@ -76,13 +76,13 @@
                                                 {% endif %}
                                             {% endif %}
                                             {% if panorama.firstFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                                                <a title="PDF" href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                             {% endif %}
                                             {% if panorama.secondFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-image-o"></i></a>
+                                                <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-image-o"></i></a>
                                             {% endif %}
                                             {% if panorama.thirdFile %}
-                                                <a href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-picture-o"></i></a>
+                                                <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-picture-o"></i></a>
                                             {% endif %}
                                         </td>
                                     </tr>

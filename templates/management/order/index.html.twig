@@ -48,7 +48,7 @@
                                 {% for order in orders %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('order_show', {id_number: order.idNumber}) }}"> {{ order.idNumber }} <br> </a>{% if( order.status == 0 ) %}⚠️ <small>Suppression Vendredi prochain 00h</small> {% endif %}
+                                            <a title="Voir" href="{{ path('order_show', {id_number: order.idNumber}) }}"> {{ order.idNumber }} <br> </a>{% if( order.status == 0 ) %}⚠️ <small>Suppression Vendredi prochain 00h</small> {% endif %}
                                         </td>
                                         <td>
                                             <a href="{{ path('management_user_show', {id: order.customer.id}) }}">
@@ -74,9 +74,9 @@
                                         </td>
                                         <td>
                                             <div style="display: flex">
-                                                <a class="btn btn-success" href="{{ path('order_show', {id_number: order.idNumber}) }}"><i class="fa fa-eye text-white"></i></a>
+                                                <a title="Voir" class="btn btn-success" href="{{ path('order_show', {id_number: order.idNumber}) }}"><i class="fa fa-eye text-white"></i></a>
                                                 {%  if( order.status == 2 ) %}
-                                                    <a class="btn btn-info ml-2" href="{{ path('order_pdf_view', {id_number: order.idNumber}) }}"><i class="fa fa-file-pdf text-white"></i></a>
+                                                    <a title="PDF" class="btn btn-info ml-2" href="{{ path('order_pdf_view', {id_number: order.idNumber}) }}"><i class="fa fa-file-pdf text-white"></i></a>
                                                 {% endif %}
                                             </div>
                                         </td>

@@ -29,13 +29,13 @@
                         <td>{{ panorama.customers.identity }}</td>
                         <td>
                             {% if panorama.panorama.firstFile %}
-                                <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
+                                <a title="PDF" href="{{ asset('uploads/panorama/' ~ panorama.panorama.firstFile) }}" class="btn btn-success" target="_blank">PDF</a>
                             {% endif %}
                             {% if panorama.panorama.secondFile %}
-                                <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
+                                <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.panorama.secondFile) }}" class="btn btn-success" target="_blank">Image 1</a>
                             {% endif %}
                             {% if panorama.panorama.thirdFile %}
-                                <a href="{{ asset('uploads/panorama/' ~ panorama.panorama.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
+                                <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.panorama.thirdFile) }}" class="btn btn-success" target="_blank">Image 2</a>
                             {% endif %}
                         </td>
                     </tr>
