@@ -677,13 +677,17 @@ class InterventionsController extends AbstractController
 
         if ( $form->isSubmitted() && $form->isValid()) {
             //-- Update Stock
-            $stock = $sr->findOneBy( ['product' => $intervention->getProduct(), 'exploitation' => $this->getUser()->getExploitation() ] );
-            $quantityNew = $form->getData()->getQuantity();
-            $quantityOnStock = $stock->getQuantity();
-            $diffQuantityIntervention = $quantityNew - $quantityOnIntervention;
-            $stock->setQuantity( $quantityOnStock - $diffQuantityIntervention );
-            $quantityUsedInStock = $stock->getUsedQuantity();
-            $stock->setUsedQuantity( $quantityUsedInStock + $diffQuantityIntervention );
+            $classMetadata = $this->em->getClassMetadata( get_class($intervention) );
+            $discriminatorMap = $classMetadata->discriminatorValue;
+            if ( $discriminatorMap == 'phyto' ) {
+                $stock = $sr->findOneBy( ['product' => $intervention->getProduct(), 'exploitation' => $this->getUser()->getExploitation() ] );
+                $quantityNew = $form->getData()->getQuantity();
+                $quantityOnStock = $stock->getQuantity();
+                $diffQuantityIntervention = $quantityNew - $quantityOnIntervention;
+                $stock->setQuantity( $quantityOnStock - $diffQuantityIntervention );
+                $quantityUsedInStock = $stock->getUsedQuantity();
+                $stock->setUsedQuantity( $quantityUsedInStock + $diffQuantityIntervention );
+            }
 
             $this->em->flush();
             $this->addFlash('success', 'Intervention modifiée avec succès');

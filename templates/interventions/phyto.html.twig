@@ -24,8 +24,7 @@
         <input type="hidden" id="cultureHectare" value="{{ cultureSize }}" />
         <div class="col-12">
             {% if warningMessage %}
-                <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant <a href="https://www.phyto.sodepac.fr" target="_blank">phyto.sodepac.fr</a>   En cas de doute, consulter votre conseiller.
-</div>
+                <div class="alert alert-warning">Attention! Vous appliquez un traitement sur une culture moins de 48h après le traitement précédent. Vérifiez la validité du délai</div>
             {% endif %}
             {% if intervention == 'Traitement-Divers' %}
                 <div class="alert alert-warning">Attention, cette intervention rentrera en compte dans le calcul de l'IFT</div>
