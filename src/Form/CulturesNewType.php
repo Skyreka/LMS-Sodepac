@@ -28,6 +28,8 @@ class CulturesNewType extends AbstractType
                     'class' => 'select2'
                 ],
                 'choice_label' => 'name',
+                'placeholder' => 'Aucune',
+                'required' => false,
                 'label' => 'Culture Précédente'
             ])
             ->add('name', EntityType::class, [

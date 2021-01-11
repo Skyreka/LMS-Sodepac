@@ -200,9 +200,13 @@
                             <input type="checkbox" id="sign1" class="chk-col-green" required />
                             <label for="sign1">Je certifie être détenteur du certiphyto utilisateur professionnel en cours de validité et atteste être pleinement responsable du choix des spécialités présentées dans ce catalogue.</label>
                         </div>
-                        <div class="demo-checkbox">
+                        <div class="demo-checkbox mb-3">
                             <input type="checkbox" id="sign2" class="chk-col-green" required />
                             <label for="sign2">Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande.</label>
+                        </div>
+                        <div class="demo-checkbox">
+                            <input type="checkbox" id="sign3" class="chk-col-green" required />
+                            <label for="sign3">En signant ce document, {{ order.customer.identity }} atteste avoir reçu, lors de la vente, l’ensemble des informations appropriées sur l’emploi des produits.</label>
                         </div>
                     </div>
                     <div class="modal-footer">

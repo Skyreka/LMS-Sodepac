@@ -72,7 +72,7 @@ class IrrigationRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('i')
             ->andWhere('i.exploitation = :exp')
             ->andWhere('i.type = :type')
-            ->andWhere('year(i.intervention_at) = :year')
+            ->andWhere('YEAR(i.intervention_at) = :year')
             ->setParameter('exp', $exploitation)
             ->setParameter('type', $type)
             ->setParameter('year', $year)

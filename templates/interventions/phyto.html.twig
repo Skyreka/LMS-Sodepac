@@ -24,14 +24,13 @@
         <input type="hidden" id="cultureHectare" value="{{ cultureSize }}" />
         <div class="col-12">
             {% if warningMessage %}
-                <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant <a href="https://www.phyto.sodepac.fr" target="_blank">phyto.sodepac.fr</a>   En cas de doute, consulter votre conseiller.
-</div>
+                <div class="alert alert-warning">Attention! Vous appliquez un traitement sur une culture moins de 48h après le traitement précédent. Vérifiez la validité du délai</div>
             {% endif %}
             {% if intervention == 'Traitement-Divers' %}
                 <div class="alert alert-warning">Attention, cette intervention rentrera en compte dans le calcul de l'IFT</div>
             {% endif %}
             {% if app.session.get('listCulture') %}
-                <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login_success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
+                <div class="alert alert-danger"><b>INTERVENTION MULTIPLE ACTIVÉE</b> <br> <a class="text-white" href="{{ path('login_success') }}">ANNULER</a></div>
             {% endif %}
             <!--begin::Alert-->
             {% for label, messages in app.flashes %}

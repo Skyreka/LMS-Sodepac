@@ -488,8 +488,8 @@ class RecommendationsController extends AbstractController
 
             //-- SEND PDF TO USER
             $link = $request->getUriForPath(' ');
-            $message = (new \Swift_Message('Nouvelle recommendation disponible'))
-                ->setFrom('noreply@sodepac.fr')
+            $message = (new \Swift_Message('Nouveau canevas disponible'))
+                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
                 ->setTo( $recommendations->getExploitation()->getUsers()->getEmail() )
                 ->setBody(
                     $this->renderView(
@@ -566,7 +566,7 @@ class RecommendationsController extends AbstractController
                         'culture' => $recommendations->getCulture(),
                         'printRequest' => true
                     ]);
-                    set_time_limit(300);
+                    set_time_limit(1000);
                     ini_set('max_execution_time', 300);
                     ini_set('memory_limit', '-1');
                     $canevasPage->loadHtml( $html->getContent() );
@@ -704,7 +704,7 @@ class RecommendationsController extends AbstractController
     {
         return $this->render('exploitation/recommendations/data.html.twig', [
             'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year ),
-            'year' => $year 
+            'year' => $year
         ]);
     }
 
