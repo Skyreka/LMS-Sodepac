@@ -152,6 +152,12 @@ class UsersController extends AbstractController {
             $user->setPassword( $encoder->encodePassword($user, '0000'));
             $user->setStatus('ROLE_USER');
             $user->setIsActive(1);
+            //Create exploitation
+            $exploitation = new Exploitation();
+            $exploitation
+                ->setSize(300)
+                ->setUsers($user);
+            $this->em->persist($exploitation);
             $this->em->flush();
 
             //Send Email to user
