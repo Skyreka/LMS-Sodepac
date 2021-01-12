@@ -77,7 +77,6 @@ class RecommendationsController extends AbstractController
         // Get Last Recommendations
         if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
             $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
-
             //Counters
             $recommendationsCreate = $rr->countAllByStatus( 1 );
         } else {
@@ -664,7 +663,7 @@ class RecommendationsController extends AbstractController
     public function syntheseData( RecommendationsRepository $rr, $year ): Response
     {
         //-- If user is technician get recommendation of user of technician
-        /*if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
+        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
             return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
@@ -676,10 +675,7 @@ class RecommendationsController extends AbstractController
             return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
-        }*/
-        return $this->render('recommendations/staff/synthese/data.html.twig', [
-            'recommendations' => $rr->findAllByYear( $year )
-        ]);
+        }
     }
 
     /**
