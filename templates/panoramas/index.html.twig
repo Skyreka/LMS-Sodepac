@@ -42,50 +42,50 @@
                                 </thead>
                                 <tbody>
                                 {% for panorama in panoramas %}
-                                    <tr>
-                                        <td>{{ panorama.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
-                                        <td>{{ panorama.text }}</td>
-                                        <td>
-                                            {% if panorama.validate == 1 %}
-                                                <span class="badge badge-success">Validé</span>
-                                            {% elseif panorama.validate == 0 %}
-                                                <span class="badge badge-warning">En attente de validation</span>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {% if app.user.status == 'ROLE_ADMIN' %}
-                                                <form method="POST" action="{{ path('panorama_delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
-                                                    <button title="Supprimer" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                                </form>
-                                                <a href="{{ path('panorama_edit', {id: panorama.id}) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                                                {% if panorama.validate == 0 %}
-                                                    <form method="POST" action="{{ path('panorama_valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
-                                                        <input type="hidden" name="_method" value="VALID">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token('valid' ~ panorama.id) }}">
-                                                        <button title="Valider" class="btn btn-success"><i class="fa fa-check"></i></button>
+                                        <tr>
+                                            <td>{{ panorama.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                            <td>{{ panorama.text }}</td>
+                                            <td>
+                                                {% if panorama.validate == 1 %}
+                                                    <span class="badge badge-success">Validé</span>
+                                                {% elseif panorama.validate == 0 %}
+                                                    <span class="badge badge-warning">En attente de validation</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if app.user.status == 'ROLE_ADMIN' %}
+                                                    <form method="POST" action="{{ path('panorama_delete', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer le panorama ?')">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ panorama.id) }}">
+                                                        <button title="Supprimer" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                                     </form>
+                                                    <a href="{{ path('panorama_edit', {id: panorama.id}) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                                                    {% if panorama.validate == 0 %}
+                                                        <form method="POST" action="{{ path('panorama_valid', {id: panorama.id}) }}" style="display: inline-block" onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir valider le panorama ?')">
+                                                            <input type="hidden" name="_method" value="VALID">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('valid' ~ panorama.id) }}">
+                                                            <button title="Valider" class="btn btn-success"><i class="fa fa-check"></i></button>
+                                                        </form>
+                                                    {% endif %}
+                                                    {% if panorama.validate == 1 %}
+                                                        <a title="Envoyer ce panorama" href="{{ path('panorama_send', {id: panorama.id}) }}" class="btn btn-info"><i class="fab fa-telegram-plane"></i></a>
+                                                    {% endif %}
+                                                {% elseif app.user.status == 'ROLE_TECHNICIAN' %}
+                                                    {% if panorama.validate == 1 %}
+                                                        <a title="Envoyer ce panorama" href="{{ path('panorama_send', {id: panorama.id}) }}" class="btn btn-info"><i class="fab fa-telegram-plane"></i></a>
+                                                    {% endif %}
                                                 {% endif %}
-                                                {% if panorama.validate == 1 %}
-                                                    <a title="Envoyer ce panorama" href="{{ path('panorama_send', {id: panorama.id}) }}" class="btn btn-info"><i class="fab fa-telegram-plane"></i></a>
+                                                {% if panorama.firstFile %}
+                                                    <a title="PDF" href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                                 {% endif %}
-                                            {% elseif app.user.status == 'ROLE_TECHNICIAN' %}
-                                                {% if panorama.validate == 1 %}
-                                                    <a title="Envoyer ce panorama" href="{{ path('panorama_send', {id: panorama.id}) }}" class="btn btn-info"><i class="fab fa-telegram-plane"></i></a>
+                                                {% if panorama.secondFile %}
+                                                    <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-image-o"></i></a>
                                                 {% endif %}
-                                            {% endif %}
-                                            {% if panorama.firstFile %}
-                                                <a title="PDF" href="{{ asset('uploads/panorama/' ~ panorama.firstFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
-                                            {% endif %}
-                                            {% if panorama.secondFile %}
-                                                <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.secondFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-file-image-o"></i></a>
-                                            {% endif %}
-                                            {% if panorama.thirdFile %}
-                                                <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-picture-o"></i></a>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
+                                                {% if panorama.thirdFile %}
+                                                    <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.thirdFile) }}" download="Panorama_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success ml-3" target="_blank"><i class="fa fa-picture-o"></i></a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
