@@ -109,6 +109,8 @@ class RecommendationsController extends AbstractController
                 ->orWhere('u.firstname LIKE :firstname')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
+                ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
+                ->andWhere('u.id = e.users')
                 ->setMaxResults( $limit )
                 ->getQuery()
                 ->getResult()
@@ -120,6 +122,8 @@ class RecommendationsController extends AbstractController
                 ->orWhere('u.firstname LIKE :firstname')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
+                ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
+                ->andWhere('u.id = e.users')
                 ->andWhere('u.technician = :tech')
                 ->setParameter(':tech', $this->getUser())
                 ->setMaxResults( $limit )
@@ -132,7 +136,7 @@ class RecommendationsController extends AbstractController
         $array = [];
         foreach ($users as $user) {
             $array[] = array(
-                'id' => $user->getId(),
+                'id' => $user->getExploitation()->getId(),
                 'text' => $user->getIdentity()
             );
         }
