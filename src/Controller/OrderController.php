@@ -99,7 +99,7 @@ class OrderController extends AbstractController
 
         if ( $form->isSubmitted() && $form->isValid() ) {
             $this->em->flush();
-            $this->addFlash('success', 'Information sauvegardé avec succès');
+            $this->addFlash('success', 'Information sauvegardée avec succès');
             return $this->redirectToRoute('order_show', ['id_number' => $orders->getIdNumber()]);
         }
 
@@ -133,7 +133,7 @@ class OrderController extends AbstractController
             $this->container->get('session')->remove('currentOrder');
             $this->container->get('session')->set('currentOrder', $order);
 
-            $this->addFlash('success', 'Nouveau panier temporaire crée avec succès');
+            $this->addFlash('success', 'Nouveau panier temporaire créé avec succès');
             return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
         }
 
@@ -250,7 +250,7 @@ class OrderController extends AbstractController
             $this->em->flush();
 
             // Alert
-            $this->addFlash('success', 'Nouveau panier temporaire crée avec succès');
+            $this->addFlash('success', 'Nouveau panier temporaire créé avec succès');
             $this->addFlash('info', 'Le produit '. $product->getProduct()->getName() .' a été ajouté au panier.');
         } elseif ($this->container->get('session')->get('currentOrder') == NULL && isset($orderFromOther) && $isOther = 1) {
             // Function if user want to add produit to saved order
@@ -441,7 +441,7 @@ class OrderController extends AbstractController
 
             // Send to depot
             $message = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
-                ->setFrom('noreply@sodepac.fr')
+                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
                 ->setTo( $order->getCustomer()->getWarehouse()->getEmail() )
                 ->setBody(
                     $this->renderView(
@@ -453,7 +453,7 @@ class OrderController extends AbstractController
                 )
             ;
             $messageCustomer = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
-                ->setFrom('noreply@sodepac.fr')
+                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
                 ->setTo( $order->getCustomer()->getEmail() )
                 ->setBody(
                     $this->renderView(

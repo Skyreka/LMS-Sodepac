@@ -167,6 +167,11 @@ class Users implements UserInterface, \Serializable
      */
     private $purchaseContracts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Panoramas::class, mappedBy="owner")
+     */
+    private $ownedPanoramas;
+
     public function __construct()
     {
         $this->bsvs = new ArrayCollection();
@@ -176,6 +181,7 @@ class Users implements UserInterface, \Serializable
         $this->mixes = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->purchaseContracts = new ArrayCollection();
+        $this->ownedPanoramas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -684,6 +690,36 @@ class Users implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($purchaseContract->getCreator() === $this) {
                 $purchaseContract->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Panoramas[]
+     */
+    public function getOwnedPanoramas(): Collection
+    {
+        return $this->ownedPanoramas;
+    }
+
+    public function addOwnedPanorama(Panoramas $ownedPanorama): self
+    {
+        if (!$this->ownedPanoramas->contains($ownedPanorama)) {
+            $this->ownedPanoramas[] = $ownedPanorama;
+            $ownedPanorama->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwnedPanorama(Panoramas $ownedPanorama): self
+    {
+        if ($this->ownedPanoramas->removeElement($ownedPanorama)) {
+            // set the owning side to null (unless already changed)
+            if ($ownedPanorama->getOwner() === $this) {
+                $ownedPanorama->setOwner(null);
             }
         }
 

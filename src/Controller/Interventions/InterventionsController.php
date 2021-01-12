@@ -80,7 +80,7 @@ class InterventionsController extends AbstractController
 
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
-                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+                $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
                 return $this->redirectToRoute('login_success');
             } else {
                 //-- Simple intervention for one culture
@@ -99,7 +99,7 @@ class InterventionsController extends AbstractController
                     $this->addFlash('warning', 'Duplication de votre culture permanente');
                 }
             }
-            $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+            $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
             return $this->redirectToRoute( 'ilots_show', ['id' => $culture->getIlot()->getId()] );
         }
 
@@ -136,7 +136,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
-                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+                $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
                 return $this->redirectToRoute('login_success');
             } else {
                 $intervention->setCulture( $culture );
@@ -144,7 +144,7 @@ class InterventionsController extends AbstractController
                 $this->em->persist( $intervention );
                 $this->em->flush();
             }
-            $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+            $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
@@ -181,7 +181,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
-                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+                $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
                 return $this->redirectToRoute('login_success');
             } else {
                 $intervention->setCulture( $culture );
@@ -189,7 +189,7 @@ class InterventionsController extends AbstractController
                 $this->em->persist( $intervention );
                 $this->em->flush();
             }
-            $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+            $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
@@ -225,7 +225,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
-                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+                $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
                 return $this->redirectToRoute('login_success');
             } else {
                 $intervention->setCulture( $culture );
@@ -233,7 +233,7 @@ class InterventionsController extends AbstractController
                 $this->em->persist( $intervention );
                 $this->em->flush();
             }
-            $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+            $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
@@ -269,7 +269,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
-                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+                $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
                 return $this->redirectToRoute('login_success');
             } else {
                 $intervention->setCulture( $culture );
@@ -277,7 +277,7 @@ class InterventionsController extends AbstractController
                 $this->em->persist( $intervention );
                 $this->em->flush();
             }
-            $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+            $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
 
@@ -383,7 +383,7 @@ class InterventionsController extends AbstractController
                 }
 
                 //--Flash Message
-                $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+                $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
                 $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
 
                 //-- Go to home
@@ -400,7 +400,7 @@ class InterventionsController extends AbstractController
                 $this->em->flush();
             }
             //-- Flash Message
-            $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+            $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             //-- Redirect to add new product if checkbox is checked
             if ( $data['addProduct']->getData() ) {
@@ -614,7 +614,7 @@ class InterventionsController extends AbstractController
                 $this->em->persist( $intervention );
                 $this->em->flush();
             }
-            $this->addFlash('success', 'Intervention de '. $name .' crée avec succès');
+            $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
             $this->addFlash('warning', 'Stock de '. $stock->getProduct()->getName() .' mis à jour. Nouvelle valeur en stock '. $stock->getQuantity() .' '.$stock->getUnit( true ));
             return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
         }
@@ -677,13 +677,17 @@ class InterventionsController extends AbstractController
 
         if ( $form->isSubmitted() && $form->isValid()) {
             //-- Update Stock
-            $stock = $sr->findOneBy( ['product' => $intervention->getProduct(), 'exploitation' => $this->getUser()->getExploitation() ] );
-            $quantityNew = $form->getData()->getQuantity();
-            $quantityOnStock = $stock->getQuantity();
-            $diffQuantityIntervention = $quantityNew - $quantityOnIntervention;
-            $stock->setQuantity( $quantityOnStock - $diffQuantityIntervention );
-            $quantityUsedInStock = $stock->getUsedQuantity();
-            $stock->setUsedQuantity( $quantityUsedInStock + $diffQuantityIntervention );
+            $classMetadata = $this->em->getClassMetadata( get_class($intervention) );
+            $discriminatorMap = $classMetadata->discriminatorValue;
+            if ( $discriminatorMap == 'phyto' ) {
+                $stock = $sr->findOneBy( ['product' => $intervention->getProduct(), 'exploitation' => $this->getUser()->getExploitation() ] );
+                $quantityNew = $form->getData()->getQuantity();
+                $quantityOnStock = $stock->getQuantity();
+                $diffQuantityIntervention = $quantityNew - $quantityOnIntervention;
+                $stock->setQuantity( $quantityOnStock - $diffQuantityIntervention );
+                $quantityUsedInStock = $stock->getUsedQuantity();
+                $stock->setUsedQuantity( $quantityUsedInStock + $diffQuantityIntervention );
+            }
 
             $this->em->flush();
             $this->addFlash('success', 'Intervention modifiée avec succès');

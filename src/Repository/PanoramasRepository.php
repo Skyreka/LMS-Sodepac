@@ -68,6 +68,27 @@ class PanoramasRepository extends ServiceEntityRepository
         return $req->getQuery()->getResult();
     }
 
+
+    /**
+     * @param null $limit
+     * @return mixed
+     */
+    public function findAllNotDeletedByTechnician ($technician, $limit = null)
+    {
+        $req = $this->createQueryBuilder('p')
+            ->where('p.archive = 0')
+            ->andWhere('p.owner = :technician')
+            ->setParameter('technician', $technician)
+            ->orderBy('p.creation_date', 'DESC')
+        ;
+
+        if (false === is_null($limit)) {
+            $req->setMaxResults( $limit );
+        }
+
+        return $req->getQuery()->getResult();
+    }
+
     public function findAllByYear($year)
     {
 

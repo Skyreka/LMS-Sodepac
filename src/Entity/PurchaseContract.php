@@ -25,7 +25,7 @@ class PurchaseContract
         'Triticale',
         'Colza',
         'Tournesol Lino',
-        'Tournesol Oleique',
+        'Tournesol Oléique',
         'Maïs',
         'Sorgho',
         'Soja',

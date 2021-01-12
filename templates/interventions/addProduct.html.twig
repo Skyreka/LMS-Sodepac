@@ -32,10 +32,10 @@
                 {% endfor %}
             {% endfor %}
             {% if app.session.get('listCulture') %}
-                <div class="alert alert-danger">Vous êtes actuellement en mode intervention multiple, votre intervention sera effectuée sur toutes les cultures des ilots sélectionnées <br> <a class="text-white" href="{{ path('login_success') }}">Cliquez-ici pour annuler le mode intervention multiple</a></div>
+                <div class="alert alert-danger"><b>INTERVENTION MULTIPLE ACTIVÉE</b> <br> <a class="text-white" href="{{ path('login_success') }}">ANNULER</a></div>
             {% endif %}
         </div>
-        <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant le site officiel <a href="https://ephy.anses.fr" target="_blank">ephy.anses.fr</a></a></div>
+        <div class="alert alert-warning">Attention! Vous mélangez plusieurs produits, assurez vous que ce mélange est autorisé en consultant <a href="https://www.melanges.arvalisinstitutduvegetal.fr/" target="_blank">ce lien</a> En cas de doute, consulter votre conseiller.</div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">

@@ -77,7 +77,6 @@ class RecommendationsController extends AbstractController
         // Get Last Recommendations
         if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
             $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
-
             //Counters
             $recommendationsCreate = $rr->countAllByStatus( 1 );
         } else {
@@ -110,8 +109,6 @@ class RecommendationsController extends AbstractController
                 ->orWhere('u.firstname LIKE :firstname')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
-                ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
-                ->andWhere('u.id = e.users')
                 ->setMaxResults( $limit )
                 ->getQuery()
                 ->getResult()
@@ -123,8 +120,6 @@ class RecommendationsController extends AbstractController
                 ->orWhere('u.firstname LIKE :firstname')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
-                ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
-                ->andWhere('u.id = e.users')
                 ->andWhere('u.technician = :tech')
                 ->setParameter(':tech', $this->getUser())
                 ->setMaxResults( $limit )
@@ -137,7 +132,7 @@ class RecommendationsController extends AbstractController
         $array = [];
         foreach ($users as $user) {
             $array[] = array(
-                'id' => $user->getExploitation()->getId(),
+                'id' => $user->getId(),
                 'text' => $user->getIdentity()
             );
         }
@@ -488,8 +483,8 @@ class RecommendationsController extends AbstractController
 
             //-- SEND PDF TO USER
             $link = $request->getUriForPath(' ');
-            $message = (new \Swift_Message('Nouvelle recommendation disponible'))
-                ->setFrom('noreply@sodepac.fr')
+            $message = (new \Swift_Message('Nouveau canevas disponible'))
+                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
                 ->setTo( $recommendations->getExploitation()->getUsers()->getEmail() )
                 ->setBody(
                     $this->renderView(
@@ -566,7 +561,7 @@ class RecommendationsController extends AbstractController
                         'culture' => $recommendations->getCulture(),
                         'printRequest' => true
                     ]);
-                    set_time_limit(300);
+                    set_time_limit(1000);
                     ini_set('max_execution_time', 300);
                     ini_set('memory_limit', '-1');
                     $canevasPage->loadHtml( $html->getContent() );
@@ -664,7 +659,7 @@ class RecommendationsController extends AbstractController
     public function syntheseData( RecommendationsRepository $rr, $year ): Response
     {
         //-- If user is technician get recommendation of user of technician
-        /*if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
+        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
             return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
@@ -676,10 +671,7 @@ class RecommendationsController extends AbstractController
             return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
-        }*/
-        return $this->render('recommendations/staff/synthese/data.html.twig', [
-            'recommendations' => $rr->findAllByYear( $year )
-        ]);
+        }
     }
 
     /**
@@ -703,7 +695,8 @@ class RecommendationsController extends AbstractController
     public function dataUser( RecommendationsRepository $rr, $year ): Response
     {
         return $this->render('exploitation/recommendations/data.html.twig', [
-            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year )
+            'recommendations' => $rr->findByExploitationOfCustomerAndYear( $this->getUser()->getId(), $year ),
+            'year' => $year
         ]);
     }
 

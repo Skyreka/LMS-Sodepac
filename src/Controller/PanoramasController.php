@@ -48,6 +48,9 @@ class PanoramasController extends AbstractController
     public function index(): Response
     {
         $panoramas = $this->repositoryPanoramas->findAllNotDeleted();
+        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
+            $panoramas = $this->repositoryPanoramas->findAllNotDeletedByTechnician($this->getUser());
+        }
         return $this->render('panoramas/index.html.twig', [
             'panoramas' => $panoramas
         ]);
@@ -156,6 +159,7 @@ class PanoramasController extends AbstractController
             //* TO DO (remove setter (default value))
             $panorama->setSent( 0 );
             $panorama->setValidate( 0 );
+            $panorama->setOwner($this->getUser());
             $this->em->persist($panorama);
             $this->em->flush();
 
@@ -165,7 +169,7 @@ class PanoramasController extends AbstractController
                 $pathInfo = '/panoramas';
                 $link = $request->getUriForPath($pathInfo);
                 $message = (new \Swift_Message('Un panorama est en attente de validation.'))
-                    ->setFrom('noreply@sodepac.fr')
+                    ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
                     ->setTo( $admin->getEmail() )
                     ->setBody(
                         $this->renderView(
@@ -289,7 +293,7 @@ class PanoramasController extends AbstractController
 
                 //Send email notification
                 $message = (new \Swift_Message('Un nouveau panorama disponible sur LMS-Sodepac.'))
-                    ->setFrom('noreply@sodepac.fr')
+                    ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
                     ->setTo( $customer->getEmail() )
                     ->setBody(
                         $this->renderView(
