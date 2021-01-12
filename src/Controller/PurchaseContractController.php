@@ -39,9 +39,9 @@ class PurchaseContractController extends AbstractController
     public function index( PurchaseContractRepository $pcr ): Response
     {
         if ( $this->getUser()->getStatus() ==  'ROLE_TECHNICIAN') {
-            $purchaseContracts = $pcr->findBy( ['creator' => $this->getUser() ]);
+            $purchaseContracts = $pcr->findBy( ['creator' => $this->getUser() ], ['added_date' => 'DESC']);
         } else {
-            $purchaseContracts = $pcr->findBy( ['status' => 1]);
+            $purchaseContracts = $pcr->findBy( ['status' => 1], ['added_date' => 'DESC']);
         }
 
         return $this->render( 'management/purchase-contract/index.html.twig', [
@@ -75,7 +75,7 @@ class PurchaseContractController extends AbstractController
 
             $this->em->flush();
 
-            $this->addFlash('success', 'Nouveau contrat d\'achat crée avec succès');
+            $this->addFlash('success', 'Nouveau contrat d\'achat créé avec succès');
             return $this->redirectToRoute('management_purchase_contract_show', ['id' => $purchaseContract->getId()]);
         }
 

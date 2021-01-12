@@ -34,22 +34,18 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Client</th>
                                     {% if app.user.status == 'ROLE_ADMIN' %}
                                         <th>Technicien</th>
                                     {% endif %}
-                                    <th>Crée</th>
-                                    <th>Status</th>
+                                    <th>Créé</th>
+                                    <th>Statut</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for order in orders %}
                                     <tr>
-                                        <td>
-                                            <a title="Voir" href="{{ path('order_show', {id_number: order.idNumber}) }}"> {{ order.idNumber }} <br> </a>{% if( order.status == 0 ) %}⚠️ <small>Suppression Vendredi prochain 00h</small> {% endif %}
-                                        </td>
                                         <td>
                                             <a href="{{ path('management_user_show', {id: order.customer.id}) }}">
                                                 <h6>{{ order.customer.identity }}</h6><small class="text-muted">{{ order.customer.email }}</small>
@@ -69,7 +65,7 @@
                                             {% elseif( order.status == 1 ) %}
                                                 <span class="badge badge-info">Enregistrée</span>
                                             {% elseif( order.status == 2 ) %}
-                                                <span class="badge badge-success">Validée</span>
+                                                <span class="badge badge-success">Commandée</span>
                                             {% endif %}
                                         </td>
                                         <td>
