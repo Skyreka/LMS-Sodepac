@@ -200,7 +200,7 @@ class PurchaseContractController extends AbstractController
     {
         $purchaseContract->setStatus( 1 );
         $this->em->flush();
-        $this->addFlash('success', 'Contract envoyé avec succès');
+        $this->addFlash('success', 'Contrat envoyé avec succès');
         return $this->redirectToRoute('management_purchase_contract_show', ['id' => $purchaseContract->getId()]);
     }
 }
