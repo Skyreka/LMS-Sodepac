@@ -62,10 +62,12 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <a href="{{ path('ilots_index') }}" class="btn btn-warning btn-lg btn-block mb-4">Interventions Ilots</a>
-                <a href="{{ path('intervention_multiple_index') }}" class="btn btn-success btn-lg btn-block mb-4">Interventions Cultures</a>
-                <a href="{{ path('exploitation_stock_index') }}" class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</a>
-                <a href="{{ path('exploitation_irrigation_index') }}" class="btn btn-info btn-lg btn-block">Irrigation</a>
+                {% if app.user.exploitation != null %}
+                    <a href="{{ path('ilots_index') }}" class="btn btn-warning btn-lg btn-block mb-4">Interventions Ilots</a>
+                    <a href="{{ path('intervention_multiple_index') }}" class="btn btn-success btn-lg btn-block mb-4">Interventions Cultures</a>
+                    <a href="{{ path('exploitation_stock_index') }}" class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</a>
+                    <a href="{{ path('exploitation_irrigation_index') }}" class="btn btn-info btn-lg btn-block">Irrigation</a>
+                {% endif %}
             </div>
             <div class="col-md-6 d-none d-md-block">
                 <div class="card">
