@@ -323,10 +323,8 @@ class OrderController extends AbstractController
      * Edit Dose with editable Ajax Table
      * @Route("management/order/product/edit", name="order_product_edit")
      * @param Request $request
-     * @param CulturesRepository $cr
+     * @param OrdersProductRepository $cr
      * @return JsonResponse
-     * @throws NoResultException
-     * @throws NonUniqueResultException
      */
     public function editProduct(Request $request, OrdersProductRepository $cr ): JsonResponse
     {
@@ -428,16 +426,16 @@ class OrderController extends AbstractController
      * @Route("management/order/valid/{id}", name="order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
      * @param \Swift_Mailer $mailer
-     * @param OrdersProductRepository $opr
+     * @param Request $request
      * @return Response
      */
-    public function valid( Orders $order, \Swift_Mailer $mailer, OrdersProductRepository $opr): Response
+    public function valid( Orders $order, \Swift_Mailer $mailer, Request $request ): Response
     {
         //Security
         if ( $order->getStatus() == 1 ) {
             // Update status
             $order->setStatus( 2 );
-            $order->setCreateDate( new \DateTime() );
+            $order->setCreateDate( new \DateTime( $request->get('date-order') ) );
 
             // Send to depot
             $message = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
