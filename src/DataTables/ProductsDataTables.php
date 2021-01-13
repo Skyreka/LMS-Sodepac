@@ -103,7 +103,7 @@ class ProductsDataTables implements DataTableHandlerInterface
                 $product->getName(),
                 $product->getCategory(),
                 '
-                <form method="POST" action="'.$this->router->generate('order_product_other_add', ['id' => $product->getId(), 'orderNumber' => $orderNumber]).'">
+                <form method="POST" action="'.$this->router->generate('order_product_other_add', ['id' => $product->getId()]).'">
                     <input type="hidden" name="_method" value="ADDTOORDER">
                     <button class="btn btn-info ml-2"><i class="fas fa-truck"></i></button>
                 </form>
