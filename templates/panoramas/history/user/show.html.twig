@@ -19,13 +19,13 @@
                     <td>{{ panorama.panorama.text }}</td>
                     <td>
                         {% if panorama.panorama.firstFile %}
-                            <a title="PDF" href="{{ asset('uploads/panorama/' ~ panorama.panorama.firstFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                            <a title="PDF" href="{{ asset('uploads/panorama/' ~ panorama.panorama.firstFile) }}" class="btn btn-success" download=""><i class="fa fa-file-pdf-o"></i></a>
                         {% endif %}
                         {% if panorama.panorama.secondFile %}
-                            <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.panorama.secondFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
+                            <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.panorama.secondFile) }}" class="btn btn-success" download=""><i class="fa fa-file-image-o"></i></a>
                         {% endif %}
                         {% if panorama.panorama.thirdFile %}
-                            <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.panorama.thirdFile) }}" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
+                            <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.panorama.thirdFile) }}" class="btn btn-success" download=""><i class="fa fa-picture-o"></i></a>
                         {% endif %}
                     </td>
                     <td>
