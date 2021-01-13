@@ -26,7 +26,7 @@ class HomeController extends AbstractController {
         $datetime = new \DateTime();
         $flashs = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas = $pur->findAllByCustomer($this->getUser(), 3);
-        $recommendations = $rr->findByExploitationOfCustomerAndYear($this->getUser(), $datetime->format('Y'));
+        $recommendations = $rr->findByExploitationOfCustomerAndYearAndNotChecked($this->getUser(), $datetime->format('Y'));
         $tickets = $tr->findAllByUser( $this->getUser(), 3);
 
         //-- Clear listCulture

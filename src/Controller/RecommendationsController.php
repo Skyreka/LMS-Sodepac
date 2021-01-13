@@ -164,7 +164,7 @@ class RecommendationsController extends AbstractController
                 $this->addFlash('danger', 'Votre client n\'a aucune exploitation déclarée, veuillez modifier son compte pour pouvoir lui établir un catalogue');
                 return $this->redirectToRoute('recommendation_new');
             }
-
+            $recommendation->setChecked(0);
             $this->em->persist( $recommendation );
             $this->em->flush();
 
@@ -717,6 +717,8 @@ class RecommendationsController extends AbstractController
         if ($this->getUser() != $recommendations->getExploitation()->getUsers()) {
             throw $this->createNotFoundException('Cette recommendation ne vous appartient pas.');
         }
+        $recommendations->setChecked(1);
+        $this->em->flush();
         $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
         $cultureTotal = $recommendations->getCultureSize();
         return $this->render('exploitation/recommendations/show.html.twig', [

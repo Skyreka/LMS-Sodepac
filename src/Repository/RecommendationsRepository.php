@@ -103,6 +103,28 @@ class RecommendationsRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param $customer
+     * @param $year
+     * @return mixed
+     */
+    public function findByExploitationOfCustomerAndYearAndNotChecked( $customer, $year )
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin( Exploitation::class,'e','WITH', 'r.exploitation = e.id' )
+            ->where('e.users = :customer')
+            ->andWhere('year(r.create_at) = :year')
+            ->andWhere('r.status = :status')
+            ->andWhere('r.checked = 0')
+            ->setParameter('status', '3' )
+            ->setParameter('customer', $customer )
+            ->setParameter('year', $year)
+            ->orderBy('r.create_at', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
      * @param $year
      * @param null $limit
      * @return mixed
