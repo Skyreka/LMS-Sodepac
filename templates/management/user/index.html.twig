@@ -55,7 +55,7 @@
                         <small class="text-muted">Mot de passe</small>
                         <h6>{{ user.password ? 'Oui': 'Pas de mot de passe' }}</h6>
                         <small class="text-muted">Dernière activité</small>
-                        <h6>{{ user.lastActivity ? user.lastActivity|date('Y:m:d H:i'): 'Aucune' }}</h6>
+                        <h6>{{ user.lastActivity ? user.lastActivity|date('d/m/Y H:i'): 'Aucune' }}</h6>
                         <small class="text-muted db">Technicien</small>
                         <h6>{{ user.technician ? user.technician.identity : 'Aucun' }}</h6>
                         <small class="text-muted db">Téléphone</small>
