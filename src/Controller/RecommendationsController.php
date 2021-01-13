@@ -579,9 +579,7 @@ class RecommendationsController extends AbstractController
                 $merger = new Merger();
                 $merger->addFile( '../public/uploads/recommendations/process/'.$token.'/1.pdf' );
 
-                if($fileSystem->exists('../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf')) {
-                    $merger->addFile( '../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf' );
-                }
+                
 
                 if ( $recommendations->getCulture()->getSlug() != 'other') {
                     $merger->addFile('../public/uploads/recommendations/process/' . $token . '/2.pdf');
