@@ -24,6 +24,9 @@ class PasswordType extends AbstractType
                         'min' => 6,
                         'minMessage' => 'Le mot de passe doit faire au moins 6 caractères'
                     ])
+                ],
+                'attr' => [
+                    'minlength' => 6
                 ]
             ))
         ;
