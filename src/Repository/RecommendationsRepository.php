@@ -41,9 +41,9 @@ class RecommendationsRepository extends ServiceEntityRepository
      * @param $technician
      * @return mixed
      */
-    public function findByExploitationOfTechnician( $technician )
+    public function findByExploitationOfTechnician( $technician, $limit = null )
     {
-        return $this->createQueryBuilder('r')
+        $query = $this->createQueryBuilder('r')
             ->leftJoin( Exploitation::class,'e','WITH', 'r.exploitation = e.id' )
             ->leftJoin( Users::class, 'u', 'WITH', 'e.users = u.id')
             ->where('u.technician = :tech')
@@ -51,9 +51,13 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->setParameter('tech', $technician )
             ->setParameter('status', '2')
             ->orderBy('r.create_at', 'DESC')
-            ->getQuery()
-            ->getResult()
             ;
+
+            if ($limit != NULL) {
+                $query = $query->setMaxResults( $limit );
+            }
+
+            return $query->getQuery()->getResult();
     }
 
     /**
