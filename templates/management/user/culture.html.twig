@@ -84,6 +84,7 @@
                         <thead>
                         <tr>
                             <th>Commentaire</th>
+                            <th>Rendement</th>
                             <th>Date</th>
                         </tr>
                         </thead>
@@ -91,6 +92,7 @@
                             {% for intervention in interventions.findByTypeAndCulture('Recolte', culture) %}
                                 <tr>
                                     <td>{{ intervention.comment }}</td>
+                                    <td>{{ intervention.rendement }}</td>
                                     <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
                                 </tr>
                             {% endfor %}
@@ -177,6 +179,10 @@
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
+                            <th>Dose préconisée</th>
+                            <th>Dosage /ha</th>
+                            <th>IFT</th>
+                            <th>Produits</th>
                             <th>Reliquat d'azote</th>
                             <th>Commentaire</th>
                             <th>Date</th>
@@ -187,6 +193,56 @@
                                 <tr>
                                     <td>{{ intervention.product.name }}</td>
                                     <td>{{ intervention.quantity }}</td>
+                                    <td>{{ intervention.dose }}</td>
+                                    <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
+                                    <td>{{ intervention.getIft|round(2, 'floor') }}</td>
+                                    <td>
+                                        {% if intervention.getInterventionsProducts is not empty %}
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#products_{{ intervention.id }}">
+                                                Produits supplémentaires
+                                            </button>
+                                            <div class="modal fade" id="products_{{ intervention.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Produits supplémentaires</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th scope="col">Nom</th>
+                                                                    <th scope="col">Dose</th>
+                                                                    <th scope="col">Quantité</th>
+                                                                    <th scope="col">IFT</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {% for interventionProduct in intervention.getInterventionsProducts.values %}
+                                                                    {% set totalIft = totalIft + interventionProduct.getIft %}
+                                                                    <tr>
+                                                                        <td>{{ interventionProduct.product.name }}</td>
+                                                                        <td>{{ interventionProduct.dose }}</td>
+                                                                        <td>{{ interventionProduct.quantity }}</td>
+                                                                        <td>{{ interventionProduct.getIFT|round(2, 'floor') }}</td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            Aucun produit supplémentaire
+                                        {% endif %}
+                                    </td>
                                     <td>{{ intervention.reliquat }} <small>Unités</small></td>
                                     <td>{{ intervention.comment }}</td>
                                     <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
@@ -206,6 +262,10 @@
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
+                            <th>Dose préconisée</th>
+                            <th>Dosage /ha</th>
+                            <th>IFT</th>
+                            <th>Produits</th>
                             <th>Commentaire</th>
                             <th>Date</th>
                         </tr>
@@ -215,6 +275,56 @@
                             <tr>
                                 <td>{{ intervention.product.name }}</td>
                                 <td>{{ intervention.quantity }}</td>
+                                <td>{{ intervention.dose }}</td>
+                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
+                                <td>{{ intervention.getIft|round(2, 'floor') }}</td>
+                                <td>
+                                    {% if intervention.getInterventionsProducts is not empty %}
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#products_{{ intervention.id }}">
+                                            Produits supplémentaires
+                                        </button>
+                                        <div class="modal fade" id="products_{{ intervention.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Produits supplémentaires</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col">Nom</th>
+                                                                <th scope="col">Dose</th>
+                                                                <th scope="col">Quantité</th>
+                                                                <th scope="col">IFT</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for interventionProduct in intervention.getInterventionsProducts.values %}
+                                                                {% set totalIft = totalIft + interventionProduct.getIft %}
+                                                                <tr>
+                                                                    <td>{{ interventionProduct.product.name }}</td>
+                                                                    <td>{{ interventionProduct.dose }}</td>
+                                                                    <td>{{ interventionProduct.quantity }}</td>
+                                                                    <td>{{ interventionProduct.getIFT|round(2, 'floor') }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        Aucun produit supplémentaire
+                                    {% endif %}
+                                </td>
                                 <!-- TODO: Add adjuvants  -->
                                 <td>{{ intervention.comment }}</td>
                                 <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
@@ -233,6 +343,10 @@
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
+                            <th>Dose préconisée</th>
+                            <th>Dosage /ha</th>
+                            <th>IFT</th>
+                            <th>Produits</th>
                             <th>Commentaire</th>
                             <th>Date</th>
                         </tr>
@@ -242,6 +356,56 @@
                             <tr>
                                 <td>{{ intervention.product.name }}</td>
                                 <td>{{ intervention.quantity }}</td>
+                                <td>{{ intervention.dose }}</td>
+                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
+                                <td>{{ intervention.getIft|round(2, 'floor') }}</td>
+                                <td>
+                                    {% if intervention.getInterventionsProducts is not empty %}
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#products_{{ intervention.id }}">
+                                            Produits supplémentaires
+                                        </button>
+                                        <div class="modal fade" id="products_{{ intervention.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Produits supplémentaires</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col">Nom</th>
+                                                                <th scope="col">Dose</th>
+                                                                <th scope="col">Quantité</th>
+                                                                <th scope="col">IFT</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for interventionProduct in intervention.getInterventionsProducts.values %}
+                                                                {% set totalIft = totalIft + interventionProduct.getIft %}
+                                                                <tr>
+                                                                    <td>{{ interventionProduct.product.name }}</td>
+                                                                    <td>{{ interventionProduct.dose }}</td>
+                                                                    <td>{{ interventionProduct.quantity }}</td>
+                                                                    <td>{{ interventionProduct.getIFT|round(2, 'floor') }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        Aucun produit supplémentaire
+                                    {% endif %}
+                                </td>
                                 <!-- TODO: Add adjuvants  -->
                                 <td>{{ intervention.comment }}</td>
                                 <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
@@ -260,6 +424,10 @@
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
+                            <th>Dose préconisée</th>
+                            <th>Dosage /ha</th>
+                            <th>IFT</th>
+                            <th>Produits</th>
                             <th>Commentaire</th>
                             <th>Date</th>
                         </tr>
@@ -269,6 +437,56 @@
                             <tr>
                                 <td>{{ intervention.product.name }}</td>
                                 <td>{{ intervention.quantity }}</td>
+                                <td>{{ intervention.dose }}</td>
+                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
+                                <td>{{ intervention.getIft|round(2, 'floor') }}</td>
+                                <td>
+                                    {% if intervention.getInterventionsProducts is not empty %}
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#products_{{ intervention.id }}">
+                                            Produits supplémentaires
+                                        </button>
+                                        <div class="modal fade" id="products_{{ intervention.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Produits supplémentaires</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col">Nom</th>
+                                                                <th scope="col">Dose</th>
+                                                                <th scope="col">Quantité</th>
+                                                                <th scope="col">IFT</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for interventionProduct in intervention.getInterventionsProducts.values %}
+                                                                {% set totalIft = totalIft + interventionProduct.getIft %}
+                                                                <tr>
+                                                                    <td>{{ interventionProduct.product.name }}</td>
+                                                                    <td>{{ interventionProduct.dose }}</td>
+                                                                    <td>{{ interventionProduct.quantity }}</td>
+                                                                    <td>{{ interventionProduct.getIFT|round(2, 'floor') }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        Aucun produit supplémentaire
+                                    {% endif %}
+                                </td>
                                 <!-- TODO: Add adjuvants  -->
                                 <td>{{ intervention.comment }}</td>
                                 <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
@@ -287,6 +505,8 @@
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
+                            <th>Dose préconisée</th>
+                            <th>Dosage /ha</th>
                             <th>Commentaire</th>
                             <th>Date</th>
                         </tr>
@@ -296,6 +516,8 @@
                             <tr>
                                 <td>{{ intervention.product.name }}</td>
                                 <td>{{ intervention.quantity }}</td>
+                                <td>{{ intervention.dose }}</td>
+                                <td>{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}</td>
                                 <!-- TODO: Add adjuvants  -->
                                 <td>{{ intervention.comment }}</td>
                                 <td><span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y H:i:s') }}</span></td>
