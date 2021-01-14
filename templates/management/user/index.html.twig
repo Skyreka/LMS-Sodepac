@@ -25,6 +25,15 @@
                 </ol>
             </div>
         </div>
+        <div class="d-flex no-block">
+            <div class="mr-auto m-b-5">
+                {% if app.user.status == 'ROLE_ADMIN' %}
+                    <a href="{{ path('admin_users_index') }}" class="btn btn-success">Retour</a>
+                {% else %}
+                    <a href="{{ path('technician_customers_index') }}" class="btn btn-success">Retour</a>
+                {% endif %}
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <!--begin::Alert-->
