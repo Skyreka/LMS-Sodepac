@@ -319,7 +319,7 @@ class RecommendationsController extends AbstractController
             $recommendation->removeRecommendationProduct( $recommendationProducts );
             $this->em->remove( $recommendation );
             $this->em->flush();
-            $this->addFlash('success', 'Recommendation supprimé avec succès');
+            $this->addFlash('success', 'Catalogue supprimé avec succès');
         }
         return $this->redirectToRoute('recommendation_index');
     }
