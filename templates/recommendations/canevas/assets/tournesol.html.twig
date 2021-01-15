@@ -4,44 +4,6 @@
 
 {% block title %}Canevas{% endblock %}
 
-{% block stylesheets %}
-    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
-    <style>
-        .table thead th {
-            padding-left: 15px;
-            padding-right: 15px;
-            text-align: center;
-        }
-        .btn-R {
-            background-color: #FFADAD !important;
-        }
-        .btn-O {
-            background-color: #FFD6A5 !important;
-        }
-        .btn-J {
-            background-color: #FDFFB6 !important;
-        }
-        .btn-V {
-            background-color: #CAFFBF !important;
-        }
-        .btn-C {
-            background-color: #9BF6FF !important;
-        }
-        .btn-B {
-            background-color: #A0C4FF !important;
-        }
-        .btn-M {
-            background-color: #FFC6FF !important;
-        }
-        .btn-A {
-            background-color: #D8E2DC !important;
-        }
-        .exist {
-            border: 4px solid #5DB761;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
     <div class="container-fluid">
         {% if printRequest == false %}
@@ -65,8 +27,8 @@
             <div class="card">
             <div class="card-body">
        {% endif  %}
-                        <div class="table-responsive">
-                            <table class="table table-bordered no-wrap">
+                <div class="table-responsive">
+                    <table class="table table-bordered no-wrap">
                                 <thead>
                                 <tr>
                                     <th></th>
@@ -137,9 +99,9 @@
                                 <tr>
                                     <td>Herbicides <br>Desherbages de pré leve</td>
                                     <td colspan="1">
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'elina') ? 'exist' : 'd-none' }}" product_slug="elina" dose="1.04" unit="L">ELINA <small> 1.04L</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'elina', '1.04') ? 'exist' : 'd-none' }}" product_slug="elina" dose="1.04" unit="L">ELINA <small> 1.04L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'proman') ? 'exist' : 'd-none' }}" product_slug="proman" dose="3.5" unit="L">PROMAN <small> 3.5L</small></button>
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'atic-aqua') ? 'exist' : 'd-none' }}" product_slug="atic-aqua" dose="2.2" unit="L">ATIC AQUA <small> 2.2L</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'atic-aqua', '2.2') ? 'exist' : 'd-none' }}" product_slug="atic-aqua" dose="2.2" unit="L">ATIC AQUA <small> 2.2L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'racer-me') ? 'exist' : 'd-none' }}" product_slug="racer-me" dose="2" unit="L">RACER <small> 2L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td>
@@ -157,8 +119,8 @@
                                 <tr>
                                     <td>Herbicides <br>Desherbages clearfield</td>
                                     <td colspan="1">
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'atic-aqua') ? 'exist' : 'd-none' }}" product_slug="atic-aqua" dose="2.2" unit="L">ACTI AQUA <small> 2.2L</small></button>
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'elina') ? 'exist' : 'd-none' }}" product_slug="elina" dose="1.5" unit="L">ELINA <small> 1.5L</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'atic-aqua', '2.20001') ? 'exist' : 'd-none' }}" product_slug="atic-aqua" dose="2.2" unit="L">ATIC AQUA <small> 2.2L</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'elina', '1.5') ? 'exist' : 'd-none' }}" product_slug="elina" dose="1.5" unit="L">ELINA <small> 1.5L</small></button>
                                     </td>
                                     <td></td><td></td>
                                     <td colspan="1">
@@ -203,13 +165,13 @@
                                 </tr>
                                 </tbody>
                             </table>
-                        </div>
+                    {% include 'recommendations/canevas/warning.html.twig' %}
+                </div>
                     </div>
                 </div>
-                {% include 'recommendations/canevas/warning.html.twig' %}
-            </div>
         </div>
     </div>
+
     {% if printRequest == false %}
         <div id="right-sidebar" class="right-sidebar">
             <div class="slimscrollright">
