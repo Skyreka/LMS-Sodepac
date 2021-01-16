@@ -195,7 +195,7 @@ class OrderController extends AbstractController
 
     /**
      * @Route("management/order/product/add/{product}/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
-     * @Route("management/order/product/add/{id}", name="order_product_other_add", methods={"ADDTOORDER"}, requirements={"id":"\d+"})
+     * @Route("management/order/product-other/add/{id}", name="order_product_other_add", methods={"ADDTOORDER"}, requirements={"id":"\d+"})
      * @param RecommendationProducts|null $product
      * @param Recommendations|null $recommendation
      * @param OrdersRepository $or
