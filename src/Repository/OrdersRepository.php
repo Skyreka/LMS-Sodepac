@@ -54,6 +54,7 @@ class OrdersRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('o')
             ->orderBy('o.createDate', 'DESC')
+            ->andWhere('o.status != 0')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()

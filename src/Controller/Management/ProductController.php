@@ -23,12 +23,7 @@ class ProductController extends AbstractController
      */
     public function index( Request $request ): Response
     {
-        $order = null;
-        if ( $request->query->get('order') ) {
-            $order = $request->query->get('order');
-        }
-
-        return $this->render('management/products/index.html.twig', ['order' => $order]);
+        return $this->render('management/products/index.html.twig');
     }
 
     /**

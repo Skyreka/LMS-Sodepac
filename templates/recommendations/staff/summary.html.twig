@@ -48,7 +48,7 @@
                                             <td>{{ cultureTotal }} <small>ha</small></td>
                                             <td>{{ product.quantity|round(2, 'floor') }}</td>
                                             <td>
-                                                <form method="POST" action="{{ path('order_product_add', {product: product.id, recommendation: recommendation.id}) }}">
+                                                <form method="POST" action="{{ path('order_product_add', {recommendationProducts: product.id, recommendation: recommendation.id}) }}">
                                                     <input type="hidden" name="_method" value="ADDTOORDER">
                                                     <button class="btn btn-info ml-2"><i class="fas fa-truck"></i></button>
                                                 </form>
