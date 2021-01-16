@@ -27,27 +27,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex no-block">
-                            <h4 class="card-title">Catalogues</h4>
-                        </div>
-                        <div class="table-responsive m-t-20">
-                            <table class="table stylish-table">
-                                <thead>
-                                <tr>
-                                    <th>Informations</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
@@ -76,6 +55,177 @@
                         </div>
                         <div class="text-center">
                             <a href="{{ path('technician_flash_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Vos tickets</h4>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Informations</th>
+                                    <th>Statut</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for ticket in tickets %}
+                                    <tr>
+                                        <td>
+                                            <h5 class="my-1">#{{ ticket.id }} | {{ ticket.user.identity }} - {{ ticket.title|slice(0, 35) }}..</h5>
+                                        </td>
+                                        <td>
+                                            {% if ticket.status == 0 %}
+                                                <span class="badge badge-danger">Fermé</span>
+                                            {% else %}
+                                                <span class="badge badge-success">Ouvert</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <td>
+                                        Vous n'avez pas de ticket
+                                    </td>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center">
+                            <a href="{{ path('tickets_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Catalogues</h4>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Informations</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for recommendation in recommendations %}
+                                    <tr>
+                                        <td>
+                                            <h6>{{ recommendation.exploitation.users.identity }}</h6><small class="text-muted">{{ recommendation.exploitation.users.email }}</small>
+                                        </td>
+                                        <td>
+                                            {{ recommendation.createAt | date('d M Y H:i') }}
+                                        </td>
+                                        <td>
+                                            {% if( recommendation.status == 1 ) %}
+                                                <span class="badge badge-warning">Créee</span>
+                                            {% elseif( recommendation.status == 2 ) %}
+                                                <span class="badge badge-info">Générée</span>
+                                            {% elseif( recommendation.status == 3 ) %}
+                                                <span class="badge badge-success">Envoyée</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center">
+                            <a href="{{ path('recommendation_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Commandes</h4>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Informations</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for order in orders %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('management_user_show', {id: order.customer.id}) }}">
+                                                <h6>{{ order.customer.identity }}</h6><small class="text-muted">{{ order.customer.email }}</small>
+                                            </a>
+                                        </td>
+                                        <td>{{ order.createDate | date('d M Y H:i') }}</td>
+                                        <td>
+                                            {% if( order.status == 0 ) %}
+                                                <span class="badge badge-danger">⚠️ Temporaire ⚠️</span>
+                                            {% elseif( order.status == 1 ) %}
+                                                <span class="badge badge-info">Enregistrée</span>
+                                            {% elseif( order.status == 2 ) %}
+                                                <span class="badge badge-success">Commandée</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <td>Vous n'avez pas de commande</td>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center">
+                            <a href="{{ path('order_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex no-block">
+                            <h4 class="card-title">Contrat d'achat</h4>
+                        </div>
+                        <div class="table-responsive m-t-20">
+                            <table class="table stylish-table">
+                                <thead>
+                                <tr>
+                                    <th>Informations</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for contract in contracts %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('management_user_show', {id: contract.customer.id}) }}">
+                                                <h6>{{ contract.customer.identity }}</h6><small class="text-muted">{{ contract.customer.email }}</small>
+                                            </a>
+                                        </td>
+                                        </td>
+                                        <td>{{ contract.addedDate | date('d M Y H:i') }}</td>
+                                        <td>
+                                            {% if( contract.status == 0 ) %}
+                                                <span class="badge badge-warning">En cours️</span>
+                                            {% elseif( contract.status == 1 ) %}
+                                                <span class="badge badge-info">Envoyé</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <td>Vous n'avez pas de contrat d'achat</td>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center">
+                            <a href="{{ path('management_purchase_contract_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
                         </div>
                     </div>
                 </div>

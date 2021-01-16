@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-4">
                 {% if app.user.status != 'ROLE_TECHNICIAN' %}
-                    <a href="{{ path('tickets_new') }}" class="btn btn-success mb-2">Ouvrir un ticket</a>
+                    <a href="{{ path('tickets_new') }}" class="btn btn-success mb-2">Nouveau ticket</a>
                 {% endif %}
                 <div class="card">
                     <div class="card-body bg-info">

@@ -70,7 +70,7 @@ class TicketsController extends AbstractController
             $this->em->persist( $tickets );
             $this->em->flush();
             $this->addFlash('success', 'Ticket crée avec succès');
-            return $this->redirectToRoute('tickets_index');
+            return $this->redirectToRoute('tickets_conversation_show', ['id' => $tickets->getId() ]);
         }
 
         return $this->render('tickets/new.html.twig', [

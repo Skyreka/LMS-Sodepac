@@ -7,6 +7,13 @@
 {% block stylesheets %}
     {% if print == true %}
     <style>
+        @media all {
+            .page-break { display: none; }
+        }
+
+        @media print {
+            .page-break { display: block; page-break-before: always; }
+        }
         .disable-screen {
             position: absolute;
             left: 0;
@@ -117,9 +124,17 @@
                                         Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </small></p>
                             </div>
                             <hr>
+                            {% if print == false %}
                             <div class="text-right">
                                 <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Imprimer</span> </button>
                             </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="page-break"></div>
+                    <div class="row">
+                        <div class="col-12">
+                            Retrouvez les conditions générales de vente sur sodepac.fr/cgv
                         </div>
                     </div>
                 </div>

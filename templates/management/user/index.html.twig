@@ -25,6 +25,15 @@
                 </ol>
             </div>
         </div>
+        <div class="d-flex no-block">
+            <div class="mr-auto m-b-5">
+                {% if app.user.status == 'ROLE_ADMIN' %}
+                    <a href="{{ path('admin_users_index') }}" class="btn btn-success">Retour</a>
+                {% else %}
+                    <a href="{{ path('technician_customers_index') }}" class="btn btn-success">Retour</a>
+                {% endif %}
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <!--begin::Alert-->
@@ -55,7 +64,7 @@
                         <small class="text-muted">Mot de passe</small>
                         <h6>{{ user.password ? 'Oui': 'Pas de mot de passe' }}</h6>
                         <small class="text-muted">Dernière activité</small>
-                        <h6>{{ user.lastActivity ? user.lastActivity|date('Y:m:d H:i'): 'Aucune' }}</h6>
+                        <h6>{{ user.lastActivity ? user.lastActivity|date('d/m/Y H:i'): 'Aucune' }}</h6>
                         <small class="text-muted db">Technicien</small>
                         <h6>{{ user.technician ? user.technician.identity : 'Aucun' }}</h6>
                         <small class="text-muted db">Téléphone</small>

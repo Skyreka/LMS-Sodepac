@@ -170,7 +170,8 @@ class PhytoInterventionType extends AbstractType
                     'format' => 'dd/MM/yyyy',
                     'attr' => [
                         'class' => 'js-datepicker',
-                        'value' => date('d/m/Y')
+                        'value' => date('d/m/Y'),
+                        'readonly' => true
                     ]
                 ])
                 ->add('addProduct', CheckboxType::class, [

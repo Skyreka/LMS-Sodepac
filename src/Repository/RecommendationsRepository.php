@@ -41,9 +41,9 @@ class RecommendationsRepository extends ServiceEntityRepository
      * @param $technician
      * @return mixed
      */
-    public function findByExploitationOfTechnician( $technician )
+    public function findByExploitationOfTechnician( $technician, $limit = null )
     {
-        return $this->createQueryBuilder('r')
+        $query = $this->createQueryBuilder('r')
             ->leftJoin( Exploitation::class,'e','WITH', 'r.exploitation = e.id' )
             ->leftJoin( Users::class, 'u', 'WITH', 'e.users = u.id')
             ->where('u.technician = :tech')
@@ -51,9 +51,13 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->setParameter('tech', $technician )
             ->setParameter('status', '2')
             ->orderBy('r.create_at', 'DESC')
-            ->getQuery()
-            ->getResult()
             ;
+
+            if ($limit != NULL) {
+                $query = $query->setMaxResults( $limit );
+            }
+
+            return $query->getQuery()->getResult();
     }
 
     /**
@@ -93,6 +97,28 @@ class RecommendationsRepository extends ServiceEntityRepository
             ->where('e.users = :customer')
             ->andWhere('year(r.create_at) = :year')
             ->andWhere('r.status = :status')
+            ->setParameter('status', '3' )
+            ->setParameter('customer', $customer )
+            ->setParameter('year', $year)
+            ->orderBy('r.create_at', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @param $customer
+     * @param $year
+     * @return mixed
+     */
+    public function findByExploitationOfCustomerAndYearAndNotChecked( $customer, $year )
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin( Exploitation::class,'e','WITH', 'r.exploitation = e.id' )
+            ->where('e.users = :customer')
+            ->andWhere('year(r.create_at) = :year')
+            ->andWhere('r.status = :status')
+            ->andWhere('r.checked = 0')
             ->setParameter('status', '3' )
             ->setParameter('customer', $customer )
             ->setParameter('year', $year)
