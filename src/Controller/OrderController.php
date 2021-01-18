@@ -72,9 +72,6 @@ class OrderController extends AbstractController
         if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $request->get('print') == false AND $this->getUser()->getStatus() != 'ROLE_ADMIN') {
             throw $this->createNotFoundException('Vous n\'avez pas la permission de voir ce document.');
         }
-        if( $order->getStatus() < 2) {
-            throw $this->createNotFoundException('Cette commande n\'est pas encore validée.');
-        }
 
         // List of product
         $products = $opr->findBy( ['orders' => $order] );
@@ -378,6 +375,7 @@ class OrderController extends AbstractController
      * @param \Swift_Mailer $mailer
      * @param Request $request
      * @return Response
+     * @throws \Exception
      */
     public function valid( Orders $order, \Swift_Mailer $mailer, Request $request ): Response
     {
@@ -385,6 +383,34 @@ class OrderController extends AbstractController
         if ( $order->getStatus() == 1 ) {
             // Update status
             $order->setStatus( 2 );
+            $order->setCreateDate( new \DateTime( $request->get('date-order') ) );
+            $this->em->flush();
+
+            // Msg
+            $this->addFlash('success', 'Commande validée avec succès en attente de la signature du client.');
+        }
+
+        return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
+    }
+
+    /**
+     * @Route("order/sign/{id}", name="order_sign", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @param Orders $order
+     * @param \Swift_Mailer $mailer
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     */
+    public function sign( Orders $order, \Swift_Mailer $mailer, Request $request ): Response
+    {
+        //Security
+        if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $request->get('print') == false AND $this->getUser()->getStatus() != 'ROLE_ADMIN') {
+            throw $this->createNotFoundException('Vous n\'avez pas la permission de signer ce document.');
+        }
+
+        if ( $order->getStatus() == 2 ) {
+            // Update status
+            $order->setStatus( 3 );
             $order->setCreateDate( new \DateTime( $request->get('date-order') ) );
 
             // Send to depot
@@ -418,10 +444,10 @@ class OrderController extends AbstractController
             $this->em->flush();
 
             // Msg
-            $this->addFlash('success', 'Commande validée avec succès et envoyée au dépôt.');
+            $this->addFlash('success', 'Commande validée avec succès.');
         }
 
-        return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
+        return $this->redirectToRoute('user_order_index');
     }
 
     /**

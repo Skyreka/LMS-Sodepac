@@ -134,8 +134,48 @@
                     <div class="page-break"></div>
                     <div class="row">
                         <div class="col-12">
-                            Retrouvez les conditions générales de vente sur sodepac.fr/cgv
+                            <div class="col-md-12">
+                                <div class="table-responsive mt-5" style="clear: both;">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Produit</th>
+                                            <th>Matieres actives.</th>
+                                            <th>DAR</th>
+                                            <th>ZNT</th>
+                                            <th>DRE</th>
+                                            <th>CLASS TOX</th>
+                                            <th>PHRASE DE RISQUES</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for article in products %}
+                                            <tr>
+                                                <td>
+                                                    <h5 class="font-500">{{ article.product.name }}</h5>
+                                                </td>
+                                                <td>
+                                                    <h5 class="font-500">{{ article.product.substance }}</h5>
+                                                </td>
+                                                <td>{{ article.product.dar }}</td>
+                                                <td>{{ article.product.znt }}</td>
+                                                <td>{{ article.product.dre }}</td>
+                                                <td>{{ article.product.tox }}</td>
+                                                <td>{{ article.product.riskPhase }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="page-break"></div>
+                    <div class="row">
+                        <img src="{{ asset('help/cgv/CGV_SODEPAC_01.jpg') }}" />
+                        <img src="{{ asset('help/cgv/CGV_SODEPAC_02.jpg') }}" />
+                        <img src="{{ asset('help/cgv/CGV_SODEPAC_03.jpg') }}" />
+                        <img src="{{ asset('help/cgv/CGV_SODEPAC_04.jpg') }}" />
                     </div>
                 </div>
             </div>

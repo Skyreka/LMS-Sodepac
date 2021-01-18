@@ -117,7 +117,7 @@
                         <h2 id="totalTTC"></h2>
                         <hr>
                         {% if order.status == 0 %}
-                            <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer</a>
+                            <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer en devis</a>
                             <form class="d-inline" method="POST" action="{{ path('order_delete', {'id': order.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer votre panier ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('deleteOrder' ~ order.id) }}">
@@ -203,18 +203,6 @@
                                     <input type="date" name="date-order" class="form-control" value="{{ 'now'|date('Y-m-d') }}">
                                 </div>
                             </div>
-                        </div>
-                        <div class="demo-checkbox mb-3">
-                            <input type="checkbox" id="sign1" class="chk-col-green" required />
-                            <label for="sign1">Je certifie être détenteur du certiphyto utilisateur professionnel en cours de validité et atteste être pleinement responsable du choix des spécialités présentées dans ce catalogue.</label>
-                        </div>
-                        <div class="demo-checkbox mb-3">
-                            <input type="checkbox" id="sign2" class="chk-col-green" required />
-                            <label for="sign2">Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande.</label>
-                        </div>
-                        <div class="demo-checkbox">
-                            <input type="checkbox" id="sign3" class="chk-col-green" required />
-                            <label for="sign3">En signant ce document, {{ order.customer.identity }} atteste avoir reçu, lors de la vente, l’ensemble des informations appropriées sur l’emploi des produits.</label>
                         </div>
                     </div>
                     <div class="modal-footer">
