@@ -74,6 +74,11 @@
                                                     <a title="PDF" class="btn btn-info" href="{{ path('order_pdf_view', {id_number: order.idNumber}) }}"><i class="fa fa-file-pdf text-white"></i></a>
                                                 {% elseif( order.status == 1 ) %}
                                                     <a title="Voir" class="btn btn-success" href="{{ path('order_show', {id_number: order.idNumber}) }}"><i class="fa fa-eye text-white"></i></a>
+                                                    <form method="POST" action="{{ path('order_delete_recorded', {'id': order.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir effacer cette commande ?')">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
+                                                        <button class="btn btn-danger ml-3"><i class="fa fa-trash"></i></button>
+                                                    </form>
                                                 {% endif %}
                                             </div>
                                         </td>

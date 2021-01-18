@@ -110,6 +110,22 @@ class OrderController extends AbstractController
     }
 
     /**
+     * @Route("management/order/delete/{id}", name="order_delete_recorded", methods="DELETE", requirements={"id":"\d+"})
+     * @param Orders $orders
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function deleteRecorded(Orders $orders, Request $request): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('delete' . $orders->getId(), $request->get('_token' ))) {
+            $this->em->remove($orders);
+            $this->em->flush();
+            $this->addFlash('success', 'Commande supprimée avec succès');
+        }
+        return $this->redirectToRoute('order_index');
+    }
+
+    /**
      * @Route("management/order/new", name="order_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
