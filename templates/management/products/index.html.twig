@@ -37,8 +37,8 @@
                                 <thead>
                                 <tr>
                                     <th>Nom</th>
-                                    <th>Catégorie</th>
-                                    <th>Panier</th>
+                                    <th>Type</th>
+                                    <th>Tox</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -70,7 +70,7 @@
         $('#datatable').DataTable({
             dom: 'Bfrtip',
             serverSide: true,
-            ajax: '{{ path('management_products_data', {orderNumber: order}) }}',
+            ajax: '{{ path('management_products_data') }}',
             responsive: true,
             "language": {
                 "sProcessing":     "Traitement en cours...",

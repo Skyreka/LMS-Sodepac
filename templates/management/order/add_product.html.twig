@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sélection - Recommendation{% endblock %}
+{% block title %}Ajouter un produit{% endblock %}
 
 {% block stylesheets %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
@@ -11,11 +11,11 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Création d'un catalogue</h3>
+                <h3 class="text-themecolor">Ajout d'un produit</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">Catalogue</a></li>
-                    <li class="breadcrumb-item active">Sélection</li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">Commande</a></li>
+                    <li class="breadcrumb-item active">Ajouter un produit</li>
                 </ol>
             </div>
         </div>
@@ -25,13 +25,14 @@
         {% for message in app.flashes('danger') %}
             <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
                             {{ form_rest(form) }}
-                            <button class="btn btn-primary">Accéder au canevas</button>
+                            <button class="btn btn-primary">Ajouter le produit</button>
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -44,16 +45,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/fr.min.js"></script>
     <script src="{{ asset('js/select2entity.js') }}"></script>
-    <script>
-        $(document).on('change', '#recommendation_add_exploitation', function () {
-            let $field = $(this)
-            let $form = $field.closest('form')
-            let data = {}
-            data[$field.attr('name')] = $field.val()
-            $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('#recommendation_add_culture')
-                $('#recommendation_add_culture').replaceWith( $input )
-            })
-        })
-    </script>
 {% endblock %}

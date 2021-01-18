@@ -35,6 +35,9 @@
                                 <thead>
                                 <tr>
                                     <th>Date de création</th>
+                                    {% if app.user.status == 'ROLE_ADMIN' %}
+                                        <th>Créateur</th>
+                                    {% endif %}
                                     <th>Texte</th>
                                     <th>Statuts</th>
                                     <th>Actions</th>
@@ -44,6 +47,9 @@
                                 {% for panorama in panoramas %}
                                         <tr>
                                             <td>{{ panorama.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                            {% if app.user.status == 'ROLE_ADMIN' %}
+                                                <td>{{ panorama.owner.identity|default('Aucun') }}</td>
+                                            {% endif %}
                                             <td>{{ panorama.text }}</td>
                                             <td>
                                                 {% if panorama.validate == 1 %}

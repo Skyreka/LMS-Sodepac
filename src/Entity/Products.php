@@ -78,6 +78,21 @@ class Products
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dar;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $znt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $dre;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -272,6 +287,42 @@ class Products
     public function setType(?string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDar(): ?string
+    {
+        return $this->dar;
+    }
+
+    public function setDar(?string $dar): self
+    {
+        $this->dar = $dar;
+
+        return $this;
+    }
+
+    public function getZnt(): ?string
+    {
+        return $this->znt;
+    }
+
+    public function setZnt(?string $znt): self
+    {
+        $this->znt = $znt;
+
+        return $this;
+    }
+
+    public function getDre(): ?string
+    {
+        return $this->dre;
+    }
+
+    public function setDre(?string $dre): self
+    {
+        $this->dre = $dre;
 
         return $this;
     }
