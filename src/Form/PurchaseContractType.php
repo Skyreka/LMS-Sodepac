@@ -39,6 +39,7 @@ class PurchaseContractType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => PurchaseContract::class,
+            'translation_domain' => 'forms'
         ]);
     }
 

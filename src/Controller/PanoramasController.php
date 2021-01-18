@@ -48,6 +48,9 @@ class PanoramasController extends AbstractController
     public function index(): Response
     {
         $panoramas = $this->repositoryPanoramas->findAllNotDeleted();
+        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
+            $panoramas = $this->repositoryPanoramas->findAllNotDeletedByTechnician($this->getUser());
+        }
         return $this->render('panoramas/index.html.twig', [
             'panoramas' => $panoramas
         ]);
@@ -156,6 +159,7 @@ class PanoramasController extends AbstractController
             //* TO DO (remove setter (default value))
             $panorama->setSent( 0 );
             $panorama->setValidate( 0 );
+            $panorama->setOwner($this->getUser());
             $this->em->persist($panorama);
             $this->em->flush();
 

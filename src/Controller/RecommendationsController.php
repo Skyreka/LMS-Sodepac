@@ -77,7 +77,6 @@ class RecommendationsController extends AbstractController
         // Get Last Recommendations
         if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
             $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
-
             //Counters
             $recommendationsCreate = $rr->countAllByStatus( 1 );
         } else {
@@ -165,7 +164,7 @@ class RecommendationsController extends AbstractController
                 $this->addFlash('danger', 'Votre client n\'a aucune exploitation déclarée, veuillez modifier son compte pour pouvoir lui établir un catalogue');
                 return $this->redirectToRoute('recommendation_new');
             }
-
+            $recommendation->setChecked(0);
             $this->em->persist( $recommendation );
             $this->em->flush();
 
@@ -320,7 +319,7 @@ class RecommendationsController extends AbstractController
             $recommendation->removeRecommendationProduct( $recommendationProducts );
             $this->em->remove( $recommendation );
             $this->em->flush();
-            $this->addFlash('success', 'Recommendation supprimé avec succès');
+            $this->addFlash('success', 'Catalogue supprimé avec succès');
         }
         return $this->redirectToRoute('recommendation_index');
     }
@@ -580,9 +579,7 @@ class RecommendationsController extends AbstractController
                 $merger = new Merger();
                 $merger->addFile( '../public/uploads/recommendations/process/'.$token.'/1.pdf' );
 
-                if($fileSystem->exists('../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf')) {
-                    $merger->addFile( '../public/uploads/recommendations/assets/'.$recommendations->getCulture()->getSlug().'.pdf' );
-                }
+                
 
                 if ( $recommendations->getCulture()->getSlug() != 'other') {
                     $merger->addFile('../public/uploads/recommendations/process/' . $token . '/2.pdf');
@@ -664,7 +661,7 @@ class RecommendationsController extends AbstractController
     public function syntheseData( RecommendationsRepository $rr, $year ): Response
     {
         //-- If user is technician get recommendation of user of technician
-        /*if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
+        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
             return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
             ]);
@@ -676,10 +673,7 @@ class RecommendationsController extends AbstractController
             return $this->render('recommendations/staff/synthese/data.html.twig', [
                 'recommendations' => $rr->findAllByYear($year)
             ]);
-        }*/
-        return $this->render('recommendations/staff/synthese/data.html.twig', [
-            'recommendations' => $rr->findAllByYear( $year )
-        ]);
+        }
     }
 
     /**
@@ -721,6 +715,8 @@ class RecommendationsController extends AbstractController
         if ($this->getUser() != $recommendations->getExploitation()->getUsers()) {
             throw $this->createNotFoundException('Cette recommendation ne vous appartient pas.');
         }
+        $recommendations->setChecked(1);
+        $this->em->flush();
         $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
         $cultureTotal = $recommendations->getCultureSize();
         return $this->render('exploitation/recommendations/show.html.twig', [

@@ -62,7 +62,8 @@ class PanoramaSendType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'attr' => [
                     'class' => 'js-datepicker',
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'readonly' => true
                 ],
                 'label' => 'Date d\'envoi',
                 'help' => 'Remplir uniquement en cas d\'envoi différé.'

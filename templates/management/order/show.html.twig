@@ -65,10 +65,10 @@
                             <div class="d-flex no-block align-items-center">
                                 <a href="javascript:history.go(-1)" class="btn btn-dark btn-outline"><i class="fas fa-arrow-left"></i> Revenir</a>
                                 {% if order.status == 0 %}
-                                    <a href="{{ path('management_products') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit</a>
+                                    <a href="{{ path('order_product_other_add') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit</a>
                                 {% endif %}
                                 {% if order.status == 1 %}
-                                    <a href="{{ path('management_products', {order: order.idNumber}) }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit</a>
+                                    <a href="{{ path('order_product_other_add', {orderNumber: order.idNumber}) }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                         <h2 id="totalTTC"></h2>
                         <hr>
                         {% if order.status == 0 %}
-                            <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer</a>
+                            <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer en devis</a>
                             <form class="d-inline" method="POST" action="{{ path('order_delete', {'id': order.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer votre panier ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('deleteOrder' ~ order.id) }}">
@@ -153,7 +153,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Vérification avant envoi au dépot</h4>
+                    <h4 class="modal-title" id="myModalLabel">Vérification avant validation</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -196,17 +196,13 @@
                 </div>
                 <form method="POST" action="{{ path('order_valid', {id: order.id}) }}">
                     <div class="modal-body">
-                        <div class="demo-checkbox mb-3">
-                            <input type="checkbox" id="sign1" class="chk-col-green" required />
-                            <label for="sign1">Je certifie être détenteur du certiphyto utilisateur professionnel en cours de validité et atteste être pleinement responsable du choix des spécialités présentées dans ce catalogue.</label>
-                        </div>
-                        <div class="demo-checkbox mb-3">
-                            <input type="checkbox" id="sign2" class="chk-col-green" required />
-                            <label for="sign2">Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande.</label>
-                        </div>
-                        <div class="demo-checkbox">
-                            <input type="checkbox" id="sign3" class="chk-col-green" required />
-                            <label for="sign3">En signant ce document, {{ order.customer.identity }} atteste avoir reçu, lors de la vente, l’ensemble des informations appropriées sur l’emploi des produits.</label>
+                        <div class="col-12 mb-4">
+                            <h4 class="card-title">Date de la commande</h4>
+                            <div class="mt-4">
+                                <div class="form-group">
+                                    <input type="date" name="date-order" class="form-control" value="{{ 'now'|date('Y-m-d') }}">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

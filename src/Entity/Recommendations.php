@@ -80,6 +80,11 @@ class Recommendations
      */
     private $culture_size = 0;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $checked;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -211,6 +216,18 @@ class Recommendations
     public function setCultureSize(float $culture_size): self
     {
         $this->culture_size = $culture_size;
+
+        return $this;
+    }
+
+    public function getChecked(): ?bool
+    {
+        return $this->checked;
+    }
+
+    public function setChecked(bool $checked): self
+    {
+        $this->checked = $checked;
 
         return $this;
     }

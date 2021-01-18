@@ -8,6 +8,7 @@ use App\Entity\Exploitation;
 use App\Entity\Ilots;
 use App\Entity\IndexCultures;
 use App\Entity\Users;
+use App\Repository\IndexCulturesRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -31,7 +32,10 @@ class BsvSendType extends AbstractType
                 'placeholder' => 'Sélectionnez une culture',
                 'attr' => [
                     'class' => 'select2'
-                ]
+                ],
+                'query_builder' => function(IndexCulturesRepository $icr) {
+                    return $icr->findDisplay();
+                }
             ])
             ->add('display_at', DateType::class, [
                 'widget' => 'single_text',
@@ -42,7 +46,7 @@ class BsvSendType extends AbstractType
                 'attr' => [
                     'class' => 'js-datepicker',
                     'autocomplete' => 'off',
-                    'value' => date('d/m/Y')
+                    'readonly' => true
                 ],
                 'label' => 'Date d\'envoi',
                 'help' => 'Remplir uniquement en cas d\'envoi différé.'

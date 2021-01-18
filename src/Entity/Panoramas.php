@@ -68,6 +68,11 @@ class Panoramas
      */
     private $archive = 0;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="ownedPanoramas")
+     */
+    private $owner;
+
     public function __construct()
     {
         $this->customers = new ArrayCollection();
@@ -213,6 +218,18 @@ class Panoramas
     public function setArchive(bool $archive): self
     {
         $this->archive = $archive;
+
+        return $this;
+    }
+
+    public function getOwner(): ?Users
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?Users $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

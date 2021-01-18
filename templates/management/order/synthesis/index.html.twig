@@ -39,8 +39,8 @@
                                     {% if app.user.status == 'ROLE_ADMIN' %}
                                         <th>Technicien</th>
                                     {% endif %}
-                                    <th>Crée</th>
-                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -74,9 +74,9 @@
                                         </td>
                                         <td>
                                             <div style="display: flex">
-                                                <a class="btn btn-success" href="{{ path('order_show', {id_number: order.idNumber}) }}"><i class="fa fa-eye text-white"></i></a>
+                                                <a title="Voir" class="btn btn-success" href="{{ path('order_show', {id_number: order.idNumber}) }}"><i class="fa fa-eye text-white"></i></a>
                                                 {%  if( order.status == 2 ) %}
-                                                    <a class="btn btn-info ml-2" href="{{ path('order_pdf_view', {id_number: order.idNumber}) }}"><i class="fa fa-file-pdf text-white"></i></a>
+                                                    <a title="PDF" class="btn btn-info ml-2" href="{{ path('order_pdf_view', {id_number: order.idNumber}) }}"><i class="fa fa-file-pdf text-white"></i></a>
                                                 {% endif %}
                                             </div>
                                         </td>
