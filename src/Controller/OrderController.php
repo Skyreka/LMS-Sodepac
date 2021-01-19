@@ -427,7 +427,6 @@ class OrderController extends AbstractController
         if ( $order->getStatus() == 2 ) {
             // Update status
             $order->setStatus( 3 );
-            $order->setCreateDate( new \DateTime( $request->get('date-order') ) );
 
             // Send to depot
             $message = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))

@@ -34,6 +34,9 @@
             <div class="col-md-12">
                 <div class="card card-body printableArea">
                     <h3><b>BON DE COMMANDE</b> <span>#{{ order.IdNumber }}</span></h3>
+                    {% if order.status != 3 %}
+                        <h3 class="text-danger"><b>En attente de la signature du client (DEVIS)</b></h3>
+                    {% endif %}
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
@@ -118,8 +121,12 @@
                             <div class="clearfix">
                                 <p class="m-t-5"><b>Conditions :</b> {{ order.conditions }}</p>
                                 <p class="m-t-5"><b>Délai et livraison :</b> {{ order.delivery }}</p>
-                                <p class="m-t-5">Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande</p>
-                                <p class="m-t-5">En signant ce document, {{ order.customer.identity }} atteste avoir reçu, lors de la vente, l’ensemble des informations appropriées sur l’emploi des produits.</p>
+                                {% if order.status == 3 %}
+                                    <p class="m-t-5">Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande</p>
+                                    <p class="m-t-5">En signant ce document, {{ order.customer.identity }} atteste avoir reçu, lors de la vente, l’ensemble des informations appropriées sur l’emploi des produits.</p>
+                                    <p class="m-t-5">{{ order.customer.identity }} certifie être détenteur du certiphyto utilisateur professionnel en cours de validité et atteste être pleinement responsable du choix des spécialités présentées dans ce catalogue.</p>
+                                    <p class="m-t-5">{{ order.customer.identity }} reconnait avoir pris connaissance des CGV</p>
+                                {% endif %}
                                 <p><small>SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038
                                         Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </small></p>
                             </div>
@@ -132,7 +139,7 @@
                         </div>
                     </div>
                     <div class="page-break"></div>
-                    <div class="row">
+                    <div class="row" style="margin-top: 50rem;">
                         <div class="col-12">
                             <div class="col-md-12">
                                 <div class="table-responsive mt-5" style="clear: both;">
@@ -171,7 +178,7 @@
                         </div>
                     </div>
                     <div class="page-break"></div>
-                    <div class="row">
+                    <div class="row" style="margin-top: 50rem;">
                         <img src="{{ asset('help/cgv/CGV_SODEPAC_01.jpg') }}" />
                         <img src="{{ asset('help/cgv/CGV_SODEPAC_02.jpg') }}" />
                         <img src="{{ asset('help/cgv/CGV_SODEPAC_03.jpg') }}" />
