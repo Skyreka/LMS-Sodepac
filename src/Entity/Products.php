@@ -93,6 +93,16 @@ class Products
      */
     private $dre;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $security_mention;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $danger_mention;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -323,6 +333,30 @@ class Products
     public function setDre(?string $dre): self
     {
         $this->dre = $dre;
+
+        return $this;
+    }
+
+    public function getSecurityMention(): ?string
+    {
+        return $this->security_mention;
+    }
+
+    public function setSecurityMention(?string $security_mention): self
+    {
+        $this->security_mention = $security_mention;
+
+        return $this;
+    }
+
+    public function getDangerMention(): ?string
+    {
+        return $this->danger_mention;
+    }
+
+    public function setDangerMention(?string $danger_mention): self
+    {
+        $this->danger_mention = $danger_mention;
 
         return $this;
     }
