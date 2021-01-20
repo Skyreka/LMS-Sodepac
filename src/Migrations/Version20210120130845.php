@@ -20,7 +20,7 @@ final class Version20210120130845 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE rememberme_token');
+        //$this->addSql('DROP TABLE rememberme_token');
         $this->addSql('ALTER TABLE products ADD security_mention VARCHAR(255) DEFAULT NULL, ADD danger_mention VARCHAR(255) DEFAULT NULL');
     }
 
