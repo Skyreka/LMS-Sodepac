@@ -399,7 +399,6 @@ class OrderController extends AbstractController
         if ( $order->getStatus() == 1 ) {
             // Update status
             $order->setStatus( 2 );
-            $order->setCreateDate( new \DateTime( $request->get('date-order') ) );
             $this->em->flush();
 
             // Msg
