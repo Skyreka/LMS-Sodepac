@@ -153,6 +153,8 @@
                                             <th>DRE</th>
                                             <th>CLASS TOX</th>
                                             <th>PHRASE DE RISQUES</th>
+                                            <th>MENTIONS DANGER</th>
+                                            <th>MENTIONS SECURITÉ</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -169,6 +171,8 @@
                                                 <td>{{ article.product.dre }}</td>
                                                 <td>{{ article.product.tox }}</td>
                                                 <td>{{ article.product.riskPhase }}</td>
+                                                <td>{{ article.product.securityMention }}</td>
+                                                <td>{{ article.product.dangerMention }}</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
