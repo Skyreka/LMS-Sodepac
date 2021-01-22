@@ -47,9 +47,9 @@
                     {% for product in products %}
                         <tr>
                             <td>{{ product.product.name }}</td>
-                            <td>{{ product.dose|round(3, 'ceil') }} <small>{{ product.unit }}</small></td>
+                            <td>{{ product.dose|round(3, 'floor') }} <small>{{ product.unit }}</small></td>
                             <td>{{ cultureTotal }} <small>ha</small></td>
-                            <td>{{ product.quantity|round(3, 'ceil') }} <small>{{ product.unit }}</small></td>
+                            <td>{{ product.quantity|round(3, 'floor') }} <small>{{ product.unit }}</small></td>
                         </tr>
                     {% endfor %}
                     </tbody>
