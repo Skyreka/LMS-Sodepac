@@ -103,6 +103,11 @@ class Products
      */
     private $danger_mention;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $warning_mention;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -357,6 +362,18 @@ class Products
     public function setDangerMention(?string $danger_mention): self
     {
         $this->danger_mention = $danger_mention;
+
+        return $this;
+    }
+
+    public function getWarningMention(): ?string
+    {
+        return $this->warning_mention;
+    }
+
+    public function setWarningMention(?string $warning_mention): self
+    {
+        $this->warning_mention = $warning_mention;
 
         return $this;
     }

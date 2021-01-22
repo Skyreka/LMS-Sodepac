@@ -151,10 +151,9 @@
                                             <th>DAR</th>
                                             <th>ZNT</th>
                                             <th>DRE</th>
-                                            <th>CLASS TOX</th>
                                             <th>PHRASE DE RISQUES</th>
                                             <th>MENTIONS DANGER</th>
-                                            <th>MENTIONS SECURITÉ</th>
+                                            <th>MENTIONS AVERTISSEMENT</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -169,10 +168,9 @@
                                                 <td>{{ article.product.dar }}</td>
                                                 <td>{{ article.product.znt }}</td>
                                                 <td>{{ article.product.dre }}</td>
-                                                <td>{{ article.product.tox }}</td>
-                                                <td>{{ article.product.riskPhase }}</td>
                                                 <td>{{ article.product.securityMention }}</td>
                                                 <td>{{ article.product.dangerMention }}</td>
+                                                <td>{{ article.product.warningMention }}</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
