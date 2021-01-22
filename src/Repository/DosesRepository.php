@@ -27,6 +27,12 @@ class DosesRepository extends ServiceEntityRepository
             ->orderBy('s.id', 'ASC')
         ;
 
+        // Default value for select
+        if ( empty($query->getQuery()->getResult()) ) {
+            $query = $this->createQueryBuilder( 'd' )
+                ->where('d.id = 0');
+        }
+
         if ($return) {
             $query = $query->getQuery()
                 ->getResult();
