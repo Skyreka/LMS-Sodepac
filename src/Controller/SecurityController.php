@@ -23,7 +23,7 @@ class SecurityController extends AbstractController {
      */
     public function login(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $checker ) {
         // Auto Redirect
-        if ( $checker->isGranted('IS_AUTHENTICATED_REMEMBERED') ) {
+        if ( !empty($this->getUser()) && $checker->isGranted('IS_AUTHENTICATED_REMEMBERED') && $this->getUser()->getPack() !== 'DISABLE' ) {
             return $this->redirectToRoute( 'login_success' );
         }
         $error = $authenticationUtils->getLastAuthenticationError();
