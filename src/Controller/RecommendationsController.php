@@ -231,7 +231,7 @@ class RecommendationsController extends AbstractController
             $recommendationProducts->setRecommendation( $recommendation );
             $recommendationProducts->setDose( $request->get('dose') );
             $recommendationProducts->setUnit( $request->get('unit') );
-            $result = $cultureTotal * round($recommendationProducts->getDose(), 2);
+            $result = $cultureTotal * round($recommendationProducts->getDose(), 3);
             $recommendationProducts->setQuantity( $result );
 
             //-- Go to db new entry
@@ -275,7 +275,7 @@ class RecommendationsController extends AbstractController
             $recommendationProducts->setDose( $dose->getDose() );
             //$recommendationProducts->setUnit( $dose->getUnit() );
             // Auto Calc dose x total size
-            $recommendationProducts->setQuantity( $recommendations->getCultureSize() * $dose->getDose() );
+            $recommendationProducts->setQuantity( $recommendations->getCultureSize() * round($dose->getDose(), 3) );
 
             $this->em->persist( $recommendationProducts );
             $this->em->flush();

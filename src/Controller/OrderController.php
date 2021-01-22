@@ -69,7 +69,7 @@ class OrderController extends AbstractController
     public function pdfView( Orders $order, OrdersProductRepository $opr, Request $request): Response
     {
         // Security
-        if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $request->get('print') == false AND $this->getUser()->getStatus() != 'ROLE_ADMIN') {
+        if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $this->getUser()->getStatus() != 'ROLE_ADMIN') {
             throw $this->createNotFoundException('Vous n\'avez pas la permission de voir ce document.');
         }
 
@@ -399,7 +399,6 @@ class OrderController extends AbstractController
         if ( $order->getStatus() == 1 ) {
             // Update status
             $order->setStatus( 2 );
-            $order->setCreateDate( new \DateTime( $request->get('date-order') ) );
             $this->em->flush();
 
             // Msg
@@ -427,7 +426,6 @@ class OrderController extends AbstractController
         if ( $order->getStatus() == 2 ) {
             // Update status
             $order->setStatus( 3 );
-            $order->setCreateDate( new \DateTime( $request->get('date-order') ) );
 
             // Send to depot
             $message = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))

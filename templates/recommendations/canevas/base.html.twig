@@ -51,6 +51,9 @@
             .exist {
                 border: 3px solid #2ecc71;
             }
+            .isProduct {
+                display: block !important;
+            }
         </style>
         {% block stylesheets %}{% endblock %}
         <!-- Special for Canevas -->
@@ -131,7 +134,7 @@
                         let nameProduct = response.responseJSON['name_product']
                         let dose = response.responseJSON['dose']
                         let unit = response.responseJSON['unit']
-                        let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose.toFixed(2) + unit +'</small></li>'
+                        let input = '<li><b>'+ nameProduct +'</b> <small>'+ dose.toFixed(3) + unit +'</small></li>'
                         $('#products_list').append( input )
                     },
                     error : function (code_html, status) {
