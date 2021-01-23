@@ -13,10 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Recommendations
 {
     const STATUS = [
-        '0' => 'Draft',
-        '1' => 'Create',
-        '2' => 'Generate',
-        '2' => 'Sended'
+        0 => 'Draft',
+        1 => 'Create',
+        2 => 'Generate',
+        3 => 'Sended'
     ];
 
     public function __construct()

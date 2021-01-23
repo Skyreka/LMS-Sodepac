@@ -28,6 +28,12 @@
                 <!-- DISABLE 29/12/2020 <a href="{{ path('recommendation_mentions', {'id': recommendation.id}) }}" class="btn btn-light-success mb-3">Revenir méthodes alternatives</a>-->
                 <div class="card">
                     <div class="card-body">
+                        {% if recommendation.status == 2 %}
+                            <form method="POST" action="{{ path('order_product_add', {'recommendation': recommendation.id }) }}">
+                                <input type="hidden" name="_method" value="ADDTOORDER">
+                                <button class="btn btn-info ml-2 float-right pull-right" title="Ajouter tous les produits"><i class="fas fa-truck"></i> Ajouter tous les produits</button>
+                            </form>
+                        {% endif %}
                         <div class="table-responsive">
                             <table class="table table-striped no-wrap" id="edit-table">
                                 <thead>
@@ -47,12 +53,6 @@
                                             <td>{{ product.dose|round(3, 'floor') }} <small>{{ product.unit }}</small></td>
                                             <td>{{ cultureTotal }} <small>ha</small></td>
                                             <td>{{ product.quantity|round(3, 'floor') }}</td>
-                                            <td>
-                                                <form method="POST" action="{{ path('order_product_add', {recommendationProducts: product.id, recommendation: recommendation.id}) }}">
-                                                    <input type="hidden" name="_method" value="ADDTOORDER">
-                                                    <button class="btn btn-info ml-2"><i class="fas fa-truck"></i></button>
-                                                </form>
-                                            </td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
