@@ -37,14 +37,16 @@ class OrdersRepository extends ServiceEntityRepository
         return $req->getQuery()->getResult();
     }
 
+    /**
+     * @param $user
+     * @return int|mixed|string
+     */
     public function findByUser( $user )
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.customer = :val')
-            ->andWhere('o.status = 2')
-            ->orWhere('o.status = 1')
-            ->orWhere('o.status = 3')
-            ->setParameter('val', $user)
+            ->where('o.customer = :user')
+            ->andWhere('o.status != 0')
+            ->setParameter('user', $user)
             ->orderBy('o.createDate', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
@@ -52,6 +54,9 @@ class OrdersRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @return int|mixed|string
+     */
     public function findByAdmin()
     {
         return $this->createQueryBuilder('o')

@@ -4,44 +4,6 @@
 
 {% block title %}Canevas{% endblock %}
 
-{% block stylesheets %}
-    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
-    <style>
-        .table thead th {
-            padding-left: 15px;
-            padding-right: 15px;
-            text-align: center;
-        }
-        .btn-R {
-            background-color: #FFADAD !important;
-        }
-        .btn-O {
-            background-color: #FFD6A5 !important;
-        }
-        .btn-J {
-            background-color: #FDFFB6 !important;
-        }
-        .btn-V {
-            background-color: #CAFFBF !important;
-        }
-        .btn-C {
-            background-color: #9BF6FF !important;
-        }
-        .btn-B {
-            background-color: #A0C4FF !important;
-        }
-        .btn-M {
-            background-color: #FFC6FF !important;
-        }
-        .btn-A {
-            background-color: #D8E2DC !important;
-        }
-        .exist {
-            border: 4px solid #5DB761;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
     {% if printRequest == false %}
         <div class="container-fluid">
@@ -170,7 +132,7 @@
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td>
                                     <td colspan="1">
-                                        <button class="btn-V btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'horizon-arbo', '745.0001') ? 'exist' : 'd-none' }}" product_slug="horizon-arbo" dose="750.0001" unit="gr">HORIZON ARBO <small> 750gr</small></button>
+                                        <button class="btn-V btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'horizon-arbo', '750.0001') ? 'exist' : 'd-none' }}" product_slug="horizon-arbo" dose="750.0001" unit="gr">HORIZON ARBO <small> 750gr</small></button>
                                     </td>
                                     <td colspan="2">
                                         <button class="btn-V btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'horizon-arbo', '750.0002') ? 'exist' : 'd-none' }}" product_slug="horizon-arbo" dose="750.0002" unit="gr">HORIZON ARBO <small> 750gr</small></button>
@@ -211,26 +173,26 @@
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <td>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'delfin', '0.75') ? 'exist' : 'd-none' }}" product_slug="delfin" dose="0.75" unit="Kg">DELFIN <small> 0.75Kg</small></button>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.075') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small> 0.075L</small></button>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.50000345') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.50000345" unit="L">DECIS PROTECH <small> 0.5L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.075') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small> 0.075L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.50000345') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.50000345" unit="L">DECIS PROTECH <small> 0.5L</small></button>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ginko-ring', '100') ? 'exist' : 'd-none' }}" product_slug="ginko-ring" dose="100" unit="Dif/Ha">GINKO RING <small> 100Dif/Ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'delfin', '0.7501') ? 'exist' : 'd-none' }}" product_slug="delfin" dose="0.7501" unit="Kg">DELFIN <small> 0.75Kg</small></button>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.07501') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.07501" unit="L">KARATE XFLOW <small> 0.075L</small></button>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.500003451') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.500003451" unit="L">DECIS PROTECH <small> 0.5L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.07501') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.07501" unit="L">KARATE XFLOW <small> 0.075L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.500003451') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.500003451" unit="L">DECIS PROTECH <small> 0.5L</small></button>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ginko-ring', '100.0001') ? 'exist' : 'd-none' }}" product_slug="ginko-ring" dose="100.0001" unit="Dif/Ha">GINKO RING <small> 100Dif/Ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'delfin', '0.7502') ? 'exist' : 'd-none' }}" product_slug="delfin" dose="0.7502" unit="Kg">DELFIN <small> 0.75Kg</small></button>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.07502') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.07502" unit="L">KARATE XFLOW <small> 0.075L</small></button>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.500003452') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.500003452" unit="L">DECIS PROTECH <small> 0.5L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.07502') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.07502" unit="L">KARATE XFLOW <small> 0.075L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.500003452') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.500003452" unit="L">DECIS PROTECH <small> 0.5L</small></button>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ginko-ring', '100.0002') ? 'exist' : 'd-none' }}" product_slug="ginko-ring" dose="100.0002" unit="Dif/Ha">GINKO RING <small> 100Dif/Ha</small></button>
                                     </td>
                                     <td>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'delfin', '0.7503') ? 'exist' : 'd-none' }}" product_slug="delfin" dose="0.7503" unit="Kg">DELFIN <small> 0.75Kg</small></button>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.07503') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.07503" unit="L">KARATE XFLOW <small> 0.075L</small></button>
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.500003453') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.500003453" unit="L">DECIS PROTECH <small> 0.5L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'karate-xflow', '0.07503') ? 'exist' : 'd-none' }}" product_slug="karate-xflow" dose="0.07503" unit="L">KARATE XFLOW <small> 0.075L</small></button>
+                                        <button class="btn-R btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'decis-protech', '0.500003453') ? 'exist' : 'd-none' }}" product_slug="decis-protech" dose="0.500003453" unit="L">DECIS PROTECH <small> 0.5L</small></button>
                                         <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ginko-ring', '100.0003') ? 'exist' : 'd-none' }}" product_slug="ginko-ring" dose="100.0003" unit="Dif/Ha">GINKO RING <small> 100Dif/Ha</small></button>
                                     </td>
                                     <td></td><td></td><td></td>
@@ -296,7 +258,7 @@
                                     <td>Cynips</td>
                                     <td></td><td></td><td></td><td></td><td></td>
                                     <td colspan="4">
-                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'lacher-de-torymus', '0.075') ? 'exist' : 'd-none' }}" product_slug="lacher-de-torymus" dose="0.075" unit="L">LÂCHER DE TORYMUS <small> 0.075L</small></button>
+                                        <button class="btn-C btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'lacher-de-torymus') ? 'exist' : 'd-none' }}" product_slug="lacher-de-torymus">LACHER DE TORYMUS</button>
                                     </td>
                                     <td></td><td></td><td></td><td></td><td></td><td></td>
                                 </tr>
@@ -393,7 +355,7 @@
                                     <td colspan="2">
                                         <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sulfate-de-potasse') ? 'exist' : 'd-none' }}" product_slug="sulfate-de-potasse" dose="300" unit="Kg">SULFATE K2O <small>300 Kg</small></button>
                                         <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'patenkali') ? 'exist' : 'd-none' }}" product_slug="patenkali" dose="300" unit="Kg">PATENKALI <small>300 Kg</small></button>
-                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'diamic-k25') ? 'exist' : 'd-none' }}" product_slug="diamic-k25" dose="300" unit="Kg">DIAMIC K25 <small>400 Kg</small></button>
+                                        <button class="btn-B btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'diamic-k25') ? 'exist' : 'd-none' }}" product_slug="diamic-k25" dose="300" unit="Kg">DIAMIC K25 <small>300 Kg</small></button>
                                     </td>
                                     <td></td><td></td><td></td>
                                     <td colspan="1">

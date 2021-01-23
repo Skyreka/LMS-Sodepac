@@ -4,44 +4,6 @@
 
 {% block title %}Canevas{% endblock %}
 
-{% block stylesheets %}
-    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
-    <style>
-        .table thead th {
-            padding-left: 15px;
-            padding-right: 15px;
-            text-align: center;
-        }
-        .btn-R {
-            background-color: #FFADAD !important;
-        }
-        .btn-O {
-            background-color: #FFD6A5 !important;
-        }
-        .btn-J {
-            background-color: #FDFFB6 !important;
-        }
-        .btn-V {
-            background-color: #CAFFBF !important;
-        }
-        .btn-C {
-            background-color: #9BF6FF !important;
-        }
-        .btn-B {
-            background-color: #A0C4FF !important;
-        }
-        .btn-M {
-            background-color: #FFC6FF !important;
-        }
-        .btn-A {
-            background-color: #D8E2DC !important;
-        }
-        .exist {
-            border: 4px solid #5DB761;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
     {% if printRequest == false %}
         <div class="container-fluid">
@@ -147,7 +109,7 @@
                                     </td>
                                     <td>
                                         <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ammonitre-33-5', '50.0002') ? 'exist' : 'd-none' }}" product_slug="ammonitre-33-5" dose="50.0002" unit="Kg">AMMONITRE <small>50 Kg</small></button>
-                                        <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'azote-26-13-so3', '300.002') ? 'exist' : 'd-none' }}" product_slug="azote-26-13-so3" dose="300.0002" unit="Kg">AZOTE 26-13 SO3 <small>300 Kg</small></button>
+                                        <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'azote-26-13-so3', '300.0002') ? 'exist' : 'd-none' }}" product_slug="azote-26-13-so3" dose="300.0002" unit="Kg">AZOTE 26-13 SO3 <small>300 Kg</small></button>
                                         <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sulfonitrate-26', '300.0002') ? 'exist' : 'd-none' }}" product_slug="sulfonitrate-26" dose="300.0002" unit="Kg">SULFONITRATE <small>300 Kg</small></button>
                                         <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'nelix-36-24', '250.0002') ? 'exist' : 'd-none' }}" product_slug="nelix-36-24" dose="250.0002" unit="Kg">NELIX 36-24 SO3 <small>250 Kg</small></button>
                                     </td>
@@ -183,7 +145,6 @@
                                 <tr>
                                     <td rowspan="2">HERBICIDES <br>ANTI-DICOTS <br>ANTI- <br>GRAMINEES</td>
                                     <td>
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'aubaine', '3.6') ? 'exist' : 'd-none' }}" product_slug="aubaine" dose="3.6" unit="L">AUBAINE <small>3.6 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'clortosint', '3.6') ? 'exist' : 'd-none' }}" product_slug="clortosint" dose="3.6" unit="L">CLORTOSINT <small>3.6 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'defi', '2.5') ? 'exist' : 'd-none' }}" product_slug="defi" dose="2.5" unit="L">DEFI <small>2.5 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'clayton-el-nino', '0.25') ? 'exist' : 'd-none' }}" product_slug="clayton-el-nino" dose="0.25" unit="L">EL NINO <small>0.25 L</small></button>
@@ -193,7 +154,6 @@
                                     <td colspan="5">
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'othello', '1.5') ? 'exist' : 'd-none' }}" product_slug="othello" dose="1.5" unit="L">OTHELLO <small>1.5 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'kacik', '0.2') ? 'exist' : 'd-none' }}" product_slug="kacik" dose="0.2" unit="L">KACIK <small>0.2 L</small></button>
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'aubaine', '3.6001') ? 'exist' : 'd-none' }}" product_slug="aubaine" dose="3.6001" unit="L">AUBAINE <small>3.6 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'clortosint', '3.6001') ? 'exist' : 'd-none' }}" product_slug="clortosint" dose="3.6001" unit="L">CLORTOSINT <small>3.6 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'defi', '2.5001') ? 'exist' : 'd-none' }}" product_slug="defi" dose="2.5001" unit="L">DEFI <small>2.5 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'clayton-el-nino', '0.2501') ? 'exist' : 'd-none' }}" product_slug="clayton-el-nino" dose="0.2501" unit="L">EL NINO <small>0.25 L</small></button>
@@ -208,7 +168,7 @@
                                 <tr>
                                     <td></td><td></td><td></td><td></td>
                                     <td colspan="5">
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'cossack-star', '0.2') ? 'exist' : 'd-none' }}" product_slug="cossack-star" dose="0.2" unit="L">COSSACK STAR <small>0.2 L</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'cossack-star', '0.2') ? 'exist' : 'd-none' }}" product_slug="cossack-star" dose="0.2" unit="Kg">COSSACK STAR <small>0.2 Kg</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'garig', '265') ? 'exist' : 'd-none' }}" product_slug="garig" dose="265" unit="g">GARIG <small>265 g</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'auzon-duo', '1') ? 'exist' : 'd-none' }}" product_slug="auzon-duo" dose="1" unit="L">AUZON DUO <small>1 L</small></button>
                                     </td>
@@ -223,12 +183,12 @@
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'tekken', '0.4') ? 'exist' : 'd-none' }}" product_slug="tekken" dose="0.4" unit="L">TEKKEN <small>0.4 L</small></button>
                                     </td>
                                     <td colspan="4">
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'crossfire', '50.0001') ? 'exist' : 'd-none' }}" product_slug="crossfire" dose="50.0001" unit="gr">CROSSFIRE <small>50 g</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'crossfire', '90.0001') ? 'exist' : 'd-none' }}" product_slug="crossfire" dose="90.0001" unit="gr">CROSSFIRE <small>90 g</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'starane-gold', '1.8001') ? 'exist' : 'd-none' }}" product_slug="starane-gold" dose="1.8001" unit="L">STARANE GOLD <small>1.8 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'tekken', '0.4001') ? 'exist' : 'd-none' }}" product_slug="tekken" dose="0.4001" unit="L">TEKKEN <small>0.4 L</small></button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'crossfire', '50.0002') ? 'exist' : 'd-none' }}" product_slug="crossfire" dose="50.0002" unit="gr">CROSSFIRE <small>50 g</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'crossfire', '90.0002') ? 'exist' : 'd-none' }}" product_slug="crossfire" dose="90.0002" unit="gr">CROSSFIRE <small>90 g</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'starane-gold', '1.8002') ? 'exist' : 'd-none' }}" product_slug="starane-gold" dose="1.8002" unit="L">STARANE GOLD <small>1.8 L</small></button>
                                     </td>
                                     <td></td><td></td><td></td>
@@ -237,17 +197,17 @@
                                     <td>HERBICIDES <br>ANTI- <br>GRAMINEES</td>
                                     <td></td><td></td>
                                     <td>
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'fenova-super', '1') ? 'exist' : 'd-none' }}" product_slug="fenova-super" dose="1" unit="L">FENOVA SUPER <small>1 L</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'fenova-super', '1.2') ? 'exist' : 'd-none' }}" product_slug="fenova-super" dose="1.2" unit="L">FENOVA SUPER <small>1.2 L</small></button>
                                     </td>
                                     <td>
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'fenova-super', '1.0001') ? 'exist' : 'd-none' }}" product_slug="fenova-super" dose="1.0001" unit="L">FENOVA SUPER <small>1 L</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'fenova-super', '1.20001') ? 'exist' : 'd-none' }}" product_slug="fenova-super" dose="1.20001" unit="L">FENOVA SUPER <small>1.2 L</small></button>
                                     </td>
                                     <td colspan="3">
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'fenova-super', '1.0002') ? 'exist' : 'd-none' }}" product_slug="fenova-super" dose="1.0002" unit="L">FENOVA SUPER <small>1 L</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'fenova-super', '1.20002') ? 'exist' : 'd-none' }}" product_slug="fenova-super" dose="1.20002" unit="L">FENOVA SUPER <small>1.2 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'axeo', '1.2') ? 'exist' : 'd-none' }}" product_slug="axeo" dose="1.2" unit="L">AXEO <small>1.2 L</small></button>
                                     </td>
                                     <td colspan="4">
-                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'fenova-super', '1.0003') ? 'exist' : 'd-none' }}" product_slug="fenova-super" dose="1.0003" unit="L">FENOVA SUPER <small>1 L</small></button>
+                                        <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'fenova-super', '1.20003') ? 'exist' : 'd-none' }}" product_slug="fenova-super" dose="1.20003" unit="L">FENOVA SUPER <small>1.2 L</small></button>
                                         <button class="btn btn-J btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'axeo', '1.2001') ? 'exist' : 'd-none' }}" product_slug="axeo" dose="1.2001" unit="L">AXEO <small>1.2 L</small></button>
                                     </td>
                                     <td></td><td></td><td></td><td></td>
@@ -312,14 +272,16 @@
                                     <td colspan="2">
                                         <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'soleil', '0.8') ? 'exist' : 'd-none' }}" product_slug="soleil" dose="0.8" unit="L">SOLEIL <small>0.8 L</small></button>
                                         <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'zoxis', '0.7') ? 'exist' : 'd-none' }}" product_slug="zoxis" dose="0.7" unit="L">ZOXIS <small>0.7 L</small></button>
-                                        <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-boost', '1') ? 'exist' : 'd-none' }}" product_slug="ino-boost" dose="0.3" unit="L">INO BOOST <small>1 L</small></button>
+                                        <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-boost', '1') ? 'exist' : 'd-none' }}" product_slug="ino-boost" dose="1" unit="L">INO BOOST <small>1 L</small></button>
                                         <button class="btn-V btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'pack-comatur', '0.1') ? 'exist' : 'd-none' }}" product_slug="pack-comatur" dose="0.1" unit="Pack">PACK COMATUR <small>0.1 Pack</small></button>
+                                        <button class="btn-A btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'oliofix', '1') ? 'exist' : 'd-none' }}" product_slug="oliofix" dose="1" unit="%">OLIOFIX <small>1%</small></button>
                                     </td>
                                     <td colspan="3">
                                         <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'elatus-era', '0.75') ? 'exist' : 'd-none' }}" product_slug="elatus-era" dose="0.75" unit="L">ELATUS ERA <small>0.75 L</small></button>
-                                        <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'revystar-xl', '0.1') ? 'exist' : 'd-none' }}" product_slug="revystar-xl" dose="0.1" unit="Pack">PACK REVYXAR <small>0.1 Pack</small></button>
+                                        <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'revystar-xl', '0.1') ? 'exist' : 'd-none' }}" product_slug="revystar-xl" dose="0.1" unit="Pack">PACK REVYSTAR <small>0.1 Pack</small></button>
                                         <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'pack-macfare-twist', '0.15') ? 'exist' : 'd-none' }}" product_slug="pack-macfare-twist" dose="0.15" unit="Pack">PACK MACFAIRE TWIST <small>0.15 Pack</small></button>
                                         <button class="btn-V btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'pack-comatur', '0.10001') ? 'exist' : 'd-none' }}" product_slug="pack-comatur" dose="0.10001" unit="Pack">PACK COMATUR <small>0.1 Pack</small></button>
+                                        <button class="btn-A btn btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'oliofix', '1.0001') ? 'exist' : 'd-none' }}" product_slug="oliofix" dose="1.0001" unit="%">OLIOFIX <small>1%</small></button>
                                     </td>
                                     <td colspan="2">
                                         <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'soleil', '1.2') ? 'exist' : 'd-none' }}" product_slug="soleil" dose="1.2" unit="L">SOLEIL <small>1.2 L</small></button>
