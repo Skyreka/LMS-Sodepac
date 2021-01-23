@@ -209,17 +209,14 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/product/add/{recommendationProducts}/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"product":"\d+", "recommendation":"\d+"})
-     * @param RecommendationProducts|null $product
+     * @Route("management/order/product/add/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"recommendation":"\d+"})
      * @param Recommendations|null $recommendation
      * @param OrdersRepository $or
      * @param OrdersProductRepository $opr
      * @param Request $request
-     * @param Products|null $id
      * @return RedirectResponse
      */
     public function addProduct(
-        RecommendationProducts $recommendationProducts,
         Recommendations $recommendation,
         OrdersRepository $or,
         OrdersProductRepository $opr,
@@ -232,28 +229,32 @@ class OrderController extends AbstractController
             $order->setStatus( 0 );
             $order->setIdNumber( strtoupper(uniqid( 'C' )) );
             $order->setCreator( $this->getUser() );
-            $order->setCustomer( $recommendationProducts->getRecommendation()->getExploitation()->getUsers());
+            $order->setCustomer( $recommendation->getExploitation()->getUsers());
             $this->em->persist( $order );
             $this->em->flush();
 
             // Add id to session
             $this->container->get('session')->set('currentOrder', $order);
 
-            // Add first product
-            $orderProduct = new OrdersProduct();
-            $orderProduct->setOrder( $order );
-            $orderProduct->setProduct( $recommendationProducts->getProduct() );
-            $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
-            $orderProduct->setTotalQuantity( 0 );
-            $orderProduct->setUnitPrice( 0 );
-            $this->em->persist( $orderProduct );
+            foreach( $recommendation->getRecommendationProducts() as $recommendationProducts ) {
+                // Add  products
+                $orderProduct = new OrdersProduct();
+                $orderProduct->setOrder( $order );
+                $orderProduct->setProduct( $recommendationProducts->getProduct() );
+                $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
+                $orderProduct->setTotalQuantity( 0 );
+                $orderProduct->setUnitPrice( 0 );
+                $this->em->persist( $orderProduct );
+            }
 
             $this->em->flush();
 
             // Alert
             $this->addFlash('success', 'Nouveau panier temporaire créé avec succès');
             $this->addFlash('info', 'Le produit '. $recommendationProducts->getProduct()->getName() .' a été ajouté au panier.');
-        } elseif ($this->container->get('session')->get('currentOrder') != NULL) {
+        }
+
+        /**elseif ($this->container->get('session')->get('currentOrder') != NULL) {
             $order = $this->container->get('session')->get('currentOrder');
             $productOnDb = $opr->findOneBy(['orders' => $order, 'product' => $recommendationProducts->getProduct()]);
             if ( $productOnDb ) {
@@ -276,7 +277,7 @@ class OrderController extends AbstractController
 
             // Alert
             $this->addFlash('info', 'Le produit '. $recommendationProducts->getProduct()->getName() .' a été ajouté a la commande.');
-        }
+        }**/
 
         //Return to summary
         return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId()]);

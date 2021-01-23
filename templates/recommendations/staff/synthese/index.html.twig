@@ -140,7 +140,8 @@
                 content.empty()
                 content.append( data )
                 table = $('#datatable').DataTable({
-                    dom: 'Bfrtip',
+            dom: 'Bfrtip',
+            info: false,
                     ordering: false,
                     responsive: true,
                     "language": {
@@ -178,6 +179,7 @@
         })
         table = $('#datatable').DataTable({
             dom: 'Bfrtip',
+            info: false,
             ordering: false,
             responsive: true,
             "language": {
