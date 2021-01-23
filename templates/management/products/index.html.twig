@@ -69,6 +69,7 @@
     <script>
         $('#datatable').DataTable({
             dom: 'Bfrtip',
+            info: false,
             serverSide: true,
             ajax: '{{ path('management_products_data') }}',
             responsive: true,
