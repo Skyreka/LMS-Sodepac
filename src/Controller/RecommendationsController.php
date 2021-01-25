@@ -272,7 +272,9 @@ class RecommendationsController extends AbstractController
             $dose = $form->get('dose')->getData();
 
             $recommendationProducts->setRecommendation( $recommendations );
+            if($dose !== null) {
             $recommendationProducts->setDose( $dose->getDose() );
+            }
             //$recommendationProducts->setUnit( $dose->getUnit() );
             // Auto Calc dose x total size
             $recommendationProducts->setQuantity( $recommendations->getCultureSize() * floor($dose-getDose() * 1000) / 1000 );
