@@ -277,7 +277,7 @@ class RecommendationsController extends AbstractController
             }
             //$recommendationProducts->setUnit( $dose->getUnit() );
             // Auto Calc dose x total size
-            $recommendationProducts->setQuantity( $recommendations->getCultureSize() * floor($dose-getDose() * 1000) / 1000 );
+            $recommendationProducts->setQuantity( $recommendations->getCultureSize() * floor($dose->getDose() * 1000) / 1000 );
 
             $this->em->persist( $recommendationProducts );
             $this->em->flush();
