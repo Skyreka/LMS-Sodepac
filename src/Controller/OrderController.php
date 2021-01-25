@@ -69,8 +69,10 @@ class OrderController extends AbstractController
     public function pdfView( Orders $order, OrdersProductRepository $opr, Request $request): Response
     {
         // Security
-        if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $this->getUser()->getStatus() != 'ROLE_ADMIN') {
-            throw $this->createNotFoundException('Vous n\'avez pas la permission de voir ce document.');
+        if ( $this->getUser() ) {
+            if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $this->getUser()->getStatus() != 'ROLE_ADMIN') {
+                throw $this->createNotFoundException('Vous n\'avez pas la permission de voir ce document.');
+            }
         }
 
         // List of product
