@@ -69,8 +69,10 @@ class OrderController extends AbstractController
     public function pdfView( Orders $order, OrdersProductRepository $opr, Request $request): Response
     {
         // Security
-        if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $this->getUser()->getStatus() != 'ROLE_ADMIN') {
-            throw $this->createNotFoundException('Vous n\'avez pas la permission de voir ce document.');
+        if ( $this->getUser() ) {
+            if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $this->getUser()->getStatus() != 'ROLE_ADMIN') {
+                throw $this->createNotFoundException('Vous n\'avez pas la permission de voir ce document.');
+            }
         }
 
         // List of product
@@ -236,22 +238,32 @@ class OrderController extends AbstractController
             // Add id to session
             $this->container->get('session')->set('currentOrder', $order);
 
+            $products = [];
             foreach( $recommendation->getRecommendationProducts() as $recommendationProducts ) {
-                // Add  products
-                $orderProduct = new OrdersProduct();
-                $orderProduct->setOrder( $order );
-                $orderProduct->setProduct( $recommendationProducts->getProduct() );
-                $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
-                $orderProduct->setTotalQuantity( 0 );
-                $orderProduct->setUnitPrice( 0 );
-                $this->em->persist( $orderProduct );
-            }
 
-            $this->em->flush();
+                if ( !in_array($recommendationProducts->getProduct(), $products) ) {
+                    // Add  product
+                    $orderProduct = new OrdersProduct();
+                    $orderProduct->setOrder($order);
+                    $orderProduct->setProduct( $recommendationProducts->getProduct() );
+                    $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
+                    $orderProduct->setTotalQuantity(0);
+                    $orderProduct->setUnitPrice(0);
+                    $this->em->persist($orderProduct);
+                    $this->em->flush();
+                } else {
+                    // Update quantity
+                    $orderProduct = $opr->findOneBy(['product' => $recommendationProducts->getProduct(), 'orders' => $order ]);
+                    $orderProduct->setQuantity( $orderProduct->getQuantity() + $recommendationProducts->getQuantity() );
+                    $this->em->flush();
+                }
+
+                // Add product to array
+                array_push( $products, $recommendationProducts->getProduct() );
+            }
 
             // Alert
             $this->addFlash('success', 'Nouveau panier temporaire créé avec succès');
-            $this->addFlash('info', 'Le produit '. $recommendationProducts->getProduct()->getName() .' a été ajouté au panier.');
         }
 
         /**elseif ($this->container->get('session')->get('currentOrder') != NULL) {

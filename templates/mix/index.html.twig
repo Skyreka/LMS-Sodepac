@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Liste de vos mélanges</h3>
+                <h3 class="text-themecolor">Mélanges</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Mélanges</a></li>
@@ -23,6 +23,18 @@
         {% endfor %}
         <div class="row">
             <div class="col-12">
+                <iframe
+                        src="https://www.melanges.arvalisinstitutduvegetal.fr/"
+                        width="100%" height="500"
+                        sandbox>
+                    <p>
+                        <a href="https://www.melanges.arvalisinstitutduvegetal.fr/">
+                            Un lien à utiliser dans les cas où les navigateurs ne supportent
+                            pas les <i>iframes</i>.
+                        </a>
+                    </p>
+                </iframe>
+                <!--
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex no-block">
@@ -63,7 +75,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
