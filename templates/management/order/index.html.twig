@@ -57,9 +57,7 @@
                                         </td>
                                         {% if app.user.status == 'ROLE_ADMIN' %}
                                             <td>
-                                                <a href="{{ path('management_user_show', {id: order.customer.id}) }}">
-                                                    <h6>{{ order.creator.identity }}</h6><small class="text-muted">{{ order.customer.email }}</small>
-                                                </a>
+                                                <h6>{{ order.creator.identity }}</h6><small class="text-muted">{{ order.creator.email }}</small>
                                             </td>
                                         {% endif %}
                                         <td>{{ order.createDate | date('d M Y H:i') }}</td>
