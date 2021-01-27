@@ -122,6 +122,9 @@ class OrderController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $orders->getId(), $request->get('_token' ))) {
             $this->em->remove($orders);
             $this->em->flush();
+
+            $this->container->get('session')->remove('currentOrder');
+
             $this->addFlash('success', 'Commande supprimée avec succès');
         }
         return $this->redirectToRoute('order_index');
@@ -279,7 +282,7 @@ class OrderController extends AbstractController
                         if ( $orderProduct->getProduct() === $recommendationProducts->getProduct() ) {
                             $orderProduct->setQuantity( $orderProduct->getQuantity() + $recommendationProducts->getQuantity() );
                             $this->em->flush();
-                        } 
+                        }
                     }
                 } else {
                     $orderProduct = new OrdersProduct();
@@ -390,24 +393,6 @@ class OrderController extends AbstractController
             $this->addFlash('success', 'Produit supprimé avec succès');
         }
         return $this->redirectToRoute('order_show', ['id_number' => $product->getOrder()->getIdNumber()]);
-    }
-
-    /**
-     * @Route("management/order/delete/{id}", name="order_delete", methods={"DELETE"}, requirements={"id":"\d+"})
-     * @param OrdersProduct $product
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function delete(OrdersProduct $product, Request $request ): RedirectResponse
-    {
-        if ($this->isCsrfTokenValid('deleteOrder' . $product->getId(), $request->get('_token'))) {
-
-            //Remove Cart
-            $this->container->get('session')->remove('currentOrder');
-
-            $this->addFlash('success', 'Panier supprimé avec succès');
-        }
-        return $this->redirectToRoute('login_success' );
     }
 
     /**

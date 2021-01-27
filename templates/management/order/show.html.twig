@@ -118,9 +118,9 @@
                         <hr>
                         {% if order.status == 0 %}
                             <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer en devis</a>
-                            <form class="d-inline" method="POST" action="{{ path('order_delete', {'id': order.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer votre panier ?')">
+                            <form class="d-inline" method="POST" action="{{ path('order_delete_recorded', {'id': order.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer votre panier ?')">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('deleteOrder' ~ order.id) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
                                 <button class="btn btn-danger ml-3"><i class="fa fa-trash"></i> {{ button_label|default('') }}</button>
                             </form>
                         {% endif %}
