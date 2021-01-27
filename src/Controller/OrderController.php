@@ -264,6 +264,37 @@ class OrderController extends AbstractController
 
             // Alert
             $this->addFlash('success', 'Nouveau panier temporaire créé avec succès');
+        } else {
+            $order = $this->container->get('session')->get('currentOrder');
+
+            // Add id to session
+            $this->container->get('session')->set('currentOrder', $order);
+
+            $products = [];
+            $orderProducts = $opr->findBy(['orders' => $order]);
+
+            foreach( $recommendation->getRecommendationProducts() as $recommendationProducts ) {
+                if ( $orderProducts != null ) {
+                    foreach ( $orderProducts as $orderProduct ) {
+                        if ( $orderProduct->getProduct() === $recommendationProducts->getProduct() ) {
+                            $orderProduct->setQuantity( $orderProduct->getQuantity() + $recommendationProducts->getQuantity() );
+                            $this->em->flush();
+                        } 
+                    }
+                } else {
+                    $orderProduct = new OrdersProduct();
+                    $orderProduct->setOrder( $order);
+                    $orderProduct->setProduct( $recommendationProducts->getProduct() );
+                    $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
+                    $orderProduct->setTotalQuantity(0);
+                    $orderProduct->setUnitPrice(0);
+                    $this->em->merge($orderProduct);
+                    $this->em->flush();
+                }
+            }
+
+            // Alert
+            $this->addFlash('success', 'Nouveau produits ajouté au panier avec succès');
         }
 
         /**elseif ($this->container->get('session')->get('currentOrder') != NULL) {

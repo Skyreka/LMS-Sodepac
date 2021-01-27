@@ -42,7 +42,7 @@ class Orders
     private $customer;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrdersProduct::class, mappedBy="orders", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=OrdersProduct::class, mappedBy="orders", orphanRemoval=true, fetch="EAGER")
      */
     private $ordersProducts;
 
