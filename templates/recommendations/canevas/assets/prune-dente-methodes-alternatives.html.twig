@@ -4,44 +4,6 @@
 
 {% block title %}Canevas{% endblock %}
 
-{% block stylesheets %}
-    <link href="{{ asset('plugins/toast/toast.css') }}" rel="stylesheet">
-    <style>
-        .table thead th {
-            padding-left: 15px;
-            padding-right: 15px;
-            text-align: center;
-        }
-        .btn-R {
-            background-color: #FFADAD !important;
-        }
-        .btn-O {
-            background-color: #FFD6A5 !important;
-        }
-        .btn-J {
-            background-color: #FDFFB6 !important;
-        }
-        .btn-V {
-            background-color: #CAFFBF !important;
-        }
-        .btn-C {
-            background-color: #9BF6FF !important;
-        }
-        .btn-B {
-            background-color: #A0C4FF !important;
-        }
-        .btn-M {
-            background-color: #FFC6FF !important;
-        }
-        .btn-A {
-            background-color: #D8E2DC !important;
-        }
-        .exist {
-            border: 4px solid #5DB761;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
     {% if printRequest == false %}
         <div class="container-fluid">
