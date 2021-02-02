@@ -282,9 +282,20 @@ class OrderController extends AbstractController
                         if ( $orderProduct->getProduct() === $recommendationProducts->getProduct() ) {
                             $orderProduct->setQuantity( $orderProduct->getQuantity() + $recommendationProducts->getQuantity() );
                             $this->em->flush();
+                        } elseif ( !in_array($recommendationProducts->getProduct(), $products) ) {
+                            $orderProduct = new OrdersProduct();
+                            $orderProduct->setOrder( $order);
+                            $orderProduct->setProduct( $recommendationProducts->getProduct() );
+                            $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
+                            $orderProduct->setTotalQuantity(0);
+                            $orderProduct->setUnitPrice(0);
+                            $this->em->merge($orderProduct);
+                            $this->em->flush();
+
+                            array_push( $products, $recommendationProducts->getProduct() );
                         }
                     }
-                } else {
+                } elseif ( !in_array($recommendationProducts->getProduct(), $products) ) {
                     $orderProduct = new OrdersProduct();
                     $orderProduct->setOrder( $order);
                     $orderProduct->setProduct( $recommendationProducts->getProduct() );
