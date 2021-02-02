@@ -273,36 +273,39 @@ class OrderController extends AbstractController
             // Add id to session
             $this->container->get('session')->set('currentOrder', $order);
 
-            $products = [];
             $orderProducts = $opr->findBy(['orders' => $order]);
 
-            foreach( $recommendation->getRecommendationProducts() as $recommendationProducts ) {
+            foreach( $recommendation->getRecommendationProducts() as $recommendationProduct ) {
                 if ( $orderProducts != null ) {
                     foreach ( $orderProducts as $orderProduct ) {
-                        if ( $orderProduct->getProduct() === $recommendationProducts->getProduct() ) {
-                            $orderProduct->setQuantity( $orderProduct->getQuantity() + $recommendationProducts->getQuantity() );
+                        if ( $orderProduct->getProduct() === $recommendationProduct->getProduct() ) {
+                            // Update Quantity
+                            $orderProduct->setQuantity( $orderProduct->getQuantity() + $recommendationProduct->getQuantity() );
                             $this->em->flush();
-
-                            array_push( $products, $recommendationProducts->getProduct() );
-                        } elseif ( !in_array($recommendationProducts->getProduct(), $products) ) {
-
-                            $orderProduct = new OrdersProduct();
-                            $orderProduct->setOrder( $order);
-                            $orderProduct->setProduct( $recommendationProducts->getProduct() );
-                            $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
-                            $orderProduct->setTotalQuantity(0);
-                            $orderProduct->setUnitPrice(0);
-                            $this->em->merge($orderProduct);
-                            $this->em->flush();
-
-                            array_push( $products, $recommendationProducts->getProduct() );
                         }
                     }
-                } elseif ( !in_array($recommendationProducts->getProduct(), $products) ) {
+                } else {
+                    // Add all products if order not create
                     $orderProduct = new OrdersProduct();
                     $orderProduct->setOrder( $order);
-                    $orderProduct->setProduct( $recommendationProducts->getProduct() );
-                    $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
+                    $orderProduct->setProduct( $recommendationProduct->getProduct() );
+                    $orderProduct->setQuantity( $recommendationProduct->getQuantity() );
+                    $orderProduct->setTotalQuantity(0);
+                    $orderProduct->setUnitPrice(0);
+                    $this->em->merge($orderProduct);
+                    $this->em->flush();
+                }
+            }
+
+            // Check if product is not duplicate
+            $orderProductsArray = $opr->findByToArray( $order );
+            foreach( $recommendation->getRecommendationProducts() as $recommendationProduct ) {
+                $ids = array_column($orderProductsArray, 'id', 'id');
+                if (!isset($ids[$recommendationProduct->getProduct()->getId()])) {
+                    $orderProduct = new OrdersProduct();
+                    $orderProduct->setOrder( $order);
+                    $orderProduct->setProduct( $recommendationProduct->getProduct() );
+                    $orderProduct->setQuantity( $recommendationProduct->getQuantity() );
                     $orderProduct->setTotalQuantity(0);
                     $orderProduct->setUnitPrice(0);
                     $this->em->merge($orderProduct);
@@ -313,31 +316,6 @@ class OrderController extends AbstractController
             // Alert
             $this->addFlash('success', 'Nouveau produits ajouté au panier avec succès');
         }
-
-        /**elseif ($this->container->get('session')->get('currentOrder') != NULL) {
-            $order = $this->container->get('session')->get('currentOrder');
-            $productOnDb = $opr->findOneBy(['orders' => $order, 'product' => $recommendationProducts->getProduct()]);
-            if ( $productOnDb ) {
-                // Sum total Quantity
-                $productOnDb->setQuantity( $productOnDb->getQuantity() + $recommendationProducts->getQuantity() );
-                $this->em->flush();
-                return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId()]);
-            } else {
-                // Add product
-                $orderProduct = new OrdersProduct();
-                $orderProduct->setOrder( $this->container->get('session')->get('currentOrder') );
-                $orderProduct->setProduct( $recommendationProducts->getProduct() );
-                $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
-                $orderProduct->setTotalQuantity( 0 );
-                $orderProduct->setUnitPrice( 0 );
-                $this->em->merge( $orderProduct );
-
-                $this->em->flush();
-            }
-
-            // Alert
-            $this->addFlash('info', 'Le produit '. $recommendationProducts->getProduct()->getName() .' a été ajouté a la commande.');
-        }**/
 
         //Return to summary
         return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId()]);
