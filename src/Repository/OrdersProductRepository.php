@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\OrdersProduct;
+use App\Entity\Products;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +19,22 @@ class OrdersProductRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, OrdersProduct::class);
+    }
+
+    public function findByToArray( $order ) {
+        $q = $this->createQueryBuilder('o')
+            ->select('p.id')
+            ->leftjoin(Products::class, 'p', 'WITH', 'p.id = o.product')
+            ->andWhere('o.orders = :order')
+            ->setParameter('order', $order)
+            ->orderBy('o.id', 'ASC')
+            ->getQuery()
+            ;
+
+        $q->setHint(Query::HINT_INCLUDE_META_COLUMNS, true);
+
+        return $q
+            ->getArrayResult();
     }
 
     // /**

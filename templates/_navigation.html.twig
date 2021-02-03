@@ -12,7 +12,7 @@
                     <li><a class="waves-effect waves-dark" href="{{ path('management_products') }}"><i class="fa fa-flask"></i><span class="hide-menu"> Produits</span></a></li>
                     <li><a class="waves-effect waves-dark" href="https://www.melanges.arvalisinstitutduvegetal.fr/" target="_blank"><i class="fas fa-vials"></i><span class="hide-menu">Mélanges </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('sales_index') }}"><i class="fas fa-chart-line"></i><span class="hide-menu">Cours de vente </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('management_purchase_contract_index') }}"><i class="fas fa-file-alt"></i><span class="hide-menu">Contrats D'achats </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('management_purchase_contract_index') }}"><i class="fas fa-file-alt"></i><span class="hide-menu">Contrats d'achats </span></a></li>
                 </ul>
             {% endif %}
             {% if app.user.status == 'ROLE_TECHNICIAN' %}
@@ -26,7 +26,7 @@
                     <li><a class="waves-effect waves-dark" href="{{ path('tickets_index') }}"><i class="fa fa-comments-o"></i><span class="hide-menu"> Tickets</span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('management_products') }}"><i class="fa fa-flask"></i><span class="hide-menu"> Produits</span></a></li>
                     <li><a class="waves-effect waves-dark" href="https://www.melanges.arvalisinstitutduvegetal.fr/" target="_blank"><i class="fas fa-vials"></i><span class="hide-menu">Mélanges </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('management_purchase_contract_index') }}"><i class="fas fa-file-alt"></i><span class="hide-menu">Contrats D'achats </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('management_purchase_contract_index') }}"><i class="fas fa-file-alt"></i><span class="hide-menu">Contrats d'achats </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('sales_index') }}"><i class="fas fa-chart-line"></i><span class="hide-menu">Cours de vente </span></a></li>
                 </ul>
             {% endif %}
@@ -61,7 +61,7 @@
             {% if app.user.status == 'ROLE_SALES' %}
                 <ul id="sidebarnav">
                     <li><a class="waves-effect waves-dark" href="{{ path('sales_index') }}"><i class="fas fa-chart-line"></i><span class="hide-menu">Cours de vente </span></a></li>
-                    <li><a class="waves-effect waves-dark" href="{{ path('management_purchase_contract_index') }}"><i class="fas fa-file-alt"></i><span class="hide-menu">Contrats D'achats </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('management_purchase_contract_index') }}"><i class="fas fa-file-alt"></i><span class="hide-menu">Contrats d'achats </span></a></li>
                 </ul>
             {% endif %}
         </nav>
