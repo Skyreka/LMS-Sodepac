@@ -32,8 +32,8 @@
                                     <th style="min-width: 100px">Prix HT</th>
                                     <th>Rem %</th>
                                     <th style="text-align:center">Total HT</th>
-                                    <th>Tva %</th>
-                                    <th style="text-align:center">Total TTC</th>
+                                    <th style="display: none !important;">Tva %</th>
+                                    <th style="text-align:center; display: none !important;">Total TTC</th>
                                     <th style="text-align:center"></th>
                                 </tr>
                                 </thead>
@@ -52,8 +52,8 @@
                                         </td>
                                         <td class="discount" width="150">{{ article.discount }}</td>
                                         <td width="150" align="center" class="total_ht"></td>
-                                        <td width="100" align="center" class="taxe">{{ article.taxe }}</td>
-                                        <td width="150" align="center" class="font-500 total_ttc"></td>
+                                        <td width="100" align="center" class="taxe" style="display: none !important;">{{ article.taxe }}</td>
+                                        <td width="150" align="center" class="font-500 total_ttc" style="display: none !important;"></td>
                                         <td align="center">
                                             {% include 'management/order/_delete.html.twig' %}
                                         </td>
@@ -113,8 +113,8 @@
                         <hr>
                         <small>Prix HT (hors RPD)</small>
                         <h4 id="totalHT"></h4>
-                        <small>Prix TTC (hors RPD)</small>
-                        <h2 id="totalTTC"></h2>
+                        <small style="display: none !important;">Prix TTC (hors RPD)</small>
+                        <h2 id="totalTTC" style="display: none !important;"></h2>
                         <hr>
                         {% if order.status == 0 %}
                             <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer en devis</a>

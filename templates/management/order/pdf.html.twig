@@ -76,8 +76,8 @@
                                         <th>Prix HT</th>
                                         <th>Remise %</th>
                                         <th style="text-align:center">Total HT</th>
-                                        <th>Tva %</th>
-                                        <th style="text-align:center">Total TTC</th>
+                                        <th style="display: none !important;">Tva %</th>
+                                        <th style="text-align:center; display: none !important;">Total TTC</th>
                                         <th style="text-align:center"></th>
                                     </tr>
                                     </thead>
@@ -98,10 +98,10 @@
                                                 <td class="discount" width="150">{{ article.discount ? article.discount ~ '%' : '' }}</td>
                                                 {% set totalHT = (article.unitPrice *  article.totalQuantity) - ((article.unitPrice *  article.totalQuantity) * (article.discount / 100)) %}
                                                 <td width="150" align="center">{{ totalHT|localizedcurrency('EUR') }}</td>
-                                                <td width="100" align="center">{{ article.taxe ? article.taxe ~ '%' : '' }}</td>
+                                                <td width="100" style="display: none !important;" align="center">{{ article.taxe ? article.taxe ~ '%' : '' }}</td>
                                                 {% set taxes = totalHT * article.taxe / 100 %}
                                                 {% set totalTTC = totalHT + taxes %}
-                                                <td width="150" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
+                                                <td width="150" style="display: none !important;" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
                                             </tr>
                                         {% set subTotal = subTotal + totalHT%}
                                         {% set taxeTotal = taxeTotal + taxes %}
@@ -114,9 +114,9 @@
                         <div class="col-md-12">
                             <div class="pull-right mt-4 text-right">
                                 <p>Total HT (hors RPD): {{ subTotal|localizedcurrency('EUR') }}</p>
-                                <p>Total TVA : {{ taxeTotal|localizedcurrency('EUR') }} </p>
-                                <hr>
-                                <h3><b>Total TTC <small>(hors RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
+                                <p style="display: none !important;">Total TVA : {{ taxeTotal|localizedcurrency('EUR') }} </p>
+                                <hr style="display: none !important;">
+                                <h3 style="display: none !important;"><b>Total TTC <small>(hors RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
                             </div>
                             <div class="clearfix">
                                 <p class="m-t-5"><b>Conditions :</b> {{ order.conditions }}</p>
