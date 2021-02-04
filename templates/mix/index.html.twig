@@ -60,7 +60,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            {{ mix.createAt | date('d M Y H:i') }}
+                                            {{ mix.createAt | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y H:m") }}
                                         </td>
                                         <td>
                                             <form method="POST" action="{{ path('mix_delete', {id: mix.id}) }}" style="display: inline-block;margin-top: 10px;">

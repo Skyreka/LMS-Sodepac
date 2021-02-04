@@ -60,7 +60,7 @@
                                                 <h6>{{ order.creator.identity }}</h6><small class="text-muted">{{ order.creator.email }}</small>
                                             </td>
                                         {% endif %}
-                                        <td>{{ order.createDate | date('d M Y H:i') }}</td>
+                                        <td>{{ order.createDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y H:m") }}</td>
                                         <td>
                                             {% if( order.status == 1 ) %}
                                                 <span class="badge badge-success">Devis</span>
