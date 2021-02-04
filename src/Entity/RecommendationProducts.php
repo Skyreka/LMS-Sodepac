@@ -48,6 +48,11 @@ class RecommendationProducts
      */
     private $recommendation;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $dose_edit;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +126,18 @@ class RecommendationProducts
     public function setRecommendation(?Recommendations $recommendation): self
     {
         $this->recommendation = $recommendation;
+
+        return $this;
+    }
+
+    public function getDoseEdit(): ?float
+    {
+        return $this->dose_edit;
+    }
+
+    public function setDoseEdit(?float $dose_edit): self
+    {
+        $this->dose_edit = $dose_edit;
 
         return $this;
     }
