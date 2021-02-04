@@ -62,7 +62,7 @@
                                                 </a>
                                             </td>
                                         {% endif %}
-                                        <td>{{ order.createDate | date('d M Y H:i') }}</td>
+                                        <td>{{ order.createDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y H:m") }}</td>
                                         <td>
                                             {% if( order.status == 0 ) %}
                                                 <span class="badge badge-danger">⚠️ Temporaire ⚠️</span>

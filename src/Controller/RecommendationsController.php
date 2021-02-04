@@ -340,7 +340,7 @@ class RecommendationsController extends AbstractController
         if ($request->isXmlHttpRequest()) {
             $recommendationProduct = $this->rpr->find( $request->get('id'));
             $cultureTotal = $recommendationProduct->getRecommendation()->getCultureSize();
-            $recommendationProduct->setDose( $request->get('dose'));
+            $recommendationProduct->setDoseEdit( $request->get('dose_edit'));
             //-- Calcul total of quantity with new dose
             $result = $cultureTotal * $recommendationProduct->getDose();
             $recommendationProduct->setQuantity( $result );
@@ -581,7 +581,7 @@ class RecommendationsController extends AbstractController
                 $merger = new Merger();
                 $merger->addFile( '../public/uploads/recommendations/process/'.$token.'/1.pdf' );
 
-                
+
 
                 if ( $recommendations->getCulture()->getSlug() != 'other') {
                     $merger->addFile('../public/uploads/recommendations/process/' . $token . '/2.pdf');

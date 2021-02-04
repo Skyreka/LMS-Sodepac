@@ -4,15 +4,12 @@ namespace App\Form;
 
 use App\Entity\Exploitation;
 use App\Entity\IndexCanevas;
-use App\Entity\IndexCultures;
 use App\Entity\Recommendations;
-use App\Entity\Users;
 use App\Repository\IndexCanevasRepository;
-use App\Repository\IndexCulturesRepository;
-use App\Repository\UsersRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -54,7 +51,10 @@ class RecommendationAddType extends AbstractType
                 'attr' => [
                     'min' => 0
                 ]
-            ]);
+            ])
+            ->add('comment', TextType::class, [
+                'label' => 'Commentaire'
+            ])
         ;
     }
 

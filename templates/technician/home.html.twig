@@ -121,7 +121,7 @@
                                             <h6>{{ recommendation.exploitation.users.identity }}</h6><small class="text-muted">{{ recommendation.exploitation.users.email }}</small>
                                         </td>
                                         <td>
-                                            {{ recommendation.createAt | date('d M Y H:i') }}
+                                            {{ recommendation.createAt | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y H:m") }}
                                         </td>
                                         <td>
                                             {% if( recommendation.status == 1 ) %}
@@ -164,7 +164,7 @@
                                                 <h6>{{ order.customer.identity }}</h6><small class="text-muted">{{ order.customer.email }}</small>
                                             </a>
                                         </td>
-                                        <td>{{ order.createDate | date('d M Y H:i') }}</td>
+                                        <td>{{ order.createDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y H:m") }}</td>
                                         <td>
                                             {% if( order.status == 0 ) %}
                                                 <span class="badge badge-danger">⚠️ Temporaire ⚠️</span>
@@ -209,7 +209,7 @@
                                             </a>
                                         </td>
                                         </td>
-                                        <td>{{ contract.addedDate | date('d M Y H:i') }}</td>
+                                        <td>{{ contract.addedDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y H:m") }}</td>
                                         <td>
                                             {% if( contract.status == 0 ) %}
                                                 <span class="badge badge-warning">En cours️</span>
