@@ -45,7 +45,7 @@
                                             <h5 class="font-500">{{ article.product.name }}</h5>
                                         </td>
                                         <td>{{ article.conditioning }}</td>
-                                        <td>{{ article.quantity }}</td>
+                                        <td>{{ article.quantity | round( 2, 'floor') }}</td>
                                         <td class="quantity">{{ article.totalQuantity }}</td>
                                         <td class="price" width="100">
                                             {{ article.unitPrice }}

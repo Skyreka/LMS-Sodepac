@@ -53,7 +53,8 @@ class RecommendationAddType extends AbstractType
                 ]
             ])
             ->add('comment', TextType::class, [
-                'label' => 'Commentaire'
+                'label' => 'Commentaire',
+                'required' => false
             ])
         ;
     }

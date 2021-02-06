@@ -342,7 +342,11 @@ class RecommendationsController extends AbstractController
             $cultureTotal = $recommendationProduct->getRecommendation()->getCultureSize();
             $recommendationProduct->setDoseEdit( $request->get('dose_edit'));
             //-- Calcul total of quantity with new dose
-            $result = $cultureTotal * $recommendationProduct->getDose();
+            if ( $recommendationProduct->getDoseEdit() != null ) {
+                $result = $cultureTotal * $recommendationProduct->getDoseEdit();
+            } else {
+                $result = $cultureTotal * $recommendationProduct->getDose();
+            }
             $recommendationProduct->setQuantity( $result );
             $this->em->flush();
             return new JsonResponse(["type" => 'success'], 200);
