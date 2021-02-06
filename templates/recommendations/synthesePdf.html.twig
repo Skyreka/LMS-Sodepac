@@ -27,6 +27,7 @@
     <h4 class="card-title text-center">Catalogue pour {{ customer.identity }} </h4>
     <div class="card-body little-profile center text-center">
         <p>{{ recommendations.culture.name }}</p>
+        <p>{{ recommendations.comment }}</p>
         <p>{{ customer.certificationPhyto }}</p>
     </div>
     <h4 class="card-title text-center">Synthèse des produits choisis</h4>
@@ -47,7 +48,13 @@
                     {% for product in products %}
                         <tr>
                             <td>{{ product.product.name }}</td>
-                            <td>{{ product.dose|round(3, 'floor') }} <small>{{ product.unit }}</small></td>
+                            <td>
+                                {% if product.doseEdit is not null %}
+                                    {{ product.doseEdit|round(3, 'floor') }} <small>{{ product.unit }}</small>
+                                {% else %}
+                                    {{ product.dose|round(3, 'floor') }} <small>{{ product.unit }}</small>
+                                {% endif %}
+                            </td>
                             <td>{{ cultureTotal }} <small>ha</small></td>
                             <td>{{ product.quantity|round(3, 'floor') }} <small>{{ product.unit }}</small></td>
                         </tr>

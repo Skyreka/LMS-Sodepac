@@ -86,7 +86,7 @@
                                             <td>{{ recommendation.exploitation.users.technician.identity ? recommendation.exploitation.users.technician.identity : 'Aucun' }}</td>
                                         {% endif %}
                                         <td>
-                                            {{ recommendation.createAt | date('d M Y H:i') }}
+                                            {{ recommendation.createAt | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y H:m") }}
                                         </td>
                                         <td>
                                             <div style="display: flex">
