@@ -534,7 +534,7 @@ class RecommendationsController extends AbstractController
         if ($this->isCsrfTokenValid('download', $csrfToken)) {
             try {
                 //-- Init @Var
-                $token = random_bytes( 20 );
+                $token = md5(uniqid(rand()));
                 $fileSystem = new Filesystem();
                 $fileSystem->mkdir( '../public/uploads/recommendations/process/'.$token );
                 $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
