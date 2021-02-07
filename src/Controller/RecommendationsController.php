@@ -530,10 +530,11 @@ class RecommendationsController extends AbstractController
         set_time_limit(300);
         ini_set('max_execution_time', 300);
         ini_set('memory_limit', '-1');
-        $token = $request->get('_token');
-        if ($this->isCsrfTokenValid('download', $token)) {
+        $csrfToken = $request->get('_token');
+        if ($this->isCsrfTokenValid('download', $csrfToken)) {
             try {
                 //-- Init @Var
+                $token = random_bytes( 20 );
                 $fileSystem = new Filesystem();
                 $fileSystem->mkdir( '../public/uploads/recommendations/process/'.$token );
                 $products = $this->rpr->findBy( ['recommendation' => $recommendations] );
