@@ -275,33 +275,40 @@ class OrderController extends AbstractController
 
             $orderProducts = $opr->findBy(['orders' => $order]);
 
+            $products = [];
             foreach( $recommendation->getRecommendationProducts() as $recommendationProduct ) {
-                if ( $orderProducts != null ) {
-                    foreach ( $orderProducts as $orderProduct ) {
-                        if ( $orderProduct->getProduct() === $recommendationProduct->getProduct() ) {
-                            // Update Quantity
-                            $orderProduct->setQuantity( $orderProduct->getQuantity() + $recommendationProduct->getQuantity() );
-                            $this->em->flush();
+
+                if ( !in_array($recommendationProduct->getProduct(), $products) ) {
+                    if ( $orderProducts != null ) {
+                        foreach ( $orderProducts as $orderProduct ) {
+                            if ( $orderProduct->getProduct() === $recommendationProduct->getProduct() ) {
+                                // Update Quantity
+                                $orderProduct->setQuantity( $orderProduct->getQuantity() + $recommendationProduct->getQuantity() );
+                                $this->em->flush();
+                            }
                         }
+                    } else {
+                        // Add all products if order not create
+                        $orderProduct = new OrdersProduct();
+                        $orderProduct->setOrder( $order);
+                        $orderProduct->setProduct( $recommendationProduct->getProduct() );
+                        $orderProduct->setQuantity( $recommendationProduct->getQuantity() );
+                        $orderProduct->setTotalQuantity(0);
+                        $orderProduct->setUnitPrice(0);
+                        $this->em->merge($orderProduct);
+                        $this->em->flush();
                     }
-                } else {
-                    // Add all products if order not create
-                    $orderProduct = new OrdersProduct();
-                    $orderProduct->setOrder( $order);
-                    $orderProduct->setProduct( $recommendationProduct->getProduct() );
-                    $orderProduct->setQuantity( $recommendationProduct->getQuantity() );
-                    $orderProduct->setTotalQuantity(0);
-                    $orderProduct->setUnitPrice(0);
-                    $this->em->merge($orderProduct);
-                    $this->em->flush();
                 }
+
+                array_push( $products, $recommendationProduct->getProduct() );
             }
 
             // Check if product is not duplicate
             $orderProductsArray = $opr->findByToArray( $order );
+            $products = [];
             foreach( $recommendation->getRecommendationProducts() as $recommendationProduct ) {
                 $ids = array_column($orderProductsArray, 'id', 'id');
-                if (!isset($ids[$recommendationProduct->getProduct()->getId()])) {
+                if (!isset($ids[$recommendationProduct->getProduct()->getId()]) && !in_array($recommendationProduct->getProduct(), $products)) {
                     $orderProduct = new OrdersProduct();
                     $orderProduct->setOrder( $order);
                     $orderProduct->setProduct( $recommendationProduct->getProduct() );
@@ -311,6 +318,8 @@ class OrderController extends AbstractController
                     $this->em->merge($orderProduct);
                     $this->em->flush();
                 }
+
+                array_push( $products, $recommendationProduct->getProduct() );
             }
 
             // Alert
