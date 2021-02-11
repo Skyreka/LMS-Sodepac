@@ -13,6 +13,7 @@ use App\Repository\OrdersProductRepository;
 use App\Repository\CulturesRepository;
 use App\Repository\OrdersRepository;
 use App\Repository\ProductsRepository;
+use App\Repository\RecommendationProductsRepository;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
@@ -216,6 +217,7 @@ class OrderController extends AbstractController
     /**
      * @Route("management/order/product/add/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"recommendation":"\d+"})
      * @param Recommendations|null $recommendation
+     * @param RecommendationProductsRepository $rpr
      * @param OrdersRepository $or
      * @param OrdersProductRepository $opr
      * @param Request $request
@@ -277,7 +279,6 @@ class OrderController extends AbstractController
 
             $products = [];
             foreach( $recommendation->getRecommendationProducts() as $recommendationProduct ) {
-
                 if ( !in_array($recommendationProduct->getProduct(), $products) ) {
                     if ( $orderProducts != null ) {
                         foreach ( $orderProducts as $orderProduct ) {
@@ -308,14 +309,20 @@ class OrderController extends AbstractController
             $products = [];
             foreach( $recommendation->getRecommendationProducts() as $recommendationProduct ) {
                 $ids = array_column($orderProductsArray, 'id', 'id');
-                if (!isset($ids[$recommendationProduct->getProduct()->getId()]) && !in_array($recommendationProduct->getProduct(), $products)) {
-                    $orderProduct = new OrdersProduct();
-                    $orderProduct->setOrder( $order);
-                    $orderProduct->setProduct( $recommendationProduct->getProduct() );
-                    $orderProduct->setQuantity( $recommendationProduct->getQuantity() );
-                    $orderProduct->setTotalQuantity(0);
-                    $orderProduct->setUnitPrice(0);
-                    $this->em->merge($orderProduct);
+                if ( !in_array($recommendationProduct->getProduct(), $products) ) {
+                    if (!isset($ids[$recommendationProduct->getProduct()->getId()])) {
+                        $orderProduct = new OrdersProduct();
+                        $orderProduct->setOrder( $order);
+                        $orderProduct->setProduct( $recommendationProduct->getProduct() );
+                        $orderProduct->setQuantity( $recommendationProduct->getQuantity() );
+                        $orderProduct->setTotalQuantity(0);
+                        $orderProduct->setUnitPrice(0);
+                        $this->em->merge($orderProduct);
+                        $this->em->flush();
+                    }
+                } else {
+                    $orderProduct = $opr->findOneBy( ['orders' => $order, 'product' => $recommendationProduct->getProduct()]);
+                    $orderProduct->setQuantity( $orderProduct->getQuantity() + $recommendationProduct->getQuantity() );
                     $this->em->flush();
                 }
 
@@ -325,6 +332,7 @@ class OrderController extends AbstractController
             // Alert
             $this->addFlash('success', 'Nouveau produits ajouté au panier avec succès');
         }
+
 
         //Return to summary
         return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId()]);
