@@ -72,19 +72,19 @@ class RecommendationsController extends AbstractController
     public function indexStaff( RecommendationsRepository $rr): Response
     {
         //Counters
-        $recommendationsCreate = $rr->countAllByStatus( 1 );
+        $recommendationsValid = $rr->countAllByStatus( 3 );
 
         // Get Last Recommendations
         if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
             $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
             //Counters
-            $recommendationsCreate = $rr->countAllByStatus( 1 );
+            $recommendationsValid = $rr->countAllByStatus( 3 );
         } else {
             $lastRecommendations = $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), date('Y'), 5 );
         }
 
         return $this->render('recommendations/staff/index.html.twig', [
-            'totalCreate' => $recommendationsCreate,
+            'totalValid' => $recommendationsValid,
             'lastRecommendations' => $lastRecommendations
         ]);
     }
