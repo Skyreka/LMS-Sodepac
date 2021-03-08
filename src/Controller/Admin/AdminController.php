@@ -47,9 +47,6 @@ class AdminController extends AbstractController {
         $demo = $ur->countAllByPack('PACK_DEMO');
         $demoPercent = 100 * $demo / $customers;
 
-        $totalLitre = $rpr->findQuantityUsedByUnit('L', 'L/Ha');
-        $totalKilo = $rpr->findQuantityUsedByUnit('Kg', 'Kg/Ha');
-
         return $this->render('admin/index.html.twig', [
             'inactivCount' => $inactiv,
             'inactivPercent' => $inactivPercent,
@@ -58,9 +55,7 @@ class AdminController extends AbstractController {
             'lightCount' => $light,
             'lightPercent' => $lightPercent,
             'demoCount' => $demo,
-            'demoPercent' => $demoPercent,
-            'totalLitre' => $totalLitre[1],
-            'totalKilo' => $totalKilo[1]
+            'demoPercent' => $demoPercent
         ]);
     }
 }
