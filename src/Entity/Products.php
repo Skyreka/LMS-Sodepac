@@ -108,6 +108,11 @@ class Products
      */
     private $warning_mention;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $RPD;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -374,6 +379,18 @@ class Products
     public function setWarningMention(?string $warning_mention): self
     {
         $this->warning_mention = $warning_mention;
+
+        return $this;
+    }
+
+    public function getRPD(): ?float
+    {
+        return $this->RPD;
+    }
+
+    public function setRPD(?float $RPD): self
+    {
+        $this->RPD = $RPD;
 
         return $this;
     }

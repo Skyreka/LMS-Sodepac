@@ -76,8 +76,8 @@
                                         <th>Prix HT</th>
                                         <th>Remise %</th>
                                         <th style="text-align:center">Total HT</th>
-                                        <th style="display: none !important;">Tva %</th>
-                                        <th style="text-align:center; display: none !important;">Total TTC</th>
+                                        <th>RPD</th>
+                                        <th style="text-align:center;">Total TTC</th>
                                         <th style="text-align:center"></th>
                                     </tr>
                                     </thead>
@@ -98,10 +98,10 @@
                                                 <td class="discount" width="150">{{ article.discount ? article.discount ~ '%' : '' }}</td>
                                                 {% set totalHT = (article.unitPrice *  article.totalQuantity) - ((article.unitPrice *  article.totalQuantity) * (article.discount / 100)) %}
                                                 <td width="150" align="center">{{ totalHT|localizedcurrency('EUR') }}</td>
-                                                <td width="100" style="display: none !important;" align="center">{{ article.taxe ? article.taxe ~ '%' : '' }}</td>
+                                                <td width="100" align="center">{{ article.product.rpd ? article.product.rpd : '' }}</td>
                                                 {% set taxes = totalHT * article.taxe / 100 %}
-                                                {% set totalTTC = totalHT + taxes %}
-                                                <td width="150" style="display: none !important;" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
+                                                {% set totalTTC = (article.unitPrice + article.product.rpd) * article.totalQuantity  %}
+                                                <td width="150" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
                                             </tr>
                                         {% set subTotal = subTotal + totalHT%}
                                         {% set taxeTotal = taxeTotal + taxes %}
@@ -116,7 +116,7 @@
                                 <p>Total HT (hors RPD): {{ subTotal|localizedcurrency('EUR') }}</p>
                                 <p style="display: none !important;">Total TVA : {{ taxeTotal|localizedcurrency('EUR') }} </p>
                                 <hr style="display: none !important;">
-                                <h3 style="display: none !important;"><b>Total TTC <small>(hors RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
+                                <h3><b>Total TTC <small>(avec RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
                             </div>
                             <div class="clearfix">
                                 <p class="m-t-5"><b>Conditions :</b> {{ order.conditions }}</p>
