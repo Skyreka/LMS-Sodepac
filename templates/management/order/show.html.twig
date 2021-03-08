@@ -33,7 +33,7 @@
                                     <th>Rem %</th>
                                     <th style="text-align:center">Total HT</th>
                                     <th>RPD</th>
-                                    <th style="text-align:center;">Total TTC</th>
+                                    <th style="text-align:center;">HT/rpd</th>
                                     <th style="text-align:center"></th>
                                 </tr>
                                 </thead>
@@ -113,7 +113,7 @@
                         <hr>
                         <small>Prix HT (hors RPD)</small>
                         <h4 id="totalHT"></h4>
-                        <small>Prix TTC (avec RPD)</small>
+                        <small>Prix HT (avec RPD)</small>
                         <h2 id="totalTTC"></h2>
                         <hr>
                         {% if order.status == 0 %}
@@ -261,7 +261,7 @@
 
                     // Taxe
                     let taxe = ( $(this).closest('tr').children('.taxe').text())
-                    let totalTTC = price + taxe * quantity;
+                    let totalTTC = ( parseFloat(price) + parseFloat(taxe) ) * parseFloat(quantity);
 
                     // Total HT
                     let totalHTText = $(this).closest('tr').children('.total_ht')

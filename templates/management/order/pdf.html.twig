@@ -77,7 +77,7 @@
                                         <th>Remise %</th>
                                         <th style="text-align:center">Total HT</th>
                                         <th>RPD</th>
-                                        <th style="text-align:center;">Total TTC</th>
+                                        <th style="text-align:center;">HT/rpd</th>
                                         <th style="text-align:center"></th>
                                     </tr>
                                     </thead>
@@ -116,7 +116,7 @@
                                 <p>Total HT (hors RPD): {{ subTotal|localizedcurrency('EUR') }}</p>
                                 <p style="display: none !important;">Total TVA : {{ taxeTotal|localizedcurrency('EUR') }} </p>
                                 <hr style="display: none !important;">
-                                <h3><b>Total TTC <small>(avec RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
+                                <h3><b>Total HT <small>(avec RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
                             </div>
                             <div class="clearfix">
                                 <p class="m-t-5"><b>Conditions :</b> {{ order.conditions }}</p>
