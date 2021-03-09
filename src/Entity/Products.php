@@ -113,6 +113,21 @@ class Products
      */
     private $RPD;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $n;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $p;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $k;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -391,6 +406,42 @@ class Products
     public function setRPD(?float $RPD): self
     {
         $this->RPD = $RPD;
+
+        return $this;
+    }
+
+    public function getN(): ?float
+    {
+        return $this->n;
+    }
+
+    public function setN(?float $n): self
+    {
+        $this->n = $n;
+
+        return $this;
+    }
+
+    public function getP(): ?float
+    {
+        return $this->p;
+    }
+
+    public function setP(?float $p): self
+    {
+        $this->p = $p;
+
+        return $this;
+    }
+
+    public function getK(): ?float
+    {
+        return $this->k;
+    }
+
+    public function setK(?float $k): self
+    {
+        $this->k = $k;
 
         return $this;
     }

@@ -12,9 +12,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use TreeHouse\Slugifier\Slugifier;
 
-class ProductsSodepacCommand extends Command
+class ProductsSodepacNPKCommand extends Command
 {
-    protected static $defaultName = 'app:importProductsSodepac';
+    protected static $defaultName = 'app:productSodepadNPK';
     /**
      * @var ContainerInterface
      */
@@ -29,7 +29,7 @@ class ProductsSodepacCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Import Products Sodepac to DB')
+            ->setDescription('Import Product Sodepac With NPK')
         ;
     }
 
@@ -42,33 +42,44 @@ class ProductsSodepacCommand extends Command
         ini_set("memory_limit", "-1");
 
         // On récupere le csv
-        $csv = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'sodepac.csv';
+        $csv = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'product_sodepac_npk.csv';
         $lines = explode("\n", file_get_contents($csv));
 
         // Declaration des tableaux
         $products = [];
         $applications = [];
 
-        $v = 0;
-
         $slugify = new Slugifier();
+
+        $v = 0;
 
         // Boucle par line du csv
         foreach ($lines as $k => $line) {
             $v = $v + 1;
-            $line = explode(',', $line);
+            $line = explode(';', $line);
 
             if ( !empty( $line[0] )) {
                 //Index
-                $name = $line[0].'(S)';
+                $name = $line[0] . '(S)';
+                $n = $line[1];
+                $p = $line[2];
+                $k = $line[3];
+
+                dump( $n );
+                dump( $p );
+                dump( $k );
 
                 // On sauvegarde le product
-                    //-- Add new products
-                    $product = new Products();
-                    $product
-                        ->setName($name)
-                        ->setSlug( $slugify->slugify( $name ));
-                    $em->persist($product);
+                //-- Add new products
+                $product = new Products();
+                $product
+                    ->setName($name)
+                    ->setSlug( $slugify->slugify( $name ) )
+                    ->setN( floatval($n) )
+                    ->setP( floatval($p) )
+                    ->setK( floatval($k) )
+                ;
+                $em->persist($product);
             }
         }
 
