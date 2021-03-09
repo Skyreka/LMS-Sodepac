@@ -378,7 +378,7 @@ class OrderController extends AbstractController
 
             $this->em->flush();
 
-            $total = $orderProduct->getUnitPrice() * $orderProduct->getTotalQuantity();
+            $total = ( $orderProduct->getUnitPrice() * $orderProduct->getProduct()->getRpd() ) + $orderProduct->getTotalQuantity() ;
             return new JsonResponse(["type" => 'success', "total" => $total], 200);
         }
         return new JsonResponse([

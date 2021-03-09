@@ -65,7 +65,10 @@ class  AccountController extends AbstractController {
             $user->setReset( 0 );
             $this->em->flush();
             $this->addFlash('success', 'Mot de passe modifié avec succès');
-                return $this->redirectToRoute('account_index');
+            return $this->redirectToRoute('account_index');
+        } elseif ( $formPassword->isSubmitted() && $formPassword->isValid() == false ) {
+            $this->addFlash('danger', 'Une erreur est survenue. Le mot de passe doit faire au moins 6 caractères et les 2 identiques.');
+            return $this->redirectToRoute('account_index');
         }
 
         return $this->render('account/index.html.twig', [
