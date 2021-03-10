@@ -100,7 +100,8 @@
                                                 <td width="150" align="center">{{ totalHT|localizedcurrency('EUR') }}</td>
                                                 <td width="100" align="center">{{ article.product.rpd ? article.product.rpd : '' }}</td>
                                                 {% set taxes = totalHT * article.taxe / 100 %}
-                                                {% set totalTTC = (article.unitPrice + article.product.rpd) * article.totalQuantity  %}
+                                                {% set totalTTC = ((article.unitPrice + article.product.rpd) * article.totalQuantity ) %}
+                                                {% set totalTTC = totalTTC - totalTTC * (article.discount / 100)   %}
                                                 <td width="150" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
                                             </tr>
                                         {% set subTotal = subTotal + totalHT%}
