@@ -261,7 +261,9 @@
 
                     // Taxe
                     let taxe = ( $(this).closest('tr').children('.taxe').text())
-                    let totalTTC = ( parseFloat(price) + parseFloat(taxe) ) * parseFloat(quantity);
+                    let totalTTCWithoutDiscount = ( parseFloat(price ) + parseFloat(taxe) ) * parseFloat(quantity);
+                    let totalTTCDiscount = totalTTCWithoutDiscount * discount;
+                    let totalTTC = totalTTCWithoutDiscount - totalTTCDiscount;
 
                     // Total HT
                     let totalHTText = $(this).closest('tr').children('.total_ht')
