@@ -42,7 +42,7 @@
                                     <tr>
                                         <td>{{ article.id }}</td>
                                         <td width="550">
-                                            <h5 class="font-500">{{ article.product.name }}</h5>
+                                            <h5 class="font-500">{{ article.product ? article.product.name : article.productName }}</h5>
                                         </td>
                                         <td>{{ article.conditioning }}</td>
                                         <td>{{ article.quantity | round( 2, 'floor') }}</td>
@@ -52,7 +52,7 @@
                                         </td>
                                         <td class="discount" width="150">{{ article.discount }}</td>
                                         <td width="150" align="center" class="total_ht"></td>
-                                        <td width="100" align="center" class="taxe">{{ article.product.Rpd }}</td>
+                                        <td width="100" align="center" class="taxe">{{ article.product ? article.product.Rpd }}</td>
                                         <td width="150" align="center" class="font-500 total_ttc"></td>
                                         <td align="center">
                                             {% include 'management/order/_delete.html.twig' %}
@@ -66,9 +66,11 @@
                                 <a href="javascript:history.go(-1)" class="btn btn-dark btn-outline"><i class="fas fa-arrow-left"></i> Revenir</a>
                                 {% if order.status == 0 %}
                                     <a href="{{ path('order_product_other_add') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit</a>
+                                    <a href="{{ path('order_product_other_field_add') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit libre</a>
                                 {% endif %}
                                 {% if order.status == 1 %}
                                     <a href="{{ path('order_product_other_add', {orderNumber: order.idNumber}) }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit</a>
+                                    <a href="{{ path('order_product_other_field_add', {orderNumber: order.idNumber}) }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Ajouter produit libre</a>
                                 {% endif %}
                             </div>
                         </div>
