@@ -33,6 +33,11 @@ class IndexGrounds
      */
     private $ilots;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $humus_mineralization;
+
     public function __construct()
     {
         $this->ilots = new ArrayCollection();
@@ -94,6 +99,18 @@ class IndexGrounds
                 $ilot->setType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getHumusMineralization(): ?float
+    {
+        return $this->humus_mineralization;
+    }
+
+    public function setHumusMineralization(?float $humus_mineralization): self
+    {
+        $this->humus_mineralization = $humus_mineralization;
 
         return $this;
     }

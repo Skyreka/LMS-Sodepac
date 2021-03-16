@@ -83,6 +83,16 @@ class PPF
      */
     private $date_destruction;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $remainder_soil_sow;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $resource_nitrate_content;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -240,6 +250,30 @@ class PPF
     public function setDateDestruction(?\DateTimeInterface $date_destruction): self
     {
         $this->date_destruction = $date_destruction;
+
+        return $this;
+    }
+
+    public function getRemainderSoilSow(): ?float
+    {
+        return $this->remainder_soil_sow;
+    }
+
+    public function setRemainderSoilSow(?float $remainder_soil_sow): self
+    {
+        $this->remainder_soil_sow = $remainder_soil_sow;
+
+        return $this;
+    }
+
+    public function getResourceNitrateContent(): ?float
+    {
+        return $this->resource_nitrate_content;
+    }
+
+    public function setResourceNitrateContent(?float $resource_nitrate_content): self
+    {
+        $this->resource_nitrate_content = $resource_nitrate_content;
 
         return $this;
     }
