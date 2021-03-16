@@ -45,7 +45,6 @@ class OrdersProduct
 
     /**
      * @ORM\ManyToOne(targetEntity=Products::class)
-     * @ORM\JoinColumn(nullable=true)
      */
     private $product;
 

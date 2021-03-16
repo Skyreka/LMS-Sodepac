@@ -78,6 +78,11 @@ class PPF
      */
     private $date_spreading;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date_destruction;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -223,6 +228,18 @@ class PPF
     public function setDateSpreading(?\DateTimeInterface $date_spreading): self
     {
         $this->date_spreading = $date_spreading;
+
+        return $this;
+    }
+
+    public function getDateDestruction(): ?\DateTimeInterface
+    {
+        return $this->date_destruction;
+    }
+
+    public function setDateDestruction(?\DateTimeInterface $date_destruction): self
+    {
+        $this->date_destruction = $date_destruction;
 
         return $this;
     }
