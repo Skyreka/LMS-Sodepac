@@ -6,6 +6,7 @@ use App\Entity\PPF;
 use App\Form\PPF\PPFStep1;
 use App\Form\PPF\PPFStep2;
 use App\Form\PPF\PPFStep3;
+use App\Form\PPF\PPFStep4;
 use App\Form\PPF\PPFUserSelect;
 use App\Repository\InterventionsRepository;
 use App\Repository\PPFRepository;
@@ -148,6 +149,32 @@ class PPFController extends AbstractController
         }
 
         return $this->render('admin/PPF/step3.html.twig', [
+            'form' => $form->createView(),
+            'ppf' => $ppf
+        ]);
+    }
+
+    /**
+     * @Route("/step/4", name="ppf_step_4", methods={"GET", "POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function step4( Request $request): Response
+    {
+        // Get PPF
+        $ppf = $this->ppfRepository->findOneBy( ['id' => $request->get('ppf')]);
+
+        // Form
+        $form = $this->createForm( PPFStep4::class, $ppf );
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Save to DB
+            $this->em->flush();
+
+            return $this->redirectToRoute('ppf_step_5', ['ppf' => $ppf->getId()]);
+        }
+
+        return $this->render('admin/PPF/step4.html.twig', [
             'form' => $form->createView(),
             'ppf' => $ppf
         ]);

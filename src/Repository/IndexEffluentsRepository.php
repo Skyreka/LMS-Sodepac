@@ -19,6 +19,7 @@ class IndexEffluentsRepository extends ServiceEntityRepository
         parent::__construct($registry, IndexEffluents::class);
     }
 
+
     // /**
     //  * @return IndexEffluents[] Returns an array of IndexEffluents objects
     //  */

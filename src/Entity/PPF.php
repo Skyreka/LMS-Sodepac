@@ -93,6 +93,16 @@ class PPF
      */
     private $resource_nitrate_content;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $coefficient_equivalence;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $qty_azote_add;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -274,6 +284,30 @@ class PPF
     public function setResourceNitrateContent(?float $resource_nitrate_content): self
     {
         $this->resource_nitrate_content = $resource_nitrate_content;
+
+        return $this;
+    }
+
+    public function getCoefficientEquivalence(): ?float
+    {
+        return $this->coefficient_equivalence;
+    }
+
+    public function setCoefficientEquivalence(?float $coefficient_equivalence): self
+    {
+        $this->coefficient_equivalence = $coefficient_equivalence;
+
+        return $this;
+    }
+
+    public function getQtyAzoteAdd(): ?float
+    {
+        return $this->qty_azote_add;
+    }
+
+    public function setQtyAzoteAdd(?float $qty_azote_add): self
+    {
+        $this->qty_azote_add = $qty_azote_add;
 
         return $this;
     }

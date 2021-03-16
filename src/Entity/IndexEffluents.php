@@ -26,6 +26,11 @@ class IndexEffluents
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $nitrogen_content;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class IndexEffluents
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getNitrogenContent(): ?float
+    {
+        return $this->nitrogen_content;
+    }
+
+    public function setNitrogenContent(?float $nitrogen_content): self
+    {
+        $this->nitrogen_content = $nitrogen_content;
 
         return $this;
     }
