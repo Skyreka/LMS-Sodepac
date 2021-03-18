@@ -47,36 +47,53 @@
                                         <td>
                                             <p class="text-center">Quantité apporté</p>
                                         </td>
+                                        <td>
+                                            <p class="text-center font-weight-bold">Total N</p>
+                                        </td>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% set line = 0 %}
+                                    {% set totalN = 0 %}
+                                    {% for input in inputs %}
+                                        {% set line = line + 1 %}
+                                        <tr>
+                                            <td>Apport {{ line }}</td>
+                                            <td>
+                                                <p class="text-center">{{ input.dateAdded | date('d/m/Y') }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">{{ input.product.name }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">N: {{ input.n ? input.n : '0' }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">P: {{ input.p ? input.p : '0' }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">K: {{ input.k ? input.k : '0' }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">{{ input.quantity }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center font-weight-bold">{% set total = (input.n|trim/input.quantity|trim)*100 %} {{ total|round(2) }}</p>
+
+                                                {% set totalN = totalN + total %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
                                     <tr>
-                                        <td>Apport 1</td>
                                         <td>
-                                            <input type="text" />
+                                            <a href="{{ path('ppf_add_input', {ppf: ppf.id}) }}" class="btn btn-info">Ajouter apport</a>
                                         </td>
-                                        <td>
-                                            <input type="text" />
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="N" />
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="P" />
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="K" />
-                                        </td>
-                                        <td>
-                                            <input type="text" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="{{ path('ppf_add_input', {ppf: ppf.id}) }}" class="btn btn-success">Ajouter</a></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <h3 class="text-center">TOTAL N {{ 'NOW'|date('Y') }} : {{ totalN|round(2) }}</h3>
+                        <a href="{{ path('ppf_add_input', {ppf: ppf.id}) }}" class="btn btn-success d-block pull-right">Générer Bilan</a>
                     </div>
                 </div>
             </div>

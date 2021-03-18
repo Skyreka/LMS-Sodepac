@@ -39,15 +39,13 @@ class PPFAddInput extends AbstractType
                 'choice_label' => function(Products $products) {
                     return $products->getName().' ( '.$products->getType().' ) | N:'.$products->getN().' P:'.$products->getP().' K:'.$products->getK() ;
                 },
-                'mapped' => false,
                 'placeholder' => 'Selectionner votre produit',
                 'attr' => [
                     'class' => 'select2'
                 ]
             ])
             ->add('quantity', NumberType::class, [
-                'label' => 'Quantité',
-                'mapped' => false
+                'label' => 'Quantité'
             ])
         ;
 
@@ -83,18 +81,15 @@ class PPFAddInput extends AbstractType
             $form
                 ->add('n', NumberType::class, [
                     'label' => 'N:',
-                    'required'=> false,
-                    'mapped' => false
+                    'required'=> false
                 ])
                 ->add('p', NumberType::class, [
                     'label' => 'P:',
-                    'required'=> false,
-                    'mapped' => false
+                    'required'=> false
                 ])
                 ->add('k', NumberType::class, [
                     'label' => 'K:',
-                    'required'=> false,
-                    'mapped' => false
+                    'required'=> false
                 ])
             ;
         } else {
@@ -102,7 +97,6 @@ class PPFAddInput extends AbstractType
                 ->add('n', NumberType::class, [
                     'label' => 'N:',
                     'required'=> false,
-                    'mapped' => false,
                     'attr' => [
                         'value' => $products->getN()
                     ]
@@ -110,7 +104,6 @@ class PPFAddInput extends AbstractType
                 ->add('p', NumberType::class, [
                     'label' => 'P:',
                     'required'=> false,
-                    'mapped' => false,
                     'attr' => [
                         'value' => $products->getP()
                     ]
@@ -118,7 +111,6 @@ class PPFAddInput extends AbstractType
                 ->add('k', NumberType::class, [
                     'label' => 'K:',
                     'required'=> false,
-                    'mapped' => false,
                     'attr' => [
                         'value' => $products->getK()
                     ]

@@ -11,6 +11,7 @@ use App\Form\PPF\PPFStep3;
 use App\Form\PPF\PPFStep4;
 use App\Form\PPF\PPFUserSelect;
 use App\Repository\InterventionsRepository;
+use App\Repository\PPFInputRepository;
 use App\Repository\PPFRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -185,12 +186,16 @@ class PPFController extends AbstractController
     /**
      * @Route("/step/5", name="ppf_step_5", methods={"GET", "POST"})
      * @param Request $request
+     * @param PPFInputRepository $pir
      * @return Response
      */
-    public function step5( Request $request): Response
+    public function step5( Request $request, PPFInputRepository $pir ): Response
     {
         // Get PPF
         $ppf = $this->ppfRepository->findOneBy( ['id' => $request->get('ppf')]);
+
+        // Get inputs of PPF
+        $inputs = $pir->findBy( ['ppf' => $ppf ]);
 
         // Form
         $form = $this->createForm( PPFStep4::class, $ppf );
@@ -204,7 +209,8 @@ class PPFController extends AbstractController
 
         return $this->render('admin/PPF/step5.html.twig', [
             'form' => $form->createView(),
-            'ppf' => $ppf
+            'ppf' => $ppf,
+            'inputs' => $inputs
         ]);
     }
 
@@ -213,7 +219,7 @@ class PPFController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function addInput( Request $request): Response
+    public function addInput( Request $request ): Response
     {
         // Get PPF
         $ppf = $this->ppfRepository->findOneBy( ['id' => $request->get('ppf')]);
