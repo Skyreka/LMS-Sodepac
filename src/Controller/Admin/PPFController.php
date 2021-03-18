@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\PPF;
+use App\Entity\PPFInput;
+use App\Form\PPF\PPFAddInput;
 use App\Form\PPF\PPFStep1;
 use App\Form\PPF\PPFStep2;
 use App\Form\PPF\PPFStep3;
@@ -175,6 +177,62 @@ class PPFController extends AbstractController
         }
 
         return $this->render('admin/PPF/step4.html.twig', [
+            'form' => $form->createView(),
+            'ppf' => $ppf
+        ]);
+    }
+
+    /**
+     * @Route("/step/5", name="ppf_step_5", methods={"GET", "POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function step5( Request $request): Response
+    {
+        // Get PPF
+        $ppf = $this->ppfRepository->findOneBy( ['id' => $request->get('ppf')]);
+
+        // Form
+        $form = $this->createForm( PPFStep4::class, $ppf );
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Save to DB
+            $this->em->flush();
+
+            return $this->redirectToRoute('ppf_step_5', ['ppf' => $ppf->getId()]);
+        }
+
+        return $this->render('admin/PPF/step5.html.twig', [
+            'form' => $form->createView(),
+            'ppf' => $ppf
+        ]);
+    }
+
+    /**
+     * @Route("/step/add-input", name="ppf_add_input", methods={"GET", "POST"})
+     * @param Request $request
+     * @return Response
+     */
+    public function addInput( Request $request): Response
+    {
+        // Get PPF
+        $ppf = $this->ppfRepository->findOneBy( ['id' => $request->get('ppf')]);
+
+        // Form
+        $ppfInput = new PPFInput();
+        $form = $this->createForm( PPFAddInput::class, $ppfInput );
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ppfInput->setPpf( $ppf );
+
+            // Save to DB
+            $this->em->persist( $ppfInput );
+            $this->em->flush();
+
+            return $this->redirectToRoute('ppf_step_5', ['ppf' => $ppf->getId()]);
+        }
+
+        return $this->render('admin/PPF/add_input.html.twig', [
             'form' => $form->createView(),
             'ppf' => $ppf
         ]);

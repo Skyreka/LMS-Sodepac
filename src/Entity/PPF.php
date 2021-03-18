@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PPFRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -102,6 +104,16 @@ class PPF
      * @ORM\Column(type="float", nullable=true)
      */
     private $qty_azote_add;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PPFInput::class, mappedBy="ppf", orphanRemoval=true)
+     */
+    private $inputs;
+
+    public function __construct()
+    {
+        $this->inputs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -308,6 +320,36 @@ class PPF
     public function setQtyAzoteAdd(?float $qty_azote_add): self
     {
         $this->qty_azote_add = $qty_azote_add;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PPFInput[]
+     */
+    public function getInputs(): Collection
+    {
+        return $this->inputs;
+    }
+
+    public function addInput(PPFInput $input): self
+    {
+        if (!$this->inputs->contains($input)) {
+            $this->inputs[] = $input;
+            $input->setPpf($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInput(PPFInput $input): self
+    {
+        if ($this->inputs->removeElement($input)) {
+            // set the owning side to null (unless already changed)
+            if ($input->getPpf() === $this) {
+                $input->setPpf(null);
+            }
+        }
 
         return $this;
     }

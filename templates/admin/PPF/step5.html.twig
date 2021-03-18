@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau PPF{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <link href="http://fk.github.io/select2-bootstrap-css/css/select2-bootstrap.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Création d'un PPF</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">PPF</a></li>
+                    <li class="breadcrumb-item active">Etape 5 - Plan prévisionnel de fumure</li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered no-wrap">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <td>
+                                            <p class="text-center">Date</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center">Type d'engrais</p>
+                                        </td>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <td>
+                                            <p class="text-center">Quantité apporté</p>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Apport 1</td>
+                                        <td>
+                                            <input type="text" />
+                                        </td>
+                                        <td>
+                                            <input type="text" />
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="N" />
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="P" />
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="K" />
+                                        </td>
+                                        <td>
+                                            <input type="text" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="{{ path('ppf_add_input', {ppf: ppf.id}) }}" class="btn btn-success">Ajouter</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
