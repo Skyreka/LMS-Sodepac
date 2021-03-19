@@ -25,7 +25,7 @@ class PPFUserSelect extends AbstractType
     {
         $builder
             ->add('exploitation', Select2EntityType::class, [
-                'remote_route' => 'recommendations_select_data',
+                'remote_route' => 'ppf_select_data',
                 'class' => Exploitation::class,
                 'primary_key' => 'id',
                 'minimum_input_length' => 2,
@@ -36,7 +36,7 @@ class PPFUserSelect extends AbstractType
                 'cache_timeout' => 60000, // if 'cache' is true
                 'language' => 'fr',
                 'placeholder' => 'Choisir un utilisateur',
-                'help' => 'Utilisateur ayant une exploitation active uniquement visible.'
+                'help' => 'Utilisateur ayant un PACK FULL uniquement.'
             ])
         ;
     }

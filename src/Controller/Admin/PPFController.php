@@ -13,8 +13,10 @@ use App\Form\PPF\PPFUserSelect;
 use App\Repository\InterventionsRepository;
 use App\Repository\PPFInputRepository;
 use App\Repository\PPFRepository;
+use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -282,5 +284,44 @@ class PPFController extends AbstractController
         return $this->render('admin/PPF/index.html.twig', [
             'ppfs' => $this->ppfRepository->findAll()
         ]);
+    }
+
+    /**
+     * @Route("/new_data_ajax", name="ppf_select_data")
+     * @param Request $request
+     * @param UsersRepository $ur
+     * @param Users $users
+     * @return JsonResponse
+     */
+    public function selectData(Request $request, UsersRepository $ur): JsonResponse
+    {
+        //Get information from ajax call
+        $term = $request->query->get('q');
+        $limit = $request->query->get('page_limit');
+
+        //Query of like call
+        $users = $ur->createQueryBuilder('u')
+            ->where('u.lastname LIKE :lastname')
+            ->orWhere('u.firstname LIKE :firstname')
+            ->setParameter('lastname', '%' . $term . '%')
+            ->setParameter('firstname', '%' . $term . '%')
+            ->andWhere('u.pack = :pack')
+            ->setParameter('pack', 'PACK_FULL')
+            ->setMaxResults( $limit )
+            ->getQuery()
+            ->getResult()
+        ;
+
+        // Return Array of key = id && text = value
+        $array = [];
+        foreach ($users as $user) {
+            $array[] = array(
+                'id' => $user->getExploitation()->getId(),
+                'text' => $user->getIdentity()
+            );
+        }
+
+        // Return JsonResponse of code 200
+        return new JsonResponse( $array, 200);
     }
 }
