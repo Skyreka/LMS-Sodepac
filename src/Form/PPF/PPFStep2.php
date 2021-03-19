@@ -47,7 +47,8 @@ class PPFStep2 extends AbstractType
                 'label' => 'Date de destruction'
             ])
             ->add('type_destruction', TextType::class, [
-                'label' => 'Type de destruction'
+                'label' => 'Type de destruction',
+                'required' => false
             ])
         ;
     }
