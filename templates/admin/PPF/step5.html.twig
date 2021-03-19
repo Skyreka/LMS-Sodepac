@@ -50,11 +50,19 @@
                                         <td>
                                             <p class="text-center font-weight-bold">Total N</p>
                                         </td>
+                                        <td>
+                                            <p class="text-center font-weight-bold">Total P</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center font-weight-bold">Total K</p>
+                                        </td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% set line = 0 %}
                                     {% set totalN = 0 %}
+                                    {% set totalP = 0 %}
+                                    {% set totalK = 0 %}
                                     {% for input in inputs %}
                                         {% set line = line + 1 %}
                                         <tr>
@@ -78,9 +86,16 @@
                                                 <p class="text-center">{{ input.quantity }}</p>
                                             </td>
                                             <td>
-                                                <p class="text-center font-weight-bold">{% set total = (input.n|trim/input.quantity|trim)*100 %} {{ total|round(2) }}</p>
-
-                                                {% set totalN = totalN + total %}
+                                                <p class="text-center font-weight-bold">{% set totalLineN = input.quantity*( input.n / 100) %} {{ totalLineN|round(2) }} U</p>
+                                                {% set totalN = totalN + totalLineN %}
+                                            </td>
+                                            <td>
+                                                <p class="text-center font-weight-bold">{% set totalLineP = input.quantity*( input.p / 100) %} {{ totalLineP|round(2) }} U</p>
+                                                {% set totalP = totalP + totalLineP %}
+                                            </td>
+                                            <td>
+                                                <p class="text-center font-weight-bold">{% set totalLineK = input.quantity*( input.k / 100) %} {{ totalLineK|round(2) }} U</p>
+                                                {% set totalK = totalK + totalLineK %}
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -92,8 +107,10 @@
                                 </tbody>
                             </table>
                         </div>
-                        <h3 class="text-center">TOTAL N {{ 'NOW'|date('Y') }} : {{ totalN|round(2) }}</h3>
-                        <a href="{{ path('ppf_add_input', {ppf: ppf.id}) }}" class="btn btn-success d-block pull-right">Générer Bilan</a>
+                        <h3 class="text-center">TOTAL N {{ 'NOW'|date('Y') }} : {{ totalN|round(2) }} U</h3>
+                        <h3 class="text-center">TOTAL P {{ 'NOW'|date('Y') }} : {{ totalP|round(2) }} U</h3>
+                        <h3 class="text-center">TOTAL K {{ 'NOW'|date('Y') }} : {{ totalK|round(2) }} U</h3>
+                        <a href="{{ path('ppf_summary', {ppf: ppf.id}) }}" class="btn btn-success d-block pull-right">Générer Bilan</a>
                     </div>
                 </div>
             </div>

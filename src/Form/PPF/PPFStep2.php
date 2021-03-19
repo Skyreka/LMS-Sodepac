@@ -29,15 +29,15 @@ class PPFStep2 extends AbstractType
             ->add('intermediate_culture', ChoiceType::class, [
                 'label' => 'Culture intermédiaire',
                 'choices' => [
-                    'Oui' => 1,
-                    'Non' => 2
+                    'Non' => 0,
+                    'Oui' => 1
                 ]
             ])
             ->add('push_back', ChoiceType::class, [
                 'label' => 'Gestion des repousses',
                 'choices' => [
-                    'Oui' => 1,
-                    'Non' => 2
+                    'Non' => 0,
+                    'Oui' => 1
                 ]
             ])
             ->add('date_sow', DateType::class, [

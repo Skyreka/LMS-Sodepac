@@ -30,7 +30,6 @@
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
-                            <label>Résidu: <h5>{{ ppf.culture.residue ? 'Oui' : 'Non' }}</h5></label>
                             {{ form_rest(form) }}
                             <label>Objectif de rendement: <h5>{{ intervention ? intervention.objective ~ ' Quintaux' : 'Aucun objectif de rendement trouvé sur cette culture' }}</h5></label> <br>
                             <button class="btn btn-primary">Continuer</button>
