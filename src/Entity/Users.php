@@ -19,7 +19,8 @@ class Users implements UserInterface, \Serializable
         'ROLE_USER' => 'Client',
         'ROLE_TECHNICIAN' => 'Technicien',
         'ROLE_ADMIN' => 'Administrateur',
-        'ROLE_SALES' => 'Cours de vente'
+        'ROLE_SALES' => 'Cours de vente',
+        'ROLE_PRICING' => 'Tarification'
     ];
 
     const PACK = [
