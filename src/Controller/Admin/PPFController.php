@@ -84,6 +84,8 @@ class PPFController extends AbstractController
 
             // Save to DB
             $ppf = new PPF();
+            $ppf->setAddedDate( new \DateTime() );
+            $ppf->setStatus( 1 );
             $ppf->setCulture( $data['culture'] );
             $ppf->setEffiencyPrev( $data['effiency_prev'] );
             $ppf->setQtyAzoteAddPrev( $data['qty_azote_add_prev'] );
@@ -201,6 +203,8 @@ class PPFController extends AbstractController
         $form = $this->createForm( PPFStep4::class, $ppf );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $ppf->setStatus( 2 );
+
             // Save to DB
             $this->em->flush();
 
@@ -241,6 +245,42 @@ class PPFController extends AbstractController
         return $this->render('admin/PPF/add_input.html.twig', [
             'form' => $form->createView(),
             'ppf' => $ppf
+        ]);
+    }
+
+    /**
+     * @Route("/summary", name="ppf_summary", methods={"GET", "POST"})
+     * @param Request $request
+     * @param InterventionsRepository $ir
+     * @param PPFInputRepository $pir
+     * @return Response
+     */
+    public function summary( Request $request, InterventionsRepository $ir, PPFInputRepository $pir): Response
+    {
+        // Get PPF
+        $ppf = $this->ppfRepository->findOneBy( ['id' => $request->get('ppf')]);
+
+        // Get objective of culture in intervention
+        $intervention = $ir->findOneBy( ['culture' => $ppf->getCulture(), 'type' => 'Semis'] );
+
+        // Get inputs of PPF
+        $inputs = $pir->findBy( ['ppf' => $ppf ]);
+
+        return $this->render('admin/PPF/summary.html.twig', [
+            'ppf' => $ppf,
+            'intervention' => $intervention,
+            'inputs' => $inputs
+        ]);
+    }
+
+    /**
+     * @Route("/", name="ppf_index", methods={"GET"})
+     * @return Response
+     */
+    public function index(): Response
+    {
+        return $this->render('admin/PPF/index.html.twig', [
+            'ppfs' => $this->ppfRepository->findAll()
         ]);
     }
 }

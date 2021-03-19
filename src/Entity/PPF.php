@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PPF
 {
+    const STATUS = [
+        1 => 'En cours',
+        2 => 'Terminé'
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -109,6 +114,16 @@ class PPF
      * @ORM\OneToMany(targetEntity=PPFInput::class, mappedBy="ppf", orphanRemoval=true)
      */
     private $inputs;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $added_date;
 
     public function __construct()
     {
@@ -350,6 +365,30 @@ class PPF
                 $input->setPpf(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getAddedDate(): ?\DateTimeInterface
+    {
+        return $this->added_date;
+    }
+
+    public function setAddedDate(?\DateTimeInterface $added_date): self
+    {
+        $this->added_date = $added_date;
 
         return $this;
     }
