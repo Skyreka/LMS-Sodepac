@@ -562,6 +562,7 @@ class OrderController extends AbstractController
             $orderProduct->setTotalQuantity( 0 );
             $orderProduct->setUnitPrice( 0 );
             $orderProduct->setQuantity( 0 );
+            $orderProduct->setUnitPrice( $form->get('product')->getData()->getPrice() ? $form->get('product')->getData()->getPrice() : 0 );
 
             $this->em->merge( $orderProduct );
 
