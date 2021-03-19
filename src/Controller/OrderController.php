@@ -440,8 +440,12 @@ class OrderController extends AbstractController
     {
         //Security
         if ( $order->getStatus() == 1 ) {
+
+            $newDate = new \DateTime( $request->request->get('date-order') );
+            
             // Update status
             $order->setStatus( 2 );
+            $order->setCreateDate( $newDate );
             $this->em->flush();
 
             // Msg
