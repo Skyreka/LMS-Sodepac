@@ -7,6 +7,7 @@ use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Form\OrderAdditionalType;
+use App\Form\OrdersAddProductFieldType;
 use App\Form\OrdersAddProductType;
 use App\Form\OrdersType;
 use App\Repository\OrdersProductRepository;
@@ -378,7 +379,11 @@ class OrderController extends AbstractController
 
             $this->em->flush();
 
-            $total = ( $orderProduct->getUnitPrice() * $orderProduct->getProduct()->getRpd() ) + $orderProduct->getTotalQuantity() ;
+            if ( $orderProduct->getProduct() != null ) {
+                $total = ( $orderProduct->getUnitPrice() * $orderProduct->getProduct()->getRpd() ) + $orderProduct->getTotalQuantity() ;
+            } else {
+                $total = $orderProduct->getUnitPrice() + $orderProduct->getTotalQuantity() ;
+            }
             return new JsonResponse(["type" => 'success', "total" => $total], 200);
         }
         return new JsonResponse([
@@ -435,8 +440,12 @@ class OrderController extends AbstractController
     {
         //Security
         if ( $order->getStatus() == 1 ) {
+
+            $newDate = new \DateTime( $request->request->get('date-order') );
+            
             // Update status
             $order->setStatus( 2 );
+            $order->setCreateDate( $newDate );
             $this->em->flush();
 
             // Msg
@@ -557,6 +566,7 @@ class OrderController extends AbstractController
             $orderProduct->setTotalQuantity( 0 );
             $orderProduct->setUnitPrice( 0 );
             $orderProduct->setQuantity( 0 );
+            $orderProduct->setUnitPrice( $form->get('product')->getData()->getPrice() ? $form->get('product')->getData()->getPrice() : 0 );
 
             $this->em->merge( $orderProduct );
 
@@ -568,6 +578,45 @@ class OrderController extends AbstractController
         }
 
         return $this->render('management/order/add_product.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("management/order/add-product-other-field", name="order_product_other_field_add", methods={"GET", "POST"})
+     * @param Request $request
+     * @param OrdersRepository $or
+     * @return Response
+     */
+    public function addOtherFieldProduct( Request $request, OrdersRepository $or ): Response
+    {
+        $form = $this->createForm( OrdersAddProductFieldType::class);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ( $request->query->get('orderNumber') ) {
+                $order = $or->findOneBy( ['id_number' => $request->query->get('orderNumber') ]);
+            } else {
+                $order = $this->container->get('session')->get('currentOrder');
+            }
+            // Add  product
+            $orderProduct = new OrdersProduct();
+            $orderProduct->setOrder( $order );
+            $orderProduct->setProductName( $form->get('product')->getData() );
+            $orderProduct->setTotalQuantity( 0 );
+            $orderProduct->setUnitPrice( 0 );
+            $orderProduct->setQuantity( 0 );
+
+            $this->em->merge( $orderProduct );
+
+            $this->em->flush();
+
+            // Alert
+            $this->addFlash('info', 'Le produit '. $form->get('product')->getData() .' a été ajouté a la commande.');
+            return $this->redirectToRoute('order_show' , ['id_number' => $order->getIdNumber()]);
+        }
+
+        return $this->render('management/order/add_product_field.html.twig', [
             'form' => $form->createView()
         ]);
     }

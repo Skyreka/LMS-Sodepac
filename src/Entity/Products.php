@@ -128,6 +128,11 @@ class Products
      */
     private $k;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $price;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -442,6 +447,18 @@ class Products
     public function setK(?float $k): self
     {
         $this->k = $k;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?float $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

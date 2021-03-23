@@ -1,0 +1,194 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bilan PPF{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        @page {
+            max-width: 100% !important;
+        }
+        .disable-screen {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: white;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+        }
+    </style>
+{% endblock %}
+
+{% set totalIft = 0 %}
+
+{% block body %}
+    <div class="disable-screen"></div>
+    <div class="row">
+        <div class="col-12" id="printableArea">
+            <div class="text-center">
+                <h1 class="mt-5">BILAN PPF</h1>
+                <p class="m-0 p-0">{{ 'NOW' | date('d M Y à H:i:s') }}</p>
+                <p class="m-0 p-0">{{ ppf.culture.ilot.exploitation.users.identity }} - {{ ppf.culture.ilot.name }} - {{ ppf.culture.name.name }}</p>
+                <p class="m-0 p-0">{{ ppf.culture.ilot.exploitation.users.company }} - {{ ppf.culture.ilot.exploitation.users.postalCode }} - {{ ppf.culture.ilot.exploitation.users.city }}</p>
+                <h1></h1>
+                <h2 class="m-0 p-0"></h2>
+                <p class="mb-5"><small>Ce document est généré depuis l'application LMS Sodepac www.sodepac.fr</small></p>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="card">
+                        <div class="p-3">
+                            <p>Taille: <span class="text-success">{{ ppf.culture.size ~ 'Ha' }}</span></p>
+                            <p>Précédent: <span class="text-success">{{ ppf.culture.precedent ? ppf.culture.precedent.name : '' }}</span></p>
+                            <p>Type de sol: <span class="text-success">{{ ppf.culture.ilot.type ? ppf.culture.ilot.type.name : '' }}</span></p>
+                            <p>Rendement précédent: <span class="text-success">{{ intervention.objective ? intervention.objective : '' }}</span> quintaux</p>
+                            <p>Quantité d'azote apportée sur le précédent: <span class="text-success">{{ ppf.qtyAzoteAddPrev ? ppf.qtyAzoteAddPrev : '' }}</span> unités</p>
+                            <p>Période d'implantation envisagée: <span class="text-success">{{ ppf.dateImplantationPlanned | date('d/m/Y') }}</span></p>
+                            <h3>Objectif de rendement: <span class="text-success font-weight-bold">{{ ppf.effiencyPrev ? ppf.effiencyPrev : '' }}</span> Quintaux / Hectare</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="p-3">
+                            <h3 class="text-dark">Gestion de l'interculture</h3>
+                            <p>Résidu: <span class="text-success">{{ ppf.culture.residue ? 'Oui' : 'Non' }}</span></p>
+                            <p>Culture intermédiaire: <span class="text-success">{{ ppf.intermediateCulture ? 'Oui' : 'Non' }}</span></p>
+                            <p>Gestion des repousses: <span class="text-success">{{ ppf.pushBack ? 'Oui' : 'Non' }}</span> quintaux</p>
+                            <p>Date de semis: <span class="text-success">{{ ppf.dateSow | date('d/m/Y') }}</span></p>
+                            <p>Date de destruction: <span class="text-success">{{ ppf.dateDestruction | date('d/m/Y') }}</span></p>
+                            <p>Type de destruction: <span class="text-success">{{ ppf.typeDestruction ? ppf.typeDestruction : '' }}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="p-3">
+                            <h3 class="text-dark">Fournitures du sol et de l'eau d'irrigation</h3>
+                            <p>Reliquats présents dans le sol au semis: XX unités / hectare</p>
+                            <p>Minéralisation de l'humus: <span class="text-success">{{ ppf.culture.ilot.type ? ppf.culture.ilot.type.humusMineralization : '' }}</span> unités / hectare</p>
+                            <p>Quantité d'eau d'irrigation prévue: <span class="text-success">{{ ppf.qtyWaterPrev ? ppf.qtyWaterPrev : '' }}</span> mm</p>
+                            <p>Teneur en nitrate de la ressource: <span class="text-success">{{ ppf.resourceNitrateContent ? ppf.resourceNitrateContent : '' }}</span> mg / L</p>
+                            <p>Azote fourni par l'irrigation: <span class="text-success">{{ (ppf.qtyWaterPrev * ppf.resourceNitrateContent / 443)|round(2) }}</span> unités / hectare</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="p-3">
+                            <h3 class="text-dark">Effluents</h3>
+                            <p><span class="text-success">{{ ppf.culture.effluent ? ppf.culture.effluent.name : '' }}</span></p>
+                            <p>Teneur en Azote: <span class="text-success">{{ ppf.culture.effluent.nitrogenContent ? ppf.culture.effluent.nitrogenContent : '' }}</span> unités/tonne</p>
+                            <p>Quantité épandue: <span class="text-success">{{ ppf.qtyEpendu ? ppf.qtyEpendu : '' }}</span> tonnes / hectare</p>
+                            <p>Azote équivalent engrais minéral: <span class="text-success">{{ ppf.culture.effluent.nitrogenContent * ppf.qtyEpendu * ppf.coefficientEquivalence }}</span> unités / hectare</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 pb-4">
+                    <h3 class="text-center">Quantité d'azote minéral à apporter <span class="text-success font-weight-bold">{{ ppf.qtyAzoteAdd }}</span> quintaux / hectare</h3>
+                    <h3 class="text-center">Dose d'azote minéral à apporter <span class="text-success font-weight-bold">{{ ppf.qtyAzoteAdd - ( ppf.culture.effluent.nitrogenContent * ppf.qtyEpendu * ppf.coefficientEquivalence ) }}</span> quintaux / hectare</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="text-center">Plan prévisionnel de fumure {{ 'now'|date('Y') }}</h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered no-wrap">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <td>
+                                            <p class="text-center">Date</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center">Type d'engrais</p>
+                                        </td>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <td>
+                                            <p class="text-center">Quantité apporté</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center font-weight-bold">Total N</p>
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% set line = 0 %}
+                                    {% set totalN = 0 %}
+                                    {% set totalP = 0 %}
+                                    {% set totalK = 0 %}
+                                    {% for input in inputs %}
+                                        {% set line = line + 1 %}
+                                        <tr>
+                                            <td>Apport {{ line }}</td>
+                                            <td>
+                                                <p class="text-center">{{ input.dateAdded | date('d/m/Y') }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">{{ input.product.name }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">N: {{ input.n ? input.n : '0' }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">P: {{ input.p ? input.p : '0' }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">K: {{ input.k ? input.k : '0' }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">{{ input.quantity }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center font-weight-bold">{% set totalLineN = input.quantity*( input.n / 100) %} {{ totalLineN|round(2) }} U</p>
+                                                {% set totalN = totalN + totalLineN %}
+                                            </td>
+                                            <td>
+                                                <p class="text-center font-weight-bold">{% set totalLineP = input.quantity*( input.p / 100) %} {{ totalLineP|round(2) }} U</p>
+                                                {% set totalP = totalP + totalLineP %}
+                                            </td>
+                                            <td>
+                                                <p class="text-center font-weight-bold">{% set totalLineK = input.quantity*( input.k / 100) %} {{ totalLineK|round(2) }} U</p>
+                                                {% set totalK = totalK + totalLineK %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h3 class="text-center">TOTAL N {{ 'NOW'|date('Y') }} : <span class="text-success font-weight-bold">{{ totalN|round(2) }}</span> U</h3>
+                            <h3 class="text-center">TOTAL P {{ 'NOW'|date('Y') }} : <span class="text-success font-weight-bold">{{ totalP|round(2) }}</span> U</h3>
+                            <h3 class="text-center">TOTAL K {{ 'NOW'|date('Y') }} : <span class="text-success font-weight-bold">{{ totalK|round(2) }}</span> U</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center"><small>Ce document est généré depuis l'application LMS Sodepac www.sodepac.fr</small></p>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="https://www.wrappixel.com/demos/admin-templates/materialpro-bootstrap-latest/material-pro/dist/js/pages/samplepages/jquery.PrintArea.js"></script>
+    <script>
+        $(function() {
+            var mode = 'iframe'; //popup
+            var close = mode == "popup";
+            var options = {
+                mode: mode,
+                popClose: close,
+                extraHead : '<meta charset="utf-8"/>,<meta http-equiv="X-UA-Compatible" content="IE=edge"/>,<style rel="stylesheet" type="text/css" media="print">@page { size: landscape; }</style>'
+            };
+            $("#printableArea").printArea(options);
+        });
+    </script>
+{% endblock %}

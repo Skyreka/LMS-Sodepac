@@ -85,9 +85,15 @@ class Cultures
      */
     private $permanent;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PPF::class, mappedBy="culture")
+     */
+    private $ppfs;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
+        $this->ppfs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -278,6 +284,36 @@ class Cultures
     public function setPermanent(?bool $permanent): self
     {
         $this->permanent = $permanent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PPF[]
+     */
+    public function getPpfs(): Collection
+    {
+        return $this->ppfs;
+    }
+
+    public function addPpf(PPF $ppf): self
+    {
+        if (!$this->ppfs->contains($ppf)) {
+            $this->ppfs[] = $ppf;
+            $ppf->setCulture($this);
+        }
+
+        return $this;
+    }
+
+    public function removePpf(PPF $ppf): self
+    {
+        if ($this->ppfs->removeElement($ppf)) {
+            // set the owning side to null (unless already changed)
+            if ($ppf->getCulture() === $this) {
+                $ppf->setCulture(null);
+            }
+        }
 
         return $this;
     }

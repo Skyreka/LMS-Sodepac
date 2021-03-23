@@ -58,6 +58,11 @@ class OrdersProduct
      */
     private $quantity;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $product_name;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +160,18 @@ class OrdersProduct
     public function setQuantity(?float $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getProductName(): ?string
+    {
+        return $this->product_name;
+    }
+
+    public function setProductName(?string $product_name): self
+    {
+        $this->product_name = $product_name;
 
         return $this;
     }

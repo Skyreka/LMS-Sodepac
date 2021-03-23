@@ -70,10 +70,7 @@
                                         </td>
                                         <td>
                                             <div style="display: flex">
-                                                <a title="Voir" class="btn btn-success" href="{{ path('order_show', {id_number: order.idNumber}) }}"><i class="fa fa-eye text-white"></i></a>
-                                                {%  if( order.status == 2 ) %}
-                                                    <a title="PDF" class="btn btn-info ml-2" href="{{ path('order_pdf_view', {id_number: order.idNumber}) }}"><i class="fa fa-file-pdf text-white"></i></a>
-                                                {% endif %}
+                                                <a title="PDF" class="btn btn-info ml-2" href="{{ path('order_pdf_view', {id_number: order.idNumber}) }}"><i class="fa fa-file-pdf text-white"></i></a>
                                             </div>
                                         </td>
                                     </tr>

@@ -64,6 +64,9 @@ class SecurityController extends AbstractController {
             case 'ROLE_SALES':
                 return $this->redirectToRoute('sales_manager_index');
                 break;
+            case 'ROLE_PRICING':
+                return $this->redirectToRoute('pricing_index');
+                break;
         }
     }
 
