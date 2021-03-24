@@ -41,10 +41,10 @@
                             <p>Taille: <span class="text-success">{{ ppf.culture.size ~ 'Ha' }}</span></p>
                             <p>Précédent: <span class="text-success">{{ ppf.culture.precedent ? ppf.culture.precedent.name : '' }}</span></p>
                             <p>Type de sol: <span class="text-success">{{ ppf.culture.ilot.type ? ppf.culture.ilot.type.name : '' }}</span></p>
-                            <p>Rendement précédent: <span class="text-success">{{ intervention.objective ? intervention.objective : '' }}</span> quintaux</p>
+                            <p>Rendement précédent: <span class="text-success">{{ ppf.effiencyPrev ? ppf.effiencyPrev : '' }}</span> quintaux</p>
                             <p>Quantité d'azote apportée sur le précédent: <span class="text-success">{{ ppf.qtyAzoteAddPrev ? ppf.qtyAzoteAddPrev : '' }}</span> unités</p>
                             <p>Période d'implantation envisagée: <span class="text-success">{{ ppf.dateImplantationPlanned | date('d/m/Y') }}</span></p>
-                            <h3>Objectif de rendement: <span class="text-success font-weight-bold">{{ ppf.effiencyPrev ? ppf.effiencyPrev : '' }}</span> Quintaux / Hectare</h3>
+                            <h3>Objectif de rendement: <span class="text-success font-weight-bold">{{ intervention.objective ? intervention.objective : '' }}</span> Quintaux / Hectare</h3>
                         </div>
                     </div>
                 </div>
@@ -79,10 +79,10 @@
                     <div class="card">
                         <div class="p-3">
                             <h3 class="text-dark">Effluents</h3>
-                            <p><span class="text-success">{{ ppf.culture.effluent ? ppf.culture.effluent.name : '' }}</span></p>
-                            <p>Teneur en Azote: <span class="text-success">{{ ppf.culture.effluent.nitrogenContent ? ppf.culture.effluent.nitrogenContent : '' }}</span> unités/tonne</p>
+                            <p><span class="text-success">{{ ppf.effluent ? ppf.effluent.name : '' }}</span></p>
+                            <p>Teneur en Azote: <span class="text-success">{{ ppf.effluent.nitrogenContent ? ppf.effluent.nitrogenContent : '' }}</span> unités/tonne</p>
                             <p>Quantité épandue: <span class="text-success">{{ ppf.qtyEpendu ? ppf.qtyEpendu : '' }}</span> tonnes / hectare</p>
-                            <p>Azote équivalent engrais minéral: <span class="text-success">{{ ppf.culture.effluent.nitrogenContent * ppf.qtyEpendu * ppf.coefficientEquivalence }}</span> unités / hectare</p>
+                            <p>Azote équivalent engrais minéral: <span class="text-success">{{ ppf.effluent.nitrogenContent * ppf.qtyEpendu * ppf.coefficientEquivalence }}</span> unités / hectare</p>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
             <div class="row">
                 <div class="col-12 pb-4">
                     <h3 class="text-center">Quantité d'azote minéral à apporter <span class="text-success font-weight-bold">{{ ppf.qtyAzoteAdd }}</span> quintaux / hectare</h3>
-                    <h3 class="text-center">Dose d'azote minéral à apporter <span class="text-success font-weight-bold">{{ ppf.qtyAzoteAdd - ( ppf.culture.effluent.nitrogenContent * ppf.qtyEpendu * ppf.coefficientEquivalence ) }}</span> quintaux / hectare</h3>
+                    <h3 class="text-center">Dose d'azote minéral à apporter <span class="text-success font-weight-bold">{{ ppf.qtyAzoteAdd - ( ppf.effluent.nitrogenContent * ppf.qtyEpendu * ppf.coefficientEquivalence ) }}</span> quintaux / hectare</h3>
                 </div>
             </div>
             <div class="row">
