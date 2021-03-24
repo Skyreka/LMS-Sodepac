@@ -37,7 +37,7 @@ class PurchaseContractCulture
 
     /**
      * @ORM\ManyToOne(targetEntity=PurchaseContract::class, inversedBy="cultures")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $purchaseContract;
 

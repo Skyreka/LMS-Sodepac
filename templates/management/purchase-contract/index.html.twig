@@ -66,9 +66,14 @@
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                <div style="display: flex">
-                                                    <a class="btn btn-success" href="{{ path('management_purchase_contract_show', {id: contract.id}) }}"><i class="fa fa-eye text-white"></i></a>
-                                                </div>
+                                                <a class="btn btn-success" href="{{ path('management_purchase_contract_show', {id: contract.id}) }}"><i class="fa fa-eye text-white"></i></a>
+                                                {% if is_granted( 'ROLE_SUPERADMIN' ) %}
+                                                    <form method="POST" style="display:contents;" action="{{ path('purchase_contract_delete', {'id': contract.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir effacer ce contrat ?')">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('deletePurchaseContract' ~ contract.id) }}">
+                                                        <button class="btn btn-danger ml-3"><i class="fa fa-trash"></i></button>
+                                                    </form>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                     {% endfor %}
