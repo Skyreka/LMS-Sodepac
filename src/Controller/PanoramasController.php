@@ -334,6 +334,7 @@ class PanoramasController extends AbstractController
         return $this->redirectToRoute('panorama_user_history_index');
     }
 
+
     /**
      * @Route("/panoramas/history", name="panorama_history_index", methods={"GET"})
      * @return Response
@@ -387,9 +388,21 @@ class PanoramasController extends AbstractController
     public function userList(PanoramaUserRepository $pur, $year): Response
     {
         $panoramas = $pur->findAllByYearAndCustomer($year, $this->getUser()->getId());
-        return $this->render('panoramas/history/user/show.html.twig', [
+        return $this->render('panoramas/history/user/history_show.html.twig', [
             'panoramas' => $panoramas,
             'year' => $year
+        ]);
+    }
+
+    /**
+     * @Route("/user/panorama/show/{id}", name="user_panorama_show", methods={"GET"})
+     * @param Panoramas $panorama
+     * @return Response
+     */
+    public function userShow( Panoramas $panorama ): Response
+    {
+        return $this->render('panoramas/history/user/show.html.twig',[
+            'panorama' => $panorama
         ]);
     }
 }
