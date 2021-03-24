@@ -16,7 +16,9 @@
                 </h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
-                    {% if app.user.status == 'ROLE_ADMIN' %}
+                    {% if app.user.status == 'ROLE_SUPERADMIN' %}
+                        <li class="breadcrumb-item"><span class="badge badge-danger">Vue Admin</span></li>
+                    {% elseif( app.user.status == 'ROLE_ADMIN' ) %}
                         <li class="breadcrumb-item"><span class="badge badge-danger">Vue Admin</span></li>
                     {% else %}
                         <li class="breadcrumb-item"><span class="badge badge-warning">Vue Technicien</span></li>
