@@ -25,7 +25,7 @@ class InterventionsProducts
 
     /**
      * @ORM\ManyToOne(targetEntity=Phyto::class, inversedBy="interventionsProducts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $intervention;
 

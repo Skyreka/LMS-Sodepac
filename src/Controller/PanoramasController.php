@@ -65,7 +65,7 @@ class PanoramasController extends AbstractController
     public function delete(Panoramas $panoramas, Request $request)
     {
         if ($this->isCsrfTokenValid('delete' . $panoramas->getId(), $request->get('_token'))) {
-            $panoramas->setArchive(1);
+            $this->em->remove( $panoramas );
             $this->em->flush();
             $this->addFlash('success', 'Panorama supprimé avec succès');
         }

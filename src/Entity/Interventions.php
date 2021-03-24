@@ -481,6 +481,7 @@ class Phyto extends Interventions
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\InterventionsProducts", mappedBy="intervention")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $interventionsProducts;
 

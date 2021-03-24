@@ -293,7 +293,7 @@ class FlashController extends AbstractController
     public function adminDelete(Bsv $bsv, Request $request)
     {
         if ($this->isCsrfTokenValid('delete' . $bsv->getId(), $request->get('_token'))) {
-            $bsv->setArchive(1);
+            $this->em->remove( $bsv );
             $this->em->flush();
             $this->addFlash('success', 'Flash supprimé avec succès');
         }

@@ -75,7 +75,7 @@ class RecommendationsController extends AbstractController
         $recommendationsValid = $rr->countAllByStatus( 3 );
 
         // Get Last Recommendations
-        if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
+        if ($this->isGranted('ROLE_ADMIN')) {
             $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
             //Counters
             $recommendationsValid = $rr->countAllByStatus( 3 );

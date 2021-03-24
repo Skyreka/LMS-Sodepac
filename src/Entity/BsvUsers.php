@@ -18,6 +18,7 @@ class BsvUsers
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Bsv", inversedBy="customers")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $bsv;
 
