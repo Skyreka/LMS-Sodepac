@@ -20,7 +20,7 @@ class PPFInput
 
     /**
      * @ORM\ManyToOne(targetEntity=PPF::class, inversedBy="inputs")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $ppf;
 
