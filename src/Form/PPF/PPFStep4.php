@@ -19,13 +19,12 @@ class PPFStep4 extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('effluents', EntityType::class, [
+            ->add('effluent', EntityType::class, [
                 'class' => IndexEffluents::class,
                 'label' => 'Effluent',
                 'choice_label' => function(IndexEffluents $indexEffluents) {
                     return $indexEffluents->getName() . ' - Teneur en azote : ' . $indexEffluents->getNitrogenContent();
-                },
-                'mapped' => false
+                }
             ])
             ->add('qty_ependu', TextType::class, [
                 'label' => 'Quantité epandue ( Tou m3 / Ha )'
