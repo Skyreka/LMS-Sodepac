@@ -58,7 +58,7 @@
                                             {% endif %}
                                         </td>
                                         <td>
-                                            <a title="PDF" class="btn btn-info" href="{{ path('ppf_summary', {ppf: ppf.id}) }}"><i class="fa fa-file-pdf text-white"></i></a>
+                                            <a title="PDF" class="btn btn-info" href="{{ path('ppf_summary', {ppf: ppf.id}) }}" target="_blank"><i class="fa fa-file-pdf text-white"></i></a>
                                             {% if is_granted( 'ROLE_SUPERADMIN' ) %}
                                                 <form method="POST" style="display: contents" action="{{ path('ppf_delete', {'id': ppf.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir effacer ce PPF ?')">
                                                     <input type="hidden" name="_method" value="DELETE">
