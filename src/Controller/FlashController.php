@@ -356,15 +356,27 @@ class FlashController extends AbstractController
     }
 
     /**
+     * @Route("/flash/show/{id}", name="user_flash_show", methods={"GET"})
+     * @param Bsv $bsv
+     * @return Response
+     */
+    public function userShow( Bsv $bsv ): Response
+    {
+        return $this->render('flash/user/show.html.twig',[
+            'bsv' => $bsv
+        ]);
+    }
+
+    /**
      * @Route("/flash/{year}", name="user_flash_history_show", methods={"GET","POST"}, requirements={"year":"\d+"})
      * @param BsvUsersRepository $bur
      * @param $year
      * @return Response
      */
-    public function userShow(BsvUsersRepository $bur, $year): Response
+    public function userHistoryShow(BsvUsersRepository $bur, $year): Response
     {
         $flashs = $bur->findAllByYearAndCustomer($year, $this->getUser()->getId());
-        return $this->render('flash/user/show.html.twig', [
+        return $this->render('flash/user/history_show.html.twig', [
             'flashs' => $flashs,
             'year' => $year
         ]);
