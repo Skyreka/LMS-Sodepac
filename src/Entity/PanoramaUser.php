@@ -24,7 +24,7 @@ class PanoramaUser
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Panoramas", inversedBy="customers")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $panorama;
 
