@@ -442,7 +442,7 @@ class OrderController extends AbstractController
         if ( $order->getStatus() == 1 ) {
 
             $newDate = new \DateTime( $request->request->get('date-order') );
-            
+
             // Update status
             $order->setStatus( 2 );
             $order->setCreateDate( $newDate );
@@ -534,7 +534,7 @@ class OrderController extends AbstractController
         if ($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
             $orders = $op->findByTechnician( $this->getUser() );
         } else {
-            $orders = $op->findAll();
+            $orders = $op->findByAdmin();
         }
 
         return $this->render('management/order/synthesis/index.html.twig', [

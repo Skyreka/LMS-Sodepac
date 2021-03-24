@@ -72,7 +72,7 @@ class UserController extends AbstractController
         $isTechnician = false; $isAdmin = false;
         if ($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
             $isTechnician = true;
-        } elseif($this->getUser()->getStatus() == 'ROLE_ADMIN') {
+        } elseif($this->isGranted( 'ROLE_ADMIN')) {
             $isAdmin = true;
         }
 

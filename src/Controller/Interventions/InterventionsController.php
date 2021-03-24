@@ -27,6 +27,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class InterventionsController
@@ -699,5 +700,22 @@ class InterventionsController extends AbstractController
             'intervention' => $intervention->getType(),
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="intervention_delete", methods="DELETE")
+     * @param Interventions $interventions
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @IsGranted("ROLE_SUPERADMIN")
+     */
+    public function delete(Interventions $interventions, Request $request)
+    {
+        if( $this->isCsrfTokenValid('deleteIntervention' . $interventions->getId(), $request->get('_token'))) {
+            $this->em->remove( $interventions );
+            $this->em->flush();
+            $this->addFlash('success','Intervention supprimé avec succès');
+        }
+        return $this->redirect( $request->headers->get('referer') );
     }
 }

@@ -30,7 +30,10 @@ class CulturesNewType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Aucune',
                 'required' => false,
-                'label' => 'Culture Précédente'
+                'label' => 'Culture Précédente',
+                'query_builder' => function(IndexCulturesRepository $icr) {
+                    return $icr->findDisplay();
+                }
             ])
             ->add('name', EntityType::class, [
                 'class' => IndexCultures::class,
