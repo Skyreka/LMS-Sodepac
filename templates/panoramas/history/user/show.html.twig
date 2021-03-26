@@ -32,7 +32,7 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.firstFile ) }}" alt="Image">
                             {% else %}
                                 <iframe
-                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/panorama/' ~ panorama.firstFile )) }}#toolbar=0&scrollbar=0"
+                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/panorama/' ~ panorama.firstFile )) }}#toolbar=0&scrollbar=0&rm=demo"
                                         frameBorder="0"
                                         scrolling="auto"
                                         height="500px"
@@ -51,9 +51,13 @@
                             {% if panorama.secondFile|split('.')|last != 'pdf' %}
                                 <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.secondFile ) }}" alt="Image">
                             {% else %}
-                                <object data="{{ asset('uploads/panorama/' ~ panorama.secondFile ) }}" type="application/pdf">
-                                    <iframe src="{{ asset('uploads/panorama/' ~ panorama.secondFile ) }}"></iframe>
-                                </object>
+                                <iframe
+                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/panorama/' ~ panorama.secondFile )) }}#toolbar=0&scrollbar=0&rm=demo"
+                                        frameBorder="0"
+                                        scrolling="auto"
+                                        height="500px"
+                                        width="100%"
+                                ></iframe>
                             {% endif %}
                         </div>
                     </div>
@@ -67,9 +71,13 @@
                             {% if panorama.thirdFile|split('.')|last != 'pdf' %}
                                 <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.thirdFile ) }}" alt="Image">
                             {% else %}
-                                <object data="{{ asset('uploads/panorama/' ~ panorama.thirdFile ) }}" type="application/pdf">
-                                    <iframe src="{{ asset('uploads/panorama/' ~ panorama.thirdFile ) }}"></iframe>
-                                </object>
+                                <iframe
+                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/panorama/' ~ panorama.secondFile )) }}#toolbar=0&scrollbar=0&rm=demo"
+                                        frameBorder="0"
+                                        scrolling="auto"
+                                        height="500px"
+                                        width="100%"
+                                ></iframe>
                             {% endif %}
                         </div>
                     </div>
