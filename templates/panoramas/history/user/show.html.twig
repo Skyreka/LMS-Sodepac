@@ -31,9 +31,13 @@
                             {% if panorama.firstFile|split('.')|last != 'pdf' %}
                                 <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.firstFile ) }}" alt="Image">
                             {% else %}
-                                <object data="{{ asset('uploads/panorama/' ~ panorama.firstFile ) }}" type="application/pdf">
-                                    <iframe src="{{ asset('uploads/panorama/' ~ panorama.firstFile ) }}"></iframe>
-                                </object>
+                                <iframe
+                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/panorama/' ~ panorama.firstFile )) }}#toolbar=0&scrollbar=0"
+                                        frameBorder="0"
+                                        scrolling="auto"
+                                        height="500px"
+                                        width="100%"
+                                ></iframe>
                             {% endif %}
                         </div>
                     </div>
