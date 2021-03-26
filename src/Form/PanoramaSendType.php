@@ -33,7 +33,7 @@ class PanoramaSendType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('customers', EntityType::class, [
+            /**->add('customers', EntityType::class, [
                 'class' => Users::class,
                 'choice_label' => function(Users $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
@@ -53,7 +53,7 @@ class PanoramaSendType extends AbstractType
                 'label'     => 'Envoyer à :',
                 'expanded'  => true,
                 'multiple'  => true,
-            ])
+            ])**/
             ->add('display_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
