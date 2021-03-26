@@ -32,7 +32,7 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" alt="Image">
                             {% else %}
                                 <object data="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" type="application/pdf">
-                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}&embedded=true"></iframe>
+                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}"></iframe>
                                 </object>
                             {% endif %}
                         </div>
@@ -48,7 +48,7 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" alt="Image">
                             {% else %}
                                 <object data="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" type="application/pdf">
-                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}&embedded=true"></iframe>
+                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}"></iframe>
                                 </object>
                             {% endif %}
                         </div>
@@ -64,7 +64,7 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" alt="Image">
                             {% else %}
                                 <object data="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" type="application/pdf">
-                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}&embedded=true"></iframe>
+                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}"></iframe>
                                 </object>
                             {% endif %}
                         </div>
