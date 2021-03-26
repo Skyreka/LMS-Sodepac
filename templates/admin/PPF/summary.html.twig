@@ -54,7 +54,7 @@
                             <h3 class="text-dark">Gestion de l'interculture</h3>
                             <p>Résidu: <span class="text-success">{{ ppf.culture.residue ? 'Oui' : 'Non' }}</span></p>
                             <p>Culture intermédiaire: <span class="text-success">{{ ppf.intermediateCulture ? 'Oui' : 'Non' }}</span></p>
-                            <p>Gestion des repousses: <span class="text-success">{{ ppf.pushBack ? 'Oui' : 'Non' }}</span> quintaux</p>
+                            <p>Gestion des repousses: <span class="text-success">{{ ppf.pushBack ? 'Oui' : 'Non' }}</span></p>
                             <p>Date de semis: <span class="text-success">{{ ppf.dateSow | date('d/m/Y') }}</span></p>
                             <p>Date de destruction: <span class="text-success">{{ ppf.dateDestruction | date('d/m/Y') }}</span></p>
                             <p>Type de destruction: <span class="text-success">{{ ppf.typeDestruction ? ppf.typeDestruction : '' }}</span></p>
@@ -67,7 +67,7 @@
                     <div class="card">
                         <div class="p-3">
                             <h3 class="text-dark">Fournitures du sol et de l'eau d'irrigation</h3>
-                            <p>Reliquats présents dans le sol au semis: XX unités / hectare</p>
+                            <p>Reliquats présents dans le sol au semis: {{ intervention.reliquat ? intervention.reliquat : '' }} U/ha</p>
                             <p>Minéralisation de l'humus: <span class="text-success">{{ ppf.culture.ilot.type ? ppf.culture.ilot.type.humusMineralization : '' }}</span> unités / hectare</p>
                             <p>Quantité d'eau d'irrigation prévue: <span class="text-success">{{ ppf.qtyWaterPrev ? ppf.qtyWaterPrev : '' }}</span> mm</p>
                             <p>Teneur en nitrate de la ressource: <span class="text-success">{{ ppf.resourceNitrateContent ? ppf.resourceNitrateContent : '' }}</span> mg / L</p>
@@ -82,7 +82,7 @@
                             <p><span class="text-success">{{ ppf.effluent ? ppf.effluent.name : '' }}</span></p>
                             <p>Teneur en Azote: <span class="text-success">{{ ppf.effluent.nitrogenContent ? ppf.effluent.nitrogenContent : '' }}</span> unités/tonne</p>
                             <p>Quantité épandue: <span class="text-success">{{ ppf.qtyEpendu ? ppf.qtyEpendu : '' }}</span> tonnes / hectare</p>
-                            <p>Azote équivalent engrais minéral: <span class="text-success">{{ ppf.effluent.nitrogenContent * ppf.qtyEpendu * ppf.coefficientEquivalence }}</span> unités / hectare</p>
+                            <p>Azote équivalent engrais minéral: <span class="text-success">{{ ppf.effluent.nitrogenContent * ppf.qtyEpendu * ppf.coefficientEquivalence }}</span> U/ha</p>
                         </div>
                     </div>
                 </div>
