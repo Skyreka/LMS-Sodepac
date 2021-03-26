@@ -31,7 +31,9 @@
                             {% if bsv.firstFile|split('.')|last != 'pdf' %}
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" alt="Image">
                             {% else %}
-                                <embed src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" width="100%" height="100%" />
+                                <object data="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" type="application/pdf">
+                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}&embedded=true"></iframe>
+                                </object>
                             {% endif %}
                         </div>
                     </div>
@@ -45,7 +47,9 @@
                             {% if bsv.secondFile|split('.')|last != 'pdf' %}
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" alt="Image">
                             {% else %}
-                                <embed src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" width="100%" height="100%" />
+                                <object data="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" type="application/pdf">
+                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}&embedded=true"></iframe>
+                                </object>
                             {% endif %}
                         </div>
                     </div>
@@ -59,7 +63,9 @@
                             {% if bsv.thirdFile|split('.')|last != 'pdf' %}
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" alt="Image">
                             {% else %}
-                                <embed src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" width="100%" height="100%" />
+                                <object data="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" type="application/pdf">
+                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}&embedded=true"></iframe>
+                                </object>
                             {% endif %}
                         </div>
                     </div>
