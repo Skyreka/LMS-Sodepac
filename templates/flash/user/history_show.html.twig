@@ -1,0 +1,43 @@
+<div class="card-body">
+    <div class="d-flex no-block">
+        <h4 class="card-title">Liste des Flashs reçu en {{ year }}</h4>
+    </div>
+    <div class="table-responsive m-t-20">
+        <table class="table stylish-table">
+            <thead>
+            <tr>
+                <th>Date d'envoi</th>
+                <th>Texte</th>
+                <th>Fichiers</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for flash in flashs %}
+                <tr>
+                    <td>{{ flash.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                    <td>{{ flash.bsv.text }}</td>
+                    <td>
+                        {% if flash.bsv.firstFile %}
+                            <a href="{{ asset('uploads/flash/' ~ flash.bsv.firstFile) }}" class="btn btn-success" download=""><i class="fa fa-file-pdf-o"></i></a>
+                        {% endif %}
+                        {% if flash.bsv.secondFile %}
+                            <a href="{{ asset('uploads/flash/' ~ flash.bsv.secondFile) }}" class="btn btn-success" download=""><i class="fa fa-file-image-o"></i></a>
+                        {% endif %}
+                        {% if flash.bsv.thirdFile %}
+                            <a href="{{ asset('uploads/flash/' ~ flash.bsv.thirdFile) }}" class="btn btn-success" download=""><i class="fa fa-picture-o"></i></a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if flash.checked == 0 %}
+                            {{ include('flash/user/_check.html.twig') }}
+                        {% else %}
+                            <i class="ti-eye"></i> Lu
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

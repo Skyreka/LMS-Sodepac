@@ -17,10 +17,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use TreeHouse\Slugifier\Slugifier;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class IndexsController
  * @package App\Controller
+ * @IsGranted("ROLE_SUPERADMIN")
  * @Route("/admin/indexs")
  */
 class IndexsController extends AbstractController

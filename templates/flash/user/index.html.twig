@@ -49,15 +49,7 @@
                                         <td>{{ flash.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
                                         <td>{{ flash.bsv.text }}</td>
                                         <td>
-                                            {% if flash.bsv.firstFile %}
-                                                <a title="PDF" href="{{ asset('uploads/flash/' ~ flash.bsv.firstFile) }}" download="Flash_LMSSODEPAC_{{ 'NOW'|date('d-m-Y') }}.pdf" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
-                                            {% endif %}
-                                            {% if flash.bsv.secondFile %}
-                                                <a title="Image" href="{{ asset('uploads/flash/' ~ flash.bsv.secondFile) }}" download="" class="btn btn-success" target="_blank"><i class="fa fa-file-image-o"></i></a>
-                                            {% endif %}
-                                            {% if flash.bsv.thirdFile %}
-                                                <a title="Image" href="{{ asset('uploads/flash/' ~ flash.bsv.thirdFile) }}" download="" class="btn btn-success" target="_blank"><i class="fa fa-picture-o"></i></a>
-                                            {% endif %}
+                                            <a title="Découvrir" href="{{ path('user_flash_show', {id: flash.bsv.id}) }}" class="btn btn-success">Découvrir</a>
                                         </td>
                                         <td>
                                             {% if flash.checked == 0 %}

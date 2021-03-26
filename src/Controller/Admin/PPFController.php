@@ -17,6 +17,7 @@ use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -323,5 +324,24 @@ class PPFController extends AbstractController
 
         // Return JsonResponse of code 200
         return new JsonResponse( $array, 200);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="ppf_delete", methods="DELETE", requirements={"id":"\d+"})
+     * @param PPF $PPF
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function deleteRecorded(PPF $PPF, Request $request): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('deletePPF' . $PPF->getId(), $request->get('_token' ))) {
+            $this->em->remove($PPF);
+            $this->em->flush();
+
+            $this->container->get('session')->remove('currentOrder');
+
+            $this->addFlash('success', 'PPF supprimée avec succès');
+        }
+        return $this->redirect( $request->headers->get('referer') );
     }
 }

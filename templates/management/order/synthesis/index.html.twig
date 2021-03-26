@@ -58,7 +58,7 @@
                                                 </a>
                                             </td>
                                         {% endif %}
-                                        <td>{{ order.createDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y H:m") }}</td>
+                                        <td>{{ order.createDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y") }}</td>
                                         <td>
                                             {% if( order.status == 1 ) %}
                                                 <span class="badge badge-success">Devis</span>

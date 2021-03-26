@@ -68,6 +68,8 @@ class UsersRepository extends ServiceEntityRepository
     /**
      * @param $role
      * @return int|mixed|string
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function countAllByRole($role)
     {
@@ -118,6 +120,23 @@ class UsersRepository extends ServiceEntityRepository
         if (false === is_null($limit)) {
             $req->setMaxResults( $limit );
         }
+
+        return $req->getQuery()->getResult();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function findAllPanorama()
+    {
+        $req = $this->createQueryBuilder('u')
+            ->andWhere('u.pack = :full')
+            ->setParameter('full', 'PACK_FULL')
+            ->orWhere('u.pack = :light')
+            ->setParameter('light', 'PACK_LIGHT')
+            ->andWhere('u.email IS NOT NULL')
+            ->orderBy('u.id', 'ASC')
+        ;
 
         return $req->getQuery()->getResult();
     }

@@ -1,43 +1,76 @@
-<div class="card-body">
-    <div class="d-flex no-block">
-        <h4 class="card-title">Liste des Flashs reçu en {{ year }}</h4>
-    </div>
-    <div class="table-responsive m-t-20">
-        <table class="table stylish-table">
-            <thead>
-            <tr>
-                <th>Date d'envoi</th>
-                <th>Texte</th>
-                <th>Fichiers</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for flash in flashs %}
-                <tr>
-                    <td>{{ flash.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
-                    <td>{{ flash.bsv.text }}</td>
-                    <td>
-                        {% if flash.bsv.firstFile %}
-                            <a href="{{ asset('uploads/flash/' ~ flash.bsv.firstFile) }}" class="btn btn-success" download=""><i class="fa fa-file-pdf-o"></i></a>
-                        {% endif %}
-                        {% if flash.bsv.secondFile %}
-                            <a href="{{ asset('uploads/flash/' ~ flash.bsv.secondFile) }}" class="btn btn-success" download=""><i class="fa fa-file-image-o"></i></a>
-                        {% endif %}
-                        {% if flash.bsv.thirdFile %}
-                            <a href="{{ asset('uploads/flash/' ~ flash.bsv.thirdFile) }}" class="btn btn-success" download=""><i class="fa fa-picture-o"></i></a>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if flash.checked == 0 %}
-                            {{ include('flash/user/_check.html.twig') }}
-                        {% else %}
-                            <i class="ti-eye"></i> Lu
-                        {% endif %}
-                    </td>
-                </tr>
+{% extends 'base.html.twig' %}
+
+{% block title %}Voir flash{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Découvrir le flash</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('user_flash_index') }}">Flashs</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-12">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
             {% endfor %}
-            </tbody>
-        </table>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {% if bsv.firstFile != null %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Fichiers 1:</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if bsv.firstFile|split('.')|last != 'pdf' %}
+                                <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" alt="Image">
+                            {% else %}
+                                <object data="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" type="application/pdf">
+                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}&embedded=true"></iframe>
+                                </object>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if bsv.secondFile != null %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Fichiers 2:</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if bsv.secondFile|split('.')|last != 'pdf' %}
+                                <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" alt="Image">
+                            {% else %}
+                                <object data="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" type="application/pdf">
+                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}&embedded=true"></iframe>
+                                </object>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if bsv.thirdFile != null %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Fichiers 3:</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if bsv.thirdFile|split('.')|last != 'pdf' %}
+                                <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" alt="Image">
+                            {% else %}
+                                <object data="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" type="application/pdf">
+                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}&embedded=true"></iframe>
+                                </object>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-</div>
+{% endblock %}

@@ -1,43 +1,76 @@
-<div class="card-body">
-    <div class="d-flex no-block">
-        <h4 class="card-title">Liste des Panoramas reçu en {{ year }}</h4>
-    </div>
-    <div class="table-responsive m-t-20">
-        <table class="table stylish-table">
-            <thead>
-            <tr>
-                <th>Date de création</th>
-                <th>Texte</th>
-                <th>Fichiers</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for panorama in panoramas %}
-                <tr>
-                    <td>{{ panorama.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
-                    <td>{{ panorama.panorama.text }}</td>
-                    <td>
-                        {% if panorama.panorama.firstFile %}
-                            <a title="PDF" href="{{ asset('uploads/panorama/' ~ panorama.panorama.firstFile) }}" class="btn btn-success" download=""><i class="fa fa-file-pdf-o"></i></a>
-                        {% endif %}
-                        {% if panorama.panorama.secondFile %}
-                            <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.panorama.secondFile) }}" class="btn btn-success" download=""><i class="fa fa-file-image-o"></i></a>
-                        {% endif %}
-                        {% if panorama.panorama.thirdFile %}
-                            <a title="Image" href="{{ asset('uploads/panorama/' ~ panorama.panorama.thirdFile) }}" class="btn btn-success" download=""><i class="fa fa-picture-o"></i></a>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if panorama.checked == 0 %}
-                            {{ include('panoramas/history/user/_check.html.twig') }}
-                        {% else %}
-                            <i class="ti-eye"></i> Lu
-                        {% endif %}
-                    </td>
-                </tr>
+{% extends 'base.html.twig' %}
+
+{% block title %}Voir Panorama{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Découvrir le Panorama</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('panorama_history_index') }}">Panorama</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-12">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
             {% endfor %}
-            </tbody>
-        </table>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {% if panorama.firstFile != null %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Fichiers 1:</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if panorama.firstFile|split('.')|last != 'pdf' %}
+                                <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.firstFile ) }}" alt="Image">
+                            {% else %}
+                                <object data="{{ asset('uploads/panorama/' ~ panorama.firstFile ) }}" type="application/pdf">
+                                    <iframe src="{{ asset('uploads/panorama/' ~ panorama.firstFile ) }}&embedded=true"></iframe>
+                                </object>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if panorama.secondFile != null %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Fichiers 2:</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if panorama.secondFile|split('.')|last != 'pdf' %}
+                                <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.secondFile ) }}" alt="Image">
+                            {% else %}
+                                <object data="{{ asset('uploads/panorama/' ~ panorama.secondFile ) }}" type="application/pdf">
+                                    <iframe src="{{ asset('uploads/panorama/' ~ panorama.secondFile ) }}&embedded=true"></iframe>
+                                </object>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if panorama.thirdFile != null %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Fichiers 3:</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if panorama.thirdFile|split('.')|last != 'pdf' %}
+                                <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.thirdFile ) }}" alt="Image">
+                            {% else %}
+                                <object data="{{ asset('uploads/panorama/' ~ panorama.thirdFile ) }}" type="application/pdf">
+                                    <iframe src="{{ asset('uploads/panorama/' ~ panorama.thirdFile ) }}&embedded=true"></iframe>
+                                </object>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-</div>
+{% endblock %}

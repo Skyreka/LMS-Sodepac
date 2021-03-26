@@ -125,6 +125,11 @@ class PPF
      */
     private $added_date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=IndexEffluents::class)
+     */
+    private $effluent;
+
     public function __construct()
     {
         $this->inputs = new ArrayCollection();
@@ -389,6 +394,18 @@ class PPF
     public function setAddedDate(?\DateTimeInterface $added_date): self
     {
         $this->added_date = $added_date;
+
+        return $this;
+    }
+
+    public function getEffluent(): ?IndexEffluents
+    {
+        return $this->effluent;
+    }
+
+    public function setEffluent(?IndexEffluents $effluent): self
+    {
+        $this->effluent = $effluent;
 
         return $this;
     }

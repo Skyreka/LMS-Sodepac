@@ -266,17 +266,19 @@ class PanoramasController extends AbstractController
      * @param Panoramas $panoramas
      * @param Request $request
      * @param \Swift_Mailer $mailer
+     * @param UsersRepository $ur
      * @return Response
      */
-    public function send(Panoramas $panoramas, Request $request, \Swift_Mailer $mailer): Response
+    public function send(Panoramas $panoramas, Request $request, \Swift_Mailer $mailer, UsersRepository $ur ): Response
     {
         $form = $this->createForm(PanoramaSendType::class);
         $form->handleRequest($request);
 
         //Submit form
         if ($form->isSubmitted() && $form->isValid()) {
-            $datetime = new DateTime();
-            $data = $form->all();
+            $today = new DateTime();
+            // Freeze by Anis on 22/03/21
+            /**
             foreach ($data['customers']->getData() as $customer) {
                 $displayAt = $data['display_at']->getData();
                 $relation = new PanoramaUser();
@@ -306,6 +308,42 @@ class PanoramasController extends AbstractController
                 ;
                 $mailer->send($message);
             }
+             **/
+            $customers = $ur->findAllPanorama();
+            foreach ( $customers as $customer ) {
+                $displayAt = $form->get('display_at')->getData();
+
+                $panoramaUser = new PanoramaUser();
+                $panoramaUser->setPanorama( $panoramas );
+                $panoramaUser->setCustomers( $customer );
+                $panoramaUser->setSender( $this->getUser() );
+
+                if ( $displayAt !== null ) {
+                    $displayAt->setTime(8,00);
+                    $panoramaUser->setDisplayAt( $displayAt );
+                } else {
+                    $panoramaUser->setDisplayAt( $today );
+                }
+
+
+                $this->em->persist( $panoramaUser );
+
+                //Send email notification
+                $message = (new \Swift_Message('Un nouveau panorama disponible sur LMS-Sodepac.'))
+                    ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
+                    ->setTo( $customer->getEmail() )
+                    ->setBody(
+                        $this->renderView(
+                            'emails/notification/user/panorama.html.twig', [
+                                'first_name' => $customer->getIdentity()
+                            ]
+                        ),
+                        'text/html'
+                    )
+                ;
+                $mailer->send($message);
+            }
+
             $this->em->flush();
 
             $this->addFlash('success', 'Panorama envoyé avec succès');
@@ -333,6 +371,7 @@ class PanoramasController extends AbstractController
 
         return $this->redirectToRoute('panorama_user_history_index');
     }
+
 
     /**
      * @Route("/panoramas/history", name="panorama_history_index", methods={"GET"})
@@ -387,9 +426,21 @@ class PanoramasController extends AbstractController
     public function userList(PanoramaUserRepository $pur, $year): Response
     {
         $panoramas = $pur->findAllByYearAndCustomer($year, $this->getUser()->getId());
-        return $this->render('panoramas/history/user/show.html.twig', [
+        return $this->render('panoramas/history/user/history_show.html.twig', [
             'panoramas' => $panoramas,
             'year' => $year
+        ]);
+    }
+
+    /**
+     * @Route("/user/panorama/show/{id}", name="user_panorama_show", methods={"GET"})
+     * @param Panoramas $panorama
+     * @return Response
+     */
+    public function userShow( Panoramas $panorama ): Response
+    {
+        return $this->render('panoramas/history/user/show.html.twig',[
+            'panorama' => $panorama
         ]);
     }
 }
