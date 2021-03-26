@@ -31,9 +31,13 @@
                             {% if bsv.firstFile|split('.')|last != 'pdf' %}
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" alt="Image">
                             {% else %}
-                                <object data="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" type="application/pdf">
-                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}"></iframe>
-                                </object>
+                                <iframe
+                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/flash/' ~ bsv.firstFile )) }}#toolbar=0&scrollbar=0"
+                                        frameBorder="0"
+                                        scrolling="auto"
+                                        height="500px"
+                                        width="100%"
+                                ></iframe>
                             {% endif %}
                         </div>
                     </div>
@@ -47,9 +51,13 @@
                             {% if bsv.secondFile|split('.')|last != 'pdf' %}
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" alt="Image">
                             {% else %}
-                                <object data="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" type="application/pdf">
-                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}"></iframe>
-                                </object>
+                                <iframe
+                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/flash/' ~ bsv.secondFile )) }}#toolbar=0&scrollbar=0"
+                                        frameBorder="0"
+                                        scrolling="auto"
+                                        height="500px"
+                                        width="100%"
+                                ></iframe>
                             {% endif %}
                         </div>
                     </div>
@@ -63,9 +71,13 @@
                             {% if bsv.thirdFile|split('.')|last != 'pdf' %}
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" alt="Image">
                             {% else %}
-                                <object data="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" type="application/pdf">
-                                    <iframe src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}"></iframe>
-                                </object>
+                                <iframe
+                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/flash/' ~ bsv.thirdFile )) }}#toolbar=0&scrollbar=0"
+                                        frameBorder="0"
+                                        scrolling="auto"
+                                        height="500px"
+                                        width="100%"
+                                ></iframe>
                             {% endif %}
                         </div>
                     </div>
