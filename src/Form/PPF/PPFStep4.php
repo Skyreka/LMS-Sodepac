@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PPFStep4 extends AbstractType
@@ -26,6 +29,9 @@ class PPFStep4 extends AbstractType
                     return $indexEffluents->getName() . ' - Teneur en azote : ' . $indexEffluents->getNitrogenContent();
                 }
             ])
+            ->add('azote', TextType::class, [
+                'mapped' => false
+            ])
             ->add('qty_ependu', TextType::class, [
                 'label' => 'Quantité epandue ( Tou m3 / Ha )'
             ])
@@ -39,6 +45,43 @@ class PPFStep4 extends AbstractType
                 'label' => 'Quantité d\'azote total à apporter'
             ])
         ;
+
+        //-- Event Listener on select product
+        $builder->get('effluent')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($options) {
+                $form = $event->getForm();
+                $this->updateAzote( $form->getParent(), $form->getData(), $options);
+            }
+        );
+    }
+
+    /**
+     * Update NPK
+     * @param FormInterface $form
+     * @param IndexEffluents|null $effluents
+     * @param $options
+     */
+    private function updateAzote(FormInterface $form, ?IndexEffluents $effluents, $options)
+    {
+        if (is_null($effluents)) {
+            $form
+                ->add('azote', TextType::class, [
+                    'mapped' => false,
+                    'label' => 'Teneur en Azote'
+                ])
+            ;
+        } else {
+            $form
+                ->add('azote', TextType::class, [
+                    'mapped' => false,
+                    'label' => 'Teneur en Azote',
+                    'attr' => [
+                        'value' => $effluents->getNitrogenContent()
+                    ]
+                ])
+            ;
+        }
     }
 
 
