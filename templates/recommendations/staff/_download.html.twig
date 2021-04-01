@@ -1,8 +1,10 @@
-{% if recommendation.pdf == NULL %}
+{% if recommendation.pdf == NULL%}
     <form method="POST" action="{{ path('recommendation_download', {id: recommendation.id}) }}">
         <input type="hidden" name="_method" value="DOWNLOAD">
         <input type="hidden" name="_token" value="{{ csrf_token('download') }}">
-        <button title="Générer" class="btn btn-info ml-2 generate-buttons" id="generate-button" recommendation-id="{{ recommendation.id }}"><i class="fas fa-redo"></i> {{ button_label|default('') }}</button>
+        {% if is_granted('ROLE_TECHNICIAN') %}
+            <button title="Générer" class="btn btn-info ml-2 generate-buttons" id="generate-button" recommendation-id="{{ recommendation.id }}"><i class="fas fa-redo"></i> {{ button_label|default('') }}</button>
+        {% endif %}
     </form>
 {% else %}
     <a title="Télécharger" class="btn btn-success ml-2" href="{{ asset('uploads/recommendations/' ~ recommendation.pdf) }}" target="_blanck"><i class="fas fa-download"></i> {{ button_label|default('') }}</a>
