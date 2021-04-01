@@ -734,4 +734,19 @@ class RecommendationsController extends AbstractController
             'cultureTotal' => $cultureTotal
         ]);
     }
+
+    /**
+     * @Route("exploitation/recommendations/{id}/pdf", name="exploitation_recommendation_show_pdf")
+     * @param Recommendations $recommendations
+     * @return Response
+     */
+    public function showPdfUser( Recommendations $recommendations ): Response
+    {
+        if ($this->getUser() != $recommendations->getExploitation()->getUsers()) {
+            throw $this->createNotFoundException('Cette recommendation ne vous appartient pas.');
+        }
+        return $this->render('exploitation/recommendations/show_pdf.html.twig', [
+            'recommendations' => $recommendations
+        ]);
+    }
 }
