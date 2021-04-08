@@ -67,7 +67,7 @@
                     <div class="card">
                         <div class="p-3">
                             <h3 class="text-dark">Fournitures du sol et de l'eau d'irrigation</h3>
-                            <p>Reliquats présents dans le sol au semis: {{ ppf.remainder_soil_sow ? ppf.remainder_soil_sow : '' }} unités / hectare</p>
+                            <p>Reliquats présents dans le sol au semis: {{ ppf.remainderSoilSow ? ppf.remainderSoilSow : '' }} unités / hectare</p>
                             <p>Minéralisation de l'humus: <span class="text-success">{{ ppf.culture.ilot.type ? ppf.culture.ilot.type.humusMineralization : '' }}</span> unités / hectare</p>
                             <p>Quantité d'eau d'irrigation prévue: <span class="text-success">{{ ppf.qtyWaterPrev ? ppf.qtyWaterPrev : '' }}</span> mm</p>
                             <p>Teneur en nitrate de la ressource: <span class="text-success">{{ ppf.resourceNitrateContent ? ppf.resourceNitrateContent : '' }}</span> mg / L</p>
