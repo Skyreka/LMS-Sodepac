@@ -26,6 +26,8 @@ security:
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 31536000
+                token_provider: 'Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider'
+                always_remember_me: true
                 path: /
 
             # activate different ways to authenticate
