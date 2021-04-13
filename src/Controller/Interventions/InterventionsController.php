@@ -360,6 +360,7 @@ class InterventionsController extends AbstractController
                 foreach ($listCulture as $culture) {
                     //-- Setters
                     $intervention->setDose( $data['doses']->getData()->getDose() );
+                    $intervention->setDoseHectare( $data['doseHectare']->getData() );
                     $intervention->setProduct( $stock->getProduct() );
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
@@ -393,6 +394,7 @@ class InterventionsController extends AbstractController
                 // Normal Action no multiple
                 //-- Setters
                 $intervention->setDose( $data['doses']->getData()->getDose() );
+                $intervention->setDoseHectare( $data['doseHectare']->getData() );
                 $intervention->setProduct( $stock->getProduct() );
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
