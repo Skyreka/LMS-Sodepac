@@ -480,6 +480,11 @@ class Phyto extends Interventions
     private $dose = 0;
 
     /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $dose_hectare = 0;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\InterventionsProducts", mappedBy="intervention")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
@@ -580,5 +585,21 @@ class Phyto extends Interventions
     public function setDose($dose): void
     {
         $this->dose = $dose;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDoseHectare()
+    {
+        return $this->dose_hectare;
+    }
+
+    /**
+     * @param float $dose_hectare
+     */
+    public function setDoseHectare(float $dose_hectare)
+    {
+        $this->dose_hectare = $dose_hectare;
     }
 }
