@@ -34,7 +34,6 @@ class MultipleInterventionController extends AbstractController
             $data = $form->all();
             $listCultures = $data['cultures']->getData();
 
-            dump($listCultures);
             if ($listCultures->isEmpty()) {
                 $this->addFlash('danger', 'Veuillez sélectionner au moins une culture.');
                 return $this->redirectToRoute('intervention_multiple_index');
