@@ -55,6 +55,11 @@ abstract class Interventions
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="integer", length=1, nullable=true)
+     */
+    private $isMultiple;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,6 +115,22 @@ abstract class Interventions
     public function setType($type): void
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsMultiple()
+    {
+        return $this->isMultiple;
+    }
+
+    /**
+     * @param mixed $isMultiple
+     */
+    public function setIsMultiple($isMultiple): void
+    {
+        $this->isMultiple = $isMultiple;
     }
 }
 
@@ -485,6 +506,11 @@ class Phyto extends Interventions
     private $dose_hectare = 0;
 
     /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $size_multiple = 0;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\InterventionsProducts", mappedBy="intervention")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
@@ -500,7 +526,7 @@ class Phyto extends Interventions
         // IF MAKE CHANGE HERE CHANGE ON INTERVENTIONPRODUCT
         $doseApplique = $this->getQuantity() / $this->getCulture()->getSize();
         $doseHomologue = $this->getDose();
-        $surfaceTraite = $this->getCulture()->getRealSize();
+        $surfaceTraite = $this->getIsMultiple() ? $this->getSizeMultiple() : $this->getCulture()->getRealSize();
         $surfaceTotal = $this->getCulture()->getSize();
 
         //-- Display only if have all value
@@ -601,5 +627,21 @@ class Phyto extends Interventions
     public function setDoseHectare(float $dose_hectare)
     {
         $this->dose_hectare = $dose_hectare;
+    }
+
+    /**
+     * @return float
+     */
+    public function getSizeMultiple(): float
+    {
+        return $this->size_multiple;
+    }
+
+    /**
+     * @param int $size_multiple
+     */
+    public function setSizeMultiple(float $size_multiple): void
+    {
+        $this->size_multiple = $size_multiple;
     }
 }

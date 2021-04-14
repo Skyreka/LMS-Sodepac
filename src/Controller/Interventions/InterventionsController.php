@@ -71,6 +71,7 @@ class InterventionsController extends AbstractController
                 //-- Foreach of all culture selected
                 $listCulture = $this->container->get('session')->get('listCulture');
                 foreach ($listCulture as $culture) {
+                    $intervention->setIsMultiple( 1 );
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
                     $culture->setStatus( 1 );
@@ -130,6 +131,7 @@ class InterventionsController extends AbstractController
                 //-- Foreach of all culture selected
                 $listCulture = $this->container->get('session')->get('listCulture');
                 foreach ($listCulture as $culture) {
+                    $intervention->setIsMultiple( 1 );
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
                     $this->em->merge( $intervention );
@@ -175,6 +177,7 @@ class InterventionsController extends AbstractController
                 //-- Foreach of all culture selected
                 $listCulture = $this->container->get('session')->get('listCulture');
                 foreach ($listCulture as $culture) {
+                    $intervention->setIsMultiple( 1 );
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
                     $this->em->merge( $intervention );
@@ -219,6 +222,7 @@ class InterventionsController extends AbstractController
                 //-- Foreach of all culture selected
                 $listCulture = $this->container->get('session')->get('listCulture');
                 foreach ($listCulture as $culture) {
+                    $intervention->setIsMultiple( 1 );
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
                     $this->em->merge( $intervention );
@@ -263,6 +267,7 @@ class InterventionsController extends AbstractController
                 //-- Foreach of all culture selected
                 $listCulture = $this->container->get('session')->get('listCulture');
                 foreach ($listCulture as $culture) {
+                    $intervention->setIsMultiple( 1 );
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
                     $this->em->merge( $intervention );
@@ -359,6 +364,8 @@ class InterventionsController extends AbstractController
                 $listCulture = $this->container->get('session')->get('listCulture');
                 foreach ($listCulture as $culture) {
                     //-- Setters
+                    $intervention->setIsMultiple( 1 );
+                    $intervention->setSizeMultiple( $cultureTotalSize );
                     $intervention->setDose( $data['doses']->getData()->getDose() );
                     $intervention->setDoseHectare( $data['doseHectare']->getData() );
                     $intervention->setProduct( $stock->getProduct() );
@@ -598,6 +605,7 @@ class InterventionsController extends AbstractController
                 $listCulture = $this->container->get('session')->get('listCulture');
                 foreach ($listCulture as $culture) {
                     //-- Setters
+                    $intervention->setIsMultiple( 1 );
                     $intervention->setProduct( $stock->getProduct() );
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
