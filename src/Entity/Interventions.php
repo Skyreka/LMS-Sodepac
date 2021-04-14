@@ -347,6 +347,11 @@ class Fertilisant extends Interventions
     private $p;
 
     /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $size_multiple = 0;
+
+    /**
      * @return mixed
      */
     public function getP()
@@ -476,6 +481,22 @@ class Fertilisant extends Interventions
     public function setN($n): void
     {
         $this->n = $n;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSizeMultiple(): int
+    {
+        return $this->size_multiple;
+    }
+
+    /**
+     * @param int $size_multiple
+     */
+    public function setSizeMultiple(int $size_multiple): void
+    {
+        $this->size_multiple = $size_multiple;
     }
 }
 
