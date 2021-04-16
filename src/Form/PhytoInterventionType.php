@@ -154,7 +154,7 @@ class PhytoInterventionType extends AbstractType
                     'mapped' => false
                 ])
                 ->add('quantity', NumberType::class, [
-                    'label' => 'Dose appliquée totale:',
+                    'label' => 'Quantité totale:',
                     'attr' => [
                         'max' => $form->get('productInStock')->getData()->getQuantity()
                     ],
