@@ -545,17 +545,13 @@ class Phyto extends Interventions
     {
 
         // IF MAKE CHANGE HERE CHANGE ON INTERVENTIONPRODUCT
-        $doseApplique = $this->getQuantity() / $this->getCulture()->getSize();
         $doseHomologue = $this->getDose();
-        $surfaceTraite = $this->getIsMultiple() ? $this->getSizeMultiple() : $this->getCulture()->getRealSize();
-        $surfaceTotal = $this->getCulture()->getSize();
+        $doseHectare = $this->getDoseHectare();
 
         //-- Display only if have all value
-        if ($doseApplique != null &&
-            $doseHomologue != null &&
-            $surfaceTraite != null &&
-            $surfaceTotal != null) {
-            $result = ( $doseApplique / $doseHomologue) * ($surfaceTraite / $surfaceTotal);
+        if ($doseHomologue != null &&
+            $doseHectare != null) {
+            $result = ( $doseHectare / $doseHomologue);
             return $result;
         } else {
             return 0;
