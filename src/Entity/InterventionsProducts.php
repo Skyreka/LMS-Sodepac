@@ -96,18 +96,14 @@ class InterventionsProducts
      */
     public function getIft()
     {
-        // IF MAKE CHANGE HERE CHANGE ON INTERVENTION
-        $surfaceTotal = $this->getIntervention()->getCulture()->getSize();
-        $doseApplique = $this->getQuantity() / $surfaceTotal;
+        // IF MAKE CHANGE HERE CHANGE ON INTERVENTIONPRODUCT
         $doseHomologue = $this->getDose();
-        $surfaceTraite = $this->getIntervention()->getCulture()->getRealSize();
+        $doseHectare = $this->getDoseHectare();
 
         //-- Display only if have all value
-        if ($doseApplique != null &&
-            $doseHomologue != null &&
-            $surfaceTraite != null &&
-            $surfaceTotal != null) {
-            $result = ( $doseApplique / $doseHomologue) * ($surfaceTraite / $surfaceTotal);
+        if ($doseHomologue != null &&
+            $doseHectare != null) {
+            $result = ( $doseHectare / $doseHomologue);
             return $result;
         } else {
             return 0;
