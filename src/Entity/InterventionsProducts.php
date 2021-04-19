@@ -39,6 +39,11 @@ class InterventionsProducts
      */
     private $quantity;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $doseHectare;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,5 +113,17 @@ class InterventionsProducts
         } else {
             return 0;
         }
+    }
+
+    public function getDoseHectare(): ?float
+    {
+        return $this->doseHectare;
+    }
+
+    public function setDoseHectare( ?float $doseHectare ): self
+    {
+        $this->doseHectare = $doseHectare;
+
+        return $this;
     }
 }

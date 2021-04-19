@@ -378,7 +378,7 @@ class InterventionsController extends AbstractController
                     array_push( $listIntervention, $lastIntervention->getId() );
                 }
                 //-- Clear listCulture
-                $this->container->get('session')->remove('listCulture');
+                //$this->container->get('session')->remove('listCulture');
 
                 //-- Multiple product on mutiple intervention
                 if ( $data['addProduct']->getData() ) {
@@ -491,6 +491,7 @@ class InterventionsController extends AbstractController
                     $interventionProduct->setQuantity( $form->getData()->getQuantity() );
                     $interventionProduct->setProduct( $stock->getProduct() );
                     $interventionProduct->setIntervention( $interventionToPut );
+                    $interventionProduct->setDoseHectare( $data['doseHectare']->getData() );
                     // Save on DB
                     $this->em->merge( $interventionProduct );
                     $this->em->flush();
@@ -519,6 +520,7 @@ class InterventionsController extends AbstractController
                 $interventionProduct->setQuantity( $form->getData()->getQuantity() );
                 $interventionProduct->setProduct( $stock->getProduct() );
                 $interventionProduct->setIntervention( $intervention );
+                $interventionProduct->setDoseHectare( $data['doseHectare']->getData() );
                 $this->em->persist( $interventionProduct );
                 $this->em->flush();
                 // Flash Messages
