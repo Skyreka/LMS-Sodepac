@@ -378,7 +378,7 @@ class InterventionsController extends AbstractController
                     array_push( $listIntervention, $lastIntervention->getId() );
                 }
                 //-- Clear listCulture
-                $this->container->get('session')->remove('listCulture');
+                //$this->container->get('session')->remove('listCulture');
 
                 //-- Multiple product on mutiple intervention
                 if ( $data['addProduct']->getData() ) {
