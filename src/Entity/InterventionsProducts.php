@@ -98,7 +98,7 @@ class InterventionsProducts
     {
         // IF MAKE CHANGE HERE CHANGE ON INTERVENTIONPRODUCT
         $doseHomologue = $this->getDose();
-        $doseHectare = $this->getDoseHectare();
+        $doseHectare = $this->getIntervention()->getDoseHectare();
 
         //-- Display only if have all value
         if ($doseHomologue != null &&
