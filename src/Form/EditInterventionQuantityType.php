@@ -14,8 +14,18 @@ class EditInterventionQuantityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if ( $options['data']->getType() == 'Fertilisant'
+            OR $options['data']->getType() == 'Insecticide'
+            OR $options['data']->getType() == 'Désherbant'
+            OR $options['data']->getType() == 'Fongicide'
+            OR $options['data']->getType() == 'Traitement-Divers') {
+            $builder
+                ->add('doseHectare');
+        } else {
+            $builder
+                ->add('quantity');
+        }
         $builder
-            ->add('quantity')
             ->add('comment')
             ->add('intervention_at', DateType::class, [
                 'widget' => 'single_text',
