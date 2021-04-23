@@ -25,7 +25,7 @@ class Ilots
     private $exploitation;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=50)
      */
     private $name;
 
