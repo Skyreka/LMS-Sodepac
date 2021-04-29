@@ -46,7 +46,7 @@
                                 <tbody>
                                 {% for flash in flashs %}
                                     <tr>
-                                        <td>{{ flash.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                        <td>{{ flash.displayAt | date('d/m/Y') }}</td>
                                         <td>{{ flash.bsv.text }}</td>
                                         <td>
                                             <a title="Découvrir" href="{{ path('user_flash_show', {id: flash.bsv.id}) }}" class="btn btn-success">Découvrir</a>
