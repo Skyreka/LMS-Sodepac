@@ -33,27 +33,23 @@ class PanoramaSendType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            /**->add('customers', EntityType::class, [
+            ->add('customers', EntityType::class, [
                 'class' => Users::class,
                 'choice_label' => function(Users $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 },
                 'query_builder' => function (UsersRepository $er) {
-                    if ($this->auth->isGranted('ROLE_ADMIN')) {
-                        return $er->createQueryBuilder('u')
-                            ->andWhere('u.status = :role')
-                            ->setParameter('role', 'ROLE_USER' );
-                    } elseif ($this->auth->isGranted('ROLE_TECHNICIAN')) {
-                        return $er->createQueryBuilder('u')
-                            ->orderBy('u.status', 'ASC')
-                            ->andWhere('u.technician = :technician')
-                            ->setParameter('technician', $this->security->getUser()->getId() );
-                    }
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.status', 'ASC')
+                        ->orWhere('u.pack = :packFull')
+                        ->orWhere('u.pack = :packLight')
+                        ->setParameter('packFull', 'PACK_FULL')
+                        ->setParameter('packLight', 'PACK_LIGHT');
                 },
                 'label'     => 'Envoyer à :',
                 'expanded'  => true,
                 'multiple'  => true,
-            ])**/
+            ])
             ->add('display_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
