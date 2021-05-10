@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\PPF;
+namespace App\Form\PPF\Sunflower;
 
 use App\Entity\IndexEffluents;
 use App\Entity\PPF;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PPFStep4 extends AbstractType
+class PPF1Step4 extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

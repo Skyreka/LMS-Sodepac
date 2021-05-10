@@ -54,27 +54,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/fr.min.js"></script>
     <script src="{{ asset('js/select2entity.js') }}"></script>
     <script>
-        $(document).on('change', '#ppf_step4_effluent', function () {
+        $(document).on('change', '#ppf1_step4_effluent', function () {
             let $field = $(this);
             let $form = $field.closest('form');
             let data = {};
             data[$field.attr('name')] = $field.val();
             $.post($form.attr('action'), data).then(function (data) {
-                let $azote = $(data).find('#ppf_step4_azote');
-                $('#ppf_step4_azote').replaceWith($azote);
+                let $azote = $(data).find('#ppf1_step4_azote');
+                $('#ppf1_step4_azote').replaceWith($azote);
             })
         })
-        $(document).on('change',  '#ppf_step4_effluent, #ppf_step4_qty_ependu, #ppf_step4_coefficient_equivalence, #ppf_step4_azote', function () {
-            let teneurAzote = $('#ppf_step4_azote').val()
-            let qtyEpendu = $('#ppf_step4_qty_ependu').val()
-            let coef = $('#ppf_step4_coefficient_equivalence').val()
+        $(document).on('change',  '#ppf1_step4_effluent, #ppf1_step4_qty_ependu, #ppf1_step4_coefficient_equivalence, #ppf1_step4_azote', function () {
+            let teneurAzote = $('#ppf1_step4_azote').val()
+            let qtyEpendu = $('#ppf1_step4_qty_ependu').val()
+            let coef = $('#ppf1_step4_coefficient_equivalence').val()
 
             // Calc
             let total = teneurAzote * qtyEpendu * coef
 
             $('#total').text( total );
         })
-        $(document).on('change', '#ppf_step4_qty_azote_add, #ppf_step4_qty_ependu, #ppf_step4_coefficient_equivalence, #ppf_step4_effluents', function () {
+        $(document).on('change', '#ppf1_step4_qty_azote_add, #ppf1_step4_qty_ependu, #ppf1_step4_coefficient_equivalence, #ppf1_step4_effluents', function () {
             let total = $('#total').text()
             let azote = $(this).val()
 

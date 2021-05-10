@@ -17,6 +17,11 @@ class PPF
         2 => 'Terminé'
     ];
 
+    const TYPES = [
+        1 => 'Tournesol',
+        2 => 'Maîs-Sorgho'
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -129,6 +134,11 @@ class PPF
      * @ORM\ManyToOne(targetEntity=IndexEffluents::class)
      */
     private $effluent;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $type;
 
     public function __construct()
     {
@@ -406,6 +416,18 @@ class PPF
     public function setEffluent(?IndexEffluents $effluent): self
     {
         $this->effluent = $effluent;
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
