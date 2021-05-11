@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau PPF{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <link href="http://fk.github.io/select2-bootstrap-css/css/select2-bootstrap.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Création d'un PPF</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">PPF</a></li>
+                    <li class="breadcrumb-item active">Etape 2 - Résidu</li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            {{ form_rest(form) }}
+                            <label>Objectif de rendement: <h5>{{ intervention ? intervention.objective ~ ' Quintaux' : 'Aucun objectif de rendement trouvé sur cette culture' }}</h5></label> <br>
+                            <button class="btn btn-primary">Continuer</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/fr.min.js"></script>
+    <script src="{{ asset('js/select2entity.js') }}"></script>
+    <script>
+        $(document).on('change', '#ppf_step1_ilot', function () {
+            let $field = $(this)
+            let $form = $field.closest('form')
+            let data = {}
+            data[$field.attr('name')] = $field.val()
+            $.post($form.attr('action'), data).then(function (data) {
+                let $input = $(data).find('#ppf_step1_culture')
+                $('#ppf_step1_culture').replaceWith( $input )
+            })
+        })
+        $(document).on('change', '#ppf_step1_culture', function () {
+            let $field = $(this)
+            let $ilot = $('#ppf_step1_ilot');
+            let form = $field.closest('form');
+            let data = {}
+            data[$ilot.attr('name')] =  $ilot.val();
+            data[$field.attr('name')] =  $field.val();
+            $.post(form.attr('action'), data).then(function (data) {
+                let input = $(data).find('form');
+                $(form).replaceWith( input )
+            })
+        })
+    </script>
+{% endblock %}

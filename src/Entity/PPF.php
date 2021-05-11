@@ -140,6 +140,26 @@ class PPF
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $needPlant;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $nitrogen_requirement;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $effect_meadow;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $effect_residual_collected;
+
     public function __construct()
     {
         $this->inputs = new ArrayCollection();
@@ -428,6 +448,54 @@ class PPF
     public function setType(int $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getNeedPlant(): ?float
+    {
+        return $this->needPlant;
+    }
+
+    public function setNeedPlant(?float $needPlant): self
+    {
+        $this->needPlant = $needPlant;
+
+        return $this;
+    }
+
+    public function getNitrogenRequirement(): ?float
+    {
+        return $this->nitrogen_requirement;
+    }
+
+    public function setNitrogenRequirement(?float $nitrogen_requirement): self
+    {
+        $this->nitrogen_requirement = $nitrogen_requirement;
+
+        return $this;
+    }
+
+    public function getEffectMeadow(): ?float
+    {
+        return $this->effect_meadow;
+    }
+
+    public function setEffectMeadow(?float $effect_meadow): self
+    {
+        $this->effect_meadow = $effect_meadow;
+
+        return $this;
+    }
+
+    public function getEffectResidualCollected(): ?float
+    {
+        return $this->effect_residual_collected;
+    }
+
+    public function setEffectResidualCollected(?float $effect_residual_collected): self
+    {
+        $this->effect_residual_collected = $effect_residual_collected;
 
         return $this;
     }
