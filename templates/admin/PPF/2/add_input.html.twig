@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau PPF{% endblock %}
+
+{% block stylesheets %}
+    <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <link href="plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 col-8 align-self-center">
+            <h3 class="text-themecolor">Création d'un PPF</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">PPF</a></li>
+                <li class="breadcrumb-item active">Etape 7 - Ajout d'un apport</li>
+            </ol>
+        </div>
+    </div>
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('danger') %}
+    <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    {{ form_start(form) }}
+                        {{ form_row(form.date_added) }}
+                        {{ form_row(form.product) }}
+                        <div class="row">
+                            <div class="col-1">
+                                {{ form_row(form.n) }}
+                            </div>
+                            <div class="col-1">
+                                {{ form_row(form.p) }}
+                            </div>
+                            <div class="col-1">
+                                {{ form_row(form.k) }}
+                            </div>
+                        </div>
+                        {{ form_row(form.quantity) }}
+                        <button class="btn btn-primary">Ajouter</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+            $(document).on('change', '#ppf1_add_input_product', function () {
+                let $field = $(this);
+                let $form = $field.closest('form');
+                let data = {};
+                data[$field.attr('name')] = $field.val();
+                $.post($form.attr('action'), data).then(function (data) {
+                    let $n = $(data).find('#ppf1_add_input_n');
+                    $('#ppf1_add_input_n').replaceWith($n)
+                    let $p = $(data).find('#ppf1_add_input_p');
+                    $('#ppf1_add_input_p').replaceWith($p)
+                    let $k = $(data).find('#ppf1_add_input_k');
+                    $('#ppf1_add_input_k').replaceWith($k)
+                })
+            })
+        });
+    </script>
+    <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.fr.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-datepicker').datepicker({
+                weekStart:0,
+                time: 1,
+                language:"fr"
+            });
+        });
+    </script>
+{% endblock %}

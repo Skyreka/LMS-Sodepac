@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">PPF</a></li>
-                    <li class="breadcrumb-item active">Etape 4 - Effluents</li>
+                    <li class="breadcrumb-item active">Etape 5 - Effluents</li>
                 </ol>
             </div>
         </div>
@@ -81,7 +81,7 @@
             // Calc
             let totalAzote = azote - total
 
-            $('#totalAzote').text( totalAzote );
+            $('#totalAzote').text(  Math.round(totalAzote) );
         })
     </script>
 {% endblock %}
