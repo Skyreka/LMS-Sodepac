@@ -60,7 +60,7 @@ class PPF1Controller extends AbstractController
             $ppf = new PPF();
             $ppf->setAddedDate( new \DateTime() );
             $ppf->setStatus( 1 );
-            $ppf->setType( 1 );
+            $ppf->setType( $request->get('types') );
             $ppf->setCulture( $data['culture'] );
             $ppf->setEffiencyPrev( $data['effiency_prev'] );
             $ppf->setQtyAzoteAddPrev( $data['qty_azote_add_prev'] );

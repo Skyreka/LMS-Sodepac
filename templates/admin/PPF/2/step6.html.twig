@@ -50,6 +50,7 @@
     <script src="{{ asset('js/select2entity.js') }}"></script>
     <script>
         $(document).on('change',  '#ppf2_step6_coefficient_multiple, #ppf2_step6_coefficient_use, #ppf2_step6_nutrigen_organic', function () {
+            // IF ERROR PAGE intervention.objective not found
             let besoinParcelle = {{ (intervention.objective * ppf.needPlant) + ppf.culture.ilot.type.nitrogen }};
             let fourniture = {{ ppf.remainderSoilSow + ppf.culture.ilot.type.humusMineralization + ppf.effectMeadow + ppf.effectResidualCollected + (( ppf.qtyWaterPrev * ppf.resourceNitrateContent ) / 443) }};
             let coefMultiple = $('#ppf2_step6_coefficient_multiple').val()

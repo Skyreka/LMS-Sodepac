@@ -160,6 +160,21 @@ class PPF
      */
     private $effect_residual_collected;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $coefficient_multiple;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $coefficient_use;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $nutrigen_organic;
+
     public function __construct()
     {
         $this->inputs = new ArrayCollection();
@@ -440,8 +455,11 @@ class PPF
         return $this;
     }
 
-    public function getType(): ?int
+    public function getType( $return = false ): string
     {
+        if ($return) {
+            return self::TYPES[$this->type];
+        }
         return $this->type;
     }
 
@@ -496,6 +514,42 @@ class PPF
     public function setEffectResidualCollected(?float $effect_residual_collected): self
     {
         $this->effect_residual_collected = $effect_residual_collected;
+
+        return $this;
+    }
+
+    public function getCoefficientMultiple(): ?float
+    {
+        return $this->coefficient_multiple;
+    }
+
+    public function setCoefficientMultiple(?float $coefficient_multiple): self
+    {
+        $this->coefficient_multiple = $coefficient_multiple;
+
+        return $this;
+    }
+
+    public function getCoefficientUse(): ?float
+    {
+        return $this->coefficient_use;
+    }
+
+    public function setCoefficientUse(?float $coefficient_use): self
+    {
+        $this->coefficient_use = $coefficient_use;
+
+        return $this;
+    }
+
+    public function getNutrigenOrganic(): ?float
+    {
+        return $this->nutrigen_organic;
+    }
+
+    public function setNutrigenOrganic(?float $nutrigen_organic): self
+    {
+        $this->nutrigen_organic = $nutrigen_organic;
 
         return $this;
     }

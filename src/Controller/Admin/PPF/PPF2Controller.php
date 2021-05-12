@@ -63,7 +63,7 @@ class PPF2Controller extends AbstractController
             $ppf = new PPF();
             $ppf->setAddedDate( new \DateTime() );
             $ppf->setStatus( 1 );
-            $ppf->setType( 1 );
+            $ppf->setType( $request->get('types') );
             $ppf->setCulture( $data['culture'] );
             $ppf->setEffiencyPrev( $data['effiency_prev'] );
             $ppf->setQtyAzoteAddPrev( $data['qty_azote_add_prev'] );
@@ -285,6 +285,31 @@ class PPF2Controller extends AbstractController
         return $this->render('admin/PPF/2/add_input.html.twig', [
             'form' => $form->createView(),
             'ppf' => $ppf
+        ]);
+    }
+
+    /**
+     * @Route("/summary", name="ppf2_summary", methods={"GET", "POST"})
+     * @param Request $request
+     * @param InterventionsRepository $ir
+     * @param PPFInputRepository $pir
+     * @return Response
+     */
+    public function summary( Request $request, InterventionsRepository $ir, PPFInputRepository $pir): Response
+    {
+        // Get PPF
+        $ppf = $this->ppfRepository->findOneBy( ['id' => $request->get('ppf')]);
+
+        // Get objective of culture in intervention
+        $intervention = $ir->findOneBy( ['culture' => $ppf->getCulture(), 'type' => 'Semis'] );
+
+        // Get inputs of PPF
+        $inputs = $pir->findBy( ['ppf' => $ppf ]);
+
+        return $this->render('admin/PPF/2/summary.html.twig', [
+            'ppf' => $ppf,
+            'intervention' => $intervention,
+            'inputs' => $inputs
         ]);
     }
 }

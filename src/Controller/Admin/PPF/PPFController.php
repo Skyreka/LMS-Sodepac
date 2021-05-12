@@ -57,7 +57,8 @@ class PPFController extends AbstractController
             }
 
             return $this->redirectToRoute('ppf'. $form->get('types')->getData() .'_step_1', [
-                'exploitation' => $data->getExploitation()->getId()
+                'exploitation' => $data->getExploitation()->getId(),
+                'types' => $form->get('types')->getData()
             ]);
         }
 
