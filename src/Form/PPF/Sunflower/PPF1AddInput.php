@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\PPF;
+namespace App\Form\PPF\Sunflower;
 
 use App\Entity\PPF;
 use App\Entity\PPFInput;
@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PPFAddInput extends AbstractType
+class PPF1AddInput extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -16,7 +16,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">PPF</a></li>
-                <li class="breadcrumb-item active">Etape 5 - Ajout d'un apport</li>
+                <li class="breadcrumb-item active">Etape 7 - Ajout d'un apport</li>
             </ol>
         </div>
     </div>
@@ -59,18 +59,18 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2();
-            $(document).on('change', '#ppf_add_input_product', function () {
+            $(document).on('change', '#ppf1_add_input_product', function () {
                 let $field = $(this);
                 let $form = $field.closest('form');
                 let data = {};
                 data[$field.attr('name')] = $field.val();
                 $.post($form.attr('action'), data).then(function (data) {
-                    let $n = $(data).find('#ppf_add_input_n');
-                    $('#ppf_add_input_n').replaceWith($n)
-                    let $p = $(data).find('#ppf_add_input_p');
-                    $('#ppf_add_input_p').replaceWith($p)
-                    let $k = $(data).find('#ppf_add_input_k');
-                    $('#ppf_add_input_k').replaceWith($k)
+                    let $n = $(data).find('#ppf1_add_input_n');
+                    $('#ppf1_add_input_n').replaceWith($n)
+                    let $p = $(data).find('#ppf1_add_input_p');
+                    $('#ppf1_add_input_p').replaceWith($p)
+                    let $k = $(data).find('#ppf1_add_input_k');
+                    $('#ppf1_add_input_k').replaceWith($k)
                 })
             })
         });

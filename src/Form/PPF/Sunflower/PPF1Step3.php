@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\PPF;
+namespace App\Form\PPF\Sunflower;
 
 use App\Entity\PPF;
 use Symfony\Component\Form\AbstractType;
@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PPFStep3 extends AbstractType
+class PPF1Step3 extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,7 +19,7 @@ class PPFStep3 extends AbstractType
             ->add('remainder_soil_sow', NumberType::class, [
                 'label' => 'Mesure présents dans le sol au semis',
                 'attr' => [
-                    'placeholder' => 'En Unités / hectare'
+                    'placeholder' => 'En U/ha'
                 ]
             ])
             ->add('qty_water_prev', NumberType::class, [

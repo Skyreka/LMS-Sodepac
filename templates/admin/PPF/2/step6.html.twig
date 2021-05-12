@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">PPF</a></li>
-                    <li class="breadcrumb-item active">Etape 1 - Culture</li>
+                    <li class="breadcrumb-item active">Etape 6 - Effluents</li>
                 </ol>
             </div>
         </div>
@@ -30,7 +30,12 @@
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
-                            {{ form_rest(form) }}
+                            {{ form_row(form.coefficient_multiple) }}
+                            {{ form_row(form.coefficient_use) }}
+                            <img src="{{ asset('images/ppf/2-table_7.jpeg') }}"></img> <br>
+                            {{ form_row(form.nutrigen_organic) }}
+                            <h3 class="mt-3 text-center">AZOTE MINÉRAL À APPORTER APRÈS LE STADE 4 FEUILLES: <span id="total" class="text-warning"></span> <small>U/Ha</small></h3> <br>
+                            <button class="btn btn-primary">Continuer</button>
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -44,27 +49,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/fr.min.js"></script>
     <script src="{{ asset('js/select2entity.js') }}"></script>
     <script>
-        $(document).on('change', '#ppf_step1_ilot', function () {
-            let $field = $(this)
-            let $form = $field.closest('form')
-            let data = {}
-            data[$field.attr('name')] = $field.val()
-            $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('#ppf_step1_culture')
-                $('#ppf_step1_culture').replaceWith( $input )
-            })
-        })
-        $(document).on('change', '#ppf_step1_culture', function () {
-            let $field = $(this)
-            let $ilot = $('#ppf_step1_ilot');
-            let form = $field.closest('form');
-            let data = {}
-            data[$ilot.attr('name')] =  $ilot.val();
-            data[$field.attr('name')] =  $field.val();
-            $.post(form.attr('action'), data).then(function (data) {
-                let input = $(data).find('form');
-                $(form).replaceWith( input )
-            })
+        $(document).on('change',  '#ppf2_step6_coefficient_multiple, #ppf2_step6_coefficient_use, #ppf2_step6_nutrigen_organic', function () {
+            // IF ERROR PAGE intervention.objective not found
+            let besoinParcelle = {{ (intervention.objective * ppf.needPlant) + ppf.culture.ilot.type.nitrogen }};
+            let fourniture = {{ ppf.remainderSoilSow + ppf.culture.ilot.type.humusMineralization + ppf.effectMeadow + ppf.effectResidualCollected + (( ppf.qtyWaterPrev * ppf.resourceNitrateContent ) / 443) }};
+            let coefMultiple = $('#ppf2_step6_coefficient_multiple').val()
+            let coefUse = $('#ppf2_step6_coefficient_use').val()
+            let nutrigenOrganic = $('#ppf2_step6_nutrigen_organic').val()
+
+            // Calc
+            let total = ( (parseFloat( besoinParcelle ) - parseFloat( fourniture )) - (parseFloat( fourniture ) * parseFloat( coefUse ))) - parseFloat( nutrigenOrganic )
+
+            $('#total').text(  Math.round(total) );
         })
     </script>
 {% endblock %}

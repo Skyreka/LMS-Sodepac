@@ -17,6 +17,11 @@ class PPF
         2 => 'Terminé'
     ];
 
+    const TYPES = [
+        1 => 'Tournesol',
+        2 => 'Maîs-Sorgho'
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -129,6 +134,46 @@ class PPF
      * @ORM\ManyToOne(targetEntity=IndexEffluents::class)
      */
     private $effluent;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $needPlant;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $nitrogen_requirement;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $effect_meadow;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $effect_residual_collected;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $coefficient_multiple;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $coefficient_use;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $nutrigen_organic;
 
     public function __construct()
     {
@@ -406,6 +451,105 @@ class PPF
     public function setEffluent(?IndexEffluents $effluent): self
     {
         $this->effluent = $effluent;
+
+        return $this;
+    }
+
+    public function getType( $return = false ): string
+    {
+        if ($return) {
+            return self::TYPES[$this->type];
+        }
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getNeedPlant(): ?float
+    {
+        return $this->needPlant;
+    }
+
+    public function setNeedPlant(?float $needPlant): self
+    {
+        $this->needPlant = $needPlant;
+
+        return $this;
+    }
+
+    public function getNitrogenRequirement(): ?float
+    {
+        return $this->nitrogen_requirement;
+    }
+
+    public function setNitrogenRequirement(?float $nitrogen_requirement): self
+    {
+        $this->nitrogen_requirement = $nitrogen_requirement;
+
+        return $this;
+    }
+
+    public function getEffectMeadow(): ?float
+    {
+        return $this->effect_meadow;
+    }
+
+    public function setEffectMeadow(?float $effect_meadow): self
+    {
+        $this->effect_meadow = $effect_meadow;
+
+        return $this;
+    }
+
+    public function getEffectResidualCollected(): ?float
+    {
+        return $this->effect_residual_collected;
+    }
+
+    public function setEffectResidualCollected(?float $effect_residual_collected): self
+    {
+        $this->effect_residual_collected = $effect_residual_collected;
+
+        return $this;
+    }
+
+    public function getCoefficientMultiple(): ?float
+    {
+        return $this->coefficient_multiple;
+    }
+
+    public function setCoefficientMultiple(?float $coefficient_multiple): self
+    {
+        $this->coefficient_multiple = $coefficient_multiple;
+
+        return $this;
+    }
+
+    public function getCoefficientUse(): ?float
+    {
+        return $this->coefficient_use;
+    }
+
+    public function setCoefficientUse(?float $coefficient_use): self
+    {
+        $this->coefficient_use = $coefficient_use;
+
+        return $this;
+    }
+
+    public function getNutrigenOrganic(): ?float
+    {
+        return $this->nutrigen_organic;
+    }
+
+    public function setNutrigenOrganic(?float $nutrigen_organic): self
+    {
+        $this->nutrigen_organic = $nutrigen_organic;
 
         return $this;
     }

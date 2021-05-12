@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">PPF</a></li>
-                    <li class="breadcrumb-item active">Etape 3 - Irrigation</li>
+                    <li class="breadcrumb-item active">Etape 3 - Besoin totale de la parcelle</li>
                 </ol>
             </div>
         </div>
@@ -29,12 +29,18 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        <input type="hidden" id="objective" value="{{ intervention ? intervention.objective : 0 }}" />
+                        <input type="hidden" id="nitrogen" value="{{ ppf.culture.ilot.type.nitrogen }}" />
                         {{ form_start(form) }}
-                            <label>Minéralisation de l'humus: <h5>{{ ppf.culture.ilot.type.humusMineralization }} U/Ha</h5></label>
-                            {{ form_rest(form) }}
-                            <img src="{{ asset('images/ppf/table_7.png') }}"></img> <br>
+                            <h3>A - Maïs grain, maïs fourrage, maïs doux, sorgho grain, sorgho fourrage</h3>
+                            {{ form_row(form.need_plant) }}
+                            <img src="{{ asset('images/ppf/2-table_1.jpeg') }}"></img> <br>
+                            <h3 class="mt-3 text-center">Besoin total d’azote de la parcelle: <span id="total" class="text-success"></span> <small>U/ha</small></h3> <br>
 
-                            <h3 class="mt-3 text-center">Azote fourni par l'irrigation: <span id="total" class="text-success"></span> <small>Unités / Hectare</small></h3> <br>
+                            <h3>B - Maïs semence <span class="text-danger">Remplir uniquement si cas de figure B</span></h3>
+                            {{ form_row(form.nitrogen_requirement) }}
+                            <img src="{{ asset('images/ppf/2-table_2.jpeg') }}"></img> <br>
+
                             <button class="btn btn-primary">Continuer</button>
                         {{ form_end(form) }}
                     </div>
@@ -49,35 +55,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/fr.min.js"></script>
     <script src="{{ asset('js/select2entity.js') }}"></script>
     <script>
-        $(document).on('change', '#ppf_step1_ilot', function () {
-            let $field = $(this)
-            let $form = $field.closest('form')
-            let data = {}
-            data[$field.attr('name')] = $field.val()
-            $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('#ppf_step1_culture')
-                $('#ppf_step1_culture').replaceWith( $input )
-            })
-        })
-        $(document).on('change', '#ppf_step1_culture', function () {
-            let $field = $(this)
-            let $ilot = $('#ppf_step1_ilot');
-            let form = $field.closest('form');
-            let data = {}
-            data[$ilot.attr('name')] =  $ilot.val();
-            data[$field.attr('name')] =  $field.val();
-            $.post(form.attr('action'), data).then(function (data) {
-                let input = $(data).find('form');
-                $(form).replaceWith( input )
-            })
-        })
-        $(document).on('change', '#ppf_step3_resource_nitrate_content, #ppf_step3_qty_water_prev', function () {
-            let mesure = $('#ppf_step3_remainder_soil_sow').val()
-            let qtyWater = $('#ppf_step3_qty_water_prev').val()
-            let nitrate = $('#ppf_step3_resource_nitrate_content').val()
+        $(document).on('change', '#ppf2_step3_need_plant', function () {
+            let objective = $('#objective').val()
+            let needPlant = $('#ppf2_step3_need_plant').val()
+            let nitrogen = $('#nitrogen').val()
 
             // Calc
-            let total = qtyWater * nitrate / 443
+            let total = (parseFloat(objective) * parseFloat(needPlant)) + parseFloat( nitrogen )
 
             $('#total').text( Math.round(total) );
         })

@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau PPF{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <link href="http://fk.github.io/select2-bootstrap-css/css/select2-bootstrap.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Création d'un PPF</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">PPF</a></li>
+                    <li class="breadcrumb-item active">Etape 5 - Plan prévisionnel de fumure</li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered no-wrap">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <td>
+                                            <p class="text-center">Date</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center">Type d'engrais</p>
+                                        </td>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <td>
+                                            <p class="text-center">Quantité apporté</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center font-weight-bold">Total N</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center font-weight-bold">Total P</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center font-weight-bold">Total K</p>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set line = 0 %}
+                                    {% set totalN = 0 %}
+                                    {% set totalP = 0 %}
+                                    {% set totalK = 0 %}
+                                    {% for input in inputs %}
+                                        {% set line = line + 1 %}
+                                        <tr>
+                                            <td>Apport {{ line }}</td>
+                                            <td>
+                                                <p class="text-center">{{ input.dateAdded | date('d/m/Y') }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">{{ input.product.name }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">N: {{ input.n ? input.n : '0' }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">P: {{ input.p ? input.p : '0' }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">K: {{ input.k ? input.k : '0' }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center">{{ input.quantity }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-center font-weight-bold">{% set totalLineN = input.quantity*( input.n / 100) %} {{ totalLineN|round(2) }} U</p>
+                                                {% set totalN = totalN + totalLineN %}
+                                            </td>
+                                            <td>
+                                                <p class="text-center font-weight-bold">{% set totalLineP = input.quantity*( input.p / 100) %} {{ totalLineP|round(2) }} U</p>
+                                                {% set totalP = totalP + totalLineP %}
+                                            </td>
+                                            <td>
+                                                <p class="text-center font-weight-bold">{% set totalLineK = input.quantity*( input.k / 100) %} {{ totalLineK|round(2) }} U</p>
+                                                {% set totalK = totalK + totalLineK %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('ppf1_add_input', {ppf: ppf.id}) }}" class="btn btn-info">Ajouter apport</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <h3 class="text-center">TOTAL N {{ 'NOW'|date('Y') }} : {{ totalN|round(2) }} U</h3>
+                        <h3 class="text-center">TOTAL P {{ 'NOW'|date('Y') }} : {{ totalP|round(2) }} U</h3>
+                        <h3 class="text-center">TOTAL K {{ 'NOW'|date('Y') }} : {{ totalK|round(2) }} U</h3>
+                        <a href="{{ path('ppf1_summary', {ppf: ppf.id}) }}" target="_blank" class="btn btn-success d-block pull-right">Générer Bilan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

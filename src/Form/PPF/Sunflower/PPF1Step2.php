@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\PPF;
+namespace App\Form\PPF\Sunflower;
 
 use App\Entity\Cultures;
 use App\Entity\Ilots;
@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PPFStep2 extends AbstractType
+class PPF1Step2 extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

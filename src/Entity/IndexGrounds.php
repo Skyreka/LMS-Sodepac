@@ -38,6 +38,11 @@ class IndexGrounds
      */
     private $humus_mineralization;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $nitrogen;
+
     public function __construct()
     {
         $this->ilots = new ArrayCollection();
@@ -111,6 +116,18 @@ class IndexGrounds
     public function setHumusMineralization(?float $humus_mineralization): self
     {
         $this->humus_mineralization = $humus_mineralization;
+
+        return $this;
+    }
+
+    public function getNitrogen(): ?float
+    {
+        return $this->nitrogen;
+    }
+
+    public function setNitrogen(?float $nitrogen): self
+    {
+        $this->nitrogen = $nitrogen;
 
         return $this;
     }
