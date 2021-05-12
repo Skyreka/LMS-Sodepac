@@ -113,7 +113,7 @@
             </div>
             <div class="row">
                 <div class="col-12 pb-4">
-                    <h3 class="text-center">AZOTE MINÉRAL À APPORTER APRÈS LE STADE 4 FEUILLES <span class="text-success font-weight-bold">{{ ((besoin - fourniture) - (fourniture - ppf.coefficientUse)) - ppf.nutrigenOrganic }}</span> U/Ha</h3>
+                    <h3 class="text-center">AZOTE MINÉRAL À APPORTER APRÈS LE STADE 4 FEUILLES <span class="text-success font-weight-bold">{{ ((besoin - fourniture) - (fourniture * ppf.coefficientUse)) - ppf.nutrigenOrganic }}</span> U/Ha</h3>
                 </div>
             </div>
             <div class="row">
