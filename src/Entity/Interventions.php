@@ -548,9 +548,14 @@ class Phyto extends Interventions
         $doseHomologue = $this->getDose();
         $doseHectare = $this->getDoseHectare();
 
+        if ( $doseHectare == NULL ) {
+            $doseHectare = $this->getQuantity() / $this->getCulture()->getSize();
+        }
+
         //-- Display only if have all value
         if ($doseHomologue != null &&
             $doseHectare != null) {
+
             $result = ( $doseHectare / $doseHomologue);
             return $result;
         } else {
