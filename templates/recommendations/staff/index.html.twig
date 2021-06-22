@@ -58,6 +58,7 @@
                                         <th>Technicien</th>
                                     {% endif %}
                                     <th>Crée le</th>
+                                    <th>Commentaire</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -87,6 +88,9 @@
                                         {% endif %}
                                         <td>
                                             {{ recommendation.createAt | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y") }}
+                                        </td>
+                                        <td>
+                                            {{ recommendation.comment }}
                                         </td>
                                         <td>
                                             <div style="display: flex">
