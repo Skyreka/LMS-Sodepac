@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Interventions;
 
+use App\Entity\Analyse;
 use App\Entity\Binage;
 use App\Entity\Cultures;
 use App\Entity\Epandage;
@@ -11,6 +12,7 @@ use App\Entity\Labour;
 use App\Entity\Phyto;
 use App\Entity\Recolte;
 use App\Entity\Semis;
+use App\Form\AnalyseInterventionType;
 use App\Form\DefaultInterventionType;
 use App\Form\EditInterventionQuantityType;
 use App\Form\EpandageInterventionType;
@@ -260,6 +262,51 @@ class InterventionsController extends AbstractController
         $name = "Semis";
         $intervention = new Semis();
         $form = $this->createForm( SemisInterventionType::class, $intervention);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->container->get('session')->get('listCulture')) {
+                //-- Foreach of all culture selected
+                $listCulture = $this->container->get('session')->get('listCulture');
+                foreach ($listCulture as $culture) {
+                    $intervention->setIsMultiple( 1 );
+                    $intervention->setCulture( $culture );
+                    $intervention->setType( $name );
+                    $this->em->merge( $intervention );
+                    $this->em->flush();
+                }
+                //-- Clear listCulture
+                $this->container->get('session')->remove('listCulture');
+                $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
+                return $this->redirectToRoute('login_success');
+            } else {
+                $intervention->setCulture( $culture );
+                $intervention->setType( $name );
+                $this->em->persist( $intervention );
+                $this->em->flush();
+            }
+            $this->addFlash('success', 'Intervention de '. $name .' créée avec succès');
+            return $this->redirectToRoute( 'cultures_show', ['id' => $culture->getId()] );
+        }
+
+        return $this->render('interventions/default.html.twig', [
+            'culture' => $culture,
+            'intervention' => $name,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/analyse/{id}", name="intervention_analyse", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @param Cultures $culture
+     * @param Request $request
+     * @return Response
+     */
+    public function analyse(Cultures $culture, Request $request): Response
+    {
+        $name = "Analyse";
+        $intervention = new Analyse();
+        $form = $this->createForm( AnalyseInterventionType::class, $intervention);
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {
