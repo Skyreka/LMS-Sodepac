@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "binage" = "Binage",
  *     "labour" = "Labour",
  *     "analyse" = "Analyse",
+ *     "irrigation" = "Irrigation",
  *     "fertilisant" = "Fertilisant",
  *     "phyto" = "Phyto",
  *     "epandange" = "Epandage",
@@ -207,6 +208,55 @@ class Analyse extends Interventions
     public function setQuantity($quantity): void
     {
         $this->quantity = $quantity;
+    }
+}
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="irrigation")
+ */
+class Irrigation extends Interventions
+{
+    /**
+     * @ORM\Column(type="float", length=11, nullable=true)
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @return mixed
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param mixed $quantity
+     */
+    public function setQuantity($quantity): void
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
     }
 }
 
