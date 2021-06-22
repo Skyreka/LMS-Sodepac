@@ -601,6 +601,11 @@ class Phyto extends Interventions
     private $dose = 0;
 
     /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $doseUnit;
+
+    /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $dose_hectare = 0;
@@ -626,6 +631,11 @@ class Phyto extends Interventions
         // IF MAKE CHANGE HERE CHANGE ON INTERVENTIONPRODUCT
         $doseHomologue = $this->getDose();
         $doseHectare = $this->getDoseHectare();
+
+        // If unit of dose contain /hl x 10
+        if ( strpos($this->getDoseUnit(), '/hl') ) {
+            $doseHomologue = $this->getDose() * 10;
+        }
 
         if ( $doseHectare == NULL ) {
             $doseHectare = $this->getQuantity() / $this->getCulture()->getSize();
@@ -744,5 +754,21 @@ class Phyto extends Interventions
     public function setSizeMultiple(float $size_multiple): void
     {
         $this->size_multiple = $size_multiple;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDoseUnit()
+    {
+        return $this->doseUnit;
+    }
+
+    /**
+     * @param mixed $doseUnit
+     */
+    public function setDoseUnit($doseUnit): void
+    {
+        $this->doseUnit = $doseUnit;
     }
 }

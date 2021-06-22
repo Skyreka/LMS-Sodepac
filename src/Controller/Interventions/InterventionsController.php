@@ -465,6 +465,7 @@ class InterventionsController extends AbstractController
                     $intervention->setProduct( $stock->getProduct() );
                     $intervention->setCulture( $culture );
                     $intervention->setType( $name );
+                    $intervention->setDoseUnit( $data['doses']->getNormData()->getUnit() );
                     //-- Flush on db
                     $lastIntervention = $this->em->merge( $intervention );
                     $this->em->flush();
@@ -499,6 +500,7 @@ class InterventionsController extends AbstractController
                 $intervention->setProduct( $stock->getProduct() );
                 $intervention->setCulture( $culture );
                 $intervention->setType( $name );
+                $intervention->setDoseUnit( $data['doses']->getNormData()->getUnit() );
                 //-- Flush on db
                 $this->em->persist( $intervention );
                 $this->em->flush();
