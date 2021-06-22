@@ -10,11 +10,9 @@ use App\Form\ExploitationType;
 use App\Form\PasswordType;
 use App\Form\TechnicianCustomersType;
 use App\Form\UserType;
-use App\Repository\AnalyseRepository;
 use App\Repository\CulturesRepository;
 use App\Repository\IlotsRepository;
 use App\Repository\InterventionsRepository;
-use App\Repository\IrrigationRepository;
 use App\Repository\StocksRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,8 +44,6 @@ class UserController extends AbstractController
      * @param Users $user
      * @param StocksRepository $sr
      * @param IlotsRepository $ir
-     * @param IrrigationRepository $irrigationRepo
-     * @param AnalyseRepository $analyseRepo
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
@@ -56,8 +52,6 @@ class UserController extends AbstractController
         Users $user,
         StocksRepository $sr,
         IlotsRepository $ir,
-        IrrigationRepository $irrigationRepo,
-        AnalyseRepository $analyseRepo,
         Request $request,
         UserPasswordEncoderInterface $encoder
         ): Response
@@ -85,8 +79,6 @@ class UserController extends AbstractController
         $exploitation = $user->getExploitation();
         $usedProducts = $sr->findByExploitation( $exploitation, true );
         $ilots = $ir->findBy( ['exploitation' => $exploitation], null );
-        $irrigations = $irrigationRepo->findByExploitation( $exploitation );
-        $analyses = $analyseRepo->findByExploitation( $exploitation );
 
         // Edit Password
         $formPassword = $this->createForm( PasswordType::class, $user);
@@ -139,8 +131,6 @@ class UserController extends AbstractController
 
             'usedProducts' => $usedProducts,
             'ilots' => $ilots,
-            'irrigations' => $irrigations,
-            'analyses' => $analyses,
 
             'form_password' => $formPassword->createView(),
             'form_information' => $formInformation->createView(),

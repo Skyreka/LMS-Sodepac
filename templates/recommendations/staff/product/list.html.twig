@@ -42,7 +42,7 @@
                                             <td>{{ product.id }}</td>
                                             <td>{{ product.product.name }}</td>
                                             <td class="text-danger">{{ product.dose|round(3, 'floor') }} <small>{{ product.unit }}</small></td>
-                                            <td>{{ product.dose|round(3, 'floor') }}</td>
+                                            <td>{{ product.doseEdit ? product.doseEdit : product.dose|round(3, 'floor') }}</td>
                                             <td>{{ product.unit }}</td>
                                             <td class="text-nowrap">
                                                 {{ include('recommendations/staff/product/_delete.html.twig') }}

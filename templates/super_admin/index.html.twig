@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Accueil SUPER ADMIN</h3>
+                <h3 class="text-danger">SUPER ADMIN</h3>
             </div>
         </div>
         <div class="col-12">
@@ -21,7 +21,7 @@
             <div class="col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Inactif</h4>
+                        <h4 class="card-title">Inactifs</h4>
                         <div class="text-center">
                             <input data-plugin="knob" data-width="150" data-height="150" data-bgColor="#ebeff2" data-fgColor="#009efb" data-displayInput=false data-readOnly=true value="{{ inactivPercent }}" />
                         </div>
@@ -32,7 +32,7 @@
             <div class="col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Démo</h4>
+                        <h4 class="card-title">Démos</h4>
                         <div class="text-center">
                             <input data-plugin="knob" data-width="150" data-height="150" data-bgColor="#ebeff2" data-fgColor="#009efb" data-displayInput=false data-readOnly=true value="{{ demoPercent }}" />
                         </div>
@@ -43,7 +43,7 @@
             <div class="col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Light</h4>
+                        <h4 class="card-title">Lights</h4>
                         <div class="text-center">
                             <input data-plugin="knob" data-width="150" data-height="150" data-bgColor="#ebeff2" data-fgColor="#009efb" data-displayInput=false data-readOnly=true value="{{ lightPercent }}" />
                         </div>
@@ -54,11 +54,129 @@
             <div class="col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Full</h4>
+                        <h4 class="card-title">Fulls</h4>
                         <div class="text-center">
                             <input data-plugin="knob" data-width="150" data-height="150" data-bgColor="#ebeff2" data-fgColor="#009efb" data-displayInput=false data-readOnly=true value="{{ fullPercent }}" />
                         </div>
                         <h2 class="text-center font-weight-bold">{{ fullCount }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Dernières Interventions <small>200 dernières</small></h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Culture</th>
+                                    <th>Produit</th>
+                                    <th>Quantité</th>
+                                    <th>Dose préconisée</th>
+                                    <th>Dosage /ha</th>
+                                    <th>IFT</th>
+                                    <th>Produit</th>
+                                    <th>Objectif</th>
+                                    <th>Commentaire</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% set totalIft = 0 %}
+                                {% set totalIftIntervention = 0 %}
+                                {% for intervention in interventions %}
+                                    <tr>
+                                        <td>#{{ intervention.id }}</td>
+                                        <td>
+                                            <small>{{ intervention.culture.ilot.exploitation.users.identity }} > {{ intervention.culture.ilot.name }} > {{ intervention.culture.name.name }}</small>
+                                        </td>
+                                        <td>{% if intervention.product is defined %}{{ intervention.product.name }}{% endif %}</td>
+                                        <td>{% if intervention.quantity is defined %}{{ intervention.quantity }}{% endif %}</td>
+                                        <td>{% if intervention.dose is defined %}{{ intervention.dose }}{% endif %}</td>
+                                        <td>{% if intervention.quantity is defined %}{{ ( intervention.quantity / intervention.culture.size )|round(2, 'floor') }}{% endif %}</td>
+                                        <td>{% if intervention.getIft is defined %}{{ intervention.getIft|round(2, 'floor') }}{% endif %}</td>
+                                        <td>
+                                            {% if (intervention.getInterventionsProducts is defined) and (intervention.getInterventionsProducts is not empty) %}
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#products_{{ intervention.id }}">
+                                                    Produits supplémentaires
+                                                </button>
+                                                <div class="modal fade" id="products_{{ intervention.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Produits supplémentaires</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th scope="col">Nom</th>
+                                                                        <th scope="col">Dose préconisée</th>
+                                                                        <th scope="col">Dosage /ha</th>
+                                                                        <th scope="col">Quantité</th>
+                                                                        <th scope="col">IFT</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    {% for interventionProduct in intervention.getInterventionsProducts.values %}
+                                                                        {% set totalIft = totalIft + interventionProduct.getIft %}
+                                                                        {% set totalIftIntervention = totalIftIntervention + interventionProduct.getIft %}
+                                                                        <tr>
+                                                                            <td>{{ interventionProduct.product.name }}</td>
+                                                                            <td>{{ interventionProduct.dose }}</td>
+                                                                            <td>{{ interventionProduct.doseHectare }}</td>
+                                                                            <td>{{ interventionProduct.doseHectare * interventionProduct.intervention.culture.size }}</td>
+                                                                            <td>{{ interventionProduct.getIFT|round(2, 'floor') }}</td>
+                                                                        </tr>
+                                                                    {% endfor %}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td>{% if intervention.objective is defined %}{{ intervention.objective }}{% endif %}</td>
+                                        <td>{{ intervention.comment }}</td>
+                                        <td>
+                                            <span class="badge badge-success">{{ intervention.interventionAt | date('d-m-Y') }}</span>
+                                        </td>
+                                        <td>
+                                            {% if ( is_granted('ROLE_SUPERADMIN') or intervention.culture.ilot.exploitation.users == app.user ) %}
+                                                <a href="{{ path('intervention_edit', {id: intervention.id}) }}" class="btn btn-info">Editer</a>
+                                            {% endif %}
+                                            {% if ( is_granted('ROLE_SUPERADMIN') ) %}
+                                                <form method="POST" style="display: contents" action="{{ path('intervention_delete', {id: intervention.id}) }}" onsubmit="return confirm('Êtes-vous vraiment sûr vouloir supprimer cette intervention')">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('deleteIntervention' ~ intervention.id) }}">
+                                                    <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </form>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>IFT: {{ totalIftIntervention|round(3, 'floor') }}</td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

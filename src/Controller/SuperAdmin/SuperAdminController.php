@@ -2,6 +2,7 @@
 
 namespace App\Controller\SuperAdmin;
 
+use App\Repository\InterventionsRepository;
 use App\Repository\RecommendationProductsRepository;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +25,7 @@ class SuperAdminController extends AbstractController {
      * @param UsersRepository $ur
      * @return Response
      */
-    public function index( UsersRepository $ur )
+    public function index( UsersRepository $ur, InterventionsRepository $ir )
     {
         $customers = $ur->countAllByRole('ROLE_USER');
 
@@ -48,7 +49,8 @@ class SuperAdminController extends AbstractController {
             'lightCount' => $light,
             'lightPercent' => $lightPercent,
             'demoCount' => $demo,
-            'demoPercent' => $demoPercent
+            'demoPercent' => $demoPercent,
+            'interventions' => $ir->findBy( [], ['id' => 'DESC'], '200')
         ]);
     }
 }
