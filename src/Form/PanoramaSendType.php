@@ -48,7 +48,7 @@ class PanoramaSendType extends AbstractType
                 },
                 'label'     => 'Envoyer à :',
                 'expanded'  => true,
-                'multiple'  => true,
+                'multiple'  => true
             ])
             ->add('display_at', DateType::class, [
                 'widget' => 'single_text',

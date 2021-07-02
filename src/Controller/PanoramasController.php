@@ -277,12 +277,11 @@ class PanoramasController extends AbstractController
         //Submit form
         if ($form->isSubmitted() && $form->isValid()) {
             $today = new DateTime();
-            // Freeze by Anis on 22/03/21
-            /**
-            foreach ($data['customers']->getData() as $customer) {
-                $displayAt = $data['display_at']->getData();
+
+            foreach ($form->get('customers')->getData() as $customer) {
+                $displayAt = $form->get('display_at')->getData();
+                // Relation
                 $relation = new PanoramaUser();
-                $this->em->persist($relation);
                 $relation->setPanorama($panoramas);
                 $relation->setCustomers($customer);
                 $relation->setSender( $this->getUser() );
@@ -290,8 +289,10 @@ class PanoramasController extends AbstractController
                     $displayAt->setTime(8,00);
                     $relation->setDisplayAt($displayAt);
                 } else {
-                    $relation->setDisplayAt($datetime);
+                    $relation->setDisplayAt( $today );
                 }
+
+                $this->em->persist( $relation );
 
                 //Send email notification
                 $message = (new \Swift_Message('Un nouveau panorama disponible sur LMS-Sodepac.'))
@@ -308,42 +309,6 @@ class PanoramasController extends AbstractController
                 ;
                 $mailer->send($message);
             }
-             **/
-            $customers = $ur->findAllPanorama();
-            foreach ( $customers as $customer ) {
-                $displayAt = $form->get('display_at')->getData();
-
-                $panoramaUser = new PanoramaUser();
-                $panoramaUser->setPanorama( $panoramas );
-                $panoramaUser->setCustomers( $customer );
-                $panoramaUser->setSender( $this->getUser() );
-
-                if ( $displayAt !== null ) {
-                    $displayAt->setTime(8,00);
-                    $panoramaUser->setDisplayAt( $displayAt );
-                } else {
-                    $panoramaUser->setDisplayAt( $today );
-                }
-
-
-                $this->em->persist( $panoramaUser );
-
-                //Send email notification
-                $message = (new \Swift_Message('Un nouveau panorama disponible sur LMS-Sodepac.'))
-                    ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
-                    ->setTo( $customer->getEmail() )
-                    ->setBody(
-                        $this->renderView(
-                            'emails/notification/user/panorama.html.twig', [
-                                'first_name' => $customer->getIdentity()
-                            ]
-                        ),
-                        'text/html'
-                    )
-                ;
-                $mailer->send($message);
-            }
-
             $this->em->flush();
 
             $this->addFlash('success', 'Panorama envoyé avec succès');
