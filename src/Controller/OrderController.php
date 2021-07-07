@@ -9,6 +9,7 @@ use App\Entity\Recommendations;
 use App\Form\OrderAdditionalType;
 use App\Form\OrdersAddProductFieldType;
 use App\Form\OrdersAddProductType;
+use App\Form\OrdersAddProductVariousType;
 use App\Form\OrdersType;
 use App\Repository\OrdersProductRepository;
 use App\Repository\CulturesRepository;
@@ -583,6 +584,46 @@ class OrderController extends AbstractController
     }
 
     /**
+     * @Route("management/order/add-product-various", name="order_product_other_various_add", methods={"GET", "POST"})
+     * @param Request $request
+     * @param OrdersRepository $or
+     * @return Response
+     */
+    public function addVariousProduct( Request $request, OrdersRepository $or ): Response
+    {
+        $form = $this->createForm( OrdersAddProductVariousType::class);
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ( $request->query->get('orderNumber') ) {
+                $order = $or->findOneBy( ['id_number' => $request->query->get('orderNumber') ]);
+            } else {
+                $order = $this->container->get('session')->get('currentOrder');
+            }
+            // Add  product
+            $orderProduct = new OrdersProduct();
+            $orderProduct->setOrder( $order );
+            $orderProduct->setProduct( $form->get('product')->getData() );
+            $orderProduct->setTotalQuantity( 0 );
+            $orderProduct->setUnitPrice( 0 );
+            $orderProduct->setQuantity( 0 );
+            $orderProduct->setUnitPrice( $form->get('product')->getData()->getPrice() ? $form->get('product')->getData()->getPrice() : 0 );
+
+            $this->em->merge( $orderProduct );
+
+            $this->em->flush();
+
+            // Alert
+            $this->addFlash('info', 'Le produit '. $form->get('product')->getData()->getName() .' a été ajouté a la commande.');
+            return $this->redirectToRoute('order_show' , ['id_number' => $order->getIdNumber()]);
+        }
+
+        return $this->render('management/order/add_product.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("management/order/add-product-other-field", name="order_product_other_field_add", methods={"GET", "POST"})
      * @param Request $request
      * @param OrdersRepository $or
@@ -636,6 +677,41 @@ class OrderController extends AbstractController
         $products = $pr->createQueryBuilder('u')
             ->where('u.name LIKE :name')
             ->setParameter('name', '%' . $term . '%')
+            ->setMaxResults( $limit )
+            ->getQuery()
+            ->getResult()
+        ;
+
+        // Return Array of key = id && text = value
+        $array = [];
+        foreach ($products as $product) {
+            $array[] = array(
+                'id' => $product->getId(),
+                'text' => $product->getName()
+            );
+        }
+
+        // Return JsonResponse of code 200
+        return new JsonResponse( $array, 200);
+    }
+
+    /**
+     * @Route("management/order/new/order_select_product_various_data", name="order_select_product_various_data")
+     * @param Request $request
+     * @param ProductsRepository $pr
+     * @return JsonResponse
+     */
+    public function addProductVariousSelectData( Request $request, ProductsRepository $pr ): JsonResponse
+    {
+        //Get information from ajax call
+        $term = $request->query->get('q');
+        $limit = $request->query->get('page_limit');
+
+        $products = $pr->createQueryBuilder('u')
+            ->where('u.name LIKE :name')
+            ->andWhere('u.category = :category')
+            ->setParameter('name', '%' . $term . '%')
+            ->setParameter('category', '2')
             ->setMaxResults( $limit )
             ->getQuery()
             ->getResult()
