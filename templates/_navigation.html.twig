@@ -65,6 +65,11 @@
                     <li><a class="waves-effect waves-dark" href="{{ path('management_purchase_contract_index') }}"><i class="fas fa-file-alt"></i><span class="hide-menu">Contrats d'achats </span></a></li>
                 </ul>
             {% endif %}
+            {% if app.user.status == 'ROLE_PRICING' %}
+                <ul id="sidebarnav">
+                    <li><a class="waves-effect waves-dark" href="{{ path('pricing_index') }}"><i class="fas fa-chart-line"></i><span class="hide-menu">Cours des produits </span></a></li>
+                </ul>
+            {% endif %}
         </nav>
     </div>
     <div class="sidebar-footer">

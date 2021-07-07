@@ -34,11 +34,6 @@ class Products
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $category;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\RiskPhase", mappedBy="product")
      */
     private $riskPhases;
@@ -133,6 +128,11 @@ class Products
      */
     private $price;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ProductCategory::class, inversedBy="products")
+     */
+    private $category;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -200,18 +200,6 @@ class Products
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?string $category): self
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -459,6 +447,18 @@ class Products
     public function setPrice(?float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getCategory(): ?ProductCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?ProductCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

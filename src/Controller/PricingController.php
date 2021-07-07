@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Products;
+use App\Form\ProductType;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use TreeHouse\Slugifier\Slugifier;
+
 /**
  * Class SalesController
  * @package App\Controller
@@ -67,6 +71,31 @@ class PricingController extends AbstractController
             'message' => 'AJAX Only',
             'type' => 'error',
             404
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Slugify $slugify
+     * @return Response
+     * @Route("/product/new", name="pricing_product_new", methods={"GET", "POST"})
+     */
+    public function new( Request $request ): Response
+    {
+        $product = new Products();
+        $slugify = new Slugifier();
+        $form = $this->createForm( ProductType::class, $product );
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $product->setSlug( $slugify->slugify( $form->get('name')->getViewData() ) );
+            $this->em->persist( $product );
+            $this->em->flush();
+            return $this->redirectToRoute('pricing_index');
+        }
+
+        return $this->render('pricing/new.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
