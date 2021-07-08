@@ -49,6 +49,7 @@
                                     {% if app.user.status == 'ROLE_ADMIN' %}
                                         <th>Technicien</th>
                                     {% endif %}
+                                    <th>Commentaire</th>
                                     <th>Crée le</th>
                                     <th>Action</th>
                                 </tr>
@@ -77,6 +78,9 @@
                                         {% if app.user.status == 'ROLE_ADMIN' %}
                                             <td>{{ recommendation.exploitation.users.technician.identity ? recommendation.exploitation.users.technician.identity : 'Aucun' }}</td>
                                         {% endif %}
+                                        <td>
+                                            {{ recommendation.comment }}
+                                        </td>
                                         <td>
                                             {{ recommendation.createAt | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y") }}
                                         </td>

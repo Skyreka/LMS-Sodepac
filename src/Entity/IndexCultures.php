@@ -48,7 +48,7 @@ class IndexCultures
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isDisplay;
+    private $isDisplay = 1;
 
     /**
      * @ORM\OneToMany(targetEntity=Doses::class, mappedBy="indexCulture")

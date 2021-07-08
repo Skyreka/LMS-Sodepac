@@ -292,8 +292,6 @@ class PanoramasController extends AbstractController
                     $relation->setDisplayAt( $today );
                 }
 
-                $this->em->persist( $relation );
-
                 //Send email notification
                 $message = (new \Swift_Message('Un nouveau panorama disponible sur LMS-Sodepac.'))
                     ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
@@ -308,10 +306,17 @@ class PanoramasController extends AbstractController
                     )
                 ;
                 $mailer->send($message);
+
+                if ( $mailer ) {
+                    $this->em->persist( $relation );
+                    $this->em->flush();
+                } else {
+                    $this->addFlash('danger','Une erreur est surevenue #'. $customer->getId());
+                }
             }
-            $this->em->flush();
 
             $this->addFlash('success', 'Panorama envoyé avec succès');
+
             return $this->redirectToRoute('panorama_index');
         }
 
