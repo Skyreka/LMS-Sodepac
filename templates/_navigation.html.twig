@@ -67,7 +67,8 @@
             {% endif %}
             {% if app.user.status == 'ROLE_PRICING' %}
                 <ul id="sidebarnav">
-                    <li><a class="waves-effect waves-dark" href="{{ path('pricing_index') }}"><i class="fas fa-chart-line"></i><span class="hide-menu">Cours des produits </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('pricing_index', {'filterBy': 1}) }}"><i class="fas fa-chart-line"></i><span class="hide-menu">LexAgri </span></a></li>
+                    <li><a class="waves-effect waves-dark" href="{{ path('pricing_index', {'filterBy': 2}) }}"><i class="fas fa-chart-line"></i><span class="hide-menu">Divers </span></a></li>
                 </ul>
             {% endif %}
         </nav>
