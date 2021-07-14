@@ -52,7 +52,8 @@ class PricingController extends AbstractController
         }
 
         return $this->render('pricing/index.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'filterBy' => $filterBy
         ]);
     }
 
@@ -70,6 +71,10 @@ class PricingController extends AbstractController
 
             if ($request->get('price')) {
                 $product->setPrice( (float) $request->get('price'));
+            }
+
+            if ($request->get('rpd')) {
+                $product->setRpd( (float) $request->get('rpd'));
             }
 
             $this->em->flush();
