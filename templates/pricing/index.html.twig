@@ -36,6 +36,9 @@
                                 <th>Categorie</th>
                                 <th>Produit</th>
                                 <th>Tarif (€)</th>
+                                {% if filterBy == 2 %}
+                                    <th>Taxe</th>
+                                {% endif %}
                             </tr>
                             </thead>
                             <tbody>
@@ -44,7 +47,10 @@
                                         <td>{{ product.id }}</td>
                                         <td>{{ product.category ? product.category.name }}</td>
                                         <td>{{ product.name }}</td>
-                                        <td>{{ product.price }}</td>
+                                        <td class="bg-dark text-white">{{ product.price }}</td>
+                                        {% if filterBy == 2 %}
+                                            <td>{{ product.rpd }}</td>
+                                        {% endif %}
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -77,7 +83,8 @@
             columns: {
                 identifier: [0, 'id'],
                 editable: [
-                    [3, 'price']
+                    [3, 'price'],
+                    [4, 'rpd']
                 ]
             }
         });
