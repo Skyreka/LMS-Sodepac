@@ -37,13 +37,22 @@ class PricingController extends AbstractController
 
     /**
      * @param ProductsRepository $pr
+     * @param Request $request
      * @return Response
      * @Route("/", name="pricing_index", methods={"GET", "POST"})
      */
-    public function index( ProductsRepository $pr ): Response
+    public function index( ProductsRepository $pr, Request $request ): Response
     {
+        $filterBy = $request->get('filterBy');
+
+        if ( $filterBy ) {
+            $products = $pr->findBy( ['category' => $filterBy ] );
+        } else {
+            $products = $pr->findAll();
+        }
+
         return $this->render('pricing/index.html.twig', [
-            'products' => $pr->findAll()
+            'products' => $products
         ]);
     }
 
