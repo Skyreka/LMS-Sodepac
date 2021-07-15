@@ -3,6 +3,7 @@
         <nav class="sidebar-nav">
             {% if is_granted('ROLE_ADMIN') %}
                 <ul id="sidebarnav">
+                    <li><a class="waves-effect waves-dark" href="{{ path('admin_technicians_index') }}"><i class="fas fa-users"></i><span class="hide-menu"> Techniciens</span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('admin_users_index') }}"><i class="fas fa-users"></i><span class="hide-menu"> Utilisateurs</span></a></li>
                     {% if is_granted('ROLE_SUPERADMIN') %}
                         <li><a class="waves-effect waves-dark" href="{{ path('indexs_index') }}"><i class="fas fa-folder"></i><span class="hide-menu"> Indexs</span></a></li>
