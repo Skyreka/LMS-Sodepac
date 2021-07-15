@@ -26,6 +26,11 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive m-t-20">
+                            <div class="d-flex no-block">
+                                <div class="ml-auto">
+                                    <a href="{{ path('admin_technicians_export', {'id': technician.id }) }}" class="btn btn-success">Exporter tous les utilisateurs du technicien</a>
+                                </div>
+                            </div>
                             <table class="table stylish-table" id="datatable">
                                 <thead>
                                 <tr>
@@ -34,7 +39,7 @@
                                     <th>Adresse</th>
                                     <th>Email</th>
                                     <th>Téléphone</th>
-                                    <th>City</th>
+                                    <th>Ville</th>
                                     <th>Pack</th>
                                 </tr>
                                 </thead>
@@ -76,7 +81,6 @@
     <script>
         $('#datatable').DataTable({
             dom: 'Bfrtip',
-            responsive: true,
             "language": {
                 "sProcessing":     "Traitement en cours...",
                 "sSearch":         "Rechercher&nbsp;:",
@@ -107,18 +111,6 @@
                 }
             },
             buttons: [
-                {
-                    extend: 'pdf',
-                    text: 'Exporter en PDF',
-                    title: 'Liste des utilisateurs',
-                    message: 'Exporté le {{ "now"|date('d-m-Y H:i') }} avec l\'application LMS-Sodepac',
-                    exportOptions: {
-                        columns: [0,1,2,3,4,5],
-                        modifier: {
-                            page: 'current'
-                        }
-                    }
-                },
                 {
                     extend: 'csv',
                     text: 'Exporter en CSV',
