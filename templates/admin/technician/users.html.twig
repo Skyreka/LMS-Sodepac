@@ -26,6 +26,11 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive m-t-20">
+                            <div class="d-flex no-block">
+                                <div class="ml-auto">
+                                    <a href="{{ path('admin_technicians_export', {'id': technician.id }) }}" class="btn btn-success">Exporter tous les utilisateurs du technicien</a>
+                                </div>
+                            </div>
                             <table class="table stylish-table" id="datatable">
                                 <thead>
                                 <tr>
@@ -34,7 +39,7 @@
                                     <th>Adresse</th>
                                     <th>Email</th>
                                     <th>Téléphone</th>
-                                    <th>City</th>
+                                    <th>Ville</th>
                                     <th>Pack</th>
                                 </tr>
                                 </thead>
