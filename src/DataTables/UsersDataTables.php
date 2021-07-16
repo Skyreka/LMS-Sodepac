@@ -49,6 +49,8 @@ class UsersDataTables implements DataTableHandlerInterface
         // Search.
         if ($request->search->value) {
             $query->where('(LOWER(u.lastname) LIKE :search OR' .
+                ' LOWER(u.email) LIKE :search' .
+                ' LOWER(u.company) LIKE :search' .
                 ' LOWER(u.firstname) LIKE :search)');
             $query->setParameter('search', strtolower("%{$request->search->value}%"));
         }

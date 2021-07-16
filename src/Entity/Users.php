@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
- * @UniqueEntity("email")
+ * @UniqueEntity("email", message="Il existe déjà un compte avec cet e-mail")
  */
 class Users implements UserInterface, \Serializable
 {
@@ -50,6 +50,10 @@ class Users implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/",
+     *     message="Email Invalide"
+     * )
      */
     private $email;
 
