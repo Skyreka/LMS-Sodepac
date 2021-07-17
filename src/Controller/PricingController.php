@@ -69,6 +69,10 @@ class PricingController extends AbstractController
         if ($request->isXmlHttpRequest()) {
             $product = $pr->find($request->get('id'));
 
+            if ($request->get('name')) {
+                $product->setName(  $request->get('name'));
+            }
+
             if ($request->get('price')) {
                 $product->setPrice( (float) $request->get('price'));
             }
@@ -90,7 +94,6 @@ class PricingController extends AbstractController
 
     /**
      * @param Request $request
-     * @param Slugify $slugify
      * @return Response
      * @Route("/product/new", name="pricing_product_new", methods={"GET", "POST"})
      */
@@ -105,7 +108,7 @@ class PricingController extends AbstractController
             $product->setSlug( $slugify->slugify( $form->get('name')->getViewData() ) );
             $this->em->persist( $product );
             $this->em->flush();
-            return $this->redirectToRoute('pricing_index');
+            return $this->redirectToRoute('pricing_index', ['filterBy' => 2]);
         }
 
         return $this->render('pricing/new.html.twig', [

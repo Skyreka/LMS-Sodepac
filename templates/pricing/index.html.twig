@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-7 col-12 align-self-center">
                 <div class="d-flex mt-2 justify-content-end">
-                    <a href="{{ path('pricing_product_new') }}" class="btn btn-info"><i class="fas fa-plus"></i> Produit Divers</a>
+                    <a href="{{ path('pricing_product_new') }}" class="btn btn-info"><i class="fas fa-plus"></i> Ajout produit divers</a>
                 </div>
             </div>
         </div>
@@ -83,6 +83,7 @@
             columns: {
                 identifier: [0, 'id'],
                 editable: [
+                    [2, 'name'],
                     [3, 'price'],
                     [4, 'rpd']
                 ]
