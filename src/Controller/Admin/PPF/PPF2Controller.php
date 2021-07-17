@@ -6,6 +6,7 @@ use App\Entity\PPF;
 use App\Entity\PPFInput;
 use App\Form\PPF\Corn\PPF2Step3;
 use App\Form\PPF\Corn\PPF2Step4;
+use App\Form\PPF\Corn\PPF2Step5;
 use App\Form\PPF\Corn\PPF2Step6;
 use App\Form\PPF\Sunflower\PPF1AddInput;
 use App\Form\PPF\Sunflower\PPF1Step1;
@@ -179,7 +180,7 @@ class PPF2Controller extends AbstractController
         $ppf = $this->ppfRepository->findOneBy( ['id' => $request->get('ppf')]);
 
         // Form
-        $form = $this->createForm( PPF1Step4::class, $ppf );
+        $form = $this->createForm( PPF2Step5::class, $ppf );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Save to DB

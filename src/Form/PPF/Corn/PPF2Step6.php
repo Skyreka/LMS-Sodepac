@@ -21,13 +21,16 @@ class PPF2Step6 extends AbstractType
     {
         $builder
             ->add('coefficient_multiple', NumberType::class, [
-                'label' => 'Coefficient Multiplicateur'
+                'label' => 'Coefficient Multiplicateur',
+                'attr' => [
+                    'value' => '0.6'
+                ]
             ])
             ->add('coefficient_use', NumberType::class, [
                 'label' => 'Coefficient d’utilisation après le stade 4 feuilles'
             ])
-            ->add('nutrigen_organic', NumberType::class, [
-                'label' => 'Azote fourni par effluents organique'
+            ->add('qty_azote_add', NumberType::class, [
+                'label' => 'Azote apporté avant le stade 4 feuilles'
             ])
         ;
     }

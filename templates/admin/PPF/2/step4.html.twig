@@ -71,7 +71,7 @@
 
             let total = parseFloat(reliquat) + parseFloat(mineralisation) + parseFloat(effetP) + parseFloat(effetRR) + parseFloat(irrigation)
 
-            $('#total').text( Math.round(total) );
+            $('#total').text( total.toFixed(1) );
         })
     </script>
 {% endblock %}
