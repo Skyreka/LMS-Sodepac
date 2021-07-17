@@ -29,6 +29,7 @@ class ProductType extends AbstractType
             ])
             ->add('name', TextType::class)
             ->add('rpd', NumberType::class)
+            ->add('price', NumberType::class)
         ;
     }
 
