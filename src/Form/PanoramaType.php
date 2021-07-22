@@ -24,7 +24,7 @@ class PanoramaType extends AbstractType
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize' => '4000k',
+                        'maxSize' => '5M',
                         'mimeTypes' => [
                             'application/pdf',
                             'application/x-pdf',
