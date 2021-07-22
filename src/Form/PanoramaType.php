@@ -42,7 +42,7 @@ class PanoramaType extends AbstractType
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize' => '4000k'
+                        'maxSize' => '5M'
                     ])
                 ],
             ])
@@ -55,7 +55,7 @@ class PanoramaType extends AbstractType
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize' => '4000k'
+                        'maxSize' => '5M'
                     ])
                 ],
             ])
