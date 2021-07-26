@@ -33,7 +33,7 @@ class PPF2Step5 extends AbstractType
                 'mapped' => false
             ])
             ->add('qty_ependu', TextType::class, [
-                'label' => 'Quantité epandue ( Tou m3 / Ha )'
+                'label' => 'Quantité epandue ( T ou m3 / Ha )'
             ])
             ->add('date_spreading', DateType::class, [
                 'label' => 'Date d\'épandage'

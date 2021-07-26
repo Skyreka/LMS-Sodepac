@@ -46,7 +46,7 @@ class PricingController extends AbstractController
         $filterBy = $request->get('filterBy');
 
         if ( $filterBy ) {
-            $products = $pr->findBy( ['category' => $filterBy ] );
+            $products = $pr->findBy( ['category' => $filterBy ], ['name' => 'ASC'] );
         } else {
             $products = $pr->findAll();
         }

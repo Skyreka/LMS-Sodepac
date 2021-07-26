@@ -19,7 +19,7 @@ class PPF
 
     const TYPES = [
         1 => 'Tournesol',
-        2 => 'Maîs-Sorgho'
+        2 => 'Maïs-Sorgho'
     ];
 
     /**
