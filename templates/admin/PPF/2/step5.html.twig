@@ -70,7 +70,7 @@
             // Calc
             let total = teneurAzote * qtyEpendu * coef
 
-            $('#total').text( total );
+            $('#total').text( Math.round( total ) );
         })
         $(document).on('change', '#ppf2_step5_qty_azote_add, #ppf2_step5_qty_ependu, #ppf2_step5_coefficient_equivalence, #ppf2_step5_effluents', function () {
             let total = $('#total').text()
