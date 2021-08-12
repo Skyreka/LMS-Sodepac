@@ -60,7 +60,7 @@ class OrdersRepository extends ServiceEntityRepository
     public function findByAdmin()
     {
         return $this->createQueryBuilder('o')
-            ->orderBy('o.createDate', 'ASC')
+            ->orderBy('o.createDate', 'DESC')
             ->andWhere('o.status != 0')
             ->getQuery()
             ->getResult()
