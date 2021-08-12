@@ -255,7 +255,8 @@ class OrderController extends AbstractController
                     $orderProduct->setProduct( $recommendationProducts->getProduct() );
                     $orderProduct->setQuantity( $recommendationProducts->getQuantity() );
                     $orderProduct->setTotalQuantity(0);
-                    $orderProduct->setUnitPrice(0);
+                    $orderProduct->setUnitPrice($recommendationProducts->getProduct()->getPrice() ? $recommendationProducts->getProduct()->getPrice() : 0 );
+
                     $this->em->persist($orderProduct);
                     $this->em->flush();
                 } else {
@@ -297,7 +298,7 @@ class OrderController extends AbstractController
                         $orderProduct->setProduct( $recommendationProduct->getProduct() );
                         $orderProduct->setQuantity( $recommendationProduct->getQuantity() );
                         $orderProduct->setTotalQuantity(0);
-                        $orderProduct->setUnitPrice(0);
+                        $orderProduct->setUnitPrice($recommendationProduct->getProduct()->getPrice() ? $recommendationProduct->getProduct()->getPrice() : 0 );
                         $this->em->merge($orderProduct);
                         $this->em->flush();
                     }
@@ -318,7 +319,7 @@ class OrderController extends AbstractController
                         $orderProduct->setProduct( $recommendationProduct->getProduct() );
                         $orderProduct->setQuantity( $recommendationProduct->getQuantity() );
                         $orderProduct->setTotalQuantity(0);
-                        $orderProduct->setUnitPrice(0);
+                        $orderProduct->setUnitPrice($recommendationProduct->getProduct()->getPrice() ? $recommendationProduct->getProduct()->getPrice() : 0 );
                         $this->em->merge($orderProduct);
                         $this->em->flush();
                     }
@@ -565,7 +566,6 @@ class OrderController extends AbstractController
             $orderProduct->setOrder( $order );
             $orderProduct->setProduct( $form->get('product')->getData() );
             $orderProduct->setTotalQuantity( 0 );
-            $orderProduct->setUnitPrice( 0 );
             $orderProduct->setQuantity( 0 );
             $orderProduct->setUnitPrice( $form->get('product')->getData()->getPrice() ? $form->get('product')->getData()->getPrice() : 0 );
 
