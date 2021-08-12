@@ -42,7 +42,30 @@
                                     <tr>
                                         <td>{{ article.id }}</td>
                                         <td width="550">
-                                            <h5 class="font-500">{{ article.product ? article.product.name : article.productName }}</h5>
+                                            <h5 class="font-500">{{ article.product ? article.product.name : article.productName }} <i class="fas fa-info" data-toggle="modal" data-target="#view_mention_product_{{ article.product.id }}"></i></h5>
+                                            <div class="modal fade" id="view_mention_product_{{ article.product.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">{{ article.product ? article.product.name : article.productName }}</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h5><span>Matières actives:</span> {{ article.product.substance }}</h5>
+                                                            <h5><span>DAR:</span> {{ article.product.dar }}</h5>
+                                                            <h5><span>ZNT:</span> {{ article.product.znt }}</h5>
+                                                            <h5><span>DRE:</span> {{ article.product.dre }}</h5>
+                                                            <h5><span>Mentions Danger:</span> {{ article.product.dangerMention }}</h5>
+                                                            <h5><span>Mentions Avertissement:</span> {{ article.product.warningMention }}</h5>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>{{ article.conditioning }}</td>
                                         <td>{{ article.quantity | round( 2, 'floor') }}</td>
@@ -55,7 +78,9 @@
                                         <td width="100" align="center" class="taxe">{{ article.product ? article.product.Rpd }}</td>
                                         <td width="150" align="center" class="font-500 total_ttc"></td>
                                         <td align="center">
-                                            {% include 'management/order/_delete.html.twig' %}
+                                            {% if order.status != 2 %}
+                                                {% include 'management/order/_delete.html.twig' %}
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}
