@@ -36,10 +36,12 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => [
                     'autocomplete' => 'off'
-                ]
+                ],
+                'help' => 'Adresse fonctionnel uniquement'
             ])
             ->add('phone', TextType::class, [
                 'empty_data' => '',
+                'help' => 'Format: 06 00 00 00 00',
                 'required' => false,
                 'attr' => [
                     'autocomplete' => 'off'
@@ -66,7 +68,7 @@ class UserType extends AbstractType
                     return $warehouse->getName();
                 },
             ])
-            ->add('certification_phyto')
+            ->add('certification_phyto', TextType::class)
             ->add('technician', EntityType::class, [
                 'class' => Users::class,
                 'expanded'     => false,
