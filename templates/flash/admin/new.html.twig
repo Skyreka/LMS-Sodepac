@@ -21,7 +21,6 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <h4 class="card-title">Ajouter un Flash</h4>
                 <div class="card">
                     <div class="card-body">
                         {{ include('flash/admin/_form.html.twig') }}
@@ -38,9 +37,9 @@
             // Translated
             $('.dropify-fr').dropify({
                 messages: {
-                    default: '<p><small><small>Glissez-déposez un fichier ici</small></small></p>',
-                    replace: '<p><small>Glissez-déposez un fichier ici</small></p>',
-                    remove: 'Supprimer',
+                    default: '<p style="font-size: 1rem;">Glissez-déposez un fichier ici ou cliquez</p>',
+                    replace: '<p style="font-size: 1rem;">Glissez-déposez un fichier ou cliquez pour remplacer</p>',
+                    remove: '<p style="font-size: 1rem;">Supprimer</p>',
                     error: 'Désolé, le fichier trop volumineux'
                 }
             });

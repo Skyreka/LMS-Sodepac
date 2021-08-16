@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BsvSendType extends AbstractType
+class FlashSendType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,7 +29,7 @@ class BsvSendType extends AbstractType
                 'choice_label' => 'name',
                 'mapped' => false,
                 'required' => false,
-                'placeholder' => 'Sélectionnez une culture',
+                'placeholder' => 'Sélectionner une culture',
                 'attr' => [
                     'class' => 'select2'
                 ],

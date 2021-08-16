@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Bsv;
 use App\Entity\BsvUsers;
-use App\Form\BsvSendType;
-use App\Form\BsvType;
+use App\Form\FlashSendType;
+use App\Form\FlashType;
 use App\Repository\BsvRepository;
 use App\Repository\BsvUsersRepository;
 use App\Repository\UsersRepository;
@@ -52,7 +52,7 @@ class FlashController extends AbstractController
     public function adminNew(Request $request): Response
     {
         $flash = new Bsv();
-        $form = $this->createForm(BsvType::class, $flash);
+        $form = $this->createForm(FlashType::class, $flash);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -119,7 +119,7 @@ class FlashController extends AbstractController
      */
     public function adminEdit(Bsv $bsv, Request $request): Response
     {
-        $form = $this->createForm(BsvType::class, $bsv);
+        $form = $this->createForm(FlashType::class, $bsv);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -189,7 +189,7 @@ class FlashController extends AbstractController
     public function adminSend(Bsv $bsv, Request $request, \Swift_Mailer $mailer): Response
     {
         $bsvUsers = new BsvUsers();
-        $form = $this->createForm(BsvSendType::class, $bsvUsers);
+        $form = $this->createForm(FlashSendType::class, $bsvUsers);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
