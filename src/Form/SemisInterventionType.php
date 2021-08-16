@@ -6,6 +6,9 @@ use App\Entity\Semis;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,10 +17,10 @@ class SemisInterventionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, [
+            ->add('name', TextType::class, [
                 'label' => 'Nom de la variété'
             ])
-            ->add('quantity', null, [
+            ->add('quantity', NumberType::class, [
                 'label' => 'Quantité par Ha'
             ])
             ->add('unit', ChoiceType::class, [
@@ -26,11 +29,11 @@ class SemisInterventionType extends AbstractType
                     'Quantité en kilos' => 'kilos'
                 ]
             ])
-            ->add('objective', null, [
+            ->add('objective', NumberType::class, [
                 'label' => 'Objectif de rendement',
                 'help' => 'En quintaux'
             ])
-            ->add('comment')
+            ->add('comment', TextareaType::class)
             ->add('intervention_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,

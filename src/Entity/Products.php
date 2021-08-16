@@ -133,6 +133,11 @@ class Products
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isActive = 1;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
@@ -459,6 +464,18 @@ class Products
     public function setCategory(?ProductCategory $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

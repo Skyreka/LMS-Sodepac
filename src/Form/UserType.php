@@ -32,7 +32,7 @@ class UserType extends AbstractType
                     'autocomplete' => 'off'
                 ]
             ])
-            ->add('company')
+            ->add('company', TextType::class)
             ->add('email', EmailType::class, [
                 'attr' => [
                     'autocomplete' => 'off'
@@ -45,8 +45,8 @@ class UserType extends AbstractType
                     'autocomplete' => 'off'
                 ]
             ])
-            ->add('address')
-            ->add('postal_code')
+            ->add('address', TextType::class)
+            ->add('postal_code', TextType::class)
             ->add('city', TextType::class, [
                 'empty_data' => '',
                 'required' => false,

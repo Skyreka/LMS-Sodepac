@@ -678,6 +678,7 @@ class OrderController extends AbstractController
             ->where('u.name LIKE :name')
             ->setParameter('name', '%' . $term . '%')
             ->setMaxResults( $limit )
+            ->andWhere('u.isActive = 1')
             ->getQuery()
             ->getResult()
         ;
@@ -712,6 +713,7 @@ class OrderController extends AbstractController
             ->andWhere('u.category = :category')
             ->setParameter('name', '%' . $term . '%')
             ->setParameter('category', '2')
+            ->andWhere('u.isActive = 1')
             ->setMaxResults( $limit )
             ->getQuery()
             ->getResult()

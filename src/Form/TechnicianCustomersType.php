@@ -34,9 +34,9 @@ class TechnicianCustomersType extends AbstractType
                     'autocomplete' => 'off'
                 ]
             ])
-            ->add('company')
-            ->add('address')
-            ->add('postal_code')
+            ->add('company', TextType::class)
+            ->add('address', TextType::class)
+            ->add('postal_code', TextType::class)
             ->add('city', TextType::class, [
                 'empty_data' => '',
                 'required' => false,
