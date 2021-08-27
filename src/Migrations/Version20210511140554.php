@@ -20,7 +20,7 @@ final class Version20210511140554 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE rememberme_token');
+        //$this->addSql('DROP TABLE rememberme_token');
         $this->addSql('ALTER TABLE ppf ADD effect_meadow DOUBLE PRECISION DEFAULT NULL, ADD effect_residual_collected DOUBLE PRECISION DEFAULT NULL');
     }
 
