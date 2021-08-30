@@ -68,6 +68,30 @@ class RecommendationProductsRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * Get array if c_id
+     * @param $recommendation
+     * @return array
+     */
+    public function findCId( $recommendation )
+    {
+        $result = [];
+
+        $req = $this->createQueryBuilder('r')
+            ->where('r.recommendation = :recommendation')
+            ->setParameter('recommendation', $recommendation)
+            ->select('r.c_id')
+            ->getQuery()
+            ->getResult();
+            ;
+
+        foreach( $req as $key ) {
+            array_push( $result, $key['c_id'] );
+        }
+
+        return $result;
+    }
+
     // /**
     //  * @return RecommendationProducts[] Returns an array of RecommendationProducts objects
     //  */

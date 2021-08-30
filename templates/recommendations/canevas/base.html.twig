@@ -53,6 +53,7 @@
             }
             .isProduct {
                 display: block !important;
+                margin: .25em 0 .25em 0 !important;
             }
         </style>
         {% block stylesheets %}{% endblock %}
@@ -118,6 +119,7 @@
                         'product_slug': $(this).attr('product_slug'),
                         'recommendation_id': {{ recommendations.id }},
                         'dose': $(this).attr('dose'),
+                        'c_id': $(this).attr('c_id'),
                         'unit': $(this).attr('unit')
                     },
                     dataType: 'JSON',
