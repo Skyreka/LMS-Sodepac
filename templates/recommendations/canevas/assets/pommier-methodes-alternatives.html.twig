@@ -91,14 +91,14 @@
                 <td></td><td></td><td></td><td></td><td></td><td></td>
                 <th><small class="text-center">Post-récolte</small></th>
             </tr>
-            </thead>
+            </thead>{{ printRequest ? 'NEWID' in c_id_array ? 'exist' : 'd-none' }}
             <tbody>
             <tr>
                 <td>Ravageurs <br>Stades <br>Hivernant</td>
                 <td></td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'acakill') ? 'exist' : 'd-none' }}" product_slug="acakill" dose="20" unit="L">ACAKILL <small>20 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'polithiol') ? 'exist' : 'd-none' }}" product_slug="polithiol" dose="25" unit="L">POLITHIOL <small>25 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C6ZJVSPGX6WSJJFK2BSD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C6ZJVSPGX6WSJJFK2BSD" product_slug="acakill" dose="20" unit="L">ACAKILL <small>20 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C6ZPGKJV2FZEXDJK4ABM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C6ZPGKJV2FZEXDJK4ABM" product_slug="polithiol" dose="25" unit="L">POLITHIOL <small>25 L</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -106,77 +106,77 @@
                 <td>Pucerons</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'neemazal-ts', '2') ? 'exist' : 'd-none' }}" product_slug="neemazal-ts" dose="2" unit="L">NEEM AZAL <small>2 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C6ZTCBE7S6MN25P20763' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C6ZTCBE7S6MN25P20763" product_slug="neemazal-ts" dose="2" unit="L">NEEM AZAL <small>2 L</small></button>
                 </td>
                 <td></td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'neemazal-ts', '2.000134') ? 'exist' : 'd-none' }}" product_slug="neemazal-ts" dose="2.000134" unit="L">NEEM AZAL <small>2 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30" unit="Kg">SURROUND WP <small>30-50 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C6ZZNK1MYQ41T3FTKE5B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C6ZZNK1MYQ41T3FTKE5B" product_slug="neemazal-ts" dose="2.000134" unit="L">NEEM AZAL <small>2 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C702RXJPDB749RG541YC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C702RXJPDB749RG541YC" product_slug="surround-wp-crop-protectant" dose="30" unit="Kg">SURROUND WP <small>30-50 Kg</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'neemazal-ts', '2.0001') ? 'exist' : 'd-none' }}" product_slug="neemazal-ts" dose="2.0001" unit="L">NEEM AZAL <small>2 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30.0001') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30.0001" unit="Kg">SURROUND WP <small>30-50 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C702RXJPDB749RG541YC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C705X0068VDS1X9KWKWK" product_slug="neemazal-ts" dose="2.0001" unit="L">NEEM AZAL <small>2 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C709Q5BZMK3GGMC0F7X3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C709Q5BZMK3GGMC0F7X3" product_slug="surround-wp-crop-protectant" dose="30.0001" unit="Kg">SURROUND WP <small>30-50 Kg</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'neemazal-ts', '2.0002') ? 'exist' : 'd-none' }}" product_slug="neemazal-ts" dose="2.0002" unit="L">NEEM AZAL <small>2 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30.0002') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30.0002" unit="Kg">SURROUND WP <small>30-50 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C70DKPZQ1DYKGP1B9FKE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C70DKPZQ1DYKGP1B9FKE" product_slug="neemazal-ts" dose="2.0002" unit="L">NEEM AZAL <small>2 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C70GKSA8W5PWCB3F3A80' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C70GKSA8W5PWCB3F3A80" product_slug="surround-wp-crop-protectant" dose="30.0002" unit="Kg">SURROUND WP <small>30-50 Kg</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td>
                 <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="50" unit="Kg">SURROUND WP <small>50 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C70KDHV1FB0KGJK02F5V' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C70KDHV1FB0KGJK02F5V" product_slug="surround-wp-crop-protectant" dose="50" unit="Kg">SURROUND WP <small>50 Kg</small></button>
                 </td>
             </tr>
             <tr>
                 <td>Tordeuses</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1" unit="Kg">DIPEL DF <small>1 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30" unit="Kg">SURROUND WP <small>30 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C70PFYKN6Q8RSZ1EXP04' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C70PFYKN6Q8RSZ1EXP04" product_slug="dipel-df" dose="1" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C70TW5PY1AS6N7NNS8Z1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C70TW5PY1AS6N7NNS8Z1" product_slug="surround-wp-crop-protectant" dose="30" unit="Kg">SURROUND WP <small>30 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C70XBQ80ETZ0SVGQYJCH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C70XBQ80ETZ0SVGQYJCH" product_slug="madex-twin" dose="0.1" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C70ZKT273RWS48B3HY8H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C70ZKT273RWS48B3HY8H" product_slug="carpovirusine-evo-2" dose="1" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C7123BZW0S3C27XRY3K1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7123BZW0S3C27XRY3K1" product_slug="carpovirusine-2000" dose="1" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1.0001') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1.0001" unit="Kg">DIPEL DF <small>1 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30.0001') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30.0001" unit="Kg">SURROUND WP <small>30 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1001') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1001" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1.0001') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1.0001" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.0001') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.0001" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C7175K1V2HTQYR4J5VCY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7175K1V2HTQYR4J5VCY" product_slug="dipel-df" dose="1.0001" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C71BK9KR9TQE960QYBPS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C71BK9KR9TQE960QYBPS" product_slug="surround-wp-crop-protectant" dose="30.0001" unit="Kg">SURROUND WP <small>30 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C71EZ7W9A5GKKXGCSZ5F' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C71EZ7W9A5GKKXGCSZ5F" product_slug="madex-twin" dose="0.1001" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C71J7T85HDB1ERSFWBB8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C71J7T85HDB1ERSFWBB8" product_slug="carpovirusine-evo-2" dose="1.0001" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C71NCFVNFX2HQN40Q21D' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C71NCFVNFX2HQN40Q21D" product_slug="carpovirusine-2000" dose="1.0001" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1.0002') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1.0002" unit="Kg">DIPEL DF <small>1 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30.0002') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30.0002" unit="Kg">SURROUND WP <small>30 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1002') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1002" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1.0002') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1.0002" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.0002') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.0002" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C71R5B70W6YVP6WAC1G7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C71R5B70W6YVP6WAC1G7" product_slug="dipel-df" dose="1.0002" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C71VNKYW4CH2TG9D8RY8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C71VNKYW4CH2TG9D8RY8" product_slug="surround-wp-crop-protectant" dose="30.0002" unit="Kg">SURROUND WP <small>30 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C71Y58SVCD09JRBQBCPK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C71Y58SVCD09JRBQBCPK" product_slug="madex-twin" dose="0.1002" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C722KR0FMDSC41JEDC62' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C722KR0FMDSC41JEDC62" product_slug="carpovirusine-evo-2" dose="1.0002" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C724S0QFCJTH89HJCKHC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C724S0QFCJTH89HJCKHC" product_slug="carpovirusine-2000" dose="1.0002" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1.0003') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1.0003" unit="Kg">DIPEL DF <small>1 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30.0003') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30.0003" unit="Kg">SURROUND WP <small>30 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1003') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1003" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1.0003') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1.0003" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.0003') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.0003" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C727GTBK6ZQNPTFEZVSK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C727GTBK6ZQNPTFEZVSK" product_slug="dipel-df" dose="1.0003" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C72AMWEWB3GVT1CWMY57' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C72AMWEWB3GVT1CWMY57" product_slug="surround-wp-crop-protectant" dose="30.0003" unit="Kg">SURROUND WP <small>30 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C72FR9HF1F6VEG0EJKK2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C72FR9HF1F6VEG0EJKK2" product_slug="madex-twin" dose="0.1003" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C72HG72JZ34W1F0AY6M9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C72HG72JZ34W1F0AY6M9" product_slug="carpovirusine-evo-2" dose="1.0003" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C72HG72JZ34W1F0AY6M9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C72M0KEB9KHYJS7AM4ZT" product_slug="carpovirusine-2000" dose="1.0003" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1.0004') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1.0004" unit="Kg">DIPEL DF <small>1 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30.0004') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30.0004" unit="Kg">SURROUND WP <small>30 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1004') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1004" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1.0004') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1.0004" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.0004') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.0004" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C72Q1XB78017AZ62J6EJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C72Q1XB78017AZ62J6EJ" product_slug="dipel-df" dose="1.0004" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C72VYFK1RZFHEM2RFJAF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C72VYFK1RZFHEM2RFJAF" product_slug="surround-wp-crop-protectant" dose="30.0004" unit="Kg">SURROUND WP <small>30 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C72YEFPCV1AD0SCDXR4C' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C72YEFPCV1AD0SCDXR4C" product_slug="madex-twin" dose="0.1004" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C731DH0CNNBGMHNZ4M8X' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C731DH0CNNBGMHNZ4M8X" product_slug="carpovirusine-evo-2" dose="1.0004" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C734T0K73N6KWJT9ERJH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C734T0K73N6KWJT9ERJH" product_slug="carpovirusine-2000" dose="1.0004" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1.0005') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1.0005" unit="Kg">DIPEL DF <small>1 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30.0005') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30.0005" unit="Kg">SURROUND WP <small>30 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1005') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1005" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1.0005') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1.0005" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.0005') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.0005" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C734T0K73N6KWJT9ERJH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C738SDCQGZFXCRKHVW1B" product_slug="dipel-df" dose="1.0005" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C734T0K73N6KWJT9ERJH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C73B7YV08FHCWRSS9YPN" product_slug="surround-wp-crop-protectant" dose="30.0005" unit="Kg">SURROUND WP <small>30 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C73EV6FAHMY714ZRCCF2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C73EV6FAHMY714ZRCCF2" product_slug="madex-twin" dose="0.1005" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C73H6D27KQJ8WZ4KVXEW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C73H6D27KQJ8WZ4KVXEW" product_slug="carpovirusine-evo-2" dose="1.0005" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C73MBYNQMRM3DS73BZKR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C73MBYNQMRM3DS73BZKR" product_slug="carpovirusine-2000" dose="1.0005" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'dipel-df', '1.0006') ? 'exist' : 'd-none' }}" product_slug="dipel-df" dose="1.0006" unit="Kg">DIPEL DF <small>1 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'surround-wp-crop-protectant', '30.0006') ? 'exist' : 'd-none' }}" product_slug="surround-wp-crop-protectant" dose="30.0006" unit="Kg">SURROUND WP <small>30 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1006') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1006" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2', '1.0006') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2" dose="1.0006" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.0006') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.0006" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C73RMYG408AEFAQX3NNR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C73RMYG408AEFAQX3NNR" product_slug="dipel-df" dose="1.0006" unit="Kg">DIPEL DF <small>1 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C73W4WHMMK6T3HYSKK8H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C73W4WHMMK6T3HYSKK8H" product_slug="surround-wp-crop-protectant" dose="30.0006" unit="Kg">SURROUND WP <small>30 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C7411X9N7BZDM9WE4BAV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7411X9N7BZDM9WE4BAV" product_slug="madex-twin" dose="0.1006" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C745SWQ869ZV96H46GBA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C745SWQ869ZV96H46GBA" product_slug="carpovirusine-evo-2" dose="1.0006" unit="L">CARPOVIRUSINE EVO <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C748GVEF91Y27AW5KQSA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C748GVEF91Y27AW5KQSA" product_slug="carpovirusine-2000" dose="1.0006" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
                 </td>
                 <td></td><td></td>
             </tr>
@@ -184,11 +184,11 @@
                 <td>Confusion <br>Sexuelle</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="10">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'checkmate-puffer-fruit-multi') ? 'exist' : 'd-none' }}" product_slug="checkmate-puffer-fruit-multi">PUFFER MULTIFRUIT</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'checkmate-puffer-cm-o') ? 'exist' : 'd-none' }}" product_slug="checkmate-puffer-cm-o">PUFFER CMO</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ginko-duo') ? 'exist' : 'd-none' }}" product_slug="ginko-duo">GINKO <small>DUO</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'rak-5') ? 'exist' : 'd-none' }}" product_slug="rak-5">RAK <small>5</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'isomate-ofm') ? 'exist' : 'd-none' }}" product_slug="isomate-ofm">ISOMATE <small>OFM - OFMTT</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C74B45T9WVQPT18E7K3H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C74B45T9WVQPT18E7K3H" product_slug="checkmate-puffer-fruit-multi">PUFFER MULTIFRUIT</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C74FYVZ32AJRSC5T34BF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C74FYVZ32AJRSC5T34BF" product_slug="checkmate-puffer-cm-o">PUFFER CMO</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C74KE2AC335PDA86HQY6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C74KE2AC335PDA86HQY6" product_slug="ginko-duo">GINKO <small>DUO</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C74P5XCCY8S61RB6W2F2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C74P5XCCY8S61RB6W2F2" product_slug="rak-5">RAK <small>5</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C74RT10AK0Y9KYSZEJPG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C74RT10AK0Y9KYSZEJPG" product_slug="isomate-ofm">ISOMATE <small>OFM - OFMTT</small></button>
                 </td>
                 <td></td>
             </tr>
@@ -196,130 +196,130 @@
                 <td>Carpocapse</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2">CARPOVIRUSINE EVO</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.00001') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.00001" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'success-4', '0.2') ? 'exist' : 'd-none' }}" product_slug="success-4" dose="0.2" unit="L">SUCCESS 4 <small>0.2 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C74WSHT3R6BMVZVZ4RRX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C74WSHT3R6BMVZVZ4RRX" product_slug="madex-twin" dose="0.1" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C7525XYSBHXKXZRF3TPZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7525XYSBHXKXZRF3TPZ" product_slug="carpovirusine-evo-2">CARPOVIRUSINE EVO</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C756GZ01DVZQN8YRG4RZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C756GZ01DVZQN8YRG4RZ" product_slug="carpovirusine-2000" dose="1.00001" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C75BBYRBX5BGDFQP54FD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C75BBYRBX5BGDFQP54FD" product_slug="success-4" dose="0.2" unit="L">SUCCESS 4 <small>0.2 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1001') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1001" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2">CARPOVIRUSINE EVO</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.0000101') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.0000101" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'success-4', '0.2001') ? 'exist' : 'd-none' }}" product_slug="success-4" dose="0.2001" unit="L">SUCCESS 4 <small>0.2 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C75E9DV25YNJQEZK8C1E' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C75E9DV25YNJQEZK8C1E" product_slug="madex-twin" dose="0.1001" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C75GHWZG8DSR4Q054M74' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C75GHWZG8DSR4Q054M74" product_slug="carpovirusine-evo-2">CARPOVIRUSINE EVO</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C75K4CKGXVEWJWPQ56GZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C75K4CKGXVEWJWPQ56GZ" product_slug="carpovirusine-2000" dose="1.0000101" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C75QX7VW6V6R269FZT5H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C75QX7VW6V6R269FZT5H" product_slug="success-4" dose="0.2001" unit="L">SUCCESS 4 <small>0.2 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1002') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1002" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2">CARPOVIRUSINE EVO</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.0000102') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.0000102" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'success-4', '0.2002') ? 'exist' : 'd-none' }}" product_slug="success-4" dose="0.2002" unit="L">SUCCESS 4 <small>0.2 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C75T8T4JANEN58C8VBMF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C75T8T4JANEN58C8VBMF" product_slug="madex-twin" dose="0.1002" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C75W5GETGSY4X1JEJ62P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C75W5GETGSY4X1JEJ62P" product_slug="carpovirusine-evo-2">CARPOVIRUSINE EVO</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C75ZR6P7FJ0CQYZH3ND9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C75ZR6P7FJ0CQYZH3ND9" product_slug="carpovirusine-2000" dose="1.0000102" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C761M1ZZTFN50MDCD4XD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C761M1ZZTFN50MDCD4XD" product_slug="success-4" dose="0.2002" unit="L">SUCCESS 4 <small>0.2 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'madex-twin', '0.1003') ? 'exist' : 'd-none' }}" product_slug="madex-twin" dose="0.1003" unit="L">MADEX TWIN <small>0.1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-evo-2') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-evo-2">CARPOVIRUSINE EVO</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'carpovirusine-2000', '1.0000103') ? 'exist' : 'd-none' }}" product_slug="carpovirusine-2000" dose="1.0000103" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'success-4', '0.2003') ? 'exist' : 'd-none' }}" product_slug="success-4" dose="0.2003" unit="L">SUCCESS 4 <small>0.2 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C765QGBG1JW4FSTTVSR3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C765QGBG1JW4FSTTVSR3" product_slug="madex-twin" dose="0.1003" unit="L">MADEX TWIN <small>0.1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C768WWN7PAJNAF0PTQ5K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C768WWN7PAJNAF0PTQ5K" product_slug="carpovirusine-evo-2">CARPOVIRUSINE EVO</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C76BA28576GD7BRWYP1R' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C76BA28576GD7BRWYP1R" product_slug="carpovirusine-2000" dose="1.0000103" unit="L">CARPOVIRUSINE 2000 <small>1 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C76DR0ZSY421B1WEAB9F' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C76DR0ZSY421B1WEAB9F" product_slug="success-4" dose="0.2003" unit="L">SUCCESS 4 <small>0.2 L</small></button>
                 </td>
             </tr>
             <tr>
                 <td>Bacteriose <br>Chancre</td>
                 <td colspan="2">
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'kocide-2000', '3.5') ? 'exist' : 'd-none' }}" product_slug="kocide-2000" dose="3.5" unit="Kg">KOCIDE 2000 <small>3.5 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEF9C76GQM23P2P6ERJ407MB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C76GQM23P2P6ERJ407MB" product_slug="kocide-2000" dose="3.5" unit="Kg">KOCIDE 2000 <small>3.5 Kg</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'bouillie-bordelaise-rsr', '12') ? 'exist' : 'd-none' }}" product_slug="bouillie-bordelaise-rsr" dose="12" unit="Kg">BB RSR <small>12 Kg</small></button>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'kocide-2000', '3.51') ? 'exist' : 'd-none' }}" product_slug="kocide-2000" dose="3.51" unit="Kg">KOCIDE 2000 <small>3.5 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEF9C76MKRZ8WX6048AA1GAK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C76MKRZ8WX6048AA1GAK" product_slug="bouillie-bordelaise-rsr" dose="12" unit="Kg">BB RSR <small>12 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEF9C76QK0H1CQFSPER7SMBM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C76QK0H1CQFSPER7SMBM" product_slug="kocide-2000" dose="3.51" unit="Kg">KOCIDE 2000 <small>3.5 Kg</small></button>
                 </td>
             </tr>
             <tr>
                 <td>Feu <br>Bacterien <br>Phytophtora</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="3">
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'amylo-x-wg') ? 'exist' : 'd-none' }}" product_slug="amylo-x-wg" dose="2.5" unit="Kg">AMYLO X WG <small>2.5 Kg</small></button>
+                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEF9C76QK0H1CQFSPER7SMBM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C76QK0H1CQFSPER7SMBM" product_slug="amylo-x-wg" dose="2.5" unit="Kg">AMYLO X WG <small>2.5 Kg</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
             <tr>
                 <td>Tavelure</td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'bouillie-bordelaise-rsr', '12.5') ? 'exist' : 'd-none' }}" product_slug="bouillie-bordelaise-rsr" dose="12.5" unit="Kg">BB RSR <small>12.5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C76WPD97F42PXRWSNK52' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C76WPD97F42PXRWSNK52" product_slug="bouillie-bordelaise-rsr" dose="12.5" unit="Kg">BB RSR <small>12.5 Kg</small></button>
                 </td>
                 <td></td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'curatio', '24') ? 'exist' : 'd-none' }}" product_slug="curatio" dose="24" unit="L">CURATIO <small>24 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'armicarb', '5') ? 'exist' : 'd-none' }}" product_slug="armicarb" dose="5" unit="Kg">ARMICARB <small>5 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.5') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.5" unit="L">FLOSUL SC <small>7.5 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'curatio', '18') ? 'exist' : 'd-none' }}" product_slug="curatio" dose="18" unit="L">CURATIO <small>18 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sticop', '3') ? 'exist' : 'd-none' }}" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C770R86XMYC1RJ15KH4Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C770R86XMYC1RJ15KH4Q" product_slug="curatio" dose="24" unit="L">CURATIO <small>24 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7731JKTYB49CHCC26DC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7731JKTYB49CHCC26DC" product_slug="armicarb" dose="5" unit="Kg">ARMICARB <small>5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C77631ZW957QPTW2QQC9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C77631ZW957QPTW2QQC9" product_slug="flosul-sc" dose="7.5" unit="L">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7798151BB581NSPSDJB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7798151BB581NSPSDJB" product_slug="curatio" dose="18" unit="L">CURATIO <small>18 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C77DK069MFMFAXT1PFH4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C77DK069MFMFAXT1PFH4" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'curatio', '24.0001') ? 'exist' : 'd-none' }}" product_slug="curatio" dose="24.0001" unit="L">CURATIO <small>24 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'armicarb', '5.0001') ? 'exist' : 'd-none' }}" product_slug="armicarb" dose="5.0001" unit="Kg">ARMICARB <small>5 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.5001') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.5001" unit="L">FLOSUL SC <small>7.5 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'curatio', '18.0001') ? 'exist' : 'd-none' }}" product_slug="curatio" dose="18.0001" unit="L">CURATIO <small>18 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sticop', '3.0001') ? 'exist' : 'd-none' }}" product_slug="sticop" dose="3.0001" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C77G97FECEZ7G9VZ7E54' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C77G97FECEZ7G9VZ7E54" product_slug="curatio" dose="24.0001" unit="L">CURATIO <small>24 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C77JC1SPZ3Z7AAWPKVE5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C77JC1SPZ3Z7AAWPKVE5" product_slug="armicarb" dose="5.0001" unit="Kg">ARMICARB <small>5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C77NZ68AGJT5ZRQF5RPX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C77NZ68AGJT5ZRQF5RPX" product_slug="flosul-sc" dose="7.5001" unit="L">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C77SW5TT92SRE39VEVYN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C77SW5TT92SRE39VEVYN" product_slug="curatio" dose="18.0001" unit="L">CURATIO <small>18 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C77SW5TT92SRE39VEVYN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C77WJPN97BR2VWNAS3PX" product_slug="sticop" dose="3.0001" unit="L">STICOP <small>3 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'curatio', '24.0002') ? 'exist' : 'd-none' }}" product_slug="curatio" dose="24.0002" unit="L">CURATIO <small>24 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'armicarb', '5.0002') ? 'exist' : 'd-none' }}" product_slug="armicarb" dose="5.0002" unit="Kg">ARMICARB <small>5 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.5002') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.5002" unit="L">FLOSUL SC <small>7.5 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'curatio', '18.0002') ? 'exist' : 'd-none' }}" product_slug="curatio" dose="18.0002" unit="L">CURATIO <small>18 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sticop', '3.0002') ? 'exist' : 'd-none' }}" product_slug="sticop" dose="3.0002" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C77YTGKXS6TB4V2RW0CM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C77YTGKXS6TB4V2RW0CM" product_slug="curatio" dose="24.0002" unit="L">CURATIO <small>24 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C781NYT8V34VAPQE52DR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C781NYT8V34VAPQE52DR" product_slug="armicarb" dose="5.0002" unit="Kg">ARMICARB <small>5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C784J5SYGY5D44DYNXSQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C784J5SYGY5D44DYNXSQ" product_slug="flosul-sc" dose="7.5002" unit="L">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C789XGKA5KRMFZQTTPCF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C789XGKA5KRMFZQTTPCF" product_slug="curatio" dose="18.0002" unit="L">CURATIO <small>18 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C78CH327XJ53YMY11M81' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C78CH327XJ53YMY11M81" product_slug="sticop" dose="3.0002" unit="L">STICOP <small>3 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sticop', '1') ? 'exist' : 'd-none' }}" product_slug="sticop" dose="1" unit="L">STICOP <small>1 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C78EKT50MMVJKNQAFEMQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C78EKT50MMVJKNQAFEMQ" product_slug="sticop" dose="1" unit="L">STICOP <small>1 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sticop', '1.0001') ? 'exist' : 'd-none' }}" product_slug="sticop" dose="1.0001" unit="L">STICOP <small>1 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C78H9EHQABFFPJAJ32Y4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C78H9EHQABFFPJAJ32Y4" product_slug="sticop" dose="1.0001" unit="L">STICOP <small>1 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'curatio', '12') ? 'exist' : 'd-none' }}" product_slug="curatio" dose="12" unit="L">CURATIO <small>12 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'armicarb', '5') ? 'exist' : 'd-none' }}" product_slug="armicarb" dose="5" unit="Kg">ARMICARB <small>5 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.5') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.5" unit="Kg">FLOSUL SC <small>7.5 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sticop', '3.0001') ? 'exist' : 'd-none' }}" product_slug="sticop" dose="3.0001" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C78MNGB4X0RX78WYR4NC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C78MNGB4X0RX78WYR4NC" product_slug="curatio" dose="12" unit="L">CURATIO <small>12 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C78Q6R12EB1FWDWFA3W4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C78Q6R12EB1FWDWFA3W4" product_slug="armicarb" dose="5" unit="Kg">ARMICARB <small>5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C78TQNBZ7D8TASJ6BVBD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C78TQNBZ7D8TASJ6BVBD" product_slug="flosul-sc" dose="7.5" unit="Kg">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C78XME4TK6EGEN27PTVM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C78XME4TK6EGEN27PTVM" product_slug="sticop" dose="3.0001" unit="L">STICOP <small>3 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'curatio', '12.0001') ? 'exist' : 'd-none' }}" product_slug="curatio" dose="12.0001" unit="L">CURATIO <small>12 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'armicarb', '5.0001') ? 'exist' : 'd-none' }}" product_slug="armicarb" dose="5.0001" unit="Kg">ARMICARB <small>5 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.5001') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.5001" unit="Kg">FLOSUL SC <small>7.5 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sticop', '3.000101') ? 'exist' : 'd-none' }}" product_slug="sticop" dose="3.000101" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C78ZZJJN0YFHPD0R2Q2N' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C78ZZJJN0YFHPD0R2Q2N" product_slug="curatio" dose="12.0001" unit="L">CURATIO <small>12 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7934QKC60YEFYCY59HQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7934QKC60YEFYCY59HQ" product_slug="armicarb" dose="5.0001" unit="Kg">ARMICARB <small>5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C796A0A9VCRWBYEC0EM0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C796A0A9VCRWBYEC0EM0" product_slug="flosul-sc" dose="7.5001" unit="Kg">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C79AF4TNBF48WQC6XDW7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C79AF4TNBF48WQC6XDW7" product_slug="sticop" dose="3.000101" unit="L">STICOP <small>3 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'curatio', '12.0002') ? 'exist' : 'd-none' }}" product_slug="curatio" dose="12.0002" unit="L">CURATIO <small>12 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'armicarb', '5.0002') ? 'exist' : 'd-none' }}" product_slug="armicarb" dose="5.0002" unit="Kg">ARMICARB <small>5 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.5002') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.5002" unit="Kg">FLOSUL SC <small>7.5 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sticop', '3.000102') ? 'exist' : 'd-none' }}" product_slug="sticop" dose="3.000102" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C79AF4TNBF48WQC6XDW7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C79CHTR0Y72KQJG63T4H" product_slug="curatio" dose="12.0002" unit="L">CURATIO <small>12 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C79AF4TNBF48WQC6XDW7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C79GZK3ZPT5MGQH23WJS" product_slug="armicarb" dose="5.0002" unit="Kg">ARMICARB <small>5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C79KQ7FWXBPZ6X4WSHM6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C79KQ7FWXBPZ6X4WSHM6" product_slug="flosul-sc" dose="7.5002" unit="Kg">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C79P2DBAKG87V9G12FT1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C79P2DBAKG87V9G12FT1" product_slug="sticop" dose="3.000102" unit="L">STICOP <small>3 L</small></button>
                 </td>
                 <td></td><td></td>
                 <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'nutrigeo') ? 'exist' : 'd-none' }}" product_slug="nutrigeo" dose="25" unit="L">NUTRIGEO <small>25 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C79RWCFVKS1TJNKBR3QQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C79RWCFVKS1TJNKBR3QQ" product_slug="nutrigeo" dose="25" unit="L">NUTRIGEO <small>25 L</small></button>
                 </td>
             </tr>
             <tr>
                 <td>Odium</td>
                 <td></td><td></td><td></td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'citrothiol-dg', '7.5') ? 'exist' : 'd-none' }}" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.5') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.5" unit="L">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C79ZMK2NBJBQSCYX3359' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C79W440KA9XREW18EHZP" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7A2J74EQJ0MWM9CPSKM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C79ZMK2NBJBQSCYX3359" product_slug="flosul-sc" dose="7.5" unit="L">FLOSUL SC <small>7.5 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'citrothiol-dg', '7.5001') ? 'exist' : 'd-none' }}" product_slug="citrothiol-dg" dose="7.5001" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.5001') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.5001" unit="L">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7A4C067K9ABAB7F3M6D' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7A2J74EQJ0MWM9CPSKM" product_slug="citrothiol-dg" dose="7.5001" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7A7SWX0WX0P68T2M933' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7A4C067K9ABAB7F3M6D" product_slug="flosul-sc" dose="7.5001" unit="L">FLOSUL SC <small>7.5 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.50001') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.50001" unit="L">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7A7SWX0WX0P68T2M933' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7A7SWX0WX0P68T2M933" product_slug="flosul-sc" dose="7.50001" unit="L">FLOSUL SC <small>7.5 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'citrothiol-dg', '7.50001') ? 'exist' : 'd-none' }}" product_slug="citrothiol-dg" dose="7.50001" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7AC2RVPJXQ86Z5HFRM7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7AC2RVPJXQ86Z5HFRM7" product_slug="citrothiol-dg" dose="7.50001" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.50002') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.50002" unit="L">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7AC2RVPJXQ86Z5HFRM7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7AE1XW2DTECC1S09K2N" product_slug="flosul-sc" dose="7.50002" unit="L">FLOSUL SC <small>7.5 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.50003') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.50003" unit="L">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7AHJK9MYX70SNW6HH42' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7AHJK9MYX70SNW6HH42" product_slug="flosul-sc" dose="7.50003" unit="L">FLOSUL SC <small>7.5 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'flosul-sc', '7.50004') ? 'exist' : 'd-none' }}" product_slug="flosul-sc" dose="7.50004" unit="L">FLOSUL SC <small>7.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7AMSMH49RHBRFBEWJ40' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7AMSMH49RHBRFBEWJ40" product_slug="flosul-sc" dose="7.50004" unit="L">FLOSUL SC <small>7.5 L</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -327,8 +327,8 @@
                 <td>Conservation</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="6">
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'armicarb') ? 'exist' : 'd-none' }}" product_slug="armicarb" dose="5" unit="Kg">ARMICARB <small>5 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'intracell') ? 'exist' : 'd-none' }}" product_slug="intracell" dose="4" unit="Kg">INTRACELL <small>4 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEF9C7AMSMH49RHBRFBEWJ40' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7ASEFXS6FVHNRWVF1QT" product_slug="armicarb" dose="5" unit="Kg">ARMICARB <small>5 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEF9C7AWYV2GTXSZ8GP5ZAG9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7AWYV2GTXSZ8GP5ZAG9" product_slug="intracell" dose="4" unit="Kg">INTRACELL <small>4 Kg</small></button>
                 </td>
                 <td></td>
             </tr>
@@ -336,83 +336,83 @@
                 <td>Soutien <br>Foliaire</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="2">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-bore-ultra', '2') ? 'exist' : 'd-none' }}" product_slug="ino-bore-ultra" dose="2" unit="L">INO BORE ULTRA <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'folwin', '2') ? 'exist' : 'd-none' }}" product_slug="folwin" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7AZWYZC43EMVR03EGEG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7AZWYZC43EMVR03EGEG" product_slug="ino-bore-ultra" dose="2" unit="L">INO BORE ULTRA <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7B3GNWVEWTVXTYFYNGV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7B3GNWVEWTVXTYFYNGV" product_slug="folwin" dose="2" unit="L">FOLWIN <small>2 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-bore-ultra', '2.0001') ? 'exist' : 'd-none' }}" product_slug="ino-bore-ultra" dose="2.0001" unit="L">INO BORE ULTRA <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'folwin', '2.0001') ? 'exist' : 'd-none' }}" product_slug="folwin" dose="2.0001" unit="L">FOLWIN <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7B7GAV6GGCH953R6SCT' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7B7GAV6GGCH953R6SCT" product_slug="ino-bore-ultra" dose="2.0001" unit="L">INO BORE ULTRA <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7BDESHDZ1RZFN056S72' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7BDESHDZ1RZFN056S72" product_slug="folwin" dose="2.0001" unit="L">FOLWIN <small>2 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-bore-ultra', '2.0002') ? 'exist' : 'd-none' }}" product_slug="ino-bore-ultra" dose="2.0002" unit="L">INO BORE ULTRA <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'folwin', '2.0002') ? 'exist' : 'd-none' }}" product_slug="folwin" dose="2.0002" unit="L">FOLWIN <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7BJ55ERNK5FAGDK0NJZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7BJ55ERNK5FAGDK0NJZ" product_slug="ino-bore-ultra" dose="2.0002" unit="L">INO BORE ULTRA <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7BPCXNE00E1KS8Z5DJ6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7BPCXNE00E1KS8Z5DJ6" product_slug="folwin" dose="2.0002" unit="L">FOLWIN <small>2 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ladae', '0.8') ? 'exist' : 'd-none' }}" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'geogreen-plus', '8') ? 'exist' : 'd-none' }}" product_slug="geogreen-plus" dose="8" unit="L">GEOGREEN PLUS <small>8 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-cal', '8') ? 'exist' : 'd-none' }}" product_slug="ino-cal" dose="8" unit="L">INO-CAL <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7BSZQEZAV536WGME16K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7BSZQEZAV536WGME16K" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7BYM0H9RV5GTR390QNQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7BYM0H9RV5GTR390QNQ" product_slug="geogreen-plus" dose="8" unit="L">GEOGREEN PLUS <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7C1SJGP2CPNDVD8QGZK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7C1SJGP2CPNDVD8QGZK" product_slug="ino-cal" dose="8" unit="L">INO-CAL <small>8 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ladae', '0.8001') ? 'exist' : 'd-none' }}" product_slug="ladae" dose="0.8001" unit="%">LADAE <small>0.8 %</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'geogreen-plus', '8.0001') ? 'exist' : 'd-none' }}" product_slug="geogreen-plus" dose="8.0001" unit="L">GEOGREEN PLUS <small>8 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-cal', '8.0001') ? 'exist' : 'd-none' }}" product_slug="ino-cal" dose="8.0001" unit="L">INO-CAL <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7C5GEKYBFAZDHEK9227' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7C5GEKYBFAZDHEK9227" product_slug="ladae" dose="0.8001" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7C783QW05RGXG7TMKQ9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7C783QW05RGXG7TMKQ9" product_slug="geogreen-plus" dose="8.0001" unit="L">GEOGREEN PLUS <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7CBG5QYVVT811KVERC4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7CBG5QYVVT811KVERC4" product_slug="ino-cal" dose="8.0001" unit="L">INO-CAL <small>8 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ladae', '0.8002') ? 'exist' : 'd-none' }}" product_slug="ladae" dose="0.8002" unit="%">LADAE <small>0.8 %</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'geogreen-plus', '8.0002') ? 'exist' : 'd-none' }}" product_slug="geogreen-plus" dose="8.0002" unit="L">GEOGREEN PLUS <small>8 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-cal', '8.0002') ? 'exist' : 'd-none' }}" product_slug="ino-cal" dose="8.0002" unit="L">INO-CAL <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7CG9N268V7S4VW9WSRG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7CG9N268V7S4VW9WSRG" product_slug="ladae" dose="0.8002" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7CKB4A9HPBTAARTM7AN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7CKB4A9HPBTAARTM7AN" product_slug="geogreen-plus" dose="8.0002" unit="L">GEOGREEN PLUS <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7CPTPJMSYHQ5SQH09MQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7CPTPJMSYHQ5SQH09MQ" product_slug="ino-cal" dose="8.0002" unit="L">INO-CAL <small>8 L</small></button>
                 </td>
                 <td colspan="2">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ladae', '0.8003') ? 'exist' : 'd-none' }}" product_slug="ladae" dose="0.8003" unit="%">LADAE <small>0.8 %</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'geogreen-plus', '8.0003') ? 'exist' : 'd-none' }}" product_slug="geogreen-plus" dose="8.0003" unit="L">GEOGREEN PLUS <small>8 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-cal', '8.0003') ? 'exist' : 'd-none' }}" product_slug="ino-cal" dose="8.0003" unit="L">INO-CAL <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7CVVHMDPH6W5AZGPG5G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7CVVHMDPH6W5AZGPG5G" product_slug="ladae" dose="0.8003" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7CYMTS9KPJW0GJJ7KPS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7CYMTS9KPJW0GJJ7KPS" product_slug="geogreen-plus" dose="8.0003" unit="L">GEOGREEN PLUS <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7D21K0JA0X7H6NQ2AF0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7D21K0JA0X7H6NQ2AF0" product_slug="ino-cal" dose="8.0003" unit="L">INO-CAL <small>8 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ladae', '0.8004') ? 'exist' : 'd-none' }}" product_slug="ladae" dose="0.8004" unit="%">LADAE <small>0.8 %</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'geogreen-plus', '8.0004') ? 'exist' : 'd-none' }}" product_slug="geogreen-plus" dose="8.0004" unit="L">GEOGREEN PLUS <small>8 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-cal', '8.0004') ? 'exist' : 'd-none' }}" product_slug="ino-cal" dose="8.0004" unit="L">INO-CAL <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7D6B6JS1N90A646CYT5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7D6B6JS1N90A646CYT5" product_slug="ladae" dose="0.8004" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7DC75PWSYK1RDEBWTKP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7DC75PWSYK1RDEBWTKP" product_slug="geogreen-plus" dose="8.0004" unit="L">GEOGREEN PLUS <small>8 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7DGW8J60DXDH0XXJQ5Z' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7DGW8J60DXDH0XXJQ5Z" product_slug="ino-cal" dose="8.0004" unit="L">INO-CAL <small>8 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-bore-ultra', '2.01') ? 'exist' : 'd-none' }}" product_slug="ino-bore-ultra" dose="2.01" unit="L">INO BORE ULTRA <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'ino-flow-zn-680f') ? 'exist' : 'd-none' }}" product_slug="ino-flow-zn-680f" dose="1" unit="L">INO FLOW ZN 680 <small>1 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7DM544XXAS74ZKXQHNA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7DM544XXAS74ZKXQHNA" product_slug="ino-bore-ultra" dose="2.01" unit="L">INO BORE ULTRA <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7DR7B20SN7F3HDRJ9T4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7DR7B20SN7F3HDRJ9T4" product_slug="ino-flow-zn-680f" dose="1" unit="L">INO FLOW ZN 680 <small>1 L</small></button>
                 </td>
             </tr>
             <tr>
                 <td>Stimulation <br>Racinaire</td>
                 <td colspan="5">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'rise-p-vam', '200') ? 'exist' : 'd-none' }}" product_slug="rise-p-vam" dose="200" unit="g">RISE P VAM <small>200 gr</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7DVF8MD50AKKJ46X30V' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7DVF8MD50AKKJ46X30V" product_slug="rise-p-vam" dose="200" unit="g">RISE P VAM <small>200 gr</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'rise-p-vam', '200.0001') ? 'exist' : 'd-none' }}" product_slug="rise-p-vam" dose="200.0001" unit="g">RISE P VAM <small>200 gr</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7DZB8SV7FV4PAF74WWW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7DZB8SV7FV4PAF74WWW" product_slug="rise-p-vam" dose="200.0001" unit="g">RISE P VAM <small>200 gr</small></button>
                 </td>
             </tr>
             <tr>
                 <td rowspan="2">Fumure</td>
                 <td colspan="5">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'orchestra', '700') ? 'exist' : 'd-none' }}" product_slug="orchestra" dose="700" unit="Kg">ORCHESTRA UAB LARGO <small>700 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'bior', '700') ? 'exist' : 'd-none' }}" product_slug="bior" dose="700" unit="Kg/Ha">BIOR <small>700 Kg/Ha</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7E4FFVR74GMQY2AEF8H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7E4FFVR74GMQY2AEF8H" product_slug="orchestra" dose="700" unit="Kg">ORCHESTRA UAB LARGO <small>700 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7E9X5V3P3S6CFF034VS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7E9X5V3P3S6CFF034VS" product_slug="bior" dose="700" unit="Kg/Ha">BIOR <small>700 Kg/Ha</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td colspan="2">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'azopril-n13', '400') ? 'exist' : 'd-none' }}" product_slug="azopril-n13" dose="400" unit="Kg">AZOPRIL N13 <small>400 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'optiblend', '100') ? 'exist' : 'd-none' }}" product_slug="optiblend" dose="100" unit="Kg">OPTIBLEND <small>100 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7ED7DEB340HS0XM4TKH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7ED7DEB340HS0XM4TKH" product_slug="azopril-n13" dose="400" unit="Kg">AZOPRIL N13 <small>400 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7ENXC3QPSHJ1KQG17PD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7ENXC3QPSHJ1KQG17PD" product_slug="optiblend" dose="100" unit="Kg">OPTIBLEND <small>100 Kg</small></button>
                 </td>
                 <td colspan="4">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'diamic-k26', '500') ? 'exist' : 'd-none' }}" product_slug="diamic-k26" dose="400" unit="Kg">DIAMIC K26 <small>500 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'patenkali', '400') ? 'exist' : 'd-none' }}" product_slug="patenkali" dose="400" unit="Kg">PATENKALI <small>400 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sulfate-de-potasse', '400') ? 'exist' : 'd-none' }}" product_slug="sulfate-de-potasse" dose="400" unit="Kg">SULFATE DE POTASSE <small>300 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7ERWCXVTB19Z4D7JCFC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7ERWCXVTB19Z4D7JCFC" product_slug="diamic-k26" dose="400" unit="Kg">DIAMIC K26 <small>500 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7EXYQCSA7X4H8TBNW9Y' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7EXYQCSA7X4H8TBNW9Y" product_slug="patenkali" dose="400" unit="Kg">PATENKALI <small>400 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7F15548JZHXNXJ86MW4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7F15548JZHXNXJ86MW4" product_slug="sulfate-de-potasse" dose="400" unit="Kg">SULFATE DE POTASSE <small>300 Kg</small></button>
                 </td>
                 <td></td><td></td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'guanumus', '1000') ? 'exist' : 'd-none' }}" product_slug="guanumus" dose="1000" unit="Kg">GUANUMUS  <small>1000 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'orchestra', '500') ? 'exist' : 'd-none' }}" product_slug="orchestra" dose="500" unit="Kg">ORCHESTRA UAB LARGO <small>500 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'sulfate-de-potasse', '500') ? 'exist' : 'd-none' }}" product_slug="sulfate-de-potasse" dose="500" unit="Kg">SULFATE DE POTASSE<small>500 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7F5QXRFW0HCV33VATTS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7F5QXRFW0HCV33VATTS" product_slug="guanumus" dose="1000" unit="Kg">GUANUMUS  <small>1000 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7F9A517KGB0K3G9YSE0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7F9A517KGB0K3G9YSE0" product_slug="orchestra" dose="500" unit="Kg">ORCHESTRA UAB LARGO <small>500 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEF9C7FD9FMZ643E32ZM9ZJE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7FD9FMZ643E32ZM9ZJE" product_slug="sulfate-de-potasse" dose="500" unit="Kg">SULFATE DE POTASSE<small>500 Kg</small></button>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? rpr.productExist( recommendations, 'azopril-n13', '500') ? 'exist' : 'd-none' }}" product_slug="azopril-n13" dose="500" unit="Kg">AZOPRIL N13 <small>500 Kg</small></button>
+                    <button class="btn btn-M btn-block isProduct{{ printRequest ? '01FEF9C7FGVJRMKFK5RBYP7DBS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEF9C7FGVJRMKFK5RBYP7DBS" product_slug="azopril-n13" dose="500" unit="Kg">AZOPRIL N13 <small>500 Kg</small></button>
                 </td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
