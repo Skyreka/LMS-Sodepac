@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,7 +24,7 @@ class EpandageInterventionType extends AbstractType
             ->add('quantity', NumberType::class, [
                 'help' => 'En Tonne/Ha'
             ])
-            ->add('comment')
+            ->add('comment', TextareaType::class)
             ->add('intervention_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,

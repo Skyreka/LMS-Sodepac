@@ -8,6 +8,7 @@ use App\Entity\IndexEffluents;
 use App\Repository\IndexCulturesRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -61,17 +62,17 @@ class CulturesNewType extends AbstractType
                 'label' => 'Surface de la culture',
                 'help' => 'En hectare | Espace restant : '. $options['max_size'] .' ha'
             ])
-            ->add('bio', null, [
+            ->add('bio', CheckboxType::class, [
                 'label' => 'Culture bio ?'
             ])
-            ->add('permanent', null, [
+            ->add('permanent', CheckboxType::class, [
                 'label' => 'Culture permanente ?'
             ])
-            ->add('production', null, [
+            ->add('production', CheckboxType::class, [
                 'label' => 'Culture en production ?',
                 'attr' => array('checked' => 'checked')
             ])
-            ->add('residue', null, [
+            ->add('residue', CheckboxType::class, [
                 'label' => 'Avez-vous laissé le résidu ?'
             ])
             ->add('znt', HiddenType::class, [

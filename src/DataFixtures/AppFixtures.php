@@ -52,26 +52,28 @@ class AppFixtures extends Fixture
         $user->setIsActive( 1 );
         $user->setTechnician( $tech );
 
-        $user = new Users();
-        $user->setFirstname( 'sales' );
-        $user->setEmail('sales@sodepac.dev');
-        $user->setPhone('+337803135363');
-        $password = $this->encoder->encodePassword( $user, 'dev');
-        $user->setPassword( $password );
-        $user->setStatus('ROLE_SALES');
-        $user->setIsActive( 1 );
+        $sales = new Users();
+        $sales->setFirstname( 'sales' );
+        $sales->setEmail('sales@sodepac.dev');
+        $sales->setPhone('+337803135363');
+        $password = $this->encoder->encodePassword( $sales, 'dev');
+        $sales->setPassword( $password );
+        $sales->setStatus('ROLE_SALES');
+        $sales->setIsActive( 1 );
 
-        $user = new Users();
-        $user->setFirstname( 'princing' );
-        $user->setEmail('pricing@sodepac.dev');
-        $user->setPhone('+33700000000');
-        $password = $this->encoder->encodePassword( $user, 'dev');
-        $user->setPassword( $password );
-        $user->setStatus('ROLE_PRICING');
-        $user->setIsActive( 1 );
+        $pricing = new Users();
+        $pricing->setFirstname( 'princing' );
+        $pricing->setEmail('pricing@sodepac.dev');
+        $pricing->setPhone('+33700000000');
+        $password = $this->encoder->encodePassword( $pricing, 'dev');
+        $pricing->setPassword( $password );
+        $pricing->setStatus('ROLE_PRICING');
+        $pricing->setIsActive( 1 );
 
 
         $manager->persist($admin);
+        $manager->persist($user);
+        $manager->persist($sales);
         $manager->persist($tech);
         $manager->persist($user);
         $manager->flush();

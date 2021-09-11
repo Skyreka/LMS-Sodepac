@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-8 align-self-center">
-                <h3 class="text-themecolor">Commandes</h3>
+                <h3 class="text-themecolor">Liste des commandes</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
                     <li class="breadcrumb-item active">Commandes</li>
@@ -33,7 +33,6 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Récapitulatif</h4>
                         <div class="table-responsive">
                             <table class="table" id="datatable">
                                 <thead>
@@ -73,7 +72,7 @@
                                         <td>
                                             <div style="display: flex">
                                                 {% if( order.status == 3 ) %}
-                                                    <a title="PDF" class="btn btn-info" href="{{ path('order_pdf_view', {id_number: order.idNumber}) }}"><i class="fa fa-file-pdf text-white"></i></a>
+                                                    <a title="PDF" class="btn btn-info" href="{{ path('order_pdf_view', {'id_number': order.idNumber, 'print': 'true'}) }}"><i class="fa fa-download text-white"></i></a>
                                                 {% elseif( order.status == 1 ) %}
                                                     <a title="Voir" class="btn btn-success" href="{{ path('order_show', {id_number: order.idNumber}) }}"><i class="fa fa-eye text-white"></i></a>
                                                 {% endif %}

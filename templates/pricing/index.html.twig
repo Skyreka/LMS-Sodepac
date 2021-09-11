@@ -33,7 +33,7 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Categorie</th>
+                                <th>Catégorie</th>
                                 <th>Produit</th>
                                 <th>Tarif (€)</th>
                                 {% if filterBy == 2 %}
@@ -46,11 +46,30 @@
                                     <tr>
                                         <td>{{ product.id }}</td>
                                         <td>{{ product.category ? product.category.name }}</td>
-                                        <td>{{ product.name }}</td>
+                                        <td>
+                                            {{ product.name }}
+                                        </td>
                                         <td class="bg-dark text-white">{{ product.price }}</td>
                                         {% if filterBy == 2 %}
                                             <td>{{ product.rpd }}</td>
+                                        {% else %}
+                                            <td></td>
                                         {% endif %}
+                                        <td>
+                                            {% if product.isActive %}
+                                                <form class="d-inline" method="POST" action="{{ path('pricing_product_update', {'id': product.id, 'action': 1}) }}">
+                                                    <input type="hidden" name="_method" value="UPDATE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('update_product' ~ product.id) }}">
+                                                    <button class="btn btn-success ml-3"><i class="fa fa-eye"></i></button>
+                                                </form>
+                                            {% else %}
+                                                <form class="d-inline" method="POST" action="{{ path('pricing_product_update', {'id': product.id, 'action': 0}) }}">
+                                                    <input type="hidden" name="_method" value="UPDATE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('update_product' ~ product.id) }}">
+                                                    <button class="btn btn-danger ml-3"><i class="fa fa-eye-slash"></i></button>
+                                                </form>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

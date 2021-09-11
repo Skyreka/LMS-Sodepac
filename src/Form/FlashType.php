@@ -5,16 +5,17 @@ namespace App\Form;
 use App\Entity\Bsv;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class BsvType extends AbstractType
+class FlashType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('text')
+            ->add('text', TextType::class)
             ->add('first_file', FileType::class, [
                 'label' => 'PDF',
                 'mapped' => false,
@@ -24,7 +25,7 @@ class BsvType extends AbstractType
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize' => '4000k',
+                        'maxSize' => '5M',
                         'mimeTypes' => [
                             'application/pdf',
                             'application/x-pdf',
@@ -34,7 +35,8 @@ class BsvType extends AbstractType
                 ],
             ])
             ->add('second_file', FileType::class, [
-                'label' => 'Image 1',
+                'label' => 'Première image',
+                'help' => 'Facultatif, Max 5Mo, PNG/JPG uniquement',
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
@@ -42,12 +44,13 @@ class BsvType extends AbstractType
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize' => '4000k'
+                        'maxSize' => '5M'
                     ])
                 ],
             ])
             ->add('third_file', FileType::class, [
-                'label' => 'Image 2',
+                'label' => 'Seconde image',
+                'help' => 'Facultatif, Max 5Mo, PNG/JPG uniquement',
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
@@ -55,7 +58,7 @@ class BsvType extends AbstractType
                 ],
                 'constraints' => [
                     new File([
-                        'maxSize' => '4000k'
+                        'maxSize' => '5M'
                     ])
                 ],
             ])

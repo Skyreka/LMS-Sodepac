@@ -53,6 +53,11 @@ class RecommendationProducts
      */
     private $dose_edit;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $c_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +143,18 @@ class RecommendationProducts
     public function setDoseEdit(?float $dose_edit): self
     {
         $this->dose_edit = $dose_edit;
+
+        return $this;
+    }
+
+    public function getCId(): ?string
+    {
+        return $this->c_id;
+    }
+
+    public function setCId(?string $c_id): self
+    {
+        $this->c_id = $c_id;
 
         return $this;
     }

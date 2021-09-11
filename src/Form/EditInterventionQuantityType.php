@@ -7,6 +7,7 @@ use App\Entity\Phyto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,13 +21,13 @@ class EditInterventionQuantityType extends AbstractType
             OR $options['data']->getType() == 'Fongicide'
             OR $options['data']->getType() == 'Traitement-Divers') {
             $builder
-                ->add('doseHectare');
+                ->add('doseHectare', NumberType::class);
         } else {
             $builder
-                ->add('quantity');
+                ->add('quantity', NumberType::class);
         }
         $builder
-            ->add('comment')
+            ->add('comment', TextareaType::class)
             ->add('intervention_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,

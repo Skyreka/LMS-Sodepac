@@ -29,6 +29,7 @@ class ProductsRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->where('p.category = :category')
             ->setParameter('category', $category)
+            ->andWhere('p.isActive = 1')
         ;
     }
 
@@ -37,6 +38,7 @@ class ProductsRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->where('p.slug = :slug')
             ->setParameter('slug', $slug)
+            ->andWhere('p.isActive = 1')
             ->getQuery()
             ->getOneOrNullResult()
             ;
@@ -48,6 +50,7 @@ class ProductsRepository extends ServiceEntityRepository
             ->leftJoin( Stocks::class, 's', 'WITH', 'p.id = s.product')
             ->andWhere('s.exploitation = :exp')
             ->setParameter('exp', $exploitation)
+            ->andWhere('p.isActive = 1')
             ;
     }
 

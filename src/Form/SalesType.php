@@ -35,26 +35,26 @@ class SalesType extends AbstractType
                 ]
             ])
 
-            ->add('l1_title')
-            ->add('l1c1_value')
-            ->add('l1c2_value')
+            ->add('l1_title', TextType::class)
+            ->add('l1c1_value', TextType::class)
+            ->add('l1c2_value', TextType::class)
 
-            ->add('l2_title')
-            ->add('l2c1_value')
-            ->add('l2c2_value')
+            ->add('l2_title', TextType::class)
+            ->add('l2c1_value', TextType::class)
+            ->add('l2c2_value', TextType::class)
 
-            ->add('l3_title')
-            ->add('l3c1_value')
-            ->add('l3c2_value')
+            ->add('l3_title', TextType::class)
+            ->add('l3c1_value', TextType::class)
+            ->add('l3c2_value', TextType::class)
 
-            ->add('l4_title')
-            ->add('l4c1_value')
-            ->add('l4c2_value')
+            ->add('l4_title', TextType::class)
+            ->add('l4c1_value', TextType::class)
+            ->add('l4c2_value', TextType::class)
 
-            ->add('l1_variation')
-            ->add('l2_variation')
-            ->add('l3_variation')
-            ->add('l4_variation')
+            ->add('l1_variation', TextType::class)
+            ->add('l2_variation', TextType::class)
+            ->add('l3_variation', TextType::class)
+            ->add('l4_variation', TextType::class)
         ;
     }
 

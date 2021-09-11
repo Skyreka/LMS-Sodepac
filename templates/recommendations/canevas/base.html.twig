@@ -22,7 +22,14 @@
                 text-align: center;
             }
             .ti-menu {
-                display:none !important;
+                display: none !important;
+            }
+            .btn {
+                font-size: 10px !important;
+            }
+            thead p {
+                font-size: 14px !important;
+                text-align: justify !important;
             }
             .btn-R {
                 background-color: #FFADAD !important;
@@ -53,6 +60,7 @@
             }
             .isProduct {
                 display: block !important;
+                margin: .25em 0 .25em 0 !important;
             }
         </style>
         {% block stylesheets %}{% endblock %}
@@ -118,6 +126,7 @@
                         'product_slug': $(this).attr('product_slug'),
                         'recommendation_id': {{ recommendations.id }},
                         'dose': $(this).attr('dose'),
+                        'c_id': $(this).attr('c_id'),
                         'unit': $(this).attr('unit')
                     },
                     dataType: 'JSON',

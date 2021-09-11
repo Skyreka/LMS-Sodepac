@@ -227,6 +227,7 @@ class RecommendationsController extends AbstractController
             $cultureTotal = $recommendation->getCultureSize();
             //-- SETTERS
             $recommendationProducts = new RecommendationProducts();
+            $recommendationProducts->setCId( $request->get('c_id') );
             $recommendationProducts->setProduct( $product );
             $recommendationProducts->setRecommendation( $recommendation );
             $recommendationProducts->setDose( $request->get('dose') );
@@ -525,7 +526,7 @@ class RecommendationsController extends AbstractController
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function download( Recommendations $recommendations, Request $request, CulturesRepository $cr, RecommendationProductsRepository $recommendationProductsRepository )
+    public function download( Recommendations $recommendations, Request $request, CulturesRepository $cr, RecommendationProductsRepository $rpr )
     {
         set_time_limit(300);
         ini_set('max_execution_time', 300);
@@ -565,12 +566,13 @@ class RecommendationsController extends AbstractController
                 // Only if culture is not other
                 if ( $recommendations->getCulture()->getSlug() != 'other') {
                     $canevasPage = new Dompdf( $pdfOptions );
+                    $cIdArray = $rpr->findCId( $recommendations );
                     $html =  $this->render('recommendations/canevas/assets/'.$recommendations->getCulture()->getSlug().'.html.twig', [
                         'recommendations' => $recommendations,
-                        'rpr' => $recommendationProductsRepository,
                         'totalSize' => 0,
                         'culture' => $recommendations->getCulture(),
-                        'printRequest' => true
+                        'printRequest' => true,
+                        'c_id_array' => $cIdArray
                     ]);
                     set_time_limit(1000);
                     ini_set('max_execution_time', 300);

@@ -32,21 +32,23 @@ class UserType extends AbstractType
                     'autocomplete' => 'off'
                 ]
             ])
-            ->add('company')
+            ->add('company', TextType::class)
             ->add('email', EmailType::class, [
                 'attr' => [
                     'autocomplete' => 'off'
-                ]
+                ],
+                'help' => 'Adresse fonctionnel uniquement'
             ])
             ->add('phone', TextType::class, [
                 'empty_data' => '',
+                'help' => 'Format: 06 00 00 00 00',
                 'required' => false,
                 'attr' => [
                     'autocomplete' => 'off'
                 ]
             ])
-            ->add('address')
-            ->add('postal_code')
+            ->add('address', TextType::class)
+            ->add('postal_code', TextType::class)
             ->add('city', TextType::class, [
                 'empty_data' => '',
                 'required' => false,
@@ -66,7 +68,7 @@ class UserType extends AbstractType
                     return $warehouse->getName();
                 },
             ])
-            ->add('certification_phyto')
+            ->add('certification_phyto', TextType::class)
             ->add('technician', EntityType::class, [
                 'class' => Users::class,
                 'expanded'     => false,

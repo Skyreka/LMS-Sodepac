@@ -8,6 +8,7 @@ use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -114,5 +115,24 @@ class PricingController extends AbstractController
         return $this->render('pricing/new.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("product/update/{id}", name="pricing_product_update", methods={"UPDATE"}, requirements={"id":"\d+"})
+     * @param Products $product
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function updateProduct(Products $product, Request $request ): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('update_product' . $product->getId(), $request->get('_token'))) {
+            if ( $request->get('action') === "0" ) {
+                $product->setIsActive( 1 );
+            } elseif ( $request->get('action') === "1" ) {
+                $product->setIsActive( 0 );
+            }
+            $this->em->flush();
+        }
+        return $this->redirectToRoute('pricing_index');
     }
 }

@@ -26,7 +26,8 @@ class StockAddProductType extends AbstractType
                 'query_builder' => function (ProductsRepository $pr) use ( $options ) {
                     return $pr->createQueryBuilder('p')
                         ->orderBy('p.name', 'ASC')
-                        ->andWhere('p.private = 0');
+                        ->andWhere('p.private = 0')
+                        ->andWhere('p.isActive = 1');
                 },
                 'choice_label' => 'name',
                 'placeholder' => 'Sélectionnez un produit',
@@ -34,7 +35,7 @@ class StockAddProductType extends AbstractType
                     'class' => 'select2'
                 ]
             ])
-            ->add('quantity')
+            ->add('quantity', NumberType::class)
             ->add('unit', ChoiceType::class, [
                 'choices' => $this->getChoices()
             ])
