@@ -746,8 +746,13 @@ class InterventionsController extends AbstractController
      */
     public function edit( Interventions $intervention, Request $request, StocksRepository $sr ) {
 
-        // Freeze var before form
-        $quantityOnIntervention = $intervention->getQuantity();
+        $classMetadata = $this->em->getClassMetadata( get_class($intervention) );
+        $discriminatorMap = $classMetadata->discriminatorValue;
+
+        // Freeze var before form on phyto only
+        if ( $discriminatorMap == 'phyto' ) {
+            $quantityOnIntervention = $intervention->getQuantity();
+        }
 
         switch ($intervention->getType()) {
             case 'Récolte':
@@ -786,8 +791,6 @@ class InterventionsController extends AbstractController
 
         if ( $form->isSubmitted() && $form->isValid()) {
             //-- Update Stock
-            $classMetadata = $this->em->getClassMetadata( get_class($intervention) );
-            $discriminatorMap = $classMetadata->discriminatorValue;
             if ( $discriminatorMap == 'phyto' ) {
                 $stock = $sr->findOneBy( ['product' => $intervention->getProduct(), 'exploitation' => $this->getUser()->getExploitation() ] );
                 $quantityNew = $form->getData()->getQuantity();
