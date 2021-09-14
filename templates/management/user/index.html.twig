@@ -115,6 +115,37 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="tab-pane" id="stock" role="tabpanel">
+                                        <div class="card-body">
+                                            <div class="month-table">
+                                                <table class="table stylish-table" id="datatable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Infos</th>
+                                                        <th>Quantité actuelle</th>
+                                                        <!--<th>Quantité utilisée</th>-->
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for stock in usedProducts %}
+                                                        <tr>
+                                                            <td>
+                                                                <h6>{{ stock.product.name }}</h6>
+                                                            </td>
+                                                            <td>{{ stock.quantity|default('0') }} {{ stock.unit( true ) }}</td>
+                                                            <!--<td>{{ stock.usedQuantity|default('0')|round( '2' ) }} {{ stock.unit( true ) }}</td>-->
+                                                            <td>
+                                                                <a class="btn btn-warning text-white" href="{{ path('exploitation_stock_edit', {id: stock.id}) }}"><i class="fa fa-pencil"></i></a>
+                                                                {% include ('exploitation/stock/_delete.html.twig') %}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
