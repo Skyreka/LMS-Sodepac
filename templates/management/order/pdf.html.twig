@@ -6,24 +6,28 @@
 
 {% block stylesheets %}
     {% if print == true %}
-    <style>
-        @media all {
-            .page-break { display: none; }
-        }
-
-        @media print {
-            .page-break { display: block; page-break-before: always; }
-        }
-        .disable-screen {
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: white;
-            width: 100%;
-            height: 100%;
-            z-index: 10000;
-        }
-    </style>
+        <style>
+            @page {
+                max-width: 100% !important;
+                size: landscape;
+            }
+            .disable-screen {
+                position: absolute;
+                left: 0;
+                top: 0;
+                background: white;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+            }
+            .pagebreak {
+                clear: both;
+                page-break-after: always;
+            }
+            @media print {
+                .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+            }
+        </style>
     {% endif %}
 {% endblock %}
 
@@ -31,8 +35,8 @@
     <div class="disable-screen"></div>
     <div class="container-fluid">
         <div class="row pt-5">
-            <div class="col-md-12">
-                <div class="card card-body printableArea">
+            <div class="col-12 printableArea">
+                <div class="card card-body">
                     <h3><b>BON DE COMMANDE</b> <span>#{{ order.IdNumber }}</span></h3>
                     {% if order.status != 3 %}
                         <h3 class="text-danger"><b>En attente de la signature du client (DEVIS)</b></h3>
@@ -51,7 +55,8 @@
                             </div>
                             <div class="pull-right text-right">
                                 <address>
-                                    <h4 class="font-bold">{{ order.customer.identity }},</h4>
+                                    <h4 class="font-bold">{{ order.customer.identity }}</h4>
+                                    <h4 class="font-bold">{{ order.customer.company }}</h4>
                                     <p class="text-muted ml-4">{{ order.customer.email }}
                                         <br/> {{ order.customer.phone }}
                                     </p>
@@ -59,7 +64,6 @@
                                     <p class="mt-4"><b>Dépôt :</b> <i class="fa fa-industry"></i></p>
                                     <p class="text-muted ml-1">{{ order.customer.warehouse.name }}
                                         <br/> {{ order.customer.warehouse.email }}
-                                        <br/> {{ order.customer.warehouse.address }}
                                     </p>
                                 </address>
                             </div>
@@ -118,17 +122,18 @@
                                 <hr style="display: none !important;">
                                 <h3><b>Total HT <small>(avec RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
                             </div>
-                            <div class="clearfix">
-                                <p class="m-t-5"><b>Conditions :</b> {{ order.conditions }}</p>
-                                <p class="m-t-5"><b>Délai et livraison :</b> {{ order.delivery }}</p>
+                            <div class="clearfix mt-5">
+                                <p class="m-t-5"><b style="color: #27ae60;">Conditions :</b> {{ order.conditions }}</p>
+                                <p class="m-t-5"><b style="color: #27ae60;">Délai et livraison :</b> {{ order.delivery }}</p>
                                 {% if order.status == 3 %}
-                                    <p class="m-t-5">Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande</p>
-                                    <p class="m-t-5">En signant ce document, {{ order.customer.identity }} atteste avoir reçu, lors de la vente, l’ensemble des informations appropriées sur l’emploi des produits.</p>
-                                    <p class="m-t-5">{{ order.customer.identity }} certifie être détenteur du certiphyto utilisateur professionnel en cours de validité et atteste être pleinement responsable du choix des spécialités présentées dans ce catalogue.</p>
-                                    <p class="m-t-5">{{ order.customer.identity }} reconnait avoir pris connaissance des CGV</p>
+                                    <p class="m-t-5"><small>Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande</small></p>
+                                    <p class="m-t-5"><small>En signant ce document, {{ order.customer.identity }} atteste avoir reçu, lors de la vente, l’ensemble des informations appropriées sur l’emploi des produits.</small></p>
+                                    <p class="m-t-5"><small>{{ order.customer.identity }} certifie être détenteur du certiphyto utilisateur professionnel en cours de validité et atteste être pleinement responsable du choix des spécialités présentées dans ce catalogue.</small></p>
+                                    <p class="m-t-5"><small>{{ order.customer.identity }} reconnait avoir pris connaissance des CGV</small></p>
                                 {% endif %}
-                                <p><small>SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038
-                                        Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </small></p>
+                                <p>
+                                   <small>SODEPAC est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </small>
+                                </p>
                             </div>
                             <hr>
                             {% if print == false %}
@@ -138,51 +143,51 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="page-break"></div>
-                    <div class="row" style="margin-top: 50rem;">
+                </div>
+                <div style='page-break-before: always;'></div>
+                <div>
+                    <div class="row">
                         <div class="col-12">
-                            <div class="col-md-12">
-                                <div class="table-responsive mt-5" style="clear: both;">
-                                    <table class="table table-hover">
-                                        <thead>
+                            <h3 class="text-center" style="color: #27ae60;">Mentions Règlementaires</h3>
+                            <div class="table-responsive mt-5" style="clear: both;">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>Matieres actives.</th>
+                                        <th>DAR</th>
+                                        <th>ZNT</th>
+                                        <th>DRE</th>
+                                        <th>MENTIONS DANGER</th>
+                                        <th>MENTIONS AVERTISSEMENT</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for article in products %}
                                         <tr>
-                                            <th>Produit</th>
-                                            <th>Matieres actives.</th>
-                                            <th>DAR</th>
-                                            <th>ZNT</th>
-                                            <th>DRE</th>
-                                            <th>MENTIONS DANGER</th>
-                                            <th>MENTIONS AVERTISSEMENT</th>
+                                            <td>
+                                                <h5 class="font-500">{{ article.product ? article.product.name : article.productName }}</h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="font-500">{{ article.product.substance }}</h5>
+                                            </td>
+                                            <td>{{ article.product.dar }}</td>
+                                            <td>{{ article.product.znt }}</td>
+                                            <td>{{ article.product.dre }}</td>
+                                            <td>{{ article.product.dangerMention }}</td>
+                                            <td>{{ article.product.warningMention }}</td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for article in products %}
-                                            <tr>
-                                                <td>
-                                                    <h5 class="font-500">{{ article.product ? article.product.name : article.productName }}</h5>
-                                                </td>
-                                                <td>
-                                                    <h5 class="font-500">{{ article.product.substance }}</h5>
-                                                </td>
-                                                <td>{{ article.product.dar }}</td>
-                                                <td>{{ article.product.znt }}</td>
-                                                <td>{{ article.product.dre }}</td>
-                                                <td>{{ article.product.dangerMention }}</td>
-                                                <td>{{ article.product.warningMention }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="page-break"></div>
+                </div>
+                <div style='page-break-before: always;'></div>
+                <div>
                     <div class="row" style="margin-top: 50rem;">
-                        <img src="{{ asset('help/cgv/CGV_SODEPAC_01.jpg') }}" class="img-fluid" />
-                        <img src="{{ asset('help/cgv/CGV_SODEPAC_02.jpg') }}" class="img-fluid" />
-                        <img src="{{ asset('help/cgv/CGV_SODEPAC_03.jpg') }}" class="img-fluid" />
-                        <img src="{{ asset('help/cgv/CGV_SODEPAC_04.jpg') }}" class="img-fluid" />
+                        <img src="{{ asset('help/cgv/cgv_sodepac.jpg') }}" class="img-fluid" />
                     </div>
                 </div>
             </div>
@@ -190,15 +195,18 @@
     </div>
 {% endblock %}
 
+
+
 {% block javascripts %}
-    <script src="https://www.wrappixel.com/demos/admin-templates/materialpro-bootstrap-latest/material-pro/dist/js/pages/samplepages/jquery.PrintArea.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PrintArea/2.4.1/jquery.PrintArea.min.js"></script>
     <script>
         {% if print %}
             var mode = 'iframe'; //popup
             var close = mode == "popup";
             var options = {
                 mode: mode,
-                popClose: close
+                popClose: close,
+                extraHead : '<meta charset="utf-8"/>,<meta http-equiv="X-UA-Compatible" content="IE=edge"/>,<style rel="stylesheet" type="text/css" media="print">@page { size: landscape; }</style>'
             };
             $(".printableArea").printArea(options);
         {% endif %}
@@ -215,3 +223,5 @@
         });
     </script>
 {% endblock %}
+
+

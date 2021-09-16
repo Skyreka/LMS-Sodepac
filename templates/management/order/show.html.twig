@@ -42,8 +42,8 @@
                                     <tr>
                                         <td>{{ article.id }}</td>
                                         <td width="550">
-                                            <h5 class="font-500">{{ article.product ? article.product.name : article.productName }} <i class="fas fa-info" data-toggle="modal" data-target="#view_mention_product_{{ article.product.id }}"></i></h5>
-                                            <div class="modal fade" id="view_mention_product_{{ article.product.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <h5 class="font-500">{{ article.product ? article.product.name : article.productName }} <i class="fas fa-info" data-toggle="modal" data-target="#view_mention_product_{{ article.id }}"></i></h5>
+                                            <div class="modal fade" id="view_mention_product_{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -53,12 +53,14 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
+                                                            {% if article.product %}
                                                             <h5><span>Matières actives:</span> {{ article.product.substance }}</h5>
                                                             <h5><span>DAR:</span> {{ article.product.dar }}</h5>
                                                             <h5><span>ZNT:</span> {{ article.product.znt }}</h5>
                                                             <h5><span>DRE:</span> {{ article.product.dre }}</h5>
                                                             <h5><span>Mentions Danger:</span> {{ article.product.dangerMention }}</h5>
                                                             <h5><span>Mentions Avertissement:</span> {{ article.product.warningMention }}</h5>
+                                                            {% endif %}
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
