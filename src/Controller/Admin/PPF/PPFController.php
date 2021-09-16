@@ -93,7 +93,7 @@ class PPFController extends AbstractController
 
         //Query of like call
         $users = $ur->createQueryBuilder('u')
-            ->where('u.lastname LIKE :lastname')
+            ->orWhere('u.lastname LIKE :lastname')
             ->orWhere('u.firstname LIKE :firstname')
             ->setParameter('lastname', '%' . $term . '%')
             ->setParameter('firstname', '%' . $term . '%')

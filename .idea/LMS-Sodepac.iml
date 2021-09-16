@@ -165,6 +165,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="LMS-Manager" />
   </component>
 </module>
