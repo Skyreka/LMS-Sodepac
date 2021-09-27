@@ -101,11 +101,17 @@
                                                 <td class="discount" width="150">{{ article.discount ? article.discount ~ '%' : '' }}</td>
                                                 {% set totalHT = (article.unitPrice *  article.totalQuantity) - ((article.unitPrice *  article.totalQuantity) * (article.discount / 100)) %}
                                                 <td width="150" align="center">{{ totalHT|localizedcurrency('EUR') }}</td>
-                                                <td width="100" align="center">{{ article.product.rpd ? article.product.rpd : '' }}</td>
+                                                <td width="100" align="center">{{ article.product ? article.product.rpd ? article.product.rpd : '' }}</td>
                                                 {% set taxes = totalHT * article.taxe / 100 %}
-                                                {% set totalTTC = ((article.unitPrice + article.product.rpd) * article.totalQuantity ) %}
-                                                {% set totalTTC = totalTTC - totalTTC * (article.discount / 100)   %}
-                                                <td width="150" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
+                                                {% if article.product %}
+                                                    {% set totalTTC = ((article.unitPrice + article.product.rpd) * article.totalQuantity ) %}
+                                                    {% set totalTTC = totalTTC - totalTTC * (article.discount / 100)   %}
+                                                     <td width="150" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
+                                                {% else %}
+                                                    {% set totalTTC = (article.unitPrice * article.totalQuantity ) %}
+                                                    {% set totalTTC = totalTTC - totalTTC * (article.discount / 100)   %}
+                                                    <td width="150" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
+                                                {% endif %}
                                             </tr>
                                         {% set subTotal = subTotal + totalHT%}
                                         {% set taxeTotal = taxeTotal + taxes %}
@@ -169,13 +175,13 @@
                                                 <h5 class="font-500">{{ article.product ? article.product.name : article.productName }}</h5>
                                             </td>
                                             <td>
-                                                <h5 class="font-500">{{ article.product.substance }}</h5>
+                                                <h5 class="font-500">{{ article.product ? article.product.substance : '' }}</h5>
                                             </td>
-                                            <td>{{ article.product.dar }}</td>
-                                            <td>{{ article.product.znt }}</td>
-                                            <td>{{ article.product.dre }}</td>
-                                            <td>{{ article.product.dangerMention }}</td>
-                                            <td>{{ article.product.warningMention }}</td>
+                                            <td>{{ article.product ? article.product.dar : '' }}</td>
+                                            <td>{{ article.product ? article.product.znt  : ''}}</td>
+                                            <td>{{article.product ? article.product.dre : '' }}</td>
+                                            <td>{{ article.product ? article.product.dangerMention : '' }}</td>
+                                            <td>{{ article.product ? article.product.warningMention : '' }}</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
