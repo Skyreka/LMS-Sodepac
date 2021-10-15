@@ -50,7 +50,7 @@ class SuperAdminController extends AbstractController {
             'lightPercent' => $lightPercent,
             'demoCount' => $demo,
             'demoPercent' => $demoPercent,
-            'interventions' => $ir->findBy( [], ['id' => 'DESC'], '200')
+            'interventions' => $ir->findBy( [], ['intervention_at' => 'DESC'], '200')
         ]);
     }
 }
