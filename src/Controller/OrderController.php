@@ -588,6 +588,7 @@ class OrderController extends AbstractController
      * @param OrdersRepository $or
      * @return Response
      */
+    /* DISABLE 3/12/2021 BY SKYREKA
     public function addVariousProduct( Request $request, OrdersRepository $or ): Response
     {
         $form = $this->createForm( OrdersAddProductVariousType::class);
@@ -620,7 +621,7 @@ class OrderController extends AbstractController
         return $this->render('management/order/add_product.html.twig', [
             'form' => $form->createView()
         ]);
-    }
+    }*/
 
     /**
      * @Route("management/order/add-product-other-field", name="order_product_other_field_add", methods={"GET", "POST"})
