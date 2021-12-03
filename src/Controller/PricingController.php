@@ -60,7 +60,7 @@ class PricingController extends AbstractController
 
     /**
      * Edit Dose with editable Ajax Table
-     * @Route("/product/edit", name="pricing_product_edit")
+     * @Route("/product/edit", name="pricing_product_edit_ajax")
      * @param Request $request
      * @param ProductsRepository $pr
      * @return JsonResponse
@@ -110,6 +110,27 @@ class PricingController extends AbstractController
             $this->em->persist( $product );
             $this->em->flush();
             return $this->redirectToRoute('pricing_index', ['filterBy' => 2]);
+        }
+
+        return $this->render('pricing/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @param Products $product
+     * @param Request $request
+     * @return Response
+     * @Route("/product/edit/{id}", name="pricing_product_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     */
+    public function edit( Products $product, Request $request ): Response
+    {
+        $form = $this->createForm( ProductType::class, $product );
+        $form->handleRequest( $request );
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            return $this->redirectToRoute('pricing_index');
         }
 
         return $this->render('pricing/new.html.twig', [

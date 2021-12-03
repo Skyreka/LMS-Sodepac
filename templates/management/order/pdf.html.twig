@@ -177,11 +177,11 @@
                                             <td>
                                                 <h5 class="font-500">{{ article.product ? article.product.substance : '' }}</h5>
                                             </td>
-                                            <td>{{ article.product ? article.product.dar : '' }}</td>
-                                            <td>{{ article.product ? article.product.znt  : ''}}</td>
-                                            <td>{{article.product ? article.product.dre : '' }}</td>
-                                            <td>{{ article.product ? article.product.dangerMention : '' }}</td>
-                                            <td>{{ article.product ? article.product.warningMention : '' }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.dar : article.product.dar }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.znt : article.product.znt }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.dre : article.product.dre }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.dangerMention : article.product.dangerMention }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.warningMention : article.product.warningMention }}</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
