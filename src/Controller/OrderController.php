@@ -442,7 +442,6 @@ class OrderController extends AbstractController
     {
         //Security
         if ( $order->getStatus() == 1 ) {
-
             $newDate = new \DateTime( $request->request->get('date-order') );
 
             // Update status

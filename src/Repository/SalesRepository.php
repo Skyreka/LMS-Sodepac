@@ -19,6 +19,18 @@ class SalesRepository extends ServiceEntityRepository
         parent::__construct($registry, Sales::class);
     }
 
+    /**
+     * @return int|mixed|string
+     */
+    public function findAllSales()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.culture', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Sales[] Returns an array of Sales objects
     //  */

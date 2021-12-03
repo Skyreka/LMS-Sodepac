@@ -61,7 +61,7 @@ class SalesController extends AbstractController
      */
     public function managerIndex( SalesRepository $sr ): Response
     {
-        $sales = $sr->findAll();
+        $sales = $sr->findAllSales();
 
         return $this->render('sales/manager/index.html.twig', [
             'sales' => $sales

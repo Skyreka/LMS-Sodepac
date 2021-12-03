@@ -25,36 +25,70 @@ class SalesType extends AbstractType
                 ]
             ])
             ->add('column1_txt', TextType::class, [
+                'required' => false,
                 'attr' => [
-                    'value' => 'BRS 07/09'
+                    'placeholder' => 'BRS 07/09'
                 ]
             ])
             ->add('column2_txt', TextType::class, [
+                'required' => false,
                 'attr' => [
-                    'value' => 'BRS 10/12'
+                    'placeholder' => 'BRS 10/12'
                 ]
             ])
 
-            ->add('l1_title', TextType::class)
-            ->add('l1c1_value', TextType::class)
-            ->add('l1c2_value', TextType::class)
+            ->add('l1_title', TextType::class, [
+                'required' => false
+            ])
+            ->add('l1c1_value', TextType::class, [
+                'required' => false
+            ])
+            ->add('l1c2_value', TextType::class, [
+                'required' => false
+            ])
 
-            ->add('l2_title', TextType::class)
-            ->add('l2c1_value', TextType::class)
-            ->add('l2c2_value', TextType::class)
+            ->add('l2_title', TextType::class, [
+                'required' => false
+            ])
+            ->add('l2c1_value', TextType::class, [
+                'required' => false
+            ])
+            ->add('l2c2_value', TextType::class, [
+                'required' => false
+            ])
 
-            ->add('l3_title', TextType::class)
-            ->add('l3c1_value', TextType::class)
-            ->add('l3c2_value', TextType::class)
+            ->add('l3_title', TextType::class, [
+                'required' => false
+            ])
+            ->add('l3c1_value', TextType::class, [
+                'required' => false
+            ])
+            ->add('l3c2_value', TextType::class, [
+                'required' => false
+            ])
 
-            ->add('l4_title', TextType::class)
-            ->add('l4c1_value', TextType::class)
-            ->add('l4c2_value', TextType::class)
+            ->add('l4_title', TextType::class, [
+                'required' => false
+            ])
+            ->add('l4c1_value', TextType::class, [
+                'required' => false
+            ])
+            ->add('l4c2_value', TextType::class, [
+                'required' => false
+            ])
 
-            ->add('l1_variation', TextType::class)
-            ->add('l2_variation', TextType::class)
-            ->add('l3_variation', TextType::class)
-            ->add('l4_variation', TextType::class)
+            ->add('l1_variation', TextType::class, [
+                'required' => false
+            ])
+            ->add('l2_variation', TextType::class, [
+                'required' => false
+            ])
+            ->add('l3_variation', TextType::class, [
+                'required' => false
+            ])
+            ->add('l4_variation', TextType::class, [
+                'required' => false
+            ])
         ;
     }
 
