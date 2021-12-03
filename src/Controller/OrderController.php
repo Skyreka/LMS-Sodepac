@@ -333,12 +333,12 @@ class OrderController extends AbstractController
             }
 
             // Alert
-            $this->addFlash('success', 'Nouveau produits ajouté au panier avec succès');
+            $this->addFlash('success', 'Ajout avec succès');
         }
 
 
         //Return to summary
-        return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId()]);
+        return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId(), 'added' => 'true']);
     }
 
     /**
