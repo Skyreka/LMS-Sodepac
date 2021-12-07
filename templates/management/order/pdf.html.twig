@@ -142,19 +142,11 @@
                                 </p>
                             </div>
                             <hr>
-                            {% if print == false %}
-                            <div class="text-right">
-                                <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Imprimer</span> </button>
-                            </div>
-                            {% endif %}
                         </div>
                     </div>
-                </div>
-                <div style='page-break-before: always;'></div>
-                <div>
                     <div class="row">
                         <div class="col-12">
-                            <h3 class="text-center" style="color: #27ae60;">Mentions Règlementaires</h3>
+                            <p style="color: #27ae60;"><b>Mentions Règlementaires</b></p>
                             <div class="table-responsive mt-5" style="clear: both;">
                                 <table class="table table-hover">
                                     <thead>
@@ -187,11 +179,30 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {% if order.signature and order.signature.signAt %}
+                                <div class="col-xs-12 float-right text-right mt-5 mb-5">
+                                    <p>
+                                        Signé électroniquement par
+                                        <br/>
+                                        LMS Manager de la part de {{ order.customer.identity }}
+                                        <br/>
+                                        ({{ order.customer.email }})
+                                        <br/>
+                                        Date: {{ order.signature.signAt | date('d/M/Y H:i:s') }}
+                                        <br/>
+                                        Signé avec le code à usage unique:
+                                        <br />
+                                        {{ order.signature.codeOtp.code }}
+                                    </p>
+                                </div>
+                            {% endif %}
+                            {% if print == false %}
+                                <div class="text-right">
+                                    <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Imprimer</span> </button>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
-                </div>
-                <div style='page-break-before: always;'></div>
-                <div>
                     <div class="row" style="margin-top: 50rem;">
                         <img src="{{ asset('help/cgv/cgv_sodepac.jpg') }}" class="img-fluid" />
                     </div>

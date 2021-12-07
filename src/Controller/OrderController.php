@@ -6,11 +6,13 @@ use App\Entity\OrdersProduct;
 use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
+use App\Entity\Signature;
 use App\Form\OrderAdditionalType;
 use App\Form\OrdersAddProductFieldType;
 use App\Form\OrdersAddProductType;
 use App\Form\OrdersAddProductVariousType;
 use App\Form\OrdersType;
+use App\Notification\SignatureNotification;
 use App\Repository\OrdersProductRepository;
 use App\Repository\CulturesRepository;
 use App\Repository\OrdersRepository;
@@ -26,6 +28,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
@@ -433,20 +436,47 @@ class OrderController extends AbstractController
     /**
      * @Route("management/order/valid/{id}", name="order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
+     * @param SignatureNotification $notification
      * @param \Swift_Mailer $mailer
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
-    public function valid( Orders $order, \Swift_Mailer $mailer, Request $request ): Response
+    public function valid(
+        Orders $order,
+        \Swift_Mailer $mailer,
+        Request $request ): Response
     {
         //Security
         if ( $order->getStatus() == 1 ) {
+            // Create Signature
+            $signature = new Signature();
+            $signature->setOrder( $order );
+
+            $this->em->persist( $signature );
+
             $newDate = new \DateTime( $request->request->get('date-order') );
 
             // Update status
             $order->setStatus( 2 );
             $order->setCreateDate( $newDate );
+
+            // Send Sign Email
+            $link = $this->generateUrl('signature_order_sign', ['token' => $signature->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
+            $message = (new \Swift_Message('Signature électronique du devis - LMS SODEPAC'))
+                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
+                ->setTo( $order->getCustomer()->getEmail() )
+                ->setBody(
+                    $this->renderView(
+                        'emails/signature/sign.html.twig', [
+                            'link' => $link
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+
             $this->em->flush();
 
             // Msg
