@@ -21,13 +21,22 @@ class EditInterventionQuantityType extends AbstractType
             OR $options['data']->getType() == 'Fongicide'
             OR $options['data']->getType() == 'Traitement-Divers') {
             $builder
-                ->add('doseHectare', NumberType::class);
+                ->add('doseHectare', NumberType::class)
+                ->add('quantity', NumberType::class, [
+                    'label' => 'Quantité totale:',
+                    'label_attr' => [
+                        'id' => 'quantityLabel'
+                    ],
+                    'required'=> true
+                ]);
         } else {
             $builder
                 ->add('quantity', NumberType::class);
         }
         $builder
-            ->add('comment', TextareaType::class)
+            ->add('comment', TextareaType::class, [
+                'required' => false
+            ])
             ->add('intervention_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
