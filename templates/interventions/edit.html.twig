@@ -45,33 +45,15 @@
                 $('#phyto_intervention_doses').replaceWith($input)
             })
         })
-        $(document).on('change', '#edit_intervention_quantity_doseHectare', function () {
-            let $field = $(this)
-            let form = $field.closest('form')
-            let data = {}
-            data[$field.attr('name')] =  $field.val()
-            $.post(form.attr('action'), data).then(function (data) {
-                let input = $(data).find('form')
+        $('#edit_intervention_quantity_doseHectare').on('input', function () {
 
-                $(form).replaceWith( input )
+            let doseHectare = $(this).val();
+            let hectare = $('#cultureHectare').val()
 
-                $('.js-datepicker').datepicker({
-                    weekStart:0,
-                    time: 1,
-                    language:"fr"
-                });
+            let total = doseHectare * hectare;
 
-                $('#edit_intervention_quantity_doseHectare').on('input', function () {
-
-                    let doseHectare = $(this).val();
-                    let hectare = $('#cultureHectare').val()
-
-                    let total = doseHectare * hectare;
-
-                    $('#quantityLabel').text( 'Quantité totale : ' + total.toFixed(2) + '  (' + doseHectare + ' x ' + hectare + 'ha )' );
-                });
-            })
-        })
+            $('#quantityLabel').text( 'Quantité totale : ' + total.toFixed(2) + '  (' + doseHectare + ' x ' + hectare + 'ha )' );
+        });
     </script>
     <script src="{{ asset('plugins/moment/moment.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
