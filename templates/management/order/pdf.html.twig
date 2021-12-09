@@ -101,10 +101,11 @@
                                                 <td class="discount" width="150">{{ article.discount ? article.discount ~ '%' : '' }}</td>
                                                 {% set totalHT = (article.unitPrice *  article.totalQuantity) - ((article.unitPrice *  article.totalQuantity) * (article.discount / 100)) %}
                                                 <td width="150" align="center">{{ totalHT|localizedcurrency('EUR') }}</td>
-                                                <td width="100" align="center">{{ article.product ? article.product.rpd ? article.product.rpd : '' }}</td>
+                                                {% set rpd = article.product.parentProduct ? article.product.parentProduct.rpd : article.product.rpd %}
+                                                <td width="100" align="center">{{ rpd }}</td>
                                                 {% set taxes = totalHT * article.taxe / 100 %}
                                                 {% if article.product %}
-                                                    {% set totalTTC = ((article.unitPrice + article.product.rpd) * article.totalQuantity ) %}
+                                                    {% set totalTTC = ((article.unitPrice + rpd) * article.totalQuantity ) %}
                                                     {% set totalTTC = totalTTC - totalTTC * (article.discount / 100)   %}
                                                      <td width="150" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
                                                 {% else %}
@@ -182,9 +183,9 @@
                             {% if order.signature and order.signature.signAt %}
                                 <div class="col-xs-12 float-right text-right mt-5 mb-5">
                                     <p>
-                                        Signé électroniquement par
+                                        Signé électroniquement par{{ order.customer.identity }}
                                         <br/>
-                                        LMS Manager de la part de {{ order.customer.identity }}
+                                        avec l'application LMS SODEPAC
                                         <br/>
                                         ({{ order.customer.email }})
                                         <br/>
