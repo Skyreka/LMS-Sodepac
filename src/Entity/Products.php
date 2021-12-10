@@ -138,10 +138,21 @@ class Products
      */
     private $isActive = 1;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Products::class, inversedBy="childs")
+     */
+    private $parent_product;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Products::class, mappedBy="parent_product")
+     */
+    private $childs;
+
     public function __construct()
     {
         $this->stocks = new ArrayCollection();
         $this->riskPhases = new ArrayCollection();
+        $this->childs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -476,6 +487,48 @@ class Products
     public function setIsActive(?bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getParentProduct(): ?self
+    {
+        return $this->parent_product;
+    }
+
+    public function setParentProduct(?self $parent_product): self
+    {
+        $this->parent_product = $parent_product;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getChilds(): Collection
+    {
+        return $this->childs;
+    }
+
+    public function addChild(self $child): self
+    {
+        if (!$this->childs->contains($child)) {
+            $this->childs[] = $child;
+            $child->setParentProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(self $child): self
+    {
+        if ($this->childs->removeElement($child)) {
+            // set the owning side to null (unless already changed)
+            if ($child->getParentProduct() === $this) {
+                $child->setParentProduct(null);
+            }
+        }
 
         return $this;
     }

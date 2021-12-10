@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Orders
 {
+    const STATUS = [
+        0 => 'Draft',
+        1 => 'Create',
+        2 => 'Wait Signature',
+        3 => 'Sign'
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -60,6 +67,11 @@ class Orders
      * @ORM\Column(type="text", nullable=true)
      */
     private $conditions;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Signature::class, inversedBy="order", cascade={"persist", "remove"}, fetch="EAGER")
+     */
+    private $signature;
 
     public function __construct()
     {
@@ -182,6 +194,18 @@ class Orders
     public function setConditions(?string $conditions): self
     {
         $this->conditions = $conditions;
+
+        return $this;
+    }
+
+    public function getSignature(): ?Signature
+    {
+        return $this->signature;
+    }
+
+    public function setSignature(?Signature $signature): self
+    {
+        $this->signature = $signature;
 
         return $this;
     }

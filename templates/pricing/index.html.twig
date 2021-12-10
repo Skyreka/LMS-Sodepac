@@ -56,6 +56,7 @@
                                             <td></td>
                                         {% endif %}
                                         <td>
+                                            <a class="btn btn-warning" href="{{ path('pricing_product_edit', {'id': product.id}) }}" target="_blank"><i class="fa fa-pencil-alt"></i></a>
                                             {% if product.isActive %}
                                                 <form class="d-inline" method="POST" action="{{ path('pricing_product_update', {'id': product.id, 'action': 1}) }}">
                                                     <input type="hidden" name="_method" value="UPDATE">
@@ -96,7 +97,7 @@
     <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>$
     <script>
         $('#edit-table').Tabledit({
-            url: '{{ path('pricing_product_edit') }}',
+            url: '{{ path('pricing_product_edit_ajax') }}',
             editButton: false,
             hideIdentifier: false,
             columns: {

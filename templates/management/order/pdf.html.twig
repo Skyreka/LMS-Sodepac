@@ -101,10 +101,11 @@
                                                 <td class="discount" width="150">{{ article.discount ? article.discount ~ '%' : '' }}</td>
                                                 {% set totalHT = (article.unitPrice *  article.totalQuantity) - ((article.unitPrice *  article.totalQuantity) * (article.discount / 100)) %}
                                                 <td width="150" align="center">{{ totalHT|localizedcurrency('EUR') }}</td>
-                                                <td width="100" align="center">{{ article.product ? article.product.rpd ? article.product.rpd : '' }}</td>
+                                                {% set rpd = article.product.parentProduct ? article.product.parentProduct.rpd : article.product.rpd %}
+                                                <td width="100" align="center">{{ rpd }}</td>
                                                 {% set taxes = totalHT * article.taxe / 100 %}
                                                 {% if article.product %}
-                                                    {% set totalTTC = ((article.unitPrice + article.product.rpd) * article.totalQuantity ) %}
+                                                    {% set totalTTC = ((article.unitPrice + rpd) * article.totalQuantity ) %}
                                                     {% set totalTTC = totalTTC - totalTTC * (article.discount / 100)   %}
                                                      <td width="150" align="center" class="font-500">{{ totalTTC|round(2, 'ceil')|localizedcurrency('EUR') }}</td>
                                                 {% else %}
@@ -142,19 +143,11 @@
                                 </p>
                             </div>
                             <hr>
-                            {% if print == false %}
-                            <div class="text-right">
-                                <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Imprimer</span> </button>
-                            </div>
-                            {% endif %}
                         </div>
                     </div>
-                </div>
-                <div style='page-break-before: always;'></div>
-                <div>
                     <div class="row">
                         <div class="col-12">
-                            <h3 class="text-center" style="color: #27ae60;">Mentions Règlementaires</h3>
+                            <p style="color: #27ae60;"><b>Mentions Règlementaires</b></p>
                             <div class="table-responsive mt-5" style="clear: both;">
                                 <table class="table table-hover">
                                     <thead>
@@ -177,21 +170,40 @@
                                             <td>
                                                 <h5 class="font-500">{{ article.product ? article.product.substance : '' }}</h5>
                                             </td>
-                                            <td>{{ article.product ? article.product.dar : '' }}</td>
-                                            <td>{{ article.product ? article.product.znt  : ''}}</td>
-                                            <td>{{article.product ? article.product.dre : '' }}</td>
-                                            <td>{{ article.product ? article.product.dangerMention : '' }}</td>
-                                            <td>{{ article.product ? article.product.warningMention : '' }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.dar : article.product.dar }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.znt : article.product.znt }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.dre : article.product.dre }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.dangerMention : article.product.dangerMention }}</td>
+                                            <td>{{ article.product.parentProduct ? article.product.parentProduct.warningMention : article.product.warningMention }}</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
+                            {% if order.signature and order.signature.signAt %}
+                                <div class="col-xs-12 float-right text-right mt-5 mb-5">
+                                    <p>
+                                        Signé électroniquement par{{ order.customer.identity }}
+                                        <br/>
+                                        avec l'application LMS SODEPAC
+                                        <br/>
+                                        ({{ order.customer.email }})
+                                        <br/>
+                                        Date: {{ order.signature.signAt | date('d/M/Y H:i:s') }}
+                                        <br/>
+                                        Signé avec le code à usage unique:
+                                        <br />
+                                        {{ order.signature.codeOtp.code }}
+                                    </p>
+                                </div>
+                            {% endif %}
+                            {% if print == false %}
+                                <div class="text-right">
+                                    <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Imprimer</span> </button>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
-                </div>
-                <div style='page-break-before: always;'></div>
-                <div>
                     <div class="row" style="margin-top: 50rem;">
                         <img src="{{ asset('help/cgv/cgv_sodepac.jpg') }}" class="img-fluid" />
                     </div>

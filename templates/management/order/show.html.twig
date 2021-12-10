@@ -77,7 +77,8 @@
                                         </td>
                                         <td class="discount" width="150">{{ article.discount }}</td>
                                         <td width="150" align="center" class="total_ht"></td>
-                                        <td width="100" align="center" class="taxe">{{ article.product ? article.product.Rpd }}</td>
+
+                                        <td width="100" align="center" class="taxe">{{ article.product.parentProduct ? article.product.parentProduct.rpd : article.product.rpd }}</td>
                                         <td width="150" align="center" class="font-500 total_ttc"></td>
                                         <td align="center">
                                             {% if order.status != 2 %}
@@ -92,9 +93,9 @@
                             <div class="d-flex no-block align-items-center">
                                 <a href="javascript:history.go(-1)" class="btn btn-dark btn-outline"><i class="fas fa-arrow-left"></i> Revenir</a>
                                 {% if (order.status == 0) or (order.status == 1) %}
-                                    <a href="{{ path('order_product_other_add') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> LexAgri</a>
+                                    <a href="{{ path('order_product_other_add') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Produit</a>
                                     <a href="{{ path('order_product_other_field_add') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i>  Divers</a>
-                                    <a href="{{ path('order_product_other_various_add') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Pro.Sodepac</a>
+                                    <!--<a href="" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Pro.Sodepac</a>-->
                                 {% endif %}
                             </div>
                         </div>
@@ -103,14 +104,14 @@
                 <div class="card">
                     <div class="card-body">
                         {{ form_start( form ) }}
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-info"> Enregistrer la livraison et le paiement</button>
+                            </div>
                             <div class="form-group">
                                 {{ form_row( form.delivery ) }}
                             </div>
                             <div class="form-group">
                                 {{ form_row( form.conditions ) }}
-                            </div>
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-light"> Enregistrer la livraison et le paiement</button>
                             </div>
                         {{ form_end( form ) }}
                     </div>

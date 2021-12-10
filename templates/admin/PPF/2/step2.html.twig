@@ -32,7 +32,9 @@
                         {{ form_start(form) }}
                             {{ form_rest(form) }}
                             <label>Objectif de rendement: <h5>{{ intervention ? intervention.objective ~ ' Quintaux' : 'Aucun objectif de rendement trouvé sur cette culture, vous ne pouvez pas continuer ce PPF' }}</h5></label> <br>
+                        {% if intervention and intervention.objective %}
                             <button class="btn btn-primary">Continuer</button>
+                        {% endif %}
                         {{ form_end(form) }}
                     </div>
                 </div>

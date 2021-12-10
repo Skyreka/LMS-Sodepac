@@ -6,11 +6,13 @@ use App\Entity\OrdersProduct;
 use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
+use App\Entity\Signature;
 use App\Form\OrderAdditionalType;
 use App\Form\OrdersAddProductFieldType;
 use App\Form\OrdersAddProductType;
 use App\Form\OrdersAddProductVariousType;
 use App\Form\OrdersType;
+use App\Notification\SignatureNotification;
 use App\Repository\OrdersProductRepository;
 use App\Repository\CulturesRepository;
 use App\Repository\OrdersRepository;
@@ -26,6 +28,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
@@ -333,12 +336,12 @@ class OrderController extends AbstractController
             }
 
             // Alert
-            $this->addFlash('success', 'Nouveau produits ajouté au panier avec succès');
+            $this->addFlash('success', 'Ajout avec succès');
         }
 
 
         //Return to summary
-        return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId()]);
+        return $this->redirectToRoute('recommendation_summary' , ['id' => $recommendation->getId(), 'added' => 'true']);
     }
 
     /**
@@ -433,21 +436,47 @@ class OrderController extends AbstractController
     /**
      * @Route("management/order/valid/{id}", name="order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
+     * @param SignatureNotification $notification
      * @param \Swift_Mailer $mailer
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
-    public function valid( Orders $order, \Swift_Mailer $mailer, Request $request ): Response
+    public function valid(
+        Orders $order,
+        \Swift_Mailer $mailer,
+        Request $request ): Response
     {
         //Security
         if ( $order->getStatus() == 1 ) {
+            // Create Signature
+            $signature = new Signature();
+            $signature->setOrder( $order );
+
+            $this->em->persist( $signature );
 
             $newDate = new \DateTime( $request->request->get('date-order') );
 
             // Update status
             $order->setStatus( 2 );
             $order->setCreateDate( $newDate );
+
+            // Send Sign Email
+            $link = $this->generateUrl('signature_order_sign', ['token' => $signature->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
+            $message = (new \Swift_Message('Signature électronique du devis - LMS SODEPAC'))
+                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
+                ->setTo( $order->getCustomer()->getEmail() )
+                ->setBody(
+                    $this->renderView(
+                        'emails/signature/sign.html.twig', [
+                            'link' => $link
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+
             $this->em->flush();
 
             // Msg
@@ -589,6 +618,7 @@ class OrderController extends AbstractController
      * @param OrdersRepository $or
      * @return Response
      */
+    /* DISABLE 3/12/2021 BY SKYREKA
     public function addVariousProduct( Request $request, OrdersRepository $or ): Response
     {
         $form = $this->createForm( OrdersAddProductVariousType::class);
@@ -621,7 +651,7 @@ class OrderController extends AbstractController
         return $this->render('management/order/add_product.html.twig', [
             'form' => $form->createView()
         ]);
-    }
+    }*/
 
     /**
      * @Route("management/order/add-product-other-field", name="order_product_other_field_add", methods={"GET", "POST"})

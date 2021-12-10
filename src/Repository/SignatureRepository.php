@@ -2,37 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Sales;
+use App\Entity\Signature;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Sales|null find($id, $lockMode = null, $lockVersion = null)
- * @method Sales|null findOneBy(array $criteria, array $orderBy = null)
- * @method Sales[]    findAll()
- * @method Sales[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Signature|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Signature|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Signature[]    findAll()
+ * @method Signature[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SalesRepository extends ServiceEntityRepository
+class SignatureRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Sales::class);
-    }
-
-    /**
-     * @return int|mixed|string
-     */
-    public function findAllSales()
-    {
-        return $this->createQueryBuilder('s')
-            ->orderBy('s.culture', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
+        parent::__construct($registry, Signature::class);
     }
 
     // /**
-    //  * @return Sales[] Returns an array of Sales objects
+    //  * @return Signature[] Returns an array of Signature objects
     //  */
     /*
     public function findByExampleField($value)
@@ -49,7 +37,7 @@ class SalesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Sales
+    public function findOneBySomeField($value): ?Signature
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

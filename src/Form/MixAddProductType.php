@@ -11,6 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ *
+ */
 class MixAddProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -24,7 +27,7 @@ class MixAddProductType extends AbstractType
                         ->andWhere('p.private = 0');
                 },
                 'choice_label' => 'name',
-                'placeholder' => 'Sélectionnez un produit',
+                'placeholder' => 'Sélectionner un produit',
                 'attr' => [
                     'class' => 'select2'
                 ]

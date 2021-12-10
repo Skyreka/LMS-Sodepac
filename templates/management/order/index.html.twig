@@ -66,7 +66,10 @@
                                             {% elseif( order.status == 2 ) %}
                                                 <span class="badge badge-warning">Attente signature</span>
                                             {% elseif( order.status == 3 ) %}
-                                                <span class="badge badge-info">Validée</span>
+                                                <span class="badge badge-info">Commandé</span>
+                                            {% endif %}
+                                            {% if order.signature and order.signature.signAt %}
+                                                <span class="badge badge-dark">Signé le {{ order.signature.signAt | date('d/m H:i') }}</span>
                                             {% endif %}
                                         </td>
                                         <td>

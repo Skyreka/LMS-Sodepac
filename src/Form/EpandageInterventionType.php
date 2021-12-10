@@ -24,7 +24,9 @@ class EpandageInterventionType extends AbstractType
             ->add('quantity', NumberType::class, [
                 'help' => 'En Tonne/Ha'
             ])
-            ->add('comment', TextareaType::class)
+            ->add('comment', TextareaType::class, [
+                'required' => false
+            ])
             ->add('intervention_at', DateType::class, [
                 'widget' => 'single_text',
                 'html5' => false,
