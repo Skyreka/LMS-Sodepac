@@ -77,7 +77,8 @@
                                         </td>
                                         <td class="discount" width="150">{{ article.discount }}</td>
                                         <td width="150" align="center" class="total_ht"></td>
-                                        <td width="100" align="center" class="taxe">{{ article.product ? article.product.Rpd }}</td>
+
+                                        <td width="100" align="center" class="taxe">{{ article.product.parentProduct ? article.product.parentProduct.rpd : article.product.rpd }}</td>
                                         <td width="150" align="center" class="font-500 total_ttc"></td>
                                         <td align="center">
                                             {% if order.status != 2 %}
