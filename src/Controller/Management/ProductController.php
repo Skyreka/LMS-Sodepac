@@ -40,6 +40,7 @@ class ProductController extends AbstractController
             return $this->json($results);
         }
         catch (HttpException $e) {
+            dump( $results );
             return $this->json($e->getMessage(), $e->getStatusCode());
         }
     }

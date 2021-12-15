@@ -29,55 +29,23 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table text-center" id="edit-table">
+                        <table class="table" id="datatable">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Catégorie</th>
-                                <th>Produit</th>
-                                <th>Tarif (€)</th>
-                                {% if filterBy == 2 %}
-                                    <th>Taxe</th>
-                                {% endif %}
+                                <th>Nom</th>
+                                <th>Prix</th>
+                                <th>RPD</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                                {% for product in products %}
-                                    <tr>
-                                        <td>{{ product.id }}</td>
-                                        <td>{{ product.category ? product.category.name }}</td>
-                                        <td>
-                                            {{ product.name }}
-                                        </td>
-                                        <td class="bg-dark text-white">{{ product.price }}</td>
-                                        {% if filterBy == 2 %}
-                                            <td>{{ product.rpd }}</td>
-                                        {% else %}
-                                            <td></td>
-                                        {% endif %}
-                                        <td>
-                                            <a class="btn btn-warning" href="{{ path('pricing_product_edit', {'id': product.id}) }}" target="_blank"><i class="fa fa-pencil-alt"></i></a>
-                                            {% if product.isActive %}
-                                                <form class="d-inline" method="POST" action="{{ path('pricing_product_update', {'id': product.id, 'action': 1}) }}">
-                                                    <input type="hidden" name="_method" value="UPDATE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('update_product' ~ product.id) }}">
-                                                    <button class="btn btn-success ml-3"><i class="fa fa-eye"></i></button>
-                                                </form>
-                                            {% else %}
-                                                <form class="d-inline" method="POST" action="{{ path('pricing_product_update', {'id': product.id, 'action': 0}) }}">
-                                                    <input type="hidden" name="_method" value="UPDATE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('update_product' ~ product.id) }}">
-                                                    <button class="btn btn-danger ml-3"><i class="fa fa-eye-slash"></i></button>
-                                                </form>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 {% endblock %}
@@ -94,20 +62,43 @@
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>$
     <script>
-        $('#edit-table').Tabledit({
-            url: '{{ path('pricing_product_edit_ajax') }}',
-            editButton: false,
-            hideIdentifier: false,
-            columns: {
-                identifier: [0, 'id'],
-                editable: [
-                    [2, 'name'],
-                    [3, 'price'],
-                    [4, 'rpd']
-                ]
-            }
+        $('#datatable').DataTable({
+            dom: 'Bfrtip',
+            info: false,
+            serverSide: true,
+            ajax: '{{ path('pricing_products_data') }}',
+            "language": {
+                "sProcessing":     "Traitement en cours...",
+                "sSearch":         "Rechercher&nbsp;:",
+                "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo":           "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty":      "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+                "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix":    "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst":      "Premier",
+                    "sPrevious":   "Pr&eacute;c&eacute;dent",
+                    "sNext":       "Suivant",
+                    "sLast":       "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes séléctionnées",
+                        0: "Aucune ligne séléctionnée",
+                        1: "1 ligne séléctionnée"
+                    }
+                }
+            },
+            buttons: [
+            ]
         });
     </script>
 {% endblock %}

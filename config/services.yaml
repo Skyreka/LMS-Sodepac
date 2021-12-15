@@ -53,4 +53,11 @@ services:
             '@doctrine',
             '@router'
         ]
+    datatable.pricing:
+        class: App\DataTables\PricingDataTables
+        tags: [ { name: datatable, id: pricing } ]
+        arguments: [
+                '@doctrine',
+                '@router'
+        ]
 
