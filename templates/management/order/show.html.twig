@@ -21,11 +21,11 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table product-overview" id="edit-table">
+                            <table class="table product-overview" id="edit_order">
                                 <thead>
                                 <tr class="text-center">
                                     <th>id</th>
-                                    <th>Produit</th>
+                                    <th style="min-width: 150px;">Produit</th>
                                     <th>Condi.</th>
                                     <th>Qté Totale</th>
                                     <th style="max-width: 100px">Qté Validée</th>
@@ -42,7 +42,14 @@
                                     <tr>
                                         <td>{{ article.id }}</td>
                                         <td width="550">
-                                            <h5 class="font-500">{{ article.product ? article.product.name : article.productName }} <i class="fas fa-info" data-toggle="modal" data-target="#view_mention_product_{{ article.id }}"></i></h5>
+                                            <h5 class="font-500">{{ article.product ? article.product.name : article.productName }}
+                                                {% if article.product %}
+                                                    <i class="fas fa-info" data-toggle="modal" data-target="#view_mention_product_{{ article.id }}"></i> &nbsp;
+                                                    {% if order.status != 2 %}
+                                                        <i class="fas fa-exchange-alt" data-toggle="modal" data-target="#view_child_product_{{ article.id }}"></i>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </h5>
                                             <div class="modal fade" id="view_mention_product_{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
@@ -54,12 +61,12 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             {% if article.product %}
-                                                            <h5><span>Matières actives:</span> {{ article.product.substance }}</h5>
-                                                            <h5><span>DAR:</span> {{ article.product.dar }}</h5>
-                                                            <h5><span>ZNT:</span> {{ article.product.znt }}</h5>
-                                                            <h5><span>DRE:</span> {{ article.product.dre }}</h5>
-                                                            <h5><span>Mentions Danger:</span> {{ article.product.dangerMention }}</h5>
-                                                            <h5><span>Mentions Avertissement:</span> {{ article.product.warningMention }}</h5>
+                                                            <h5><span>Matières actives:</span> {{ article.product.parentProduct ? article.product.parentProduct.substance : article.product.substance }}</h5>
+                                                            <h5><span>DAR:</span> {{ article.product.parentProduct ? article.product.parentProduct.dar : article.product.dar }}</h5>
+                                                            <h5><span>ZNT:</span> {{ article.product.parentProduct ? article.product.parentProduct.znt : article.product.znt }}</h5>
+                                                            <h5><span>DRE:</span> {{ article.product.parentProduct ? article.product.parentProduct.dre : article.product.dre }}</h5>
+                                                            <h5><span>Mentions Danger:</span> {{ article.product.parentProduct ? article.product.parentProduct.dangerMention : article.product.dangerMention }}</h5>
+                                                            <h5><span>Mentions Avertissement:</span> {{ article.product.parentProduct ? article.product.parentProduct.warningMention : article.product.warningMention }}</h5>
                                                             {% endif %}
                                                         </div>
                                                         <div class="modal-footer">
@@ -68,6 +75,40 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            {% if article.product %}
+                                                <div class="modal fade" id="view_child_product_{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Enfants de {{ article.product.name }}</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    {% for child in article.product.childs %}
+                                                                        <div class="col-6">
+                                                                            <h5 class="my-1 text-dark font-weight-medium">{{ child.name }}</h5>
+                                                                        </div>
+                                                                        <div class="col-6 float-right">
+                                                                            <form class="d-inline" method="POST" action="{{ path('order_article_swipe', {'article': article.id, 'product': child.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir échanger les produits ?')">
+                                                                                <input type="hidden" name="_method" value="UPDATE">
+                                                                                <input type="hidden" name="_token" value="{{ csrf_token('order_product_swipe_' ~ article.id) }}">
+                                                                                <button type="submit" class="btn btn-sm"> <i class="fas fa-exchange-alt"></i></button>
+                                                                            </form>
+                                                                        </div>
+                                                                        <hr>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
                                         </td>
                                         <td>{{ article.conditioning }}</td>
                                         <td>{{ article.quantity | round( 2, 'floor') }}</td>
@@ -78,7 +119,7 @@
                                         <td class="discount" width="150">{{ article.discount }}</td>
                                         <td width="150" align="center" class="total_ht"></td>
 
-                                        <td width="100" align="center" class="taxe">{{ article.product.parentProduct ? article.product.parentProduct.rpd : article.product.rpd }}</td>
+                                        <td width="100" align="center" class="taxe">{{ article.product ? article.product.parentProduct ? article.product.parentProduct.rpd : article.product.rpd }}</td>
                                         <td width="150" align="center" class="font-500 total_ttc"></td>
                                         <td align="center">
                                             {% if order.status != 2 %}
@@ -144,12 +185,14 @@
                         <h2 id="totalTTC"></h2>
                         <hr>
                         {% if order.status == 0 %}
-                            <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer en devis</a>
-                            <form class="d-inline" method="POST" action="{{ path('order_delete_recorded', {'id': order.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer votre panier ?')">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
-                                <button class="btn btn-danger ml-3"><i class="fa fa-trash"></i> {{ button_label|default('') }}</button>
-                            </form>
+                            <div class="d-flex no-block align-items-center">
+                                <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer</a>
+                                <form class="d-inline" method="POST" action="{{ path('order_delete_recorded', {'id': order.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer votre panier ?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
+                                    <button class="btn btn-danger ml-3"><i class="fa fa-trash"></i> {{ button_label|default('') }}</button>
+                                </form>
+                            </div>
                         {% endif %}
                         {% if order.status == 1 %}
                             <button class="btn btn-success btn-valid" data-toggle="modal" data-target="#validModal">Commander</button>
@@ -246,7 +289,7 @@
     <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>$
     <script>
         {% if order.status != 2 %}
-            $('#edit-table').Tabledit({
+            $('#edit_order').Tabledit({
                 url: '{{ path('order_product_edit') }}',
                 editButton: false,
                 hideIdentifier: true,

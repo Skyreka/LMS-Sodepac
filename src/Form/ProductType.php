@@ -39,7 +39,8 @@ class ProductType extends AbstractType
                 },
                 'query_builder' => function( ProductsRepository $pr ) {
                     return $pr->createQueryBuilder( 'p' )
-                        ->where('p.private = 0');
+                        ->where('p.id_lex is not null')
+                        ;
                 },
                 'attr' => [
                     'class' => 'select2'

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Products;
 use App\Form\ProductType;
 use App\Repository\ProductsRepository;
+use DataTables\DataTablesInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -37,60 +38,31 @@ class PricingController extends AbstractController
     }
 
     /**
-     * @param ProductsRepository $pr
-     * @param Request $request
      * @return Response
      * @Route("/", name="pricing_index", methods={"GET", "POST"})
      */
-    public function index( ProductsRepository $pr, Request $request ): Response
+    public function index(): Response
     {
-        $filterBy = $request->get('filterBy');
-
-        if ( $filterBy ) {
-            $products = $pr->findBy( ['category' => $filterBy ], ['name' => 'ASC'] );
-        } else {
-            $products = $pr->findAll();
-        }
-
-        return $this->render('pricing/index.html.twig', [
-            'products' => $products,
-            'filterBy' => $filterBy
-        ]);
+        return $this->render('pricing/index.html.twig');
     }
 
     /**
-     * Edit Dose with editable Ajax Table
-     * @Route("/product/edit", name="pricing_product_edit_ajax")
+     * @Route("/products/data", name="pricing_products_data", methods={"GET"})
      * @param Request $request
-     * @param ProductsRepository $pr
+     * @param DataTablesInterface $datatables
      * @return JsonResponse
      */
-    public function editProduct(Request $request, ProductsRepository $pr ): JsonResponse
+    public function data(Request $request, DataTablesInterface $datatables): JsonResponse
     {
-        if ($request->isXmlHttpRequest()) {
-            $product = $pr->find($request->get('id'));
+        try {
+            $results = $datatables->handle($request, 'pricing');
 
-            if ($request->get('name')) {
-                $product->setName(  $request->get('name'));
-            }
-
-            if ($request->get('price')) {
-                $product->setPrice( (float) $request->get('price'));
-            }
-
-            if ($request->get('rpd')) {
-                $product->setRpd( (float) $request->get('rpd'));
-            }
-
-            $this->em->flush();
-
-            return new JsonResponse(["type" => 'success'], 200);
+            return $this->json($results);
         }
-        return new JsonResponse([
-            'message' => 'AJAX Only',
-            'type' => 'error',
-            404
-        ]);
+        catch (HttpException $e) {
+            dump( $results );
+            return $this->json($e->getMessage(), $e->getStatusCode());
+        }
     }
 
     /**
@@ -146,14 +118,12 @@ class PricingController extends AbstractController
      */
     public function updateProduct(Products $product, Request $request ): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('update_product' . $product->getId(), $request->get('_token'))) {
-            if ( $request->get('action') === "0" ) {
-                $product->setIsActive( 1 );
-            } elseif ( $request->get('action') === "1" ) {
-                $product->setIsActive( 0 );
-            }
-            $this->em->flush();
+        if ( $product->getIsActive() ) {
+            $product->setIsActive( 0 );
+        } else {
+            $product->setIsActive( 1 );
         }
+        $this->em->flush();
         return $this->redirectToRoute('pricing_index');
     }
 }
