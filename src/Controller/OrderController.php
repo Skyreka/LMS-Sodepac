@@ -518,20 +518,7 @@ class OrderController extends AbstractController
                     'text/html'
                 )
             ;
-            $messageCustomer = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
-                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
-                ->setTo( $order->getCustomer()->getEmail() )
-                ->setBody(
-                    $this->renderView(
-                        'management/order/email/send.html.twig', [
-                            'order' => $order
-                        ]
-                    ),
-                    'text/html'
-                )
-            ;
             $mailer->send($message);
-            $mailer->send($messageCustomer);
 
             $this->em->flush();
 
@@ -760,5 +747,21 @@ class OrderController extends AbstractController
 
         // Return JsonResponse of code 200
         return new JsonResponse( $array, 200);
+    }
+
+    /**
+     * @Route("management/order/swipe/{article}/{product}", name="order_article_swipe", methods={"UPDATE"}, requirements={"id":"\d+"})
+     * @param OrdersProduct $article
+     * @param Products $product
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function updateProduct(OrdersProduct $article, Products $product, Request $request ): RedirectResponse
+    {
+        if ($this->isCsrfTokenValid('order_product_swipe_' . $article->getId(), $request->get('_token'))) {
+            $article->setProduct( $product );
+            $this->em->flush();
+        }
+        return $this->redirectToRoute('order_show', ['id_number' => $article->getOrder()->getIdNumber() ]);
     }
 }
