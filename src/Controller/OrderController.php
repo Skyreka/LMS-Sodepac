@@ -760,6 +760,7 @@ class OrderController extends AbstractController
     {
         if ($this->isCsrfTokenValid('order_product_swipe_' . $article->getId(), $request->get('_token'))) {
             $article->setProduct( $product );
+            $article->setUnitPrice( $product->getPrice() );
             $this->em->flush();
         }
         return $this->redirectToRoute('order_show', ['id_number' => $article->getOrder()->getIdNumber() ]);
