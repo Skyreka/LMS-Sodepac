@@ -7,6 +7,7 @@ use App\Entity\Products;
 use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Entity\Signature;
+use App\Entity\SignatureOtp;
 use App\Form\OrderAdditionalType;
 use App\Form\OrdersAddProductFieldType;
 use App\Form\OrdersAddProductType;
@@ -461,6 +462,15 @@ class OrderController extends AbstractController
             $order->setStatus( 2 );
             $order->setCreateDate( $newDate );
 
+            // Generate OTP Code
+
+            // Generate OTP
+            $codeOtp = new SignatureOtp();
+            $codeOtp->setSignature( $signature );
+
+            // Save to DB
+            $this->em->persist( $codeOtp );
+
             // Send Sign Email
             $link = $this->generateUrl('signature_order_sign', ['token' => $signature->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
             $message = (new \Swift_Message('Signature électronique du devis - LMS SODEPAC'))
@@ -469,7 +479,8 @@ class OrderController extends AbstractController
                 ->setBody(
                     $this->renderView(
                         'emails/signature/sign.html.twig', [
-                            'link' => $link
+                            'link' => $link,
+                            'code_otp' => $codeOtp->getCode()
                         ]
                     ),
                     'text/html'

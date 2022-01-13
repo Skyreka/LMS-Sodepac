@@ -75,7 +75,7 @@
                                         <td>
                                             <div style="display: flex">
                                                 {% if( order.status == 3 ) %}
-                                                    <a title="PDF" class="btn btn-info" href="{{ path('order_pdf_view', {'id_number': order.idNumber, 'print': 'true'}) }}"><i class="fa fa-download text-white"></i></a>
+                                                    <a title="PDF" class="btn btn-info" target="_blank" href="{{ path('order_pdf_view', {'id_number': order.idNumber, 'print': 'true'}) }}"><i class="fa fa-download text-white"></i></a>
                                                 {% elseif( order.status == 1 ) %}
                                                     <a title="Voir" class="btn btn-success" href="{{ path('order_show', {id_number: order.idNumber}) }}"><i class="fa fa-eye text-white"></i></a>
                                                 {% endif %}
