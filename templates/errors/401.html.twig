@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>ERROR 401 - LMS SodePac</title>
+    <title>ERROR 401 - {{ APP_NAME }}</title>
     <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/colors/green-dark.css') }}" rel="stylesheet">
@@ -24,7 +24,7 @@
             <h3 class="text-uppercase">Accès Refusé</h3>
             <p class="text-muted mt-4 mb-4">Désolé, vous n'êtes pas autorisé à afficher cette page.</p>
             <a href="{{ path('home') }}" class="btn btn-info btn-rounded waves-effect waves-light mb-5">Accueil</a> </div>
-        <footer class="footer text-center">© LMS Sodepac.</footer>
+        <footer class="footer text-center">© {{ APP_NAME }}.</footer>
     </div>
 </section>
 </body>

@@ -17,7 +17,7 @@
         <div class="login-box card">
             <div class="card-body">
                 <h3 class="box-title m-b-20">Bienvenue, {{ user.firstname }} {{ user.lastname }}</h3>
-                <p class="text-center">Merci de saisir votre mot de passe de compte LMS Sodepac</p>
+                <p class="text-center">Merci de saisir votre mot de passe de compte {{ APP_NAME }}</p>
                 {{ form_start(form) }}
                     {{ form_rest(form) }}
                     <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light">Activer mon compte</button>

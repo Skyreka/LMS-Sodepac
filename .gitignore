@@ -49,3 +49,5 @@ composer.lock
 .idea/**/uiDesigner.xml
 
 public/uploads/flash/
+
+images/logo.png
