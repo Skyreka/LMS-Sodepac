@@ -46,11 +46,8 @@
                         <div class="col-md-12">
                             <div class="pull-left">
                                 <address>
-                                    <h3> &nbsp;<b class="text-danger">SODEPAC SAS</b></h3>
-                                    <p class="text-muted ml-1">Rue de l'Egalité,
-                                        <br/> 47500 Montsempron Libos
-                                        <br/> 05 53 40 91 60
-                                    </p>
+                                    <h3> &nbsp;<b class="text-danger">{{ APP_NAME }}</b></h3>
+                                    <p class="text-muted ml-1">{{ APP_ADDRESS }}</p>
                                 </address>
                             </div>
                             <div class="pull-right text-right">
@@ -185,7 +182,7 @@
                                     <p>
                                         Signé électroniquement par{{ order.customer.identity }}
                                         <br/>
-                                        avec l'application LMS SODEPAC
+                                        avec l'application {{ APP_NAME }}
                                         <br/>
                                         ({{ order.customer.email }})
                                         <br/>

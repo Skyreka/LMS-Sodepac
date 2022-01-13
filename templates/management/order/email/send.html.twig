@@ -8,7 +8,7 @@
     <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 4 admin, bootstrap 4, css3 dashboard, bootstrap 4 dashboard, material admin bootstrap 4 dashboard, frontend, responsive bootstrap 4 admin template, material design, material dashboard bootstrap 4 dashboard template">
     <meta name="description" content="MaterialPro is powerful and clean admin dashboard template, inpired from Google's Material Design">
     <meta name="robots" content="noindex,nofollow">
-    <title>LMS Sodepac</title>
+    <title>{{ APP_NAME }}</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/materialpro/" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
@@ -46,7 +46,7 @@
                         <center>
                             <a href="{{ url('order_pdf_view', {'id_number': order.idNumber, 'print': 'true'}) }}" style="display: inline-block; padding: 11px 30px; margin: 20px 0px 30px; font-size: 15px; color: #fff; background: #4fc3f7; border-radius: 60px; text-decoration:none;">A consulter sur sodepac.fr</a>
                         </center>
-                        <b>- LMS-Sodepac</b> </td>
+                        <b>- {{ APP_NAME }}</b> </td>
                 </tr>
                 </tbody>
             </table>

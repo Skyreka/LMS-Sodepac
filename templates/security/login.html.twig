@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LMS SODEPAC</title>
+    <title>{{ APP_NAME }}</title>
     <meta name="description" content="Offrir plus d’efficacité et une meilleure productivité au quotidien pour toutes les filières agricoles !"/>
     <link href="https://fonts.googleapis.com/css?family=Dosis:600|Roboto:400,700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -37,7 +37,7 @@
                             <div class="alert alert-danger">{{ message }}</div>
                         {% endfor %}
                         <form class="form-horizontal form-material" id="loginform" method="POST" action="{{ path('login') }}">
-                            <h3 class="rounded-title mb-3">Bienvenue sur LMS Sodepac</h3>
+                            <h3 class="rounded-title mb-3">Bienvenue sur {{ APP_NAME }}</h3>
                             <div class="form-group ">
                                 <div class="col-xs-12">
                                     <label form="email">Adresse Email:</label>
@@ -97,7 +97,7 @@
                             </a>
                         </div>
                         <div class="col-6">
-                            <a href="https://apps.apple.com/us/app/lms-sodepac/id1538163182">
+                            <a href="https://apps.apple.com/us/app/{{ APP_NAME }}/id1538163182">
                                 <img alt="Badge Apple" class="img-fluid text-center" src="{{ asset('images/apple-play-badge.png') }}" />
                             </a>
                         </div>
@@ -112,7 +112,7 @@
         <div class="aa-price-package section" id="pricing">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="title">Découvrez notre application LMS Sodepac </h2>
+                    <h2 class="title">Découvrez notre application {{ APP_NAME }} </h2>
                     <p class="pb-5">Enregistrez, collectez et analysez vos données renseignées sur le terrain.</p>
                 </div>
                 <div class="row">
@@ -158,7 +158,7 @@
             <div class="container">
                 <p>
                     La SODEPAC a souhaité offrir à ses clients une application simple, intuitive et ergonomique leur permettant d’alléger les tâches administratives tout en se mettant en conformité avec les exigences réglementaires actuelles.
-                    L’application LMS SODEPAC vous propose un condensé des exigences de l’agriculture moderne :
+                    L’application {{ APP_NAME }} vous propose un condensé des exigences de l’agriculture moderne :
                 <ul>
                     <li>Rigueur avec la tenue d’un cahier de culture à jour.</li>
                     <li>Traçabilité avec le suivi intégral de vos cultures du semis à la récolte.</li>

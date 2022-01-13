@@ -4,3 +4,6 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes: ['bootstrap_4_layout.html.twig', '@TetranzSelect2Entity/Form/fields.html.twig']
     exception_controller: null
+    globals:
+        APP_NAME: '%env(APP_NAME)%'
+        APP_ADDRESS: '%env(APP_ADDRESS)%'
