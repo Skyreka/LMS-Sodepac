@@ -95,7 +95,7 @@ class UsersDataTables implements DataTableHandlerInterface
         foreach ($users as $user) {
             // Tech
             $technician = 'Aucun';
-            if ($user->getStatus() == 'ROLE_USER') {
+            if ($user->getStatus() == 'ROLE_USER' && $user->getTechnician() != null ) {
                 $technician = $user->getTechnician()->getIdentity();
             }
 
