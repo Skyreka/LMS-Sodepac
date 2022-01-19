@@ -96,7 +96,11 @@ class PricingController extends AbstractController
      */
     public function edit( Products $product, Request $request ): Response
     {
-        $form = $this->createForm( ProductType::class, $product );
+        if ( $product->getIdLex() != NULL ) {
+            $form = $this->createForm( ProductType::class, $product, [ 'edit_name' => false ] );
+        } else {
+            $form = $this->createForm( ProductType::class, $product, [ 'edit_name' => true ] );
+        }
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {

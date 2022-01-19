@@ -20,14 +20,14 @@ class UserType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'autocomplete' => 'off'
                 ]
             ])
             ->add('lastname', TextType::class, [
                 'empty_data' => '',
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'autocomplete' => 'off'
                 ]
