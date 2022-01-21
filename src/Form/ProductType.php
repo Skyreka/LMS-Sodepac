@@ -18,7 +18,12 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if ( $options['edit_name'] ) {
-            $builder->add('name', TextType::class);
+            $builder
+                ->add('name', TextType::class)
+                ->add('rpd', NumberType::class, [
+                    'required' => false
+                ])
+            ;
         }
 
         $builder
@@ -31,9 +36,6 @@ class ProductType extends AbstractType
                     return $pcr->createQueryBuilder( 'i' )
                         ->where('i.id != 1');
                 }
-            ])
-            ->add('rpd', NumberType::class, [
-                'required' => false
             ])
             ->add('price', NumberType::class)
             ->add('parent_product', EntityType::class, [
