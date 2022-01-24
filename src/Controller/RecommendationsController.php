@@ -219,25 +219,29 @@ class RecommendationsController extends AbstractController
      * @throws NoResultException
      * @throws NonUniqueResultException
      */
-    public function canevasAddProduct( Request $request, ProductsRepository $pr, RecommendationsRepository $rr, CulturesRepository $cr )
+    public function canevasAddProduct( Request $request, ProductsRepository $pr, RecommendationsRepository $rr, RecommendationProductsRepository $rpr )
     {
         if ($request->isXmlHttpRequest()) {
             $product = $pr->findProductBySlug( $request->get('product_slug') );
             $recommendation = $rr->find( $request->get('recommendation_id'));
             $cultureTotal = $recommendation->getCultureSize();
-            //-- SETTERS
-            $recommendationProducts = new RecommendationProducts();
-            $recommendationProducts->setCId( $request->get('c_id') );
-            $recommendationProducts->setProduct( $product );
-            $recommendationProducts->setRecommendation( $recommendation );
-            $recommendationProducts->setDose( $request->get('dose') );
-            $recommendationProducts->setUnit( $request->get('unit') );
-            $result = $cultureTotal * floor($recommendationProducts->getDose() * 1000) / 1000;
-            $recommendationProducts->setQuantity( $result );
 
-            //-- Go to db new entry
-            $this->em->persist($recommendationProducts);
-            $this->em->flush();
+
+            if ( !$rpr->findOneBy( ['recommendation' => $recommendation, 'product' => $product] )) {
+                //-- SETTERS
+                $recommendationProducts = new RecommendationProducts();
+                $recommendationProducts->setCId( $request->get('c_id') );
+                $recommendationProducts->setProduct( $product );
+                $recommendationProducts->setRecommendation( $recommendation );
+                $recommendationProducts->setDose( $request->get('dose') );
+                $recommendationProducts->setUnit( $request->get('unit') );
+                $result = $cultureTotal * floor($recommendationProducts->getDose() * 1000) / 1000;
+                $recommendationProducts->setQuantity( $result );
+
+                //-- Go to db new entry
+                $this->em->persist($recommendationProducts);
+                $this->em->flush();
+            }
 
             return new JsonResponse([
                 'name_product' => $recommendationProducts->getProduct()->getName(),
