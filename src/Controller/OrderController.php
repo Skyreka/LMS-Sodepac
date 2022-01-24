@@ -184,7 +184,7 @@ class OrderController extends AbstractController
         //Query of like call
         if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
             $users = $ur->createQueryBuilder('u')
-                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.lastname LIKE :lastname')
                 ->orWhere('u.firstname LIKE :firstname')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
@@ -195,7 +195,7 @@ class OrderController extends AbstractController
         } else {
             // Technician view only them users
             $users = $ur->createQueryBuilder('u')
-                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.lastname LIKE :lastname')
                 ->orWhere('u.firstname LIKE :firstname')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
@@ -594,7 +594,17 @@ class OrderController extends AbstractController
             $orderProduct->setProduct( $form->get('product')->getData() );
             $orderProduct->setTotalQuantity( 0 );
             $orderProduct->setQuantity( 0 );
-            $orderProduct->setUnitPrice( $form->get('product')->getData()->getPrice() ? $form->get('product')->getData()->getPrice() : 0 );
+
+            //Parent product
+            if ( $form->get('product')->getData()->getParentProduct() ) {
+                $price = $form->get('product')->getData()->getParentProduct()->getPrice();
+            } elseif ( $form->get('product')->getData()->getPrice() != NULL ) {
+                $price = $form->get('product')->getData()->getPrice();
+            } else {
+                $price = 0;
+            }
+
+            $orderProduct->setUnitPrice( $price );
 
             $this->em->merge( $orderProduct );
 

@@ -17,6 +17,15 @@ class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if ( $options['edit_name'] ) {
+            $builder
+                ->add('name', TextType::class)
+                ->add('rpd', NumberType::class, [
+                    'required' => false
+                ])
+            ;
+        }
+
         $builder
             ->add('category', EntityType::class, [
                 'class' => ProductCategory::class,
@@ -28,8 +37,6 @@ class ProductType extends AbstractType
                         ->where('i.id != 1');
                 }
             ])
-            ->add('name', TextType::class)
-            ->add('rpd', NumberType::class)
             ->add('price', NumberType::class)
             ->add('parent_product', EntityType::class, [
                 'class' => Products::class,
@@ -53,7 +60,8 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Products::class,
-            'translation_domain' => 'forms'
+            'translation_domain' => 'forms',
+            'edit_name' => false
         ]);
     }
 }

@@ -148,15 +148,18 @@ class UsersController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($user);
             $user->setPassword( $encoder->encodePassword($user, '0000'));
             $user->setStatus('ROLE_USER');
             $user->setIsActive(1);
+
+            $this->em->persist($user);
+
             //Create exploitation
             $exploitation = new Exploitation();
             $exploitation
                 ->setSize(300)
                 ->setUsers($user);
+
             $this->em->persist($exploitation);
             $this->em->flush();
 

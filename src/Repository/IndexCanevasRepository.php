@@ -22,6 +22,7 @@ class IndexCanevasRepository extends ServiceEntityRepository
     public function findAllCanevas()
     {
         return $this->createQueryBuilder('i')
+            ->andWhere('i.isActive = 1')
             ->orderBy('i.name', 'ASC')
             ;
     }
