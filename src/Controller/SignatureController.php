@@ -112,6 +112,21 @@ class SignatureController extends AbstractController
                 // Sign Order
                 $order->setStatus( 3 );
 
+                // Send to Warehouse
+                $message = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
+                    ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
+                    ->setTo( $order->getCustomer()->getWarehouse()->getEmail() )
+                    ->setBody(
+                        $this->renderView(
+                            'management/order/email/send.html.twig', [
+                                'order' => $order
+                            ]
+                        ),
+                        'text/html'
+                    )
+                ;
+                $mailer->send($message);
+
                 $this->em->flush();
                 $this->addFlash('success', 'Contrat signé avec succès');
                 return $this->redirectToRoute( 'order_pdf_view', ['id_number' => $order->getIdNumber() ] );
