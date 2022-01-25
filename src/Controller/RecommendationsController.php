@@ -105,10 +105,12 @@ class RecommendationsController extends AbstractController
         //Query of like call
         if ($this->getUser()->getStatus() == 'ROLE_ADMIN') {
             $users = $ur->createQueryBuilder('u')
-                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.lastname LIKE :lastname')
                 ->orWhere('u.firstname LIKE :firstname')
+                ->orWhere('u.company LIKE :company')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
+                ->setParameter('company', '%' . $term . '%')
                 ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
                 ->andWhere('u.id = e.users')
                 ->setMaxResults( $limit )
@@ -118,10 +120,12 @@ class RecommendationsController extends AbstractController
         } else {
             // Technician view only them users
             $users = $ur->createQueryBuilder('u')
-                ->where('u.lastname LIKE :lastname')
+                ->orWhere('u.lastname LIKE :lastname')
                 ->orWhere('u.firstname LIKE :firstname')
+                ->orWhere('u.company LIKE :company')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
+                ->setParameter('company', '%' . $term . '%')
                 ->leftJoin( Exploitation::class, 'e', 'WITH', 'e.users = u.id')
                 ->andWhere('u.id = e.users')
                 ->andWhere('u.technician = :tech')
@@ -137,7 +141,7 @@ class RecommendationsController extends AbstractController
         foreach ($users as $user) {
             $array[] = array(
                 'id' => $user->getExploitation()->getId(),
-                'text' => $user->getIdentity()
+                'text' => $user->getIdentity() . '(' . $user->getCompany() . ')'
             );
         }
 
