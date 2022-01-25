@@ -222,12 +222,12 @@ class RecommendationsController extends AbstractController
     public function canevasAddProduct( Request $request, ProductsRepository $pr, RecommendationsRepository $rr, RecommendationProductsRepository $rpr )
     {
         if ($request->isXmlHttpRequest()) {
-            $product = $pr->findProductBySlug( $request->get('product_slug') );
+            $product = $pr->findProductBySlug( $request->get( 'product_slug') );
             $recommendation = $rr->find( $request->get('recommendation_id'));
             $cultureTotal = $recommendation->getCultureSize();
 
 
-            if ( !$rpr->findOneBy( ['recommendation' => $recommendation, 'product' => $product] )) {
+            //if ( !$rpr->findOneBy( ['recommendation' => $recommendation, 'product' => $product] )) {
                 //-- SETTERS
                 $recommendationProducts = new RecommendationProducts();
                 $recommendationProducts->setCId( $request->get('c_id') );
@@ -241,7 +241,7 @@ class RecommendationsController extends AbstractController
                 //-- Go to db new entry
                 $this->em->persist($recommendationProducts);
                 $this->em->flush();
-            }
+            //}
 
             return new JsonResponse([
                 'name_product' => $recommendationProducts->getProduct()->getName(),

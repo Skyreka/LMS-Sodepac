@@ -186,8 +186,10 @@ class OrderController extends AbstractController
             $users = $ur->createQueryBuilder('u')
                 ->orWhere('u.lastname LIKE :lastname')
                 ->orWhere('u.firstname LIKE :firstname')
+                ->orWhere('u.company LIKE :company')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
+                ->setParameter('company', '%' . $term . '%')
                 ->setMaxResults( $limit )
                 ->getQuery()
                 ->getResult()
@@ -197,8 +199,10 @@ class OrderController extends AbstractController
             $users = $ur->createQueryBuilder('u')
                 ->orWhere('u.lastname LIKE :lastname')
                 ->orWhere('u.firstname LIKE :firstname')
+                ->orWhere('u.company LIKE :company')
                 ->setParameter('lastname', '%' . $term . '%')
                 ->setParameter('firstname', '%' . $term . '%')
+                ->setParameter('company', '%' . $term . '%')
                 ->andWhere('u.technician = :tech')
                 ->setParameter(':tech', $this->getUser())
                 ->setMaxResults( $limit )
@@ -212,7 +216,7 @@ class OrderController extends AbstractController
         foreach ($users as $user) {
             $array[] = array(
                 'id' => $user->getId(),
-                'text' => $user->getIdentity()
+                'text' => $user->getIdentity() . '(' . $user->getCompany() . ')'
             );
         }
 
