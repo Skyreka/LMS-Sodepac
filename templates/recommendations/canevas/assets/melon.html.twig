@@ -4,113 +4,6 @@
 
 {% block title %}Canevas{% endblock %}
 
-Votre boutique en ligne sera un site haut de gamme complètement évolutif d'un point de vue fonctionnel, et qui
-est open source : vous aurez libre accès au code informatique de votre boutique en ligne, afin de pouvoir
-
-Skyreka est une agence d'exploitation web, concept novateur et au plus proche des besoins des
-entreprises sur le web. Nous proposons, via notre site www.skyreka.com, à la fois des services de création et
-modifier votre site ecommerce à votre guise, et n'aurez pas de dépendance vis à vis de Skyreka
-
-Votre boutique contiendra toutes les fonctionnalités dont vous avez besoin pour gérer efficacement votre
-activité de vente de produits viticoles et optimisée pour un bon référencement sur les moteurs de recherche
-grâce à son code conforme HTML 5. Une interface d'administration, très simple et pratique à utiliser, vous
-permettra de mettre à jour le contenu de votre boutique en ligne de façon autonome (catalogue produits, frais
-de port, stocks, contenu éditorial, etc.).
-
-AFFICHAGE ET GESTION PRODUIT
-- Gestion multi-boutiques
-- Catalogue en ligne avec possibilité d'activer ou de désactiver l'achat en ligne
-- Affichage des prix HT ou TTC
-- Gestion automatique des devises
-- Installation de votre boutique en ligne
-- Mise à jour des produits en temps réel
-- Nombre d'articles illimité
-- Nombre de rubriques illimité
-- Module B2B : Possibilité de vendre les produits à un prix différent du prix public
-- Module B2B : Possibilité de bloquer l'accès à certaines gammes de produits
-- Classement alphabétique ou personnalisé des familles, sous-familles et articles
-- Possibilité de vendre des fichiers en téléchargement (mp3, photos, PDF, vidéos en ZIP)
-- Possibilité de désactiver un produit sans supprimer sa fiche
-- Gestion des articles non disponibles et information sur la prochaine disponibilité
-- Transfert et redimensionnement automatique des images sur le serveur
-- Système de zoom mettant en valeur la photo de vos articles
-- Possibilité de mettre plusieurs photos par article
-- Options d'articles paramétrables
-- Gestion des options avec impact sur prix
-- Possibilité d'associer une photo à une option d'article
-- Fonction « Envoyer page par email à un ami » sur chaque fiche article
-- Fonction « Donnez votre avis » sur chaque fiche article
-- Fonction « Pense bête » sur chaque fiche article
-- Fonction « N'avez-vous rien oublié ? »
-- Éditeur évolué pour la saisie de la description des articles
-- Mise à jour des prix automatique paramétrable gamme par gamme
-- Gestion du texte en page d'accueil et sélection des produits à mettre en avant
-- Possibilité de faire des liens vers d'autres sites
-- Mise en place de promotions article par article
-- Mise en place de promotions par gamme de produit
-- Gestion des réductions en fonction des quantités
-- Module de ventes croisées et suggestion d'articles dans les fiches articles
-- Gestion des stocks par critères de couleur & taille
-- 2 langues disponibles : français, anglais - pour les autres langues nous contacter
-
-GESTION DES FRAIS DE PORT
-- Possibilité d'offrir les frais de port aux clients
-- Calcul des frais de port en fonction du poids total de la commande
-- Calcul des frais de port en fonction du montant total de la commande
-- Calcul des frais de port en fonction du types de livraison (nb illimités)
-GESTION DES COMMANDES
-- Avertissement des commandes par email et confirmation au client
-- Sauvegarde des comptes clients et possibilité de consultation de chaque fiche
-- Aperçu détaillé des commandes passées client par client
-- Sauvegarde des commandes sur le serveur
-- Notification automatique au client du changement de statut de sa commande
-- Édition des factures et bons de livraisons au format PDF
-- Possibilité au client de retrouver ses commandes passées depuis son compte
-- Possibilité de créer des commandes à partir de l'interface d'administration
-- Système de récupération des commandes en cas de non retour du système bancaire
-- Possibilité au vendeur de modifier les conditions générales de ventes
-FONCTIONNALITÉS AVANCÉES
-- Outil CRM (gestion des relances clients, historisation des conversations téléphoniques et emails,
-webmail intégré, etc.)
-- Module de gestion de contenu et FAQ évolué
-- Gestion des stocks avancée par articles mais aussi par options d'articles
-- Générateur de formulaires de contact
-- Gestion des Newsletters (mailing list)
-- Exportation des contenus vers les principaux comparateurs de prix
-- Outils d'analyse de la répartition et de l'évolution du Chiffre d'affaires
-- Outils avancés pour le référencement: gestion des métas tags, sitemap XML pour Google et Yahoo
-- Réécriture d'URL (URL rewriting)
-- Module de gestion des affiliations
-- Module de parrainage
-- Module de génération de codes promotionnels en % et en valeur
-- Gestion des remises / produit
-- Gestion des remises / catégories de produits
-- Gestion des remises / client
-- Gestion des remises / groupe de clients
-
-- Gestion des points cadeaux
-- Fidélisation par chèques cadeaux (= code promo en valeur offert)
-- Ventes Flash
-- Gestion des bannières publicitaires (dont Google Adsense)
-
-SERVICES
-- Statistiques complètes des visites avec intégration de Google Analytics
-- Assistance technique par email et par téléphone
-
-COMPATIBILITÉ / NAVIGATEURS
-Nous nous engageons sur une compatibilité de nos développements informatiques avec les navigateurs
-suivants :
-- Firefox versions >= 10
-- Chrome versions >= 10
-- Internet Explorer versions >= 9
-Si vous souhaitez un engagement plus large, ceci peut faire partie de notre prestation sur demande et fait
-l'objet d'une facturation complémentaire car nécessite des tests additionnels. Pour information, nous avons
-l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
-- Firefox >= 3
-- Internet Explorer >= 7
-- Google Chrome >= 4
-- Safari >= 3
-
 {% block body %}
     {% if printRequest == false %}
         <div class="container-fluid">
@@ -299,73 +192,63 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                 <td></td><td></td><td></td><td></td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5V5EF683TF923B5GG3P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5V5EF683TF923B5GG3P" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5VB3VZ5X2TZYQGH0EJZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5VB3VZ5X2TZYQGH0EJZ" product_slug="topsin-70-wg" dose="1" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5VG842Z30RNVBW7ZPTX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5VG842Z30RNVBW7ZPTX" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5VPG1X8YAG1NP0HDF8E' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5VPG1X8YAG1NP0HDF8E" product_slug="coach-plus" dose="0.0001">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5VVTGWS81NP9VQ6XXZP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5VVTGWS81NP9VQ6XXZP" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5VB3VZ5X2TZYQGH0EJZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5VB3VZ5X2TZYQGH0EJZ" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5VPG1X8YAG1NP0HDF8E' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5VPG1X8YAG1NP0HDF8E" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5VVTGWS81NP9VQ6XXZP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5VVTGWS81NP9VQ6XXZP" product_slug="macobzin-5-l" dose="3" unit="L">MACOBIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5W1FH7HBBC3NSE3X8B2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5W1FH7HBBC3NSE3X8B2" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5W783B0J59V9B3088GH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5W783B0J59V9B3088GH" product_slug="topsin-70-wg" dose="1" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5WDZ1GHK7XQ15692P7P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5WDZ1GHK7XQ15692P7P" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5WKD3JJ80AF525AC8N4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5WKD3JJ80AF525AC8N4" product_slug="coach-plus" dose="0.0001">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5WSXG3T1F8040RMVYAK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5WSXG3T1F8040RMVYAK" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5W783B0J59V9B3088GH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5W783B0J59V9B3088GH" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5WKD3JJ80AF525AC8N4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5WKD3JJ80AF525AC8N4" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5WSXG3T1F8040RMVYAK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5WSXG3T1F8040RMVYAK" product_slug="macobzin-5-l" dose="3" unit="L">MACOBIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5X0Y5BYS9K7WQXJ25S6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5X0Y5BYS9K7WQXJ25S6" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5X6EPW82MGR2G3VD347' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5X6EPW82MGR2G3VD347" product_slug="topsin-70-wg" dose="1" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5XC3XZT9Y764TXS1ZGB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5XC3XZT9Y764TXS1ZGB" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5XJD9V8Y057MSJB0S4X' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5XJD9V8Y057MSJB0S4X" product_slug="coach-plus" dose="0.0002">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5XR2E39AT59SNK3MZD4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5XR2E39AT59SNK3MZD4" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5X6EPW82MGR2G3VD347' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5X6EPW82MGR2G3VD347" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5XJD9V8Y057MSJB0S4X' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5XJD9V8Y057MSJB0S4X" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5XR2E39AT59SNK3MZD4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5XR2E39AT59SNK3MZD4" product_slug="macobzin-5-l" dose="3" unit="L">MACOBIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5XY4JDH6Q3NY45GA899' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5XY4JDH6Q3NY45GA899" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5Y4A22JY5T8GR1FTTG7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5Y4A22JY5T8GR1FTTG7" product_slug="topsin-70-wg" dose="1" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5YAHB337DE6DQRWEZQR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5YAHB337DE6DQRWEZQR" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5YH1V4V7K8167MVQ7MA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5YH1V4V7K8167MVQ7MA" product_slug="coach-plus" dose="0.0002">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5YR21ZDF85ESPNNE0BQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5YR21ZDF85ESPNNE0BQ" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5Y4A22JY5T8GR1FTTG7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5Y4A22JY5T8GR1FTTG7" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5YH1V4V7K8167MVQ7MA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5YH1V4V7K8167MVQ7MA" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5YR21ZDF85ESPNNE0BQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5YR21ZDF85ESPNNE0BQ" product_slug="macobzin-5-l" dose="3" unit="L">MACOBIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5YYHW92WC51VQ7XBGDR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5YYHW92WC51VQ7XBGDR" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5Z5KQTH4CDSYSWMF6F6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5Z5KQTH4CDSYSWMF6F6" product_slug="topsin-70-wg" dose="1" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5ZB71AGPSXS2YP563W9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5ZB71AGPSXS2YP563W9" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5ZHF4WE1QV10XF5C44G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5ZHF4WE1QV10XF5C44G" product_slug="coach-plus" dose="0.0003">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5ZQ55Q05SM3CBMRKE5Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5ZQ55Q05SM3CBMRKE5Q" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5Z5KQTH4CDSYSWMF6F6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5Z5KQTH4CDSYSWMF6F6" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5ZHF4WE1QV10XF5C44G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5ZHF4WE1QV10XF5C44G" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT5ZQ55Q05SM3CBMRKE5Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5ZQ55Q05SM3CBMRKE5Q" product_slug="macobzin-5-l" dose="3" unit="L">MACOBIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT5ZYGDCS1KCYZ3M4DKT2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT5ZYGDCS1KCYZ3M4DKT2" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT605KF9NTWPS80AJ6J8J' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT605KF9NTWPS80AJ6J8J" product_slug="topsin-70-wg" dose="1" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT60BJ8B10ZXW6QQ12364' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT60BJ8B10ZXW6QQ12364" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT60HYQ3YYJNRZ5S8ZY22' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT60HYQ3YYJNRZ5S8ZY22" product_slug="coach-plus" dose="0.0003">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT60QQ6CZZVDTQREQFBB6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT60QQ6CZZVDTQREQFBB6" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT605KF9NTWPS80AJ6J8J' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT605KF9NTWPS80AJ6J8J" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT60HYQ3YYJNRZ5S8ZY22' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT60HYQ3YYJNRZ5S8ZY22" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT60QQ6CZZVDTQREQFBB6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT60QQ6CZZVDTQREQFBB6" product_slug="macobzin-5-l" dose="3" unit="L">MACOBIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT60YW9BD3Y621T546S86' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT60YW9BD3Y621T546S86" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT613909FE9GR8VMMH1R6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT613909FE9GR8VMMH1R6" product_slug="topsin-70-wg" dose="1" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT619YPJ6589XY7ZDZJXE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT619YPJ6589XY7ZDZJXE" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT61E08Q3PPRDDQCEJS9T' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT61E08Q3PPRDDQCEJS9T" product_slug="coach-plus" dose="0.0004">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT61M43Z70NKBJ1PN53C6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT61M43Z70NKBJ1PN53C6" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT613909FE9GR8VMMH1R6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT613909FE9GR8VMMH1R6" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT61E08Q3PPRDDQCEJS9T' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT61E08Q3PPRDDQCEJS9T" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT61M43Z70NKBJ1PN53C6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT61M43Z70NKBJ1PN53C6" product_slug="macobzin-5-l" dose="3" unit="L">MACOBIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT61T9P25ZQWSMQNM997A' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT61T9P25ZQWSMQNM997A" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT61ZQEDRCBYVWZNEJV3K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT61ZQEDRCBYVWZNEJV3K" product_slug="topsin-70-wg" dose="1" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT625EWQWPMWMD3FZC02T' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT625EWQWPMWMD3FZC02T" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT62AAXVXP5789ES79976' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT62AAXVXP5789ES79976" product_slug="coach-plus" dose="0.0004">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT62FWGPV81V632XFH959' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT62FWGPV81V632XFH959" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT61ZQEDRCBYVWZNEJV3K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT61ZQEDRCBYVWZNEJV3K" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT62AAXVXP5789ES79976' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT62AAXVXP5789ES79976" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT62FWGPV81V632XFH959' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT62FWGPV81V632XFH959" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT62N5295PFMJ0760FERM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT62N5295PFMJ0760FERM" product_slug="ortiva-top" dose="2.0004" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT62TVYC3SCDQZFTST1TM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT62TVYC3SCDQZFTST1TM" product_slug="topsin-70-wg" dose="1.0004" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT630V0D0KM3Y3JKDKMAN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT630V0D0KM3Y3JKDKMAN" product_slug="mancowan-plus" dose="2.0004" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT637D99TEAQYN3Y8B0XY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT637D99TEAQYN3Y8B0XY" product_slug="coach-plus" dose="0.0004">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT63EA2Q1HX0242PYD183' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT63EA2Q1HX0242PYD183" product_slug="sticop" dose="3.0004" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT62N5295PFMJ0760FERM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT62N5295PFMJ0760FERM" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT62TVYC3SCDQZFTST1TM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT62TVYC3SCDQZFTST1TM" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT637D99TEAQYN3Y8B0XY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT637D99TEAQYN3Y8B0XY" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT63EA2Q1HX0242PYD183' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT63EA2Q1HX0242PYD183" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT63MH4F43FSYG72FZQDP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT63MH4F43FSYG72FZQDP" product_slug="ortiva-top" dose="2" unit="L">ORTIVA TOP <small>2 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT64AGXN1NYSXEMEV3V3G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT64AGXN1NYSXEMEV3V3G" product_slug="topsin-70-wg" dose="1" unit="Kg">TOPSIN 70 WG <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT64FPZZCZJ71KAZR57TA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT64FPZZCZJ71KAZR57TA" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT64P6CH6E31BZFSQZ1MR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT64P6CH6E31BZFSQZ1MR" product_slug="coach-plus" dose="0.0004">COACH PLUS</button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT64WEWK0D1MSZ8YN8Q12' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT64WEWK0D1MSZ8YN8Q12" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT64AGXN1NYSXEMEV3V3G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT64AGXN1NYSXEMEV3V3G" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT64P6CH6E31BZFSQZ1MR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT64P6CH6E31BZFSQZ1MR" product_slug="coach-plus" dose="0">COACH PLUS</button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT64WEWK0D1MSZ8YN8Q12' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT64WEWK0D1MSZ8YN8Q12" product_slug="macobzin-5-l" dose="3" unit="L">MACOBIN <small>3 L</small></button>
                 </td>
                 <td></td>
             </tr>
@@ -416,6 +299,7 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT67NPZHB5BSZ2P0RNBZP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT67NPZHB5BSZ2P0RNBZP" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT67V211F7BS9CX41P46M' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT67V211F7BS9CX41P46M" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT6800WH84VNMBBRP2NJW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6800WH84VNMBBRP2NJW" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ268EE66ERPAF11700SYFF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268EE66ERPAF11700SYFF" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT686KHEGATF6FGCYDWMZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT686KHEGATF6FGCYDWMZ" product_slug="takumi" dose="0.150" unit="Kg">TAKUMI <small>0.150 Kg</small></button>
@@ -426,6 +310,7 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6915MZGVC367VNY0TJJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6915MZGVC367VNY0TJJ" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6976ZW1PGWGW551GWRJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6976ZW1PGWGW551GWRJ" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT69C7B1VE19Q9Y4AE9VP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT69C7B1VE19Q9Y4AE9VP" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ268EN5XYG2YJCZGKSFHR6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268EN5XYG2YJCZGKSFHR6" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT69J2A8D3HMZX0N015FP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT69J2A8D3HMZX0N015FP" product_slug="takumi" dose="0.150" unit="Kg">TAKUMI <small>0.150 Kg</small></button>
@@ -436,6 +321,7 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6ACEFTM76RKR9FRTMZY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6ACEFTM76RKR9FRTMZY" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6AHY41N1QZG8446JA4Y' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6AHY41N1QZG8446JA4Y" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT6AQ58486MG20G3R5AT5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6AQ58486MG20G3R5AT5" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ268ET5NNXS16W7MH2TQWG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268ET5NNXS16W7MH2TQWG" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6AW9SB7XJSKXA95S1B8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6AW9SB7XJSKXA95S1B8" product_slug="takumi" dose="0.150" unit="Kg">TAKUMI <small>0.150 Kg</small></button>
@@ -445,7 +331,8 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6BK0RJP10208NSETH3K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6BK0RJP10208NSETH3K" product_slug="amylo-x-wg" dose="2.5" unit="Kg">AMYLOX WG <small>2.5 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6BRVPADAMVY8JT8ZN5Y' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6BRVPADAMVY8JT8ZN5Y" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6BYPTD9M1AQ2J4Q5DD4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6BYPTD9M1AQ2J4Q5DD4" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT6C3P1SQ92SS1QRHSFTD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6C3P1SQ92SS1QRHSFTD" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FVJ268F0CT22EW7H13FXMJ96' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268F0CT22EW7H13FXMJ96" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ26RD86BKWRH194NEFEZRM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ26RD86BKWRH194NEFEZRM" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6C81CQ6S0A4TT3Z6DSQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6C81CQ6S0A4TT3Z6DSQ" product_slug="takumi" dose="0.150" unit="Kg">TAKUMI <small>0.150 Kg</small></button>
@@ -456,6 +343,7 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6D6VDNX11FD2B3H067Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6D6VDNX11FD2B3H067Q" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6DBFXYFDVDNPRYJN82M' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6DBFXYFDVDNPRYJN82M" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT6DHNFVYACZDQSDRB5JT' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6DHNFVYACZDQSDRB5JT" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ268F3R1SH54M0AQCNC1GZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268F3R1SH54M0AQCNC1GZ" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6DPPEDWMYKJER4W10ES' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6DPPEDWMYKJER4W10ES" product_slug="takumi" dose="0.150" unit="Kg">TAKUMI <small>0.150 Kg</small></button>
@@ -466,6 +354,7 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6EJ7NM0TQ391WYFM2PE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6EJ7NM0TQ391WYFM2PE" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6ER36QPPRWWVGPGXNRH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6ER36QPPRWWVGPGXNRH" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT6EXVKQDAXJ9BHCZ1N6N' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6EXVKQDAXJ9BHCZ1N6N" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ268F70QBH8QN23GCNBMGX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268F70QBH8QN23GCNBMGX" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6F3DMXCC9B5B7XX7MQP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6F3DMXCC9B5B7XX7MQP" product_slug="takumi" dose="0.150" unit="Kg">TAKUMI <small>0.150 Kg</small></button>
@@ -476,6 +365,7 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6FZNFDHA4ZRKF0N0ZQ8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6FZNFDHA4ZRKF0N0ZQ8" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6G40V6BGF4KSRK86EZP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6G40V6BGF4KSRK86EZP" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT6G9B3RGKAGE3M2JQ5S8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6G9B3RGKAGE3M2JQ5S8" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ268FAKGZT8H8FDH4FTHFH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268FAKGZT8H8FDH4FTHFH" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6GF5ATR1JXVY90M30D2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6GF5ATR1JXVY90M30D2" product_slug="takumi" dose="0.150" unit="Kg">TAKUMI <small>0.150 Kg</small></button>
@@ -486,6 +376,7 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6HGS80F59YRX3N8HS6B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6HGS80F59YRX3N8HS6B" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6HNZEKZGM62MSSB8XEG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6HNZEKZGM62MSSB8XEG" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT6HVKBQDS3168PX6CT3E' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6HVKBQDS3168PX6CT3E" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ268FEX702TAAE755ZN1DM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268FEX702TAAE755ZN1DM" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6J0AC9Z5DP48GFA34W0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6J0AC9Z5DP48GFA34W0" product_slug="takumi" dose="0.150" unit="Kg">TAKUMI <small>0.150 Kg</small></button>
@@ -496,6 +387,7 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6JVQ442DR572ZYM6YBT' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6JVQ442DR572ZYM6YBT" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6K2BMBPH0G6S3FA4R18' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6K2BMBPH0G6S3FA4R18" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT6K7JTZHFFWH89K49QDW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6K7JTZHFFWH89K49QDW" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ268FH7W08QWJCTA6RCBVF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268FH7W08QWJCTA6RCBVF" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6KDE90BTN6NQ37S6WQV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6KDE90BTN6NQ37S6WQV" product_slug="takumi" dose="0.150" unit="Kg">TAKUMI <small>0.150 Kg</small></button>
@@ -506,6 +398,7 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6M8H0PGNG7Q0QJNBJS4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6M8H0PGNG7Q0QJNBJS4" product_slug="physalis" dose="0.3" unit="Kg">PHYSALIS <small>0.3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6ME206RHAEWFJT7YQZ0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6ME206RHAEWFJT7YQZ0" product_slug="limocide" dose="0.8" unit="%">LIMOCIDE <small>0.8 %</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT6MKZHDBDWTG2BBKCN2T' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6MKZHDBDWTG2BBKCN2T" product_slug="ladae" dose="0.8" unit="%">LADAE <small>0.8 %</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FVJ268FMAXM99WSB543A4342' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVJ268FMAXM99WSB543A4342" product_slug="cidely-top" dose="1" unit="Kg">CIDELY TOP <small>1 Kg</small></button>
                 </td>
                 <td></td>
             </tr>
@@ -543,91 +436,81 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6PZZ1CDHH2EWFJ23PSN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6PZZ1CDHH2EWFJ23PSN" product_slug="acrobat-m-dg" dose="2" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6Q4VJ64E0AN5KJDBXCF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6Q4VJ64E0AN5KJDBXCF" product_slug="etonan" dose="3" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6QBJQED76XPS2F13ZYR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6QBJQED76XPS2F13ZYR" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6QH6WF9AMP6T1MZT0R4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6QH6WF9AMP6T1MZT0R4" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6QTW01KK0C2HYCA4HZD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6QTW01KK0C2HYCA4HZD" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6R00TA646NX1ZP8F3XY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6R00TA646NX1ZP8F3XY" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6R00TA646NX1ZP8F3XY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6R00TA646NX1ZP8F3XY" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6R5825PSRT0C51GNKGW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6R5825PSRT0C51GNKGW" product_slug="romeo" dose="0.5" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6RAM3SJ9ZGW23N4MCZP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6RAM3SJ9ZGW23N4MCZP" product_slug="acrobat-m-dg" dose="2" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6RGE5RFSEPPM11BTT9P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6RGE5RFSEPPM11BTT9P" product_slug="etonan" dose="3" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6RN006K2TJ09RV0R6Q4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6RN006K2TJ09RV0R6Q4" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6RW8C5DQ1CGJRV7ARJW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6RW8C5DQ1CGJRV7ARJW" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6S1DM8P7DFHJ0QPJAQ2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6S1DM8P7DFHJ0QPJAQ2" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6S7HP12A4ZBDSG19FQ6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6S7HP12A4ZBDSG19FQ6" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6S7HP12A4ZBDSG19FQ6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6S7HP12A4ZBDSG19FQ6" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6SDEMK4V5AEDFXTMN7T' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6SDEMK4V5AEDFXTMN7T" product_slug="romeo" dose="0.5" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6SK09XW335ZXA6D5A3P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6SK09XW335ZXA6D5A3P" product_slug="acrobat-m-dg" dose="2.0001" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6SRSNHM0RHAGGTC3KTF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6SRSNHM0RHAGGTC3KTF" product_slug="etonan" dose="3.0001" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6SXPM4H6F5XX22XCV8A' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6SXPM4H6F5XX22XCV8A" product_slug="mancowan-plus" dose="2.000111" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6T3RQZ33JEA725WHT38' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6T3RQZ33JEA725WHT38" product_slug="ranman-top" dose="0.5001" unit="L">RANMAN TOP <small>0.5 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6T8ZBER34T485BCXV5Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6T8ZBER34T485BCXV5Q" product_slug="infinito" dose="1.6001" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6TEQDBGFX6F5957TH1Z' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6TEQDBGFX6F5957TH1Z" product_slug="sticop" dose="3.0001" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6T3RQZ33JEA725WHT38' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6T3RQZ33JEA725WHT38" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6T8ZBER34T485BCXV5Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6T8ZBER34T485BCXV5Q" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6TEQDBGFX6F5957TH1Z' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6TEQDBGFX6F5957TH1Z" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6TPPCSQ1CV319VHH6B6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6TPPCSQ1CV319VHH6B6" product_slug="romeo" dose="0.5001" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6TY58ADM7BTGXZK1RB4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6TY58ADM7BTGXZK1RB4" product_slug="acrobat-m-dg" dose="2" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6V3YG2VRZDMYEHR06RS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6V3YG2VRZDMYEHR06RS" product_slug="etonan" dose="3" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6VA1WM6BDFE9TXNNHMW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6VA1WM6BDFE9TXNNHMW" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6VFGX6NESP0BVQ2MBXP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6VFGX6NESP0BVQ2MBXP" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6VM7F7F6CNJG3SK2V43' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6VM7F7F6CNJG3SK2V43" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6VTKYCD9WQGYHMZXX7K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6VTKYCD9WQGYHMZXX7K" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6VTKYCD9WQGYHMZXX7K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6VTKYCD9WQGYHMZXX7K" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6W044VZDXW7S02JVXW0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6W044VZDXW7S02JVXW0" product_slug="romeo" dose="0.5" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6W5A1CNVJ5VJFS0ZZCM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6W5A1CNVJ5VJFS0ZZCM" product_slug="acrobat-m-dg" dose="2" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6WB9W8TN79QBX4T4F5G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6WB9W8TN79QBX4T4F5G" product_slug="etonan" dose="3" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6WHCQY38SJ8C336CSV1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6WHCQY38SJ8C336CSV1" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6WPKG0WWEE6B3H6CP08' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6WPKG0WWEE6B3H6CP08" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6WVKN0DM1VW4E2WPMDN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6WVKN0DM1VW4E2WPMDN" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6X1AEV7FJQDR1FXCXPF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6X1AEV7FJQDR1FXCXPF" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6X1AEV7FJQDR1FXCXPF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6X1AEV7FJQDR1FXCXPF" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6X612HYG0C2FB3SWCEF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6X612HYG0C2FB3SWCEF" product_slug="romeo" dose="0.5" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6XBW3BBB8RG1ECE5H5W' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6XBW3BBB8RG1ECE5H5W" product_slug="acrobat-m-dg" dose="2" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6XH0MPJ95844AQCEKDM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6XH0MPJ95844AQCEKDM" product_slug="etonan" dose="3" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6XQ0DAXKB3834QR8AAH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6XQ0DAXKB3834QR8AAH" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6XXT4RZ0N7ZDYA4ABSR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6XXT4RZ0N7ZDYA4ABSR" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6Y3PJ41FERZDQC4ZTA6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6Y3PJ41FERZDQC4ZTA6" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6YAAR8X4H574C7E4S7P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6YAAR8X4H574C7E4S7P" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6YAAR8X4H574C7E4S7P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6YAAR8X4H574C7E4S7P" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6YF1G85TGEK52767TS5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6YF1G85TGEK52767TS5" product_slug="romeo" dose="0.5" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6YP34DCF9B5NX48JAYP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6YP34DCF9B5NX48JAYP" product_slug="acrobat-m-dg" dose="2" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6YWNJG1BH185A90B0T9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6YWNJG1BH185A90B0T9" product_slug="etonan" dose="3" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6Z37HJBRCW4AS871XEW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6Z37HJBRCW4AS871XEW" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6ZAS7HF0Q99FDWJ8BDN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6ZAS7HF0Q99FDWJ8BDN" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT6ZFHDWBET9V5ZJP3P65' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6ZFHDWBET9V5ZJP3P65" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6ZNW0S8WHKEXV6KZTVY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6ZNW0S8WHKEXV6KZTVY" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6ZNW0S8WHKEXV6KZTVY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6ZNW0S8WHKEXV6KZTVY" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT6ZVB90JF4NPZSC21CTM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT6ZVB90JF4NPZSC21CTM" product_slug="romeo" dose="0.5" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7014V270D12ED8710JN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7014V270D12ED8710JN" product_slug="acrobat-m-dg" dose="2" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7061ZA12CMWTZGH59MF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7061ZA12CMWTZGH59MF" product_slug="etonan" dose="3" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT70CQBDP9SXSYASGXEB3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT70CQBDP9SXSYASGXEB3" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT70H38NB1NGTN349KY9J' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT70H38NB1NGTN349KY9J" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT70QP0AXMNZ4NK90WWZQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT70QP0AXMNZ4NK90WWZQ" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT70WR9Q8KH9298019E1B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT70WR9Q8KH9298019E1B" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT70WR9Q8KH9298019E1B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT70WR9Q8KH9298019E1B" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7129M0MP1B9ZH6E1M95' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7129M0MP1B9ZH6E1M95" product_slug="romeo" dose="0.5" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7189FF7FFQBZ89F1Q1Y' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7189FF7FFQBZ89F1Q1Y" product_slug="acrobat-m-dg" dose="2" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT71DDE7BTGPD5PKY1ZFC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT71DDE7BTGPD5PKY1ZFC" product_slug="etonan" dose="3" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT71K56SBACYVV9DVQ8Y9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT71K56SBACYVV9DVQ8Y9" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT71RA8H9SG0643PG7BVK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT71RA8H9SG0643PG7BVK" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT71Y91Z8D3NWPAHZ3KPC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT71Y91Z8D3NWPAHZ3KPC" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7235ZD6D7MW5D9YVS31' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7235ZD6D7MW5D9YVS31" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7235ZD6D7MW5D9YVS31' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7235ZD6D7MW5D9YVS31" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT72971779KTRC2SEQC3R' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT72971779KTRC2SEQC3R" product_slug="romeo" dose="0.5" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT72J1HVE0ZHTS7SHHDP7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT72J1HVE0ZHTS7SHHDP7" product_slug="acrobat-m-dg" dose="2" unit="Kg">ACROBAT <small>2 Kg</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT72SQWMTAJ7C695K007N' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT72SQWMTAJ7C695K007N" product_slug="etonan" dose="31" unit="L">ETONAN <small>3 L</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT72Z3W7MBXM8XDMSXGYZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT72Z3W7MBXM8XDMSXGYZ" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT735JCDKSRVMBD8JB7J7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT735JCDKSRVMBD8JB7J7" product_slug="ranman-top" dose="0.5" unit="L">RANMAN TOP <small>0.5 L</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT73BJPBPKAM0W5P3MD54' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT73BJPBPKAM0W5P3MD54" product_slug="infinito" dose="1.6" unit="L">INFINITO <small>1.6 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT73HX329PKHGZ0JP8NYK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT73HX329PKHGZ0JP8NYK" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT73HX329PKHGZ0JP8NYK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT73HX329PKHGZ0JP8NYK" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                     <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT73QYDCX6S5K0H1KSXTX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT73QYDCX6S5K0H1KSXTX" product_slug="romeo" dose="0.5" unit="L">ROMEO <small>0.5 L</small></button>
                 </td>
                 <td></td>
@@ -637,81 +520,55 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                 <td></td><td></td><td></td><td></td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT73XNED9XCWPD13JA99J' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT73XNED9XCWPD13JA99J" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT744T7AC16T1C760FFVP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT744T7AC16T1C760FFVP" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT74AV8EFQNRJVFS0YQTW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT74AV8EFQNRJVFS0YQTW" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT74FHQEQ97CQXWZB25PW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT74FHQEQ97CQXWZB25PW" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT74FHQEQ97CQXWZB25PW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT74FHQEQ97CQXWZB25PW" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT74NB3H40VMEV0DADCQX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT74NB3H40VMEV0DADCQX" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT74V773YVP4GW089SNH3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT74V773YVP4GW089SNH3" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT750ZCN805WN5VHAP6MJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT750ZCN805WN5VHAP6MJ" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT756WMNZVKEK0VCX0D0D' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT756WMNZVKEK0VCX0D0D" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT756WMNZVKEK0VCX0D0D' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT756WMNZVKEK0VCX0D0D" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT75C3WCAQ1PP5F8QC9HZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT75C3WCAQ1PP5F8QC9HZ" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT75H39H81M6M73YASB96' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT75H39H81M6M73YASB96" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT75R5N4VPY06GZ7WFSV0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT75R5N4VPY06GZ7WFSV0" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT75XS9NGVWZ7YMXS6VXS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT75XS9NGVWZ7YMXS6VXS" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT75XS9NGVWZ7YMXS6VXS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT75XS9NGVWZ7YMXS6VXS" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT762KR3K0QAZHD8DCGKF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT762KR3K0QAZHD8DCGKF" product_slug="bouillie-bordelaise" dose="4.0002" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT768B9SJKG58SNSTRHK2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT768B9SJKG58SNSTRHK2" product_slug="mancowan-plus" dose="2.0002" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT76DZJ21N2S1390RH639' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT76DZJ21N2S1390RH639" product_slug="cuprocol-duo" dose="2.00012" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT76KSSDE65N7R99M15KM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT76KSSDE65N7R99M15KM" product_slug="sticop" dose="3.00022" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT762KR3K0QAZHD8DCGKF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT762KR3K0QAZHD8DCGKF" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
+                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT76DZJ21N2S1390RH639' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT76DZJ21N2S1390RH639" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT76KSSDE65N7R99M15KM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT76KSSDE65N7R99M15KM" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT76RJAYAZ0YMQ1RGTM5J' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT76RJAYAZ0YMQ1RGTM5J" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT76YYZ0VC2NPWZZBBB0C' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT76YYZ0VC2NPWZZBBB0C" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT77445H3PXFNMNM3KZ2A' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT77445H3PXFNMNM3KZ2A" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7792EJXDX7YX5582DJ3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7792EJXDX7YX5582DJ3" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7792EJXDX7YX5582DJ3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7792EJXDX7YX5582DJ3" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT77F99A165HGAHMP43D6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT77F99A165HGAHMP43D6" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT77M3YW1X7BCGZDDBVTJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT77M3YW1X7BCGZDDBVTJ" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT77TXHSQF4QR5TR1FTVS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT77TXHSQF4QR5TR1FTVS" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT77ZC84376CNFM39J8VK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT77ZC84376CNFM39J8VK" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT77ZC84376CNFM39J8VK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT77ZC84376CNFM39J8VK" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7868CAEJG4YW64QNGGV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7868CAEJG4YW64QNGGV" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT78BVJDV6TQT1ZQQ7A16' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT78BVJDV6TQT1ZQQ7A16" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT78H5HCRA1VMF37KC8Q8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT78H5HCRA1VMF37KC8Q8" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT78T4NQ968X701KXTB4T' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT78T4NQ968X701KXTB4T" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT78T4NQ968X701KXTB4T' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT78T4NQ968X701KXTB4T" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT790XDMYSM93KH4M35QN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT790XDMYSM93KH4M35QN" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT796HJ2ME9AV7X6VX6S2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT796HJ2ME9AV7X6VX6S2" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT79CCS7XXE9M03NP17HE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT79CCS7XXE9M03NP17HE" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT79JYSRA5CYMCRSKKV7H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT79JYSRA5CYMCRSKKV7H" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT79JYSRA5CYMCRSKKV7H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT79JYSRA5CYMCRSKKV7H" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT79RPYX3SYR0BAVK3E4F' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT79RPYX3SYR0BAVK3E4F" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT79XFBMM8QF7ZP1MZX65' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT79XFBMM8QF7ZP1MZX65" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7A35ZFKV2GZCVD4WGZS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7A35ZFKV2GZCVD4WGZS" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7A9YX2CB3CVSQ9HT0VD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7A9YX2CB3CVSQ9HT0VD" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7A9YX2CB3CVSQ9HT0VD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7A9YX2CB3CVSQ9HT0VD" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7AF5HV05B9N3H3XJS5V' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7AF5HV05B9N3H3XJS5V" product_slug="bouillie-bordelaise" dose="4" unit="Kg">BOUILLIE BORDELAISE RSR <small>4 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7AMZ7Z1GB6K1NDV6DHK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7AMZ7Z1GB6K1NDV6DHK" product_slug="mancowan-plus" dose="2" unit="Kg">MANCOWAN PLUS <small>2 Kg</small></button>
                     <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7ATJSGAAH0PHERRW3Z4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7ATJSGAAH0PHERRW3Z4" product_slug="cuprocol-duo" dose="2" unit="Kg">CUPROCOL <small>2 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7AZR4KZ5XF4JMPMFHYY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7AZR4KZ5XF4JMPMFHYY" product_slug="sticop" dose="3" unit="L">STICOP <small>3 L</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7AZR4KZ5XF4JMPMFHYY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7AZR4KZ5XF4JMPMFHYY" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L</small></button>
                 </td>
                 <td></td>
-            </tr>
-            <tr>
-                <td>Verticilliose <br>Traitement sol</td>
-                <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7B5NE6G6MZDFGYB7JV6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7B5NE6G6MZDFGYB7JV6" product_slug="topsin-70-wg" dose="0.096" unit="Kg/Hl">TOPSIN 70 WG <small>0.096 Kg/Hl</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7BAXVDDA7XT6P2BSQJH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7BAXVDDA7XT6P2BSQJH" product_slug="topsin-70-wg" dose="0.096" unit="Kg/Hl">TOPSIN 70 WG <small>0.096 Kg/Hl</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7BGMW92EBHF55A4Y702' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7BGMW92EBHF55A4Y702" product_slug="topsin-70-wg" dose="0.096" unit="Kg/Hl">TOPSIN 70 WG <small>0.096 Kg/Hl</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEECT7BPNYRQZ5X2PQJNBMQR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7BPNYRQZ5X2PQJNBMQR" product_slug="topsin-70-wg" dose="0.096" unit="Kg/Hl">TOPSIN 70 WG <small>0.096 Kg/Hl</small></button>
-                </td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
             <tr>
                 <td>Adjuvants</td>
@@ -781,47 +638,47 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEECT7H7BN61CBVJCE8F1DJM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7H7BN61CBVJCE8F1DJM" product_slug="rise-p" dose="200" unit="gr">RISE P VAM <small>200 gr</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7HCRVM4HH5W1SGXMV2Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7HCRVM4HH5W1SGXMV2Q" product_slug="folwin" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7HCRVM4HH5W1SGXMV2Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7HCRVM4HH5W1SGXMV2Q" product_slug="lalstim-fit-5-l" dose="2" unit="L">LALSTIM <small>2 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7HHESQBY3R0Y824PTR5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7HHESQBY3R0Y824PTR5" product_slug="ino-boost-bmo" dose="3" unit="L">INO BOOST BMO <small>3 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7HQCN2VN38R8CTJQ0EC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7HQCN2VN38R8CTJQ0EC" product_slug="ino-green-pmg" dose="2" unit="L">INO GREEN PMG <small>2 à 5 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7HWNWAZ4N3ZT6NVRDQC' in c_id_array ? 'exist' : 'd-none' }}} c_id=01FEECT7HWNWAZ4N3ZT6NVRDQC" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7HWNWAZ4N3ZT6NVRDQC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7HWNWAZ4N3ZT6NVRDQC" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7J3HJPGB8SCBE9C3AMQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7J3HJPGB8SCBE9C3AMQ" product_slug="ino-boost-npk-9-5-5" dose="5" unit="L">INO BOOST NPK 9-5-5 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7JBHJAK2CFDPZSJDWFC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7JBHJAK2CFDPZSJDWFC" product_slug="ino-boost" dose="1" unit="L">INO BOOST <small>1 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7JG3PM6Y65QQH7FB1JA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7JG3PM6Y65QQH7FB1JA" product_slug="folwin" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7JG3PM6Y65QQH7FB1JA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7JG3PM6Y65QQH7FB1JA" product_slug="lalstim-fit-5-l" dose="2" unit="L">LALSTIM <small>2 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7JNACGTN9SQP32JT1PE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7JNACGTN9SQP32JT1PE" product_slug="ino-boost-bmo" dose="3" unit="L">INO BOOST BMO <small>3 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7JVC9C8ZTNXT8BBYDA0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7JVC9C8ZTNXT8BBYDA0" product_slug="ino-green-pmg" dose="2" unit="L">INO GREEN PMG <small>2 à 5 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7K0W4PKXENA9RNJPRPS' in c_id_array ? 'exist' : 'd-none' }}} c_id=01FEECT7K0W4PKXENA9RNJPRPS" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7K0W4PKXENA9RNJPRPS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7K0W4PKXENA9RNJPRPS" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7K531DRMK93RMA4DRCZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7K531DRMK93RMA4DRCZ" product_slug="ino-boost-npk-9-5-5" dose="5" unit="L">INO BOOST NPK 9-5-5 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7KAJJS24BPWM91NHEK2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7KAJJS24BPWM91NHEK2" product_slug="ino-boost" dose="1" unit="L">INO BOOST <small>1 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7KGDDMPS27G7KY2W8BH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7KGDDMPS27G7KY2W8BH" product_slug="folwin" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7KGDDMPS27G7KY2W8BH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7KGDDMPS27G7KY2W8BH" product_slug="lalstim-fit-5-l" dose="2" unit="L">LALSTIM <small>2 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7KPQCX25YFEQE8TDSRC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7KPQCX25YFEQE8TDSRC" product_slug="ino-boost-bmo" dose="3" unit="L">INO BOOST BMO <small>3 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7KVH365Q91A4M26DVW6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7KVH365Q91A4M26DVW6" product_slug="ino-green-pmg" dose="2" unit="L">INO GREEN PMG <small>2 à 5 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7M1VK9XVFKDYV1V63V8' in c_id_array ? 'exist' : 'd-none' }}} c_id=01FEECT7M1VK9XVFKDYV1V63V8" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7M1VK9XVFKDYV1V63V8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7M1VK9XVFKDYV1V63V8" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7M6AGP0PK6FF3AS2TS6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7M6AGP0PK6FF3AS2TS6" product_slug="ino-boost-npk-9-5-5" dose="5" unit="L">INO BOOST NPK 9-5-5 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7MBXW69GV8QH27VPGY8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7MBXW69GV8QH27VPGY8" product_slug="ino-boost" dose="1" unit="L">INO BOOST <small>1 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7MH20F3WF7AS2ZWMD6M' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7MH20F3WF7AS2ZWMD6M" product_slug="folwin" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7MH20F3WF7AS2ZWMD6M' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7MH20F3WF7AS2ZWMD6M" product_slug="lalstim-fit-5-l" dose="2" unit="L">LALSTIM <small>2 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7MQPCHK2HQJQSKHS5Z0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7MQPCHK2HQJQSKHS5Z0" product_slug="ino-boost-bmo" dose="3" unit="L">INO BOOST BMO <small>3 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7MWZ6QE6ANFECD9ZNT2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7MWZ6QE6ANFECD9ZNT2" product_slug="ino-green-pmg" dose="2" unit="L">INO GREEN PMG <small>2 à 5 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7N2QGKCR1V5QRGKPCAY' in c_id_array ? 'exist' : 'd-none' }}} c_id=01FEECT7N2QGKCR1V5QRGKPCAY" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7N2QGKCR1V5QRGKPCAY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7N2QGKCR1V5QRGKPCAY" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7N8BS9PVZ3G2H0BF5F3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7N8BS9PVZ3G2H0BF5F3" product_slug="ino-boost-npk-9-5-5" dose="5" unit="L">INO BOOST NPK 9-5-5 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7NEXXHSXAJCKJSVK9J9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7NEXXHSXAJCKJSVK9J9" product_slug="ino-boost" dose="1" unit="L">INO BOOST <small>1 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7NK46Q7W59Z4D1Q129B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7NK46Q7W59Z4D1Q129B" product_slug="folwin" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7NK46Q7W59Z4D1Q129B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7NK46Q7W59Z4D1Q129B" product_slug="lalstim-fit-5-l" dose="2" unit="L">LALSTIM <small>2 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7NS2XW5ZVY054A6ZTEY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7NS2XW5ZVY054A6ZTEY" product_slug="ino-boost-bmo" dose="3" unit="L">INO BOOST BMO <small>3 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7NYW6TQFJA19D2QXS2R' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7NYW6TQFJA19D2QXS2R" product_slug="ino-green-pmg" dose="2" unit="L">INO GREEN PMG <small>2 à 5 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7P458GJD57XZ7828KVC' in c_id_array ? 'exist' : 'd-none' }}} c_id=01FEECT7P458GJD57XZ7828KVC" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7P458GJD57XZ7828KVC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7P458GJD57XZ7828KVC" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7P9KC7QP3J5AEE5S7BV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7P9KC7QP3J5AEE5S7BV" product_slug="ino-boost-npk-9-5-5" dose="5" unit="L">INO BOOST NPK 9-5-5 <small>5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7PFSP5JCKFMAS7EX9PJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7PFSP5JCKFMAS7EX9PJ" product_slug="ino-boost" dose="1" unit="L">INO BOOST <small>1 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7PNE34VVGASJGJN8613' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7PNE34VVGASJGJN8613" product_slug="folwin" dose="2" unit="L">FOLWIN <small>2 L</small></button>
+                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7PNE34VVGASJGJN8613' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7PNE34VVGASJGJN8613" product_slug="lalstim-fit-5-l" dose="2" unit="L">LALSTIM <small>2 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7PVFRJ3F48S80K0A39K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7PVFRJ3F48S80K0A39K" product_slug="ino-boost-bmo" dose="3" unit="L">INO BOOST BMO <small>3 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7Q101TXYSBB501ZVHR0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7Q101TXYSBB501ZVHR0" product_slug="ino-green-pmg" dose="2" unit="L">INO GREEN PMG <small>2 à 5 L</small></button>
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7Q7PXS9BP1F0JE93TCJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7Q7PXS9BP1F0JE93TCJ" product_slug="ino-green-ultra" dose="5" unit="L">INO GREEN ULTRA 10-3-8 <small>5 L</small></button>
@@ -829,16 +686,16 @@ l'habitude d'effectuer des tests sur les principaux navigateurs du marché :
                     <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEECT7QJRD0VVCM8K2FBV3VR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7QJRD0VVCM8K2FBV3VR" product_slug="ino-boost" dose="1" unit="L">INO BOOST <small>1 L</small></button>
                 </td>
                 <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7QQ8BBZDZZN24V6CKRC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7QQ8BBZDZZN24V6CKRC" product_slug="sticop" dose="3" unit="cu/bore/Mnzn">STICOP <small>3 L cu/bore/Mnzn</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7QQ8BBZDZZN24V6CKRC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7QQ8BBZDZZN24V6CKRC" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L </small></button>
                 </td>
                 <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7QX5FGFSMQ9CAA205C7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7QX5FGFSMQ9CAA205C7" product_slug="sticop" dose="3" unit="cu/bore/Mnzn">STICOP <small>3 L cu/bore/Mnzn</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7QX5FGFSMQ9CAA205C7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7QX5FGFSMQ9CAA205C7" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L </small></button>
                 </td>
                 <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7R39ZK78YQMK66W2FA2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7R39ZK78YQMK66W2FA2" product_slug="sticop" dose="3" unit="cu/bore/Mnzn">STICOP <small>3 L cu/bore/Mnzn</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7R39ZK78YQMK66W2FA2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7R39ZK78YQMK66W2FA2" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L </small></button>
                 </td>
                 <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7R8HS9KY42T002FQC6D' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7R8HS9KY42T002FQC6D" product_slug="sticop" dose="3" unit="cu/bore/Mnzn">STICOP <small>3 L cu/bore/Mnzn</small></button>
+                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEECT7R8HS9KY42T002FQC6D' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEECT7R8HS9KY42T002FQC6D" product_slug="macobzin-5-l" dose="3" unit="L">MACOBZIN <small>3 L </small></button>
                 </td>
                 <td></td>
             </tr>
