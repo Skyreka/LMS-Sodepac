@@ -2,9 +2,21 @@
     ? 'base.html.twig'
     : 'management/order/print.html.twig' %}
 
-{% block title %}{{ order.idNumber }}{% endblock %}
+{% block title %}Votre commande {{ order.idNumber }}{% endblock %}
 
 {% block stylesheets %}
+    <style>
+        .left-sidebar {
+            display: none !important;
+        }
+        .page-wrapper {
+            margin-left: 0 !important;
+        }
+        @media print {
+            .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+            #return-btn { display: none !important; } /* page-break-after works, as well */
+        }
+    </style>
     {% if print == true %}
         <style>
             @page {
@@ -26,6 +38,7 @@
             }
             @media print {
                 .pagebreak { page-break-before: always; } /* page-break-after works, as well */
+                #return-btn { display: none !important; } /* page-break-after works, as well */
             }
         </style>
     {% endif %}
@@ -34,7 +47,8 @@
 {% block body %}
     <div class="disable-screen"></div>
     <div class="container-fluid">
-        <div class="row pt-5">
+        <a class="btn btn-dark mt-2" id="return-btn" href="{{ path('user_order_index') }}"><i class="fa fa-arrow-left"></i> Retour</a>
+        <div class="row pt-2">
             <div class="col-12 printableArea">
                 <div class="card card-body">
                     <h3><b>BON DE COMMANDE</b> <span>#{{ order.IdNumber }}</span></h3>
@@ -58,16 +72,13 @@
                                         <br/> {{ order.customer.phone }}
                                     </p>
                                     <p class="mt-4"><b>Date :</b> <i class="fa fa-calendar"></i> {{ order.createDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y") }}</p>
-                                    <p class="mt-4"><b>Dépôt :</b> <i class="fa fa-industry"></i></p>
-                                    <p class="text-muted ml-1">{{ order.customer.warehouse.name }}
-                                        <br/> {{ order.customer.warehouse.email }}
-                                    </p>
+                                    <p class="text-muted ml-1">{{ order.customer.warehouse.name }}</p>
                                 </address>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="table-responsive mt-5" style="clear: both;">
-                                <table class="table table-hover">
+                            <div class="table-bordered table mt-5" style="clear: both;">
+                                <table class="table">
                                     <thead>
                                     <tr>
                                         <th>Produit</th>
@@ -127,7 +138,9 @@
                                 <h3><b>Total HT <small>(avec RPD)</small>:</b> {{ total|localizedcurrency('EUR') }}</h3>
                             </div>
                             <div class="clearfix mt-5">
-                                <p class="m-t-5"><b style="color: #27ae60;">Conditions :</b> {{ order.conditions }}</p>
+                                {% if order.conditions  %}
+                                    <p class="m-t-5"><b style="color: #27ae60;">Conditions :</b> {{ order.conditions }}</p>
+                                {% endif %}
                                 <p class="m-t-5"><b style="color: #27ae60;">Délai et livraison :</b> {{ order.delivery }}</p>
                                 {% if order.status == 3 %}
                                     <p class="m-t-5"><small>Je soussigné, {{ order.customer.identity }}, valide et accepte ce bon de commande</small></p>
@@ -144,9 +157,9 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <p style="color: #27ae60;"><b>Mentions Règlementaires</b></p>
-                            <div class="table-responsive mt-5" style="clear: both;">
-                                <table class="table table-hover">
+                            <p style="color: #27ae60;"><b>Mentions règlementaires:</b></p>
+                            <div class="table-bordered" style="clear: both;">
+                                <table class="table">
                                     <thead>
                                     <tr>
                                         <th>Produit</th>
@@ -192,11 +205,6 @@
                                         <br />
                                         {{ order.signature.codeOtp.code }}
                                     </p>
-                                </div>
-                            {% endif %}
-                            {% if print == false %}
-                                <div class="text-right">
-                                    <button id="print" class="btn btn-default btn-outline" type="button"> <span><i class="fa fa-print"></i> Imprimer</span> </button>
                                 </div>
                             {% endif %}
                         </div>
