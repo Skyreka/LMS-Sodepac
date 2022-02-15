@@ -51,3 +51,5 @@ composer.lock
 public/uploads/flash/
 
 images/logo.png
+
+composer.lock
