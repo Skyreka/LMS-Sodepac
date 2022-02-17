@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use App\AsyncMethodService;
 use App\Entity\Panoramas;
 use App\Entity\PanoramaUser;
 use App\Entity\Users;
 use App\Form\PanoramaSendType;
 use App\Form\PanoramaType;
-use App\Notification\PanoramaNotification;
+use App\Service\EmailNotifier;
 use App\Repository\PanoramasRepository;
 use App\Repository\PanoramaUserRepository;
 use App\Repository\UsersRepository;
@@ -20,6 +21,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -270,7 +272,11 @@ class PanoramasController extends AbstractController
      * @param UsersRepository $ur
      * @return Response
      */
-    public function send(Panoramas $panoramas, Request $request, PanoramaNotification $notification ): Response
+    public function send(
+        Panoramas $panoramas,
+        Request $request,
+        AsyncMethodService $asyncMethodService
+    ): Response
     {
         $form = $this->createForm(PanoramaSendType::class);
         $form->handleRequest($request);
@@ -293,9 +299,13 @@ class PanoramasController extends AbstractController
                     $relation->setDisplayAt( $today );
                 }
 
-                //Send email notification
-                $notification->setReceiver( $customer->getEmail() );
-                $notification->sendNewPanorama();
+                //Send email notification Async
+                $asyncMethodService->async(EmailNotifier::class, 'notify', [ '$userId' => $customer->getId(),
+                    'params' => [
+                        'subject' => 'Un nouveau panorama disponible sur LMS-Sodepac',
+                        'text' => 'Un nouveau panorama est disponible d&#232;s maintenant sur votre Application'
+                    ]
+                ]);
 
                 $this->em->persist( $relation );
                 $this->em->flush();

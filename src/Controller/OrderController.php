@@ -4,25 +4,19 @@ namespace App\Controller;
 use App\Entity\Orders;
 use App\Entity\OrdersProduct;
 use App\Entity\Products;
-use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Entity\Signature;
 use App\Entity\SignatureOtp;
 use App\Form\OrderAdditionalType;
 use App\Form\OrdersAddProductFieldType;
 use App\Form\OrdersAddProductType;
-use App\Form\OrdersAddProductVariousType;
 use App\Form\OrdersType;
-use App\Notification\SignatureNotification;
 use App\Repository\OrdersProductRepository;
-use App\Repository\CulturesRepository;
 use App\Repository\OrdersRepository;
 use App\Repository\ProductsRepository;
 use App\Repository\RecommendationProductsRepository;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -30,7 +24,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
  * Class CardController
@@ -441,7 +434,6 @@ class OrderController extends AbstractController
     /**
      * @Route("management/order/valid/{id}", name="order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
-     * @param SignatureNotification $notification
      * @param \Swift_Mailer $mailer
      * @param Request $request
      * @return Response

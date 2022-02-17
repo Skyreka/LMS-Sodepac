@@ -71,7 +71,7 @@
                                     <p class="text-muted ml-4">{{ order.customer.email }}
                                         <br/> {{ order.customer.phone }}
                                     </p>
-                                    <p class="mt-4"><b>Date :</b> <i class="fa fa-calendar"></i> {{ order.createDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y") }}</p>
+                                    <p class="mt-4"><b>Date :</b> <i class="fa fa-calendar"></i> {{ order.createDate | date("d/m/y") }}</p>
                                     <p class="text-muted ml-1">{{ order.customer.warehouse.name }}</p>
                                 </address>
                             </div>

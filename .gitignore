@@ -53,3 +53,8 @@ public/uploads/flash/
 images/logo.png
 
 composer.lock
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###

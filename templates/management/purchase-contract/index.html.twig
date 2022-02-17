@@ -56,7 +56,7 @@
                                                     </a>
                                                 </td>
                                             {% endif %}
-                                            <td>{{ contract.addedDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y") }}</td>
+                                            <td>{{ contract.addedDate | date("d/m/y") }}</td>
                                             <td>
                                                 {% if( contract.status == 0 ) %}
                                                     <span class="badge badge-warning">En cours️</span>

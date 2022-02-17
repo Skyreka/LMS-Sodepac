@@ -48,7 +48,7 @@
                                         <td>
                                             <h6>{{ ppf.culture.ilot.exploitation.users.identity }}</h6><small class="text-muted">{{ ppf.culture.ilot.exploitation.users.email }}</small>
                                         </td>
-                                        <td>{{ ppf.addedDate | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y") }}</td>
+                                        <td>{{ ppf.addedDate | date("d/m/y") }}</td>
                                         <td>
                                             {% if( ppf.status == 1 ) %}
                                                 <span class="badge badge-success">En cours</span>
