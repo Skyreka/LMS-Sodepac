@@ -12,19 +12,19 @@ class SignatureNotification {
     /**
      * @var MailerInterface
      */
-    private $mail;
+    private $mailer;
 
     /**
      * @var
      */
     private $receiver;
 
-    public function __construct( \Swift_Mailer $mail ) {
-        $this->mail = $mail;
+    public function __construct( MailerInterface $mailer ) {
+        $this->mailer = $mailer;
     }
 
     public function sendAskSignMail(){
-        // ENABLE SYSTEM
+        //SEND MESSAGE
     }
 
 

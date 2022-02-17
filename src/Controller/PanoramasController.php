@@ -7,6 +7,7 @@ use App\Entity\PanoramaUser;
 use App\Entity\Users;
 use App\Form\PanoramaSendType;
 use App\Form\PanoramaType;
+use App\Notification\PanoramaNotification;
 use App\Repository\PanoramasRepository;
 use App\Repository\PanoramaUserRepository;
 use App\Repository\UsersRepository;
@@ -269,7 +270,7 @@ class PanoramasController extends AbstractController
      * @param UsersRepository $ur
      * @return Response
      */
-    public function send(Panoramas $panoramas, Request $request, \Swift_Mailer $mailer, UsersRepository $ur ): Response
+    public function send(Panoramas $panoramas, Request $request, PanoramaNotification $notification ): Response
     {
         $form = $this->createForm(PanoramaSendType::class);
         $form->handleRequest($request);
@@ -293,28 +294,12 @@ class PanoramasController extends AbstractController
                 }
 
                 //Send email notification
-                $message = (new \Swift_Message('Un nouveau panorama disponible sur LMS-Sodepac.'))
-                    ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
-                    ->setTo( $customer->getEmail() )
-                    ->setBody(
-                        $this->renderView(
-                            'emails/notification/user/panorama.html.twig', [
-                                'first_name' => $customer->getIdentity()
-                            ]
-                        ),
-                        'text/html'
-                    )
-                ;
-                $mailer->send($message);
+                $notification->setReceiver( $customer->getEmail() );
+                $notification->sendNewPanorama();
 
-                if ( $mailer ) {
-                    $this->em->persist( $relation );
-                    $this->em->flush();
-                } else {
-                    $this->addFlash('danger','Une erreur est surevenue #'. $customer->getId());
-                }
+                $this->em->persist( $relation );
+                $this->em->flush();
             }
-
             $this->addFlash('success', 'Panorama envoyé avec succès');
 
             return $this->redirectToRoute('panorama_index');

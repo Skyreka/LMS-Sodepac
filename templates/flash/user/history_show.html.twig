@@ -15,7 +15,7 @@
             <tbody>
             {% for flash in flashs %}
                 <tr>
-                    <td>{{ flash.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                    <td>{{ flash.displayAt | date('d/m/y') }}</td>
                     <td>{{ flash.bsv.text }}</td>
                     <td>
                         {% if flash.bsv.firstFile %}

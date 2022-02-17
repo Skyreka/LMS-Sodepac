@@ -18,7 +18,6 @@
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpoffice/phpspreadsheet": "^1.16",
         "sensio/framework-extra-bundle": "^5.1",
-        "sensiolabs/security-checker": "^6.0",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.4.*",
         "symfony/console": "4.4.*",
@@ -44,7 +43,6 @@
         "symfonycasts/reset-password-bundle": "^1.3",
         "tetranz/select2entity-bundle": "^3.1",
         "treehouselabs/slugifier": "^1.0",
-        "twig/extensions": "^1.5",
         "twig/extra-bundle": "^3.1",
         "twig/intl-extra": "^3.1",
         "twig/twig": "^2.12|^3.0",
@@ -90,8 +88,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "security-checker security:check": "script"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

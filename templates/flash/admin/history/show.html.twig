@@ -15,8 +15,8 @@
             <tbody>
             {% for flash in flashs %}
                 <tr>
-                    <td>{{ flash.bsv.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
-                    <td>{{ flash.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y à HH:mm') }}</td>
+                    <td>{{ flash.bsv.creationDate| date('d/m/y') }}</td>
+                    <td>{{ flash.displayAt | date('d/m/y') }}</td>
                     <td>{{ flash.bsv.text }}</td>
                     <td>{{ flash.customers.identity }}</td>
                     <td>
