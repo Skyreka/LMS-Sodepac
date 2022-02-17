@@ -97,11 +97,14 @@ class PanoramasController extends AbstractController
      * @Route("/new", name="panorama_new", methods={"GET", "POST"})
      * @param Request $request
      * @param UsersRepository $ur
-     * @param \Swift_Mailer $mailer
+     * @param AsyncMethodService $asyncMethodService
      * @return Response
-     * @throws \Exception
      */
-    public function new(Request $request, UsersRepository $ur, \Swift_Mailer $mailer): Response
+    public function new(
+        Request $request,
+        UsersRepository $ur,
+        AsyncMethodService $asyncMethodService
+    ): Response
     {
         $panorama = new Panoramas();
         $form = $this->createForm(PanoramaType::class, $panorama);
@@ -169,22 +172,13 @@ class PanoramasController extends AbstractController
             //Envoie de mail aux admins
             $admins = $ur->findAllByRole('ROLE_ADMIN');
             foreach ($admins as $admin) {
-                $pathInfo = '/panoramas';
-                $link = $request->getUriForPath($pathInfo);
-                $message = (new \Swift_Message('Un panorama est en attente de validation.'))
-                    ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
-                    ->setTo( $admin->getEmail() )
-                    ->setBody(
-                        $this->renderView(
-                            'emails/panorama.html.twig', [
-                                'first_name' => $admin->getFirstname(),
-                                'link' => $link
-                            ]
-                        ),
-                        'text/html'
-                    )
-                ;
-                $mailer->send($message);
+                //Send Email to user
+                $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $admin->getId(),
+                    'params' => [
+                        'subject' => 'Un panorama est en attente de validation - LMS Sodepac.',
+                        'title' => 'Un panorama est en attente de validation.'
+                    ]
+                ]);
             }
 
             $this->addFlash('success', 'Panorama crée avec succès');
@@ -268,8 +262,7 @@ class PanoramasController extends AbstractController
      * @Route("/send/{id}", name="panorama_send", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
-     * @param \Swift_Mailer $mailer
-     * @param UsersRepository $ur
+     * @param AsyncMethodService $asyncMethodService
      * @return Response
      */
     public function send(
@@ -300,10 +293,11 @@ class PanoramasController extends AbstractController
                 }
 
                 //Send email notification Async
-                $asyncMethodService->async(EmailNotifier::class, 'notify', [ '$userId' => $customer->getId(),
+                $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $customer->getId(),
                     'params' => [
                         'subject' => 'Un nouveau panorama disponible sur LMS-Sodepac',
-                        'text' => 'Un nouveau panorama est disponible d&#232;s maintenant sur votre Application'
+                        'title' => 'Un nouveau panorama disponible sur LMS-Sodepac',
+                        'text1' => 'Un nouveau panorama est disponible sur votre application'
                     ]
                 ]);
 

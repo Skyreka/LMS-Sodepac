@@ -2,12 +2,14 @@
 
 namespace App\Controller\Technician;
 
+use App\AsyncMethodService;
 use App\Entity\Exploitation;
 use App\Entity\Users;
 use App\Form\ExploitationType;
 use App\Form\PasswordType;
 use App\Form\TechnicianCustomersType;
 use App\Repository\UsersRepository;
+use App\Service\EmailNotifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,11 +55,15 @@ class CustomerController extends AbstractController
     /**
      * @Route("/new", name="technician_customers_new", methods={"GET", "POST"})
      * @param Request $request
-     * @param \Swift_Mailer $mailer
      * @param UserPasswordEncoderInterface $encoder
+     * @param AsyncMethodService $asyncMethodService
      * @return Response
      */
-    public function new( Request $request, \Swift_Mailer $mailer, UserPasswordEncoderInterface $encoder)
+    public function new(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        AsyncMethodService $asyncMethodService
+    )
     {
         $user = new Users();
         $form = $this->createForm( TechnicianCustomersType::class, $user );
@@ -82,21 +88,12 @@ class CustomerController extends AbstractController
             $this->em->flush();
 
             //Send Email to user
-            $link = $request->getUriForPath('/login');
-            $message = (new \Swift_Message('Votre compte LMS Sodepac est maintenant disponible.'))
-                ->setFrom('send@example.com')
-                ->setTo( $user->getEmail() )
-                ->setBody(
-                    $this->renderView(
-                        'emails/registration.html.twig', [
-                            'first_name' => $user->getFirstname(),
-                            'link' => $link
-                        ]
-                    ),
-                    'text/html'
-                )
-            ;
-            $mailer->send($message);
+            $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $user->getId(),
+                'params' => [
+                    'subject' => 'Votre compte LMS Sodepac est maintenant disponible.',
+                    'text1' => 'Votre compte LMS Sodepac est maintenant disponible.'
+                ]
+            ]);
 
             $this->addFlash('success', 'Nouveau client crée avec succès');
 

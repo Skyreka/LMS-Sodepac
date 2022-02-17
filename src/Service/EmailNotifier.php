@@ -38,6 +38,12 @@ class EmailNotifier {
     public function notify( int $userId, array $params ) {
         $user = $this->em->find( Users::class, $userId );
 
+        if ( !isset($params['title']) ) { $title = ''; } else { $title = $params['title']; }
+        if ( !isset($params['text2']) ) { $text2 = ''; } else { $text2 = $params['text2']; }
+        if ( !isset($params['text1']) ) { $text1 = ''; } else { $text1 = $params['text1']; }
+        if ( !isset($params['link']) ) { $link = ''; } else { $link = $params['link']; }
+        if ( !isset($params['btn_text']) ) { $btnText = ''; } else { $btnText = $params['btn_text']; }
+
         $message = (new TemplatedEmail())
             ->subject( $params['subject'] )
             ->from( new Address('noreply@sodepac.fr', 'LMS-Sodepac'))
@@ -45,7 +51,11 @@ class EmailNotifier {
             ->htmlTemplate( 'emails/notification/user/email_notification.html.twig' )
             ->context([
                 'identity' => $user->getIdentity(),
-                'text' => $params['text']
+                'title' => $title,
+                'text1' => $text1,
+                'text2' => $text2,
+                'link' => $link,
+                'btn_text' => $btnText
             ])
         ;
 

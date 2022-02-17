@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\AsyncMethodService;
 use App\Entity\Bsv;
 use App\Entity\BsvUsers;
 use App\Form\FlashSendType;
@@ -9,6 +10,7 @@ use App\Form\FlashType;
 use App\Repository\BsvRepository;
 use App\Repository\BsvUsersRepository;
 use App\Repository\UsersRepository;
+use App\Service\EmailNotifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -183,10 +185,14 @@ class FlashController extends AbstractController
      * @Route("/admin/flash/send/{id}", name="admin_flash_send", methods={"GET","POST"}, requirements={"id":"\d+"})
      * @param Bsv $bsv
      * @param Request $request
-     * @param \Swift_Mailer $mailer
+     * @param AsyncMethodService $asyncMethodService
      * @return Response
      */
-    public function adminSend(Bsv $bsv, Request $request, \Swift_Mailer $mailer): Response
+    public function adminSend(
+        Bsv $bsv,
+        Request $request,
+        AsyncMethodService $asyncMethodService
+    ): Response
     {
         $bsvUsers = new BsvUsers();
         $form = $this->createForm(FlashSendType::class, $bsvUsers);
@@ -214,20 +220,13 @@ class FlashController extends AbstractController
                     $relation->setDisplayAt($datetime);
                 }
 
-                //Send email notification
-                $message = (new \Swift_Message('Un nouveau flash est disponible sur LMS-Sodepac.'))
-                    ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
-                    ->setTo( $customer->getEmail() )
-                    ->setBody(
-                        $this->renderView(
-                            'emails/notification/user/flash.html.twig', [
-                                'first_name' => $customer->getIdentity()
-                            ]
-                        ),
-                        'text/html'
-                    )
-                ;
-                $mailer->send($message);
+                //Send email notification Async
+                $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $customer->getId(),
+                    'params' => [
+                        'subject' => 'Un nouveau flash est disponible sur LMS-Sodepac',
+                        'text' => 'En nouveau flash est disponible. Vous pouvez le consulter sur votre application'
+                    ]
+                ]);
             }
             $bsv->setSent(1);
             $this->em->flush();
@@ -245,11 +244,16 @@ class FlashController extends AbstractController
      * @Route("/admin/flash/send/all/{id}", name="admin_flash_send_all", methods="SEND", requirements={"id":"\d+"})
      * @param Bsv $bsv
      * @param Request $request
-     * @param \Swift_Mailer $mailer
+     * @param AsyncMethodService $asyncMethodService
      * @param UsersRepository $ur
      * @return RedirectResponse
      */
-    public function adminSendAll(Bsv $bsv, Request $request, \Swift_Mailer $mailer, UsersRepository $ur): RedirectResponse
+    public function adminSendAll(
+        Bsv $bsv,
+        Request $request,
+        AsyncMethodService $asyncMethodService,
+        UsersRepository $ur
+    ): RedirectResponse
     {
         if ($this->isCsrfTokenValid('send' . $bsv->getId(), $request->get('_token'))) {
             $customers = $ur->findAllByRole('ROLE_USER');
@@ -261,20 +265,14 @@ class FlashController extends AbstractController
                     ->setCustomers($customer)
                     ->setChecked(1)
                     ->setDisplayAt(new \DateTime());
+
                 //Send email notification
-                $message = (new \Swift_Message('Un nouveau flash est disponible sur LMS-Sodepac.'))
-                    ->setFrom('send@lms-sodepac.fr')
-                    ->setTo( $customer->getEmail() )
-                    ->setBody(
-                        $this->renderView(
-                            'emails/notification/user/flash.html.twig', [
-                                'first_name' => $customer->getIdentity()
-                            ]
-                        ),
-                        'text/html'
-                    )
-                ;
-                $mailer->send($message);
+                $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $customer->getId(),
+                    'params' => [
+                        'subject' => 'Un nouveau flash est disponible sur LMS-Sodepac',
+                        'text' => ''
+                    ]
+                ]);
             }
             $bsv->setSent(1);
             $this->em->flush();

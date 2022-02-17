@@ -89,6 +89,7 @@ class ProductUpCommand extends Command
 
                     $product = $this->pr->findOneBy( ['id_lex' => $idLex ] );
                     $product->setDar( $dar );
+                    $product->setSubstance( $substance );
                     $product->setZnt( $znt );
                     $product->setDre( $dre );
                     $product->setSecurityMention( $securityMention );

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\AsyncMethodService;
 use App\Entity\Exploitation;
 use App\Entity\IndexCanevas;
 use App\Entity\IndexCultures;
@@ -19,6 +20,7 @@ use App\Repository\RecommendationProductsRepository;
 use App\Repository\RecommendationsRepository;
 use App\Repository\StocksRepository;
 use App\Repository\UsersRepository;
+use App\Service\EmailNotifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -464,12 +466,18 @@ class RecommendationsController extends AbstractController
      * @Route("recommendations/{id}/send", name="recommendation_send", methods="SEND")
      * @param Recommendations $recommendations
      * @param Request $request
-     * @param \Swift_Mailer $mailer
      * @param StocksRepository $sr
      * @param RecommendationProductsRepository $rpr
+     * @param AsyncMethodService $asyncMethodService
      * @return Response
      */
-    public function send( Recommendations $recommendations, Request $request, \Swift_Mailer $mailer, StocksRepository $sr, RecommendationProductsRepository $rpr )
+    public function send (
+        Recommendations $recommendations,
+        Request $request,
+        StocksRepository $sr,
+        RecommendationProductsRepository $rpr,
+        AsyncMethodService $asyncMethodService
+    )
     {
         if ($this->isCsrfTokenValid('send', $request->get('_token'))) {
             //-- Update Status of recommendation
@@ -500,23 +508,13 @@ class RecommendationsController extends AbstractController
             // Save to Db
             $this->em->flush();
 
-            //-- SEND PDF TO USER
-            $link = $request->getUriForPath(' ');
-            $message = (new \Swift_Message('Nouveau canevas disponible'))
-                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
-                ->setTo( $recommendations->getExploitation()->getUsers()->getEmail() )
-                ->setBody(
-                    $this->renderView(
-                        'emails/recommendation.html.twig', [
-                            'identity' => $recommendations->getExploitation()->getUsers()->getIdentity(),
-                            'link' => $link
-                        ]
-                    ),
-                    'text/html'
-                )
-                ->attach( \Swift_Attachment::fromPath( 'uploads/recommendations/'.$recommendations->getPdf() ) )
-            ;
-            $mailer->send($message);
+            //Send Email to user
+            $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $recommendations->getExploitation()->getUsers()->getId(),
+                'params' => [
+                    'subject' => 'Un nouveau catalogue est disponible sur LMS Sodepac.',
+                    'text1' => 'Un nouveau catalogue est disponible sur votre application, Vous le trouverez ci-joint.'
+                ]
+            ]);
 
             $this->addFlash('success', 'Email envoyé avec succès. Statut du catalogue: Envoyé');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);

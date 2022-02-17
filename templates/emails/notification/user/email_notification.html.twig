@@ -9,7 +9,7 @@
     </style>
     <meta name="x-apple-disable-message-reformatting" />
     <style type="text/css">
-        body {
+        .main, .mso {
             margin: 0;
             padding: 0;
         }
@@ -27,6 +27,14 @@
         .wrapper .footer__share-button a:hover,
         .wrapper .footer__share-button a:focus {
             color: #ffffff !important;
+        }
+        .wrapper .footer__share-button a.icon-white:hover,
+        .wrapper .footer__share-button a.icon-white:focus {
+            color: #ffffff !important;
+        }
+        .wrapper .footer__share-button a.icon-black:hover,
+        .wrapper .footer__share-button a.icon-black:focus {
+            color: #000000 !important;
         }
         .btn a:hover,
         .btn a:focus,
@@ -236,6 +244,46 @@
                 }
             }
         }
+        /***
+        * Mobile Styles
+        *
+        * 1. Overriding inline styles
+        */
+        @media(max-width: 619px) {
+            .email-flexible-footer .left-aligned-footer .column,
+            .email-flexible-footer .center-aligned-footer,
+            .email-flexible-footer .right-aligned-footer .column {
+                max-width: 100% !important; /* [1] */
+                text-align: center !important; /* [1] */
+                width: 100% !important; /* [1] */
+            }
+            .flexible-footer-logo {
+                margin-left: 0px !important; /* [1] */
+                margin-right: 0px !important; /* [1] */
+            }
+            .email-flexible-footer .left-aligned-footer .flexible-footer__share-button__container,
+            .email-flexible-footer .center-aligned-footer .flexible-footer__share-button__container,
+            .email-flexible-footer .right-aligned-footer .flexible-footer__share-button__container {
+                display: inline-block;
+                margin-left: 5px !important; /* [1] */
+                margin-right: 5px !important; /* [1] */
+            }
+            .email-flexible-footer__additionalinfo--center {
+                text-align: center !important; /* [1] */
+            }
+
+            .email-flexible-footer .left-aligned-footer table,
+            .email-flexible-footer .center-aligned-footer table,
+            .email-flexible-footer .right-aligned-footer table {
+                display: table !important; /* [1] */
+                width: 100% !important; /* [1] */
+            }
+            .email-flexible-footer .footer__share-button,
+            .email-flexible-footer .email-footer__additional-info {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
         @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
             .fblike {
                 background-image: url(https://i7.createsend1.com/static/eb/master/13-the-blueprint-3/images/fblike@2x.png) !important;
@@ -425,9 +473,9 @@
     </style>
 
     <!--[if !mso]><!--><style type="text/css">
-        @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700,400italic);
-    </style><link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,400italic" rel="stylesheet" type="text/css" /><!--<![endif]--><style type="text/css">
-        body{background-color:#fbfbfb}.logo a:hover,.logo a:focus{color:#1e2e3b !important}.mso .layout-has-border{border-top:1px solid #c8c8c8;border-bottom:1px solid #c8c8c8}.mso .layout-has-bottom-border{border-bottom:1px solid #c8c8c8}.mso .border,.ie .border{background-color:#c8c8c8}.mso h1,.ie h1{}.mso h1,.ie h1{font-size:26px !important;line-height:34px !important}.mso h2,.ie h2{}.mso h2,.ie h2{font-size:20px !important;line-height:28px !important}.mso h3,.ie h3{}.mso .layout__inner,.ie .layout__inner{}.mso .footer__share-button p{}.mso .footer__share-button p{font-family:Georgia,serif}
+        @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700,400italic,700italic);
+    </style><link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,400italic,700italic" rel="stylesheet" type="text/css" /><!--<![endif]--><style type="text/css">
+        .main,.mso{background-color:#fbfbfb}.logo a:hover,.logo a:focus{color:#1e2e3b !important}.footer-logo a:hover,.footer-logo a:focus{color:#372d1b !important}.mso .layout-has-border{border-top:1px solid #c8c8c8;border-bottom:1px solid #c8c8c8}.mso .layout-has-bottom-border{border-bottom:1px solid #c8c8c8}.mso .border,.ie .border{background-color:#c8c8c8}.mso h1,.ie h1{}.mso h1,.ie h1{font-size:26px !important;line-height:34px !important}.mso h2,.ie h2{}.mso h2,.ie h2{font-size:20px !important;line-height:28px !important}.mso h3,.ie h3{}.mso .layout__inner,.ie .layout__inner{}.mso .footer__share-button p{}.mso .footer__share-button p{font-family:Georgia,serif}
     </style><meta name="robots" content="noindex,nofollow" />
     <meta property="og:title" content="My First Campaign" />
 </head>
@@ -435,7 +483,7 @@
 <body class="mso">
 <![endif]-->
 <!--[if !mso]><!-->
-<body class="full-padding" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;">
+<body class="main full-padding" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;">
 <!--<![endif]-->
 <table class="wrapper" style="border-collapse: collapse;table-layout: fixed;min-width: 320px;width: 100%;background-color: #fbfbfb;" cellpadding="0" cellspacing="0" role="presentation"><tbody><tr><td>
             <div role="banner">
@@ -447,7 +495,7 @@
                         </div>
                         <!--[if (mso)|(IE)]></td><td style="width: 280px" valign="top"><![endif]-->
                         <div class="webversion" style="display: table-cell;Float: left;font-size: 12px;line-height: 19px;max-width: 280px;min-width: 139px; width: 139px;width: calc(14100% - 78680px);padding: 10px 0 5px 0;text-align: right;color: #999;font-family: Georgia,serif;">
-                            <p style="Margin-top: 0;Margin-bottom: 0;">Pas d'images ? <webversion style="text-decoration: underline;">Version web</webversion></p>
+
                         </div>
                         <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
                     </div>
@@ -455,7 +503,7 @@
                 <div class="header" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);" id="emb-email-header-container">
                     <!--[if (mso)|(IE)]><table align="center" class="header" cellpadding="0" cellspacing="0" role="presentation"><tr><td style="width: 600px"><![endif]-->
                     <div class="logo emb-logo-margin-box" style="font-size: 26px;line-height: 32px;Margin-top: 6px;Margin-bottom: 20px;color: #41637e;font-family: Avenir,sans-serif;Margin-left: 20px;Margin-right: 20px;" align="center">
-                        <div class="logo-center" align="center" id="emb-email-header"><img style="display: block;height: auto;width: 100%;border: 0;max-width: 148px;" src="https://sodepac.fr/images/logo.png" alt="" width="148" /></div>
+                        <div class="logo-center" align="center" id="emb-email-header"><a style="text-decoration: none;transition: opacity 0.1s ease-in;color: #41637e;" href="https://sodepac.fr"><img style="display: block;height: auto;width: 100%;border: 0;max-width: 234px;" src="https://sodepac.fr/images/logo.png" alt="Logo Sodepac" width="234" /></a></div>
                     </div>
                     <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
                 </div>
@@ -468,13 +516,24 @@
 
                             <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 24px;">
                                 <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
-                                    <p class="size-17" style="Margin-top: 0;Margin-bottom: 20px;font-size: 17px;line-height: 26px;text-align: center;" lang="x-size-17">Bonjour, {{ identity }} <br>
-                                        {{ text}}
-                                        <br/>
-                                        <br/>
-                                        {{ APP_NAME }}</p>
+                                    <h1 style='Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #565656;font-size: 22px;line-height: 31px;font-family: Montserrat,"DejaVu Sans",Verdana,sans-serif;'><span class="font-montserrat" style="text-decoration: inherit;">{{ title }}</span></h1><p style='Margin-top: 20px;Margin-bottom: 0;font-family: Montserrat,"DejaVu Sans",Verdana,sans-serif;'><span class="font-montserrat" style="text-decoration: inherit;">{{ text1 }}</span></p><p style='Margin-top: 20px;Margin-bottom: 20px;font-family: Montserrat,"DejaVu Sans",Verdana,sans-serif;'><span class="font-montserrat" style="text-decoration: inherit;">{{ text2 }}</span></p>
                                 </div>
                             </div>
+                            {% if btn_text is defined and btn_text is not empty and btn_text is not null %}
+                                <div style="Margin-left: 20px;Margin-right: 20px;">
+                                    <div class="btn btn--flat btn--large" style="Margin-bottom: 20px;text-align: center;">
+                                        <![if !mso]><a style="border-radius: 4px;display: inline-block;font-size: 14px;font-weight: bold;line-height: 24px;padding: 12px 24px;text-align: center;text-decoration: none !important;transition: opacity 0.1s ease-in;color: #ffffff !important;background-color: #27ae60;font-family: Montserrat, DejaVu Sans, Verdana, sans-serif;" href="{{ link  }}">{{ btn_text }}</a><![endif]>
+                                        <!--[if mso]><p style="line-height:0;margin:0;">&nbsp;</p><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="{{ link }}" style="width:112px" arcsize="9%" fillcolor="#27AE60" stroke="f"><v:textbox style="mso-fit-shape-to-text:t" inset="0px,11px,0px,11px"><center style="font-size:14px;line-height:24px;color:#FFFFFF;font-family:Montserrat,DejaVu Sans,Verdana,sans-serif;font-weight:bold;mso-line-height-rule:exactly;mso-text-raise:4px">Btn ltext</center></v:textbox></v:roundrect><![endif]--></div>
+                                </div>
+                                <div style="Margin-left: 20px;Margin-right: 20px;">
+                                    <div class="divider" style="display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #c8c8c8;Margin-bottom: 20px;">&nbsp;</div>
+                                </div>
+                                <div style="Margin-left: 20px;Margin-right: 20px;Margin-bottom: 24px;">
+                                    <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
+                                        <p style="Margin-top: 0;Margin-bottom: 0;text-align: center;">Bouton non fonctionnel ?&nbsp;</p><p style="Margin-top: 20px;Margin-bottom: 0;text-align: center;">&nbsp;{{ link }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                         <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
                     </div>
@@ -482,47 +541,78 @@
 
                 <div style="mso-line-height-rule: exactly;line-height: 20px;font-size: 20px;">&nbsp;</div>
 
+            </div>
+            <div role="contentinfo">
+                <div class="layout email-footer stack" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+                    <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;">
+                        <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-email-footer"><td style="width: 400px;" valign="top" class="w360"><![endif]-->
+                        <div class="column wide" style="text-align: left;font-size: 12px;line-height: 19px;color: #999;font-family: Georgia,serif;Float: left;max-width: 400px;min-width: 320px; width: 320px;width: calc(8000% - 47600px);">
+                            <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 10px;Margin-bottom: 10px;">
+                                <table class="email-footer__links" style="border-collapse: collapse;table-layout: fixed;" role="presentation" emb-web-links><tbody><tr role="navigation">
 
-                <div role="contentinfo">
-                    <div class="layout email-footer stack" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
-                        <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;">
-                            <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-email-footer"><td style="width: 400px;" valign="top" class="w360"><![endif]-->
-                            <div class="column wide" style="text-align: left;font-size: 12px;line-height: 19px;color: #999;font-family: Georgia,serif;Float: left;max-width: 400px;min-width: 320px; width: 320px;width: calc(8000% - 47600px);">
-                                <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 10px;Margin-bottom: 10px;">
-
-                                    <div style="font-size: 12px;line-height: 19px;">
-                                        <div>{{ APP_NAME }}</div>
-                                    </div>
-                                    <div style="font-size: 12px;line-height: 19px;Margin-top: 18px;">
-                                        <div>E-mail de notification&nbsp;</div>
-                                    </div>
-                                    <!--[if mso]>&nbsp;<![endif]-->
+                                    </tr></tbody></table>
+                                <div style="font-size: 12px;line-height: 19px;margin-bottom: 15px;Margin-top: 20px;">
+                                    <div><p class="email-flexible-footer__additionalinfo--center" style="Margin-top: 0;Margin-bottom: 0;">SODEPAC SAS</p></div>
                                 </div>
-                            </div>
-                            <!--[if (mso)|(IE)]></td><td style="width: 200px;" valign="top" class="w160"><![endif]-->
-                            <div class="column narrow" style="text-align: left;font-size: 12px;line-height: 19px;color: #999;font-family: Georgia,serif;Float: left;max-width: 320px;min-width: 200px; width: 320px;width: calc(72200px - 12000%);">
-                                <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 10px;Margin-bottom: 10px;">
-
+                                <div style="font-size: 12px;line-height: 19px;margin-bottom: 15px;Margin-top: 18px;">
+                                    <div><p class="email-flexible-footer__additionalinfo--center" style="Margin-top: 0;Margin-bottom: 0;">Vous pouvez exercer vos droits d'acc&#232;s, de rectification, d'effacement, d'opposition et de limitation au traitement de vos donn&#233;es personnelles ou organiser le sort de vos donn&#233;es post-mortem en nous contactant par email &#224; l'adresse suivante :&nbsp;<a style="text-decoration: underline;transition: opacity 0.1s ease-in;color: #999;" href="mailto:privacy@sephora.fr">contact@lmsdesign.fr</a>.&nbsp; Pour plus d'informations et conna&#238;tre les autres droits dont vous disposez, veuillez lire notre politique Donn&#233;es Personnelles et Cookies</p></div>
                                 </div>
+                                <!--[if mso]>&nbsp;<![endif]-->
                             </div>
-                            <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
                         </div>
-                    </div>
-                    <div class="layout one-col email-footer" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
-                        <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;">
-                            <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-email-footer"><td style="width: 600px;" class="w560"><![endif]-->
-                            <div class="column" style="text-align: left;font-size: 12px;line-height: 19px;color: #999;font-family: Georgia,serif;">
-                                <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 10px;Margin-bottom: 10px;">
-                                    <div style="font-size: 12px;line-height: 19px;">
-                                        <unsubscribe style="text-decoration: underline;">Se d&#233;sinscrire</unsubscribe>
+                        <!--[if (mso)|(IE)]></td><td style="width: 200px;" valign="top" class="w160"><![endif]-->
+                        <div class="column narrow" style="text-align: left;font-size: 12px;line-height: 19px;color: #999;font-family: Georgia,serif;Float: left;max-width: 320px;min-width: 200px; width: 320px;width: calc(72200px - 12000%);">
+                            <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 10px;Margin-bottom: 10px;">
+                                <div class="footer__share-button" emb-if-social="fblike || tweet || linkedinshare || forwardtoafriend">
+                                    <div style="Margin-bottom: 6px;mso-line-height-rule: exactly;" emb-if-social="fblike">
+                                        <fblike style="border-radius: 2px;color: #ffffff;display: inline-block;font-size: 11px;font-weight: bold;line-height: 19px;text-align: left;text-decoration: none;border-style: solid;border-width: 4px 7px 3px 4px;mso-border-width-alt: 4px 8px 8px 8px;background-color: #7e7e7e;border-color: #7e7e7e;mso-border-color-alt: #7e7e7e;" emb-social="fblike">
+                                            &nbsp;<img style="border: 0;display: inline-block;margin-right: 2px;vertical-align: -3px;" src="https://i7.createsend1.com/static/eb/master/13-the-blueprint-3/images/fblike-icon@2x.png" width="16" height="16" border="0" alt="" />
+                                            <span style="font-size: 11px;mso-text-raise: 3px;">Partager&nbsp;</span>
+                                        </fblike>
+                                    </div>
+                                    <div style="Margin-bottom: 6px;mso-line-height-rule: exactly;" emb-if-social="tweet">
+                                        <tweet style="border-radius: 2px;color: #ffffff;display: inline-block;font-size: 11px;font-weight: bold;line-height: 19px;text-align: left;text-decoration: none;border-style: solid;border-width: 4px 7px 3px 4px;mso-border-width-alt: 4px 8px 8px 8px;background-color: #7e7e7e;border-color: #7e7e7e;mso-border-color-alt: #7e7e7e;" emb-social="tweet">
+                                            &nbsp;<img style="border: 0;display: inline-block;margin-right: 2px;vertical-align: -3px;" src="https://i9.createsend1.com/static/eb/master/13-the-blueprint-3/images/tweet-icon@2x.png" width="16" height="16" border="0" alt="" />
+                                            <span style="font-size: 11px;mso-text-raise: 3px;">Tweet&nbsp;</span>
+                                        </tweet>
+                                    </div>
+                                    <div style="Margin-bottom: 6px;mso-line-height-rule: exactly;" emb-if-social="linkedinshare">
+                                        <linkedinshare style="border-radius: 2px;color: #ffffff;display: inline-block;font-size: 11px;font-weight: bold;line-height: 19px;text-align: left;text-decoration: none;border-style: solid;border-width: 4px 7px 3px 4px;mso-border-width-alt: 4px 8px 8px 8px;background-color: #7e7e7e;border-color: #7e7e7e;mso-border-color-alt: #7e7e7e;" emb-social="linkedinshare">
+                                            &nbsp;<img style="border: 0;display: inline-block;margin-right: 2px;vertical-align: -3px;" src="https://i1.createsend1.com/static/eb/master/13-the-blueprint-3/images/lishare-icon@2x.png" width="16" height="16" border="0" alt="" />
+                                            <span style="font-size: 11px;mso-text-raise: 3px;">Partager&nbsp;</span>
+                                        </linkedinshare>
+                                    </div>
+                                    <div style="Margin-bottom: 6px;mso-line-height-rule: exactly;" emb-if-social="forwardtoafriend">
+                                        <forwardtoafriend style="border-radius: 2px;color: #ffffff;display: inline-block;font-size: 11px;font-weight: bold;line-height: 19px;text-align: left;text-decoration: none;border-style: solid;border-width: 4px 7px 3px 4px;mso-border-width-alt: 4px 8px 8px 8px;background-color: #7e7e7e;border-color: #7e7e7e;mso-border-color-alt: #7e7e7e;" emb-social="forwardtoafriend" lang="fr-FR">
+                                            &nbsp;<img style="border: 0;display: inline-block;margin-right: 2px;vertical-align: -3px;" src="https://i2.createsend1.com/static/eb/master/13-the-blueprint-3/images/forward-icon@2x.png" width="16" height="16" border="0" alt="" />
+                                            <span style="font-size: 11px;mso-text-raise: 3px;">Transf&#233;rer&nbsp;</span>
+                                        </forwardtoafriend>
                                     </div>
                                 </div>
                             </div>
-                            <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
                         </div>
+                        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
                     </div>
                 </div>
-                <div style="line-height:40px;font-size:40px;">&nbsp;</div>
-            </div></td></tr></tbody></table>
-
+                <div class="layout one-col email-footer" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+                    <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;">
+                        <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-email-footer"><td style="width: 600px;" class="w560"><![endif]-->
+                        <div class="column" style="text-align: left;font-size: 12px;line-height: 19px;color: #999;font-family: Georgia,serif;">
+                            <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 10px;Margin-bottom: 10px;">
+                                <div style="font-size: 12px;line-height: 19px;margin-bottom: 15px;">
+                                    <span emb-social="preferences"><preferences style="text-decoration: underline;" lang="fr-FR">Mettre &#224; jour les pr&#233;f&#233;rences</preferences>&nbsp;&nbsp;|&nbsp;&nbsp;</span><unsubscribe style="text-decoration: underline;">Se d&#233;sinscrire</unsubscribe>
+                                </div>
+                            </div>
+                        </div>
+                        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+                    </div>
+                </div>
+            </div>
+            <div style="line-height:40px;font-size:40px;" id="footer-spacing">&nbsp;</div>
+        </td></tr></tbody></table>
+<style type="text/css">
+    @media (max-width:619px){.email-flexible-footer .left-aligned-footer .column,.email-flexible-footer .center-aligned-footer,.email-flexible-footer .right-aligned-footer .column{max-width:100% !important;text-align:center !important;width:100% !important}.flexible-footer-logo{margin-left:0px !important;margin-right:0px !important}.email-flexible-footer .left-aligned-footer .flexible-footer__share-button__container,.email-flexible-footer .center-aligned-footer .flexible-footer__share-button__container,.email-flexible-footer .right-aligned-footer .flexible-footer__share-button__container{display:inline-block;margin-left:5px !important;margin-right:5px !important}.email-flexible-footer__additionalinfo--center{text-align:center !important}.email-flexible-footer .left-aligned-footer table,.email-flexible-footer .center-aligned-footer table,.email-flexible-footer .right-aligned-footer
+    table{display:table !important;width:100% !important}.email-flexible-footer .footer__share-button,.email-flexible-footer .email-footer__additional-info{margin-left:20px;margin-right:20px}}
+</style>
 </body></html>
+
