@@ -46,7 +46,7 @@
                                 <tbody>
                                 {% for panorama in panoramas %}
                                     <tr>
-                                        <td>{{ panorama.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                        <td>{{ panorama.displayAt | date('d/m/y') }}</td>
                                         <td>{{ panorama.panorama.text }}</td>
                                         <td>
                                             <a title="Découvrir" href="{{ path('user_panorama_show', {id: panorama.panorama.id}) }}" class="btn btn-success">Découvrir</a>

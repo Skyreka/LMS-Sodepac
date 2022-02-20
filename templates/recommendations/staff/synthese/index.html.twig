@@ -82,7 +82,7 @@
                                             {{ recommendation.comment }}
                                         </td>
                                         <td>
-                                            {{ recommendation.createAt | localizeddate('none', 'none', app.request.locale, "Europe/Paris", "d MMM Y") }}
+                                            {{ recommendation.createAt | date("d/m/y") }}
                                         </td>
                                         <td>
                                             <div style="display: flex">

@@ -46,7 +46,7 @@
                                 <tbody>
                                 {% for panorama in panoramas %}
                                         <tr>
-                                            <td>{{ panorama.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                                            <td>{{ panorama.creationDate | date('d/m/y') }}</td>
                                             {% if app.user.status == 'ROLE_ADMIN' %}
                                                 <td>{{ panorama.owner.identity|default('Aucun') }}</td>
                                             {% endif %}

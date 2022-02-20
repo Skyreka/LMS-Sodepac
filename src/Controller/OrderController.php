@@ -1,36 +1,34 @@
 <?php
 namespace App\Controller;
 
+use App\AsyncMethodService;
 use App\Entity\Orders;
 use App\Entity\OrdersProduct;
 use App\Entity\Products;
-use App\Entity\RecommendationProducts;
 use App\Entity\Recommendations;
 use App\Entity\Signature;
 use App\Entity\SignatureOtp;
 use App\Form\OrderAdditionalType;
 use App\Form\OrdersAddProductFieldType;
 use App\Form\OrdersAddProductType;
-use App\Form\OrdersAddProductVariousType;
 use App\Form\OrdersType;
-use App\Notification\SignatureNotification;
 use App\Repository\OrdersProductRepository;
-use App\Repository\CulturesRepository;
 use App\Repository\OrdersRepository;
 use App\Repository\ProductsRepository;
 use App\Repository\RecommendationProductsRepository;
 use App\Repository\UsersRepository;
+use App\Service\EmailNotifier;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
  * Class CardController
@@ -441,16 +439,16 @@ class OrderController extends AbstractController
     /**
      * @Route("management/order/valid/{id}", name="order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
-     * @param SignatureNotification $notification
-     * @param \Swift_Mailer $mailer
+     * @param AsyncMethodService $asyncMethodService
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
     public function valid(
         Orders $order,
-        \Swift_Mailer $mailer,
-        Request $request ): Response
+        AsyncMethodService $asyncMethodService,
+        Request $request
+    ): Response
     {
         //Security
         if ( $order->getStatus() == 1 ) {
@@ -466,8 +464,6 @@ class OrderController extends AbstractController
             $order->setStatus( 2 );
             $order->setCreateDate( $newDate );
 
-            // Generate OTP Code
-
             // Generate OTP
             $codeOtp = new SignatureOtp();
             $codeOtp->setSignature( $signature );
@@ -476,21 +472,18 @@ class OrderController extends AbstractController
             $this->em->persist( $codeOtp );
 
             // Send Sign Email
-            $link = $this->generateUrl('signature_order_sign', ['token' => $signature->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
-            $message = (new \Swift_Message('Signature électronique du devis - LMS SODEPAC'))
-                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
-                ->setTo( $order->getCustomer()->getEmail() )
-                ->setBody(
-                    $this->renderView(
-                        'emails/signature/sign.html.twig', [
-                            'link' => $link,
-                            'code_otp' => $codeOtp->getCode()
-                        ]
-                    ),
-                    'text/html'
-                )
-            ;
-            $mailer->send($message);
+            $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $order->getCustomer()->getId(),
+                'params' => [
+                    'subject' => 'Signature électronique de votre devis - LMS-Sodepac',
+                    'title' => 'Votre devis vous attend',
+                    'text1' => '
+                        Veuillez trouver ci-joint le lien vous permettant de signer électroniquement votre commande envoyé par la société Sodepac, 
+                        votre signature électronique actera la validation de le commande ci-joint.',
+                    'text2' => 'Veuillez utiliser le code suivant pour valider votre signature: '. $codeOtp->getCode(),
+                    'link' => $this->generateUrl('signature_order_sign', ['token' => $signature->getToken()], UrlGeneratorInterface::ABSOLUTE_URL),
+                    'btn_text' => 'Découvrir votre devis'
+                ]
+            ]);
 
             $this->em->flush();
 
@@ -504,12 +497,16 @@ class OrderController extends AbstractController
     /**
      * @Route("order/sign/{id}", name="order_sign", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
-     * @param \Swift_Mailer $mailer
+     * @param Mailer $mailer
      * @param Request $request
      * @return Response
-     * @throws \Exception
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function sign( Orders $order, \Swift_Mailer $mailer, Request $request ): Response
+    public function sign(
+        Orders $order,
+        MailerInterface $mailer,
+        Request $request
+    ): Response
     {
         //Security
         if( $order->getCustomer() != $this->getUser() AND $order->getCreator() != $this->getUser() AND $request->get('print') == false AND $this->getUser()->getStatus() != 'ROLE_ADMIN') {
@@ -521,19 +518,25 @@ class OrderController extends AbstractController
             $order->setStatus( 3 );
 
             // Send to depot
-            $message = (new \Swift_Message('#'. $order->getIdNumber() . ' Nouvelle commande de ' . $order->getCreator()->getIdentity()))
-                ->setFrom('noreply@sodepac.fr', 'LMS-Sodepac')
-                ->setTo( $order->getCustomer()->getWarehouse()->getEmail() )
-                ->setBody(
-                    $this->renderView(
-                        'management/order/email/send.html.twig', [
-                            'order' => $order
-                        ]
-                    ),
-                    'text/html'
-                )
+            // Send to Warehouse
+            $message = (new TemplatedEmail())
+                ->subject( 'Nouvelle commande de ' . $order->getCreator()->getIdentity() )
+                ->from( new Address('noreply@sodepac.fr', 'LMS-Sodepac'))
+                ->to( $order->getCustomer()->getWarehouse()->getEmail() )
+                ->htmlTemplate( 'emails/notification/user/email_notification.html.twig' )
+                ->context([
+                    'title' => 'Nouvelle commande venant de '. $order->getCreator()->getIdentity() .' ( CONFIDENTIEL ! )',
+                    'text1' => 'ID COMMANDE #'. $order->getIdNumber(),
+                    'text2' => 'Destinataire '. $order->getCustomer()->getIdentity(),
+                    'link' => $this->generateUrl('order_pdf_view', ['id_number' => $order->getIdNumber(), 'print' => 'true']),
+                    'btn_text' => 'Découvrir la commande'
+                ])
             ;
-            $mailer->send($message);
+            try {
+                $mailer->send($message);
+            } catch (TransportExceptionInterface $e ) {
+                return $e;
+            }
 
             $this->em->flush();
 

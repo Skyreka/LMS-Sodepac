@@ -15,7 +15,7 @@
             <tbody>
             {% for panorama in panoramas %}
                 <tr>
-                    <td>{{ panorama.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
+                    <td>{{ panorama.displayAt  | date('d/m/y') }}</td>
                     <td>{{ panorama.panorama.text }}</td>
                     <td>
                         {% if panorama.panorama.firstFile %}

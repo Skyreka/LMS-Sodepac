@@ -20,8 +20,8 @@
                 <tbody>
                 {% for panorama in panoramas %}
                     <tr>
-                        <td>{{ panorama.panorama.creationDate|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</td>
-                        <td>{{ panorama.displayAt|localizeddate('none', 'none', null, null, 'd MMMM Y à HH:mm') }}</td>
+                        <td>{{ panorama.panorama.creationDate | date('d/m/y') }}</td>
+                        <td>{{ panorama.displayAt  | date('d/m/y') }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>{{ panorama.sender.identity }}</td>
                         {% endif %}
