@@ -137,7 +137,7 @@ class SignatureController extends AbstractController
                     return $e;
                 }
                 $this->em->flush();
-                $this->addFlash('success', 'Contrat signé avec succès');
+                $this->addFlash('success', 'Commande signée avec succès');
                 return $this->redirectToRoute( 'order_pdf_view', ['id_number' => $order->getIdNumber() ] );
             } else {
                 $this->addFlash('danger', 'Code non valide');
