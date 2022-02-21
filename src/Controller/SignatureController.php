@@ -20,6 +20,7 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SignatureController extends AbstractController
 {
@@ -126,7 +127,7 @@ class SignatureController extends AbstractController
                         'title' => 'Nouvelle commande venant de '. $order->getCreator()->getIdentity() .' ( CONFIDENTIEL ! )',
                         'text1' => 'Id de la commande #'. $order->getIdNumber(),
                         'text2' => 'Destinataire '. $order->getCustomer()->getIdentity(),
-                        'link' => $this->generateUrl('order_pdf_view', ['id_number' => $order->getIdNumber(), 'print' => 'true']),
+                        'link' => $this->generateUrl('order_pdf_view', ['id_number' => $order->getIdNumber(), 'print' => 'true'], UrlGeneratorInterface::ABSOLUTE_URL),
                         'btn_text' => 'Découvrir la commande'
                     ])
                 ;
