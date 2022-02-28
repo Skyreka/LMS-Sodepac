@@ -13,10 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Orders
 {
     const STATUS = [
-        0 => 'Draft',
-        1 => 'Create',
-        2 => 'Wait Signature',
-        3 => 'Sign'
+        0 => ['Brouillon', ''],
+        1 => ['Devis', 'info'],
+        2 => ['Attente signature', 'warning'],
+        3 => ['Commandé', 'success']
     ];
 
     /**
@@ -162,8 +162,18 @@ class Orders
         return $this;
     }
 
-    public function getStatus(): ?int
+    /**
+     * @param $params
+     * @return string
+     */
+    public function getStatus( $params = [] ): string
     {
+        if ( isset($params['label']) ) {
+            return self::STATUS[$this->status][1];
+        }
+        if ( isset($params['word']) ) {
+            return self::STATUS[$this->status][0];
+        }
         return $this->status;
     }
 
@@ -208,5 +218,49 @@ class Orders
         $this->signature = $signature;
 
         return $this;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsAwaitingSign(): ?bool
+    {
+        if ( $this->status == 2 ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsDraft(): ?bool
+    {
+        if ( $this->status == 0 ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsQuotation(): ?bool
+    {
+        if ( $this->status == 1 ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsOrdered(): ?bool
+    {
+        if ( $this->status == 3 ) {
+            return true;
+        }
+        return false;
     }
 }

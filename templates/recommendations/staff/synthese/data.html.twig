@@ -10,13 +10,7 @@
         </td>
         <td>{{ recommendation.culture.name }}</td>
         <td>
-            {% if( recommendation.status == 1 ) %}
-                <span class="badge badge-warning">Créee</span>
-            {% elseif( recommendation.status == 2 ) %}
-                <span class="badge badge-info">Générée</span>
-            {% elseif( recommendation.status == 3 ) %}
-                <span class="badge badge-success">Envoyée</span>
-            {% endif %}
+            <span class="badge badge-{{ recommendation.status( {'label': true} ) }}">{{ recommendation.status( {'word': true} ) }}</span>
         </td>
         {% if app.user.status == 'ROLE_ADMIN' %}
             <td>{{ recommendation.exploitation.users.technician.identity ? recommendation.exploitation.users.technician.identity : 'Aucun' }}</td>

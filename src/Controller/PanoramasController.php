@@ -60,7 +60,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="panorama_delete", methods="DELETE", requirements={"id":"\d+"})
+     * @Route("/delete/{id}", name="panorama_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse
@@ -77,7 +77,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="panorama_valid", methods="VALID", requirements={"id":"\d+"})
+     * @Route("/valid/{id}", name="panorama_valid", methods="VALID", requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse

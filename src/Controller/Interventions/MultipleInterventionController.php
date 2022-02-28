@@ -22,6 +22,8 @@ class MultipleInterventionController extends AbstractController
      * @param Request $request
      * @param CulturesRepository $cr
      * @return Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function index( Request $request, CulturesRepository $cr ): Response
     {

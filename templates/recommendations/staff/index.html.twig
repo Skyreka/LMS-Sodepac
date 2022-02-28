@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
-            <div class="col-md-5 col-8 align-self-center">
+            <div class="col-md-5 col-12 align-self-center">
                 <h3 class="text-themecolor">Liste des catalogues</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
@@ -75,13 +75,7 @@
                                         </td>
                                         <td>{{ recommendation.culture.name }}</td>
                                         <td>
-                                            {% if( recommendation.status == 1 ) %}
-                                                <span class="badge badge-warning">Crée</span>
-                                            {% elseif( recommendation.status == 2 ) %}
-                                                <span class="badge badge-info">Généré</span>
-                                            {% elseif( recommendation.status == 3 ) %}
-                                                <span class="badge badge-success">Envoyé</span>
-                                            {% endif %}
+                                            <span class="badge badge-{{ recommendation.status( {'label': true} ) }}">{{ recommendation.status( {'word': true} ) }}</span>
                                         </td>
                                         {% if app.user.status == 'ROLE_ADMIN' %}
                                             <td>{{ recommendation.exploitation.users.technician.identity ? recommendation.exploitation.users.technician.identity : 'Aucun' }}</td>

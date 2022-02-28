@@ -13,10 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Recommendations
 {
     const STATUS = [
-        0 => 'Draft',
-        1 => 'Create',
-        2 => 'Generate',
-        3 => 'Sended'
+        0 => ['Brouillon', ''],
+        1 => ['Crée', 'warning'],
+        2 => ['Généré', 'info'],
+        3 => ['Envoyé', 'success']
     ];
 
     public function __construct()
@@ -119,10 +119,17 @@ class Recommendations
         return $this;
     }
 
-    public function getStatus( $return = false ): ?int
+    /**
+     * @param $params
+     * @return string
+     */
+    public function getStatus( $params = [] ): string
     {
-        if ($return) {
-            return self::STATUS[$this->status];
+        if ( isset($params['label']) ) {
+            return self::STATUS[$this->status][1];
+        }
+        if ( isset($params['word']) ) {
+            return self::STATUS[$this->status][0];
         }
         return $this->status;
     }

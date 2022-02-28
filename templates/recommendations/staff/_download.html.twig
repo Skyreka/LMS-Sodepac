@@ -7,5 +7,5 @@
         {% endif %}
     </form>
 {% else %}
-    <a title="Télécharger" class="btn btn-success ml-2" href="{{ asset('uploads/recommendations/' ~ recommendation.pdf) }}" target="_blanck"><i class="fas fa-download"></i> {{ button_label|default('') }}</a>
+    <a title="Télécharger" class="btn btn-success ml-2" href="{{ asset('uploads/recommendations/' ~ recommendation.pdf) }}" download><i class="fas fa-download"></i> {{ button_label|default('') }}</a>
 {% endif %}

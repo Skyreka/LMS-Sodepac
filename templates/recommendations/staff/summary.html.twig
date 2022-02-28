@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
-            <div class="col-md-5 col-8 align-self-center">
+            <div class="col-md-5 col-12 align-self-center">
                 <h3 class="text-themecolor">Récapitulatif du Catalogue</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
@@ -29,7 +29,7 @@
                 <div class="card">
                     <div class="card-body">
                         {% if recommendation.status >= 2 %}
-                            <form method="POST" action="{{ path('order_product_add', {'recommendation': recommendation.id }) }}">
+                            <form method="POST" action="{{ path('management_order_product_add', {'recommendation': recommendation.id }) }}">
                                 <input type="hidden" name="_method" value="ADDTOORDER">
                                 <button {{ app.request.query.get('added') ? "disabled"}} id="add-all-product" class="btn btn-info ml-2 float-right pull-right" title="Ajouter tous les produits"><i class="fas fa-truck"></i> Ajouter tous les produits</button>
                             </form>

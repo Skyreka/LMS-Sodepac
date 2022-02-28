@@ -15,7 +15,7 @@ class OrdersType extends AbstractType
     {
         $builder
             ->add('customer', Select2EntityType::class, [
-                'remote_route' => 'order_select_data',
+                'remote_route' => '_management_select_users',
                 'class' => Users::class,
                 'primary_key' => 'id',
                 'minimum_input_length' => 2,
@@ -25,7 +25,7 @@ class OrdersType extends AbstractType
                 'cache' => true,
                 'cache_timeout' => 60000, // if 'cache' is true
                 'language' => 'fr',
-                'placeholder' => 'Choisir un client'
+                'placeholder' => 'Choisir un utilisateur'
             ])
         ;
     }

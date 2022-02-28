@@ -20,7 +20,7 @@ class PurchaseContractType extends AbstractType
                 'choices' => $this->getCultureType()
             ])
             ->add('customer', Select2EntityType::class, [
-                'remote_route' => 'order_select_data',
+                'remote_route' => 'management_order_select_data',
                 'class' => Users::class,
                 'primary_key' => 'id',
                 'minimum_input_length' => 2,

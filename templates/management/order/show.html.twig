@@ -4,24 +4,66 @@
 
 {% block body %}
     <div class="container-fluid">
-        <div class="row pt-5">
-            <!-- Column -->
-            <div class="col-12">
-                <!--begin::Alert-->
+        <div class="row pt-3">
+            <div class="col-md-6 col-12">
+                {% if order.isDraft %}
+                    <div class="alert alert-info" role="alert">
+                        <strong>Information - </strong> Votre panier est actuellement temporaire sans enregistrement il sera détruit.
+                    </div>
+                {% endif %}
+                {% if order.isQuotation %}
+                    <div class="alert alert-success" role="alert">
+                        <strong>Information - </strong> Cette commande est enregistrée, vous pouvez la consulter à tout moment
+                    </div>
+                {% endif %}
+                {% if order.isAwaitingSign %}
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Information - </strong> Cette commande est en attente de signature par le client.
+                    </div>
+                {% endif %}
+                {% if order.isOrdered %}
+                    <div class="alert alert-success" role="alert">
+                        <strong>Information - </strong> Cette commande est validée et en cours de traitement dans dépot.
+                    </div>
+                {% endif %}
                 {% for label, messages in app.flashes %}
                     {% for message in messages %}
                         <div class="alert alert-{{ label }}">{{ message }}</div>
                     {% endfor %}
                 {% endfor %}
             </div>
+            <div class="col-md-6 col-12">
+                {% if order.status == 0 %}
+                    <div class="d-flex no-block align-items-center pull-right">
+                        <form class="d-inline" method="POST" action="{{ path('management_order_delete_recorded', {'id': order.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer votre panier ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
+                            <button class="btn btn-danger mr-3"><i class="fa fa-trash"></i> {{ button_label|default('') }}</button>
+                        </form>
+                        <a href="{{ path('management_order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer</a>
+                    </div>
+                {% endif %}
+                {% if order.isQuotation %}
+                    <button class="btn btn-info btn-valid pull-right" data-toggle="modal" data-target="#validModal">Commander</button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-9 col-lg-9">
                 <div class="card">
                     <div class="card-header bg-info">
                         <h5 class="mb-0 text-white">Votre panier <span class="badge-warning">{{ order.idNumber }}</span></h5>
                     </div>
                     <div class="card-body">
+                        <div class="d-block pull-right">
+                            {% if (order.isDraft ) or (order.isQuotation == 1) %}
+                                <a href="{{ path('management_order_product_other_add') }}" class="btn btn-dark btn-outline-info ml-2 pull-right"><i class="fas fa-plus"></i> Produit</a>
+                                <a href="{{ path('management_order_product_other_field_add') }}" class="btn btn-dark btn-outline-info pull-right"><i class="fas fa-plus"></i>  Divers</a>
+                                <!--<a href="" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Pro.Sodepac</a>-->
+                            {% endif %}
+                        </div>
                         <div class="table-responsive">
-                            <table class="table product-overview" id="edit_order">
+                            <table class="table stylish-table" id="edit_order">
                                 <thead>
                                 <tr class="text-center">
                                     <th>id</th>
@@ -92,7 +134,7 @@
                                                                             <h5 class="my-1 text-dark font-weight-medium">{{ child.name }}</h5>
                                                                         </div>
                                                                         <div class="col-6 float-right">
-                                                                            <form class="d-inline" method="POST" action="{{ path('order_article_swipe', {'article': article.id, 'product': child.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir échanger les produits ?')">
+                                                                            <form class="d-inline" method="POST" action="{{ path('management_order_article_swipe', {'article': article.id, 'product': child.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir échanger les produits ?')">
                                                                                 <input type="hidden" name="_method" value="UPDATE">
                                                                                 <input type="hidden" name="_token" value="{{ csrf_token('order_product_swipe_' ~ article.id) }}">
                                                                                 <button type="submit" class="btn btn-sm"> <i class="fas fa-exchange-alt"></i></button>
@@ -130,14 +172,6 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
-                            <hr>
-                            <div class="d-flex no-block align-items-center">
-                                {% if (order.status == 0) or (order.status == 1) %}
-                                    <a href="{{ path('order_product_other_add') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Produit</a>
-                                    <a href="{{ path('order_product_other_field_add') }}" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i>  Divers</a>
-                                    <!--<a href="" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Pro.Sodepac</a>-->
-                                {% endif %}
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,7 +179,7 @@
                     <div class="card-body">
                         {{ form_start( form ) }}
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-info mb-2"> Enregistrer la livraison et le paiement</button>
+                                <button type="submit" class="btn btn-info mb-2 pull-right"> Enregistrer la livraison et le paiement</button>
                             </div>
                             <div class="form-group">
                                 {{ form_row( form.delivery ) }}
@@ -156,21 +190,6 @@
                         {{ form_end( form ) }}
                     </div>
                 </div>
-                {% if order.status == 0 %}
-                    <div class="alert alert-info" role="alert">
-                        <strong>Information - </strong> Votre panier est actuellement temporaire sans enregistrement il sera détruit.
-                    </div>
-                {% endif %}
-                {% if order.status == 1 %}
-                    <div class="alert alert-success" role="alert">
-                        <strong>Information - </strong> Cette commande est enregistrée, vous pouvez la consulter à tout moment
-                    </div>
-                {% endif %}
-                {% if order.status == 2 %}
-                    <div class="alert alert-success" role="alert">
-                        <strong>Information - </strong> Cette commande est validée et en cours de traitement dans dépot.
-                    </div>
-                {% endif %}
             </div>
             <!-- Column -->
             <div class="col-md-3 col-lg-3">
@@ -183,19 +202,6 @@
                         <small>Prix HT (avec RPD)</small>
                         <h2 id="totalTTC"></h2>
                         <hr>
-                        {% if order.status == 0 %}
-                            <div class="d-flex no-block align-items-center">
-                                <a href="{{ path('order_save', {id: order.id}) }}" class="btn btn-info"><i class="fa fa fa-save"></i> Enregistrer</a>
-                                <form class="d-inline" method="POST" action="{{ path('order_delete_recorded', {'id': order.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer votre panier ?')">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ order.id) }}">
-                                    <button class="btn btn-danger ml-3"><i class="fa fa-trash"></i> {{ button_label|default('') }}</button>
-                                </form>
-                            </div>
-                        {% endif %}
-                        {% if order.status == 1 %}
-                            <button class="btn btn-success btn-valid" data-toggle="modal" data-target="#validModal">Commander</button>
-                        {% endif %}
                     </div>
                 </div>
                 <div class="card">
@@ -204,13 +210,17 @@
                         <hr>
                         <p><i class="ti-email"></i> {{ order.customer.email ? order.customer.email : '' }}</p>
                         <p><i class="ti-mobile"></i> {{ order.customer.phone ? order.customer.phone : '' }}</p>
-                        <p><i class="ti-pin"></i>
+                        <p>
+                            <i class="ti-pin"></i>
                             {% if order.customer.warehouse %}
-                                <span id="warehouse-define">{{ order.customer.warehouse.name }}</span> <br>
-                                <span id="warehouse-define">{{ order.customer.warehouse.email }}</span> <br>
-                                <span id="warehouse-define">{{ order.customer.warehouse.address }}</span>
+                                <span id="warehouse-define">
+                                    {{ order.customer.warehouse.name }}
+                                    <br>
+                                    {{ order.customer.warehouse.address }}
+                                <!--<span id="warehouse-define">{{ order.customer.warehouse.email }}</span> <br> -->
+                                </span>
                             {% else %}
-                                Dépot: <a id="warehouse-not-define" href="{{ path('management_user_show', {id: order.customer.id}) }}">A DÉFINIR</a>
+                                Dépot: <a id="warehouse-not-define" class="text-danger font-bold" href="{{ path('management_user_show', {id: order.customer.id}) }}">A DÉFINIR</a>
                             {% endif %}
                         </p>
                     </div>
@@ -222,51 +232,34 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Vérification avant validation</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <div class="modal-body">
-                    <table class="table stylish-table mt-4 no-wrap v-middle">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <span id="depot-status" class="round text-white d-inline-block text-center rounded-circle"><i class="ti-close"></i></span></td>
-                            <td>
-                                <h6 class="mb-0 font-weight-medium"><a href="javascript:void(0)" class="link">Dépot défini</a></h6>
-                                <small class="text-muted">Le client à un dépot déclaré </small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span id="total-status" class=" round text-white d-inline-block text-center rounded-circle"><i class="ti-close"></i></span></td>
-                            <td>
-                                <h6 class="mb-0 font-weight-medium"><a href="javascript:void(0)" class="link">Commande Valide</a></h6>
-                                <small class="text-muted">Tous les produits ont les bonne valeurs</small>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal">Fermer</button>
-                    <button id="btn-valid" class="btn btn-success waves-effect ml-3" data-toggle="modal" data-target="#signModal" disabled>Valider</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <div id="signModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Validation de la commande</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <form method="POST" action="{{ path('order_valid', {id: order.id}) }}">
+
+                <form method="POST" action="{{ path('management_order_valid', {id: order.id}) }}">
                     <div class="modal-body">
+                        <h5 class="card-title">Vérification avant confirmation:</h5>
+                        <table class="table stylish-table mt-4 no-wrap v-middle">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span id="depot-status" class="round text-white d-inline-block text-center rounded-circle"></span></td>
+                                <td>
+                                    <h6 class="mb-0 font-weight-medium"><a href="javascript:void(0)" class="link">Dépot client défini</a></h6>
+                                    <small class="text-muted">Le client à un dépot déclaré </small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="total-status" class=" round text-white d-inline-block text-center rounded-circle"></span></td>
+                                <td>
+                                    <h6 class="mb-0 font-weight-medium"><a href="javascript:void(0)" class="link">Commande valide</a></h6>
+                                    <small class="text-muted">Tous les produits ont les bonne valeurs</small>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                         <div class="col-12 mb-4">
-                            <h4 class="card-title">Date de la commande</h4>
+                            <h5 class="card-title">Date de la commande:</h5>
                             <div class="mt-4">
                                 <div class="form-group">
                                     <input type="date" name="date-order" class="form-control" value="{{ 'now'|date('Y-m-d') }}">
@@ -276,11 +269,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal">Fermer</button>
-                        <button type="submit" class="btn btn-success waves-effect ml-3">J'accepte</button>
+                        <button type="submit" id="btn-valid" class="btn btn-success waves-effect ml-3" disabled>Confirmer la commande</button>
                     </div>
                 </form>
             </div>
+            <!-- /.modal-content -->
         </div>
+        <!-- /.modal-dialog -->
     </div>
 {% endblock %}
 
@@ -289,7 +284,7 @@
     <script>
         {% if order.status != 2 %}
             $('#edit_order').Tabledit({
-                url: '{{ path('order_product_edit') }}',
+                url: '{{ path('management_order_product_edit') }}',
                 editButton: false,
                 hideIdentifier: true,
                 onSuccess: function(response, textStatus) {

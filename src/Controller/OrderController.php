@@ -11,6 +11,7 @@ use App\Entity\SignatureOtp;
 use App\Form\OrderAdditionalType;
 use App\Form\OrdersAddProductFieldType;
 use App\Form\OrdersAddProductType;
+use App\Form\OrderSignType;
 use App\Form\OrdersType;
 use App\Repository\OrdersProductRepository;
 use App\Repository\OrdersRepository;
@@ -25,6 +26,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,7 +34,7 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Class CardController
+ * Class OrderController
  * @package App\Controller\Management
  */
 class OrderController extends AbstractController
@@ -48,7 +50,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/management/order", name="order_index", methods={"GET"})
+     * @Route("/management/order", name="management_order_index", methods={"GET"})
      * @param OrdersRepository $op
      * @return Response
      */
@@ -92,7 +94,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/show/{id_number}", name="order_show", methods={"GET", "POST"})
+     * @Route("/management/order/show/{id_number}", name="management_order_show", methods={"GET", "POST"})
      * @param Orders $orders
      * @param OrdersProductRepository $cpr
      * @param Request $request
@@ -118,10 +120,12 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/delete/{id}", name="order_delete_recorded", methods="DELETE", requirements={"id":"\d+"})
+     * @Route("management/order/delete/{id}", name="management_order_delete_recorded", methods="DELETE", requirements={"id":"\d+"})
      * @param Orders $orders
      * @param Request $request
      * @return RedirectResponse
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function deleteRecorded(Orders $orders, Request $request): RedirectResponse
     {
@@ -137,9 +141,11 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/new", name="order_new", methods={"GET", "POST"})
+     * @Route("management/order/new", name="management_order_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function new( Request $request ): Response
     {
@@ -169,7 +175,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/new/order_select_data", name="order_select_data")
+     * @Route("/management/select_users", name="_management_select_users")
      * @param Request $request
      * @param UsersRepository $ur
      * @return JsonResponse
@@ -487,18 +493,27 @@ class OrderController extends AbstractController
             ]);
 
             $this->em->flush();
-
-            // Msg
-            $this->addFlash('success', 'Commande validée avec succès en attente de la signature du client.');
         }
 
         return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
     }
 
     /**
-     * @Route("order/sign/{id}", name="order_sign", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("/orders", name="user_order_index", methods={"GET", "POST"})
+     * @param OrdersRepository $op
+     * @return Response
+     */
+    public function userIndex( OrdersRepository $op ): Response
+    {
+        return $this->render('exploitation/order/index.html.twig', [
+            'orders' => $op->findByUser( $this->getUser() )
+        ]);
+    }
+
+    /**
+     * @Route("/order/sign/{id}", name="user_order_sign", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
-     * @param Mailer $mailer
+     * @param MailerInterface $mailer
      * @param Request $request
      * @return Response
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
@@ -506,7 +521,8 @@ class OrderController extends AbstractController
     public function sign(
         Orders $order,
         MailerInterface $mailer,
-        Request $request
+        Request $request,
+        AsyncMethodService $asyncMethodService
     ): Response
     {
         //Security
@@ -514,11 +530,28 @@ class OrderController extends AbstractController
             throw $this->createNotFoundException('Vous n\'avez pas la permission de signer ce document.');
         }
 
-        if ( $order->getStatus() == 2 ) {
+        //Security
+        if( $order->getStatus() != 2 ) {
+            $this->addFlash('warning', 'Cette commande est déjà signée.');
+            return $this->redirectToRoute('user_order_index');
+        }
+
+        $form = $this->createForm( OrderSignType::class, $order, [ 'user' => $this->getUser() ]);
+        $form->handleRequest( $request );
+
+        if ( $form->isSubmitted() && $form->isValid() && $order->getStatus() == 2 ) {
             // Update status
             $order->setStatus( 3 );
 
-            // Send to depot
+            // Send confirmation
+            $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $order->getCustomer()->getId(),
+                'params' => [
+                    'subject' => 'Confirmation de signature de votre commande - LMS-Sodepac',
+                    'title' => 'Nous vous confirmation la signature de votre bon de commande',
+                    'text1' => 'Nous vous remercions pour votre confiance, pouvez dès maintenant découvrir votre commande dans votre espace utilisateur'
+                ]
+            ]);
+
             // Send to Warehouse
             $message = (new TemplatedEmail())
                 ->subject( 'Nouvelle commande de ' . $order->getCreator()->getIdentity() )
@@ -542,24 +575,16 @@ class OrderController extends AbstractController
             $this->em->flush();
 
             // Msg
-            $this->addFlash('success', 'Commande validée avec succès.');
+            $this->addFlash('success', 'Commande signée avec succès.');
+
+            return $this->redirectToRoute('user_order_index');
         }
 
-        return $this->redirectToRoute('user_order_index');
-    }
-
-    /**
-     * @Route("/orders", name="user_order_index", methods={"GET", "POST"})
-     * @param OrdersRepository $op
-     * @return Response
-     */
-    public function userIndex( OrdersRepository $op ): Response
-    {
-        return $this->render('exploitation/orders/index.html.twig', [
-            'orders' => $op->findByUser( $this->getUser() )
+        return $this->render('exploitation/order/sign.html.twig', [
+            'order' => $order,
+            'form' => $form->createView()
         ]);
     }
-
 
     /**
      * @Route("/management/order/synthesis", name="order_synthesis", methods={"GET", "POST"})
@@ -579,11 +604,15 @@ class OrderController extends AbstractController
         ]);
     }
 
+
+
     /**
      * @Route("management/order/add-product-other", name="order_product_other_add", methods={"GET", "POST"})
      * @param Request $request
      * @param OrdersRepository $or
      * @return Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function addOtherProduct( Request $request, OrdersRepository $or ): Response
     {

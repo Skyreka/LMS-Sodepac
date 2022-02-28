@@ -10,7 +10,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
-            <div class="col-md-5 col-8 align-self-center">
+            <div class="col-md-5 col-12 align-self-center">
                 <h3 class="text-themecolor">Création d'une commande</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
@@ -19,23 +19,21 @@
                 </ol>
             </div>
         </div>
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-        {% for message in app.flashes('danger') %}
-            <div class="alert alert-danger">{{ message }}</div>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">{{ message }}</div>
+            {% endfor %}
         {% endfor %}
         {% if app.session.get('currentOrder') %}
-            <div class="alert alert-warning">Vous avez déjà un panier en cours. <a href="{{ path('order_show', {id_number: app.session.get('currentOrder').idNumber}) }}">#{{ app.session.get('currentOrder').idNumber }}</a> Cette action annulera celui-ci</div>
+            <div class="alert alert-warning">Vous avez déjà un panier en cours. <a href="{{ path('management_order_show', {id_number: app.session.get('currentOrder').idNumber}) }}">#{{ app.session.get('currentOrder').idNumber }}</a> Cette action annulera celui-ci</div>
         {% endif %}
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
                             {{ form_rest(form) }}
-                            <button class="btn btn-primary">Créer la commande</button>
+                            <button class="btn btn-info">Créer la commande</button>
                         {{ form_end(form) }}
                     </div>
                 </div>

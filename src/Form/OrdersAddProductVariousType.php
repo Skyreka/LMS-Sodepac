@@ -14,7 +14,7 @@ class OrdersAddProductVariousType extends AbstractType
     {
         $builder
             ->add('product', Select2EntityType::class, [
-                'remote_route' => 'order_select_product_various_data',
+                'remote_route' => '_management_select_product_various_data',
                 'class' => Products::class,
                 'primary_key' => 'id',
                 'minimum_input_length' => 2,

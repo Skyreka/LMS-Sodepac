@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
-            <div class="col-md-5 col-8 align-self-center">
+            <div class="col-md-5 col-12 align-self-center">
                 <h3 class="text-themecolor">Accueil Technicien</h3>
             </div>
         </div>
@@ -124,13 +124,7 @@
                                             {{ recommendation.createAt | date("d/m/y") }}
                                         </td>
                                         <td>
-                                            {% if( recommendation.status == 1 ) %}
-                                                <span class="badge badge-warning">Créee</span>
-                                            {% elseif( recommendation.status == 2 ) %}
-                                                <span class="badge badge-info">Générée</span>
-                                            {% elseif( recommendation.status == 3 ) %}
-                                                <span class="badge badge-success">Envoyée</span>
-                                            {% endif %}
+                                            <span class="badge badge-{{ recommendation.status( {'label': true} ) }}">{{ recommendation.status( {'word': true} ) }}</span>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -166,13 +160,7 @@
                                         </td>
                                         <td>{{ order.createDate | date("d/m/y") }}</td>
                                         <td>
-                                            {% if( order.status == 0 ) %}
-                                                <span class="badge badge-danger">⚠️ Temporaire ⚠️</span>
-                                            {% elseif( order.status == 1 ) %}
-                                                <span class="badge badge-info">Enregistrée</span>
-                                            {% elseif( order.status == 2 ) %}
-                                                <span class="badge badge-success">Commandée</span>
-                                            {% endif %}
+                                            <span class="badge badge-{{ order.status( {'label': true} ) }}">{{ order.status( {'word': true} ) }}</span>
                                         </td>
                                     </tr>
                                 {% else %}
@@ -182,7 +170,7 @@
                             </table>
                         </div>
                         <div class="text-center">
-                            <a href="{{ path('order_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
+                            <a href="{{ path('management_order_index') }}" class="link font-medium"><h6>Voir plus</h6></a>
                         </div>
                     </div>
                 </div>
