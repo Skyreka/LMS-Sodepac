@@ -32,7 +32,7 @@ public/uploads/recommendations/
 .idea/php.xml
 
 composer.lock
-
+symfony.lock
 
 # User-specific stuff:
 .idea/**/workspace.xml
