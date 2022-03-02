@@ -57,7 +57,7 @@ class OrderController extends AbstractController
     public function index(OrdersRepository $op): Response
     {
         if ($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
-            $orders = $op->findByTechnician( $this->getUser(), 10 );
+            $orders = $op->findByTechnician( $this->getUser() );
         } else {
             $orders = $op->findByAdmin();
         }
@@ -231,12 +231,13 @@ class OrderController extends AbstractController
 
     /**
      * @Route("management/order/product/add/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"recommendation":"\d+"})
-     * @param Recommendations|null $recommendation
-     * @param RecommendationProductsRepository $rpr
+     * @param Recommendations $recommendation
      * @param OrdersRepository $or
      * @param OrdersProductRepository $opr
      * @param Request $request
      * @return RedirectResponse
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function addProduct(
         Recommendations $recommendation,
@@ -428,6 +429,8 @@ class OrderController extends AbstractController
      * @Route("management/order/save/{id}", name="order_save", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
      * @return Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function save( Orders $order ): Response
     {
@@ -444,7 +447,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/valid/{id}", name="order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("/management/order/valid/{id}", name="management_order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
      * @param AsyncMethodService $asyncMethodService
      * @param Request $request
@@ -587,27 +590,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/management/order/synthesis", name="order_synthesis", methods={"GET", "POST"})
-     * @param OrdersRepository $op
-     * @return Response
-     */
-    public function synthesis( OrdersRepository $op ): Response
-    {
-        if ($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
-            $orders = $op->findByTechnician( $this->getUser() );
-        } else {
-            $orders = $op->findByAdmin();
-        }
-
-        return $this->render('management/order/synthesis/index.html.twig', [
-            'orders' => $orders
-        ]);
-    }
-
-
-
-    /**
-     * @Route("management/order/add-product-other", name="order_product_other_add", methods={"GET", "POST"})
+     * @Route("/management/order/add-product-other", name="order_product_other_add", methods={"GET", "POST"})
      * @param Request $request
      * @param OrdersRepository $or
      * @return Response

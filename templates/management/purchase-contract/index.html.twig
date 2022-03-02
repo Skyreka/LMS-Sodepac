@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contrat D'Achat{% endblock %}
+{% block title %}Contrat d'achat{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-12 align-self-center">
-                <h3 class="text-themecolor">Contrat D'Achat</h3>
+                <h3 class="text-themecolor">Contrat d'achat</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item active">Contrat D'Achat</li>
+                    <li class="breadcrumb-item active">Contrat d'achat</li>
                 </ol>
             </div>
         </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="row">
             <div class="col-12 pull-right mb-2">
-                <a href="{{ path('purchase_contract_new') }}" class="btn btn-success pull-right ml-2">Créer un contrat</a>
+                <a href="{{ path('purchase_contract_new') }}" class="btn btn-success pull-right ml-2">Nouveau contrat</a>
             </div>
             <div class="col-lg-12">
                 <div class="card">
@@ -36,8 +36,8 @@
                                     {% if app.user.status == 'ROLE_ADMIN' %}
                                         <th>Technicien</th>
                                     {% endif %}
-                                    <th>Date</th>
                                     <th>Statut</th>
+                                    <th>Crée le</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -56,14 +56,14 @@
                                                     </a>
                                                 </td>
                                             {% endif %}
-                                            <td>{{ contract.addedDate | date("d/m/y") }}</td>
                                             <td>
                                                 {% if( contract.status == 0 ) %}
-                                                    <span class="badge badge-warning">En cours️</span>
+                                                    <span class="badge badge-warning">Brouillon</span>
                                                 {% elseif( contract.status == 1 ) %}
                                                     <span class="badge badge-info">Envoyé</span>
                                                 {% endif %}
                                             </td>
+                                            <td><p class="font-14">{{ contract.addedDate | date("d/m/y") }}</p></td>
                                             <td>
                                                 <a class="btn btn-success" href="{{ path('management_purchase_contract_show', {id: contract.id}) }}"><i class="fa fa-eye text-white"></i></a>
                                                 {% if is_granted( 'ROLE_SUPERADMIN' ) %}

@@ -29,43 +29,41 @@
                                 <a href="{{ path('technician_customers_new') }}" class="btn btn-success">Ajouter un client</a>
                             </div>
                         </div>
-                        <div class="table-responsive m-t-20">
-                            <table class="table stylish-table" id="datatable">
-                                <thead>
+                       <table class="table stylish-table" id="datatable">
+                            <thead>
+                            <tr>
+                                <th>Informations</th>
+                                <th>Téléphone</th>
+                                <th>Ville</th>
+                                <th>Certification</th>
+                                <th>Pack</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for customer in customers %}
                                 <tr>
-                                    <th>Informations</th>
-                                    <th>Téléphone</th>
-                                    <th>Ville</th>
-                                    <th>Certification</th>
-                                    <th>Pack</th>
-                                    <th>Actions</th>
+                                    <td>
+                                        <a href="{{ path('management_user_show', {id: customer.id}) }}">
+                                            <h6>{{ customer.firstname }} {{ customer.lastname }}</h6>
+                                            {% if customer.email != null %}
+                                                <small class="text-muted">{{ customer.email }}</small>
+                                            {% else %}
+                                                <span class="badge badge-danger">Pas de mail</span>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td>{{ customer.phone }}</td>
+                                    <td>{{ customer.city }}</td>
+                                    <td>{{ customer.certificationPhyto }}</td>
+                                    <td>{{ customer.pack( true ) }}</td>
+                                    <td>
+                                        <a href="{{ path('management_user_show', {id: customer.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                {% for customer in customers %}
-                                    <tr>
-                                        <td>
-                                            <a href="{{ path('management_user_show', {id: customer.id}) }}">
-                                                <h6>{{ customer.firstname }} {{ customer.lastname }}</h6>
-                                                {% if customer.email != null %}
-                                                    <small class="text-muted">{{ customer.email }}</small>
-                                                {% else %}
-                                                    <span class="badge badge-danger">Pas de mail</span>
-                                                {% endif %}
-                                            </a>
-                                        </td>
-                                        <td>{{ customer.phone }}</td>
-                                        <td>{{ customer.city }}</td>
-                                        <td>{{ customer.certificationPhyto }}</td>
-                                        <td>{{ customer.pack( true ) }}</td>
-                                        <td>
-                                            <a href="{{ path('management_user_show', {id: customer.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -90,6 +90,21 @@ class Cultures
      */
     private $ppfs;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $addedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updateAt;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isActive = 1;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
@@ -314,6 +329,42 @@ class Cultures
                 $ppf->setCulture(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddedAt(): ?\DateTimeInterface
+    {
+        return $this->addedAt;
+    }
+
+    public function setAddedAt(?\DateTimeInterface $addedAt): self
+    {
+        $this->addedAt = $addedAt;
+
+        return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

@@ -73,20 +73,14 @@ class RecommendationsController extends AbstractController
      */
     public function indexStaff( RecommendationsRepository $rr): Response
     {
-        //Counters
-        $recommendationsValid = $rr->countAllByStatus( 3 );
-
         // Get Last Recommendations
         if ($this->isGranted('ROLE_ADMIN')) {
-            $lastRecommendations = $rr->findAllByYear( date('Y'), 5 );
-            //Counters
-            $recommendationsValid = $rr->countAllByStatus( 3 );
+            $lastRecommendations = $rr->findAllByYear( date('Y') );
         } else {
             $lastRecommendations = $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), date('Y'), 5 );
         }
 
         return $this->render('recommendations/staff/index.html.twig', [
-            'totalValid' => $recommendationsValid,
             'lastRecommendations' => $lastRecommendations
         ]);
     }
@@ -645,57 +639,10 @@ class RecommendationsController extends AbstractController
     }
 
     /**
-     * @Route("recommendations/synthese", name="recommendation_synthese")
+     * @Route("exploitation/recommendations", name="exploitation_recommendation_index")
      * @param RecommendationsRepository $rr
      * @return Response
      */
-    public function synthese( RecommendationsRepository $rr ): Response
-    {
-        $year = date('Y');
-        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
-            return $this->render('recommendations/staff/synthese/index.html.twig', [
-                'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
-            ]);
-        } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
-            return $this->render('recommendations/staff/synthese/index.html.twig', [
-                'recommendations' => $rr->findAllByYear( $year )
-            ]);
-        } else {
-            return $this->render('recommendations/staff/synthese/index.html.twig', [
-                'recommendations' => $rr->findAllByYear($year)
-            ]);
-        }
-    }
-
-    /**
-     * @Route("recommendations/synthese/data/{year}", name="recommendation_synthese_data")
-     * @param RecommendationsRepository $rr
-     * @param $year
-     * @return Response
-     */
-    public function syntheseData( RecommendationsRepository $rr, $year ): Response
-    {
-        //-- If user is technician get recommendation of user of technician
-        if ( $this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
-            return $this->render('recommendations/staff/synthese/data.html.twig', [
-                'recommendations' => $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), $year )
-            ]);
-        } elseif ($this->getUser()->getStatus() === 'ROLE_ADMIN') {
-            return $this->render('recommendations/staff/synthese/data.html.twig', [
-                'recommendations' => $rr->findAllByYear($year)
-            ]);
-        } else {
-            return $this->render('recommendations/staff/synthese/data.html.twig', [
-                'recommendations' => $rr->findAllByYear($year)
-            ]);
-        }
-    }
-
-    /**
- * @Route("exploitation/recommendations", name="exploitation_recommendation_index")
- * @param RecommendationsRepository $rr
- * @return Response
- */
     public function indexUser( RecommendationsRepository $rr ): Response
     {
         return $this->render('exploitation/recommendations/index.html.twig', [

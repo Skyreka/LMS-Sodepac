@@ -21,7 +21,12 @@ class HomeController extends AbstractController {
      * @return Response
      * @throws \Exception
      */
-    public function home(BsvUsersRepository $bur, PanoramaUserRepository $pur, TicketsRepository $tr, RecommendationsRepository $rr): Response
+    public function home(
+        BsvUsersRepository $bur,
+        PanoramaUserRepository $pur,
+        TicketsRepository $tr,
+        RecommendationsRepository $rr
+    ): Response
     {
         $datetime = new \DateTime();
         $flashs = $bur->findAllByCustomer($this->getUser(), 3);

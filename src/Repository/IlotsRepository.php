@@ -23,7 +23,7 @@ class IlotsRepository extends ServiceEntityRepository
     /**
     * @return Ilots[] Returns an array of Ilots objects
     */
-    public function findIlotsFromUser( $exploitation, $return = null )
+    public function findIlotsFromUser( $exploitation, $return = null, $year = null )
     {
         $query = $this->createQueryBuilder('i')
             ->andWhere('i.exploitation = :exploitation')

@@ -522,8 +522,8 @@
             "./tests/bootstrap.php"
         ]
     },
-    "symfony/polyfill-intl-grapheme": {
-        "version": "v1.18.1"
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.24.0"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.14.0"
@@ -603,9 +603,6 @@
     },
     "symfony/stopwatch": {
         "version": "v4.1.12"
-    },
-    "symfony/string": {
-        "version": "v5.1.5"
     },
     "symfony/swiftmailer-bundle": {
         "version": "2.5",
