@@ -50,6 +50,6 @@ class HomeController extends AbstractController {
      */
     public function cgv(): RedirectResponse
     {
-        return $this->redirect('docs/CGV_SODEPAC_SAS_-_EGALIM.pdf');
+        return $this->redirect('help/cgv/cgv.pdf');
     }
 }
