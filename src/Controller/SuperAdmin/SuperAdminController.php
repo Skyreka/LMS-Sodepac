@@ -14,14 +14,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * Class SuperAdminController
  * @package App\Controller
- * @Route("/super-admin")
+ * @Route("super-admin")
  * @IsGranted("ROLE_SUPERADMIN")
  */
 class SuperAdminController extends AbstractController {
 
 
     /**
-     * @Route("/", name="superadmin_index", methods={"GET"})
+     * @Route("", name="superadmin_index", methods={"GET"})
      * @param UsersRepository $ur
      * @return Response
      */

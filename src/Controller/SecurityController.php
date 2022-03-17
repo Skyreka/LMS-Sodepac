@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class SecurityController extends AbstractController {
 
     /**
-     * @Route("/", name="login", methods={"GET", "POST"})
+     * @Route("", name="login", methods={"GET", "POST"})
      * @param AuthenticationUtils $authenticationUtils
      * @param AuthorizationCheckerInterface $checker
      * @return Response
@@ -35,7 +35,7 @@ class SecurityController extends AbstractController {
     }
 
     /**
-     * @Route("/login_success", name="login_success", methods={"GET"})
+     * @Route("login_success", name="login_success", methods={"GET"})
      */
     public function postLoginRedirection()
     {
@@ -74,7 +74,7 @@ class SecurityController extends AbstractController {
     }
 
     /**
-     * @Route("/active_user/{id}", name="security_active", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("active_user/{id}", name="security_active", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Users $user
      * @param Request $request
      * @param EntityManagerInterface $em

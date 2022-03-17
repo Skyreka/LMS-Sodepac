@@ -25,7 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * Class TechnicianController
  * @package App\Controller
- * @Route("/admin/technicians")
+ * @Route("admin/technicians")
  */
 class TechnicianController extends AbstractController {
 
@@ -37,7 +37,7 @@ class TechnicianController extends AbstractController {
     }
 
     /**
-     * @Route("/", name="admin_technicians_index", methods={"GET"})
+     * @Route("", name="admin_technicians_index", methods={"GET"})
      */
     public function index( UsersRepository $ur ): Response
     {
@@ -47,7 +47,7 @@ class TechnicianController extends AbstractController {
     }
 
     /**
-     * @Route("/users/{id}", name="admin_technicians_users", methods={"GET"}, requirements={"id":"\d+"})
+     * @Route("users/{id}", name="admin_technicians_users", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function users( Users $technician, UsersRepository $ur ): Response
     {
@@ -58,7 +58,7 @@ class TechnicianController extends AbstractController {
     }
 
     /**
-     * @Route("/export/{id}", name="admin_technicians_export", methods={"GET", "POST"})
+     * @Route("export/{id}", name="admin_technicians_export", methods={"GET", "POST"})
      * @return Response
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */

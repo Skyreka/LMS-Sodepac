@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * Class AccountController
  * @package App\Controller
- * @Route("/account")
+ * @Route("account")
  */
 class  AccountController extends AbstractController {
 
@@ -33,7 +33,7 @@ class  AccountController extends AbstractController {
     }
 
     /**
-     * @Route("/", name="account_index", methods={"GET", "POST"})
+     * @Route("", name="account_index", methods={"GET", "POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @return Response

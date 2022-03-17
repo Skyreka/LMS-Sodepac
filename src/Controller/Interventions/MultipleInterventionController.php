@@ -13,12 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class MultipleInterventionController
  * @package App\Controller\Interventions
- * @Route("/interventions-multiple")
+ * @Route("interventions-multiple")
  */
 class MultipleInterventionController extends AbstractController
 {
     /**
-     * @Route("/select", name="intervention_multiple_index")
+     * @Route("select", name="intervention_multiple_index")
      * @param Request $request
      * @param CulturesRepository $cr
      * @return Response

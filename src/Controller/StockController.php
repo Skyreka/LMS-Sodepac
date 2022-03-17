@@ -45,7 +45,7 @@ class StockController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="exploitation_stock_new", methods={"GET", "POST"})
+     * @Route("new", name="exploitation_stock_new", methods={"GET", "POST"})
      * @param Request $request
      * @param StocksRepository $sr
      * @return Response
@@ -83,7 +83,7 @@ class StockController extends AbstractController
     }
 
     /**
-     * @Route("/private/new", name="exploitation_stock_private_new", methods={"GET", "POST"})
+     * @Route("private/new", name="exploitation_stock_private_new", methods={"GET", "POST"})
      * @param Request $request
      * @param StocksRepository $sr
      * @return Response
@@ -121,7 +121,7 @@ class StockController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="exploitation_stock_delete", methods="DELETE", requirements={"id":"\d+"})
+     * @Route("delete/{id}", name="exploitation_stock_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Stocks $stock
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -137,7 +137,7 @@ class StockController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="exploitation_stock_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("edit/{id}", name="exploitation_stock_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Stocks $stock
      * @param Request $request
      * @return Response

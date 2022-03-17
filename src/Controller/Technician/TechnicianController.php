@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TechnicianController extends AbstractController {
 
     /**
-     * @Route("/technician", name="technician_home")
+     * @Route("technician", name="technician_home")
      * @param UsersRepository $ur
      * @param PanoramasRepository $pr
      * @param BsvUsersRepository $bur

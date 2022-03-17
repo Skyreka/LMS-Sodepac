@@ -25,7 +25,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/panorama")
+ * @Route("panorama")
  */
 class PanoramasController extends AbstractController
 {
@@ -60,7 +60,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="panorama_delete", methods="DELETE", requirements={"id":"\d+"})
+     * @Route("delete/{id}", name="panorama_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse
@@ -77,7 +77,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/valid/{id}", name="panorama_valid", methods="VALID", requirements={"id":"\d+"})
+     * @Route("valid/{id}", name="panorama_valid", methods="VALID", requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return RedirectResponse
@@ -94,7 +94,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="panorama_new", methods={"GET", "POST"})
+     * @Route("new", name="panorama_new", methods={"GET", "POST"})
      * @param Request $request
      * @param UsersRepository $ur
      * @param AsyncMethodService $asyncMethodService
@@ -191,7 +191,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="panorama_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("edit/{id}", name="panorama_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @return Response
@@ -259,7 +259,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/send/{id}", name="panorama_send", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("send/{id}", name="panorama_send", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Panoramas $panoramas
      * @param Request $request
      * @param AsyncMethodService $asyncMethodService
@@ -316,7 +316,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/{id}", name="panorama_user_check", methods="CHECK", requirements={"id":"\d+"})
+     * @Route("user/{id}", name="panorama_user_check", methods="CHECK", requirements={"id":"\d+"})
      * @param PanoramaUser $panoramaUser
      * @param Request $request
      * @return RedirectResponse
@@ -333,7 +333,7 @@ class PanoramasController extends AbstractController
 
 
     /**
-     * @Route("/panoramas/history", name="panorama_history_index", methods={"GET"})
+     * @Route("panoramas/history", name="panorama_history_index", methods={"GET"})
      * @return Response
      */
     public function history(): Response
@@ -342,7 +342,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/history/{year}", name="panorama_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
+     * @Route("history/{year}", name="panorama_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response
@@ -362,7 +362,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/history", name="panorama_user_history_index", methods={"GET"})
+     * @Route("user/history", name="panorama_user_history_index", methods={"GET"})
      * @param PanoramaUserRepository $pur
      * @return Response
      * @throws \Exception
@@ -377,7 +377,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/history/{year}", name="panorama_user_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
+     * @Route("user/history/{year}", name="panorama_user_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      * @param PanoramaUserRepository $pur
      * @param $year
      * @return Response
@@ -392,7 +392,7 @@ class PanoramasController extends AbstractController
     }
 
     /**
-     * @Route("/user/panorama/show/{id}", name="user_panorama_show", methods={"GET"})
+     * @Route("user/panorama/show/{id}", name="user_panorama_show", methods={"GET"})
      * @param Panoramas $panorama
      * @return Response
      */

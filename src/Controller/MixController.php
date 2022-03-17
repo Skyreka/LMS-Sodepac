@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class MixController
  * @package App\Controller
- * @Route("/mix")
+ * @Route("mix")
  */
 class MixController extends AbstractController
 {
@@ -34,7 +34,7 @@ class MixController extends AbstractController
     /**
      * @param MixRepository $mr
      * @return Response
-     * @Route("/", name="mix_index", methods={"GET"})
+     * @Route("", name="mix_index", methods={"GET"})
      */
     public function index( MixRepository $mr ) : Response
     {
@@ -48,7 +48,7 @@ class MixController extends AbstractController
      * @param Request $request
      * @return Response
      * @throws \Exception
-     * @Route("/new", name="mix_new", methods={"GET", "POST"})
+     * @Route("new", name="mix_new", methods={"GET", "POST"})
      */
     public function new( Request $request ) : Response
     {
@@ -74,7 +74,7 @@ class MixController extends AbstractController
      * @param Request $request
      * @param Mix $mix
      * @return Response
-     * @Route("/add-product/{id}", name="mix_add_product", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("add-product/{id}", name="mix_add_product", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function addProduct( Request $request, Mix $mix ) : Response
     {
@@ -99,7 +99,7 @@ class MixController extends AbstractController
      * @param Mix $mix
      * @param MixProductsRepository $mpr
      * @return Response
-     * @Route("/show/{id}", name="mix_show", methods={"GET"}, requirements={"id":"\d+"})
+     * @Route("show/{id}", name="mix_show", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function show( Mix $mix, MixProductsRepository $mpr ) : Response
     {
@@ -111,7 +111,7 @@ class MixController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="mix_delete", methods="DELETE", requirements={"id":"\d+"})
+     * @Route("delete/{id}", name="mix_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Mix $mix
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

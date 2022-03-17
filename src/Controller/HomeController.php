@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController {
 
     /**
-     * @Route("/home", name="home")
+     * @Route("home", name="home")
      * @param BsvUsersRepository $bur
      * @param PanoramaUserRepository $pur
      * @param TicketsRepository $tr
@@ -46,7 +46,7 @@ class HomeController extends AbstractController {
     }
 
     /**
-     * @Route("/cgv", name="cgv_index")
+     * @Route("cgv", name="cgv_index")
      */
     public function cgv(): RedirectResponse
     {

@@ -22,7 +22,7 @@ use Zumba\JsonSerializer\JsonSerializer;
 /**
  * Class CustomersController
  * @package App\Controller\Technician
- * @Route("/technician/customers")
+ * @Route("technician/customers")
  */
 class CustomerController extends AbstractController
 {
@@ -42,7 +42,7 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/", name="technician_customers_index", methods={"GET"})
+     * @Route("", name="technician_customers_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -53,7 +53,7 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="technician_customers_new", methods={"GET", "POST"})
+     * @Route("new", name="technician_customers_new", methods={"GET", "POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @param AsyncMethodService $asyncMethodService

@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class PPFController
  * @package App\Controller
- * @Route("/admin/ppf")
+ * @Route("admin/ppf")
  */
 class PPFController extends AbstractController
 {
@@ -38,7 +38,7 @@ class PPFController extends AbstractController
     }
 
     /**
-     * @Route("/user-select", name="ppf_user_select", methods={"GET", "POST"})
+     * @Route("user-select", name="ppf_user_select", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -68,7 +68,7 @@ class PPFController extends AbstractController
     }
 
     /**
-     * @Route("/", name="ppf_index", methods={"GET"})
+     * @Route("", name="ppf_index", methods={"GET"})
      * @return Response
      */
     public function index(): Response
@@ -79,7 +79,7 @@ class PPFController extends AbstractController
     }
 
     /**
-     * @Route("/new_data_ajax", name="ppf_select_data")
+     * @Route("new_data_ajax", name="ppf_select_data")
      * @param Request $request
      * @param UsersRepository $ur
      * @param Users $users
@@ -118,7 +118,7 @@ class PPFController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="ppf_delete", methods="DELETE", requirements={"id":"\d+"})
+     * @Route("delete/{id}", name="ppf_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param PPF $PPF
      * @param Request $request
      * @return RedirectResponse

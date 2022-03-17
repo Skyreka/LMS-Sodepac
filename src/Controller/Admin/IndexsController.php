@@ -23,7 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * Class IndexsController
  * @package App\Controller
  * @IsGranted("ROLE_SUPERADMIN")
- * @Route("/admin/indexs")
+ * @Route("admin/indexs")
  */
 class IndexsController extends AbstractController
 {
@@ -38,7 +38,7 @@ class IndexsController extends AbstractController
     }
 
     /**
-     * @Route("/", name="indexs_index", methods={"GET"})
+     * @Route("", name="indexs_index", methods={"GET"})
      * @param IndexCulturesRepository $icr
      * @param IndexEffluentsRepository $ier
      * @param IndexGroundsRepository $igr
@@ -57,7 +57,7 @@ class IndexsController extends AbstractController
     }
 
     /**
-     * @Route("/cultures/new", name="indexs_cultures_new", methods={"GET", "POST"})
+     * @Route("cultures/new", name="indexs_cultures_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -83,7 +83,7 @@ class IndexsController extends AbstractController
     }
 
     /**
-     * @Route("/grounds/new", name="indexs_grounds_new", methods={"GET", "POST"})
+     * @Route("grounds/new", name="indexs_grounds_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -110,7 +110,7 @@ class IndexsController extends AbstractController
     }
 
     /**
-     * @Route("/effluents/new", name="indexs_effluents_new", methods={"GET", "POST"})
+     * @Route("effluents/new", name="indexs_effluents_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */

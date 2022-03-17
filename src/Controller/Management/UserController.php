@@ -25,7 +25,7 @@
      * Class UserController
      * Management Controller nly for view information of user let's ilots / culture .. for edit is only switch by role of user view profil
      * @package App\Controller\Management
-     * @Route("/management/user")
+     * @Route("management/user")
      */
     class UserController extends AbstractController
     {
@@ -40,7 +40,7 @@
 
         /**
          * View information of user for tech and admin
-         * @Route("/{id}", name="management_user_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
+         * @Route("{id}", name="management_user_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
          * @param Users $user
          * @param StocksRepository $sr
          * @param IlotsRepository $ir
@@ -141,7 +141,7 @@
         }
 
         /**
-         * @Route("/{user}/ilot/{ilot}", name="management_user_ilot_show", methods={"GET"}, requirements={"id":"\d+"})
+         * @Route("{user}/ilot/{ilot}", name="management_user_ilot_show", methods={"GET"}, requirements={"id":"\d+"})
          * @param Users $user
          * @param Ilots $ilot
          * @param CulturesRepository $cr
@@ -164,7 +164,7 @@
         }
 
         /**
-         * @Route("/culture/{id}", name="management_user_culture_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
+         * @Route("culture/{id}", name="management_user_culture_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
          * @param Cultures $culture
          * @param InterventionsRepository $interventionsRepository
          * @return Response

@@ -19,7 +19,7 @@ use TreeHouse\Slugifier\Slugifier;
 /**
  * Class SalesController
  * @package App\Controller
- * @Route("/pricing")
+ * @Route("pricing")
  */
 class PricingController extends AbstractController
 {
@@ -39,7 +39,7 @@ class PricingController extends AbstractController
 
     /**
      * @return Response
-     * @Route("/", name="pricing_index", methods={"GET", "POST"})
+     * @Route("", name="pricing_index", methods={"GET", "POST"})
      */
     public function index(): Response
     {
@@ -47,7 +47,7 @@ class PricingController extends AbstractController
     }
 
     /**
-     * @Route("/products/data", name="pricing_products_data", methods={"GET"})
+     * @Route("products/data", name="pricing_products_data", methods={"GET"})
      * @param Request $request
      * @param DataTablesInterface $datatables
      * @return JsonResponse
@@ -67,7 +67,7 @@ class PricingController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @Route("/product/new", name="pricing_product_new", methods={"GET", "POST"})
+     * @Route("product/new", name="pricing_product_new", methods={"GET", "POST"})
      */
     public function new( Request $request ): Response
     {
@@ -92,7 +92,7 @@ class PricingController extends AbstractController
      * @param Products $product
      * @param Request $request
      * @return Response
-     * @Route("/product/edit/{id}", name="pricing_product_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("product/edit/{id}", name="pricing_product_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function edit( Products $product, Request $request ): Response
     {

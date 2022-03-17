@@ -12,12 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ProductController
  * @package App\Controller\Management
- * @Route("/management/products")
+ * @Route("management/products")
  */
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/", name="management_products")
+     * @Route("", name="management_products")
      * @param Request $request
      * @return Response
      */
@@ -27,7 +27,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/data", name="management_products_data", methods={"GET"})
+     * @Route("data", name="management_products_data", methods={"GET"})
      * @param Request $request
      * @param DataTablesInterface $datatables
      * @return JsonResponse

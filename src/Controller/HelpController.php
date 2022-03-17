@@ -8,13 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class HelpController
- * @Route("/help")
+ * @Route("help")
  */
 class HelpController extends AbstractController
 {
     /**
      * @return Response
-     * @Route("/", name="help_index", methods={"GET"})
+     * @Route("", name="help_index", methods={"GET"})
      */
     public function index(): Response
     {

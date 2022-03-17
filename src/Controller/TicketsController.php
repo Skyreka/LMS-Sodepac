@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class TicketsController
  * @package App\Controller
- * @Route("/tickets")
+ * @Route("tickets")
  */
 class TicketsController extends AbstractController
 {
@@ -37,7 +37,7 @@ class TicketsController extends AbstractController
     }
 
     /**
-     * @Route("/", name="tickets_index", methods={"GET"})
+     * @Route("", name="tickets_index", methods={"GET"})
      * @param TicketsRepository $tr
      * @return Response
      */
@@ -54,7 +54,7 @@ class TicketsController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="tickets_new", methods={"GET", "POST"})
+     * @Route("new", name="tickets_new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -79,7 +79,7 @@ class TicketsController extends AbstractController
     }
 
     /**
-     * @Route("/conversation/{id}", name="tickets_conversation_show", methods={"POST", "GET"}, requirements={"id":"\d+"})
+     * @Route("conversation/{id}", name="tickets_conversation_show", methods={"POST", "GET"}, requirements={"id":"\d+"})
      * @param Tickets $ticket
      * @param TicketsMessagesRepository $tmr
      * @param TicketsRepository $tr
@@ -138,7 +138,7 @@ class TicketsController extends AbstractController
     }
 
     /**
-     * @Route("/close/{id}", name="tickets_close", methods="CLOSE", requirements={"id":"\d+"})
+     * @Route("close/{id}", name="tickets_close", methods="CLOSE", requirements={"id":"\d+"})
      * @param Tickets $tickets
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

@@ -50,7 +50,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/management/order", name="management_order_index", methods={"GET"})
+     * @Route("management/order", name="management_order_index", methods={"GET"})
      * @param OrdersRepository $op
      * @return Response
      */
@@ -68,7 +68,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/pdf/{id_number}/{print}", name="order_pdf_view", methods={"GET", "POST"}, defaults={"print"=false}, requirements={"print":"true|false"})
+     * @Route("order/pdf/{id_number}/{print}", name="order_pdf_view", methods={"GET", "POST"}, defaults={"print"=false}, requirements={"print":"true|false"})
      * @param Orders $order
      * @param OrdersProductRepository $opr
      * @param Request $request
@@ -94,7 +94,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/management/order/show/{id_number}", name="management_order_show", methods={"GET", "POST"})
+     * @Route("management/order/show/{id_number}", name="management_order_show", methods={"GET", "POST"})
      * @param Orders $orders
      * @param OrdersProductRepository $cpr
      * @param Request $request
@@ -109,7 +109,7 @@ class OrderController extends AbstractController
         if ( $form->isSubmitted() && $form->isValid() ) {
             $this->em->flush();
             $this->addFlash('success', 'Information sauvegardée avec succès');
-            return $this->redirectToRoute('order_show', ['id_number' => $orders->getIdNumber()]);
+            return $this->redirectToRoute('management_order_show', ['id_number' => $orders->getIdNumber()]);
         }
 
         return $this->render('management/order/show.html.twig', [
@@ -137,7 +137,7 @@ class OrderController extends AbstractController
 
             $this->addFlash('success', 'Commande supprimée avec succès');
         }
-        return $this->redirectToRoute('order_index');
+        return $this->redirectToRoute('management_order_index');
     }
 
     /**
@@ -166,7 +166,7 @@ class OrderController extends AbstractController
             $this->container->get('session')->set('currentOrder', $order);
 
             $this->addFlash('success', 'Nouveau panier temporaire créé avec succès');
-            return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
+            return $this->redirectToRoute('management_order_show', ['id_number' => $order->getIdNumber()]);
         }
 
         return $this->render('management/order/new.html.twig', [
@@ -175,7 +175,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/management/select_users", name="_management_select_users")
+     * @Route("management/select_users", name="_management_select_users")
      * @param Request $request
      * @param UsersRepository $ur
      * @return JsonResponse
@@ -357,12 +357,12 @@ class OrderController extends AbstractController
 
     /**
      * Edit Dose with editable Ajax Table
-     * @Route("management/order/product/edit", name="order_product_edit")
+     * @Route("management/order/product/edit", name="management_order_product_edit")
      * @param Request $request
      * @param OrdersProductRepository $cr
      * @return JsonResponse
      */
-    public function editProduct(Request $request, OrdersProductRepository $cr ): JsonResponse
+    public function editProduct( Request $request, OrdersProductRepository $cr ): JsonResponse
     {
         if ($request->isXmlHttpRequest()) {
             $orderProduct = $cr->find($request->get('id'));
@@ -410,7 +410,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/product/delete/{id}", name="order_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
+     * @Route("management/order/product/delete/{id}", name="management_order_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      * @param OrdersProduct $product
      * @param Request $request
      * @return RedirectResponse
@@ -422,11 +422,11 @@ class OrderController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Produit supprimé avec succès');
         }
-        return $this->redirectToRoute('order_show', ['id_number' => $product->getOrder()->getIdNumber()]);
+        return $this->redirectToRoute('management_order_show', ['id_number' => $product->getOrder()->getIdNumber()]);
     }
 
     /**
-     * @Route("management/order/save/{id}", name="order_save", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("management/order/save/{id}", name="management_order_save", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
      * @return Response
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -443,11 +443,11 @@ class OrderController extends AbstractController
             $this->container->get('session')->remove('currentOrder');
         }
 
-        return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
+        return $this->redirectToRoute('management_order_show', ['id_number' => $order->getIdNumber()]);
     }
 
     /**
-     * @Route("/management/order/valid/{id}", name="management_order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("management/order/valid/{id}", name="management_order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
      * @param AsyncMethodService $asyncMethodService
      * @param Request $request
@@ -498,11 +498,11 @@ class OrderController extends AbstractController
             $this->em->flush();
         }
 
-        return $this->redirectToRoute('order_show', ['id_number' => $order->getIdNumber()]);
+        return $this->redirectToRoute('management_order_show', ['id_number' => $order->getIdNumber()]);
     }
 
     /**
-     * @Route("/orders", name="user_order_index", methods={"GET", "POST"})
+     * @Route("orders", name="user_order_index", methods={"GET", "POST"})
      * @param OrdersRepository $op
      * @return Response
      */
@@ -514,12 +514,12 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/order/sign/{id}", name="user_order_sign", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("order/sign/{id}", name="user_order_sign", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @param Orders $order
      * @param MailerInterface $mailer
      * @param Request $request
+     * @param AsyncMethodService $asyncMethodService
      * @return Response
-     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
     public function sign(
         Orders $order,
@@ -590,7 +590,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/management/order/add-product-other", name="order_product_other_add", methods={"GET", "POST"})
+     * @Route("management/order/add-product-other", name="management_order_product_other_add", methods={"GET", "POST"})
      * @param Request $request
      * @param OrdersRepository $or
      * @return Response
@@ -632,7 +632,7 @@ class OrderController extends AbstractController
 
             // Alert
             $this->addFlash('info', 'Le produit '. $form->get('product')->getData()->getName() .' a été ajouté a la commande.');
-            return $this->redirectToRoute('order_show' , ['id_number' => $order->getIdNumber()]);
+            return $this->redirectToRoute('management_order_show' , ['id_number' => $order->getIdNumber()]);
         }
 
         return $this->render('management/order/add_product.html.twig', [
@@ -682,10 +682,12 @@ class OrderController extends AbstractController
     }*/
 
     /**
-     * @Route("management/order/add-product-other-field", name="order_product_other_field_add", methods={"GET", "POST"})
+     * @Route("management/order/add-product-other-field", name="management_order_product_other_field_add", methods={"GET", "POST"})
      * @param Request $request
      * @param OrdersRepository $or
      * @return Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function addOtherFieldProduct( Request $request, OrdersRepository $or ): Response
     {
@@ -712,7 +714,7 @@ class OrderController extends AbstractController
 
             // Alert
             $this->addFlash('info', 'Le produit '. $form->get('product')->getData() .' a été ajouté a la commande.');
-            return $this->redirectToRoute('order_show' , ['id_number' => $order->getIdNumber()]);
+            return $this->redirectToRoute('management_order_show' , ['id_number' => $order->getIdNumber()]);
         }
 
         return $this->render('management/order/add_product_field.html.twig', [
@@ -721,7 +723,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/new/order_select_product_data", name="order_select_product_data")
+     * @Route("management/order/new/order_select_product_data", name="_management_select_product_data")
      * @param Request $request
      * @param ProductsRepository $pr
      * @return JsonResponse
@@ -791,13 +793,17 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/swipe/{article}/{product}", name="order_article_swipe", methods={"UPDATE"}, requirements={"id":"\d+"})
+     * @Route("management/order/swipe/{article}/{product}", name="management_order_article_swipe", methods={"UPDATE"}, requirements={"id":"\d+"})
      * @param OrdersProduct $article
      * @param Products $product
      * @param Request $request
      * @return RedirectResponse
      */
-    public function updateProduct(OrdersProduct $article, Products $product, Request $request ): RedirectResponse
+    public function updateProduct(
+        OrdersProduct $article,
+        Products $product,
+        Request $request
+    ): RedirectResponse
     {
         if ($this->isCsrfTokenValid('order_product_swipe_' . $article->getId(), $request->get('_token'))) {
             $article->setProduct( $product );

@@ -27,7 +27,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * Class UsersController
  * @package App\Controller
- * @Route("/admin/users")
+ * @Route("admin/users")
  */
 class UsersController extends AbstractController {
 
@@ -39,7 +39,7 @@ class UsersController extends AbstractController {
     }
 
     /**
-     * @Route("/", name="admin_users_index", methods={"GET"})
+     * @Route("", name="admin_users_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -47,7 +47,7 @@ class UsersController extends AbstractController {
     }
 
     /**
-     * @Route("/data", name="admin_users_data", methods={"GET"})
+     * @Route("data", name="admin_users_data", methods={"GET"})
      * @param Request $request
      * @param DataTablesInterface $datatables
      * @return JsonResponse
@@ -102,7 +102,7 @@ class UsersController extends AbstractController {
     }
 
     /**
-     * @Route("/export", name="admin_users_export", methods={"GET", "POST"})
+     * @Route("export", name="admin_users_export", methods={"GET", "POST"})
      * @return Response
      */
     public function export(): Response
@@ -137,7 +137,7 @@ class UsersController extends AbstractController {
     }
 
     /**
-     * @Route("/new", name="admin_users_new", methods={"GET", "POST"})
+     * @Route("new", name="admin_users_new", methods={"GET", "POST"})
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
      * @param AsyncMethodService $asyncMethodService
@@ -187,7 +187,7 @@ class UsersController extends AbstractController {
     }
 
     /**
-     * @Route("/delete/{id}", name="admin_users_delete", methods="DELETE", requirements={"id":"\d+"})
+     * @Route("delete/{id}", name="admin_users_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Users $user
      * @param Request $request
      * @return RedirectResponse

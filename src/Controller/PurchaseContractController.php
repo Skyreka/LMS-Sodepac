@@ -34,7 +34,7 @@ class PurchaseContractController extends AbstractController
     /**
      * @param PurchaseContractRepository $pcr
      * @return Response
-     * @Route("/management/purchase-contract/", name="management_purchase_contract_index", methods={"GET"})
+     * @Route("management/purchase-contract/", name="management_purchase_contract_index", methods={"GET"})
      */
     public function index( PurchaseContractRepository $pcr ): Response
     {
@@ -52,7 +52,7 @@ class PurchaseContractController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @Route("/management/purchase-contract/new", name="purchase_contract_new", methods={"GET", "POST"})
+     * @Route("management/purchase-contract/new", name="purchase_contract_new", methods={"GET", "POST"})
      */
     public function new( Request $request ): Response
     {
@@ -87,7 +87,7 @@ class PurchaseContractController extends AbstractController
     /**
      * @param PurchaseContract $purchaseContract
      * @return Response
-     * @Route("/management/purchase-contract/show/{id}", name="management_purchase_contract_show", methods={"GET"}, requirements={"id":"\d+"})
+     * @Route("management/purchase-contract/show/{id}", name="management_purchase_contract_show", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function show( PurchaseContract $purchaseContract ): Response
     {
@@ -176,7 +176,7 @@ class PurchaseContractController extends AbstractController
     /**
      * @param PurchaseContract $purchaseContract
      * @return RedirectResponse
-     * @Route("/management/purchase-contract/addline/{id}", name="management_purchase_contract_addLine", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("management/purchase-contract/addline/{id}", name="management_purchase_contract_addLine", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function addLine( PurchaseContract $purchaseContract ): RedirectResponse
     {

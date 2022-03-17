@@ -50,7 +50,7 @@ class SignatureController extends AbstractController
      * @param OrdersRepository $or
      * @return Response
      * @throws \Doctrine\ORM\NonUniqueResultException
-     * @Route("/sign/order/{token}", name="signature_order_sign")
+     * @Route("sign/order/{token}", name="signature_order_sign")
      */
     public function signOrder(
         Signature $signature,

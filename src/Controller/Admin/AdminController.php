@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * Class AdminController
  * @package App\Controller
- * @Route("/admin")
+ * @Route("admin")
  * @IsGranted("ROLE_ADMIN")
  */
 class AdminController extends AbstractController {
@@ -25,7 +25,7 @@ class AdminController extends AbstractController {
     }
 
     /**
-     * @Route("/", name="admin_index", methods={"GET"})
+     * @Route("", name="admin_index", methods={"GET"})
      * @param UsersRepository $ur
      * @param RecommendationProductsRepository $rpr
      * @return Response

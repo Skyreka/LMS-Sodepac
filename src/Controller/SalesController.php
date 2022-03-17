@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * Class SalesController
  * @package App\Controller
- * @Route("/sales")
+ * @Route("sales")
  */
 class SalesController extends AbstractController
 {
@@ -40,7 +40,7 @@ class SalesController extends AbstractController
      * @param SalesRepository $sr
      * @param SalesInformationRepository $sir
      * @return Response
-     * @Route("/", name="sales_index", methods={"GET"})
+     * @Route("", name="sales_index", methods={"GET"})
      */
     public function index( SalesRepository $sr, SalesInformationRepository $sir ): Response
     {
@@ -56,7 +56,7 @@ class SalesController extends AbstractController
     /**
      * @param SalesRepository $sr
      * @return Response
-     * @Route("/manager/index", name="sales_manager_index", methods={"GET"})
+     * @Route("manager/index", name="sales_manager_index", methods={"GET"})
      * @IsGranted("ROLE_SALES")
      */
     public function managerIndex( SalesRepository $sr ): Response
@@ -71,7 +71,7 @@ class SalesController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @Route("/manager/new", name="sales_manager_new", methods={"GET", "POST"})
+     * @Route("manager/new", name="sales_manager_new", methods={"GET", "POST"})
      * @IsGranted("ROLE_SALES")
      */
     public function new( Request $request ): Response
@@ -101,7 +101,7 @@ class SalesController extends AbstractController
      * @param Sales $sales
      * @param Request $request
      * @return Response
-     * @Route("/manager/edit/{id}", name="sales_manager_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("manager/edit/{id}", name="sales_manager_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      * @IsGranted("ROLE_SALES")
      */
     public function edit( Sales $sales, Request $request ): Response
@@ -125,7 +125,7 @@ class SalesController extends AbstractController
     }
 
     /**
-     * @Route("/manager/delete/{id}", name="sales_manager_delete", methods="DELETE", requirements={"id":"\d+"})
+     * @Route("manager/delete/{id}", name="sales_manager_delete", methods="DELETE", requirements={"id":"\d+"})
      * @param Sales $sales
      * @param Request $request
      * @IsGranted("ROLE_SALES")
@@ -145,7 +145,7 @@ class SalesController extends AbstractController
      * @param Request $request
      * @param SalesInformationRepository $sir
      * @return Response
-     * @Route("/manager/information", name="sales_manager_information", methods={"GET", "POST"})
+     * @Route("manager/information", name="sales_manager_information", methods={"GET", "POST"})
      * @IsGranted("ROLE_SALES")
      */
     public function information( Request $request, SalesInformationRepository $sir): Response

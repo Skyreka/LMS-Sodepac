@@ -27,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class PPFController
  * @package App\Controller
- * @Route("/admin/ppf/2")
+ * @Route("admin/ppf/2")
  */
 class PPF2Controller extends AbstractController
 {
@@ -48,7 +48,7 @@ class PPF2Controller extends AbstractController
     }
 
     /**
-     * @Route("/step/1", name="ppf2_step_1", methods={"GET", "POST"})
+     * @Route("step/1", name="ppf2_step_1", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -82,7 +82,7 @@ class PPF2Controller extends AbstractController
     }
 
     /**
-     * @Route("/step/2", name="ppf2_step_2", methods={"GET", "POST"})
+     * @Route("step/2", name="ppf2_step_2", methods={"GET", "POST"})
      * @param Request $request
      * @param InterventionsRepository $ir
      * @return Response
@@ -113,7 +113,7 @@ class PPF2Controller extends AbstractController
     }
 
     /**
-     * @Route("/step/3", name="ppf2_step_3", methods={"GET", "POST"})
+     * @Route("step/3", name="ppf2_step_3", methods={"GET", "POST"})
      * @param Request $request
      * @param InterventionsRepository $ir
      * @return Response
@@ -144,7 +144,7 @@ class PPF2Controller extends AbstractController
     }
 
     /**
-     * @Route("/step/4", name="ppf2_step_4", methods={"GET", "POST"})
+     * @Route("step/4", name="ppf2_step_4", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -170,7 +170,7 @@ class PPF2Controller extends AbstractController
     }
 
     /**
-     * @Route("/step/5", name="ppf2_step_5", methods={"GET", "POST"})
+     * @Route("step/5", name="ppf2_step_5", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -196,7 +196,7 @@ class PPF2Controller extends AbstractController
     }
 
     /**
-     * @Route("/step/6", name="ppf2_step_6", methods={"GET", "POST"})
+     * @Route("step/6", name="ppf2_step_6", methods={"GET", "POST"})
      * @param Request $request
      * @param InterventionsRepository $ir
      * @return Response
@@ -227,7 +227,7 @@ class PPF2Controller extends AbstractController
     }
 
     /**
-     * @Route("/step/7", name="ppf2_step_7", methods={"GET", "POST"})
+     * @Route("step/7", name="ppf2_step_7", methods={"GET", "POST"})
      * @param Request $request
      * @param PPFInputRepository $pir
      * @return Response
@@ -260,7 +260,7 @@ class PPF2Controller extends AbstractController
     }
 
     /**
-     * @Route("/step/add-input", name="ppf2_add_input", methods={"GET", "POST"})
+     * @Route("step/add-input", name="ppf2_add_input", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -290,7 +290,7 @@ class PPF2Controller extends AbstractController
     }
 
     /**
-     * @Route("/summary", name="ppf2_summary", methods={"GET", "POST"})
+     * @Route("summary", name="ppf2_summary", methods={"GET", "POST"})
      * @param Request $request
      * @param InterventionsRepository $ir
      * @param PPFInputRepository $pir
