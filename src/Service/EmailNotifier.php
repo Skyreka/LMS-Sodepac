@@ -6,6 +6,7 @@ use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use iio\libmergepdf\Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -23,13 +24,16 @@ class EmailNotifier {
      * @var EntityManagerInterface
      */
     private EntityManagerInterface $em;
+    private ContainerBagInterface $containerBag;
 
     public function __construct(
         MailerInterface $mailer,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        ContainerBagInterface $containerBag
     ) {
         $this->mailer = $mailer;
         $this->em = $em;
+        $this->containerBag = $containerBag;
     }
 
     /**
@@ -46,7 +50,7 @@ class EmailNotifier {
 
         $message = (new TemplatedEmail())
             ->subject( $params['subject'] )
-            ->from( new Address('noreply@sodepac.fr', 'LMS-Sodepac'))
+            ->from( new Address('noreply@sodepac.fr', ''))
             ->to( $user->getEmail() )
             ->htmlTemplate( 'emails/notification/user/email_notification.html.twig' )
             ->context([

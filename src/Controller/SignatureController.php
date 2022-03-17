@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -35,7 +35,7 @@ class SignatureController extends AbstractController
 
     public function __construct(
         EntityManagerInterface $em,
-        SignatureOTPRepository $otpR
+        SignatureOtpRepository $otpR
     )
     {
         $this->em = $em;
@@ -56,7 +56,7 @@ class SignatureController extends AbstractController
         Signature $signature,
         Request $request,
         AsyncMethodService $asyncMethodService,
-        Mailer $mailer,
+        MailerInterface $mailer,
         OrdersRepository $or
     ): Response
     {

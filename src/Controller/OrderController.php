@@ -484,10 +484,10 @@ class OrderController extends AbstractController
             // Send Sign Email
             $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $order->getCustomer()->getId(),
                 'params' => [
-                    'subject' => 'Signature électronique de votre devis - LMS-Sodepac',
+                    'subject' => 'Signature électronique de votre devis - '. $this->getParameter('APP_NAME'),
                     'title' => 'Votre devis vous attend',
                     'text1' => '
-                        Veuillez trouver ci-joint le lien vous permettant de signer électroniquement votre commande envoyé par la société Sodepac, 
+                        Veuillez trouver ci-joint le lien vous permettant de signer électroniquement votre commande envoyé par la société '. $this->getParameter('APP_NAME' ) .', 
                         votre signature électronique actera la validation de le commande ci-joint.',
                     'text2' => 'Veuillez utiliser le code suivant pour valider votre signature: '. $codeOtp->getCode(),
                     'link' => $this->generateUrl('signature_order_sign', ['token' => $signature->getToken()], UrlGeneratorInterface::ABSOLUTE_URL),
@@ -558,7 +558,7 @@ class OrderController extends AbstractController
             // Send to Warehouse
             $message = (new TemplatedEmail())
                 ->subject( 'Nouvelle commande de ' . $order->getCreator()->getIdentity() )
-                ->from( new Address('noreply@sodepac.fr', 'LMS-Sodepac'))
+                ->from( new Address('noreply@sodepac.fr', $this->getParameter('APP_NAME')))
                 ->to( $order->getCustomer()->getWarehouse()->getEmail() )
                 ->htmlTemplate( 'emails/notification/user/email_notification.html.twig' )
                 ->context([
