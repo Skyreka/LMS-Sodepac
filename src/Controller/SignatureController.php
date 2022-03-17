@@ -46,8 +46,7 @@ class SignatureController extends AbstractController
      * @param Signature $signature
      * @param Request $request
      * @param AsyncMethodService $asyncMethodService
-     * @param Mailer $mailer
-     * @param OrdersRepository $or
+     * @param MailerInterface $mailer
      * @return Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @Route("sign/order/{token}", name="signature_order_sign")
@@ -56,8 +55,7 @@ class SignatureController extends AbstractController
         Signature $signature,
         Request $request,
         AsyncMethodService $asyncMethodService,
-        MailerInterface $mailer,
-        OrdersRepository $or
+        MailerInterface $mailer
     ): Response
     {
         $order = $signature->getOrder();
@@ -88,7 +86,7 @@ class SignatureController extends AbstractController
             // Send OTP
             $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $order->getCustomer()->getId(),
                 'params' => [
-                    'subject' => 'Votre code OTP de signature électronique - LMS-Sodepac',
+                    'subject' => 'Votre code OTP de signature électronique - '. $this->getParameter('APP_NAME'),
                     'text' => 'Veuillez utiliser le code suivant pour valider votre signature:' .  $codeOtp->getCode() . ' <br> Ce code expire dans 1 mois'
                 ]
             ]);
@@ -120,7 +118,7 @@ class SignatureController extends AbstractController
                 // Send to Warehouse
                 $message = (new TemplatedEmail())
                     ->subject( 'Nouvelle commande de ' . $order->getCreator()->getIdentity() )
-                    ->from( new Address('noreply@sodepac.fr', 'LMS-Sodepac'))
+                    ->from( new Address('noreply@sodepac.fr', $this->getParameter('APP_NAME')))
                     ->to( $order->getCustomer()->getWarehouse()->getEmail() )
                     ->htmlTemplate( 'emails/notification/user/email_notification.html.twig' )
                     ->context([

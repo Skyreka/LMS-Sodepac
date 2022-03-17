@@ -549,7 +549,7 @@ class OrderController extends AbstractController
             // Send confirmation
             $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $order->getCustomer()->getId(),
                 'params' => [
-                    'subject' => 'Confirmation de signature de votre commande - LMS-Sodepac',
+                    'subject' => 'Confirmation de signature de votre commande - '. $this->getParameter('APP_NAME'),
                     'title' => 'Nous vous confirmation la signature de votre bon de commande',
                     'text1' => 'Nous vous remercions pour votre confiance, pouvez dès maintenant découvrir votre commande dans votre espace utilisateur'
                 ]

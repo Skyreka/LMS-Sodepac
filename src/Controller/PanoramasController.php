@@ -175,7 +175,7 @@ class PanoramasController extends AbstractController
                 //Send Email to user
                 $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $admin->getId(),
                     'params' => [
-                        'subject' => 'Un panorama est en attente de validation - LMS Sodepac.',
+                        'subject' => 'Un panorama est en attente de validation - '. $this->getParameter('APP_NAME'),
                         'title' => 'Un panorama est en attente de validation.'
                     ]
                 ]);
@@ -295,8 +295,8 @@ class PanoramasController extends AbstractController
                 //Send email notification Async
                 $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $customer->getId(),
                     'params' => [
-                        'subject' => 'Un nouveau panorama disponible sur LMS-Sodepac',
-                        'title' => 'Un nouveau panorama disponible sur LMS-Sodepac',
+                        'subject' => 'Un nouveau panorama disponible sur '. $this->getParameter('APP_NAME'),
+                        'title' => 'Un nouveau panorama disponible sur '. $this->getParameter('APP_NAME'),
                         'text1' => 'Un nouveau panorama est disponible sur votre application'
                     ]
                 ]);

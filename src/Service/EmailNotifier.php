@@ -4,14 +4,10 @@ namespace App\Service;
 
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
-use iio\libmergepdf\Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Mime\Message;
 
 class EmailNotifier {
 
@@ -24,16 +20,13 @@ class EmailNotifier {
      * @var EntityManagerInterface
      */
     private EntityManagerInterface $em;
-    private ContainerBagInterface $containerBag;
 
     public function __construct(
         MailerInterface $mailer,
-        EntityManagerInterface $em,
-        ContainerBagInterface $containerBag
+        EntityManagerInterface $em
     ) {
         $this->mailer = $mailer;
         $this->em = $em;
-        $this->containerBag = $containerBag;
     }
 
     /**

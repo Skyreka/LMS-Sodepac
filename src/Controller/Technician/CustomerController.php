@@ -90,8 +90,8 @@ class CustomerController extends AbstractController
             //Send Email to user
             $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $user->getId(),
                 'params' => [
-                    'subject' => 'Votre compte LMS Sodepac est maintenant disponible.',
-                    'text1' => 'Votre compte LMS Sodepac est maintenant disponible.'
+                    'subject' => 'Votre compte '. $this->getParameter('APP_NAME') .' est maintenant disponible.',
+                    'text1' => 'Votre compte '. $this->getParameter('APP_NAME') .' est maintenant disponible.'
                 ]
             ]);
 

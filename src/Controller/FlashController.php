@@ -223,7 +223,7 @@ class FlashController extends AbstractController
                 //Send email notification Async
                 $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $customer->getId(),
                     'params' => [
-                        'subject' => 'Un nouveau flash est disponible sur LMS-Sodepac',
+                        'subject' => 'Un nouveau flash est disponible sur '. $this->getParameter('APP_NAME'),
                         'text' => 'En nouveau flash est disponible. Vous pouvez le consulter sur votre application'
                     ]
                 ]);
@@ -269,7 +269,7 @@ class FlashController extends AbstractController
                 //Send email notification
                 $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $customer->getId(),
                     'params' => [
-                        'subject' => 'Un nouveau flash est disponible sur LMS-Sodepac',
+                        'subject' => 'Un nouveau flash est disponible sur '. $this->getParameter('APP_NAME'),
                         'text' => ''
                     ]
                 ]);
