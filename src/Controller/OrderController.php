@@ -810,6 +810,6 @@ class OrderController extends AbstractController
             $article->setUnitPrice( $product->getPrice() );
             $this->em->flush();
         }
-        return $this->redirectToRoute('order_show', ['id_number' => $article->getOrder()->getIdNumber() ]);
+        return $this->redirectToRoute('management_order_show', ['id_number' => $article->getOrder()->getIdNumber() ]);
     }
 }
