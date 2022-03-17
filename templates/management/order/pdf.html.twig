@@ -109,7 +109,7 @@
                                                 <td class="discount" width="150">{{ article.discount ? article.discount ~ '%' : '' }}</td>
                                                 {% set totalHT = (article.unitPrice *  article.totalQuantity) - ((article.unitPrice *  article.totalQuantity) * (article.discount / 100)) %}
                                                 <td width="150" align="center">{{ totalHT|format_currency('EUR') }}</td>
-                                                {% set rpd = article.product.parentProduct ? article.product.parentProduct.rpd : article.product.rpd %}
+                                                {% set rpd = article.product ? article.product.parentProduct ? article.product.parentProduct.rpd : article.product.rpd %}
                                                 <td width="100" align="center">{{ rpd }}</td>
                                                 {% set taxes = totalHT * article.taxe / 100 %}
                                                 {% if article.product %}

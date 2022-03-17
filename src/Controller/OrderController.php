@@ -230,7 +230,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("management/order/product/add/{recommendation}", name="order_product_add", methods={"ADDTOORDER"}, requirements={"recommendation":"\d+"})
+     * @Route("management/order/product/add/{recommendation}", name="management_order_product_add", methods={"ADDTOORDER"}, requirements={"recommendation":"\d+"})
      * @param Recommendations $recommendation
      * @param OrdersRepository $or
      * @param OrdersProductRepository $opr
@@ -616,10 +616,14 @@ class OrderController extends AbstractController
             $orderProduct->setQuantity( 0 );
 
             //Parent product
-            if ( $form->get('product')->getData()->getParentProduct() ) {
-                $price = $form->get('product')->getData()->getParentProduct()->getPrice();
-            } elseif ( $form->get('product')->getData()->getPrice() != NULL ) {
-                $price = $form->get('product')->getData()->getPrice();
+            $product = $form->get('product')->getData();
+            if ( $product->getParentProduct() ) {
+                $price = $product->getParentProduct()->getPrice();
+                if ( NULL === $price ) {
+                    $price = $product->getPrice();
+                }
+            } elseif ( NULL != $product->getPrice() ) {
+                $price = $product->getPrice();
             } else {
                 $price = 0;
             }
