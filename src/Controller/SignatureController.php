@@ -86,8 +86,8 @@ class SignatureController extends AbstractController
             // Send OTP
             $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $order->getCustomer()->getId(),
                 'params' => [
-                    'subject' => 'Votre code OTP de signature électronique - '. $this->getParameter('APP_NAME'),
-                    'text' => 'Veuillez utiliser le code suivant pour valider votre signature:' .  $codeOtp->getCode() . ' <br> Ce code expire dans 1 mois'
+                    'subject' => 'Votre code OTP de signature électronique',
+                    'text1' => 'Veuillez utiliser le code suivant pour valider votre signature:' .  $codeOtp->getCode() . ' Ce code expire dans 1 mois'
                 ]
             ]);
 
