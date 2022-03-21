@@ -489,8 +489,8 @@ class OrderController extends AbstractController
                     'subject' => 'Signature électronique de votre devis - '. $this->getParameter('APP_NAME'),
                     'title' => 'Votre devis vous attend',
                     'text1' => '
-                        Veuillez trouver ci-joint le lien vous permettant de signer électroniquement votre commande envoyé par la société '. $this->getParameter('APP_NAME' ) .', 
-                        votre signature électronique actera la validation de le commande ci-joint.',
+                        Veuillez trouver ci-joint le lien vous permettant de signer électroniquement votre commande envoyée par la société '. $this->getParameter('APP_NAME' ) .', 
+                        votre signature électronique actera la validation de la commande ci-joint.',
                     'text2' => 'Veuillez utiliser le code suivant pour valider votre signature: '. $codeOtp->getCode(),
                     'link' => $this->generateUrl('signature_order_sign', ['token' => $signature->getToken()], UrlGeneratorInterface::ABSOLUTE_URL),
                     'btn_text' => 'Découvrir votre devis'
