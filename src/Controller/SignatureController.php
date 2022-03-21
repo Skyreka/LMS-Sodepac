@@ -134,9 +134,10 @@ class SignatureController extends AbstractController
                 } catch (TransportExceptionInterface $e ) {
                     return $e;
                 }
+
                 $this->em->flush();
                 $this->addFlash('success', 'Commande signée avec succès');
-                return $this->redirectToRoute( 'order_pdf_view', ['id_number' => $order->getIdNumber() ] );
+                return $this->redirectToRoute( 'login_success', ['id_number' => $order->getIdNumber() ] );
             } else {
                 $this->addFlash('danger', 'Code non valide');
             }
