@@ -93,7 +93,7 @@ class Users implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="boolean", nullable=true, options={"default": false})
      */
-    private bool $isActive;
+    private $isActive;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
