@@ -88,7 +88,7 @@ class Users implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private \DateTimeInterface $last_activity;
+    private $last_activity;
 
     /**
      * @ORM\Column(type="boolean", nullable=true, options={"default": false})
@@ -98,12 +98,12 @@ class Users implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private ?string $certification_phyto;
+    private $certification_phyto;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Exploitation", mappedBy="users", cascade={"persist", "remove"})
      */
-    private ?Exploitation $exploitation;
+    private $exploitation;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\BsvUsers", mappedBy="customers")
@@ -128,12 +128,12 @@ class Users implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private string $pack = 'DISABLE';
+    private $pack = 'DISABLE';
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $reset = false;
+    private $reset = false;
 
     /**
      * @ORM\OneToMany(targetEntity=Tickets::class, mappedBy="technician", orphanRemoval=true)
@@ -158,17 +158,17 @@ class Users implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $company;
+    private $company;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $address;
+    private $address;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private ?string $postalCode;
+    private $postalCode;
 
     /**
      * @ORM\OneToMany(targetEntity=PurchaseContract::class, mappedBy="creator", orphanRemoval=true)
