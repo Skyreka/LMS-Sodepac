@@ -1,4 +1,4 @@
-{% set referer = app.request.server.get('HTTP-REFERER')|default('/') %}
+{% set refererUrl = url('login') %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
@@ -504,7 +504,7 @@
                 <div class="header" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);" id="emb-email-header-container">
                     <!--[if (mso)|(IE)]><table align="center" class="header" cellpadding="0" cellspacing="0" role="presentation"><tr><td style="width: 600px"><![endif]-->
                     <div class="logo emb-logo-margin-box" style="font-size: 26px;line-height: 32px;Margin-top: 6px;Margin-bottom: 20px;color: #41637e;font-family: Avenir,sans-serif;Margin-left: 20px;Margin-right: 20px;" align="center">
-                        <div class="logo-center" align="center" id="emb-email-header"><a style="text-decoration: none;transition: opacity 0.1s ease-in;color: #41637e;" href="{{ referer }}"><img style="display: block;height: auto;width: 100%;border: 0;max-width: 234px;" src="{{ referer }}/images/logo1.png" alt="Logo {{ APP_NAME }}" width="234" /></a></div>
+                        <div class="logo-center" align="center" id="emb-email-header"><a style="text-decoration: none;transition: opacity 0.1s ease-in;color: #41637e;" href="{{ refererUrl }}"><img style="display: block;height: auto;width: 100%;border: 0;max-width: 234px;" src="{{ refererUrl }}/images/logo.png" alt="Logo {{ APP_NAME }}" width="234" /></a></div>
                     </div>
                     <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
                 </div>
@@ -517,7 +517,7 @@
 
                             <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 24px;">
                                 <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
-                                    <h1 style='Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #565656;font-size: 22px;line-height: 31px;font-family: Montserrat,"DejaVu Sans",Verdana,sans-serif;'><span class="font-montserrat" style="text-decoration: inherit;">{{ title }}</span></h1><p style='Margin-top: 20px;Margin-bottom: 0;font-family: Montserrat,"DejaVu Sans",Verdana,sans-serif;'><span class="font-montserrat" style="text-decoration: inherit;">{{ text1 }}</span></p><p style='Margin-top: 20px;Margin-bottom: 20px;font-family: Montserrat,"DejaVu Sans",Verdana,sans-serif;'><span class="font-montserrat" style="text-decoration: inherit;">{{ text2 }}</span></p>
+                                    <h1 style='Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #565656;font-size: 22px;line-height: 31px;font-family: Montserrat,"DejaVu Sans",Verdana,sans-serif;'><span class="font-montserrat" style="text-decoration: inherit;">{{ title }} EADSY: {{ refererUrl }}</span></h1><p style='Margin-top: 20px;Margin-bottom: 0;font-family: Montserrat,"DejaVu Sans",Verdana,sans-serif;'><span class="font-montserrat" style="text-decoration: inherit;">{{ text1 }}</span></p><p style='Margin-top: 20px;Margin-bottom: 20px;font-family: Montserrat,"DejaVu Sans",Verdana,sans-serif;'><span class="font-montserrat" style="text-decoration: inherit;">{{ text2 }}</span></p>
                                 </div>
                             </div>
                             {% if btn_text is defined and btn_text is not empty and btn_text is not null %}
