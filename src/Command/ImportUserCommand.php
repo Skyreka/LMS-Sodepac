@@ -90,9 +90,9 @@ class ImportUserCommand extends Command
                 }
 
                 $em->persist( $user );
+                $em->flush();
             }
         }
-        $em->flush();
         // On donne des information des résultats
         $output->writeln('Clients importés avec succès');
         return 1;
