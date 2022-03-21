@@ -58,12 +58,12 @@ class ImportUserCommand extends Command
             if (key_exists(0, $line))
             {
                 //var
-                $email = isset($line[5]) ?? $line[5];
-                $address = isset($line[1]) ?? $line[1];
-                $postalCode = isset($line[2]) ?? $line[2];
-                $city = isset($line[3]) ?? $line[3];
-                $phone = isset($line[4]) ?? $line[4];
-                $certif = isset($line[6]) ?? $line[6];
+                $email = empty($line[5]) ?? $line[5];
+                $address = empty($line[1]) ?? $line[1];
+                $postalCode = empty($line[2]) ?? $line[2];
+                $city = empty($line[3]) ?? $line[3];
+                $phone = empty($line[4]) ?? $line[4];
+                $certif = empty($line[6]) ?? $line[6];
 
                 $user = new Users();
 
