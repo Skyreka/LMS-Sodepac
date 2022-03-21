@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Command;
+
+use App\Entity\Users;
+use Doctrine\ORM\EntityManager;
+use PhpOffice\PhpSpreadsheet\Shared\PasswordHasher;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+class ImportUserCommand extends Command
+{
+    protected static $defaultName = 'app:importUser';
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+    private UserPasswordEncoderInterface $password;
+
+    public function __construct( ContainerInterface $container, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        parent::__construct();
+        $this->container = $container;
+        $this->password = $passwordEncoder;
+    }
+
+    protected function configure()
+    {
+        $this
+            ->setDescription('Import Customers to DB from CSV file')
+            ->addArgument('default_password', InputArgument::REQUIRED, 'Default password for user imported')
+        ;
+    }
+
+    protected function execute( InputInterface $input, OutputInterface $output ): int
+    {
+        /* @var $em EntityManager */
+        $em = $this->container->get('doctrine')->getManager();
+
+        // yolo
+        ini_set("memory_limit", "-1");
+
+        // On récupere le csv
+        $csv = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'users.csv';
+        $lines = explode("\n", file_get_contents($csv));
+
+        // Boucle par line du csv
+        foreach ($lines as $k => $line) {
+            $line = explode(';', $line);
+            // On sauvegarde le client && Prend uniquement juste une donnée
+            if (key_exists(0, $line))
+            {
+                //var
+                $email = isset($line[5]) ?? $line[5];
+                $address = isset($line[1]) ?? $line[1];
+                $postalCode = isset($line[2]) ?? $line[2];
+                $city = isset($line[3]) ?? $line[3];
+                $phone = isset($line[4]) ?? $line[4];
+                $certif = isset($line[6]) ?? $line[6];
+
+                $user = new Users();
+
+                // import default information
+                $user
+                    ->setCompany($line[0])
+                    ->setAddress( $address )
+                    ->setPostalCode( $postalCode )
+                    ->setCity($city )
+                    ->setPhone( $phone )
+                    ->setCertificationPhyto( $certif )
+                    ->setPassword( $this->password->encodePassword( $user, $input->getArgument('default_password') ) )
+
+                    ->setStatus('ROLE_USER')
+                    ->setPack('DISABLE');
+
+                // Null email
+                if ( NULL === $email ) {
+                    $id = substr( md5(uniqid(rand(), true)), 0, 5);
+                    $email = $id.'@saslarrieu.fr';
+                   $user->setEmail( $email );
+                } else {
+                    $user->setEmail( $email );
+                }
+
+                $em->persist( $user );
+            }
+        }
+        $em->flush();
+        // On donne des information des résultats
+        $output->writeln('Clients importés avec succès');
+        return 1;
+    }
+}

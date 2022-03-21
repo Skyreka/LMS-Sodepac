@@ -38,69 +38,72 @@ class Users implements UserInterface, \Serializable
 
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @ORM\Column(type="string", length=80)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=3, max=50)
      */
-    private $firstname;
+    private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Email()
+     * @Assert\Length(min=3, max=100)
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/",
      *     message="Email Invalide"
      * )
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private $lastname;
-
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $phone;
+    private ?string $lastname;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private $city;
+    private ?string $phone;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private $password;
+    private ?string $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $password;
 
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $status;
+    private string $status;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $last_activity;
+    private \DateTimeInterface $last_activity;
 
     /**
      * @ORM\Column(type="boolean", nullable=true, options={"default": false})
      */
-    private $isActive;
+    private bool $isActive;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private $certification_phyto;
+    private ?string $certification_phyto;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Exploitation", mappedBy="users", cascade={"persist", "remove"})
      */
-    private $exploitation;
+    private ?Exploitation $exploitation;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\BsvUsers", mappedBy="customers")
@@ -125,12 +128,12 @@ class Users implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private $pack = 'DISABLE';
+    private string $pack = 'DISABLE';
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $reset = 0;
+    private bool $reset = false;
 
     /**
      * @ORM\OneToMany(targetEntity=Tickets::class, mappedBy="technician", orphanRemoval=true)
@@ -155,17 +158,17 @@ class Users implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $company;
+    private ?string $company;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $address;
+    private ?string $address;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    private $postalCode;
+    private ?string $postalCode;
 
     /**
      * @ORM\OneToMany(targetEntity=PurchaseContract::class, mappedBy="creator", orphanRemoval=true)
@@ -244,7 +247,12 @@ class Users implements UserInterface, \Serializable
 
     public function getIdentity(): ?string
     {
-        return $this->getLastname().' '.$this->getFirstname();
+        $name = $this->getLastname().' '.$this->getFirstname();
+        if ( NULL != $name ) {
+            return $name;
+        } else {
+            return $this->getCompany();
+        }
     }
 
     public function getCity(): ?string

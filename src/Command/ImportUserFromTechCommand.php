@@ -10,9 +10,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class CustomersCommand extends command
+class ImportUserFromTechCommand extends command
 {
-    protected static $defaultName = 'app:importCustomers';
+    protected static $defaultName = 'app:importUserFromTech';
     /**
      * @var ContainerInterface
      */
@@ -28,7 +28,7 @@ class CustomersCommand extends command
     {
         $this
             ->setDescription('Import Customers to DB')
-            ->addArgument('email', InputArgument::REQUIRED, 'email du technicien')
+            ->addArgument('email', InputArgument::REQUIRED, 'Email du technicien')
         ;
     }
 
