@@ -81,7 +81,7 @@ class ImportUserCommand extends Command
                     ->setPack('DISABLE');
 
                 // Null email
-                if ( NULL === $email ) {
+                if ( empty( $email ) ) {
                     $id = substr( md5(uniqid(rand(), true)), 0, 5);
                     $email = $id.'@saslarrieu.fr';
                    $user->setEmail( $email );
