@@ -22,23 +22,24 @@
             {% endfor %}
         </div>
         <div class="row">
-            <div class="col-12 pull-right mb-2">
-                <a href="{{ path('recommendation_new') }}" class="btn btn-success pull-right ml-4">Nouveau catalogue</a>
-            </div>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="d-flex no-block">
+                            <div class="ml-auto">
+                                <a href="{{ path('recommendation_new') }}" class="btn btn-success pull-right ml-4">Nouveau catalogue</a>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Client</th>
-                                    <th>Culture</th>
-                                    <th>Statut</th>
-                                    {% if app.user.status == 'ROLE_ADMIN' %}
+                                    {% if is_granted('ROLE_ADMIN') %}
                                         <th>Technicien</th>
                                     {% endif %}
+                                    <th>Culture</th>
+                                    <th>Statut</th>
                                     <th>Crée le</th>
                                     <th>Commentaire</th>
                                     <th>Action</th>
@@ -48,21 +49,23 @@
                                 {% for recommendation in lastRecommendations %}
                                     <tr>
                                         <td>
-                                            <a href="{{ path('recommendation_summary', {id: recommendation.id}) }}">{{ recommendation.id }}</a>
-                                        </td>
-                                        <td>
                                             <a href="{{ path('management_user_show', {id: recommendation.exploitation.users.id}) }}">
                                                 <h6>{{ recommendation.exploitation.users.identity }}</h6><small class="text-muted">{{ recommendation.exploitation.users.email }}</small>
                                             </a>
                                         </td>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <td>
+                                                <h6>{{ recommendation.exploitation.users.technician.identity ? recommendation.exploitation.users.technician.identity : 'Aucun' }}</h6>
+                                                <small class="text-muted">{{ recommendation.exploitation.users.technician.email }}</small>
+                                            </td>
+                                        {% endif %}
                                         <td>{{ recommendation.culture.name }}</td>
                                         <td>
                                             <span class="badge badge-{{ recommendation.status( {'label': true} ) }}">{{ recommendation.status( {'word': true} ) }}</span>
                                         </td>
-                                        {% if app.user.status == 'ROLE_ADMIN' %}
-                                            <td>{{ recommendation.exploitation.users.technician.identity ? recommendation.exploitation.users.technician.identity : 'Aucun' }}</td>
-                                        {% endif %}
-                                        <td><p class="font-14">{{ recommendation.createAt | date("d/m/y") }}</p></td>
+                                        <td>
+                                            <p class="font-14">{{ recommendation.createAt | date("d/m/y") }}</p>
+                                        </td>
                                         <td>
                                             {{ recommendation.comment }}
                                         </td>

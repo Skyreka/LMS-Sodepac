@@ -22,12 +22,14 @@
             {% endfor %}
         </div>
         <div class="row">
-            <div class="col-12 pull-right mb-2">
-                <a href="{{ path('purchase_contract_new') }}" class="btn btn-success pull-right ml-2">Nouveau contrat</a>
-            </div>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="d-flex no-block mb-1">
+                            <div class="ml-auto">
+                                <a href="{{ path('purchase_contract_new') }}" class="btn btn-success pull-right ml-2">Nouveau contrat</a>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
