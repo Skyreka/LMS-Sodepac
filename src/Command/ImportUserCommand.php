@@ -49,9 +49,11 @@ class ImportUserCommand extends Command
         $csv = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'users.csv';
         $lines = explode("\n", file_get_contents($csv));
 
+
         // Boucle par line du csv
         foreach ($lines as $k => $line) {
             $line = explode(';', $line);
+            dump( $line );
             // On sauvegarde le client && Prend uniquement juste une donnée
             if (key_exists(0, $line))
             {
