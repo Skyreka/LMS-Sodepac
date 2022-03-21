@@ -36,7 +36,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * Class InterventionsController
  * @package App\Controller
- * @Route("exploitation/ilot/culture/intervention")
+ * @Route("exploitation/ilot/culture/intervention/")
  */
 class InterventionsController extends AbstractController
 {

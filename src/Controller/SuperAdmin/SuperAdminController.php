@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * Class SuperAdminController
  * @package App\Controller
- * @Route("super-admin")
+ * @Route("super-admin/")
  * @IsGranted("ROLE_SUPERADMIN")
  */
 class SuperAdminController extends AbstractController {
@@ -23,7 +23,10 @@ class SuperAdminController extends AbstractController {
     /**
      * @Route("", name="superadmin_index", methods={"GET"})
      * @param UsersRepository $ur
+     * @param InterventionsRepository $ir
      * @return Response
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function index( UsersRepository $ur, InterventionsRepository $ir )
     {

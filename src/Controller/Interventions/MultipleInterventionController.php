@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class MultipleInterventionController
  * @package App\Controller\Interventions
- * @Route("interventions-multiple")
+ * @Route("interventions-multiple/")
  */
 class MultipleInterventionController extends AbstractController
 {

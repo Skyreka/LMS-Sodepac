@@ -25,7 +25,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("panorama")
+ * @Route("panorama/")
  */
 class PanoramasController extends AbstractController
 {

@@ -19,7 +19,7 @@ use TreeHouse\Slugifier\Slugifier;
 /**
  * Class SalesController
  * @package App\Controller
- * @Route("pricing")
+ * @Route("pricing/")
  */
 class PricingController extends AbstractController
 {

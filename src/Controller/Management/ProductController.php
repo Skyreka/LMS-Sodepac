@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ProductController
  * @package App\Controller\Management
- * @Route("management/products")
+ * @Route("management/products/")
  */
 class ProductController extends AbstractController
 {

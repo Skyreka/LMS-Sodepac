@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class MixController
  * @package App\Controller
- * @Route("mix")
+ * @Route("mix/")
  */
 class MixController extends AbstractController
 {

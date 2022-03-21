@@ -23,7 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * Class IndexsController
  * @package App\Controller
  * @IsGranted("ROLE_SUPERADMIN")
- * @Route("admin/indexs")
+ * @Route("admin/indexs/")
  */
 class IndexsController extends AbstractController
 {

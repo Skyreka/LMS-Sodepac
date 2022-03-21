@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class TicketsController
  * @package App\Controller
- * @Route("tickets")
+ * @Route("tickets/")
  */
 class TicketsController extends AbstractController
 {

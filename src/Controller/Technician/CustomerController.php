@@ -22,7 +22,7 @@ use Zumba\JsonSerializer\JsonSerializer;
 /**
  * Class CustomersController
  * @package App\Controller\Technician
- * @Route("technician/customers")
+ * @Route("technician/customers/")
  */
 class CustomerController extends AbstractController
 {
