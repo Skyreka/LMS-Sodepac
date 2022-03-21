@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PanoramasRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PanoramaRepository")
  */
-class Panoramas
+class Panorama
 {
     /**
      * @ORM\Id()
@@ -63,7 +63,7 @@ class Panoramas
     private $send_date;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaUser", mappedBy="panorama", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaSend", mappedBy="panorama", orphanRemoval=true)
      */
     private $customers;
 
@@ -184,14 +184,14 @@ class Panoramas
     }
 
     /**
-     * @return Collection|PanoramaUser[]
+     * @return Collection|PanoramaSend[]
      */
     public function getCustomers(): Collection
     {
         return $this->customers;
     }
 
-    public function addCustomer(PanoramaUser $customer): self
+    public function addCustomer( PanoramaSend $customer): self
     {
         if (!$this->customers->contains($customer)) {
             $this->customers[] = $customer;
@@ -201,7 +201,7 @@ class Panoramas
         return $this;
     }
 
-    public function removeCustomer(PanoramaUser $customer): self
+    public function removeCustomer( PanoramaSend $customer): self
     {
         if ($this->customers->contains($customer)) {
             $this->customers->removeElement($customer);

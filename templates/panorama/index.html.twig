@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Panoramas{% endblock %}
+{% block title %}Liste des panorama{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/
@@ -10,10 +10,10 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-12 align-self-center">
-                <h3 class="text-themecolor">Liste des Panoramas</h3>
+                <h3 class="text-themecolor">Liste des panoramas</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item active">Panoramas</li>
+                    <li class="breadcrumb-item active">panorama</li>
                 </ol>
             </div>
         </div>
@@ -48,7 +48,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for panorama in panoramas %}
+                                {% for panorama in panorama %}
                                         <tr>
                                             <td>{{ panorama.creationDate | date('d/m/y') }}</td>
                                             {% if app.user.status == 'ROLE_ADMIN' %}
@@ -158,8 +158,8 @@
             buttons: [
                 {
                     extend: 'pdf',
-                    text: 'Exporter les panoramas',
-                    title: 'Liste des panoramas',
+                    text: 'Exporter les panorama',
+                    title: 'Liste des panorama',
                     message: 'Exporté le {{ "now"|date('d-m-Y H:i') }} avec l\'application {{ APP_NAME }}',
                     exportOptions: {
                         columns: [0,1,2],

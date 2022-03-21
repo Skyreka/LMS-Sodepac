@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Repository\BsvUsersRepository;
-use App\Repository\PanoramaUserRepository;
+use App\Repository\PanoramaSendRepository;
 use App\Repository\RecommendationsRepository;
 use App\Repository\TicketsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,16 +15,16 @@ class HomeController extends AbstractController {
     /**
      * @Route("home", name="home")
      * @param BsvUsersRepository $bur
-     * @param PanoramaUserRepository $pur
+     * @param PanoramaSendRepository $pur
      * @param TicketsRepository $tr
      * @param RecommendationsRepository $rr
      * @return Response
      * @throws \Exception
      */
     public function home(
-        BsvUsersRepository $bur,
-        PanoramaUserRepository $pur,
-        TicketsRepository $tr,
+        BsvUsersRepository        $bur,
+        PanoramaSendRepository    $pur,
+        TicketsRepository         $tr,
         RecommendationsRepository $rr
     ): Response
     {

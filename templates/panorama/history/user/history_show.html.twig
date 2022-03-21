@@ -1,6 +1,6 @@
 <div class="card-body">
     <div class="d-flex no-block">
-        <h4 class="card-title">Liste des Panoramas reçu en {{ year }}</h4>
+        <h4 class="card-title">Liste des panorama reçu en {{ year }}</h4>
     </div>
     <div class="table-responsive m-t-20">
         <table class="table stylish-table">
@@ -13,7 +13,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for panorama in panoramas %}
+            {% for panorama in panorama %}
                 <tr>
                     <td>{{ panorama.displayAt  | date('d/m/y') }}</td>
                     <td>{{ panorama.panorama.text }}</td>
@@ -30,7 +30,7 @@
                     </td>
                     <td>
                         {% if panorama.checked == 0 %}
-                            {{ include('panoramas/history/user/_check.html.twig') }}
+                            {{ include('panorama/history/user/_check.html.twig') }}
                         {% else %}
                             <i class="ti-eye"></i> Lu
                         {% endif %}

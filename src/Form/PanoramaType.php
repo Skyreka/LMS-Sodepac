@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Panoramas;
+use App\Entity\Panorama;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -71,7 +71,7 @@ class PanoramaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Panoramas::class,
+            'data_class' => Panorama::class,
             'translation_domain' => 'forms'
         ]);
     }

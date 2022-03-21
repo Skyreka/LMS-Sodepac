@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PanoramaUserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PanoramaSendRepository")
  */
-class PanoramaUser
+class PanoramaSend
 {
     /**
      * @ORM\Id()
@@ -23,7 +23,7 @@ class PanoramaUser
     private $customers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Panoramas", inversedBy="customers")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Panorama", inversedBy="customers")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $panorama;
@@ -61,12 +61,12 @@ class PanoramaUser
         return $this;
     }
 
-    public function getPanorama(): ?Panoramas
+    public function getPanorama(): ?Panorama
     {
         return $this->panorama;
     }
 
-    public function setPanorama(?Panoramas $panorama): self
+    public function setPanorama(?Panorama $panorama): self
     {
         $this->panorama = $panorama;
 

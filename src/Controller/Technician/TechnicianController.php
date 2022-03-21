@@ -3,7 +3,7 @@ namespace App\Controller\Technician;
 
 use App\Repository\BsvUsersRepository;
 use App\Repository\OrdersRepository;
-use App\Repository\PanoramasRepository;
+use App\Repository\PanoramaRepository;
 use App\Repository\PurchaseContractRepository;
 use App\Repository\RecommendationsRepository;
 use App\Repository\TicketsRepository;
@@ -17,7 +17,7 @@ class TechnicianController extends AbstractController {
     /**
      * @Route("technician", name="technician_home")
      * @param UsersRepository $ur
-     * @param PanoramasRepository $pr
+     * @param PanoramaRepository $pr
      * @param BsvUsersRepository $bur
      * @param TicketsRepository $tr
      * @param RecommendationsRepository $rr
@@ -25,7 +25,7 @@ class TechnicianController extends AbstractController {
      * @param PurchaseContractRepository $pcr
      * @return Response
      */
-    public function home( UsersRepository $ur, PanoramasRepository $pr, BsvUsersRepository $bur, TicketsRepository $tr, RecommendationsRepository $rr, OrdersRepository $or, PurchaseContractRepository $pcr)
+    public function home( UsersRepository $ur, PanoramaRepository $pr, BsvUsersRepository $bur, TicketsRepository $tr, RecommendationsRepository $rr, OrdersRepository $or, PurchaseContractRepository $pcr)
     {
         $customers = $ur->findAllCustomersOfTechnician( $this->getUser()->getId(), 10 );
         $customersCount = count($ur->findAllCustomersOfTechnician( $this->getUser()->getId() ));

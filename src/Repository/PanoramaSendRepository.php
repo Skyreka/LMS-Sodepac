@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\PanoramaUser;
+use App\Entity\PanoramaSend;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method PanoramaUser|null find($id, $lockMode = null, $lockVersion = null)
- * @method PanoramaUser|null findOneBy(array $criteria, array $orderBy = null)
- * @method PanoramaUser[]    findAll()
- * @method PanoramaUser[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PanoramaSend|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PanoramaSend|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PanoramaSend[]    findAll()
+ * @method PanoramaSend[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PanoramaUserRepository extends ServiceEntityRepository
+class PanoramaSendRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, PanoramaUser::class);
+        parent::__construct($registry, PanoramaSend::class);
     }
 
 

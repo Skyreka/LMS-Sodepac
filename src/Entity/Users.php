@@ -108,7 +108,7 @@ class Users implements UserInterface, \Serializable
     private $bsvs;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaUser", mappedBy="customers", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaSend", mappedBy="customers", orphanRemoval=true)
      */
     private $panoramas;
 
@@ -118,7 +118,7 @@ class Users implements UserInterface, \Serializable
     private $technician;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaUser", mappedBy="sender")
+     * @ORM\OneToMany(targetEntity="App\Entity\PanoramaSend", mappedBy="sender")
      */
     private $panoramas_sent;
 
@@ -173,7 +173,7 @@ class Users implements UserInterface, \Serializable
     private $purchaseContracts;
 
     /**
-     * @ORM\OneToMany(targetEntity=Panoramas::class, mappedBy="owner")
+     * @ORM\OneToMany(targetEntity=Panorama::class, mappedBy="owner")
      */
     private $ownedPanoramas;
 
@@ -431,14 +431,14 @@ class Users implements UserInterface, \Serializable
     }
 
     /**
-     * @return Collection|PanoramaUser[]
+     * @return Collection|PanoramaSend[]
      */
     public function getPanoramas(): Collection
     {
         return $this->panoramas;
     }
 
-    public function addPanorama(PanoramaUser $panorama): self
+    public function addPanorama( PanoramaSend $panorama): self
     {
         if (!$this->panoramas->contains($panorama)) {
             $this->panoramas[] = $panorama;
@@ -448,7 +448,7 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
-    public function removePanorama(PanoramaUser $panorama): self
+    public function removePanorama( PanoramaSend $panorama): self
     {
         if ($this->panoramas->contains($panorama)) {
             $this->panoramas->removeElement($panorama);
@@ -474,14 +474,14 @@ class Users implements UserInterface, \Serializable
     }
 
     /**
-     * @return Collection|PanoramaUser[]
+     * @return Collection|PanoramaSend[]
      */
     public function getPanoramasSent(): Collection
     {
         return $this->panoramas_sent;
     }
 
-    public function addPanoramasSent(PanoramaUser $panoramasSent): self
+    public function addPanoramasSent( PanoramaSend $panoramasSent): self
     {
         if (!$this->panoramas_sent->contains($panoramasSent)) {
             $this->panoramas_sent[] = $panoramasSent;
@@ -491,7 +491,7 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
-    public function removePanoramasSent(PanoramaUser $panoramasSent): self
+    public function removePanoramasSent( PanoramaSend $panoramasSent): self
     {
         if ($this->panoramas_sent->contains($panoramasSent)) {
             $this->panoramas_sent->removeElement($panoramasSent);
@@ -709,7 +709,7 @@ class Users implements UserInterface, \Serializable
         return $this->ownedPanoramas;
     }
 
-    public function addOwnedPanorama(Panoramas $ownedPanorama): self
+    public function addOwnedPanorama(Panorama $ownedPanorama): self
     {
         if (!$this->ownedPanoramas->contains($ownedPanorama)) {
             $this->ownedPanoramas[] = $ownedPanorama;
@@ -719,7 +719,7 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
-    public function removeOwnedPanorama(Panoramas $ownedPanorama): self
+    public function removeOwnedPanorama(Panorama $ownedPanorama): self
     {
         if ($this->ownedPanoramas->removeElement($ownedPanorama)) {
             // set the owning side to null (unless already changed)

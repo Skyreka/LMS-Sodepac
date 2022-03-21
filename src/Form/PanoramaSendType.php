@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\PanoramaUser;
+use App\Entity\PanoramaSend;
 use App\Entity\Users;
 use App\Repository\UsersRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

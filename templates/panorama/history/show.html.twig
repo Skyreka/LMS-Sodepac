@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <div class="d-flex no-block">
-            <h4 class="card-title">Liste des panoramas envoyés en {{ year }}</h4>
+            <h4 class="card-title">Liste des panorama envoyés en {{ year }}</h4>
         </div>
         <div class="table-responsive m-t-20">
             <table class="table stylish-table" id="datatable">
@@ -18,7 +18,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for panorama in panoramas %}
+                {% for panorama in panorama %}
                     <tr>
                         <td>{{ panorama.panorama.creationDate | date('d/m/y') }}</td>
                         <td>{{ panorama.displayAt  | date('d/m/y') }}</td>
