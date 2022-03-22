@@ -247,7 +247,7 @@ class Users implements UserInterface, \Serializable
 
     public function getIdentity(): ?string
     {
-        if ( NULL != $this->getLastname() && NULL != $this->getFirstname() ) {
+        if ( NULL != $this->getLastname() OR NULL != $this->getFirstname() ) {
             return $this->getLastname() . ' ' . $this->getFirstname();
         } else {
             return $this->getCompany();
