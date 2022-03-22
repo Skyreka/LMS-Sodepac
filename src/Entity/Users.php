@@ -41,13 +41,13 @@ class Users implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
      */
-    private ?int $id = null;
+    private $id = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(min=3, max=50)
      */
-    private ?string $firstname;
+    private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -58,32 +58,32 @@ class Users implements UserInterface, \Serializable
      *     message="Email Invalide"
      * )
      */
-    private string $email;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private ?string $lastname;
+    private $lastname;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private ?string $phone;
+    private $phone;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
      */
-    private ?string $city;
+    private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private string $password;
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private string $status;
+    private $status;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
