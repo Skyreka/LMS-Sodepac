@@ -107,6 +107,7 @@ class OrderController extends AbstractController
         $form->handleRequest( $request );
 
         if ( $form->isSubmitted() && $form->isValid() ) {
+            $orders->setUpdateAt( new \DateTime() );
             $this->em->flush();
             $this->addFlash('success', 'Information sauvegardée avec succès');
             return $this->redirectToRoute('management_order_show', ['id_number' => $orders->getIdNumber()]);
@@ -439,6 +440,7 @@ class OrderController extends AbstractController
         //Update status
         if ( $order->getStatus() == 0 ) {
             $order->setStatus( 1 );
+            $order->setUpdateAt( new \DateTime() );
             $this->em->flush();
 
             //Remove Cart
@@ -475,6 +477,7 @@ class OrderController extends AbstractController
             // Update status
             $order->setStatus( 2 );
             $order->setCreateDate( $newDate );
+            $order->setUpdateAt( new \DateTime() );
 
             // Generate OTP
             $codeOtp = new SignatureOtp();
