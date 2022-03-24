@@ -83,7 +83,7 @@
                                                 <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                                             </td>
                                             <td>
-                                                <h6>{{ flash.bsv.text }} </h6><small class="text-muted">{{ flash.displayAt|date('d M y à h:m') }}</small>
+                                                <h6>{{ flash.bsv.text }} </h6><small class="text-muted">{{ flash.displayAt|date('d/m/y à h:m') }}</small>
                                             </td>
                                             <td>
                                             {{ include('flash/user/_check.html.twig') }}
@@ -109,7 +109,7 @@
                                                 <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
                                             </td>
                                             <td>
-                                                <h6>{{ panorama.panorama.text }} </h6><small class="text-muted">{{ panorama.displayAt|date('d M y à h:m') }}</small>
+                                                <h6>{{ panorama.panorama.text }} </h6><small class="text-muted">{{ panorama.displayAt|date('d/m/y à h:m') }}</small>
                                             </td>
                                             <td>
                                                 <form method="POST" action="{{ path('panorama_user_check', {id: panorama.id}) }}" style="display: inline-block">
