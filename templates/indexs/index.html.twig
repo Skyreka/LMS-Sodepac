@@ -31,7 +31,7 @@
                                 <thead>
                                 <tr>
                                     <th>Nom</th>
-                                    <th>Canevas</th>
+                                    <th>Permanent</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -39,6 +39,9 @@
                                     <tr>
                                         <td>
                                             <h6>{{ culture.name }}</h6>
+                                        </td>
+                                        <td>
+                                            <h6>{{ culture.permanent ? 'Oui' : 'Non' }}</h6>
                                         </td>
                                     </tr>
                                 {% endfor %}

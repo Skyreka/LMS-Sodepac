@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Products;
 use App\Form\ProductType;
 use App\Repository\ProductsRepository;
+use Cocur\Slugify\Slugify;
 use DataTables\DataTablesInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,8 +73,8 @@ class PricingController extends AbstractController
     public function new( Request $request ): Response
     {
         $product = new Products();
-        $slugify = new Slugifier();
-        $form = $this->createForm( ProductType::class, $product );
+        $slugify = new Slugify();
+        $form = $this->createForm( ProductType::class, $product, ['edit_name' => true] );
         $form->handleRequest( $request );
 
         if ($form->isSubmitted() && $form->isValid()) {

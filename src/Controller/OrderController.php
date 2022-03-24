@@ -556,7 +556,7 @@ class OrderController extends AbstractController
                 'params' => [
                     'subject' => 'Confirmation de signature de votre commande - '. $this->getParameter('APP_NAME'),
                     'title' => 'Nous vous confirmation la signature de votre bon de commande',
-                    'text1' => 'Nous vous remercions pour votre confiance, pouvez dès maintenant découvrir votre commande dans votre espace utilisateur'
+                    'text1' => 'Nous vous remercions pour votre confiance, vous pouvez dès maintenant découvrir votre commande dans votre espace utilisateur'
                 ]
             ]);
 
@@ -624,7 +624,7 @@ class OrderController extends AbstractController
             $product = $form->get('product')->getData();
             if ( $product->getParentProduct() ) {
                 $price = $product->getParentProduct()->getPrice();
-                if ( NULL === $price ) {
+                if ( NULL === $price OR 0.0 === $price ) {
                     $price = $product->getPrice();
                 }
             } elseif ( NULL != $product->getPrice() ) {
