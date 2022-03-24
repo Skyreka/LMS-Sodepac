@@ -11,6 +11,7 @@ use App\Repository\EffluentsRepository;
 use App\Repository\IndexCulturesRepository;
 use App\Repository\IndexEffluentsRepository;
 use App\Repository\IndexGroundsRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,7 +65,7 @@ class IndexsController extends AbstractController
     public function newCultures(Request $request): Response
     {
         $indexCultures = new IndexCultures();
-        $slugify = new Slugifier();
+        $slugify = new Slugify();
         $form = $this->createForm( IndexCulturesType::class, $indexCultures);
         $form->handleRequest( $request );
 
