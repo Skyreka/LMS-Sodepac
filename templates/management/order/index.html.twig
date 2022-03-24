@@ -68,7 +68,7 @@
                                             {% endif %}
                                         </td>
                                         <td><p class="font-14">{{ order.createDate | date("d/m/y") }}</p></td>
-                                        <td><p class="font-14">{{ order.addedAt | date("d/m/y") }}</p></td>
+                                        <td><p class="font-14">{{ order.addedAt ? order.addedAt  | date("d/m/y") : order.createDate | date("d/m/y") }}</p></td>
                                         <td>
                                             <div style="display: flex">
                                                 <a title="PDF" class="btn btn-info" target="_blank" href="{{ path('order_pdf_view', {'id_number': order.idNumber}) }}"><i class="fa fa-download text-white"></i></a>

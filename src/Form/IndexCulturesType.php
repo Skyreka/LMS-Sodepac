@@ -15,7 +15,9 @@ class IndexCulturesType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('permanent', CheckboxType::class)
+            ->add('permanent', CheckboxType::class, [
+                'required' => false
+            ])
         ;
     }
 

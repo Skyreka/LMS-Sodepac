@@ -45,7 +45,6 @@ class Users implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(min=3, max=50)
      */
     private $firstname;
 

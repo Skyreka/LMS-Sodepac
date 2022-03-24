@@ -506,7 +506,7 @@ class RecommendationsController extends AbstractController
             $asyncMethodService->async(EmailNotifier::class, 'notify', [ 'userId' => $recommendations->getExploitation()->getUsers()->getId(),
                 'params' => [
                     'subject' => 'Un nouveau catalogue est disponible sur '. $this->getParameter('APP_NAME'),
-                    'text1' => 'Un nouveau catalogue est disponible sur votre application, Vous le trouverez ci-joint.'
+                    'text1' => 'Un nouveau catalogue est disponible sur votre application.'
                 ]
             ]);
 
