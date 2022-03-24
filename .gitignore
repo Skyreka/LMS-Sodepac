@@ -18,6 +18,7 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
+public/uploads/app/
 public/uploads/bsv/
 public/uploads/panorama/
 public/uploads/recommendations/
