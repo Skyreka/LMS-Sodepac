@@ -27,7 +27,7 @@ class OrdersRepository extends ServiceEntityRepository
             ->andWhere('o.creator = :val')
             ->andWhere('o.status != 0')
             ->setParameter('val', $tech)
-            ->orderBy('o.createDate', 'DESC')
+            ->orderBy('o.addedAt', 'DESC')
             ;
 
         if ($limit) {
@@ -47,7 +47,7 @@ class OrdersRepository extends ServiceEntityRepository
             ->where('o.customer = :user')
             ->andWhere('o.status != 0')
             ->setParameter('user', $user)
-            ->orderBy('o.createDate', 'DESC')
+            ->orderBy('o.addedAt', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -60,7 +60,7 @@ class OrdersRepository extends ServiceEntityRepository
     public function findByAdmin()
     {
         return $this->createQueryBuilder('o')
-            ->orderBy('o.createDate', 'DESC')
+            ->orderBy('o.addedAt', 'DESC')
             ->andWhere('o.status != 0')
             ->getQuery()
             ->getResult()

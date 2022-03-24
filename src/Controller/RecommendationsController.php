@@ -77,7 +77,7 @@ class RecommendationsController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
             $lastRecommendations = $rr->findAllByYear( date('Y') );
         } else {
-            $lastRecommendations = $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), date('Y'), 5 );
+            $lastRecommendations = $rr->findByExploitationOfTechnicianAndYear( $this->getUser(), date('Y') );
         }
 
         return $this->render('recommendations/staff/index.html.twig', [

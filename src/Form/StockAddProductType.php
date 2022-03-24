@@ -27,6 +27,7 @@ class StockAddProductType extends AbstractType
                     return $pr->createQueryBuilder('p')
                         ->orderBy('p.name', 'ASC')
                         ->andWhere('p.private = 0')
+                        ->andWhere('p.parent_product is NULL')
                         ->andWhere('p.isActive = 1');
                 },
                 'choice_label' => 'name',
