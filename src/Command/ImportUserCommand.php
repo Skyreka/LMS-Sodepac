@@ -58,18 +58,23 @@ class ImportUserCommand extends Command
             if (key_exists(0, $line))
             {
                 //var
-                $email = !empty($line[5]) ? $line[5] : "";
-                $address = !empty($line[1]) ? $line[1] : "";
-                $postalCode =!empty($line[2]) ? $line[2] : "";
-                $city = !empty($line[3]) ? $line[3] : "";
-                $phone = !empty($line[4]) ? $line[4] : "";
-                $certif = !empty($line[6]) ? $line[6] : "";
+                $email = !empty($line[7]) ? $line[7] : "";
+                $address = !empty($line[3]) ? $line[3] : "";
+                $postalCode =!empty($line[4]) ? $line[4] : "";
+                $city = !empty($line[5]) ? $line[5] : "";
+                $phone = !empty($line[6]) ? $line[6] : "";
+                $certif = !empty($line[8]) ? $line[8] : "";
+                $company = !empty($line[2]) ? $line[2] : "";
+                $lastname = !empty($line[1]) ? $line[1] : "";
+                $firstname = !empty($line[0]) ? $line[0] : "";
 
                 $user = new Users();
 
                 // import default information
                 $user
-                    ->setCompany($line[0])
+                    ->setFirstname( $firstname )
+                    ->setLastname( $lastname )
+                    ->setCompany( $company )
                     ->setAddress( $address )
                     ->setPostalCode( $postalCode )
                     ->setCity($city )
