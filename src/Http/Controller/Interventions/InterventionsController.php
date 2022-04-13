@@ -690,7 +690,6 @@ class InterventionsController extends AbstractController
      */
     public function edit(Interventions $intervention, Request $request, StocksRepository $sr)
     {
-        
         $classMetadata    = $this->em->getClassMetadata(get_class($intervention));
         $discriminatorMap = $classMetadata->discriminatorValue;
         
@@ -698,39 +697,16 @@ class InterventionsController extends AbstractController
         if($discriminatorMap == 'phyto') {
             $quantityOnIntervention = $intervention->getQuantity();
         }
-        
-        switch($intervention->getType()) {
-            case 'Récolte':
-                $form = $this->createForm(RecolteType::class, $intervention, ['syntheseView' => true]);
-                break;
-            
-            case 'Epandage':
-                $form = $this->createForm(EpandageInterventionType::class, $intervention);
-                break;
-            
-            case 'Désherbant':
-                $form = $this->createForm(EditInterventionQuantityType::class, $intervention);
-                break;
-            
-            case 'Insecticide':
-                $form = $this->createForm(EditInterventionQuantityType::class, $intervention);
-                break;
-            
-            case 'Nutrition':
-                $form = $this->createForm(EditInterventionQuantityType::class, $intervention);
-                break;
-            
-            case 'Fertilisant':
-                $form = $this->createForm(EditInterventionQuantityType::class, $intervention);
-                break;
-            
-            case 'Fongicide':
-                $form = $this->createForm(EditInterventionQuantityType::class, $intervention);
-                break;
-            
-            default:
-                $form = $this->createForm(DefaultInterventionType::class, $intervention);
-        }
+        $form = match ($intervention->getType()) {
+            'Récolte' => $this->createForm(RecolteType::class, $intervention, ['syntheseView' => true]),
+            'Epandage' => $this->createForm(EpandageInterventionType::class, $intervention),
+            'Désherbant' => $this->createForm(EditInterventionQuantityType::class, $intervention),
+            'Insecticide' => $this->createForm(EditInterventionQuantityType::class, $intervention),
+            'Nutrition' => $this->createForm(EditInterventionQuantityType::class, $intervention),
+            'Fertilisant' => $this->createForm(EditInterventionQuantityType::class, $intervention),
+            'Fongicide' => $this->createForm(EditInterventionQuantityType::class, $intervention),
+            default => $this->createForm(DefaultInterventionType::class, $intervention)
+        };
         
         $form->handleRequest($request);
         

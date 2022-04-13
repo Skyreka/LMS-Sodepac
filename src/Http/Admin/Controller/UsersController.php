@@ -58,20 +58,6 @@ class UsersController extends AbstractController
         $users = $this->em->getRepository(Users::class)->findAll();
         
         foreach($users as $user) {
-            switch($user->getPack()) {
-                case 'PACK_FULL':
-                    $pack = 'PACK FULL';
-                    break;
-                case 'PACK_LIGHT':
-                    $pack = 'PACK LIGHT';
-                    break;
-                case 'PACK_DEMO':
-                    $pack = 'PACK DEMO';
-                    break;
-                default:
-                    $pack = 'INACTIF';
-                    break;
-            }
             $technician = 'Aucun';
             if($user->getStatus() == 'ROLE_USER') {
                 $technician = $user->getTechnician()->getIdentity();
@@ -81,7 +67,7 @@ class UsersController extends AbstractController
                 $user->getEmail(),
                 $user->getPhone(),
                 $user->getCity(),
-                $pack,
+                $user->getPack(),
                 $user->getCertificationPhyto(),
                 $technician
             ];

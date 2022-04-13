@@ -100,20 +100,12 @@ class UsersDataTables implements DataTableHandlerInterface
             }
             
             // Pack
-            switch($user->getPack()) {
-                case 'PACK_FULL':
-                    $pack = '<span class="label label-megna">Pack Full</span>';
-                    break;
-                case 'PACK_LIGHT':
-                    $pack = '<span class="label label-info">Pack Light</span>';
-                    break;
-                case 'PACK_DEMO':
-                    $pack = '<span class="label label-light-info">Pack Demo</span>';
-                    break;
-                default:
-                    $pack = '<span class="label label-default">Inactif</span>';
-                    break;
-            }
+            $pack = match ($user->getPack()) {
+              'PACK_FULL' => '<span class="label label-megna">Pack Full</span>',
+              'PACK_LIGHT' => '<span class="label label-info">Pack Light</span>',
+              'PACK_DEMO' => '<span class="label label-light-info">Pack Demo</span>',
+              default => '<span class="label label-default">Inactif</span>',
+            };
             
             // Exploitation
             if($user->getExploitation() == NULL) {
