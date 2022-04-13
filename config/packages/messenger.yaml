@@ -5,13 +5,20 @@ framework:
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
+            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            # failed: 'doctrine://default?queue_name=failed'
+            # sync: 'sync://'
             async:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    consumer: "%env(MESSENGER_CONSUMER_NAME)%"
                 retry_strategy:
                     max_retries: 0
-            failed: '%env(MESSENGER_TRANSPORT_FAILED_DSN)%'
-            # sync: 'sync://'
+                    delay: 5000
+            failed: doctrine://default
+            sync: 'sync://'
 
         routing:
             # Route your messages to the transports
-            'App\Message\ServiceMethodCallMessage': async
+            # 'App\Message\YourMessage': async
+            App\Infrastructure\Queue\Message\ServiceMethodMessage: async

@@ -15,29 +15,28 @@ class DeleteTemp extends Command
      * @var ContainerInterface
      */
     private $container;
-
+    
     public function __construct(ContainerInterface $container)
     {
         parent::__construct();
         $this->container = $container;
     }
-
+    
     protected function configure()
     {
         $this
-            ->setDescription('Delete all temp in order & contract byt')
-        ;
+            ->setDescription('Delete all temp in order & contract byt');
     }
-
+    
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /* @var $em EntityManager */
         $em = $this->container->get('doctrine')->getManager();
-
-        $repo = $em->getRepository('App:Orders');
+        
+        $repo   = $em->getRepository('App:Orders');
         $orders = $repo->findBy(['status' => 0]);
-        foreach ( $orders as $order ) {
-            $em->remove( $order );
+        foreach($orders as $order) {
+            $em->remove($order);
         }
         $em->flush();
         // On donne des information des résultats
