@@ -11,17 +11,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class PageController extends AbstractController
 {
     
     /**
-     * @Route("home", name="home")
-     * @param BsvUsersRepository $bur
-     * @param PanoramaSendRepository $pur
-     * @param TicketsRepository $tr
-     * @param RecommendationsRepository $rr
-     * @return Response
-     * @throws \Exception
+     * @Route("/home", name="home")
      */
     public function home(
         BsvUsersRepository $bur,
@@ -48,7 +42,7 @@ class HomeController extends AbstractController
     }
     
     /**
-     * @Route("cgv", name="cgv_index")
+     * @Route("/cgv", name="cgv_index")
      */
     public function cgv(): RedirectResponse
     {

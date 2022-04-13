@@ -2,7 +2,7 @@
 
 namespace App\Domain\Intervention\Form;
 
-use App\Entity\Irrigation;
+use App\Domain\Intervention\Entity\Irrigation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

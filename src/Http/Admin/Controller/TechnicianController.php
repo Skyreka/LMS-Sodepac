@@ -17,12 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TechnicianController extends AbstractController
 {
-    
-    private $em;
-    
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     
     /**

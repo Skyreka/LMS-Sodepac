@@ -26,20 +26,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PPF2Controller extends AbstractController
 {
-    
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    /**
-     * @var PPFRepository
-     */
-    private $ppfRepository;
-    
-    public function __construct(EntityManagerInterface $em, PPFRepository $pr)
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly PPFRepository $pr
+    )
     {
-        $this->em            = $em;
-        $this->ppfRepository = $pr;
     }
     
     /**

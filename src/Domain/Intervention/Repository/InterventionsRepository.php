@@ -2,7 +2,7 @@
 
 namespace App\Domain\Intervention\Repository;
 
-use App\Entity\Interventions;
+use App\Domain\Intervention\Entity\Interventions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ManagerRegistry;

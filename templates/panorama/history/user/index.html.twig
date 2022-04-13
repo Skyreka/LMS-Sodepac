@@ -43,7 +43,7 @@
                                     <tr>
                                         <td>{{ panorama.panorama.text }}</td>
                                         <td>
-                                            <a title="Découvrir" href="{{ path('user_panorama_show', {id: panorama.panorama.id}) }}" class="btn btn-success">Découvrir</a>
+                                            <a title="Découvrir" href="{{ path('panorama_user_show', {id: panorama.panorama.id}) }}" class="btn btn-success">Découvrir</a>
                                         </td>
                                         <td><p class="font-14">{{ panorama.displayAt | date('d/m/y') }}</p></td>
                                         <td>

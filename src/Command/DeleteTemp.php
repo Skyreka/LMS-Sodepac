@@ -11,15 +11,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class DeleteTemp extends Command
 {
     protected static $defaultName = 'app:deleteTemp';
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
     
-    public function __construct(ContainerInterface $container)
+    public function __construct(private readonly ContainerInterface $container)
     {
         parent::__construct();
-        $this->container = $container;
     }
     
     protected function configure()

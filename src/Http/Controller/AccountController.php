@@ -15,29 +15,19 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * Class AccountController
  * @package App\Controller
- * @Route("account/")
+ * @Route("/account")
  */
 class  AccountController extends AbstractController
 {
-    
-    /**
-     * @var UsersRepository
-     */
-    private $repositoryUser;
-    
-    private $em;
-    
-    public function __construct(UsersRepository $repository, EntityManagerInterface $em)
+    public function __construct(
+        private readonly UsersRepository $repository,
+        private readonly EntityManagerInterface $em
+    )
     {
-        $this->repositoryUser = $repository;
-        $this->em             = $em;
     }
     
     /**
-     * @Route("", name="account_index", methods={"GET", "POST"})
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $encoder
-     * @return Response
+     * @Route("/", name="account_index", methods={"GET", "POST"})
      */
     public function index(Request $request, UserPasswordEncoderInterface $encoder): Response
     {

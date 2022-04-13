@@ -16,20 +16,14 @@ use TreeHouse\Slugifier\Slugifier;
 class ProductUpCommand extends Command
 {
     protected static $defaultName = 'app:updateProducts';
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-    /**
-     * @var ProductsRepository
-     */
-    private $pr;
+
     
-    public function __construct(ContainerInterface $container, ProductsRepository $pr)
+    public function __construct(
+        private readonly ContainerInterface $container,
+        private readonly ProductsRepository $pr
+    )
     {
         parent::__construct();
-        $this->container = $container;
-        $this->pr        = $pr;
     }
     
     protected function configure()

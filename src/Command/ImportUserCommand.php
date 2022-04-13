@@ -14,17 +14,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class ImportUserCommand extends Command
 {
     protected static $defaultName = 'app:importUser';
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-    private UserPasswordEncoderInterface $password;
     
-    public function __construct(ContainerInterface $container, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(
+        private readonly ContainerInterface $container,
+        private readonly UserPasswordEncoderInterface $passwordEncoder
+    )
     {
         parent::__construct();
-        $this->container = $container;
-        $this->password  = $passwordEncoder;
     }
     
     protected function configure()

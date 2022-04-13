@@ -34,38 +34,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class RecommendationsController
- * @package App\Controller
- */
 class RecommendationsController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    /**
-     * @var RecommendationProductsRepository
-     */
-    private $rpr;
-    
-    /**
-     * RecommendationsController constructor.
-     * @param EntityManagerInterface $em
-     * @param RecommendationProductsRepository $rpr
-     */
-    public function __construct(EntityManagerInterface $em, RecommendationProductsRepository $rpr)
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly RecommendationProductsRepository $rpr)
     {
-        $this->em  = $em;
-        $this->rpr = $rpr;
     }
     
     /**
-     * @Route("recommendations", name="recommendation_index", methods={"GET"})
-     * @param RecommendationsRepository $rr
-     * @return Response
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @Route("/recommendations", name="recommendation_index", methods={"GET"})
      */
     public function indexStaff(RecommendationsRepository $rr): Response
     {
@@ -82,11 +60,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("recommendation/new_data_ajax", name="recommendations_select_data")
-     * @param Request $request
-     * @param UsersRepository $ur
-     * @param Users $users
-     * @return JsonResponse
+     * @Route("/recommendation/new_data_ajax", name="recommendations_select_data")
      */
     public function selectData(Request $request, UsersRepository $ur): JsonResponse
     {
@@ -140,9 +114,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("recommendations/new", name="recommendation_new", methods={"GET", "POST"})
-     * @param Request $request
-     * @return Response
+     * @Route("/recommendations/new", name="recommendation_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -180,12 +152,7 @@ class RecommendationsController extends AbstractController
     
     /**
      * Display canevas by id of culture
-     * @Route("recommendations/{recommendations}/canevas/{slug}", name="recommendation_canevas", methods={"GET", "POST"}, requirements={"recommendations":"\d+"})
-     * @param Recommendations $recommendations
-     * @param IndexCanevas $indexCanevas
-     * @param CulturesRepository $cr
-     * @param RecommendationProductsRepository $rpr
-     * @return Response
+     * @Route("/recommendations/{recommendations}/canevas/{slug}", name="recommendation_canevas", methods={"GET", "POST"}, requirements={"recommendations":"\d+"})
      */
     public function canevas(Recommendations $recommendations, IndexCanevas $indexCanevas, CulturesRepository $cr, RecommendationProductsRepository $rpr): Response
     {
@@ -204,14 +171,7 @@ class RecommendationsController extends AbstractController
     
     /**
      * Add product by click button on canevas
-     * @Route("recommendations/canevas/add-product", name="recommendations_canevas_product_add", methods={"GET", "POST"})
-     * @param Request $request
-     * @param ProductsRepository $pr
-     * @param RecommendationsRepository $rr
-     * @param CulturesRepository $cr
-     * @return JsonResponse
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @Route("/recommendations/canevas/add-product", name="recommendations_canevas_product_add", methods={"GET", "POST"})
      */
     public function canevasAddProduct(Request $request, ProductsRepository $pr, RecommendationsRepository $rr, RecommendationProductsRepository $rpr)
     {
@@ -251,13 +211,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("recommendations/{id}/add-other-product", name="recommendation_product_add", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Recommendations $recommendations
-     * @param Request $request
-     * @param CulturesRepository $cr
-     * @return Response
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @Route("/recommendations/{id}/add-other-product", name="recommendation_product_add", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function newOtherProduct(Recommendations $recommendations, Request $request, CulturesRepository $cr)
     {
@@ -292,10 +246,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("recommendations/product/{id}/delete", name="recommendation_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
-     * @param RecommendationProducts $product
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/recommendations/product/{id}/delete", name="recommendation_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      */
     public function deleteProduct(RecommendationProducts $product, Request $request)
     {
@@ -308,10 +259,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("recommendations/{id}/delete", name="recommendation_delete", methods={"DELETE"}, requirements={"id":"\d+"})
-     * @param Recommendations $recommendation
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/recommendations/{id}/delete", name="recommendation_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      */
     public function delete(Recommendations $recommendation, Request $request)
     {
@@ -327,12 +275,7 @@ class RecommendationsController extends AbstractController
     
     /**
      * Edit Dose with editable Ajax Table
-     * @Route("recommendations/product/edit/dose", name="recommendation_product_dose_edit")
-     * @param Request $request
-     * @param CulturesRepository $cr
-     * @return JsonResponse
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @Route("/recommendations/product/edit/dose", name="recommendation_product_dose_edit")
      */
     public function editDose(Request $request)
     {
@@ -359,9 +302,7 @@ class RecommendationsController extends AbstractController
     
     /**
      * Edit Dose with editable Ajax Table
-     * @Route("recommendations/edit-total-quantity", name="recommendations.edit.totalQuantity")
-     * @param Request $request
-     * @return JsonResponse
+     * @Route("/recommendations/edit-total-quantity", name="recommendations.edit.totalQuantity")
      */
     public function editQuantity(Request $request)
     {
@@ -378,9 +319,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("recommendations/{id}/list-products", name="recommendation_product_list", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Recommendations $recommendations
-     * @return Response
+     * @Route("/recommendations/{id}/list-products", name="recommendation_product_list", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function listProduct(Recommendations $recommendations)
     {
@@ -394,10 +333,7 @@ class RecommendationsController extends AbstractController
     /**
      * This function is disable 29/12/2020
      * From list product technician go to directly to summary
-     * @Route("recommendations/{id}/mentions", name="recommendation_mentions", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Recommendations $recommendations
-     * @param Request $request
-     * @return Response
+     * @Route("/recommendations/{id}/mentions", name="recommendation_mentions", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function mentions(Recommendations $recommendations, Request $request)
     {
@@ -421,12 +357,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("recommendations/{id}/summary", name="recommendation_summary")
-     * @param Recommendations $recommendation
-     * @param CulturesRepository $cr
-     * @return Response
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @Route("/recommendations/{id}/summary", name="recommendation_summary")
      */
     public function summary(Recommendations $recommendation, CulturesRepository $cr): Response
     {
@@ -451,13 +382,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("recommendations/{id}/send", name="recommendation_send", methods="SEND")
-     * @param Recommendations $recommendations
-     * @param Request $request
-     * @param StocksRepository $sr
-     * @param RecommendationProductsRepository $rpr
-     * @param AsyncMethodService $asyncMethodService
-     * @return Response
+     * @Route("/recommendations/{id}/send", name="recommendation_send", methods="SEND")
      */
     public function send(
         Recommendations $recommendations,
@@ -511,14 +436,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("recommendation/{id}/download", name="recommendation_download", methods="DOWNLOAD")
-     * @param Recommendations $recommendations
-     * @param Request $request
-     * @param CulturesRepository $cr
-     * @param RecommendationProductsRepository $recommendationProductsRepository
-     * @return RedirectResponse
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @Route("/recommendation/{id}/download", name="recommendation_download", methods="DOWNLOAD")
      */
     public function download(Recommendations $recommendations, Request $request, CulturesRepository $cr, RecommendationProductsRepository $rpr)
     {
@@ -632,9 +550,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("exploitation/recommendations", name="exploitation_recommendation_index")
-     * @param RecommendationsRepository $rr
-     * @return Response
+     * @Route("/exploitation/recommendations", name="exploitation_recommendation_index")
      */
     public function indexUser(RecommendationsRepository $rr): Response
     {
@@ -644,10 +560,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("exploitation/recommendations/data/{year}", name="exploitation_recommendation_data")
-     * @param RecommendationsRepository $rr
-     * @param $year
-     * @return Response
+     * @Route("/exploitation/recommendations/data/{year}", name="exploitation_recommendation_data")
      */
     public function dataUser(RecommendationsRepository $rr, $year): Response
     {
@@ -658,12 +571,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("exploitation/recommendations/{id}", name="exploitation_recommendation_show")
-     * @param Recommendations $recommendations
-     * @param CulturesRepository $cr
-     * @return Response
-     * @throws NoResultException
-     * @throws NonUniqueResultException
+     * @Route("/exploitation/recommendations/{id}", name="exploitation_recommendation_show")
      */
     public function showUser(Recommendations $recommendations, CulturesRepository $cr): Response
     {
@@ -684,9 +592,7 @@ class RecommendationsController extends AbstractController
     }
     
     /**
-     * @Route("exploitation/recommendations/{id}/pdf", name="exploitation_recommendation_show_pdf")
-     * @param Recommendations $recommendations
-     * @return Response
+     * @Route("/exploitation/recommendations/{id}/pdf", name="exploitation_recommendation_show_pdf")
      */
     public function showPdfUser(Recommendations $recommendations): Response
     {

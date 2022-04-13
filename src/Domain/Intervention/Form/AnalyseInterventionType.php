@@ -2,7 +2,7 @@
 
 namespace App\Domain\Intervention\Form;
 
-use App\Entity\Analyse;
+use App\Domain\Intervention\Entity\Analyse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;

@@ -23,14 +23,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @UniqueEntity("email", message="Il existe déjà un compte avec cet e-mail")
  */
-class Users implements UserInterface, \Serializable
+class Users implements UserInterface
 {
     const STATUS = [
         'ROLE_USER' => 'Client',
         'ROLE_TECHNICIAN' => 'Technicien',
         'ROLE_ADMIN' => 'Administrateur',
         'ROLE_SALES' => 'Cours de vente',
-        'ROLE_PRICING' => 'Tarification'
+        'ROLE_PRICING' => 'Tarification',
+        'ROLE_SUPERADMIN' => 'Super Admin'
     ];
     
     const PACK = [
@@ -361,7 +362,7 @@ class Users implements UserInterface, \Serializable
     /**
      * @inheritDoc
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return array($this->getStatus());
     }
@@ -371,13 +372,13 @@ class Users implements UserInterface, \Serializable
      */
     public function getSalt()
     {
-        return null;
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
     
     /**
      * @inheritDoc
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->getEmail();
     }
@@ -387,6 +388,8 @@ class Users implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
     
     /**

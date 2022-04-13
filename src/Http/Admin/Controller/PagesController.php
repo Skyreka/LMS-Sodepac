@@ -15,14 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PagesController extends AbstractController
 {
-    
-    private $em;
-    
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-    
     /**
      * @Route("/", name="index", methods={"GET"})
      */

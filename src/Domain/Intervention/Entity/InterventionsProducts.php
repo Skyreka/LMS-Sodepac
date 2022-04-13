@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Intervention\Entity;
 
 use App\Domain\Intervention\Repository\InterventionsProductsRepository;
 use App\Domain\Product\Entity\Products;
 use Doctrine\ORM\Mapping as ORM;
+use App\Domain\Intervention\Entity\Interventions;
+use App\Domain\Intervention\Entity\Phyto;
 
 /**
  * @ORM\Entity(repositoryClass=InterventionsProductsRepository::class)

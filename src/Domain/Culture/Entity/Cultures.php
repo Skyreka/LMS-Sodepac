@@ -7,11 +7,10 @@ use App\Domain\Ilot\Entity\Ilots;
 use App\Domain\Index\Entity\IndexCultures;
 use App\Domain\Index\Entity\IndexEffluents;
 use App\Domain\PPF\Entity\PPF;
-use App\Entity\Interventions;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Domain\Intervention\Entity\Interventions;
 /**
  * @ORM\Entity(repositoryClass=CulturesRepository::class)
  */

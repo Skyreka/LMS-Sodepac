@@ -19,27 +19,19 @@ use Zumba\JsonSerializer\JsonSerializer;
 /**
  * Class CustomersController
  * @package App\Controller\Technician
- * @Route("technician/customers/")
+ * @Route("/technician/customers")
  */
 class CustomerController extends AbstractController
 {
-    /**
-     * @var UsersRepository
-     */
-    private $usersRepository;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    public function __construct(UsersRepository $usersRepository, EntityManagerInterface $em)
+    public function __construct(
+        private readonly UsersRepository $usersRepository,
+        private readonly EntityManagerInterface $em
+    )
     {
-        $this->usersRepository = $usersRepository;
-        $this->em              = $em;
     }
     
     /**
-     * @Route("", name="technician_customers_index", methods={"GET"})
+     * @Route("/", name="technician_customers_index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -50,11 +42,7 @@ class CustomerController extends AbstractController
     }
     
     /**
-     * @Route("new", name="technician_customers_new", methods={"GET", "POST"})
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $encoder
-     * @param AsyncMethodService $asyncMethodService
-     * @return Response
+     * @Route("/new", name="technician_customers_new", methods={"GET", "POST"})
      */
     public function new(
         Request $request,

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Intervention\Entity;
 
 use App\Domain\Culture\Entity\Cultures;
 use App\Domain\Intervention\Repository\InterventionsRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Domain\Index\Entity\IndexEffluents;
+use App\Domain\Product\Entity\Products;
+use App\Domain\Product\Repository\ProductsRepository;
 
 /**
  * @ORM\Entity(repositoryClass=InterventionsRepository::class)
@@ -275,7 +278,7 @@ class Epandage extends Interventions
     private $quantity;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\IndexEffluents")
+     * @ORM\ManyToOne(targetEntity=IndexEffluents::class)
      * @ORM\JoinColumn(nullable=true)
      */
     private $effluent;
@@ -471,7 +474,7 @@ class Fertilisant extends Interventions
     private $k;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Products")
+     * @ORM\ManyToOne(targetEntity=Products::class)
      */
     private $product;
     
@@ -589,7 +592,7 @@ class Fertilisant extends Interventions
 class Phyto extends Interventions
 {
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Products")
+     * @ORM\ManyToOne(targetEntity=Products::class)
      */
     private $product;
     
@@ -619,7 +622,7 @@ class Phyto extends Interventions
     private $size_multiple = 0;
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\InterventionsProducts", mappedBy="intervention")
+     * @ORM\OneToMany(targetEntity=InterventionsProducts::class, mappedBy="intervention")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $interventionsProducts;

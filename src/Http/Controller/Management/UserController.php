@@ -25,22 +25,16 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class UserController
  * Management Controller nly for view information of user let's ilots / culture .. for edit is only switch by role of user view profil
  * @package App\Controller\Management
- * @Route("management/user/")
+ * @Route("/management/user/")
  */
 class UserController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     
     /**
-     * @Route("{id}", name="management_user_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("/{id}", name="management_user_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function index(
         Users $user,
@@ -136,11 +130,7 @@ class UserController extends AbstractController
     }
     
     /**
-     * @Route("{user}/ilot/{ilot}", name="management_user_ilot_show", methods={"GET"}, requirements={"id":"\d+"})
-     * @param Users $user
-     * @param Ilots $ilot
-     * @param CulturesRepository $cr
-     * @return Response
+     * @Route("/{user}/ilot/{ilot}", name="management_user_ilot_show", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function showIlots(Users $user, Ilots $ilot, CulturesRepository $cr): Response
     {
@@ -159,10 +149,7 @@ class UserController extends AbstractController
     }
     
     /**
-     * @Route("culture/{id}", name="management_user_culture_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param InterventionsRepository $interventionsRepository
-     * @return Response
+     * @Route("/culture/{id}", name="management_user_culture_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function showCulture(Cultures $culture, InterventionsRepository $interventionsRepository): Response
     {

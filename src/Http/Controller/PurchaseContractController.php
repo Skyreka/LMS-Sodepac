@@ -18,24 +18,16 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class PurchaseContractController
  * @package App\Controller
- * @Route("management/purchase-contract/")
+ * @Route("/management/purchase-contract")
  */
 class PurchaseContractController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(public readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     
     /**
-     * @param PurchaseContractRepository $pcr
-     * @return Response
-     * @Route("", name="management_purchase_contract_index", methods={"GET"})
+     * @Route("/", name="management_purchase_contract_index", methods={"GET"})
      */
     public function index(PurchaseContractRepository $pcr): Response
     {
@@ -51,9 +43,7 @@ class PurchaseContractController extends AbstractController
     }
     
     /**
-     * @param Request $request
-     * @return Response
-     * @Route("new", name="purchase_contract_new", methods={"GET", "POST"})
+     * @Route("/new", name="purchase_contract_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -86,9 +76,7 @@ class PurchaseContractController extends AbstractController
     }
     
     /**
-     * @param PurchaseContract $purchaseContract
-     * @return Response
-     * @Route("show/{id}", name="management_purchase_contract_show", methods={"GET"}, requirements={"id":"\d+"})
+     * @Route("/show/{id}", name="management_purchase_contract_show", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function show(PurchaseContract $purchaseContract): Response
     {
@@ -107,10 +95,7 @@ class PurchaseContractController extends AbstractController
     
     /**
      * Edit Dose with editable Ajax Table
-     * @Route("edit", name="purchase_contract_culture_edit")
-     * @param Request $request
-     * @param PurchaseContractCultureRepository $pccr
-     * @return JsonResponse
+     * @Route("/edit", name="purchase_contract_culture_edit")
      */
     public function editProduct(Request $request, PurchaseContractCultureRepository $pccr): JsonResponse
     {
@@ -158,10 +143,7 @@ class PurchaseContractController extends AbstractController
     
     
     /**
-     * @Route("delete/{id}", name="purchase_contract_delete", methods={"DELETE"}, requirements={"id":"\d+"})
-     * @param PurchaseContract $purchaseContract
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/delete/{id}", name="purchase_contract_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      */
     public function delete(PurchaseContract $purchaseContract, Request $request): RedirectResponse
     {
@@ -175,9 +157,7 @@ class PurchaseContractController extends AbstractController
     }
     
     /**
-     * @param PurchaseContract $purchaseContract
-     * @return RedirectResponse
-     * @Route("add-line/{id}", name="management_purchase_contract_addLine", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("/add-line/{id}", name="management_purchase_contract_addLine", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function addLine(PurchaseContract $purchaseContract): RedirectResponse
     {
@@ -193,9 +173,7 @@ class PurchaseContractController extends AbstractController
     }
     
     /**
-     * @Route("valid/{id}", name="management_purchase_contract_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param PurchaseContract $purchaseContract
-     * @return RedirectResponse
+     * @Route("/valid/{id}", name="management_purchase_contract_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function valid(PurchaseContract $purchaseContract): RedirectResponse
     {

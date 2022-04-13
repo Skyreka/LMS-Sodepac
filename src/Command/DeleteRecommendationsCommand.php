@@ -11,15 +11,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class DeleteRecommendationsCommand extends Command
 {
     protected static $defaultName = 'app:deleteRecommendations';
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
     
-    public function __construct(ContainerInterface $container)
+    public function __construct(private readonly ContainerInterface $container)
     {
         parent::__construct();
-        $this->container = $container;
     }
     
     protected function configure()

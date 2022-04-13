@@ -5,7 +5,7 @@ namespace App\Domain\Stock\Form;
 use App\Domain\Product\Entity\Products;
 use App\Domain\Product\Repository\ProductsRepository;
 use App\Domain\Stock\Entity\Stocks;
-use App\Entity\ProductsCategory;
+use App\Domain\Intervention\Entity\ProductsCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

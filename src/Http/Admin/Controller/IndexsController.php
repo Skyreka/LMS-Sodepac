@@ -27,18 +27,12 @@ use TreeHouse\Slugifier\Slugifier;
  */
 class IndexsController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     
     /**
-     * @Route("/", name="indexs_index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(IndexCulturesRepository $icr, IndexEffluentsRepository $ier, IndexGroundsRepository $igr): Response
     {

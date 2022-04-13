@@ -6,7 +6,7 @@ use App\Domain\Doses\Entity\Doses;
 use App\Domain\Doses\Repository\DosesRepository;
 use App\Domain\Stock\Entity\Stocks;
 use App\Domain\Stock\Repository\StocksRepository;
-use App\Entity\Fertilisant;
+use App\Domain\Intervention\Entity\Fertilisant;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

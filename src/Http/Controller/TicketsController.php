@@ -18,28 +18,16 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class TicketsController
  * @package App\Controller
- * @Route("tickets/")
+ * @Route("/tickets", name="tickets_")
  */
 class TicketsController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    /**
-     * StockController constructor.
-     * @param EntityManagerInterface $em
-     */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     
     /**
-     * @Route("", name="tickets_index", methods={"GET"})
-     * @param TicketsRepository $tr
-     * @return Response
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(TicketsRepository $tr)
     {
@@ -54,9 +42,7 @@ class TicketsController extends AbstractController
     }
     
     /**
-     * @Route("new", name="tickets_new", methods={"GET", "POST"})
-     * @param Request $request
-     * @return Response
+     * @Route("/new", name="new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -79,12 +65,7 @@ class TicketsController extends AbstractController
     }
     
     /**
-     * @Route("conversation/{id}", name="tickets_conversation_show", methods={"POST", "GET"}, requirements={"id":"\d+"})
-     * @param Tickets $ticket
-     * @param TicketsMessagesRepository $tmr
-     * @param TicketsRepository $tr
-     * @param Request $request
-     * @return Response
+     * @Route("/conversation/{id}", name="conversation_show", methods={"POST", "GET"}, requirements={"id":"\d+"})
      */
     public function conversationShow(Tickets $ticket, TicketsMessagesRepository $tmr, TicketsRepository $tr, Request $request)
     {
@@ -139,10 +120,7 @@ class TicketsController extends AbstractController
     }
     
     /**
-     * @Route("close/{id}", name="tickets_close", methods="CLOSE", requirements={"id":"\d+"})
-     * @param Tickets $tickets
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/close/{id}", name="close", methods="CLOSE", requirements={"id":"\d+"})
      */
     public function check(Tickets $tickets, Request $request)
     {

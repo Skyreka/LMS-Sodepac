@@ -14,14 +14,12 @@ use function dump;
 /**
  * Class ProductController
  * @package App\Controller\Management
- * @Route("management/products/")
+ * @Route("/management/products")
  */
 class ProductController extends AbstractController
 {
     /**
-     * @Route("", name="management_products")
-     * @param Request $request
-     * @return Response
+     * @Route("/", name="management_products")
      */
     public function index(Request $request): Response
     {
@@ -29,10 +27,7 @@ class ProductController extends AbstractController
     }
     
     /**
-     * @Route("data", name="management_products_data", methods={"GET"})
-     * @param Request $request
-     * @param DataTablesInterface $datatables
-     * @return JsonResponse
+     * @Route("/data", name="management_products_data", methods={"GET"})
      */
     public function data(Request $request, DataTablesInterface $datatables): JsonResponse
     {

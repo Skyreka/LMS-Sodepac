@@ -13,27 +13,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class DosesCommand extends Command
 {
     protected static $defaultName = 'app:importDoses';
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
     
-    /**
-     * @var ProductsRepository
-     */
-    private $pr;
-    
-    /**
-     * @var IndexCulturesRepository
-     */
-    private $icr;
-    
-    public function __construct(ContainerInterface $container, ProductsRepository $pr, IndexCulturesRepository $icr)
+    public function __construct(
+        private readonly ContainerInterface $container,
+        private readonly ProductsRepository $pr,
+        private readonly IndexCulturesRepository $icr
+    )
     {
         parent::__construct();
-        $this->container = $container;
-        $this->pr        = $pr;
-        $this->icr       = $icr;
     }
     
     protected function configure()

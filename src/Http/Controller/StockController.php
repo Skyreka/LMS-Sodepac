@@ -18,24 +18,16 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class StockController
  * @package App\Controller
- * @Route("exploitation/stock")
+ * @Route("/exploitation/stock")
  */
 class StockController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     
     /**
-     * @Route("", name="exploitation_stock_index", methods={"GET"})
-     * @param StocksRepository $stocksRepository
-     * @return Response
+     * @Route("/", name="exploitation_stock_index", methods={"GET"})
      */
     public function index(StocksRepository $stocksRepository): Response
     {
@@ -46,10 +38,7 @@ class StockController extends AbstractController
     }
     
     /**
-     * @Route("new", name="exploitation_stock_new", methods={"GET", "POST"})
-     * @param Request $request
-     * @param StocksRepository $sr
-     * @return Response
+     * @Route("/new", name="exploitation_stock_new", methods={"GET", "POST"})
      */
     public function new(Request $request, StocksRepository $sr): Response
     {
@@ -84,10 +73,7 @@ class StockController extends AbstractController
     }
     
     /**
-     * @Route("private/new", name="exploitation_stock_private_new", methods={"GET", "POST"})
-     * @param Request $request
-     * @param StocksRepository $sr
-     * @return Response
+     * @Route("/private/new", name="exploitation_stock_private_new", methods={"GET", "POST"})
      */
     public function newPrivate(Request $request, StocksRepository $sr): Response
     {
@@ -122,10 +108,7 @@ class StockController extends AbstractController
     }
     
     /**
-     * @Route("delete/{id}", name="exploitation_stock_delete", methods="DELETE", requirements={"id":"\d+"})
-     * @param Stocks $stock
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/delete/{id}", name="exploitation_stock_delete", methods="DELETE", requirements={"id":"\d+"})
      */
     public function delete(Stocks $stock, Request $request)
     {
@@ -138,10 +121,7 @@ class StockController extends AbstractController
     }
     
     /**
-     * @Route("edit/{id}", name="exploitation_stock_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Stocks $stock
-     * @param Request $request
-     * @return Response
+     * @Route("/edit/{id}", name="exploitation_stock_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function edit(Stocks $stock, Request $request): Response
     {

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Intervention\Repository;
 
-use App\Entity\InterventionsProducts;
+use App\Domain\Intervention\Entity\InterventionsProducts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

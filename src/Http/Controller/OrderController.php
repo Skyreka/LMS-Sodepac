@@ -38,20 +38,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class OrderController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     
     /**
-     * @Route("management/order", name="management_order_index", methods={"GET"})
-     * @param OrdersRepository $op
-     * @return Response
+     * @Route("/management/order", name="management_order_index", methods={"GET"})
      */
     public function index(OrdersRepository $op): Response
     {
@@ -67,11 +59,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("order/pdf/{id_number}/{print}", name="order_pdf_view", methods={"GET", "POST"}, defaults={"print"=false}, requirements={"print":"true|false"})
-     * @param Orders $order
-     * @param OrdersProductRepository $opr
-     * @param Request $request
-     * @return Response
+     * @Route("/order/pdf/{id_number}/{print}", name="order_pdf_view", methods={"GET", "POST"}, defaults={"print"=false}, requirements={"print":"true|false"})
      */
     public function pdfView(Orders $order, OrdersProductRepository $opr, Request $request): Response
     {
@@ -93,11 +81,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/show/{id_number}", name="management_order_show", methods={"GET", "POST"})
-     * @param Orders $orders
-     * @param OrdersProductRepository $cpr
-     * @param Request $request
-     * @return Response
+     * @Route("/management/order/show/{id_number}", name="management_order_show", methods={"GET", "POST"})
      */
     public function show(Orders $orders, OrdersProductRepository $cpr, Request $request): Response
     {
@@ -120,12 +104,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/delete/{id}", name="management_order_delete_recorded", methods="DELETE", requirements={"id":"\d+"})
-     * @param Orders $orders
-     * @param Request $request
-     * @return RedirectResponse
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @Route("/management/order/delete/{id}", name="management_order_delete_recorded", methods="DELETE", requirements={"id":"\d+"})
      */
     public function deleteRecorded(Orders $orders, Request $request): RedirectResponse
     {
@@ -141,11 +120,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/new", name="management_order_new", methods={"GET", "POST"})
-     * @param Request $request
-     * @return Response
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @Route("/management/order/new", name="management_order_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -175,10 +150,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/select_users", name="_management_select_users")
-     * @param Request $request
-     * @param UsersRepository $ur
-     * @return JsonResponse
+     * @Route("/management/select_users", name="_management_select_users")
      */
     public function newSelectData(Request $request, UsersRepository $ur): JsonResponse
     {
@@ -230,14 +202,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/product/add/{recommendation}", name="management_order_product_add", methods={"ADDTOORDER"}, requirements={"recommendation":"\d+"})
-     * @param Recommendations $recommendation
-     * @param OrdersRepository $or
-     * @param OrdersProductRepository $opr
-     * @param Request $request
-     * @return RedirectResponse
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @Route("/management/order/product/add/{recommendation}", name="management_order_product_add", methods={"ADDTOORDER"}, requirements={"recommendation":"\d+"})
      */
     public function addProduct(
         Recommendations $recommendation,
@@ -357,10 +322,7 @@ class OrderController extends AbstractController
     
     /**
      * Edit Dose with editable Ajax Table
-     * @Route("management/order/product/edit", name="management_order_product_edit")
-     * @param Request $request
-     * @param OrdersProductRepository $cr
-     * @return JsonResponse
+     * @Route("/management/order/product/edit", name="management_order_product_edit")
      */
     public function editProduct(Request $request, OrdersProductRepository $cr): JsonResponse
     {
@@ -410,10 +372,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/product/delete/{id}", name="management_order_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
-     * @param OrdersProduct $product
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/management/order/product/delete/{id}", name="management_order_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      */
     public function deleteProduct(OrdersProduct $product, Request $request): RedirectResponse
     {
@@ -426,11 +385,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/save/{id}", name="management_order_save", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Orders $order
-     * @return Response
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @Route("/management/order/save/{id}", name="management_order_save", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function save(Orders $order): Response
     {
@@ -448,12 +403,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/valid/{id}", name="management_order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Orders $order
-     * @param AsyncMethodService $asyncMethodService
-     * @param Request $request
-     * @return Response
-     * @throws \Exception
+     * @Route("/management/order/valid/{id}", name="management_order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function valid(
         Orders $order,
@@ -504,9 +454,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("orders", name="user_order_index", methods={"GET", "POST"})
-     * @param OrdersRepository $op
-     * @return Response
+     * @Route("/orders", name="user_order_index", methods={"GET", "POST"})
      */
     public function userIndex(OrdersRepository $op): Response
     {
@@ -516,12 +464,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("order/sign/{id}", name="user_order_sign", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Orders $order
-     * @param MailerInterface $mailer
-     * @param Request $request
-     * @param AsyncMethodService $asyncMethodService
-     * @return Response
+     * @Route("/order/sign/{id}", name="user_order_sign", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function sign(
         Orders $order,
@@ -591,12 +534,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/add-product-other", name="management_order_product_other_add", methods={"GET", "POST"})
-     * @param Request $request
-     * @param OrdersRepository $or
-     * @return Response
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @Route("/management/order/add-product-other", name="management_order_product_other_add", methods={"GET", "POST"})
      */
     public function addOtherProduct(Request $request, OrdersRepository $or): Response
     {
@@ -646,10 +584,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/add-product-various", name="order_product_other_various_add", methods={"GET", "POST"})
-     * @param Request $request
-     * @param OrdersRepository $or
-     * @return Response
+     * @Route("/management/order/add-product-various", name="order_product_other_various_add", methods={"GET", "POST"})
      */
     /* DISABLE 3/12/2021 BY SKYREKA
     public function addVariousProduct( Request $request, OrdersRepository $or ): Response
@@ -687,12 +622,7 @@ class OrderController extends AbstractController
     }*/
     
     /**
-     * @Route("management/order/add-product-other-field", name="management_order_product_other_field_add", methods={"GET", "POST"})
-     * @param Request $request
-     * @param OrdersRepository $or
-     * @return Response
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @Route("/management/order/add-product-other-field", name="management_order_product_other_field_add", methods={"GET", "POST"})
      */
     public function addOtherFieldProduct(Request $request, OrdersRepository $or): Response
     {
@@ -728,10 +658,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/new/order_select_product_data", name="_management_select_product_data")
-     * @param Request $request
-     * @param ProductsRepository $pr
-     * @return JsonResponse
+     * @Route("/management/order/new/order_select_product_data", name="_management_select_product_data")
      */
     public function addProductSelectData(Request $request, ProductsRepository $pr): JsonResponse
     {
@@ -761,10 +688,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/new/order_select_product_various_data", name="order_select_product_various_data")
-     * @param Request $request
-     * @param ProductsRepository $pr
-     * @return JsonResponse
+     * @Route("/management/order/new/order_select_product_various_data", name="order_select_product_various_data")
      */
     public function addProductVariousSelectData(Request $request, ProductsRepository $pr): JsonResponse
     {
@@ -796,11 +720,7 @@ class OrderController extends AbstractController
     }
     
     /**
-     * @Route("management/order/swipe/{article}/{product}", name="management_order_article_swipe", methods={"UPDATE"}, requirements={"id":"\d+"})
-     * @param OrdersProduct $article
-     * @param Products $product
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/management/order/swipe/{article}/{product}", name="management_order_article_swipe", methods={"UPDATE"}, requirements={"id":"\d+"})
      */
     public function updateProduct(
         OrdersProduct $article,

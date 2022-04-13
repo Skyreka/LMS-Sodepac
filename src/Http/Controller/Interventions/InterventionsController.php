@@ -16,17 +16,17 @@ use App\Domain\Intervention\Form\SemisInterventionType;
 use App\Domain\Intervention\Repository\InterventionsProductsRepository;
 use App\Domain\Intervention\Repository\InterventionsRepository;
 use App\Domain\Stock\Repository\StocksRepository;
-use App\Entity\Analyse;
-use App\Entity\Binage;
-use App\Entity\Epandage;
-use App\Entity\Fertilisant;
-use App\Entity\Interventions;
-use App\Entity\InterventionsProducts;
-use App\Entity\Irrigation;
-use App\Entity\Labour;
-use App\Entity\Phyto;
-use App\Entity\Recolte;
-use App\Entity\Semis;
+use App\Domain\Intervention\Entity\Analyse;
+use App\Domain\Intervention\Entity\Binage;
+use App\Domain\Intervention\Entity\Epandage;
+use App\Domain\Intervention\Entity\Fertilisant;
+use App\Domain\Intervention\Entity\Interventions;
+use App\Domain\Intervention\Entity\InterventionsProducts;
+use App\Domain\Intervention\Entity\Irrigation;
+use App\Domain\Intervention\Entity\Labour;
+use App\Domain\Intervention\Entity\Phyto;
+use App\Domain\Intervention\Entity\Recolte;
+use App\Domain\Intervention\Entity\Semis;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,30 +37,16 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class InterventionsController
  * @package App\Controller
- * @Route("exploitation/ilot/culture/intervention/")
+ * @Route("/exploitation/ilot/culture/intervention")
  */
 class InterventionsController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    /**
-     * InterventionsController constructor.
-     * @param EntityManagerInterface $em
-     */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        
-        $this->em = $em;
     }
     
     /**
-     * @Route("recolte/{id}", name="intervention_recolte", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param Request $request
-     * @return Response
+     * @Route("/recolte/{id}", name="intervention_recolte", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function recolte(Cultures $culture, Request $request): Response
     {
@@ -118,10 +104,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("binage/{id}", name="intervention_binage", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param Request $request
-     * @return Response
+     * @Route("/binage/{id}", name="intervention_binage", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function binage(Cultures $culture, Request $request): Response
     {
@@ -164,10 +147,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("labour/{id}", name="intervention_labour", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param Request $request
-     * @return Response
+     * @Route("/labour/{id}", name="intervention_labour", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function labour(Cultures $culture, Request $request): Response
     {
@@ -210,10 +190,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("epandage/{id}", name="intervention_epandage", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param Request $request
-     * @return Response
+     * @Route("/epandage/{id}", name="intervention_epandage", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function epandage(Cultures $culture, Request $request): Response
     {
@@ -255,10 +232,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("semis/{id}", name="intervention_semis", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param Request $request
-     * @return Response
+     * @Route("/semis/{id}", name="intervention_semis", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function semis(Cultures $culture, Request $request): Response
     {
@@ -300,10 +274,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("irrigation/{id}", name="intervention_irrigation", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param Request $request
-     * @return Response
+     * @Route("/irrigation/{id}", name="intervention_irrigation", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function irrigation(Cultures $culture, Request $request): Response
     {
@@ -345,10 +316,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("analyse/{id}", name="intervention_analyse", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param Request $request
-     * @return Response
+     * @Route("/analyse/{id}", name="intervention_analyse", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function analyse(Cultures $culture, Request $request): Response
     {
@@ -390,14 +358,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("phyto-{name}/{id}", name="intervention_phyto", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param $name
-     * @param Request $request
-     * @param StocksRepository $sr
-     * @param InterventionsRepository $ir
-     * @return Response
-     * @throws \Exception
+     * @Route("/phyto-{name}/{id}", name="intervention_phyto", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function phyto(Cultures $culture, $name, Request $request, StocksRepository $sr, InterventionsRepository $ir): Response
     {
@@ -530,15 +491,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * Add product to an intervention
-     * @Route("phyto-{name}/{id}/product", name="interventions_phyto_product", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Interventions $intervention
-     * @param Request $request
-     * @param StocksRepository $sr
-     * @param InterventionsProductsRepository $ipr
-     * @param InterventionsRepository $ir
-     * @param $name
-     * @return Response
+     * @Route("/phyto-{name}/{id}/product", name="interventions_phyto_product", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function phytoAddProduct(Interventions $intervention, Request $request, StocksRepository $sr, InterventionsProductsRepository $ipr, InterventionsRepository $ir, $name): Response
     {
@@ -649,13 +602,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("fertilisant/{id}", name="intervention_fertilisant", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Cultures $culture
-     * @param Request $request
-     * @param StocksRepository $sr
-     * @param InterventionsRepository $ir
-     * @return Response
-     * @throws \Exception
+     * @Route("/fertilisant/{id}", name="intervention_fertilisant", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function fertilisant(Cultures $culture, Request $request, StocksRepository $sr, InterventionsRepository $ir): Response
     {
@@ -739,11 +686,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("edit/{id}", name="intervention_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Interventions $intervention
-     * @param Request $request
-     * @param StocksRepository $sr
-     * @return Response
+     * @Route("/edit/{id}", name="intervention_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function edit(Interventions $intervention, Request $request, StocksRepository $sr)
     {
@@ -816,11 +759,7 @@ class InterventionsController extends AbstractController
     }
     
     /**
-     * @Route("delete/{id}", name="intervention_delete", methods="DELETE")
-     * @param Interventions $interventions
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @IsGranted("ROLE_SUPERADMIN")
+     * @Route("/delete/{id}", name="intervention_delete", methods="DELETE")
      */
     public function delete(Interventions $interventions, Request $request)
     {

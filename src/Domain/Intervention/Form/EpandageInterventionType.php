@@ -3,7 +3,7 @@
 namespace App\Domain\Intervention\Form;
 
 use App\Domain\Index\Entity\IndexEffluents;
-use App\Entity\Epandage;
+use App\Domain\Intervention\Entity\Epandage;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

@@ -18,9 +18,6 @@ class SecurityController extends AbstractController
     
     /**
      * @Route("", name="login", methods={"GET", "POST"})
-     * @param AuthenticationUtils $authenticationUtils
-     * @param AuthorizationCheckerInterface $checker
-     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $checker)
     {
@@ -69,18 +66,13 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('pricing_index');
                 break;
             case 'ROLE_SUPERADMIN':
-                return $this->redirectToRoute('superadmin_index');
+                return $this->redirectToRoute('admin_superadmin_index');
                 break;
         }
     }
     
     /**
-     * @Route("active_user/{id}", name="security_active", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Users $user
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param UserPasswordEncoderInterface $encoder
-     * @return Response
+     * @Route("/active_user/{id}", name="security_active", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function active(Users $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
     {

@@ -21,32 +21,15 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SignatureController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    /**
-     * @var SignatureOTPRepository
-     */
-    private $otpR;
-    
     public function __construct(
-        EntityManagerInterface $em,
-        SignatureOtpRepository $otpR
+        private readonly EntityManagerInterface $em,
+        private readonly SignatureOtpRepository $otpR
     )
     {
-        $this->em   = $em;
-        $this->otpR = $otpR;
     }
     
     /**
-     * @param Signature $signature
-     * @param Request $request
-     * @param AsyncMethodService $asyncMethodService
-     * @param MailerInterface $mailer
-     * @return Response
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @Route("sign/order/{token}", name="signature_order_sign")
+     * @Route("/sign/order/{token}", name="signature_order_sign")
      */
     public function signOrder(
         Signature $signature,

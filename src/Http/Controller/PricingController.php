@@ -19,27 +19,17 @@ use TreeHouse\Slugifier\Slugifier;
 /**
  * Class SalesController
  * @package App\Controller
- * @Route("pricing/")
+ * @Route("/pricing", name="pricing_")
  */
 class PricingController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    /**
-     * SalesController constructor.
-     * @param EntityManagerInterface $em
-     */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     
     /**
      * @return Response
-     * @Route("", name="pricing_index", methods={"GET", "POST"})
+     * @Route("/", name="index", methods={"GET", "POST"})
      */
     public function index(): Response
     {
@@ -47,10 +37,7 @@ class PricingController extends AbstractController
     }
     
     /**
-     * @Route("products/data", name="pricing_products_data", methods={"GET"})
-     * @param Request $request
-     * @param DataTablesInterface $datatables
-     * @return JsonResponse
+     * @Route("/products/data", name="products_data", methods={"GET"})
      */
     public function data(Request $request, DataTablesInterface $datatables): JsonResponse
     {
@@ -64,9 +51,7 @@ class PricingController extends AbstractController
     }
     
     /**
-     * @param Request $request
-     * @return Response
-     * @Route("product/new", name="pricing_product_new", methods={"GET", "POST"})
+     * @Route("/product/new", name="product_new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -88,10 +73,7 @@ class PricingController extends AbstractController
     }
     
     /**
-     * @param Products $product
-     * @param Request $request
-     * @return Response
-     * @Route("product/edit/{id}", name="pricing_product_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
+     * @Route("/product/edit/{id}", name="product_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function edit(Products $product, Request $request): Response
     {
@@ -113,10 +95,7 @@ class PricingController extends AbstractController
     }
     
     /**
-     * @Route("product/update/{id}", name="pricing_product_update", methods={"UPDATE"}, requirements={"id":"\d+"})
-     * @param Products $product
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/product/update/{id}", name="product_update", methods={"UPDATE"}, requirements={"id":"\d+"})
      */
     public function updateProduct(Products $product, Request $request): RedirectResponse
     {

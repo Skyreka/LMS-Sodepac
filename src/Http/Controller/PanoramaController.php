@@ -21,28 +21,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("panorama/")
+ * @Route("/panorama", name="panorama_")
  */
 class PanoramaController extends AbstractController
 {
-    /**
-     * @var PanoramaRepository
-     */
-    private $repositoryPanorama;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-    
-    public function __construct(PanoramaRepository $panoramaRepository, EntityManagerInterface $em)
+    public function __construct(
+        private readonly PanoramaRepository $repositoryPanorama,
+        private readonly EntityManagerInterface $em
+    )
     {
-        $this->repositoryPanorama = $panoramaRepository;
-        $this->em                 = $em;
     }
     
     /**
-     * @Route("", name="panorama_index", methods={"GET"})
-     * @return Response
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(): Response
     {
@@ -56,10 +47,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("delete/{id}", name="panorama_delete", methods="DELETE", requirements={"id":"\d+"})
-     * @param Panorama $panorama
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/delete/{id}", name="delete", methods="DELETE", requirements={"id":"\d+"})
      */
     public function delete(Panorama $panorama, Request $request)
     {
@@ -73,10 +61,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("valid/{id}", name="panorama_valid", methods="VALID", requirements={"id":"\d+"})
-     * @param Panorama $panorama
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/valid/{id}", name="valid", methods="VALID", requirements={"id":"\d+"})
      */
     public function valid(Panorama $panorama, Request $request)
     {
@@ -90,11 +75,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("new", name="panorama_new", methods={"GET", "POST"})
-     * @param Request $request
-     * @param UsersRepository $ur
-     * @param AsyncMethodService $asyncMethodService
-     * @return Response
+     * @Route("/new", name="new", methods={"GET", "POST"})
      */
     public function new(
         Request $request,
@@ -187,10 +168,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("edit/{id}", name="panorama_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Panorama $panorama
-     * @param Request $request
-     * @return Response
+     * @Route("/edit/{id}", name="edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function edit(Panorama $panorama, Request $request): Response
     {
@@ -255,11 +233,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("send/{id}", name="panorama_send", methods={"GET", "POST"}, requirements={"id":"\d+"})
-     * @param Panorama $panorama
-     * @param Request $request
-     * @param AsyncMethodService $asyncMethodService
-     * @return Response
+     * @Route("/send/{id}", name="send", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function send(
         Panorama $panorama,
@@ -313,10 +287,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("user/{id}", name="panorama_user_check", methods="CHECK", requirements={"id":"\d+"})
-     * @param PanoramaSend $panoramaUser
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/user/{id}", name="user_check", methods="CHECK", requirements={"id":"\d+"})
      */
     public function check(PanoramaSend $panoramaUser, Request $request)
     {
@@ -330,8 +301,7 @@ class PanoramaController extends AbstractController
     
     
     /**
-     * @Route("history", name="panorama_history_index", methods={"GET"})
-     * @return Response
+     * @Route("/history", name="history_index", methods={"GET"})
      */
     public function history(): Response
     {
@@ -339,10 +309,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("history/{year}", name="panorama_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
-     * @param PanoramaSendRepository $pur
-     * @param string $year
-     * @return Response
+     * @Route("/history/{year}", name="history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      */
     public function list(PanoramaSendRepository $pur, string $year): Response
     {
@@ -359,10 +326,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("user/history", name="panorama_user_history_index", methods={"GET"})
-     * @param PanoramaSendRepository $pur
-     * @return Response
-     * @throws \Exception
+     * @Route("/user/history", name="user_history_index", methods={"GET"})
      */
     public function userHistory(PanoramaSendRepository $pur): Response
     {
@@ -374,11 +338,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("user/history/{year}", name="panorama_user_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
-     * @param PanoramaSendRepository $pur
-     * @param string $year
-     * @return Response
-     * @throws \Exception
+     * @Route("/user/history/{year}", name="user_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      */
     public function userList(PanoramaSendRepository $pur, string $year): Response
     {
@@ -390,7 +350,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("user/panorama/show/{id}", name="user_panorama_show", methods={"GET"})
+     * @Route("/user/panorama/show/{id}", name="user_show", methods={"GET"})
      * @param Panorama $panorama
      * @return Response
      */

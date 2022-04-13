@@ -18,14 +18,6 @@ class TechnicianController extends AbstractController
     
     /**
      * @Route("technician", name="technician_home")
-     * @param UsersRepository $ur
-     * @param PanoramaRepository $pr
-     * @param BsvUsersRepository $bur
-     * @param TicketsRepository $tr
-     * @param RecommendationsRepository $rr
-     * @param OrdersRepository $or
-     * @param PurchaseContractRepository $pcr
-     * @return Response
      */
     public function home(UsersRepository $ur, PanoramaRepository $pr, BsvUsersRepository $bur, TicketsRepository $tr, RecommendationsRepository $rr, OrdersRepository $or, PurchaseContractRepository $pcr)
     {

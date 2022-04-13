@@ -12,22 +12,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class NullEmailCommand extends Command
 {
     protected static $defaultName = 'app:nullEmail';
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
     
-    /**
-     * @var ProductsRepository
-     */
-    private $ur;
-    
-    
-    public function __construct(ContainerInterface $container, UsersRepository $ur)
+    public function __construct(
+        private readonly ContainerInterface $container,
+        private readonly UsersRepository $ur
+    )
     {
         parent::__construct();
-        $this->container = $container;
-        $this->ur        = $ur;
     }
     
     protected function configure()

@@ -17,8 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SuperAdminController extends AbstractController
 {
-    
-    
     /**
      * @Route("/", name="index", methods={"GET"})
      */

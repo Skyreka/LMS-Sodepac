@@ -25,17 +25,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FlashController extends AbstractController
 {
-    private $em;
-    
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
     
     /**
-     * @param BsvRepository $bsv
-     * @return Response
-     * @Route("admin/flash", name="admin_flash_index", methods={"GET"})
+     * @Route("/admin/flash", name="admin_flash_index", methods={"GET"})
      */
     public function adminIndex(BsvRepository $bsv): Response
     {
@@ -46,10 +41,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("admin/flash/new", name="admin_flash_new", methods={"GET", "POST"})
-     * @param Request $request
-     * @return Response
-     * @throws \Exception
+     * @Route("/admin/flash/new", name="admin_flash_new", methods={"GET", "POST"})
      */
     public function adminNew(Request $request): Response
     {
@@ -114,10 +106,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("admin/flash/edit/{id}", name="admin_flash_edit", methods={"GET","POST"}, requirements={"id":"\d+"})
-     * @param Bsv $bsv
-     * @param Request $request
-     * @return Response
+     * @Route("/admin/flash/edit/{id}", name="admin_flash_edit", methods={"GET","POST"}, requirements={"id":"\d+"})
      */
     public function adminEdit(Bsv $bsv, Request $request): Response
     {
@@ -182,11 +171,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("admin/flash/send/{id}", name="admin_flash_send", methods={"GET","POST"}, requirements={"id":"\d+"})
-     * @param Bsv $bsv
-     * @param Request $request
-     * @param AsyncMethodService $asyncMethodService
-     * @return Response
+     * @Route("/admin/flash/send/{id}", name="admin_flash_send", methods={"GET","POST"}, requirements={"id":"\d+"})
      */
     public function adminSend(
         Bsv $bsv,
@@ -241,12 +226,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("admin/flash/send/all/{id}", name="admin_flash_send_all", methods="SEND", requirements={"id":"\d+"})
-     * @param Bsv $bsv
-     * @param Request $request
-     * @param AsyncMethodService $asyncMethodService
-     * @param UsersRepository $ur
-     * @return RedirectResponse
+     * @Route("/admin/flash/send/all/{id}", name="admin_flash_send_all", methods="SEND", requirements={"id":"\d+"})
      */
     public function adminSendAll(
         Bsv $bsv,
@@ -283,10 +263,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("admin/flash/delete/{id}", name="admin_flash_delete", methods="DELETE", requirements={"id":"\d+"})
-     * @param Bsv $bsv
-     * @param Request $request
-     * @return RedirectResponse
+     * @Route("/admin/flash/delete/{id}", name="admin_flash_delete", methods="DELETE", requirements={"id":"\d+"})
      */
     public function adminDelete(Bsv $bsv, Request $request)
     {
@@ -300,8 +277,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("admin/flash/history", name="admin_flash_history_index", methods={"GET"})
-     * @return Response
+     * @Route("/admin/flash/history", name="admin_flash_history_index", methods={"GET"})
      */
     public function adminHistory(): Response
     {
@@ -309,10 +285,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("admin/flash/history/{year}", name="admin_flash_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
-     * @param BsvUsersRepository $bur
-     * @param $year
-     * @return Response
+     * @Route("/admin/flash/history/{year}", name="admin_flash_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      */
     public function adminList(BsvUsersRepository $bur, $year): Response
     {
@@ -354,7 +327,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("flash/show/{id}", name="user_flash_show", methods={"GET"})
+     * @Route("/flash/show/{id}", name="user_flash_show", methods={"GET"})
      * @param Bsv $bsv
      * @return Response
      */
@@ -366,10 +339,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("flash/{year}", name="user_flash_history_show", methods={"GET","POST"}, requirements={"year":"\d+"})
-     * @param BsvUsersRepository $bur
-     * @param $year
-     * @return Response
+     * @Route("/flash/{year}", name="user_flash_history_show", methods={"GET","POST"}, requirements={"year":"\d+"})
      */
     public function userHistoryShow(BsvUsersRepository $bur, $year): Response
     {
@@ -381,9 +351,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("technician/flash", name="technician_flash_index", methods={"GET"})
-     * @param BsvUsersRepository $bur
-     * @return Response
+     * @Route("/technician/flash", name="technician_flash_index", methods={"GET"})
      */
     public function technicianIndex(BsvUsersRepository $bur): Response
     {
@@ -395,10 +363,7 @@ class FlashController extends AbstractController
     }
     
     /**
-     * @Route("technician/flash/{year}", name="technician_flash_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
-     * @param BsvUsersRepository $bur
-     * @param $year
-     * @return Response
+     * @Route("/technician/flash/{year}", name="technician_flash_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      */
     public function technicianShow(BsvUsersRepository $bur, $year): Response
     {

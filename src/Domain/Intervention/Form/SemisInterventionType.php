@@ -2,7 +2,7 @@
 
 namespace App\Domain\Intervention\Form;
 
-use App\Entity\Semis;
+use App\Domain\Intervention\Entity\Semis;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
