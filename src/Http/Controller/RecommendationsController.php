@@ -2,7 +2,6 @@
 
 namespace App\Http\Controller;
 
-use App\AsyncMethodService;
 use App\Domain\Auth\Repository\UsersRepository;
 use App\Domain\Auth\Users;
 use App\Domain\Culture\Repository\CulturesRepository;
@@ -11,6 +10,7 @@ use App\Domain\Index\Entity\IndexCanevas;
 use App\Domain\Product\Repository\ProductsRepository;
 use App\Domain\Recommendation\Entity\RecommendationProducts;
 use App\Domain\Recommendation\Entity\Recommendations;
+use App\Domain\Recommendation\Event\RecommendationValidatedEvent;
 use App\Domain\Recommendation\Form\RecommendationAddProductType;
 use App\Domain\Recommendation\Form\RecommendationAddType;
 use App\Domain\Recommendation\Form\RecommendationMentionsType;
@@ -18,7 +18,6 @@ use App\Domain\Recommendation\Repository\RecommendationProductsRepository;
 use App\Domain\Recommendation\Repository\RecommendationsRepository;
 use App\Domain\Stock\Entity\Stocks;
 use App\Domain\Stock\Repository\StocksRepository;
-use App\Service\EmailNotifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -26,6 +25,7 @@ use Dompdf\Dompdf;
 use Dompdf\Exception;
 use Dompdf\Options;
 use iio\libmergepdf\Merger;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,7 +38,9 @@ class RecommendationsController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly RecommendationProductsRepository $rpr)
+        private readonly RecommendationProductsRepository $rpr,
+        private readonly EventDispatcherInterface $dispatcher
+    )
     {
     }
     
@@ -388,8 +390,7 @@ class RecommendationsController extends AbstractController
         Recommendations $recommendations,
         Request $request,
         StocksRepository $sr,
-        RecommendationProductsRepository $rpr,
-        AsyncMethodService $asyncMethodService
+        RecommendationProductsRepository $rpr
     )
     {
         if($this->isCsrfTokenValid('send', $request->get('_token'))) {
@@ -421,13 +422,7 @@ class RecommendationsController extends AbstractController
             // Save to Db
             $this->em->flush();
             
-            //Send Email to user
-            $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $recommendations->getExploitation()->getUsers()->getId(),
-                'params' => [
-                    'subject' => 'Un nouveau catalogue est disponible sur ' . $this->getParameter('APP_NAME'),
-                    'text1' => 'Un nouveau catalogue est disponible sur votre application.'
-                ]
-            ]);
+            $this->dispatcher->dispatch(new RecommendationValidatedEvent($recommendations));
             
             $this->addFlash('success', 'Email envoyé avec succès. Statut du catalogue: Envoyé');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);

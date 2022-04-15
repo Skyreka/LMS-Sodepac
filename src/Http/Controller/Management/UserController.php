@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class UserController
  * Management Controller nly for view information of user let's ilots / culture .. for edit is only switch by role of user view profil
  * @package App\Controller\Management
- * @Route("/management/user/")
+ * @Route("/management/user")
  */
 class UserController extends AbstractController
 {

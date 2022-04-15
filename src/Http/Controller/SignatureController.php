@@ -2,13 +2,14 @@
 
 namespace App\Http\Controller;
 
-use App\AsyncMethodService;
+use App\Domain\Order\Event\OrderValidatedEvent;
 use App\Domain\Signature\Entity\Signature;
 use App\Domain\Signature\Entity\SignatureOtp;
+use App\Domain\Signature\Event\OtpAddedEvent;
 use App\Domain\Signature\Form\SignatureSign;
 use App\Domain\Signature\Repository\SignatureOtpRepository;
-use App\Service\EmailNotifier;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,8 @@ class SignatureController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly SignatureOtpRepository $otpR
+        private readonly SignatureOtpRepository $otpR,
+        private readonly EventDispatcherInterface $dispatcher
     )
     {
     }
@@ -33,9 +35,7 @@ class SignatureController extends AbstractController
      */
     public function signOrder(
         Signature $signature,
-        Request $request,
-        AsyncMethodService $asyncMethodService,
-        MailerInterface $mailer
+        Request $request
     ): Response
     {
         $order = $signature->getOrder();
@@ -63,13 +63,7 @@ class SignatureController extends AbstractController
             $codeOtp = new SignatureOtp();
             $codeOtp->setSignature($signature);
             
-            // Send OTP
-            $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $order->getCustomer()->getId(),
-                'params' => [
-                    'subject' => 'Votre code OTP de signature électronique',
-                    'text1' => 'Veuillez utiliser le code suivant pour valider votre signature:' . $codeOtp->getCode() . ' Ce code expire dans 1 mois'
-                ]
-            ]);
+            $this->dispatcher->dispatch(new OtpAddedEvent($codeOtp));
             
             // Save to DB
             $this->em->persist($codeOtp);
@@ -95,24 +89,7 @@ class SignatureController extends AbstractController
                 // Sign Order
                 $order->setStatus(3);
                 
-                // Send to Warehouse
-                $message = (new TemplatedEmail())
-                    ->subject('Nouvelle commande de ' . $order->getCreator()->getIdentity())
-                    ->from(new Address('noreply@sodepac.fr', $this->getParameter('APP_NAME')))
-                    ->to($order->getCustomer()->getWarehouse()->getEmail())
-                    ->htmlTemplate('emails/notification/user/email_notification.html.twig')
-                    ->context([
-                        'title' => 'Nouvelle commande venant de ' . $order->getCreator()->getIdentity() . ' ( CONFIDENTIEL ! )',
-                        'text1' => 'Id de la commande #' . $order->getIdNumber(),
-                        'text2' => 'Destinataire ' . $order->getCustomer()->getIdentity(),
-                        'link' => $this->generateUrl('order_pdf_view', ['id_number' => $order->getIdNumber(), 'print' => 'true'], UrlGeneratorInterface::ABSOLUTE_URL),
-                        'btn_text' => 'Découvrir la commande'
-                    ]);
-                try {
-                    $mailer->send($message);
-                } catch(TransportExceptionInterface $e) {
-                    return $e;
-                }
+                $this->dispatcher->dispatch(new OrderValidatedEvent($order));
                 
                 $this->em->flush();
                 $this->addFlash('success', 'Commande signée avec succès');

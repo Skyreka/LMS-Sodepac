@@ -2,17 +2,18 @@
 
 namespace App\Http\Controller;
 
-use App\AsyncMethodService;
 use App\Domain\Auth\Repository\UsersRepository;
 use App\Domain\Panorama\Entity\Panorama;
 use App\Domain\Panorama\Entity\PanoramaSend;
+use App\Domain\Panorama\Event\PanoramaPendingEvent;
+use App\Domain\Panorama\Event\PanoramaSendedEvent;
 use App\Domain\Panorama\Form\PanoramaSendType;
 use App\Domain\Panorama\Form\PanoramaType;
 use App\Domain\Panorama\Repository\PanoramaRepository;
 use App\Domain\Panorama\Repository\PanoramaSendRepository;
-use App\Service\EmailNotifier;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,7 +28,8 @@ class PanoramaController extends AbstractController
 {
     public function __construct(
         private readonly PanoramaRepository $repositoryPanorama,
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher
     )
     {
     }
@@ -79,8 +81,7 @@ class PanoramaController extends AbstractController
      */
     public function new(
         Request $request,
-        UsersRepository $ur,
-        AsyncMethodService $asyncMethodService
+        UsersRepository $ur
     ): Response
     {
         $panorama = new Panorama();
@@ -150,12 +151,7 @@ class PanoramaController extends AbstractController
             $admins = $ur->findAllByRole('ROLE_ADMIN');
             foreach($admins as $admin) {
                 //Send Email to user
-                $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $admin->getId(),
-                    'params' => [
-                        'subject' => 'Un panorama est en attente de validation - ' . $this->getParameter('APP_NAME'),
-                        'title' => 'Un panorama est en attente de validation.'
-                    ]
-                ]);
+                $this->dispatcher->dispatch(new PanoramaPendingEvent($panorama, $admin));
             }
             
             $this->addFlash('success', 'Panorama crée avec succès');
@@ -237,8 +233,7 @@ class PanoramaController extends AbstractController
      */
     public function send(
         Panorama $panorama,
-        Request $request,
-        AsyncMethodService $asyncMethodService
+        Request $request
     ): Response
     {
         $form = $this->createForm(PanoramaSendType::class);
@@ -263,14 +258,7 @@ class PanoramaController extends AbstractController
                     $relation->setDisplayAt($today);
                 }
                 
-                //Send email notification Async
-                $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $customer->getId(),
-                    'params' => [
-                        'subject' => 'Un nouveau panorama disponible sur ' . $this->getParameter('APP_NAME'),
-                        'title' => 'Un nouveau panorama disponible sur ' . $this->getParameter('APP_NAME'),
-                        'text1' => 'Un nouveau panorama est disponible sur votre application'
-                    ]
-                ]);
+                $this->dispatcher->dispatch(new PanoramaSendedEvent($panorama, $customer));
                 
                 $this->em->persist($relation);
                 $this->em->flush();

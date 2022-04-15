@@ -2,13 +2,13 @@
 
 namespace App\Http\Controller\Technician;
 
-use App\AsyncMethodService;
+use App\Domain\Auth\Event\UserAddedEvent;
 use App\Domain\Auth\Repository\UsersRepository;
 use App\Domain\Auth\Users;
 use App\Domain\Exploitation\Entity\Exploitation;
 use App\Http\Form\TechnicianCustomersType;
-use App\Service\EmailNotifier;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +25,8 @@ class CustomerController extends AbstractController
 {
     public function __construct(
         private readonly UsersRepository $usersRepository,
-        private readonly EntityManagerInterface $em
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher
     )
     {
     }
@@ -46,8 +47,7 @@ class CustomerController extends AbstractController
      */
     public function new(
         Request $request,
-        UserPasswordEncoderInterface $encoder,
-        AsyncMethodService $asyncMethodService
+        UserPasswordEncoderInterface $encoder
     )
     {
         $user = new Users();
@@ -73,12 +73,7 @@ class CustomerController extends AbstractController
             $this->em->flush();
             
             //Send Email to user
-            $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $user->getId(),
-                'params' => [
-                    'subject' => 'Votre compte ' . $this->getParameter('APP_NAME') . ' est maintenant disponible.',
-                    'text1' => 'Votre compte ' . $this->getParameter('APP_NAME') . ' est maintenant disponible.'
-                ]
-            ]);
+            $this->dispatcher->dispatch( new UserAddedEvent($user));
             
             $this->addFlash('success', 'Nouveau client crée avec succès');
             

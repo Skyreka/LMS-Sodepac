@@ -1,0 +1,14 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as m %}
+
+{% block body %}
+    {% apply markdown_email %}
+        Bonjour,
+
+        Veuillez utiliser le code suivant pour valider votre signature: {{ otp.code }} Ce code expire dans 1 mois
+
+        Cordialement,
+        {{ APP_NAME }}
+    {% endapply %}
+{% endblock %}

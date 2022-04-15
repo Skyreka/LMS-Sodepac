@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin\Controller;
 
+use App\Domain\Auth\Event\UserAddedEvent;
 use App\Domain\Auth\Form\UserType;
 use App\Domain\Auth\Users;
 use App\Domain\Exploitation\Entity\Exploitation;
@@ -9,6 +10,7 @@ use DataTables\DataTablesInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,7 +25,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UsersController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $em)
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher
+    )
     {
     }
     
@@ -114,8 +119,7 @@ class UsersController extends AbstractController
      */
     public function new(
         Request $request,
-        UserPasswordEncoderInterface $encoder,
-        AsyncMethodService $asyncMethodService
+        UserPasswordEncoderInterface $encoder
     ): Response
     {
         $user = new Users();
@@ -139,12 +143,7 @@ class UsersController extends AbstractController
             $this->em->flush();
             
             //Send Email to user
-            $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $user->getId(),
-                'params' => [
-                    'subject' => 'Votre compte ' . $this->getParameter('APP_NAME') . ' est maintenant disponible.',
-                    'text1' => 'Votre compte ' . $this->getParameter('APP_NAME') . ' est maintenant disponible.'
-                ]
-            ]);
+            $this->dispatcher->dispatch( new UserAddedEvent($user));
             
             $this->addFlash('success', 'Utilisateur crée avec succès');
             return $this->redirectToRoute('admin_index');

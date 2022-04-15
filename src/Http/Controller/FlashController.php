@@ -2,7 +2,6 @@
 
 namespace App\Http\Controller;
 
-use App\AsyncMethodService;
 use App\Domain\Auth\Repository\UsersRepository;
 use App\Domain\Bsv\Entity\Bsv;
 use App\Domain\Bsv\Entity\BsvUsers;
@@ -10,7 +9,6 @@ use App\Domain\Bsv\Form\FlashSendType;
 use App\Domain\Bsv\Form\FlashType;
 use App\Domain\Bsv\Repository\BsvRepository;
 use App\Domain\Bsv\Repository\BsvUsersRepository;
-use App\Service\EmailNotifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -175,8 +173,7 @@ class FlashController extends AbstractController
      */
     public function adminSend(
         Bsv $bsv,
-        Request $request,
-        AsyncMethodService $asyncMethodService
+        Request $request
     ): Response
     {
         $bsvUsers = new BsvUsers();
@@ -205,13 +202,7 @@ class FlashController extends AbstractController
                     $relation->setDisplayAt($datetime);
                 }
                 
-                //Send email notification Async
-                $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $customer->getId(),
-                    'params' => [
-                        'subject' => 'Un nouveau flash est disponible sur ' . $this->getParameter('APP_NAME'),
-                        'text' => 'En nouveau flash est disponible. Vous pouvez le consulter sur votre application'
-                    ]
-                ]);
+                // Dispatch email
             }
             $bsv->setSent(1);
             $this->em->flush();
@@ -231,7 +222,6 @@ class FlashController extends AbstractController
     public function adminSendAll(
         Bsv $bsv,
         Request $request,
-        AsyncMethodService $asyncMethodService,
         UsersRepository $ur
     ): RedirectResponse
     {
@@ -246,13 +236,8 @@ class FlashController extends AbstractController
                     ->setChecked(1)
                     ->setDisplayAt(new \DateTime());
                 
-                //Send email notification
-                $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $customer->getId(),
-                    'params' => [
-                        'subject' => 'Un nouveau flash est disponible sur ' . $this->getParameter('APP_NAME'),
-                        'text' => ''
-                    ]
-                ]);
+                //Dispatch for email
+               
             }
             $bsv->setSent(1);
             $this->em->flush();

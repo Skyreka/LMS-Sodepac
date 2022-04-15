@@ -18,7 +18,7 @@ class Recommendations
         0 => ['Brouillon', ''],
         1 => ['Crée', 'warning'],
         2 => ['Généré', 'info'],
-        3 => ['Envoyé', 'success']
+        3 => ['Validé', 'success']
     ];
     
     public function __construct()

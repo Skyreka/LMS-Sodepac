@@ -2,10 +2,11 @@
 
 namespace App\Http\Controller;
 
-use App\AsyncMethodService;
 use App\Domain\Auth\Repository\UsersRepository;
 use App\Domain\Order\Entity\Orders;
 use App\Domain\Order\Entity\OrdersProduct;
+use App\Domain\Order\Event\OrderQuotedEvent;
+use App\Domain\Order\Event\OrderValidatedEvent;
 use App\Domain\Order\Form\OrderAdditionalType;
 use App\Domain\Order\Form\OrdersAddProductFieldType;
 use App\Domain\Order\Form\OrdersAddProductType;
@@ -18,8 +19,13 @@ use App\Domain\Product\Repository\ProductsRepository;
 use App\Domain\Recommendation\Entity\Recommendations;
 use App\Domain\Signature\Entity\Signature;
 use App\Domain\Signature\Entity\SignatureOtp;
-use App\Service\EmailNotifier;
+use App\Domain\Signature\Event\SignatureAskedEvent;
+use App\Domain\Signature\Event\SignatureSignedEvent;
+use App\Infrastructure\Mailing\MailerService;
+use App\Infrastructure\Queue\EnqueueMethod;
+use App\Infrastructure\Queue\TestMethod;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,7 +44,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class OrderController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $em)
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly EventDispatcherInterface $dispatcher
+    )
     {
     }
     
@@ -83,7 +92,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/management/order/show/{id_number}", name="management_order_show", methods={"GET", "POST"})
      */
-    public function show(Orders $orders, OrdersProductRepository $cpr, Request $request): Response
+    public function show(Orders $orders, OrdersProductRepository $cpr, Request $request ): Response
     {
         $products = $cpr->findBy(['orders' => $orders]);
         $form     = $this->createForm(OrderAdditionalType::class, $orders);
@@ -407,7 +416,6 @@ class OrderController extends AbstractController
      */
     public function valid(
         Orders $order,
-        AsyncMethodService $asyncMethodService,
         Request $request
     ): Response
     {
@@ -433,19 +441,7 @@ class OrderController extends AbstractController
             // Save to DB
             $this->em->persist($codeOtp);
             
-            // Send Sign Email
-            $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $order->getCustomer()->getId(),
-                'params' => [
-                    'subject' => 'Signature électronique de votre devis - ' . $this->getParameter('APP_NAME'),
-                    'title' => 'Votre devis vous attend',
-                    'text1' => '
-                        Veuillez trouver ci-joint le lien vous permettant de signer électroniquement votre commande envoyée par la société ' . $this->getParameter('APP_NAME') . ',
-                        votre signature électronique actera la validation de la commande ci-joint.',
-                    'text2' => 'Veuillez utiliser le code suivant pour valider votre signature: ' . $codeOtp->getCode(),
-                    'link' => $this->generateUrl('signature_order_sign', ['token' => $signature->getToken()], UrlGeneratorInterface::ABSOLUTE_URL),
-                    'btn_text' => 'Découvrir votre devis'
-                ]
-            ]);
+            $this->dispatcher->dispatch( new SignatureAskedEvent( $codeOtp ));
             
             $this->em->flush();
         }
@@ -468,9 +464,7 @@ class OrderController extends AbstractController
      */
     public function sign(
         Orders $order,
-        MailerInterface $mailer,
-        Request $request,
-        AsyncMethodService $asyncMethodService
+        Request $request
     ): Response
     {
         //Security
@@ -491,33 +485,8 @@ class OrderController extends AbstractController
             // Update status
             $order->setStatus(3);
             
-            // Send confirmation
-            $asyncMethodService->async(EmailNotifier::class, 'notify', ['userId' => $order->getCustomer()->getId(),
-                'params' => [
-                    'subject' => 'Confirmation de signature de votre commande - ' . $this->getParameter('APP_NAME'),
-                    'title' => 'Nous vous confirmation la signature de votre bon de commande',
-                    'text1' => 'Nous vous remercions pour votre confiance, vous pouvez dès maintenant découvrir votre commande dans votre espace utilisateur'
-                ]
-            ]);
-            
-            // Send to Warehouse
-            $message = (new TemplatedEmail())
-                ->subject('Nouvelle commande de ' . $order->getCreator()->getIdentity())
-                ->from(new Address('noreply@sodepac.fr', $this->getParameter('APP_NAME')))
-                ->to($order->getCustomer()->getWarehouse()->getEmail())
-                ->htmlTemplate('emails/notification/user/email_notification.html.twig')
-                ->context([
-                    'title' => 'Nouvelle commande venant de ' . $order->getCreator()->getIdentity() . ' ( CONFIDENTIEL ! )',
-                    'text1' => 'ID COMMANDE #' . $order->getIdNumber(),
-                    'text2' => 'Destinataire ' . $order->getCustomer()->getIdentity(),
-                    'link' => $this->generateUrl('order_pdf_view', ['id_number' => $order->getIdNumber(), 'print' => 'true'], UrlGeneratorInterface::ABSOLUTE_URL),
-                    'btn_text' => 'Découvrir la commande'
-                ]);
-            try {
-                $mailer->send($message);
-            } catch(TransportExceptionInterface $e) {
-                return $e;
-            }
+            $this->dispatcher->dispatch(new SignatureSignedEvent($order->getSignature()));
+            $this->dispatcher->dispatch(new OrderValidatedEvent($order));
             
             $this->em->flush();
             
