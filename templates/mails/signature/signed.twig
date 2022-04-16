@@ -1,0 +1,15 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as m %}
+
+{% block body %}
+    {% apply markdown_email %}
+        Bonjour,
+
+        Nous vous confirmation la signature de votre bon de commande
+        Nous vous remercions pour votre confiance, vous pouvez dès maintenant découvrir votre commande dans votre espace utilisateur
+
+        Cordialement,
+        {{ APP_NAME }}
+    {% endapply %}
+{% endblock %}

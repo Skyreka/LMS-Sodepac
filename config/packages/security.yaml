@@ -1,18 +1,23 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    enable_authenticator_manager: true
     access_denied_url: /401
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: "auto"
+        App\Domain\Auth\Users:
+            algorithm: auto
     providers:
-        from_database:
+        app_user_provider:
             entity:
-                class: App\Entity\Users
+                class: App\Domain\Auth\Users
                 property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
-            user_checker: App\Security\UserChecker
+            lazy: true
+            provider: app_user_provider
             form_login:
                 login_path: login
                 check_path: login
@@ -28,6 +33,7 @@ security:
                 lifetime: 31536000
                 always_remember_me: true
                 path: /
+                samesite: strict
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -48,10 +54,6 @@ security:
         - { path: ^/recommendations, roles: [ROLE_ADMIN, ROLE_TECHNICIAN] }
         - { path: ^/recommendation-download, roles: [ROLE_ADMIN, ROLE_TECHNICIAN, ROLE_USER] }
         # - { path: ^/profile, roles: ROLE_USER }
-    encoders:
-        App\Entity\Users:
-            algorithm: bcrypt
-            cost: 12
     role_hierarchy:
         ROLE_TECHNICIAN: ROLE_USER
         ROLE_ADMIN: ROLE_TECHNICIAN

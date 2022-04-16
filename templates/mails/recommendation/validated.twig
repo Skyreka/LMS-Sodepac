@@ -1,0 +1,16 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as m %}
+
+{% block body %}
+    {% apply markdown_email %}
+        Bonjour,
+
+        Un nouveau catalogue préparé par votre technicien est disponible dans votre application {{ APP_NAME }}.
+
+        En vous remerciant pour votre confiance.
+
+        Cordialement,
+        {{ APP_NAME }}
+    {% endapply %}
+{% endblock %}

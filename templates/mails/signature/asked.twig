@@ -1,0 +1,19 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as m %}
+
+{% block body %}
+    {% apply markdown_email %}
+        Bonjour,
+
+        Veuillez trouver ci-joint le lien vous permettant de signer électroniquement votre commande envoyée par la société {{ APP_NAME }} votre signature électronique actera la validation de la commande ci-joint.
+        Veuillez utiliser le code suivant pour valider votre signature: ## {{ otp.code }}
+    {% endapply %}
+
+    {{ m.button('Découvrir votre devis', url('signature_order_sign', {'token': otp.signature.token})) }}
+
+    {% apply markdown_email %}
+        Cordialement,
+        {{ APP_NAME }}
+    {% endapply %}
+{% endblock %}

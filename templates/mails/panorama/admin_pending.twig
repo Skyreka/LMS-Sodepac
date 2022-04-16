@@ -1,0 +1,16 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as m %}
+
+{% block body %}
+    {% apply markdown_email %}
+
+        ## Un panorama est en attente de validation.
+
+        Un technicien vient de créer un nouveau panorama dans l’application {{ APP_NAME }}
+        Il se trouve en attente de votre validation.
+
+        Cordialement,
+        {{ APP_NAME }}
+    {% endapply %}
+{% endblock %}

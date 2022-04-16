@@ -4,15 +4,17 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    admin_prefix:     '%env(resolve:ADMIN_PREFIX)%'
     locale: 'fr'
     flash_directory: '%kernel.project_dir%/public/uploads/flash'
     chat_message_directory: '%kernel.project_dir%/public/uploads/messages'
     panorama_directory: '%kernel.project_dir%/public/uploads/panorama'
     recommendation_directory: '%kernel.project_dir%/public/uploads/recommendations'
     APP_NAME: '%env(APP_NAME)%'
+    admin_email: '%env(resolve:ADMIN_EMAIL)%'
+    dkim_key: '%env(resolve:default::MAILER_DKIM)%'
 
 services:
-    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -25,33 +27,42 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{DependencyInjection,Entity,Infrastructure/Migrations,Tests,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
+    App\Http\Controller\:
+        resource: '../src/Http/Controller'
         tags: ['controller.service_arguments']
+
+    App\Http\Admin\Controller\:
+        resource: '../src/Http/Admin/Controller'
+        tags: [ 'controller.service_arguments' ]
+
+    App\Infrastructure\Mailing\MailerService:
+        class: App\Infrastructure\Mailing\MailerService
+        arguments:
+            $dkimKey: '%dkim_key%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     # datatable handler
     datatable.users:
-        class: App\DataTables\UsersDataTables
+        class: App\Http\DataTables\UsersDataTables
         tags: [{ name: datatable, id: users }]
         arguments: [
             '@doctrine',
             '@router'
         ]
     datatable.products:
-        class: App\DataTables\ProductsDataTables
+        class: App\Http\DataTables\ProductsDataTables
         tags: [{ name: datatable, id: products }]
         arguments: [
             '@doctrine',
             '@router'
         ]
     datatable.pricing:
-        class: App\DataTables\PricingDataTables
+        class: App\Http\DataTables\PricingDataTables
         tags: [ { name: datatable, id: pricing } ]
         arguments: [
                 '@doctrine',

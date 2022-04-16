@@ -1,0 +1,14 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as m %}
+
+{% block body %}
+    {% apply markdown_email %}
+        Bonjour,
+
+        Un nouveau panorama est disponible dans votre application {{ APP_NAME }}.
+
+        Cordialement,
+        {{ APP_NAME }}
+    {% endapply %}
+{% endblock %}

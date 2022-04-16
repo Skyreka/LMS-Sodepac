@@ -1,0 +1,24 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as m %}
+
+{% block body %}
+    {% apply markdown_email %}
+        #( CONFIDENTIEL ! )
+
+        ## Nouvelle commande
+
+        Bonjour,
+        Une nouvelle commande a été validée par un technicien,vous la trouverez en cliquant sur le bouton
+
+        ### Destinataire: {{ order.customer.identity }}
+        ### ID COMMANDE: {{ order.idNumber }}
+    {% endapply %}
+
+    {{ m.button('Découvrir la commande', url('order_pdf_view', {'id_number': order.idNumber, 'print': 'true'})) }}
+
+    {% apply markdown_email %}
+        Cordialement,
+        {{ APP_NAME }}
+    {% endapply %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends layout %}
+
+{% import "mails/macros.twig" as m %}
+
+{% block body %}
+    {% apply markdown_email %}
+
+        ## Votre commande est validée , merci pour votre confiance
+
+        Vous retrouverez cette commande via votre application {{ APP_NAME }}
+
+        En vous remerciant pour votre fidélité.
+        Cordialement,
+        {{ APP_NAME }}
+
+    {% endapply %}
+{% endblock %}

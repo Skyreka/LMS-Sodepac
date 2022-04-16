@@ -2,8 +2,7 @@
 
 namespace App\Command;
 
-use App\Entity\IndexCanevas;
-use App\Entity\Warehouse;
+use App\Domain\Warehouse\Entity\Warehouse;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,33 +12,27 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class WarehouseCommand extends command
 {
     protected static $defaultName = 'app:importWareHouse';
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    public function __construct(ContainerInterface $container)
+    
+    public function __construct(private readonly ContainerInterface $container)
     {
         parent::__construct();
-        $this->container = $container;
     }
-
+    
     protected function configure()
     {
         $this
-            ->setDescription('Import Warehouse to DB')
-        ;
+            ->setDescription('Import Warehouse to DB');
     }
-
+    
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /* @var $em EntityManager */
         $em = $this->container->get('doctrine')->getManager();
-
+        
         // yolo
         ini_set("memory_limit", "-1");
-
-
+        
+        
         // Declaration des tableaux
         $warehouses = [
             [
@@ -68,28 +61,28 @@ class WarehouseCommand extends command
                 'magasin.villefranche@sodepacc.fr'
             ],
         ];
-
+        
         $v = 0;
-
+        
         // Boucle par line du csv
-        foreach ($warehouses as $index) {
+        foreach($warehouses as $index) {
             $v = $v + 1;
-            dump( $v );
-
+            dump($v);
+            
             // Create warehouse
-
+            
             $warehouse = new Warehouse();
             $warehouse
                 ->setName($index[0])
                 ->setAddress($index[1])
                 ->setEmail($index[2]);
-
-            $em->persist( $warehouse );
+            
+            $em->persist($warehouse);
         }
-
+        
         $em->flush();
         // On donne des information des résultats
-        $output->writeln($v  . ' dépôt importées');
+        $output->writeln($v . ' dépôt importées');
         return 1;
     }
 }
