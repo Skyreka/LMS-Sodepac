@@ -37,6 +37,11 @@ class ProductType extends AbstractType
                 }
             ])
             ->add('price', NumberType::class)
+    
+            ->add('n', NumberType::class)
+            ->add('p', NumberType::class)
+            ->add('k', NumberType::class)
+            
             ->add('parent_product', EntityType::class, [
                 'class' => Products::class,
                 'required' => false,

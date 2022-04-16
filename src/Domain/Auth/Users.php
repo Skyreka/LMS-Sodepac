@@ -62,7 +62,6 @@ class Users implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Email()
-     * @Assert\Length(min=3, max=100)
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/",
      *     message="Email Invalide"

@@ -77,11 +77,12 @@ class PricingController extends AbstractController
      */
     public function edit(Products $product, Request $request): Response
     {
-        if($product->getIdLex() != NULL) {
-            $form = $this->createForm(ProductType::class, $product, ['edit_name' => false]);
-        } else {
-            $form = $this->createForm(ProductType::class, $product, ['edit_name' => true]);
+        if(NULL != $product->getIdLex() ) {
+            $this->addFlash('warning', 'Nous ne pouvez pas modifier un produit LexAgri');
+            return $this->redirectToRoute('pricing_index');
         }
+    
+        $form = $this->createForm(ProductType::class, $product, ['edit_name' => true]);
         $form->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()) {

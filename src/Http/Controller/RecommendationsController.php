@@ -107,7 +107,7 @@ class RecommendationsController extends AbstractController
         foreach($users as $user) {
             $array[] = array(
                 'id' => $user->getExploitation()->getId(),
-                'text' => $user->getIdentity() . '(' . $user->getCompany() . ')'
+                'text' => $user->getIdentity() . ' ' . $user->getCompany()
             );
         }
         

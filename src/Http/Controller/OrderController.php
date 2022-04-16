@@ -202,7 +202,7 @@ class OrderController extends AbstractController
         foreach($users as $user) {
             $array[] = array(
                 'id' => $user->getId(),
-                'text' => $user->getIdentity() . '(' . $user->getCompany() . ')'
+                'text' => $user->getIdentity() . ' ' . $user->getCompany()
             );
         }
         

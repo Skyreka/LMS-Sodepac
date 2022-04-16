@@ -98,8 +98,12 @@ class PricingDataTables implements DataTableHandlerInterface
         $products = $query->getQuery()->getResult();
         
         foreach($products as $product) {
+            $statut = $product->getIsActive() ? '<span class="badge badge-success">Actif</span>' : '<span class="badge badge-danger">Désactivé</span>';
+            $lexAgri = $product->getIdLex() ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>';
             $results->data[] = [
-                $product->getName() . ' (' . $product->getIsActive() . ')',
+                $product->getName(),
+                $lexAgri,
+                $statut,
                 $product->getPrice(),
                 $product->getRpd(),
                 '

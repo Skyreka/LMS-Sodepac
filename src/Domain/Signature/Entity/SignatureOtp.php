@@ -18,7 +18,7 @@ class SignatureOtp
     private $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity=Signature::class, inversedBy="opts")
+     * @ORM\ManyToOne(targetEntity=Signature::class, inversedBy="opts", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $signature;
