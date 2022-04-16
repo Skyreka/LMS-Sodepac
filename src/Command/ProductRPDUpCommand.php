@@ -47,7 +47,6 @@ class ProductRPDUpCommand extends Command
         $products = [];
         
         //Declaration de slugify
-        $slugify = new Slugifier();
         $v       = 0;
         
         // Boucle par line du csv
@@ -65,11 +64,8 @@ class ProductRPDUpCommand extends Command
                 
                 if(! in_array($idLex, $products)) {
                     array_push($products, $idLex);
-                    
                     $product = $this->pr->findOneBy(['id_lex' => $idLex]);
-                    if($rpd != 'Non soumis' && $rpd != 'Non compatible') {
-                        $product->setRPD(floatval($rpd));
-                    }
+                    $product->setRPD(floatval($rpd));
                 }
             }
         }

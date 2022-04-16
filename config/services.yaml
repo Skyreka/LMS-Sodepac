@@ -48,21 +48,21 @@ services:
     # please note that last definitions always *replace* previous ones
     # datatable handler
     datatable.users:
-        class: App\Insfrastruture\DataTables\UsersDataTables
+        class: App\Http\DataTables\UsersDataTables
         tags: [{ name: datatable, id: users }]
         arguments: [
             '@doctrine',
             '@router'
         ]
     datatable.products:
-        class: App\DataTables\ProductsDataTables
+        class: App\Http\DataTables\ProductsDataTables
         tags: [{ name: datatable, id: products }]
         arguments: [
             '@doctrine',
             '@router'
         ]
     datatable.pricing:
-        class: App\DataTables\PricingDataTables
+        class: App\Http\DataTables\PricingDataTables
         tags: [ { name: datatable, id: pricing } ]
         arguments: [
                 '@doctrine',

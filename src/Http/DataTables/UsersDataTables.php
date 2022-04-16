@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Insfrastruture\DataTables;
+namespace App\Http\DataTables;
 
 use App\Domain\Auth\Users;
 use DataTables\DataTableHandlerInterface;

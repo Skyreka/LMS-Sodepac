@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Insfrastruture\DataTables;
+namespace App\Http\DataTables;
 
 use App\Domain\Product\Entity\Products;
 use DataTables\DataTableHandlerInterface;
@@ -10,7 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class PricingDataTables implements DataTableHandlerInterface
+class ProductsDataTables implements DataTableHandlerInterface
 {
     protected $doctrine;
     /**
@@ -98,19 +98,11 @@ class PricingDataTables implements DataTableHandlerInterface
         $products = $query->getQuery()->getResult();
         
         foreach($products as $product) {
+            
             $results->data[] = [
-                $product->getName() . ' (' . $product->getIsActive() . ')',
-                $product->getPrice(),
-                $product->getRpd(),
-                '
-                    <a class="btn btn-warning" href="' . $this->router->generate('pricing_product_edit', ['id' => $product->getId()]) . '">
-                        <i class="fas fa-pencil-alt"></i>
-                    </a>
-                    <form class="d-inline" method="POST" action="' . $this->router->generate('pricing_product_update', ['id' => $product->getId()]) . '">
-                        <input type="hidden" name="_method" value="UPDATE">
-                        <button class="btn btn-success ml-3"><i class="fa fa-eye"></i></button>
-                    </form>
-                ',
+                $product->getName(),
+                $product->getType(),
+                $product->getTox()
             ];
         }
         
