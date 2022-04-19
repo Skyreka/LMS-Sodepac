@@ -56,15 +56,15 @@ class ProductRPDUpCommand extends Command
             $line = explode(';', $line);
             
             //Index
-            $idLex = $line[0];
+            $amm = $line[0];
             
             // On sauvegarde le product && Prend uniquement juste une donnée
             if(! empty($line[0])) {
                 $rpd = $line[1];
                 
-                if(! in_array($idLex, $products)) {
-                    array_push($products, $idLex);
-                    $product = $this->pr->findOneBy(['id_lex' => $idLex]);
+                if(! in_array($amm, $products)) {
+                    array_push($products, $amm);
+                    $product = $this->pr->findOneBy(['amm' => $amm]);
                     $product->setRPD(floatval($rpd));
                 }
             }

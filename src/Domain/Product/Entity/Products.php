@@ -53,6 +53,11 @@ class Products
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $amm;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $substance;
     
     /**
@@ -533,5 +538,21 @@ class Products
         }
         
         return $this;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getAmm()
+    {
+        return $this->amm;
+    }
+    
+    /**
+     * @param mixed $amm
+     */
+    public function setAmm($amm): void
+    {
+        $this->amm = $amm;
     }
 }
