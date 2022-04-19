@@ -42,7 +42,7 @@ class ProductAMMUpCommand extends Command
         dump( $this->container->get('kernel')->getProjectDir() );
         
         // On récupere le csv
-        $csv   = dirname($this->container->get('kernel')->getProjectDir()) . 'tmp' . DIRECTORY_SEPARATOR . 'amm.csv';
+        $csv   = dirname($this->container->get('kernel')->getProjectDir()) . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'amm.csv';
         $lines = explode("\n", file_get_contents($csv));
         
         // Declaration des tableaux
@@ -66,7 +66,7 @@ class ProductAMMUpCommand extends Command
                 if(! in_array($idLex, $products)) {
                     array_push($products, $idLex);
                     $product = $this->pr->findOneBy(['id_lex' => $idLex]);
-                    $product->setRPD(floatval($amm));
+                    $product->setAmm(floatval($amm));
                 }
             }
         }
