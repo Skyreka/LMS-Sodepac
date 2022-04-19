@@ -39,7 +39,7 @@ class ImportUserCommand extends Command
         ini_set("memory_limit", "-1");
         
         // On récupere le csv
-        $csv   = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'users.csv';
+        $csv   = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'users.csv';
         $lines = explode("\n", file_get_contents($csv));
         
         

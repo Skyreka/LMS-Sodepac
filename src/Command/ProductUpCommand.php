@@ -41,7 +41,7 @@ class ProductUpCommand extends Command
         ini_set("memory_limit", "-1");
         
         // On récupere le csv
-        $csv   = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'lex.csv';
+        $csv   = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'lex.csv';
         $lines = explode("\n", file_get_contents($csv));
         
         // Declaration des tableaux

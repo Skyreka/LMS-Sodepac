@@ -39,8 +39,10 @@ class ProductAMMUpCommand extends Command
         // yolo
         ini_set("memory_limit", "-1");
         
+        dump( $this->container->get('kernel')->getProjectDir() );
+        
         // On récupere le csv
-        $csv   = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'amm.csv';
+        $csv   = dirname($this->container->get('kernel')->getProjectDir()) . DIRECTORY_SEPARATOR . 'amm.csv';
         $lines = explode("\n", file_get_contents($csv));
         
         // Declaration des tableaux
