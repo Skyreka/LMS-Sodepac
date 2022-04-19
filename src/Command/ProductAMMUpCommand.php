@@ -13,7 +13,7 @@ use TreeHouse\Slugifier\Slugifier;
  * Class ProductUpCommand
  * @package App\Command
  */
-class ProductRPDUpCommand extends Command
+class ProductAMMUpCommand extends Command
 {
     protected static $defaultName = 'app:updateAMMProducts';
     
