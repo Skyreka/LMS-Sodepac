@@ -65,7 +65,9 @@ class ProductRPDUpCommand extends Command
                 if(! in_array($amm, $products)) {
                     array_push($products, $amm);
                     $product = $this->pr->findOneBy(['amm' => $amm]);
-                    $product->setRPD(floatval($rpd));
+                    if( !empty($product) ) {
+                        $product->setRPD(floatval($rpd));
+                    }
                 }
             }
         }
