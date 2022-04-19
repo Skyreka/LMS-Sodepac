@@ -13,9 +13,9 @@ use TreeHouse\Slugifier\Slugifier;
  * Class ProductUpCommand
  * @package App\Command
  */
-class PWarningCommand extends Command
+class ProductRPDUpCommand extends Command
 {
-    protected static $defaultName = 'app:PWarningCommand';
+    protected static $defaultName = 'app:updateAMMProducts';
     
     public function __construct(
         private readonly ContainerInterface $container,
@@ -28,7 +28,7 @@ class PWarningCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Add warning message to product');
+            ->setDescription('Import Products to DB');
     }
     
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -40,47 +40,38 @@ class PWarningCommand extends Command
         ini_set("memory_limit", "-1");
         
         // On récupere le csv
-        $csv   = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'warning.csv';
+        $csv   = dirname($this->container->get('kernel')->getRootDir()) . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'amm.csv';
         $lines = explode("\n", file_get_contents($csv));
         
         // Declaration des tableaux
         $products = [];
         
         //Declaration de slugify
-        $slugify = new Slugifier();
         $v       = 0;
         
         // Boucle par line du csv
         foreach($lines as $k => $line) {
             $v = $v + 1;
             dump($v);
-            $line = explode(',', $line);
+            $line = explode(';', $line);
             
+            //Index
+            $idLex = $line[0];
+            $amm = $line[1];
+            
+            // On sauvegarde le product && Prend uniquement juste une donnée
             if(! empty($line[0])) {
-                //Index
-                $idLex          = $line[0];
-                $warningMessage = $line[1];
-                
-                // On sauvegarde le product && Prend uniquement juste une donnée
                 if(! in_array($idLex, $products)) {
                     array_push($products, $idLex);
-                    
                     $product = $this->pr->findOneBy(['id_lex' => $idLex]);
-                    
-                    if(! empty($warningMessage)) {
-                        $product->setWarningMention($warningMessage);
-                    } else {
-                        $product->setWarningMention(null);
-                    }
+                    $product->setRPD(floatval($amm));
                 }
             }
         }
-        
-        dump($products);
         $em->flush();
+        
         // On donne des information des résultats
         $output->writeln(count($products) . ' produits mis à jour');
-        //$output->writeln(count($applications) . ' doses importées');
         return 1;
     }
 }
