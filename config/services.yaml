@@ -43,7 +43,7 @@ services:
     App\Infrastructure\Mailing\MailerService:
         class: App\Infrastructure\Mailing\MailerService
         arguments:
-            $dkimKey: '%dkim_key%',
+            $dkimKey: '%dkim_key%'
             $dkimSelector: '%dkim_selector%'
 
     # add more service definitions when explicit configuration is needed
