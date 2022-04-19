@@ -17,7 +17,8 @@ class MailerService
         private readonly Environment $twig,
         private readonly EnqueueMethod $enqueue,
         private readonly MailerInterface $mailer,
-        private readonly ?string $dkimKey = null
+        private readonly ?string $dkimKey = null,
+        private readonly ?string $dkimSelector = null
     )
     {
     }
@@ -50,7 +51,7 @@ class MailerService
     public function sendNow(Email $email): void
     {
         if($this->dkimKey) {
-            $dkimSign = new DkimSigner("file://{$this->dkimKey}", 'azagency.fr', 's1');
+            $dkimSign = new DkimSigner("file://{$this->dkimKey}", 'sodepac.fr', $this->dkimSelector);
             // Sign manualy wait fix https://github.com/symfony/symfony/issues/40131
             $message = new Message($email->getPreparedHeaders(), $email->getBody());
             $email   = $dkimSign->sign($message);

@@ -12,7 +12,8 @@ parameters:
     recommendation_directory: '%kernel.project_dir%/public/uploads/recommendations'
     APP_NAME: '%env(APP_NAME)%'
     admin_email: '%env(resolve:ADMIN_EMAIL)%'
-    dkim_key: '%env(resolve:default::MAILER_DKIM)%'
+    dkim_key: '%env(resolve:MAILER_DKIM)%'
+    dkim_selector: '%env(MAILER_DKIM_SELECTOR)%'
 
 services:
     # default configuration for services in *this* file
@@ -42,7 +43,8 @@ services:
     App\Infrastructure\Mailing\MailerService:
         class: App\Infrastructure\Mailing\MailerService
         arguments:
-            $dkimKey: '%dkim_key%'
+            $dkimKey: '%dkim_key%',
+            $dkimSelector: '%dkim_selector%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
