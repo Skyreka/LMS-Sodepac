@@ -54,6 +54,7 @@ class ProductRPDUpCommand extends Command
             $v = $v + 1;
             dump($v);
             $line = explode(';', $line);
+            // TEST
             
             //Index
             $amm = $line[0];
