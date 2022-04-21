@@ -12,7 +12,7 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-public/uploads/app/
+public/uploads/app/*
 public/uploads/bsv/
 public/uploads/panorama/
 public/uploads/recommendations/

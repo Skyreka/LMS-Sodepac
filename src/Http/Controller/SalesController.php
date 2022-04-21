@@ -123,7 +123,7 @@ class SalesController extends AbstractController
     }
     
     /**
-     * @Route("/manager/information", name="sales_manager_information", methods={"GET", "POST"})
+     * @Route("/manager/information", name="manager_information", methods={"GET", "POST"})
      * @IsGranted("ROLE_SALES")
      */
     public function information(Request $request, SalesInformationRepository $sir): Response
