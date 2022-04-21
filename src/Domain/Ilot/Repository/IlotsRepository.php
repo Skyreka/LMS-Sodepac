@@ -3,6 +3,7 @@
 namespace App\Domain\Ilot\Repository;
 
 use App\Domain\Culture\Entity\Cultures;
+use App\Domain\Exploitation\Entity\Exploitation;
 use App\Domain\Ilot\Entity\Ilots;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,7 +24,7 @@ class IlotsRepository extends ServiceEntityRepository
     /**
      * @return Ilots[] Returns an array of Ilots objects
      */
-    public function findIlotsFromUser($exploitation, $return = null, $year = null)
+    public function findIlotsFromExploitation(int $exploitation, $return = null, $year = null)
     {
         $query = $this->createQueryBuilder('i')
             ->andWhere('i.exploitation = :exploitation')

@@ -2,8 +2,8 @@
 
 namespace App\Http\Admin\Controller\PPF;
 
-use App\Controller\Admin\PPF\Users;
 use App\Domain\Auth\Repository\UsersRepository;
+use App\Domain\Exploitation\Entity\Exploitation;
 use App\Domain\PPF\Entity\PPF;
 use App\Domain\PPF\Form\PPFUserSelect;
 use App\Domain\PPF\Repository\PPFRepository;
@@ -83,6 +83,7 @@ class PPFController extends AbstractController
             ->setParameter('firstname', '%' . $term . '%')
             ->andWhere('u.pack = :pack')
             ->setParameter('pack', 'PACK_FULL')
+            ->join(Exploitation::class, 'e', 'WITH', 'e.users = u.id')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
