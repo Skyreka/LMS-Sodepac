@@ -338,7 +338,7 @@ class PanoramaController extends AbstractController
     }
     
     /**
-     * @Route("/user/panorama/show/{id}", name="user_show", methods={"GET"})
+     * @Route("/user/show/{id}", name="user_show", methods={"GET"})
      * @param Panorama $panorama
      * @return Response
      */

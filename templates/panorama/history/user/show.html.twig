@@ -32,11 +32,11 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.firstFile ) }}" alt="Image">
                             {% else %}
                                 <iframe
-                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/panorama/' ~ panorama.firstFile )) }}#toolbar=0&scrollbar=0"
-                                        frameBorder="0"
-                                        scrolling="auto"
-                                        height="500px"
-                                        width="100%"
+                                    src="{{ absolute_url(asset('uploads/panorama/' ~ panorama.firstFile )) }}#toolbar=0&scrollbar=0"
+                                    frameBorder="0"
+                                    scrolling="auto"
+                                    height="500px"
+                                    width="100%"
                                 ></iframe>
                             {% endif %}
                         </div>
@@ -52,11 +52,11 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.secondFile ) }}" alt="Image">
                             {% else %}
                                 <iframe
-                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/panorama/' ~ panorama.secondFile )) }}#toolbar=0&scrollbar=0"
-                                        frameBorder="0"
-                                        scrolling="auto"
-                                        height="500px"
-                                        width="100%"
+                                    src="{{ absolute_url(asset('uploads/panorama/' ~ panorama.secondFile )) }}#toolbar=0&scrollbar=0"
+                                    frameBorder="0"
+                                    scrolling="auto"
+                                    height="500px"
+                                    width="100%"
                                 ></iframe>
                             {% endif %}
                         </div>
@@ -72,7 +72,7 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/panorama/' ~ panorama.thirdFile ) }}" alt="Image">
                             {% else %}
                                 <iframe
-                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/panorama/' ~ panorama.thirdFile )) }}#toolbar=0&scrollbar=0"
+                                        src="{{ absolute_url(asset('uploads/panorama/' ~ panorama.thirdFile )) }}#toolbar=0&scrollbar=0"
                                         frameBorder="0"
                                         scrolling="auto"
                                         height="500px"

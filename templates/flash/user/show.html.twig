@@ -32,7 +32,7 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.firstFile ) }}" alt="Image">
                             {% else %}
                                 <iframe
-                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/flash/' ~ bsv.firstFile )) }}#toolbar=0&scrollbar=0"
+                                        src="{{ absolute_url(asset('uploads/flash/' ~ bsv.firstFile )) }}#toolbar=0&scrollbar=0"
                                         frameBorder="0"
                                         scrolling="auto"
                                         height="500px"
@@ -52,7 +52,7 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.secondFile ) }}" alt="Image">
                             {% else %}
                                 <iframe
-                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/flash/' ~ bsv.secondFile )) }}#toolbar=0&scrollbar=0"
+                                        src="{{ absolute_url(asset('uploads/flash/' ~ bsv.secondFile )) }}#toolbar=0&scrollbar=0"
                                         frameBorder="0"
                                         scrolling="auto"
                                         height="500px"
@@ -72,7 +72,7 @@
                                 <img class="d-block w-100" src="{{ asset('uploads/flash/' ~ bsv.thirdFile ) }}" alt="Image">
                             {% else %}
                                 <iframe
-                                        src="https://drive.google.com/viewerng/viewer?embedded=true&url={{ absolute_url(asset('uploads/flash/' ~ bsv.thirdFile )) }}#toolbar=0&scrollbar=0"
+                                        src="{{ absolute_url(asset('uploads/flash/' ~ bsv.thirdFile )) }}#toolbar=0&scrollbar=0"
                                         frameBorder="0"
                                         scrolling="auto"
                                         height="500px"
