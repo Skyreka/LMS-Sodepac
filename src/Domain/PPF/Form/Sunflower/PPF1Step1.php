@@ -29,7 +29,7 @@ class PPF1Step1 extends AbstractType
                     return $ilot->getName() . ' ( ' . $ilot->getSize() . ' ha )';
                 },
                 'query_builder' => function(IlotsRepository $ir) use ($options) {
-                    return $ir->findIlotsFromUser($options['exploitation'], true);
+                    return $ir->findIlotsFromExploitation($options['exploitation'], true);
                 },
                 'mapped' => false,
                 'placeholder' => 'Selectionner un ilot'
