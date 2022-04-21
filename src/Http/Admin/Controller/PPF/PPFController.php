@@ -2,7 +2,6 @@
 
 namespace App\Http\Admin\Controller\PPF;
 
-use App\Controller\Admin\PPF\Users;
 use App\Domain\Auth\Repository\UsersRepository;
 use App\Domain\PPF\Entity\PPF;
 use App\Domain\PPF\Form\PPFUserSelect;
