@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cours des produits{% endblock %}
+{% block title %}Tarif produits{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/>
@@ -10,11 +10,7 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <div class="col-md-5 col-12 align-self-center">
-                <h3 class="text-themecolor">Cours des produits</h3>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
-                    <li class="breadcrumb-item active">Cours des produits</li>
-                </ol>
+                <h3 class="text-themecolor">Liste des produits</h3>
             </div>
             <div class="col-md-7 col-12 align-self-center">
                 <div class="d-flex mt-2 justify-content-end">
@@ -38,6 +34,7 @@
                             <thead>
                             <tr>
                                 <th>Nom</th>
+                                <th>Parent</th>
                                 <th>LexAgri</th>
                                 <th>Statut</th>
                                 <th>Prix</th>

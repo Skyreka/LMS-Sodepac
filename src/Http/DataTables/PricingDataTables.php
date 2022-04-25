@@ -100,12 +100,14 @@ class PricingDataTables implements DataTableHandlerInterface
         foreach($products as $product) {
             $statut = $product->getIsActive() ? '<span class="badge badge-success">Actif</span>' : '<span class="badge badge-danger">Désactivé</span>';
             $lexAgri = $product->getIdLex() ? '<span class="badge badge-success">Oui</span>' : '<span class="badge badge-danger">Non</span>';
+            $rpd = $product->getParentProduct() ? $product->getParentProduct()->getRpd() : $product->getRpd();
             $results->data[] = [
                 $product->getName(),
+                $product->getParentProduct() ? $product->getParentProduct()->getName() : '',
                 $lexAgri,
                 $statut,
                 $product->getPrice(),
-                $product->getRpd(),
+                $rpd,
                 '
                     <a class="btn btn-warning" href="' . $this->router->generate('pricing_product_edit', ['id' => $product->getId()]) . '">
                         <i class="fas fa-pencil-alt"></i>
