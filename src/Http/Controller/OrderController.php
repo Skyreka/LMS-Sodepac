@@ -525,12 +525,7 @@ class OrderController extends AbstractController
             
             //Parent product
             $product = $form->get('product')->getData();
-            if($product->getParentProduct()) {
-                $price = $product->getParentProduct()->getPrice();
-                if(NULL === $price or 0.0 === $price) {
-                    $price = $product->getPrice();
-                }
-            } elseif(NULL != $product->getPrice()) {
+            if(NULL != $product->getPrice()) {
                 $price = $product->getPrice();
             } else {
                 $price = 0;
