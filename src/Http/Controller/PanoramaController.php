@@ -41,7 +41,7 @@ class PanoramaController extends AbstractController
     {
         $panorama = $this->repositoryPanorama->findAllNotDeleted();
         if($this->getUser()->getStatus() === 'ROLE_TECHNICIAN') {
-            $panorama = $this->repositoryPanorama->findAllNotDeletedByTechnician($this->getUser());
+            $panorama = $this->repositoryPanorama->findAllByTechnician($this->getUser());
         }
         return $this->render('panorama/index.html.twig', [
             'panorama' => $panorama
