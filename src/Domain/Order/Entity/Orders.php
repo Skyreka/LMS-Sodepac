@@ -71,7 +71,7 @@ class Orders
     private $conditions;
     
     /**
-     * @ORM\OneToOne(targetEntity=Signature::class, inversedBy="order", cascade={"persist", "remove"}, fetch="EAGER")
+     * @ORM\OneToOne(targetEntity=Signature::class, inversedBy="order", cascade={"persist", "remove"}, fetch="EAGER", orphanRemoval=true)
      */
     private $signature;
     

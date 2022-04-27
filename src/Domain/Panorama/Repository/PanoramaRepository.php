@@ -71,12 +71,11 @@ class PanoramaRepository extends ServiceEntityRepository
      * @param null $limit
      * @return mixed
      */
-    public function findAllNotDeletedByTechnician($technician, $limit = null)
+    public function findAllByTechnician($technician, $limit = null)
     {
         $req = $this->createQueryBuilder('p')
             ->where('p.archive = 0')
-            ->andWhere('p.owner = :technician')
-            ->setParameter('technician', $technician)
+            ->andWhere('p.validate = 1')
             ->orderBy('p.creation_date', 'DESC');
         
         if(false === is_null($limit)) {
