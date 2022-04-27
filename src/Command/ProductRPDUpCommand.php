@@ -43,9 +43,7 @@ class ProductRPDUpCommand extends Command
         $csv   = dirname($this->container->get('kernel')->getProjectDir()) .  DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'rpd.csv';
         $lines = explode("\n", file_get_contents($csv));
         
-        // Declaration des tableaux
-        $products = [];
-        
+
         //Declaration de slugify
         $v       = 0;
         
@@ -58,18 +56,11 @@ class ProductRPDUpCommand extends Command
             
             //Index
             $amm = $line[0];
+            $rpd = $line[1];
             
-            // On sauvegarde le product && Prend uniquement juste une donnée
-            if(! empty($line[0])) {
-                $rpd = $line[1];
-                
-                if(! in_array($amm, $products)) {
-                    array_push($products, $amm);
-                    $product = $this->pr->findOneBy(['amm' => $amm]);
-                    if( !empty($product) ) {
-                        $product->setRPD(floatval($rpd));
-                    }
-                }
+            $products = $this->pr->findBy(['amm' => $amm]);
+            foreach( $products as $product ) {
+                $product->setRPD(floatval($rpd));
             }
         }
         

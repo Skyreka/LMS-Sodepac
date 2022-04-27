@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PageController extends AbstractController
 {
-    
     /**
      * @Route("/home", name="home")
      */
@@ -24,10 +23,8 @@ class PageController extends AbstractController
         RecommendationsRepository $rr
     ): Response
     {
-        $datetime        = new \DateTime();
         $flashs          = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas       = $pur->findAllByCustomer($this->getUser(), 3);
-        $recommendations = $rr->findByExploitationOfCustomerAndYearAndNotChecked($this->getUser(), $datetime->format('Y'));
         $tickets         = $tr->findAllByUser($this->getUser(), 3);
         
         //-- Clear listCulture
@@ -36,8 +33,7 @@ class PageController extends AbstractController
         return $this->render('pages/home.html.twig', [
             'flashs' => $flashs,
             'panoramas' => $panoramas,
-            'tickets' => $tickets,
-            'recommendations' => $recommendations
+            'tickets' => $tickets
         ]);
     }
     

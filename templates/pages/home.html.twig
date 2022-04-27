@@ -21,44 +21,28 @@
                 {% endfor %}
             {% endfor %}
         </div>
-        {% if app.user.reset == 1 %}
-            <div class="alert alert-danger">Votre technicien a modifié votre mot de passe <br> Merci de bien vouloir le modifier pour plus de sécurité.
-                <br><a href="{{ path('account_index') }}">Modifier mot de passe</a></div>
-        {% endif %}
         {% if app.user.exploitation is null %}
             <div class="alert alert-warning">Vous n'avez actuellement pas d'exploitation disponible. <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation.</div>
         {% endif %}
         <div class="row">
             <div class="col-3 mb-3 d-block d-sm-none">
-                <a href="{{ path('user_flash_index') }}">
-                    <i class="fa fa-bolt fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1"
-                        {% if flashs|length > 0 %}
-                            style="color: red;"
-                        {% endif %}
-                        >F</span></i>
+                <a href="{{ path('user_order_index') }}">
+                    <i class="fa fa-truck fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1" style="font-family: Poppins">Co</span></i>
                 </a>
             </div>
             <div class="col-3 mb-3 d-block d-sm-none">
                 <a href="{{ path('panorama_user_history_index') }}">
-                    <i class="fa fa-newspaper-o fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1"
-                        {% if panoramas|length > 0 %}
-                            style="color: red;"
-                        {% endif %}
-                        >P</span></i>
+                    <i class="fa fa-newspaper fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1" style="font-family: Poppins">P</span></i>
                 </a>
             </div>
             <div class="col-3 mb-3 d-block d-sm-none">
                 <a href="{{ path('exploitation_recommendation_index') }}">
-                    <i class="fa fa-book fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1"
-                       {% if recommendations|length > 0 %}
-                           style="color: red;"
-                       {% endif %}
-                        >C</span></i>
+                    <i class="fa fa-book fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1" style="font-family: Poppins">C</span></i>
                 </a>
             </div>
             <div class="col-3 mb-3 d-block d-sm-none">
-                <a href="{{ path('tickets_index') }}">
-                    <i class="fa fa-comments-o fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1">T</span></i>
+                <a href="{{ path('sales_index') }}">
+                    <i class="fa fa-chart-line fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1" style="font-family: Poppins">V</span></i>
                 </a>
             </div>
             <div class="col-md-6">
