@@ -26,6 +26,7 @@ class ProductType extends AbstractType
         }
         
         $builder
+            /**
             ->add('category', EntityType::class, [
                 'class' => ProductCategory::class,
                 'choice_label' => function(ProductCategory $category) {
@@ -35,7 +36,7 @@ class ProductType extends AbstractType
                     return $pcr->createQueryBuilder('i')
                         ->where('i.id != 1');
                 }
-            ])
+            ])*/
             ->add('price', NumberType::class)
     
             ->add('n', NumberType::class, [
