@@ -57,8 +57,8 @@
                     <div class="card-body">
                         <div class="d-block pull-right">
                             {% if (order.isDraft ) or (order.isQuotation == 1) %}
-                                <a href="{{ path('management_order_product_other_add') }}" class="btn btn-dark btn-outline-info ml-2 pull-right"><i class="fas fa-plus"></i> Produit</a>
-                                <a href="{{ path('management_order_product_other_field_add') }}" class="btn btn-dark btn-outline-info pull-right"><i class="fas fa-plus"></i>  Divers</a>
+                                <a href="{{ path('management_order_product_other_add', {'orderNumber': order.idNumber}) }}" class="btn btn-dark btn-outline-info ml-2 pull-right"><i class="fas fa-plus"></i> Produit</a>
+                                <a href="{{ path('management_order_product_other_field_add', {'orderNumber': order.idNumber}) }}" class="btn btn-dark btn-outline-info pull-right"><i class="fas fa-plus"></i>  Divers</a>
                                 <!--<a href="" class="btn btn-dark btn-outline-info ml-2"><i class="fas fa-plus"></i> Pro.Sodepac</a>-->
                             {% endif %}
                         </div>
