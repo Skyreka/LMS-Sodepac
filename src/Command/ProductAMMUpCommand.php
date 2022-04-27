@@ -63,11 +63,8 @@ class ProductAMMUpCommand extends Command
             
             // On sauvegarde le product && Prend uniquement juste une donnée
             if(! empty($line[0])) {
-                if(! in_array($idLex, $products)) {
-                    array_push($products, $idLex);
-                    $product = $this->pr->findOneBy(['id_lex' => $idLex]);
-                    $product->setAmm(floatval($amm));
-                }
+                $product = $this->pr->findOneBy(['id_lex' => $idLex]);
+                $product?->setAmm(floatval($amm));
             }
         }
         $em->flush();
