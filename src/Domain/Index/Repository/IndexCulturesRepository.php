@@ -50,6 +50,26 @@ class IndexCulturesRepository extends ServiceEntityRepository
             ->getResult();
     }
     
+    public function findActiveCultureByExploitation($exploitation, $result = NULL)
+    {
+        $query = $this->createQueryBuilder('q')
+            ->leftJoin(Cultures::class, 'c', 'WITH', 'q.id = c.name')
+            ->leftJoin(Ilots::class, 'i', 'WITH', 'c.ilot = i.id')
+            ->andWhere('i.exploitation = :exp')
+            ->andWhere('c.status = 0')
+            ->setParameter('exp', $exploitation)
+            ->orderBy('c.name', 'DESC');
+        
+        //-- Only Query
+        if($result) {
+            return $query;
+        }
+        
+        //-- Return Array
+        return $query->getQuery()
+            ->getResult();
+    }
+    
     public function findAllAlpha($result = NULL)
     {
         $query = $this->createQueryBuilder('i')

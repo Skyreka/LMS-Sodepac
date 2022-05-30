@@ -35,7 +35,7 @@ class SalesController extends AbstractController
      */
     public function index(SalesRepository $sr, SalesInformationRepository $sir): Response
     {
-        $sales            = $sr->findBy(['isActive' => 1], ['title' => 'ASC']);
+        $sales            = $sr->findBy(['isActive' => 1], ['culture' => 'ASC']);
         $salesInformation = $sir->find(1);
         
         return $this->render('sales/index.html.twig', [

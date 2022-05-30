@@ -28,7 +28,7 @@ class MultipleInterventionType extends AbstractType
                     return $indexCultures->getName();
                 },
                 'query_builder' => function(IndexCulturesRepository $icr) use ($options) {
-                    return $icr->findCulturesByExploitation($options['user']->getExploitation(), true);
+                    return $icr->findActiveCultureByExploitation($options['user']->getExploitation(), true);
                 },
                 'placeholder' => 'Sélectionner votre culture'
             ]);
