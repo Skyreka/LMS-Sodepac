@@ -25,7 +25,7 @@ class PPF1Controller extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly PPFRepository $pr
+        private readonly PPFRepository $ppfRepository
     )
     {
     }
@@ -54,7 +54,7 @@ class PPF1Controller extends AbstractController
             $this->em->persist($ppf);
             $this->em->flush();
             
-            return $this->redirectToRoute('admin_ppf1_step_2', ['ppf' => $ppf->getId()]);
+            return $this->redirectToRoute('ppf1_step_2', ['ppf' => $ppf->getId()]);
         }
         
         return $this->render('admin/PPF/1/step1.html.twig', [
@@ -80,7 +80,7 @@ class PPF1Controller extends AbstractController
             // Save to DB
             $this->em->flush();
             
-            return $this->redirectToRoute('admin_ppf1_step_3', ['ppf' => $ppf->getId()]);
+            return $this->redirectToRoute('ppf1_step_3', ['ppf' => $ppf->getId()]);
         }
         
         return $this->render('admin/PPF/1/step2.html.twig', [
@@ -105,7 +105,7 @@ class PPF1Controller extends AbstractController
             // Save to DB
             $this->em->flush();
             
-            return $this->redirectToRoute('admin_ppf1_step_4', ['ppf' => $ppf->getId()]);
+            return $this->redirectToRoute('ppf1_step_4', ['ppf' => $ppf->getId()]);
         }
         
         return $this->render('admin/PPF/1/step3.html.twig', [
@@ -129,7 +129,7 @@ class PPF1Controller extends AbstractController
             // Save to DB
             $this->em->flush();
             
-            return $this->redirectToRoute('admin_ppf1_step_5', ['ppf' => $ppf->getId()]);
+            return $this->redirectToRoute('ppf1_step_5', ['ppf' => $ppf->getId()]);
         }
         
         return $this->render('admin/PPF/1/step4.html.twig', [
@@ -158,7 +158,7 @@ class PPF1Controller extends AbstractController
             // Save to DB
             $this->em->flush();
             
-            return $this->redirectToRoute('admin_ppf1_step_5', ['ppf' => $ppf->getId()]);
+            return $this->redirectToRoute('ppf1_step_5', ['ppf' => $ppf->getId()]);
         }
         
         return $this->render('admin/PPF/1/step5.html.twig', [
@@ -187,7 +187,7 @@ class PPF1Controller extends AbstractController
             $this->em->persist($ppfInput);
             $this->em->flush();
             
-            return $this->redirectToRoute('admin_ppf1_step_5', ['ppf' => $ppf->getId()]);
+            return $this->redirectToRoute('ppf1_step_5', ['ppf' => $ppf->getId()]);
         }
         
         return $this->render('admin/PPF/1/add_input.html.twig', [
