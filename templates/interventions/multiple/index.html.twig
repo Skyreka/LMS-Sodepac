@@ -22,33 +22,116 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        {{ form_start(form) }}
-                            {{ form_rest(form) }}
-                            <button class="btn btn-primary">Ajouter une intervention</button>
-                        {{ form_end(form) }}
+                        <div class="card-header pull-right">
+                            <form method="POST" href="{{ path('intervention_multiple_index') }}" name="form_select_culture">
+                                <select name="culture" class="form-control custom-select" id="culture" onchange="this.form.submit()">
+                                    <option>Sélectionner une culture</option>
+                                    {% for culture in active_cultures %}
+                                        <option value="{{ culture.id }}">{{ culture.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+                        <h4 class="card-title">Cultures en cours</h4>
+                        <div class="table-responsive">
+                            <form method="POST" name="selected_culture" action="{{ path('intervention_multiple_index') }}">
+                                <table id="datatable" class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="customControlValidation1"/>
+                                                <label class="form-check-label" for="customControlValidation1"></label>
+                                            </div>
+                                        </th>
+                                        <th>Action</th>
+                                        <th>Nom</th>
+                                        <th>Taille</th>
+                                        <th>Ajout</th>
+                                        <th>Informations</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for culture in found_cultures %}
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input type="checkbox" name="cultures_selected[]" value="{{ culture.id }}" class="form-check-input" id="select-{{ culture.id }}"/>
+                                                    <label class="form-check-label" for="select-{{ culture.id }}"></label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn {% if culture.status %}btn-success{% else %}btn-inverse{% endif %} dropdown-toggle" type="button" id="dropdown-{{ culture.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-cog"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdown-{{ culture.id }}">
+                                                        {% if culture.status  %}
+                                                            <a href="{{ path('cultures_show', {id: culture.id}) }}" class="dropdown-item">Voir</a>
+                                                            <a href="{{ path('cultures_edit', {id: culture.id}) }}" class="dropdown-item">Modifier</a>
+                                                        {% endif %}
+                                                        <a href="{{ path('cultures.synthese', {id: culture.id}) }}" class="dropdown-item">Synthèse</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {{ culture.name.name }}
+                                                {% if culture.comments %}
+                                                    <i data-toggle="tooltip" data-placement="right" title="{{ culture.comments }}" class="fas fa-info-circle"></i>
+                                                {% endif %}
+                                                {% if culture.precedent %}
+                                                    <br><small>Précédent: {{ culture.precedent.name }}</small>
+                                                {% endif %}
+                                                {% if culture.effluent %}
+                                                    <br><small >Effluent: {{ culture.effluent.name }}</small>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ culture.size ~ 'ha' }}</td>
+                                            <td>{{ culture.addedAt | date('d/m/Y') }}</td>
+                                            <td>
+                                                {% if culture.status  %}
+                                                    <span class="label label-success">Active</span>
+                                                {% else %}
+                                                    <span class="label label-inverse">Archivée</span>
+                                                {% endif %}
+                                                {% if culture.bio  %}
+                                                    <span class="label label-info">Bio</span>
+                                                {% endif %}
+                                                {% if culture.permanent  %}
+                                                    <span class="label label-info">Permanent</span>
+                                                {% endif %}
+                                                {% if culture.production  %}
+                                                    <span class="label label-info">Production</span>
+                                                {% endif %}
+                                                {% if culture.residue  %}
+                                                    <span class="label label-info">Résidue</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="customControlValidation1"/>
+                                                <label class="form-check-label" for="customControlValidation1"></label>
+                                            </div>
+                                        </th>
+                                        <th>Action</th>
+                                        <th>Nom</th>
+                                        <th>Taille</th>
+                                        <th>Ajout</th>
+                                        <th>Informations</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <button type="submit" class="btn btn-success">Ajouter une intervention</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    <script>
-        $(document).on('change', '#multiple_intervention_selectCulture', function () {
-            let $field = $(this)
-            let $form = $field.closest('form')
-            let data = {}
-            data[$field.attr('name')] = $field.val()
-            $.post($form.attr('action'), data).then(function (data) {
-                let $input = $(data).find('#multiple_intervention_cultures')
-                $('#multiple_intervention_cultures').replaceWith($input)
-                $('#multiple_intervention_cultures').append( "<input id=\"selectAll\" type=\"checkbox\"><label for='selectAll'>Sélectionner tous</label>" )
-                $("#selectAll").click(function(){
-                    $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
-
-                });
-            })
-        })
-    </script>
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Http\Controller\Interventions;
 
 use App\Domain\Culture\Repository\CulturesRepository;
 use App\Domain\Index\Entity\IndexCultures;
+use App\Domain\Index\Repository\IndexCulturesRepository;
 use App\Domain\Intervention\Form\MultipleInterventionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,30 +21,37 @@ class MultipleInterventionController extends AbstractController
     /**
      * @Route("/select", name="intervention_multiple_index")
      */
-    public function index(Request $request, CulturesRepository $cr): Response
+    public function index(
+        Request $request,
+        IndexCulturesRepository $icr,
+        CulturesRepository $cr
+    ): Response
     {
         //-- Form
         $indexCultures = new IndexCultures();
-        $form          = $this->createForm(MultipleInterventionType::class, $indexCultures, ['user' => $this->getUser()]);
+        $form = $this->createForm(MultipleInterventionType::class, $indexCultures, ['user' => $this->getUser()]);
         $form->handleRequest($request);
-        
-        if($form->isSubmitted() && $form->isValid()) {
-            $data         = $form->all();
-            $listCultures = $data['cultures']->getData();
-            
-            if($listCultures->isEmpty()) {
-                $this->addFlash('danger', 'Veuillez sélectionner au moins une culture.');
-                return $this->redirectToRoute('intervention_multiple_index');
-            }
-            
+    
+        $foundCultures = $cr->findByIndexCultureInProgress($request->get('culture'), $this->getUser()->getExploitation());
+    
+    
+        $culturesSelected = $request->request->get('cultures_selected');
+        if($culturesSelected) {
+            $cultureFounded = [];
             // Put array to session
-            $this->container->get('session')->set('listCulture', $listCultures);
+            foreach( $culturesSelected as $id ) {
+                $culture = $cr->findOneBy(['id' => $id]);
+                $cultureFounded[] = $culture;
+            }
+            $this->container->get('session')->set('listCulture', $cultureFounded);
             
-            return $this->redirectToRoute('cultures_show', ['id' => $listCultures[0]->getId()]);
+            return $this->redirectToRoute('cultures_show', ['id' => $culturesSelected[0]]);
         }
         
         return $this->render('interventions/multiple/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'active_cultures' => $icr->findActiveCultureByExploitation($this->getUser()->getExploitation()),
+            'found_cultures' => $foundCultures
         ]);
     }
 }
