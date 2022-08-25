@@ -178,7 +178,7 @@ class RecommendationsController extends AbstractController
     public function canevasAddProduct(Request $request, ProductsRepository $pr, RecommendationsRepository $rr, RecommendationProductsRepository $rpr)
     {
         if($request->isXmlHttpRequest()) {
-            $product        = $pr->findProductBySlug($request->get('product_slug'));
+            $product        = $pr->findProductBySlugForCanevas($request->get('product_slug'));
             $recommendation = $rr->find($request->get('recommendation_id'));
             $cultureTotal   = $recommendation->getCultureSize();
             

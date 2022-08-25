@@ -42,6 +42,15 @@ class ProductsRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
     
+    public function findProductBySlugForCanevas($slug)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+    
     public function findByStocks($exploitation)
     {
         return $this->createQueryBuilder('p')
