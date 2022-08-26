@@ -41,7 +41,7 @@ class PPFController extends AbstractController
             // Display error if user don't have exploitation
             if($data->getExploitation() == NULL) {
                 $this->addFlash('danger', 'Votre client n\'a aucune exploitation déclarée, veuillez modifier son compte pour pouvoir lui établir un catalogue');
-                return $this->redirectToRoute('admin_ppf_user_select');
+                return $this->redirectToRoute('ppf_user_select');
             }
             
             return $this->redirectToRoute('admin_ppf' . $form->get('types')->getData() . '_step_1', [

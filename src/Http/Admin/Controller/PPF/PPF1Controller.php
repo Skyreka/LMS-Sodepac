@@ -25,7 +25,7 @@ class PPF1Controller extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly PPFRepository $pr
+        private readonly PPFRepository $ppfRepository
     )
     {
     }

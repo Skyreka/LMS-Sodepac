@@ -80,15 +80,17 @@ class CulturesRepository extends ServiceEntityRepository
     
     /**
      * Find All Culture By ilot
-     * @param $ilot
-     * @param null $return
-     * @return mixed
      */
-    public function findByIlot($ilot, $return = null)
+    public function findByIlot($ilot, $year = null, $return = null)
     {
+        if( NULL === $year ) {
+            $year = new \DateTime('Y');
+        }
         $query = $this->createQueryBuilder('c')
             ->where('c.ilot = :ilot')
+            ->andWhere('YEAR(c.addedAt) = :year')
             ->setParameter('ilot', $ilot)
+            ->setParameter('year', $year)
             ->orderBy('c.name', 'DESC');
         
         if($return) {

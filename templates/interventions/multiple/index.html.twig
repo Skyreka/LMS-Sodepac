@@ -23,8 +23,8 @@
                 <div class="card">
                     <div class="card-body">
                         {{ form_start(form) }}
-                            {{ form_rest(form) }}
-                            <button class="btn btn-primary">Ajouter une intervention</button>
+                        {{ form_rest(form) }}
+                        <button class="btn btn-primary">Ajouter une intervention</button>
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -46,7 +46,6 @@
                 $('#multiple_intervention_cultures').append( "<input id=\"selectAll\" type=\"checkbox\"><label for='selectAll'>Sélectionner tous</label>" )
                 $("#selectAll").click(function(){
                     $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
-
                 });
             })
         })

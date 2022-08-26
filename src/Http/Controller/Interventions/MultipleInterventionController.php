@@ -4,6 +4,7 @@ namespace App\Http\Controller\Interventions;
 
 use App\Domain\Culture\Repository\CulturesRepository;
 use App\Domain\Index\Entity\IndexCultures;
+use App\Domain\Index\Repository\IndexCulturesRepository;
 use App\Domain\Intervention\Form\MultipleInterventionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
