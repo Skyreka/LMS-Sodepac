@@ -33,7 +33,7 @@ class OrderSubscriber implements EventSubscriberInterface
         $message = $this->mailer->createEmail('mails/order/validated.twig', [
             'order' => $event->getOrder()
         ]);
-        $message->subject($this->bag->get('APP_NAME').' - Nouvelle commande');
+        $message->subject($this->bag->get('APP_NAME').' - Merci pour votre commande');
         $message->to($user->getEmail());
         $this->mailer->send($message);
         
@@ -45,6 +45,16 @@ class OrderSubscriber implements EventSubscriberInterface
         $message->subject($this->bag->get('APP_NAME').' - Nouvelle commande de '. $user->getIdentity());
         $message->to($user->getWarehouse()->getEmail());
         $this->mailer->send($message);
+        
+        if( $this->bag->get('SECOND_ORDER_EMAIL_NOTIFICATION') ) {
+            // Message to second order
+            $message = $this->mailer->createEmail('mails/warehouse/new_order.twig', [
+                'order' => $event->getOrder()
+            ]);
+            $message->subject($this->bag->get('APP_NAME').' - Nouveau devis de '. $user->getIdentity());
+            $message->to($this->bag->get('SECOND_ORDER_EMAIL_NOTIFICATION'));
+            $this->mailer->send($message);
+        }
     }
 }
 
