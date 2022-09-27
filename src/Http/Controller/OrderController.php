@@ -5,6 +5,7 @@ namespace App\Http\Controller;
 use App\Domain\Auth\Repository\UsersRepository;
 use App\Domain\Order\Entity\Orders;
 use App\Domain\Order\Entity\OrdersProduct;
+use App\Domain\Order\Event\OrderAskedSignatureEvent;
 use App\Domain\Order\Event\OrderQuotedEvent;
 use App\Domain\Order\Event\OrderValidatedEvent;
 use App\Domain\Order\Form\OrderAdditionalType;
@@ -442,6 +443,7 @@ class OrderController extends AbstractController
             $this->em->persist($codeOtp);
             
             $this->dispatcher->dispatch( new SignatureAskedEvent( $codeOtp ));
+            $this->dispatcher->dispatch( new OrderAskedSignatureEvent( $order ));
             
             $this->em->flush();
         }
