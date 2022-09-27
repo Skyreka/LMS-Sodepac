@@ -14,6 +14,7 @@ parameters:
     admin_email: '%env(resolve:ADMIN_EMAIL)%'
     dkim_key: '%env(resolve:MAILER_DKIM)%'
     dkim_selector: '%env(MAILER_DKIM_SELECTOR)%'
+    second_order_email_notification: '%env(SECOND_ORDER_EMAIL_NOTIFICATION)%'
 
 services:
     # default configuration for services in *this* file

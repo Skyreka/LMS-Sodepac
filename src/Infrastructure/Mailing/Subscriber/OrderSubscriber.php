@@ -45,14 +45,14 @@ class OrderSubscriber implements EventSubscriberInterface
         $message->subject($this->bag->get('APP_NAME').' - Nouvelle commande de '. $user->getIdentity());
         $message->to($user->getWarehouse()->getEmail());
         $this->mailer->send($message);
-        
-        if( $this->bag->get('SECOND_ORDER_EMAIL_NOTIFICATION') ) {
+    
+        if( $this->bag->get('second_order_email_notification') ) {
             // Message to second order
             $message = $this->mailer->createEmail('mails/warehouse/new_order.twig', [
                 'order' => $event->getOrder()
             ]);
             $message->subject($this->bag->get('APP_NAME').' - Nouveau devis de '. $user->getIdentity());
-            $message->to($this->bag->get('SECOND_ORDER_EMAIL_NOTIFICATION'));
+            $message->to($this->bag->get('second_order_email_notification'));
             $this->mailer->send($message);
         }
     }
