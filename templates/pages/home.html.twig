@@ -24,6 +24,26 @@
         {% if app.user.exploitation is null %}
             <div class="alert alert-warning">Vous n'avez actuellement pas d'exploitation disponible. <br> Merci de vous rapprocher de votre technicien référent pour la création de votre exploitation.</div>
         {% endif %}
+        {% if ad %}
+          <div class="row">
+            <div class="col-12">
+              <div class="card blog-widget">
+                <div class="card-body">
+                  <div class="blog-image">
+                    <img
+                      src="{{ image_url( ad, null, null, 'imageFile') }}"
+                      style="max-height: 150px !important;"
+                      alt="img"
+                      class="img-fluid blog-img-height w-100"
+                    />
+                  </div>
+                  <h3>{{ ad.title | slice(0, 30) }}</h3>
+                  <p>{{ ad.description | slice(0, 120) }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
         <div class="row">
             <div class="col-3 mb-3 d-block d-sm-none">
                 <a href="{{ path('user_order_index') }}">

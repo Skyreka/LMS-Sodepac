@@ -9,3 +9,5 @@ twig:
         APP_ADDRESS: '%env(APP_ADDRESS)%'
         APP_LINK_APPSTORE: '%env(APP_LINK_APPSTORE)%'
         APP_LINK_PLAYSTORE: '%env(APP_LINK_PLAYSTORE)%'
+    paths:
+      '%kernel.project_dir%/src/Infrastructure/Maker/templates': maker

@@ -1,0 +1,7 @@
+{% if ad.status == constant('App\\Domain\\Ads\\Entity\\Ads::STATUS_PLANIFIED')  %}
+  <span class="label label-light-info label-inline font-weight-bold label-lg">Planifiée</span>
+{% elseif( ad.status == constant('App\\Domain\\Ads\\Entity\\Ads::STATUS_DISABLED')  ) %}
+  <span class="label label-light-danger label-inline font-weight-bold label-lg">Désactivée</span>
+{% elseif( ad.status == constant('App\\Domain\\Ads\\Entity\\Ads::STATUS_DISPLAYED')  ) %}
+  <span class="label label-light-success label-inline font-weight-bold label-lg">En diffusion</span>
+{% endif %}
