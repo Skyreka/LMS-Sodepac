@@ -32,81 +32,81 @@ abstract class Interventions
     {
         $this->intervention_at = new \DateTime();
     }
-    
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity=Cultures::class, inversedBy="interventions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $culture;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $comment;
-    
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $intervention_at;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $type;
-    
+
     /**
      * @ORM\Column(type="integer", length=1, nullable=true)
      */
     private $isMultiple;
-    
+
     public function getId(): ?int
     {
         return $this->id;
     }
-    
+
     public function getCulture(): ?Cultures
     {
         return $this->culture;
     }
-    
+
     public function setCulture(?Cultures $culture): self
     {
         $this->culture = $culture;
-        
+
         return $this;
     }
-    
+
     public function getComment(): ?string
     {
         return $this->comment;
     }
-    
+
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
-        
+
         return $this;
     }
-    
+
     public function getInterventionAt(): ?\DateTimeInterface
     {
         return $this->intervention_at;
     }
-    
+
     public function setInterventionAt($intervention_at): self
     {
         $this->intervention_at = $intervention_at;
-        
+
         return $this;
     }
-    
+
     /**
      * @return mixed
      */
@@ -114,7 +114,7 @@ abstract class Interventions
     {
         return $this->type;
     }
-    
+
     /**
      * @param mixed $type
      */
@@ -122,7 +122,7 @@ abstract class Interventions
     {
         $this->type = $type;
     }
-    
+
     /**
      * @return mixed
      */
@@ -130,7 +130,7 @@ abstract class Interventions
     {
         return $this->isMultiple;
     }
-    
+
     /**
      * @param mixed $isMultiple
      */
@@ -150,7 +150,7 @@ class Recolte extends Interventions
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $rendement;
-    
+
     /**
      * @return mixed
      */
@@ -158,7 +158,7 @@ class Recolte extends Interventions
     {
         return $this->rendement;
     }
-    
+
     /**
      * @param mixed $quantity
      * @return Recolte
@@ -166,7 +166,7 @@ class Recolte extends Interventions
     public function setRendement($quantity): self
     {
         $this->rendement = $quantity;
-        
+
         return $this;
     }
 }
@@ -199,7 +199,7 @@ class Analyse extends Interventions
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $quantity;
-    
+
     /**
      * @return mixed
      */
@@ -207,7 +207,7 @@ class Analyse extends Interventions
     {
         return $this->quantity;
     }
-    
+
     /**
      * @param mixed $quantity
      */
@@ -227,12 +227,12 @@ class Irrigation extends Interventions
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $quantity;
-    
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
-    
+
     /**
      * @return mixed
      */
@@ -240,7 +240,7 @@ class Irrigation extends Interventions
     {
         return $this->quantity;
     }
-    
+
     /**
      * @param mixed $quantity
      */
@@ -248,7 +248,7 @@ class Irrigation extends Interventions
     {
         $this->quantity = $quantity;
     }
-    
+
     /**
      * @return mixed
      */
@@ -256,7 +256,7 @@ class Irrigation extends Interventions
     {
         return $this->name;
     }
-    
+
     /**
      * @param mixed $name
      */
@@ -276,13 +276,13 @@ class Epandage extends Interventions
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $quantity;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity=IndexEffluents::class)
      * @ORM\JoinColumn(nullable=true)
      */
     private $effluent;
-    
+
     /**
      * @return mixed
      */
@@ -290,7 +290,7 @@ class Epandage extends Interventions
     {
         return $this->quantity;
     }
-    
+
     /**
      * @param mixed $quantity
      * @return Epandage
@@ -298,10 +298,10 @@ class Epandage extends Interventions
     public function setQuantity($quantity): Epandage
     {
         $this->quantity = $quantity;
-        
+
         return $this;
     }
-    
+
     /**
      * @return mixed
      */
@@ -309,7 +309,7 @@ class Epandage extends Interventions
     {
         return $this->effluent;
     }
-    
+
     /**
      * @param mixed $effluent
      */
@@ -325,26 +325,33 @@ class Epandage extends Interventions
  */
 class Semis extends Interventions
 {
+    public const OBJECTIVE_UNIT_QUINTAUX = 1;
+    public const OBJECTIVE_UNIT_TONNES = 2;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $quantity;
-    
+
     /**
      * @ORM\Column(type="string", length=11, nullable=true)
      */
-    private $unit;
-    
+    private ?string $unit;
+
     /**
      * @ORM\Column(type="integer", length=11, nullable=true)
      */
-    private $objective;
-    
+    private ?int $objective;
+
+    /**
+     * @ORM\Column(type="integer", length=1, nullable=true)
+     */
+    private ?int $objective_unit;
+
     /**
      * @return mixed
      */
@@ -352,7 +359,7 @@ class Semis extends Interventions
     {
         return $this->name;
     }
-    
+
     /**
      * @param mixed $name
      */
@@ -360,7 +367,7 @@ class Semis extends Interventions
     {
         $this->name = $name;
     }
-    
+
     /**
      * @return mixed
      */
@@ -368,7 +375,7 @@ class Semis extends Interventions
     {
         return $this->quantity;
     }
-    
+
     /**
      * @param mixed $quantity
      */
@@ -376,7 +383,7 @@ class Semis extends Interventions
     {
         $this->quantity = $quantity;
     }
-    
+
     /**
      * @return mixed
      */
@@ -384,7 +391,7 @@ class Semis extends Interventions
     {
         return $this->unit;
     }
-    
+
     /**
      * @param mixed $unit
      */
@@ -392,7 +399,7 @@ class Semis extends Interventions
     {
         $this->unit = $unit;
     }
-    
+
     /**
      * @return mixed
      */
@@ -400,13 +407,29 @@ class Semis extends Interventions
     {
         return $this->objective;
     }
-    
+
     /**
      * @param mixed $objective
      */
     public function setObjective($objective): void
     {
         $this->objective = $objective;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getObjectiveUnit(): ?int
+    {
+        return $this->objective_unit;
+    }
+
+    /**
+     * @param mixed $objective_unit
+     */
+    public function setObjectiveUnit(?int $objective_unit): void
+    {
+        $this->objective_unit = $objective_unit;
     }
 }
 
@@ -420,22 +443,22 @@ class Fertilisant extends Interventions
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $n;
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $p;
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $size_multiple = 0;
-    
+
     /**
      * @return mixed
      */
@@ -443,7 +466,7 @@ class Fertilisant extends Interventions
     {
         return $this->p;
     }
-    
+
     /**
      * @param mixed $p
      */
@@ -451,7 +474,7 @@ class Fertilisant extends Interventions
     {
         $this->p = $p;
     }
-    
+
     /**
      * @return mixed
      */
@@ -459,7 +482,7 @@ class Fertilisant extends Interventions
     {
         return $this->k;
     }
-    
+
     /**
      * @param mixed $k
      */
@@ -467,27 +490,27 @@ class Fertilisant extends Interventions
     {
         $this->k = $k;
     }
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $k;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity=Products::class)
      */
     private $product;
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $quantity;
-    
+
     /**
      * @ORM\Column(type="integer", length=11, nullable=true)
      */
     private $reliquat;
-    
+
     /**
      * @return mixed
      */
@@ -495,7 +518,7 @@ class Fertilisant extends Interventions
     {
         return $this->name;
     }
-    
+
     /**
      * @param mixed $name
      */
@@ -503,7 +526,7 @@ class Fertilisant extends Interventions
     {
         $this->name = $name;
     }
-    
+
     /**
      * @return mixed
      */
@@ -511,7 +534,7 @@ class Fertilisant extends Interventions
     {
         return $this->quantity;
     }
-    
+
     /**
      * @param mixed $quantity
      */
@@ -519,7 +542,7 @@ class Fertilisant extends Interventions
     {
         $this->quantity = $quantity;
     }
-    
+
     /**
      * @return mixed
      */
@@ -527,7 +550,7 @@ class Fertilisant extends Interventions
     {
         return $this->product;
     }
-    
+
     /**
      * @param mixed $product
      */
@@ -535,7 +558,7 @@ class Fertilisant extends Interventions
     {
         $this->product = $product;
     }
-    
+
     /**
      * @return mixed
      */
@@ -543,7 +566,7 @@ class Fertilisant extends Interventions
     {
         return $this->reliquat;
     }
-    
+
     /**
      * @param mixed $reliquat
      */
@@ -551,7 +574,7 @@ class Fertilisant extends Interventions
     {
         $this->reliquat = $reliquat;
     }
-    
+
     /**
      * @return mixed
      */
@@ -559,7 +582,7 @@ class Fertilisant extends Interventions
     {
         return $this->n;
     }
-    
+
     /**
      * @param mixed $n
      */
@@ -567,7 +590,7 @@ class Fertilisant extends Interventions
     {
         $this->n = $n;
     }
-    
+
     /**
      * @return int
      */
@@ -575,7 +598,7 @@ class Fertilisant extends Interventions
     {
         return $this->size_multiple;
     }
-    
+
     /**
      * @param int $size_multiple
      */
@@ -595,69 +618,69 @@ class Phyto extends Interventions
      * @ORM\ManyToOne(targetEntity=Products::class)
      */
     private $product;
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $quantity;
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $dose = 0;
-    
+
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $doseUnit;
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $dose_hectare = 0;
-    
+
     /**
      * @ORM\Column(type="float", length=11, nullable=true)
      */
     private $size_multiple = 0;
-    
+
     /**
      * @ORM\OneToMany(targetEntity=InterventionsProducts::class, mappedBy="intervention")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $interventionsProducts;
-    
+
     /**
      * Function to get IFT
      * @return string
      */
     public function getIft()
     {
-        
+
         // IF MAKE CHANGE HERE CHANGE ON INTERVENTIONPRODUCT
         $doseHomologue = $this->getDose();
         $doseHectare   = $this->getDoseHectare();
-        
+
         // If unit of dose contain /hl x 10
         if(strpos($this->getDoseUnit(), '/hl')) {
             $doseHomologue = $this->getDose() * 10;
         }
-        
+
         if($doseHectare == NULL) {
             $doseHectare = $this->getQuantity() / $this->getCulture()->getSize();
         }
-        
+
         //-- Display only if have all value
         if($doseHomologue != null &&
             $doseHectare != null) {
-            
+
             $result = ($doseHectare / $doseHomologue);
             return $result;
         } else {
             return 0;
         }
     }
-    
+
     /**
      * @return Collection|InterventionsProducts[]
      */
@@ -665,7 +688,7 @@ class Phyto extends Interventions
     {
         return $this->interventionsProducts;
     }
-    
+
     /**
      * @return mixed
      */
@@ -673,7 +696,7 @@ class Phyto extends Interventions
     {
         return $this->quantity;
     }
-    
+
     /**
      * @param mixed $quantity
      */
@@ -681,7 +704,7 @@ class Phyto extends Interventions
     {
         $this->quantity = $quantity;
     }
-    
+
     /**
      * @return mixed
      */
@@ -689,7 +712,7 @@ class Phyto extends Interventions
     {
         return $this->product;
     }
-    
+
     /**
      * @param mixed $product
      */
@@ -697,7 +720,7 @@ class Phyto extends Interventions
     {
         $this->product = $product;
     }
-    
+
     /**
      * @return mixed
      */
@@ -705,7 +728,7 @@ class Phyto extends Interventions
     {
         return $this->reliquat;
     }
-    
+
     /**
      * @param mixed $reliquat
      */
@@ -713,7 +736,7 @@ class Phyto extends Interventions
     {
         $this->reliquat = $reliquat;
     }
-    
+
     /**
      * @return mixed
      */
@@ -721,7 +744,7 @@ class Phyto extends Interventions
     {
         return $this->dose;
     }
-    
+
     /**
      * @param mixed $dose
      */
@@ -729,7 +752,7 @@ class Phyto extends Interventions
     {
         $this->dose = $dose;
     }
-    
+
     /**
      * @return int
      */
@@ -737,7 +760,7 @@ class Phyto extends Interventions
     {
         return $this->dose_hectare;
     }
-    
+
     /**
      * @param float $dose_hectare
      */
@@ -745,7 +768,7 @@ class Phyto extends Interventions
     {
         $this->dose_hectare = $dose_hectare;
     }
-    
+
     /**
      * @return float
      */
@@ -753,7 +776,7 @@ class Phyto extends Interventions
     {
         return $this->size_multiple;
     }
-    
+
     /**
      * @param int $size_multiple
      */
@@ -761,7 +784,7 @@ class Phyto extends Interventions
     {
         $this->size_multiple = $size_multiple;
     }
-    
+
     /**
      * @return mixed
      */
@@ -769,7 +792,7 @@ class Phyto extends Interventions
     {
         return $this->doseUnit;
     }
-    
+
     /**
      * @param mixed $doseUnit
      */
