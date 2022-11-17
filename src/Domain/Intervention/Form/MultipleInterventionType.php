@@ -32,7 +32,7 @@ class MultipleInterventionType extends AbstractType
                 },
                 'placeholder' => 'Sélectionner votre culture'
             ]);
-        
+
         $builder->get('selectCulture')->addEventListener(
             FormEvents::POST_SUBMIT,
             function(FormEvent $event) use ($options) {
@@ -40,7 +40,7 @@ class MultipleInterventionType extends AbstractType
                 $this->addCultureField($form->getParent(), $form->getData(), $options);
             }
         );
-        
+
         $builder->addEventListener(
             FormEvents::POST_SET_DATA,
             function(FormEvent $event) use ($options) {
@@ -50,7 +50,7 @@ class MultipleInterventionType extends AbstractType
             }
         );
     }
-    
+
     private function addCultureField(FormInterface $form, ?IndexCultures $indexCultures, $options)
     {
         if(is_null($indexCultures)) {
@@ -71,7 +71,15 @@ class MultipleInterventionType extends AbstractType
                     'class' => Cultures::class,
                     'label' => 'Cultures incluant votre culture choisi:',
                     'choice_label' => function(Cultures $culture) {
-                        return $culture->getName()->getName() . ' ' . $culture->getSize() . ' ha - ' . $culture->getIlot()->getName();
+                        return 'Ilot:' . $culture->getIlot()->getName()
+                            . ' PAC:' . $culture->getIlot()->getNumber()
+                            . ' '
+                            . $culture->getName()->getName()
+                            . ' '
+                            . $culture->getSize() . 'ha'
+                            . ' '
+                            . substr($culture->getComments(), 0, 15)
+                    ;
                     },
                     'query_builder' => function(CulturesRepository $cr) use ($indexCultures, $options) {
                         return $cr->findByIndexCultureInProgress($indexCultures->getId(), $options['user']->getExploitation(), true);
@@ -84,10 +92,10 @@ class MultipleInterventionType extends AbstractType
                 ]
             );
         }
-        
+
         $form->add($builder->getForm());
     }
-    
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
