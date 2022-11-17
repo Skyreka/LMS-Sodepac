@@ -158,9 +158,10 @@ class Ads
     }
 
     /**
-     * @param string $filename
+     * @param string|null $filename
+     * @return string|null
      */
-    public function setFilename(string $filename): void
+    public function setFilename(?string $filename): void
     {
         $this->filename = $filename;
     }
