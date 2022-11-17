@@ -18,8 +18,8 @@ class PanoramaSendRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PanoramaSend::class);
     }
-    
-    
+
+
     /**
      * @param $customer
      * @param null $limit
@@ -34,15 +34,15 @@ class PanoramaSendRepository extends ServiceEntityRepository
             ->andWhere('b.display_at < :now')
             ->setParameter('customer', $customer)
             ->setParameter('now', new \DateTime('now'))
-            ->orderBy('b.display_at', 'ASC');
-        
+            ->orderBy('b.display_at', 'DESC');
+
         if(false === is_null($limit)) {
             $req->setMaxResults($limit);
         }
-        
+
         return $req->getQuery()->getResult();
     }
-    
+
     /**
      * @param $year
      * @param $customer
@@ -51,7 +51,7 @@ class PanoramaSendRepository extends ServiceEntityRepository
      */
     public function findAllByYearAndCustomer($year, $customer)
     {
-        
+
         return $this->createQueryBuilder('b')
             ->where('year(b.display_at) = :year')
             ->andWhere('b.customers = :customer')
@@ -63,7 +63,7 @@ class PanoramaSendRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
     /**
      * @param $year
      * @param $sender
@@ -80,14 +80,14 @@ class PanoramaSendRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
     /**
      * @param $year
      * @return mixed
      */
     public function findAllByYear($year)
     {
-        
+
         return $this->createQueryBuilder('p')
             ->where('year(p.display_at) = :year')
             ->setParameter('year', $year)
@@ -95,7 +95,7 @@ class PanoramaSendRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
     // /**
     //  * @return PanoramaUser[] Returns an array of PanoramaUser objects
     //  */
@@ -112,7 +112,7 @@ class PanoramaSendRepository extends ServiceEntityRepository
         ;
     }
     */
-    
+
     /*
     public function findOneBySomeField($value): ?PanoramaUser
     {
