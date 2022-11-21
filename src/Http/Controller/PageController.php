@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use App\Domain\Ads\Repository\AdsRepository;
 use App\Domain\Bsv\Repository\BsvUsersRepository;
 use App\Domain\Panorama\Repository\PanoramaSendRepository;
 use App\Domain\Recommendation\Repository\RecommendationsRepository;
@@ -20,23 +21,25 @@ class PageController extends AbstractController
         BsvUsersRepository $bur,
         PanoramaSendRepository $pur,
         TicketsRepository $tr,
-        RecommendationsRepository $rr
+        AdsRepository $ar,
     ): Response
     {
+        $ad = $ar->findActiveAd();
         $flashs          = $bur->findAllByCustomer($this->getUser(), 3);
         $panoramas       = $pur->findAllByCustomer($this->getUser(), 3);
         $tickets         = $tr->findAllByUser($this->getUser(), 3);
-        
+
         //-- Clear listCulture
         $this->container->get('session')->remove('listCulture');
-        
+
         return $this->render('pages/home.html.twig', [
             'flashs' => $flashs,
+            'ad' => $ad,
             'panoramas' => $panoramas,
             'tickets' => $tickets
         ]);
     }
-    
+
     /**
      * @Route("/cgv", name="cgv_index")
      */

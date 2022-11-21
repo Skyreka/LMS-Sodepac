@@ -43,7 +43,7 @@ class RecommendationsController extends AbstractController
     )
     {
     }
-    
+
     /**
      * @Route("/recommendations", name="recommendation_index", methods={"GET"})
      */
@@ -55,12 +55,12 @@ class RecommendationsController extends AbstractController
         } else {
             $lastRecommendations = $rr->findByExploitationOfTechnicianAndYear($this->getUser(), date('Y'));
         }
-        
+
         return $this->render('recommendations/staff/index.html.twig', [
             'lastRecommendations' => $lastRecommendations
         ]);
     }
-    
+
     /**
      * @Route("/recommendation/new_data_ajax", name="recommendations_select_data")
      */
@@ -69,7 +69,7 @@ class RecommendationsController extends AbstractController
         //Get information from ajax call
         $term  = $request->query->get('q');
         $limit = $request->query->get('page_limit');
-        
+
         //Query of like call
         if($this->getUser()->getStatus() == 'ROLE_ADMIN') {
             $users = $ur->createQueryBuilder('u')
@@ -101,7 +101,7 @@ class RecommendationsController extends AbstractController
                 ->getQuery()
                 ->getResult();
         }
-        
+
         // Return Array of key = id && text = value
         $array = [];
         foreach($users as $user) {
@@ -110,11 +110,11 @@ class RecommendationsController extends AbstractController
                 'text' => $user->getIdentity() . ' ' . $user->getCompany()
             );
         }
-        
+
         // Return JsonResponse of code 200
         return new JsonResponse($array, 200);
     }
-    
+
     /**
      * @Route("/recommendations/new", name="recommendation_new", methods={"GET", "POST"})
      */
@@ -123,10 +123,10 @@ class RecommendationsController extends AbstractController
         $recommendation = new Recommendations();
         $form           = $this->createForm(RecommendationAddType::class, $recommendation);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            
+
             // Display error if user don't have exploitation
             if($data->getExploitation() == NULL) {
                 $this->addFlash('danger', 'Votre client n\'a aucune exploitation déclarée, veuillez modifier son compte pour pouvoir lui établir un catalogue');
@@ -135,23 +135,23 @@ class RecommendationsController extends AbstractController
             $recommendation->setChecked(0);
             $this->em->persist($recommendation);
             $this->em->flush();
-            
+
             // Other recommendation ( Go directly on list product page no canevas display)
             if($recommendation->getCulture()->getSlug() == 'other') {
                 return $this->redirectToRoute('recommendation_product_list', ['id' => $recommendation->getId()]);
             }
-            
+
             return $this->redirectToRoute('recommendation_canevas', [
                 'recommendations' => $recommendation->getId(),
                 'slug' => $recommendation->getCulture()->getSlug()
             ]);
         }
-        
+
         return $this->render('recommendations/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * Display canevas by id of culture
      * @Route("/recommendations/{recommendations}/canevas/{slug}", name="recommendation_canevas", methods={"GET", "POST"}, requirements={"recommendations":"\d+"})
@@ -170,7 +170,7 @@ class RecommendationsController extends AbstractController
             return $this->redirectToRoute('recommendation_index');
         }
     }
-    
+
     /**
      * Add product by click button on canevas
      * @Route("/recommendations/canevas/add-product", name="recommendations_canevas_product_add", methods={"GET", "POST"})
@@ -181,8 +181,8 @@ class RecommendationsController extends AbstractController
             $product        = $pr->findProductBySlugForCanevas($request->get('product_slug'));
             $recommendation = $rr->find($request->get('recommendation_id'));
             $cultureTotal   = $recommendation->getCultureSize();
-            
-            
+
+
             //if ( !$rpr->findOneBy( ['recommendation' => $recommendation, 'product' => $product] )) {
             //-- SETTERS
             $recommendationProducts = new RecommendationProducts();
@@ -193,25 +193,25 @@ class RecommendationsController extends AbstractController
             $recommendationProducts->setUnit($request->get('unit'));
             $result = $cultureTotal * floor($recommendationProducts->getDose() * 1000) / 1000;
             $recommendationProducts->setQuantity($result);
-            
+
             //-- Go to db new entry
             $this->em->persist($recommendationProducts);
             $this->em->flush();
             //}
-            
+
             return new JsonResponse([
                 'name_product' => $recommendationProducts->getProduct()->getName(),
                 'dose' => $recommendationProducts->getDose(),
                 'unit' => $recommendationProducts->getUnit()
             ], 200);
         }
-        
+
         return new JsonResponse([
             'message' => 'AJAX Only',
             'type' => 'error'
         ], 404);
     }
-    
+
     /**
      * @Route("/recommendations/{id}/add-other-product", name="recommendation_product_add", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -220,12 +220,12 @@ class RecommendationsController extends AbstractController
         $recommendationProducts = new RecommendationProducts();
         $form                   = $this->createForm(RecommendationAddProductType::class, $recommendationProducts);
         $form->handleRequest($request);
-        
+
         $totalSize = $recommendations->getCultureSize();
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             $dose = $form->get('dose')->getData();
-            
+
             $recommendationProducts->setRecommendation($recommendations);
             if($dose !== null) {
                 $recommendationProducts->setDose($dose->getDose());
@@ -233,20 +233,20 @@ class RecommendationsController extends AbstractController
             //$recommendationProducts->setUnit( $dose->getUnit() );
             // Auto Calc dose x total size
             $recommendationProducts->setQuantity($recommendations->getCultureSize() * floor($dose->getDose() * 1000) / 1000);
-            
+
             $this->em->persist($recommendationProducts);
             $this->em->flush();
             $this->addFlash('success', 'Produit ' . $recommendationProducts->getProduct()->getName() . ' ajouté avec succès');
             return $this->redirectToRoute('recommendation_product_list', ['id' => $recommendations->getId()]);
         }
-        
+
         return $this->render('recommendations/staff/product/new.html.twig', [
             'recommendations' => $recommendations,
             'form' => $form->createView(),
             'totalSize' => $totalSize
         ]);
     }
-    
+
     /**
      * @Route("/recommendations/product/{id}/delete", name="recommendation_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      */
@@ -259,7 +259,7 @@ class RecommendationsController extends AbstractController
         }
         return $this->redirectToRoute('recommendation_product_list', ['id' => $product->getRecommendation()->getId()]);
     }
-    
+
     /**
      * @Route("/recommendations/{id}/delete", name="recommendation_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      */
@@ -274,7 +274,7 @@ class RecommendationsController extends AbstractController
         }
         return $this->redirectToRoute('recommendation_index');
     }
-    
+
     /**
      * Edit Dose with editable Ajax Table
      * @Route("/recommendations/product/edit/dose", name="recommendation_product_dose_edit")
@@ -301,7 +301,7 @@ class RecommendationsController extends AbstractController
             404
         ]);
     }
-    
+
     /**
      * Edit Dose with editable Ajax Table
      * @Route("/recommendations/edit-total-quantity", name="recommendations.edit.totalQuantity")
@@ -319,7 +319,7 @@ class RecommendationsController extends AbstractController
             'type' => 'error'
         ]);
     }
-    
+
     /**
      * @Route("/recommendations/{id}/list-products", name="recommendation_product_list", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -331,7 +331,7 @@ class RecommendationsController extends AbstractController
             'products' => $products
         ]);
     }
-    
+
     /**
      * This function is disable 29/12/2020
      * From list product technician go to directly to summary
@@ -341,23 +341,23 @@ class RecommendationsController extends AbstractController
     {
         $form = $this->createForm(RecommendationMentionsType::class, $recommendations);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             //Update Status of recommendations
             $recommendations->setStatus(1);
             $this->em->flush();
-            
+
             $this->addFlash('info', 'Le catalogue est maintenant en statut Créé');
             $this->addFlash('success', 'Catalogue créé avec succès');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
-        
+
         return $this->render('recommendations/staff/mentions.html.twig', [
             'recommendations' => $recommendations,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/recommendations/{id}/summary", name="recommendation_summary")
      */
@@ -365,15 +365,15 @@ class RecommendationsController extends AbstractController
     {
         $products     = $this->rpr->findBy(['recommendation' => $recommendation]);
         $cultureTotal = $recommendation->getCultureSize();
-        
+
         // After modification of 29/12/2020 (Disable mentions) User go to summary directly by list product page
         if($recommendation->getStatus() == 0) {
-            
+
             $recommendation->setStatus(1);
             $this->em->flush();
-            
+
         }
-        
+
         return $this->render('recommendations/staff/summary.html.twig', [
             'recommendation' => $recommendation,
             'products' => $products,
@@ -382,7 +382,7 @@ class RecommendationsController extends AbstractController
             'cultureTotal' => $cultureTotal
         ]);
     }
-    
+
     /**
      * @Route("/recommendations/{id}/send", name="recommendation_send", methods="SEND")
      */
@@ -396,14 +396,14 @@ class RecommendationsController extends AbstractController
         if($this->isCsrfTokenValid('send', $request->get('_token'))) {
             //-- Update Status of recommendation
             $recommendations->setStatus(3);
-            
+
             //-- Add oldStock
             $oldStocks     = $sr->findBy(array('exploitation' => $recommendations->getExploitation()));
             $stockProducts = [];
             foreach($oldStocks as $oldStock) {
                 $stockProducts[] = $oldStock->getProduct()->getId();
             }
-            
+
             //-- Add to stock
             $products = $rpr->findBy(['recommendation' => $recommendations]);
             foreach($products as $product) {
@@ -411,25 +411,25 @@ class RecommendationsController extends AbstractController
                     $stock = new Stocks();
                     $stock->setExploitation($recommendations->getExploitation());
                     $stock->setProduct($product->getProduct());
-                    
+
                     //--Add product to stock list
                     $stockProducts[] = $stock->getProduct()->getId();
-                    
+
                     $this->em->persist($stock);
                 }
             }
-            
+
             // Save to Db
             $this->em->flush();
-            
+
             $this->dispatcher->dispatch(new RecommendationValidatedEvent($recommendations));
-            
+
             $this->addFlash('success', 'Email envoyé avec succès. Statut du catalogue: Envoyé');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
         }
         return $this->redirectToRoute('recommendation_index');
     }
-    
+
     /**
      * @Route("/recommendation/{id}/download", name="recommendation_download", methods="DOWNLOAD")
      */
@@ -449,12 +449,12 @@ class RecommendationsController extends AbstractController
                 $cultureTotal = $recommendations->getCultureSize();
                 $customer     = $recommendations->getExploitation()->getUsers();
                 $fileName     = 'Catalogue-' . $recommendations->getCulture()->getName() . '-' . date('y-m-d') . '-' . $customer->getId() . '.pdf';
-                
+
                 //-- Generate PDF
                 $pdfOptions = new Options();
                 $pdfOptions->set('defaultFront', 'Tahoma');
                 $pdfOptions->setIsRemoteEnabled(true);
-                
+
                 //-- First Page
                 $recommendationDoc = new Dompdf($pdfOptions);
                 $html              = $this->render('recommendations/synthesePdf.html.twig', [
@@ -468,7 +468,7 @@ class RecommendationsController extends AbstractController
                 $recommendationDoc->render();
                 $outputFirstFile = $recommendationDoc->output();
                 file_put_contents('../public/uploads/recommendations/process/' . $token . '/1.pdf', $outputFirstFile);
-                
+
                 //-- Canevas
                 // Only if culture is not other
                 if($recommendations->getCulture()->getSlug() != 'other') {
@@ -490,37 +490,37 @@ class RecommendationsController extends AbstractController
                     $outputFirstFile = $canevasPage->output();
                     file_put_contents('../public/uploads/recommendations/process/' . $token . '/2.pdf', $outputFirstFile);
                 }
-                
+
                 //-- Merge All Documents
                 $merger = new Merger();
                 $merger->addFile('../public/uploads/recommendations/process/' . $token . '/1.pdf');
-                
-                
+
+
                 if($recommendations->getCulture()->getSlug() != 'other') {
                     $merger->addFile('../public/uploads/recommendations/process/' . $token . '/2.pdf');
                 };
-                
+
                 if($recommendations->getMention() != NULL or $recommendations->getMentionTxt() != NULL) {
                     $merger->addFile('../public/mentions/' . $recommendations->getMention() . '.pdf');
                 }
-                
+
                 $finalDocument = $merger->merge();
                 //-- Finale File
                 file_put_contents('../public/uploads/recommendations/' . $token . '.pdf', $finalDocument);
-                
+
                 // Save file to DB
                 $recommendations
                     ->setPdf($token . '.pdf')
                     ->setStatus(2);
-                
+
                 $this->em->flush();
-                
+
                 //-- Download for user
                 //$this->forceDownLoad( '../public/uploads/recommendations/'.$token.'.pdf', $fileName );
-                
+
                 //-- Remove temp folder
                 $fileSystem->remove('../public/uploads/recommendations/process/' . $token);
-                
+
                 $this->addFlash('success', 'Document généré avec succès. Statut du catalogue: Généré');
                 return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
             } catch(Exception $e) {
@@ -529,7 +529,7 @@ class RecommendationsController extends AbstractController
             }
         }
     }
-    
+
     private function forceDownLoad($filename, $nameOfFile)
     {
         header("Pragma: public");
@@ -543,7 +543,7 @@ class RecommendationsController extends AbstractController
         header("Content-Length: " . filesize($filename));
         @readfile($filename);
     }
-    
+
     /**
      * @Route("/exploitation/recommendations", name="exploitation_recommendation_index")
      */
@@ -553,7 +553,7 @@ class RecommendationsController extends AbstractController
             'recommendations' => $rr->findByExploitationOfCustomerAndYear($this->getUser(), date('Y'))
         ]);
     }
-    
+
     /**
      * @Route("/exploitation/recommendations/data/{year}", name="exploitation_recommendation_data")
      */
@@ -564,7 +564,7 @@ class RecommendationsController extends AbstractController
             'year' => $year
         ]);
     }
-    
+
     /**
      * @Route("/exploitation/recommendations/{id}", name="exploitation_recommendation_show")
      */
@@ -585,7 +585,7 @@ class RecommendationsController extends AbstractController
             'cultureTotal' => $cultureTotal
         ]);
     }
-    
+
     /**
      * @Route("/exploitation/recommendations/{id}/pdf", name="exploitation_recommendation_show_pdf")
      */

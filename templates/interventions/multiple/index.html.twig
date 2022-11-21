@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
-            <div class="col-md-5 col-12 align-self-center">
+            <div class="col-12">
                 <h3 class="text-themecolor">Interventions multiples</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
@@ -24,7 +24,7 @@
                     <div class="card-body">
                         {{ form_start(form) }}
                         {{ form_rest(form) }}
-                        <button class="btn btn-primary">Ajouter une intervention</button>
+                        <button class="btn btn-primary mt-3">Ajouter une intervention</button>
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -43,7 +43,7 @@
             $.post($form.attr('action'), data).then(function (data) {
                 let $input = $(data).find('#multiple_intervention_cultures')
                 $('#multiple_intervention_cultures').replaceWith($input)
-                $('#multiple_intervention_cultures').append( "<input id=\"selectAll\" type=\"checkbox\"><label for='selectAll'>Sélectionner tous</label>" )
+                $('#multiple_intervention_cultures').before( "<input id=\"selectAll\" type=\"checkbox\"><label for='selectAll'>Sélectionner tous</label>" )
                 $("#selectAll").click(function(){
                     $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
                 });

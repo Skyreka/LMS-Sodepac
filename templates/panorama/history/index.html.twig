@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des panorama{% endblock %}
+{% block title %}Historique des panoramas{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/>
@@ -9,7 +9,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row page-titles">
-            <div class="col-md-5 col-12 align-self-center">
+            <div class="col-12">
                 <h3 class="text-themecolor">Historique des panoramas</h3>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>

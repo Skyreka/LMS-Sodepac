@@ -34,7 +34,7 @@ class PPF1Step1 extends AbstractType
                 'mapped' => false,
                 'placeholder' => 'Selectionner un ilot'
             ]);
-        
+
         //-- Event Listener on select product
         $builder->get('ilot')->addEventListener(
             FormEvents::POST_SUBMIT,
@@ -43,7 +43,7 @@ class PPF1Step1 extends AbstractType
                 $this->updateCultureField($form->getParent(), $form->getData(), $options);
             }
         );
-        
+
         //-- Add default select for dose POST SET DATA
         $builder->addEventListener(
             FormEvents::POST_SET_DATA,
@@ -54,7 +54,7 @@ class PPF1Step1 extends AbstractType
             }
         );
     }
-    
+
     /**
      * Update culture by ilot
      * @param FormInterface $form
@@ -88,14 +88,14 @@ class PPF1Step1 extends AbstractType
                         return $cultures->getName()->getName() . ' ' . $cultures->getSize() . ' ha - ' . ($cultures->getPrecedent() ? $cultures->getPrecedent()->getName() : '') . ' - ' . ($cultures->getEffluent() ? $cultures->getEffluent()->getName() : '');
                     },
                     'query_builder' => function(CulturesRepository $cr) use ($ilots, $options) {
-                        return $cr->findByIlot($ilots->getId(), true);
+                        return $cr->findByIlot($ilots->getId(), date('Y'), true );
                     },
                     'auto_initialize' => false,
                     'placeholder' => 'Selectionner une culture'
                 ]
             );
         }
-        
+
         $builder->addEventListener(
             FormEvents::POST_SUBMIT,
             function(FormEvent $event) use ($options) {
@@ -103,11 +103,11 @@ class PPF1Step1 extends AbstractType
                 $this->addField($form->getParent());
             }
         );
-        
-        
+
+
         $form->add($builder->getForm());
     }
-    
+
     /**
      * Add select Quantity
      * @param FormInterface $form
@@ -134,8 +134,8 @@ class PPF1Step1 extends AbstractType
                 'label' => 'Continuer'
             ]);
     }
-    
-    
+
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

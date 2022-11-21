@@ -7,7 +7,7 @@ use App\Domain\Auth\Users;
 use App\Domain\Culture\Entity\Cultures;
 use App\Domain\Culture\Repository\CulturesRepository;
 use App\Domain\Exploitation\Entity\Exploitation;
-use App\Domain\Exploitation\Form\ExploitationType;
+use App\Domain\Exploitation\Form\AdsType;
 use App\Domain\Ilot\Entity\Ilots;
 use App\Domain\Ilot\Repository\IlotsRepository;
 use App\Domain\Intervention\Repository\InterventionsRepository;
@@ -32,7 +32,7 @@ class UserController extends AbstractController
     public function __construct(private readonly EntityManagerInterface $em)
     {
     }
-    
+
     /**
      * @Route("/{id}", name="management_user_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -50,7 +50,7 @@ class UserController extends AbstractController
         } else {
             $activeTab = $tab;
         }
-        
+
         $isTechnician = false;
         $isAdmin      = false;
         if($this->getUser()->getStatus() == 'ROLE_TECHNICIAN') {
@@ -58,17 +58,17 @@ class UserController extends AbstractController
         } elseif($this->isGranted('ROLE_ADMIN')) {
             $isAdmin = true;
         }
-        
+
         // Security for technican can't view customer of other technican
         if($isTechnician and $user->getTechnician() != $this->getUser()) {
             throw $this->createNotFoundException('Cette utilisateur ne vous appartient pas.');
         }
-        
+
         // Get informations of user
         $exploitation = $user->getExploitation();
         $usedProducts = $sr->findByExploitation($exploitation, true);
         $ilots        = $ir->findBy(['exploitation' => $exploitation], null);
-        
+
         // Edit Password
         $formPassword = $this->createForm(PasswordType::class, $user);
         $formPassword->handleRequest($request);
@@ -83,7 +83,7 @@ class UserController extends AbstractController
             $this->addFlash('danger', 'Une erreur est survenue. Le mot de passe doit faire au moins 6 caractères et les 2 identiques.');
             return $this->redirectToRoute('management_user_show', ['id' => $user->getId(), 'tab' => 'password']);
         }
-        
+
         // Edit Information
         if($isTechnician) {
             $formInformation = $this->createForm(TechnicianCustomersType::class, $user);
@@ -96,7 +96,7 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Utilisateur modifié avec succès');
             return $this->redirectToRoute('management_user_show', ['id' => $user->getId()]);
         }
-        
+
         // Edit Exploitation
         if($user->getExploitation() == NULL) {
             $exploitation = new Exploitation();
@@ -104,7 +104,7 @@ class UserController extends AbstractController
         } else {
             $exploitation = $user->getExploitation();
         }
-        $formExploitation = $this->createForm(ExploitationType::class, $exploitation);
+        $formExploitation = $this->createForm(AdsType::class, $exploitation);
         $formExploitation->handleRequest($request);
         if($formExploitation->isSubmitted() && $formExploitation->isValid()) {
             if($user->getExploitation() == NULL) {
@@ -114,21 +114,21 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Exploitation modifiée avec succès');
             return $this->redirectToRoute('management_user_show', ['id' => $user->getId()]);
         }
-        
+
         return $this->render('management/user/index.html.twig', [
             'user' => $user,
-            
+
             'usedProducts' => $usedProducts,
             'ilots' => $ilots,
-            
+
             'form_password' => $formPassword->createView(),
             'form_information' => $formInformation->createView(),
             'form_exploitation' => $formExploitation->createView(),
-            
+
             'activeTab' => $activeTab
         ]);
     }
-    
+
     /**
      * @Route("/{user}/ilot/{ilot}", name="management_user_ilot_show", methods={"GET"}, requirements={"id":"\d+"})
      */
@@ -138,16 +138,16 @@ class UserController extends AbstractController
         if($this->getUser()->getStatus() == 'ROLE_TECHNICIAN' and $user->getTechnician() != $this->getUser()) {
             throw $this->createNotFoundException('Cette utilisateur ne vous appartient pas.');
         }
-        
+
         $cultures = $cr->findBy(['ilot' => $ilot]);
-        
+
         return $this->render('management/user/ilot.html.twig', [
             'user' => $user,
             'ilot' => $ilot,
             'cultures' => $cultures
         ]);
     }
-    
+
     /**
      * @Route("/culture/{id}", name="management_user_culture_show", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */

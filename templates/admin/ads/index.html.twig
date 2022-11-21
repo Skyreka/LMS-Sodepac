@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-12">
+        <h3 class="text-themecolor">Annonces</h3>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+          <li class="breadcrumb-item">Admin</li>
+          <li class="breadcrumb-item active">Annonces</li>
+        </ol>
+      </div>
+    </div>
+    <div class="col-12">
+      {% for label, messages in app.flashes %}
+        {% for message in messages %}
+          <div class="alert alert-{{ label }}">{{ message }}</div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex no-block">
+              <div class="ml-auto">
+                <a href="{{ path('admin_ads_new') }}" class="btn btn-success pull-right ml-2">Créer une annonce</a>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table"  >
+                <thead>
+                <tr>
+                  <th>Titre</th>
+                  <th>Description</th>
+                  <th>Statut</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ad in ads %}
+                  <tr>
+                    <td>
+                      {{ ad.title }}
+                    </td>
+                    <td>
+                      {{ ad.description | slice(0, 50) }}...
+                    </td>
+                    <td>
+                      {% include 'admin/ads/_status.html.twig' %}
+                    </td>
+                    <td>
+                      {% if ad.status == constant('App\\Domain\\Ads\\Entity\\Ads::STATUS_DISPLAYED') %}
+                        <a href="{{ path('admin_ads_pause', {'id': ad.id}) }}" class="btn btn-info"><i class="fa fa-pause"></i></a>
+                      {% else %}
+                        <a href="{{ path('admin_ads_diffuse', {'id': ad.id}) }}" class="btn btn-info"><i class="fa fa-play"></i></a>
+                      {% endif%}
+                      <a href="{{ path('admin_ads_edit', {'id': ad.id}) }}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                      <form style="display: inline-block !important;" method="post" action="{{ path('admin_ads_delete', {'id': ad.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_ad_' ~ ad.id) }}">
+                        <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                      </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

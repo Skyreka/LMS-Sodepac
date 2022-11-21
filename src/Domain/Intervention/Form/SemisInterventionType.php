@@ -33,6 +33,12 @@ class SemisInterventionType extends AbstractType
                 'label' => 'Objectif de rendement',
                 'help' => 'En quintaux'
             ])
+            ->add('objective_unit', ChoiceType::class, [
+                'choices' => [
+                    'Quintaux' => Semis::OBJECTIVE_UNIT_QUINTAUX,
+                    'Tonnes/MS' => Semis::OBJECTIVE_UNIT_TONNES,
+                ]
+            ])
             ->add('comment', TextareaType::class, [
                 'required' => false
             ])
@@ -47,7 +53,7 @@ class SemisInterventionType extends AbstractType
                 ]
             ]);
     }
-    
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
