@@ -23,7 +23,7 @@ class CulturesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cultures::class);
     }
-    
+
     /**
      * @param $ilot
      * @return mixed
@@ -43,12 +43,12 @@ class CulturesRepository extends ServiceEntityRepository
         } catch(NoResultException $e) {
         } catch(NonUniqueResultException $e) {
         }
-        
+
         $ilotSize = $ilot->getSize();
-        
+
         return $ilotSize - $totalSize;
     }
-    
+
     /**
      * @param IndexCultures $culture
      * @param Exploitation $exploitation
@@ -69,7 +69,7 @@ class CulturesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-    
+
     public function findCultureByExploitation($exploitation)
     {
         return $this->createQueryBuilder('c')
@@ -77,7 +77,7 @@ class CulturesRepository extends ServiceEntityRepository
             ->where('i.exploitation = :exploitation')
             ->setParameter('exploitation', $exploitation);
     }
-    
+
     /**
      * Find All Culture By ilot
      */
@@ -92,16 +92,17 @@ class CulturesRepository extends ServiceEntityRepository
             ->setParameter('ilot', $ilot)
             ->setParameter('year', $year)
             ->orderBy('c.name', 'DESC');
-        
+            //TODO: By Récolte Date
+
         if($return) {
             return $query;
         }
-        
+
         return $query
             ->getQuery()
             ->getResult();
     }
-    
+
     public function findByIlotCultureInProgress($ilot, $culture)
     {
         return $this->createQueryBuilder('c')
@@ -114,7 +115,7 @@ class CulturesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
     /**
      * @param $indexNameId
      * @param $exploitation
@@ -131,14 +132,14 @@ class CulturesRepository extends ServiceEntityRepository
             ->setParameter('nameId', $indexNameId)
             ->setParameter('status', 0)
             ->setParameter('exploitation', $exploitation);
-        
+
         if($onlyQuery) {
             return $query;
         }
-        
+
         return $query->getQuery()->getResult();
     }
-    
+
     // /**
     //  * @return Cultures[] Returns an array of Cultures objects
     //  */
@@ -155,7 +156,7 @@ class CulturesRepository extends ServiceEntityRepository
         ;
     }
     */
-    
+
     /*
     public function findOneBySomeField($value): ?Cultures
     {
