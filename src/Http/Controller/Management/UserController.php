@@ -8,6 +8,7 @@ use App\Domain\Culture\Entity\Cultures;
 use App\Domain\Culture\Repository\CulturesRepository;
 use App\Domain\Exploitation\Entity\Exploitation;
 use App\Domain\Exploitation\Form\AdsType;
+use App\Domain\Exploitation\Form\ExploitationType;
 use App\Domain\Ilot\Entity\Ilots;
 use App\Domain\Ilot\Repository\IlotsRepository;
 use App\Domain\Intervention\Repository\InterventionsRepository;
@@ -104,7 +105,7 @@ class UserController extends AbstractController
         } else {
             $exploitation = $user->getExploitation();
         }
-        $formExploitation = $this->createForm(AdsType::class, $exploitation);
+        $formExploitation = $this->createForm(ExploitationType::class, $exploitation);
         $formExploitation->handleRequest($request);
         if($formExploitation->isSubmitted() && $formExploitation->isValid()) {
             if($user->getExploitation() == NULL) {
