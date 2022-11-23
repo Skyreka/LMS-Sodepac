@@ -1,5 +1,8 @@
 monolog:
     handlers:
+        rollbar:
+          type: service
+          id: Rollbar\Monolog\Handler\RollbarHandler
         main:
             type: fingers_crossed
             action_level: error

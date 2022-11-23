@@ -1,0 +1,4 @@
+rollbar:
+  enabled: true
+  access_token: ad3f8a9379a249659a14b0d11a9fcdb1
+  environment: production
