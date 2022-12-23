@@ -17,7 +17,7 @@ class UsersDataTables implements DataTableHandlerInterface
      * @var UrlGeneratorInterface
      */
     private $router;
-    
+
     /**
      * Dependency Injection constructor.
      * @param Registry $doctrine
@@ -28,24 +28,24 @@ class UsersDataTables implements DataTableHandlerInterface
         $this->doctrine = $doctrine;
         $this->router   = $router;
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    public function handle(DataTableQuery $request): DataTableResults
+    public function handle(DataTableQuery $request, array $context = []): DataTableResults
     {
         /** @var \Doctrine\ORM\EntityRepository $repository */
         $repository = $this->doctrine->getRepository(Users::class);
-        
+
         $results = new DataTableResults();
-        
+
         // Total number of users.
         $query                 = $repository->createQueryBuilder('u')->select('COUNT(u.id)');
         $results->recordsTotal = $query->getQuery()->getSingleScalarResult();
-        
+
         // Query to get requested entities.
         $query = $repository->createQueryBuilder('u');
-        
+
         // Search.
         if($request->search->value) {
             $query->where('(LOWER(u.lastname) LIKE :search OR' .
@@ -54,12 +54,12 @@ class UsersDataTables implements DataTableHandlerInterface
                 ' LOWER(u.firstname) LIKE :search)');
             $query->setParameter('search', strtolower("%{$request->search->value}%"));
         }
-        
+
         // Filter by columns.
         foreach($request->columns as $column) {
             if($column->search->value) {
                 $value = strtolower($column->search->value);
-                
+
                 // "Info" column
                 if($column->data == 0) {
                     $query->andWhere('u.lastname = :lastname');
@@ -67,15 +67,15 @@ class UsersDataTables implements DataTableHandlerInterface
                 }
             }
         }
-        
+
         // Get filtered count.
         $queryCount = clone $query;
         $queryCount->select('COUNT(u.id)');
         $results->recordsFiltered = $queryCount->getQuery()->getSingleScalarResult();
-        
+
         // Order.
         foreach($request->order as $order) {
-            
+
             // "ID" column
             if($order->column == 0) {
                 $query->addOrderBy('u.lastname', $order->dir);
@@ -84,21 +84,21 @@ class UsersDataTables implements DataTableHandlerInterface
                 $query->addOrderBy('u.pack', $order->dir);
             }
         }
-        
+
         // Restrict results.
         $query->setMaxResults($request->length);
         $query->setFirstResult($request->start);
-        
+
         /** @var \AppBundle\Entity\User[] $users */
         $users = $query->getQuery()->getResult();
-        
+
         foreach($users as $user) {
             // Tech
             $technician = 'Aucun';
             if($user->getStatus() == 'ROLE_USER' && $user->getTechnician() != null) {
                 $technician = $user->getTechnician()->getIdentity();
             }
-            
+
             // Pack
             $pack = match ($user->getPack()) {
               'PACK_FULL' => '<span class="label label-megna">Pack Full</span>',
@@ -106,14 +106,14 @@ class UsersDataTables implements DataTableHandlerInterface
               'PACK_DEMO' => '<span class="label label-light-info">Pack Demo</span>',
               default => '<span class="label label-default">Inactif</span>',
             };
-            
+
             // Exploitation
             if($user->getExploitation() == NULL) {
                 $exploitation = '<small>Aucune</small>';
             } else {
                 $exploitation = '<a href="' . $this->router->generate('management_user_show', ['id' => $user->getId()]) . '"><h6>' . $user->getExploitation()->getSize() . ' ha</h6></a>';
             }
-            
+
             $results->data[] = [
                 '
                     <a href="' . $this->router->generate('management_user_show', ['id' => $user->getId()]) . '">
@@ -128,7 +128,7 @@ class UsersDataTables implements DataTableHandlerInterface
                 $technician
             ];
         }
-        
+
         return $results;
     }
 }
