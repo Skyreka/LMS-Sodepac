@@ -21,7 +21,7 @@ class OrdersRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Orders::class);
     }
-    
+
     public function findByTechnician(Users $tech, $limit = null)
     {
         $req = $this->createQueryBuilder('o')
@@ -29,14 +29,14 @@ class OrdersRepository extends ServiceEntityRepository
             ->andWhere('o.status != 0')
             ->setParameter('val', $tech)
             ->orderBy('o.addedAt', 'DESC');
-        
+
         if($limit) {
             $req->setMaxResults($limit);
         }
-        
+
         return $req->getQuery()->getResult();
     }
-    
+
     /**
      * @param $user
      * @return int|mixed|string
@@ -47,12 +47,11 @@ class OrdersRepository extends ServiceEntityRepository
             ->where('o.customer = :user')
             ->andWhere('o.status != 0')
             ->setParameter('user', $user)
-            ->orderBy('o.addedAt', 'DESC')
-            ->setMaxResults(10)
+            ->orderBy('o.createDate', 'DESC')
             ->getQuery()
             ->getResult();
     }
-    
+
     /**
      * @return int|mixed|string
      */
@@ -64,7 +63,7 @@ class OrdersRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
     // /**
     //  * @return Cart[] Returns an array of Cart objects
     //  */
@@ -81,7 +80,7 @@ class OrdersRepository extends ServiceEntityRepository
         ;
     }
     */
-    
+
     /*
     public function findOneBySomeField($value): ?Cart
     {

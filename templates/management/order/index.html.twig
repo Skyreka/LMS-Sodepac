@@ -39,12 +39,14 @@
                                 <thead>
                                 <tr>
                                     <th>Client</th>
-                                    {% if app.user.status == 'ROLE_ADMIN' %}
+                                    {% if is_granted('ROLE_ADMIN') %}
                                         <th>Technicien</th>
                                     {% endif %}
                                     <th>Statut</th>
                                     <th>Date de commande</th>
-                                    <th>Créee le</th>
+                                    {% if is_granted('ROLE_SUPERADMIN') %}
+                                      <th>Créee le</th>
+                                    {% endif %}
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -56,7 +58,7 @@
                                                 <h6>{{ order.customer.company }}</h6><small class="text-muted">{{ order.customer.identity }}</small>
                                             </a>
                                         </td>
-                                        {% if app.user.status == 'ROLE_ADMIN' %}
+                                        {% if is_granted('ROLE_ADMIN') %}
                                             <td>
                                                 <h6>{{ order.creator.identity }}</h6>
                                             </td>
@@ -68,7 +70,9 @@
                                             {% endif %}
                                         </td>
                                         <td><p class="font-14">{{ order.createDate | date("d/m/y") }}</p></td>
-                                        <td><p class="font-14">{{ order.addedAt ? order.addedAt  | date("d/m/y") : order.createDate | date("d/m/y") }}</p></td>
+                                        {% if is_granted('ROLE_SUPERADMIN') %}
+                                          <td><p class="font-14">{{ order.addedAt | date("d/m/y") }}</p></td>
+                                        {% endif %}
                                         <td>
                                             <div style="display: flex">
                                                 <a title="PDF" class="btn btn-info" target="_blank" href="{{ path('order_pdf_view', {'id_number': order.idNumber}) }}"><i class="fa fa-download text-white"></i></a>

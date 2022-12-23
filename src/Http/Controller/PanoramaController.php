@@ -33,7 +33,7 @@ class PanoramaController extends AbstractController
     )
     {
     }
-    
+
     /**
      * @Route("/", name="index", methods={"GET"})
      */
@@ -47,7 +47,7 @@ class PanoramaController extends AbstractController
             'panorama' => $panorama
         ]);
     }
-    
+
     /**
      * @Route("/delete/{id}", name="delete", methods="DELETE", requirements={"id":"\d+"})
      */
@@ -58,10 +58,10 @@ class PanoramaController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Panorama supprimé avec succès');
         }
-        
+
         return $this->redirectToRoute('panorama_index');
     }
-    
+
     /**
      * @Route("/valid/{id}", name="valid", methods="VALID", requirements={"id":"\d+"})
      */
@@ -72,10 +72,10 @@ class PanoramaController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Panorama validé avec succès');
         }
-        
+
         return $this->redirectToRoute('panorama_index');
     }
-    
+
     /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      */
@@ -87,16 +87,16 @@ class PanoramaController extends AbstractController
         $panorama = new Panorama();
         $form     = $this->createForm(PanoramaType::class, $panorama);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             //Add Files
             $firstFile  = $form->get('first_file')->getData();
             $secondFile = $form->get('second_file')->getData();
             $thirdFile  = $form->get('third_file')->getData();
-            
+
             if($firstFile) {
                 $newFilename = uniqid() . '.' . $firstFile->guessExtension();
-                
+
                 // Move the file to the directory where brochures are stored
                 try {
                     $firstFile->move(
@@ -108,10 +108,10 @@ class PanoramaController extends AbstractController
                 }
                 $panorama->setFirstFile($newFilename);
             }
-            
+
             if($secondFile) {
                 $newFilename = uniqid() . '.' . $secondFile->guessExtension();
-                
+
                 // Move the file to the directory where brochures are stored
                 try {
                     $secondFile->move(
@@ -123,10 +123,10 @@ class PanoramaController extends AbstractController
                 }
                 $panorama->setSecondFile($newFilename);
             }
-            
+
             if($thirdFile) {
                 $newFilename = uniqid() . '.' . $thirdFile->guessExtension();
-                
+
                 // Move the file to the directory where brochures are stored
                 try {
                     $thirdFile->move(
@@ -146,23 +146,23 @@ class PanoramaController extends AbstractController
             $panorama->setOwner($this->getUser());
             $this->em->persist($panorama);
             $this->em->flush();
-            
+
             //Envoie de mail aux admins
             $admins = $ur->findAllByRole('ROLE_ADMIN');
             foreach($admins as $admin) {
                 //Send Email to user
                 $this->dispatcher->dispatch(new PanoramaPendingEvent($panorama, $admin));
             }
-            
+
             $this->addFlash('success', 'Panorama crée avec succès');
             return $this->redirectToRoute('panorama_index');
         }
-        
+
         return $this->render('panorama/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/edit/{id}", name="edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -170,13 +170,13 @@ class PanoramaController extends AbstractController
     {
         $form = $this->createForm(PanoramaType::class, $panorama);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             //Add Files
             $firstFile  = $form->get('first_file')->getData();
             $secondFile = $form->get('second_file')->getData();
             $thirdFile  = $form->get('third_file')->getData();
-            
+
             if($firstFile) {
                 $originalFilename = pathinfo($firstFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename      = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
@@ -189,12 +189,12 @@ class PanoramaController extends AbstractController
                 }
                 $panorama->setFirstFile($newFilename);
             }
-            
+
             if($secondFile) {
                 $originalFilename = pathinfo($secondFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename      = $originalFilename . '-' . uniqid() . '.' . $firstFile->guessExtension();
-                
-                
+
+
                 try {
                     $secondFile->move(
                         $this->getParameter('panorama_directory'),
@@ -204,10 +204,10 @@ class PanoramaController extends AbstractController
                 }
                 $panorama->setSecondFile($newFilename);
             }
-            
+
             if($thirdFile) {
                 $originalFilename = pathinfo($thirdFile->getClientOriginalName(), PATHINFO_FILENAME);
-                
+
                 try {
                     $thirdFile->move(
                         $this->getParameter('panorama_directory'),
@@ -221,13 +221,13 @@ class PanoramaController extends AbstractController
             $this->addFlash('success', 'Panorama modifié avec succès');
             return $this->redirectToRoute('panorama_index');
         }
-        
+
         return $this->render('panorama/edit.html.twig', [
             'panorama' => $panorama,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/send/{id}", name="send", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -238,11 +238,11 @@ class PanoramaController extends AbstractController
     {
         $form = $this->createForm(PanoramaSendType::class);
         $form->handleRequest($request);
-        
+
         //Submit form
         if($form->isSubmitted() && $form->isValid()) {
             $today = new DateTime();
-            
+
             foreach($form->get('customers')->getData() as $customer) {
                 $displayAt = $form->get('display_at')->getData();
                 // Relation
@@ -250,30 +250,30 @@ class PanoramaController extends AbstractController
                 $relation->setPanorama($panorama);
                 $relation->setCustomers($customer);
                 $relation->setSender($this->getUser());
-                
+
                 if($displayAt !== null) {
                     $displayAt->setTime(8, 00);
                     $relation->setDisplayAt($displayAt);
                 } else {
                     $relation->setDisplayAt($today);
                 }
-                
+
                 $this->dispatcher->dispatch(new PanoramaSendedEvent($panorama, $customer));
-                
+
                 $this->em->persist($relation);
                 $this->em->flush();
             }
             $this->addFlash('success', 'Panorama envoyé avec succès');
-            
+
             return $this->redirectToRoute('panorama_index');
         }
-        
+
         return $this->render('panorama/send.html.twig', [
             'panorama' => $panorama,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/user/{id}", name="user_check", methods="CHECK", requirements={"id":"\d+"})
      */
@@ -283,11 +283,11 @@ class PanoramaController extends AbstractController
             $panoramaUser->setChecked(1);
             $this->em->flush();
         }
-        
+
         return $this->redirectToRoute('panorama_user_history_index');
     }
-    
-    
+
+
     /**
      * @Route("/history", name="history_index", methods={"GET"})
      */
@@ -295,7 +295,7 @@ class PanoramaController extends AbstractController
     {
         return $this->render('panorama/history/index.html.twig');
     }
-    
+
     /**
      * @Route("/history/{year}", name="history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
      */
@@ -312,31 +312,18 @@ class PanoramaController extends AbstractController
             'year' => $year
         ]);
     }
-    
+
     /**
      * @Route("/user/history", name="user_history_index", methods={"GET"})
      */
     public function userHistory(PanoramaSendRepository $pur): Response
     {
-        $year     = date('Y');
-        $panorama = $pur->findAllByYearAndCustomer($year, $this->getUser()->getId());
+        $panorama = $pur->findAllByYearAndCustomer($this->getUser()->getId());
         return $this->render('panorama/history/user/index.html.twig', [
             'panorama' => $panorama
         ]);
     }
-    
-    /**
-     * @Route("/user/history/{year}", name="user_history_show", methods={"GET", "POST"}, requirements={"year":"\d+"})
-     */
-    public function userList(PanoramaSendRepository $pur, string $year): Response
-    {
-        $panorama = $pur->findAllByYearAndCustomer($year, $this->getUser()->getId());
-        return $this->render('panorama/history/user/history_show.html.twig', [
-            'panorama' => $panorama,
-            'year' => $year
-        ]);
-    }
-    
+
     /**
      * @Route("/user/show/{id}", name="user_show", methods={"GET"})
      * @param Panorama $panorama
