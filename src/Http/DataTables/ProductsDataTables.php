@@ -17,7 +17,7 @@ class ProductsDataTables implements DataTableHandlerInterface
      * @var UrlGeneratorInterface
      */
     private $router;
-    
+
     /**
      * Dependency Injection constructor.
      * @param Registry $doctrine
@@ -28,39 +28,39 @@ class ProductsDataTables implements DataTableHandlerInterface
         $this->doctrine = $doctrine;
         $this->router   = $router;
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    public function handle(DataTableQuery $request): DataTableResults
+    public function handle(DataTableQuery $request, array $context = []): DataTableResults
     {
         /** @var \Doctrine\ORM\EntityRepository $repository */
         $repository = $this->doctrine->getRepository(Products::class);
-        
+
         $results = new DataTableResults();
-        
+
         // Total number of products.
         $query                 = $repository
             ->createQueryBuilder('p')
             ->where('p.private = 0')
             ->select('COUNT(p.id)');
         $results->recordsTotal = $query->getQuery()->getSingleScalarResult();
-        
+
         // Query to get requested entities.
         $query = $repository->createQueryBuilder('p');
         $query->where('p.private = 0');
-        
+
         // Search.
         if($request->search->value) {
             $query->where('(LOWER(p.name) LIKE :search)');
             $query->setParameter('search', strtolower("%{$request->search->value}%"));
         }
-        
+
         // Filter by columns.
         foreach($request->columns as $column) {
             if($column->search->value) {
                 $value = strtolower($column->search->value);
-                
+
                 // "Info" column
                 if($column->data == 0) {
                     $query->andWhere('p.name = :name');
@@ -68,44 +68,44 @@ class ProductsDataTables implements DataTableHandlerInterface
                 }
             }
         }
-        
+
         // Get filtered count.
         $queryCount = clone $query;
         $queryCount->select('COUNT(p.id)');
         $results->recordsFiltered = $queryCount->getQuery()->getSingleScalarResult();
-        
+
         // Order.
         foreach($request->order as $order) {
-            
+
             // "ID" column
             if($order->column == 0) {
                 $query->addOrderBy('p.name', $order->dir);
             }
         }
-        
+
         // Restrict results.
         $query->setMaxResults($request->length);
         $query->setFirstResult($request->start);
-        
+
         // OrdeNumber
         if(isset($request->customData['orderNumber'])) {
             $orderNumber = $request->customData['orderNumber'];
         } else {
             $orderNumber = null;
         }
-        
+
         /** @var \AppBundle\Entity\Ur[] $products */
         $products = $query->getQuery()->getResult();
-        
+
         foreach($products as $product) {
-            
+
             $results->data[] = [
                 $product->getName(),
                 $product->getType(),
                 $product->getTox()
             ];
         }
-        
+
         return $results;
     }
 }
