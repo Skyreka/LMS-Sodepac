@@ -43,22 +43,16 @@ class PanoramaSendRepository extends ServiceEntityRepository
         return $req->getQuery()->getResult();
     }
 
-    /**
-     * @param $year
-     * @param $customer
-     * @return mixed
-     * @throws \Exception
-     */
-    public function findAllByYearAndCustomer($year, $customer)
+    public function findAllByYearAndCustomer($customer)
     {
 
         return $this->createQueryBuilder('b')
-            ->where('year(b.display_at) = :year')
+            ->andWhere('b.display_at <= :startDate')
+            ->andWhere('b.display_at >= :endDate')
             ->andWhere('b.customers = :customer')
-            ->andWhere('b.display_at < :now')
-            ->setParameter('year', $year)
             ->setParameter('customer', $customer)
-            ->setParameter('now', new \DateTime('now'))
+            ->setParameter('startDate', new \DateTime('now'))
+            ->setParameter('endDate', new \DateTime('-90 days'))
             ->orderBy('b.display_at', 'DESC')
             ->getQuery()
             ->getResult();
