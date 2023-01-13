@@ -130,6 +130,7 @@
                                                             <div class="modal-body">
                                                                 <div class="row">
                                                                     {% for child in article.product.childs %}
+                                                                      {% if child.isActive %}
                                                                         <div class="col-6">
                                                                             <h5 class="my-1 text-dark font-weight-medium">{{ child.name }}</h5>
                                                                         </div>
@@ -141,6 +142,7 @@
                                                                             </form>
                                                                         </div>
                                                                         <hr>
+                                                                      {% endif %}
                                                                     {% endfor %}
                                                                 </div>
                                                             </div>
