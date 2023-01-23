@@ -24,7 +24,7 @@ class ProductType extends AbstractType
                     'required' => false
                 ]);
         }
-        
+
         $builder
             /**
             ->add('category', EntityType::class, [
@@ -38,7 +38,7 @@ class ProductType extends AbstractType
                 }
             ])*/
             ->add('price', NumberType::class)
-    
+
             ->add('n', NumberType::class, [
                 'required' => false
             ])
@@ -48,7 +48,7 @@ class ProductType extends AbstractType
             ->add('k', NumberType::class, [
                 'required' => false
             ])
-            
+
             ->add('parent_product', EntityType::class, [
                 'class' => Products::class,
                 'required' => false,
@@ -56,15 +56,16 @@ class ProductType extends AbstractType
                     return $products->getName();
                 },
                 'query_builder' => function(ProductsRepository $pr) {
-                    return $pr->createQueryBuilder('p')
-                        ->where('p.id_lex is not null');
+                    /*return $pr->createQueryBuilder('p')
+                        ->where('p.id_lex is not null');*/
+                    return $pr->createQueryBuilder('p');
                 },
                 'attr' => [
                     'class' => 'select2'
                 ]
             ]);
     }
-    
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
