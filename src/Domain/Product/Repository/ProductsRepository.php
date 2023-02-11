@@ -19,7 +19,7 @@ class ProductsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Products::class);
     }
-    
+
     /**
      * @param $category
      * @return \Doctrine\ORM\QueryBuilder
@@ -31,7 +31,7 @@ class ProductsRepository extends ServiceEntityRepository
             ->setParameter('category', $category)
             ->andWhere('p.isActive = 1');
     }
-    
+
     public function findProductBySlug($slug)
     {
         return $this->createQueryBuilder('p')
@@ -41,16 +41,17 @@ class ProductsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
-    
+
     public function findProductBySlugForCanevas($slug)
     {
         return $this->createQueryBuilder('p')
             ->where('p.slug = :slug')
+            ->andWhere('p.isActive = true')
             ->setParameter('slug', $slug)
             ->getQuery()
             ->getOneOrNullResult();
     }
-    
+
     public function findByStocks($exploitation)
     {
         return $this->createQueryBuilder('p')
@@ -59,7 +60,7 @@ class ProductsRepository extends ServiceEntityRepository
             ->setParameter('exp', $exploitation)
             ->andWhere('p.isActive = 1');
     }
-    
+
     // /**
     //  * @return Products[] Returns an array of Products objects
     //  */
@@ -76,7 +77,7 @@ class ProductsRepository extends ServiceEntityRepository
         ;
     }
     */
-    
+
     /*
     public function findOneBySomeField($value): ?Products
     {
