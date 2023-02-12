@@ -79,10 +79,19 @@ class  AccountController extends AbstractController
     {
         $product = $pr->findOneBy(['slug' => $productSlug]);
         if (!$product) {
-            return new JsonResponse(['error' => 'Product not found'], 404);
+            return new JsonResponse(
+                [
+                    'not_found' =>$productSlug
+                ]
+            );
         }
 
-        return new JsonResponse(['name' => $product->getName()]);
+        return new JsonResponse(
+            [
+                'name' => $product->getName(),
+                'is_active' => $product->getIsActive()
+            ]
+        );
     }
 
 }

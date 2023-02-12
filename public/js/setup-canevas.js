@@ -10,6 +10,12 @@ buttons.forEach(function(button) {
   fetch('/account/api/product/' + productSlug)
     .then(response => response.json())
     .then(product => {
+      if (product.not_found) {
+        console.log('Not found: ' + product.not_found)
+      }
+      if (!product.is_active) {
+        console.log('No active: ' + product.name)
+      }
       // Mettre à jour la valeur du bouton avec le nom du produit
       button.innerHTML = product.name + ' <small>' + button.getAttribute('dose') + button.getAttribute('unit') + '</small>';
       button.className = button.className + '{{ printRequest ? \'' + cId + '\' in c_id_array ? \'exist\' : \'d-none\' }}';
