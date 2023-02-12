@@ -27,448 +27,488 @@
         <div class="card-body">
     {% endif  %}
     <div class="table-responsive">
-        <table class="table table-bordered no-wrap">
-            <thead>
-            <tr>
-                <th></th>
-                <th>
-                    <p class="text-center">Repos végétatif <br>AF <br>Nov</p>
-                </th>
-                <th>
-                    <p class="text-center">Pointe Rouge <br>EF <br>Déc-Janv</p>
-                </th>
-                <th>
-                    <p class="text-center">Début Floraison <br>F81 <br>Mi Déc-déb Fev</p>
-                </th>
-                <th>
-                    <p class="text-center">Pleine Floraison <br>FF2 <br>Janv-déb Mars</p>
-                </th>
-                <th>
-                    <p class="text-center">Pleine Floraison <br>FF3 <br>Fev-fin Mars</p>
-                </th>
-                <th>
-                    <p class="text-center">Gonflement <br>BF <br>Fin Fev-fin Mars</p>
-                </th>
-                <th>
-                    <p class="text-center">Débourrement <br>C <br>Mars</p>
-                </th>
-                <th>
-                    <p class="text-center">1ère Feuille <br>C1 <br>Mi Mars-déb Avril</p>
-                </th>
-                <th>
-                    <p class="text-center">3ème feuille <br>C3 <br>Fin Mars-mi Avril</p>
-                </th>
-                <th>
-                    <p class="text-center">Différenciation <br>DF <br>Mai</p>
-                </th>
-                <th>
-                    <p class="text-center">MF-IF <br>Fin mai-mi Juin</p>
-                </th>
-                <th>
-                    <p class="text-center">Lignification <br>de la coque <br>JF <br>Fin Juin-Juillet</p>
-                </th>
-                <th>
-                    <p class="text-center">Grossissement <br>Août-Sept</p>
-                </th>
-                <th>
-                    <p class="text-center">Septembre</p>
-                </th>
-                <th>
-                    <p class="text-center">Post récolte</p>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Fomitiporia</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC3608QBR7MTD1CHFSNDT' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3608QBR7MTD1CHFSNDT" product_slug="methodes-prophylactiques" dose="0.00001">METHODES PROPHYLACTIQUES</button>
-                </td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC3630J73D85EAPC9T2VE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3630J73D85EAPC9T2VE" product_slug="methodes-prophylactiques" dose="0.00001">METHODES PROPHYLACTIQUES</button>
-                </td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC366ZKTAV0JXN3R9M9HW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC366ZKTAV0JXN3R9M9HW" product_slug="methodes-prophylactiques" dose="0.00001">METHODES PROPHYLACTIQUES</button>
-                </td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC368B8WXHSE1G1RDM6QT' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC368B8WXHSE1G1RDM6QT" product_slug="methodes-prophylactiques" dose="0.00002">METHODES PROPHYLACTIQUES</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Anthracnose</td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC36BFY6FRCJXN33B3DM5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36BFY6FRCJXN33B3DM5" product_slug="nutrigeo" dose="25" unit="L">NUTRIGEO <small>25 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FV035J9MWRJ56RQGYDG8DHEP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV035J9MWRJ56RQGYDG8DHEP" product_slug="alasso-10-l" dose="2" unit="L">ALASSO <small>2 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC36DP3YWZJZ3CVRX2ZZA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36DP3YWZJZ3CVRX2ZZA" product_slug="nutrigeo" dose="25" unit="L">NUTRIGEO <small>25 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FV035J9Q1SN3DZ4MA8WN0ET1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV035J9Q1SN3DZ4MA8WN0ET1" product_slug="alasso-10-l" dose="2" unit="L">ALASSO <small>2 L</small></button>
-                </td>
-                <td></td><td></td><td></td>
-                <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36GHSBCZ9F3BBHM254S' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36GHSBCZ9F3BBHM254S" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36J2KKPKMK0EXM6XA99' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36J2KKPKMK0EXM6XA99" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750 gr</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36QFVV1F40EPDR27PQZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36QFVV1F40EPDR27PQZ" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36SJCG1CJ615XZTEC49' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36SJCG1CJ615XZTEC49" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750 gr</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36YN15F9HHPAAZR6SXA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36YN15F9HHPAAZR6SXA" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC370RSH0BSZJM420Z2YR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC370RSH0BSZJM420Z2YR" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750 gr</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC376WV168GF2193JW1PW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC376WV168GF2193JW1PW" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC379TEVVXFZQ60GEDA7G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC379TEVVXFZQ60GEDA7G" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750 gr</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC37EJ6MM7Y7GHFJ5NM35' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37EJ6MM7Y7GHFJ5NM35" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1 Kg</small></button>
-                    <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC37HTY3MWG937DFV74AG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37HTY3MWG937DFV74AG" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750 gr</small></button>
-                </td>
-                <td></td><td></td><td></td><td></td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC37QMPTYF5P2SXQQSDD1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37QMPTYF5P2SXQQSDD1" product_slug="nutrigeo" dose="25" unit="L">NUTRIGEO <small>25 L</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FVCP26KESK6A9CSVK0V3FGMB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVCP26KESK6A9CSVK0V3FGMB" product_slug="alasso-10-l" dose="2" unit="L">ALASSO <small>2 L</small></button>
-                </td>
-            </tr>
-            <tr>
-                <td>Punaises</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td>
-                    <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC37VD2TK3X9598D7HG66' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37VD2TK3X9598D7HG66" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC37Y4XZ9K073NK5DNGA3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37Y4XZ9K073NK5DNGA3" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC380RN2JZMFG17C41CNN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC380RN2JZMFG17C41CNN" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC3824M5XGJ45SBQ9CNPM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3824M5XGJ45SBQ9CNPM" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
-                </td>
-                <td></td><td></td>
-            </tr>
-            <tr>
-                <td>Phytoptes</td>
-                <td></td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC385QT2HM5M3G6K3S3JJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC385QT2HM5M3G6K3S3JJ" product_slug="polithiol" dose="25" unit="L">POLITHIOL <small>25 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC387DTH2AQVEY5V413Y8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC387DTH2AQVEY5V413Y8" product_slug="polithiol" dose="25" unit="L">POLITHIOL <small>25 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38AYXXF7938JNRZZM1W' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38AYXXF7938JNRZZM1W" product_slug="polithiol" dose="25" unit="L">POLITHIOL <small>25 L</small></button>
-                </td>
-                <td></td>
-                <td>
-                  <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A044BJVSFSZCNYSVRZD6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A044BJVSFSZCNYSVRZD6" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO <small>7.5 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38E8EZA6DRHXN9DFGB1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38E8EZA6DRHXN9DFGB1" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
-                </td>
-                <td>
-                  <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04A0VWPMC1VBN8C2J0P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04A0VWPMC1VBN8C2J0P" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO <small>7.5 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38E8EZA6DRHXN9DFGB5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38E8EZA6DRHXN9DFGB5" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
-                </td>
-                <td>
-                  <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04B5ZRYJYE122YFATD9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04B5ZRYJYE122YFATD9" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO <small>7.5 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38GBZPP4DJEQQ6QMF9N' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38GBZPP4DJEQQ6QMF9N" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
-                </td>
-                <td>
-                  <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04C4QS4X8W00K923BT6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04C4QS4X8W00K923BT6" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO <small>7.5 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38MWD22TFJRAYWAP0DN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38MWD22TFJRAYWAP0DN" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
-                </td>
-                <td>
-                  <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04CA9SMK7AKMKZMB5SE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04CA9SMK7AKMKZMB5SE" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO <small>7.5 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38MWD22TFJRAYWAP0DN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38MWD22TFJRAYWAP0DN" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
-                </td>
-                <td>
-                  <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04DNWAM1QXANGJM8R9P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04DNWAM1QXANGJM8R9P" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO <small>7.5 Kg</small></button>
-                    <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38MWD22TFJRAYWAP0DN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38MWD22TFJRAYWAP0DN" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG <small>7.5 Kg</small></button>
-                </td>
-                <td>
-                  <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04DJJ1C6QN9B04359EP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04DJJ1C6QN9B04359EP" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO <small>7.5 Kg</small></button>
-                </td><td></td><td></td>
-            </tr>
-            <tr>
-                <td>Acariens <br/> balanins <br/> pucerons</td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                <td>
-                    <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC38QAR0YRHZF89WS2ZWY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38QAR0YRHZF89WS2ZWY" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC38TAP6N8NZ1AMY3FZZX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38TAP6N8NZ1AMY3FZZX" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC38XEAXE2YMEDRD45X4A' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38XEAXE2YMEDRD45X4A" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC390PXG49Z4R2ZA1XZ0H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC390PXG49Z4R2ZA1XZ0H" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075 L</small></button>
-                </td>
-                <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td>Desherbages</td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39439Y0G7JZAWRSNE0K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39439Y0G7JZAWRSNE0K" product_slug="cent-7" dose="4.8" unit="L">CENT 7 <small>4.8 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC3998PD1NC7J6KD1T59F' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3998PD1NC7J6KD1T59F" product_slug="cent-7" dose="4.8" unit="L">CENT 7 <small>4.8 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39F5PT9A2T3BJ3N3947' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39F5PT9A2T3BJ3N3947" product_slug="cent-7" dose="4.8" unit="L">CENT 7 <small>4.8 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39N59RFKT71BCQTRMEB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39N59RFKT71BCQTRMEB" product_slug="cent-7" dose="4.8" unit="L">CENT 7 <small>4.8 L</small></button>
-                </td>
-                <td></td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39R5ZH6QP38QHTJ14N3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39R5ZH6QP38QHTJ14N3" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03JV2BPSHWG3RBCX0H9C1W' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03JV2BPSHWG3RBCX0H9C1W" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT PJT 540<small>1,7 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03JV2FQWHM0DKSZ3CCAQWW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03JV2FQWHM0DKSZ3CCAQWW" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA<small>2,5 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39YEXEFBNBGNQC4AQCE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39YEXEFBNBGNQC4AQCE" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44AW53G8K75YYQFCQZ0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44AW53G8K75YYQFCQZ0" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44FAN3C24HSZQ2AAMBA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44FAN3C24HSZQ2AAMBA" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT PJT 540<small>1,7 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44J0N5XAY0TTG8F8KTD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44J0N5XAY0TTG8F8KTD" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA<small>2,5 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44NTGBMSH6XRZ4GJRYE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44NTGBMSH6XRZ4GJRYE" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44RA07RJBZ92MV9EADN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44RA07RJBZ92MV9EADN" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44XPAEE47JSC5AEF7K6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44XPAEE47JSC5AEF7K6" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT PJT 540<small>1,7 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44ZHY3WW6YWEFN1NQ2J' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44ZHY3WW6YWEFN1NQ2J" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA<small>2,5 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M4544H42ZD2981K65C1H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M4544H42ZD2981K65C1H" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03P09T314ZG7MTS8X7A69G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03P09T314ZG7MTS8X7A69G" product_slug="spotlight-plus" dose="0.3" unit="L">SPOTLIGHT PLUS <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9Q88N6BPMNXK92X79HN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9Q88N6BPMNXK92X79HN" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QG4P3JRAX4WZB155XC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QG4P3JRAX4WZB155XC" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT PJT 540<small>1,7 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QKDVNVJKSKESWG6X8K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QKDVNVJKSKESWG6X8K" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA<small>2,5 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QPJZS4TSK1133YP7N8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QPJZS4TSK1133YP7N8" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QVT6N5PHHTSAHJTY5C' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QVT6N5PHHTSAHJTY5C" product_slug="spotlight-plus" dose="0.3" unit="L">SPOTLIGHT PLUS <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QX01R5XHR9HDKN05E8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QX01R5XHR9HDKN05E8" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QZJ96GGH35P5EDGNWW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QZJ96GGH35P5EDGNWW" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT PJT 540<small>1,7 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9R2QAM6ZMGBKADKGQ4W' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9R2QAM6ZMGBKADKGQ4W" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA<small>2,5 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9R5JFW3GF57YC6VZHE3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9R5JFW3GF57YC6VZHE3" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9R721YPKKABDD6Y97KA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9R721YPKKABDD6Y97KA" product_slug="spotlight-plus" dose="0.3" unit="L">SPOTLIGHT PLUS <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RBK9TFGGC6C5X6TAJP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RBK9TFGGC6C5X6TAJP" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RD4EF5EPF43QCRZ4T9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RD4EF5EPF43QCRZ4T9" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT PJT 540<small>1,7 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RF0J5P60G0580DNWDS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RF0J5P60G0580DNWDS" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA<small>2,5 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RJ86XRZB13NC90VQ6B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RJ86XRZB13NC90VQ6B" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RMBNSMMXDZFGHS5P9M' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RMBNSMMXDZFGHS5P9M" product_slug="spotlight-plus" dose="0.3" unit="L">SPOTLIGHT PLUS <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RPX333GNQ8G52MGT46' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RPX333GNQ8G52MGT46" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RS4PY232TBKFERY0MV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RS4PY232TBKFERY0MV" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT PJT 540<small>1,7 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RXK777AMVR9GXCM7GS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RXK777AMVR9GXCM7GS" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA<small>2,5 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9S0KAT5VHBTMPDGNXYE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9S0KAT5VHBTMPDGNXYE" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9S38FSQ1B3VRXZNK0GG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9S38FSQ1B3VRXZNK0GG" product_slug="spotlight-plus" dose="0.3" unit="L">SPOTLIGHT PLUS <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9S6J7BTNDMYAY22EYDY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9S6J7BTNDMYAY22EYDY" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9S8CJGGAWEW8VV178M6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9S8CJGGAWEW8VV178M6" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT PJT 540<small>1,7 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SCZRG7GC5J63GFHMNP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SCZRG7GC5J63GFHMNP" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA<small>2,5 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SGRRQ3SZVFVKP8NR7P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SGRRQ3SZVFVKP8NR7P" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SJRV46K2WWXHY5B8ZN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SJRV46K2WWXHY5B8ZN" product_slug="spotlight-plus" dose="0.3" unit="L">SPOTLIGHT PLUS <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SNBEZ77BJV8F62JFQZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SNBEZ77BJV8F62JFQZ" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SRKHJ55VHRHYEPWGC7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SRKHJ55VHRHYEPWGC7" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT PJT 540<small>1,7 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SX6DE70PXM2XK8WN4Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SX6DE70PXM2XK8WN4Q" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA<small>2,5 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9T0PA1V8WPYG0E1ERNA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9T0PA1V8WPYG0E1ERNA" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2 L</small></button>
-                    <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9T2VZ8FRRP4442W6ZQG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9T2VZ8FRRP4442W6ZQG" product_slug="spotlight-plus" dose="0.3" unit="L">SPOTLIGHT PLUS <small>0.3 L</small></button>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Chlorose <br>Ferique <br>Manganique</td>
-                <td></td><td></td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3CNBGV1QNVNPG0HG6XZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CNBGV1QNVNPG0HG6XZ" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL <small>300 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3CQ42FTMAQ1HZWYGBPA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CQ42FTMAQ1HZWYGBPA" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE <small>70 gr/arbres</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3CTYDN7ECC75S136RND' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CTYDN7ECC75S136RND" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL <small>300 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3CWKV9MWFS14FZZ7R58' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CWKV9MWFS14FZZ7R58" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE <small>70 gr/arbres</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3CYN19M4YY4VTZ2YY5C' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CYN19M4YY4VTZ2YY5C" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL <small>300 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3D13TFSBB4YQ2JKQC45' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3D13TFSBB4YQ2JKQC45" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE <small>70 gr/arbres</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3D5BHVWV285NRVD6K3S' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3D5BHVWV285NRVD6K3S" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL <small>300 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3D9FXPTEGGX3GMTR8V9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3D9FXPTEGGX3GMTR8V9" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE <small>70 gr/arbres</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3DCF5RFQ068CDGBPJCP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DCF5RFQ068CDGBPJCP" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL <small>300 Kg</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DH4QA9RDMXF5ENWPEC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DH4QA9RDMXF5ENWPEC" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE <small>70 gr/arbres</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DK2FMGBZZGYKDHKEJ2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DK2FMGBZZGYKDHKEJ2" product_slug="ino-chel-ultra" dose="3" unit="L">INO CHEL FER ULTRA <small>3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DP6JQAT0G940GMG0T0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DP6JQAT0G940GMG0T0" product_slug="ino-chel-ultra" dose="3" unit="L">INO CHEL FER ULTRA <small>3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DR4GKQ6VZJ9WN4ZWBB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DR4GKQ6VZJ9WN4ZWBB" product_slug="ino-chel-ultra" dose="3" unit="L">INO CHEL FER ULTRA <small>3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DV6ESDKZS3XFCB04TC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DV6ESDKZS3XFCB04TC" product_slug="ino-chel-ultra" dose="3" unit="L">INO CHEL FER ULTRA <small>3 L</small></button>
-                </td>
-                <td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td>Nutrition foliaire</td>
-                <td></td><td></td><td></td><td></td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DYFDX3DVSNR5QXSXCX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DYFDX3DVSNR5QXSXCX" product_slug="ino-bore-ultra" dose="2" unit="L">INO BORE ULTRA <small>2 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3E0MQC0C0Y4FBXG578A' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3E0MQC0C0Y4FBXG578A" product_slug="ino-bore-ultra" dose="2" unit="L">INO BORE ULTRA <small>2 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3E2WWKEWZHA8KSKFN82' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3E2WWKEWZHA8KSKFN82" product_slug="ino-bore-ultra" dose="2" unit="L">INO BORE ULTRA <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3E4B1CDJZP2JYTJZ6Y3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3E4B1CDJZP2JYTJZ6Y3" product_slug="ino-flow-zn-680f" dose="1" unit="L">INO FLOW ZN 680<small>1 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3E8QVT7KNNPF101HKM9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3E8QVT7KNNPF101HKM9" product_slug="ino-flow-mg500" dose="2" unit="L">INO FLOW MG 500 <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EC3PGJRVK2KEPNZ7TJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EC3PGJRVK2KEPNZ7TJ" product_slug="ino-soufre" dose="5" unit="L">INO SOUFRE Mgo <small>5 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EGVWZ4AD3ZA58PZXMP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EGVWZ4AD3ZA58PZXMP" product_slug="ino-flow-mg500" dose="2" unit="L">INO FLOW MG 500 <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EMV9F2PS4HNVT8NZZR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EMV9F2PS4HNVT8NZZR" product_slug="ino-soufre" dose="5" unit="L">INO SOUFRE Mgo <small>5 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3ERYZ0VETRS49CG37SJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3ERYZ0VETRS49CG37SJ" product_slug="ino-flow-mg500" dose="2" unit="L">INO FLOW MG 500 <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EWG5EYQGZE0XRH6PG0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EWG5EYQGZE0XRH6PG0" product_slug="ino-mix-fruit" dose="10" unit="L">INO MIX FRUIT <small>10 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EZ6J7SM121Y2V88ENJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EZ6J7SM121Y2V88ENJ" product_slug="ino-flow-zn-680f" dose="1" unit="L">INO FLOW ZN 680<small>1 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3F3HX7E4QFB58N92W4A' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3F3HX7E4QFB58N92W4A" product_slug="ino-flow-mg500" dose="2" unit="L">INO FLOW MG 500 <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3F6567KPWH46G0470ZG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3F6567KPWH46G0470ZG" product_slug="ino-mix-fruit" dose="10" unit="L">INO MIX FRUIT <small>10 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3F82SZ8G9DEACR4P3R8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3F82SZ8G9DEACR4P3R8" product_slug="ino-flow-zn-680f" dose="1" unit="L">INO FLOW ZN 680 <small>1 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FB20F88EJY0EAAW39X' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FB20F88EJY0EAAW39X" product_slug="ino-flow-mg500" dose="2" unit="L">INO FLOW MG 500 <small>2 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FE4VCV3206BCRAHX68' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FE4VCV3206BCRAHX68" product_slug="ino-mix-fruit" dose="10" unit="L">INO MIX FRUIT <small>10 L</small></button>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FKPAJG87RX7N0DS2NF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FKPAJG87RX7N0DS2NF" product_slug="ino-flow-zn-680f" dose="1" unit="L">INO FLOW ZN 680 <small>1 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FQ5SWC1W76YEF23N67' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FQ5SWC1W76YEF23N67" product_slug="ino-green-ultra" dose="3" unit="L">INO GREEN ULTRA <small>3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FTH9FQNZT668D746T4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FTH9FQNZT668D746T4" product_slug="ino-green-ultra" dose="3" unit="L">INO GREEN ULTRA <small>3 L</small></button>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td rowspan="2">Nutrition <br>du sol</td>
-                <td></td><td></td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3FX9AAJGRT4WCJT8PP9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FX9AAJGRT4WCJT8PP9" product_slug="equinoxe-10-4-3" dose="1200" unit="Kg">EQUINOXE 10-4-3 <small>1200 Kg</small></button>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3G32N43WC782QNCECWR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3G32N43WC782QNCECWR" product_slug="equinoxe-9-3-12" dose="1200" unit="Kg">EQUINOXE 9-3-12 <small>1200 Kg</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3G84006EHQY4NE5SFAS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3G84006EHQY4NE5SFAS" product_slug="equinoxe-10-4-3" dose="1200" unit="Kg">EQUINOXE 10-4-3 <small>1200 Kg</small></button>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GD021E6JFX55GBA5H6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GD021E6JFX55GBA5H6" product_slug="equinoxe-9-3-12" dose="1200" unit="Kg">EQUINOXE 9-3-12 <small>1200 Kg</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GHXKZPXJMKYF3FE765' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GHXKZPXJMKYF3FE765" product_slug="equinoxe-10-4-3" dose="1200" unit="Kg">EQUINOXE 10-4-3 <small>1200 Kg</small></button>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GNJ60NKWHC1MGCT1D5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GNJ60NKWHC1MGCT1D5" product_slug="equinoxe-9-3-12" dose="1200" unit="Kg">EQUINOXE 9-3-12 <small>1200 Kg</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GRX6TGGA551Y813Q7C' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GRX6TGGA551Y813Q7C" product_slug="equinoxe-10-4-3" dose="1200" unit="Kg">EQUINOXE 10-4-3 <small>1200 Kg</small></button>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GWMBNSPXX6CAC28NSE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GWMBNSPXX6CAC28NSE" product_slug="equinoxe-9-3-12" dose="1200" unit="Kg">EQUINOXE 9-3-12 <small>1200 Kg</small></button>
-                </td>
-                <td></td><td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3HNMD4Y4FJB016HBHXF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3HNMD4Y4FJB016HBHXF" product_slug="17-20-so" dose="200" unit="Kg">17-20 SO <small>200 Kg</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3HSCN3HX3KMVT9A5EQ1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3HSCN3HX3KMVT9A5EQ1" product_slug="17-20-so" dose="200" unit="Kg">17-20 SO <small>200 Kg</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3HYGW6V0DEBQ06PF8PX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3HYGW6V0DEBQ06PF8PX" product_slug="17-20-so" dose="200" unit="Kg">17-20 SO <small>200 Kg</small></button>
-                </td>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td>Stimulation <br>Racinaire</td>
-                <td></td><td></td><td></td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3J2K945N7N9HXXBW9YJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3J2K945N7N9HXXBW9YJ" product_slug="rise-p-vam" dose="0.15" unit="grs">RISE P VAM <small>150 grs</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3J6T3G98R799K7Z6D5G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3J6T3G98R799K7Z6D5G" product_slug="rise-p-vam" dose="0.15" unit="grs">RISE P VAM <small>150 grs</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3J8Q2P1M1G5H7V44X7Z' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3J8Q2P1M1G5H7V44X7Z" product_slug="rise-p-vam" dose="0.15" unit="grs">RISE P VAM <small>150 grs</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3JBDCBX86PSP8C2RAB9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JBDCBX86PSP8C2RAB9" product_slug="rise-p-vam" dose="0.15" unit="grs">RISE P VAM <small>150 grs</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3JD0BX335SE4PY71YX5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JD0BX335SE4PY71YX5" product_slug="rise-p-vam" dose="0.15" unit="grs">RISE P VAM <small>150 grs</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3JFYET75NSMM97J3R8B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JFYET75NSMM97J3R8B" product_slug="rise-p-vam" dose="0.15" unit="grs">RISE P VAM <small>150 grs</small></button>
-                </td>
-                <td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td>Adjuvants</td>
-                <td></td><td></td><td></td><td></td><td></td>
-                <td>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JJ3FFBPZBQH0KSJXN6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JJ3FFBPZBQH0KSJXN6" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3 L</small></button>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JNTHGP19R08AZ34HRM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JNTHGP19R08AZ34HRM" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JQBVEKE95JX4BXP64J' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JQBVEKE95JX4BXP64J" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3 L</small></button>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JS03AZHCSSYC6REAGV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JS03AZHCSSYC6REAGV" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JW6YBKXE5TR5SW8XM5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JW6YBKXE5TR5SW8XM5" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3 L</small></button>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JY6R872V43MV999FRR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JY6R872V43MV999FRR" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3K1T2S18EMACQ79SEMB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3K1T2S18EMACQ79SEMB" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3 L</small></button>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3K310T2JRCB1P6C6W0B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3K310T2JRCB1P6C6W0B" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3K64CFNP3ZTDM9Z810G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3K64CFNP3ZTDM9Z810G" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3 L</small></button>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3K9SGD8AA1EZ87MDP82' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3K9SGD8AA1EZ87MDP82" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KCFW43QV97ZSV18BNF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KCFW43QV97ZSV18BNF" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3 L</small></button>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KH4YJGNH9TXKTP5NB1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KH4YJGNH9TXKTP5NB1" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KMJ6FT3F3VVFDVMMRT' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KMJ6FT3F3VVFDVMMRT" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3 L</small></button>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KPAJHN901PHYYW0WP6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KPAJHN901PHYYW0WP6" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3 L</small></button>
-                </td>
-                <td>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KTE0CTB1CZ6V8GAEMA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KTE0CTB1CZ6V8GAEMA" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3 L</small></button>
-                    <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KWJ98TTY46FF1877JA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KWJ98TTY46FF1877JA" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3 L</small></button>
-                </td>
-                <td>
-                  <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KTE0CTB1CZ6V8GAEMB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KTE0CTB1CZ6V8GAEMB" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3 L</small></button></td>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
+      <table class="table table-bordered no-wrap">
+        <thead>
+        <tr>
+          <th></th>
+          <th>
+            <p class="text-center">Repos végétatif <br>AF <br>Nov</p>
+          </th>
+          <th>
+            <p class="text-center">Pointe Rouge <br>EF <br>Déc-Janv</p>
+          </th>
+          <th>
+            <p class="text-center">Début Floraison <br>F81 <br>Mi Déc-déb Fev</p>
+          </th>
+          <th>
+            <p class="text-center">Pleine Floraison <br>FF2 <br>Janv-déb Mars</p>
+          </th>
+          <th>
+            <p class="text-center">Pleine Floraison <br>FF3 <br>Fev-fin Mars</p>
+          </th>
+          <th>
+            <p class="text-center">Gonflement <br>BF <br>Fin Fev-fin Mars</p>
+          </th>
+          <th>
+            <p class="text-center">Débourrement <br>C <br>Mars</p>
+          </th>
+          <th>
+            <p class="text-center">1ère Feuille <br>C1 <br>Mi Mars-déb Avril</p>
+          </th>
+          <th>
+            <p class="text-center">3ème feuille <br>C3 <br>Fin Mars-mi Avril</p>
+          </th>
+          <th>
+            <p class="text-center">Différenciation <br>DF <br>Mai</p>
+          </th>
+          <th>
+            <p class="text-center">MF-IF <br>Fin mai-mi Juin</p>
+          </th>
+          <th>
+            <p class="text-center">Lignification <br>de la coque <br>JF <br>Fin Juin-Juillet</p>
+          </th>
+          <th>
+            <p class="text-center">Grossissement <br>Août-Sept</p>
+          </th>
+          <th>
+            <p class="text-center">Septembre</p>
+          </th>
+          <th>
+            <p class="text-center">Post récolte</p>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Fomitiporia</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC3608QBR7MTD1CHFSNDT' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3608QBR7MTD1CHFSNDT" product_slug="methodes-prophylactiques">METHODES PROPHYLACTIQUES</button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC3630J73D85EAPC9T2VE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3630J73D85EAPC9T2VE" product_slug="methodes-prophylactiques">METHODES PROPHYLACTIQUES</button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC366ZKTAV0JXN3R9M9HW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC366ZKTAV0JXN3R9M9HW" product_slug="methodes-prophylactiques">METHODES PROPHYLACTIQUES</button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC368B8WXHSE1G1RDM6QT' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC368B8WXHSE1G1RDM6QT" product_slug="methodes-prophylactiques" dose="0.00002">METHODES PROPHYLACTIQUES <small>0.00002null</small></button>
+          </td>
+        </tr>
+        <tr>
+          <td>Anthracnose</td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC36BFY6FRCJXN33B3DM5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36BFY6FRCJXN33B3DM5" product_slug="nutrigeo" dose="25" unit="L">NUTRIGEO * 20 L <small>25L</small></button>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FV035J9MWRJ56RQGYDG8DHEP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV035J9MWRJ56RQGYDG8DHEP" product_slug="alasso-10-l" dose="2" unit="L">ALASSO* 10 L <small>2L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC36DP3YWZJZ3CVRX2ZZA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36DP3YWZJZ3CVRX2ZZA" product_slug="nutrigeo" dose="25" unit="L">NUTRIGEO * 20 L <small>25L</small></button>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FV035J9Q1SN3DZ4MA8WN0ET1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV035J9Q1SN3DZ4MA8WN0ET1" product_slug="alasso-10-l" dose="2" unit="L">ALASSO* 10 L <small>2L</small></button>
+          </td>
+          <td></td><td></td><td></td>
+          <td>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36GHSBCZ9F3BBHM254S' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36GHSBCZ9F3BBHM254S" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1Kg</small></button>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36J2KKPKMK0EXM6XA99' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36J2KKPKMK0EXM6XA99" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750gr</small></button>
+          </td>
+          <td>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36QFVV1F40EPDR27PQZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36QFVV1F40EPDR27PQZ" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1Kg</small></button>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36SJCG1CJ615XZTEC49' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36SJCG1CJ615XZTEC49" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750gr</small></button>
+          </td>
+          <td>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC36YN15F9HHPAAZR6SXA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC36YN15F9HHPAAZR6SXA" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1Kg</small></button>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC370RSH0BSZJM420Z2YR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC370RSH0BSZJM420Z2YR" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750gr</small></button>
+          </td>
+          <td>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC376WV168GF2193JW1PW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC376WV168GF2193JW1PW" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1Kg</small></button>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC379TEVVXFZQ60GEDA7G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC379TEVVXFZQ60GEDA7G" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750gr</small></button>
+          </td>
+          <td>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC37EJ6MM7Y7GHFJ5NM35' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37EJ6MM7Y7GHFJ5NM35" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1Kg</small></button>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01FEEEC37HTY3MWG937DFV74AG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37HTY3MWG937DFV74AG" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750gr</small></button>
+          </td>
+          <td>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01GS3D5A7JGBQB5HKH646CEN0F' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D5A7JGBQB5HKH646CEN0F" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1Kg</small></button>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01GS3D5A7MK7HX0J92E35Q7Z8Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D5A7MK7HX0J92E35Q7Z8Q" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750gr</small></button>
+          </td>
+          <td>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01GS3D5A7N7GND5KPC78QMS7BY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D5A7N7GND5KPC78QMS7BY" product_slug="signum" dose="1" unit="Kg">SIGNUM <small>1Kg</small></button>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01GS3D5A7NGFFJC9K07H883JDQ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D5A7NGFFJC9K07H883JDQ" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750gr</small></button>
+          </td>
+          <td></td>
+          <td>
+            <button class="btn btn-V btn-block isProduct {{ printRequest ? '01GS3D5A7NGFFJC9K07H883JD1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D5A7NGFFJC9K07H883JD1" product_slug="horizon-arbo" dose="750" unit="gr">HORIZON ARBO <small>750gr</small></button></td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC37QMPTYF5P2SXQQSDD1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37QMPTYF5P2SXQQSDD1" product_slug="nutrigeo" dose="25" unit="L">NUTRIGEO * 20 L <small>25L</small></button>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FVCP26KESK6A9CSVK0V3FGMB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FVCP26KESK6A9CSVK0V3FGMB" product_slug="alasso-10-l" dose="2" unit="L">ALASSO* 10 L <small>2L</small></button>
+          </td>
+        </tr>
+        <tr>
+          <td>Punaises</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>
+            <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC37VD2TK3X9598D7HG66' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37VD2TK3X9598D7HG66" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075L</small></button>
+          </td>
+          <td>
+            <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC37Y4XZ9K073NK5DNGA3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC37Y4XZ9K073NK5DNGA3" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075L</small></button>
+          </td>
+          <td>
+            <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC380RN2JZMFG17C41CNN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC380RN2JZMFG17C41CNN" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075L</small></button>
+          </td>
+          <td>
+            <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC3824M5XGJ45SBQ9CNPM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3824M5XGJ45SBQ9CNPM" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075L</small></button>
+          </td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td>Phytoptes</td>
+          <td></td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC385QT2HM5M3G6K3S3JJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC385QT2HM5M3G6K3S3JJ" product_slug="polithiol" dose="25" unit="L">POLITHIOL BIO <small>25L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC387DTH2AQVEY5V413Y8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC387DTH2AQVEY5V413Y8" product_slug="polithiol" dose="25" unit="L">POLITHIOL BIO <small>25L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38AYXXF7938JNRZZM1W' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38AYXXF7938JNRZZM1W" product_slug="polithiol" dose="25" unit="L">POLITHIOL BIO <small>25L</small></button>
+          </td>
+          <td></td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A044BJVSFSZCNYSVRZD6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A044BJVSFSZCNYSVRZD6" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO* 20 KG <small>7.5Kg</small></button>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38E8EZA6DRHXN9DFGB1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38E8EZA6DRHXN9DFGB1" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG *  BIO 20 KG <small>7.5Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04A0VWPMC1VBN8C2J0P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04A0VWPMC1VBN8C2J0P" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO* 20 KG <small>7.5Kg</small></button>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38E8EZA6DRHXN9DFGB5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38E8EZA6DRHXN9DFGB5" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG *  BIO 20 KG <small>7.5Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04B5ZRYJYE122YFATD9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04B5ZRYJYE122YFATD9" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO* 20 KG <small>7.5Kg</small></button>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38GBZPP4DJEQQ6QMF9N' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38GBZPP4DJEQQ6QMF9N" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG *  BIO 20 KG <small>7.5Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04C4QS4X8W00K923BT6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04C4QS4X8W00K923BT6" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO* 20 KG <small>7.5Kg</small></button>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38MWD22TFJRAYWAP0DN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38MWD22TFJRAYWAP0DN" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG *  BIO 20 KG <small>7.5Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04CA9SMK7AKMKZMB5SE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04CA9SMK7AKMKZMB5SE" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO* 20 KG <small>7.5Kg</small></button>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38MWD22TFJRAYWAP0DN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38MWD22TFJRAYWAP0DN" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG *  BIO 20 KG <small>7.5Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04DNWAM1QXANGJM8R9P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04DNWAM1QXANGJM8R9P" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO* 20 KG <small>7.5Kg</small></button>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01FEEEC38MWD22TFJRAYWAP0DN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38MWD22TFJRAYWAP0DN" product_slug="citrothiol-dg" dose="7.5" unit="Kg">CITROTHIOL DG *  BIO 20 KG <small>7.5Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-C btn-block isProduct {{ printRequest ? '01GPP0A04DJJ1C6QN9B04359EP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GPP0A04DJJ1C6QN9B04359EP" product_slug="thiovit-jet-micro-20-kg" dose="7.5" unit="Kg">THIOVIT JET MICRO* 20 KG <small>7.5Kg</small></button>
+          </td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>Acariens <br> balanins <br> pucerons</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>
+            <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC38QAR0YRHZF89WS2ZWY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38QAR0YRHZF89WS2ZWY" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075L</small></button>
+          </td>
+          <td>
+            <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC38TAP6N8NZ1AMY3FZZX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38TAP6N8NZ1AMY3FZZX" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075L</small></button>
+          </td>
+          <td>
+            <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC38XEAXE2YMEDRD45X4A' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC38XEAXE2YMEDRD45X4A" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075L</small></button>
+          </td>
+          <td>
+            <button class="btn-R btn btn-block isProduct {{ printRequest ? '01FEEEC390PXG49Z4R2ZA1XZ0H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC390PXG49Z4R2ZA1XZ0H" product_slug="karate-xflow" dose="0.075" unit="L">KARATE XFLOW <small>0.075L</small></button>
+          </td>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>Desherbages</td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39439Y0G7JZAWRSNE0K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39439Y0G7JZAWRSNE0K" product_slug="cent-7" dose="4.8" unit="L">CENT 7 <small>4.8L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01GS3D8PQ3J4DGY488T5P0THSX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D8PQ3J4DGY488T5P0THSX" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01GS3D8PQ5VH0FXJ7GEEXTDMSN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D8PQ5VH0FXJ7GEEXTDMSN" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01GS3D8PQ5R04YPBK7K2RGKGF4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D8PQ5R04YPBK7K2RGKGF4" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC3998PD1NC7J6KD1T59F' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3998PD1NC7J6KD1T59F" product_slug="cent-7" dose="4.8" unit="L">CENT 7 <small>4.8L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01GS3D8PQ6W5AM01A8FKYHJKYE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D8PQ6W5AM01A8FKYHJKYE" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01GS3D8PQ61SPD3Z1TKQST6EBV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D8PQ61SPD3Z1TKQST6EBV" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01GS3D8PQ6PJ70E3R86ESVT37Z' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D8PQ6PJ70E3R86ESVT37Z" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39F5PT9A2T3BJ3N3947' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39F5PT9A2T3BJ3N3947" product_slug="cent-7" dose="4.8" unit="L">CENT 7 <small>4.8L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01GS3D8PQ7JZKNKQE5AZ9V8EZH' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D8PQ7JZKNKQE5AZ9V8EZH" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01GS3D8PQ7ACTT4WGQWG0NNX8V' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D8PQ7ACTT4WGQWG0NNX8V" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01GS3D8PQ76E49BA4X9TC89WME' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3D8PQ76E49BA4X9TC89WME" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39N59RFKT71BCQTRMEB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39N59RFKT71BCQTRMEB" product_slug="cent-7" dose="4.8" unit="L">CENT 7 <small>4.8L</small></button>
+          </td>
+          <td></td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39R5ZH6QP38QHTJ14N3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39R5ZH6QP38QHTJ14N3" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03JV2BPSHWG3RBCX0H9C1W' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03JV2BPSHWG3RBCX0H9C1W" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03JV2FQWHM0DKSZ3CCAQWW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03JV2FQWHM0DKSZ3CCAQWW" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FEEEC39YEXEFBNBGNQC4AQCE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC39YEXEFBNBGNQC4AQCE" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2L</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44AW53G8K75YYQFCQZ0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44AW53G8K75YYQFCQZ0" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44FAN3C24HSZQ2AAMBA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44FAN3C24HSZQ2AAMBA" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44J0N5XAY0TTG8F8KTD' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44J0N5XAY0TTG8F8KTD" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44NTGBMSH6XRZ4GJRYE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44NTGBMSH6XRZ4GJRYE" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2L</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44RA07RJBZ92MV9EADN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44RA07RJBZ92MV9EADN" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44XPAEE47JSC5AEF7K6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44XPAEE47JSC5AEF7K6" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M44ZHY3WW6YWEFN1NQ2J' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M44ZHY3WW6YWEFN1NQ2J" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03M4544H42ZD2981K65C1H' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03M4544H42ZD2981K65C1H" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03P09T314ZG7MTS8X7A69G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03P09T314ZG7MTS8X7A69G" product_slug="spotlight-plus" dose="0.3" unit="%">SPOTLIGHT PLUS <small>0.3%</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9Q88N6BPMNXK92X79HN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9Q88N6BPMNXK92X79HN" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QG4P3JRAX4WZB155XC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QG4P3JRAX4WZB155XC" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QKDVNVJKSKESWG6X8K' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QKDVNVJKSKESWG6X8K" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QPJZS4TSK1133YP7N8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QPJZS4TSK1133YP7N8" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QVT6N5PHHTSAHJTY5C' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QVT6N5PHHTSAHJTY5C" product_slug="spotlight-plus" dose="0.3" unit="%">SPOTLIGHT PLUS <small>0.3%</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QX01R5XHR9HDKN05E8' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QX01R5XHR9HDKN05E8" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9QZJ96GGH35P5EDGNWW' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9QZJ96GGH35P5EDGNWW" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9R2QAM6ZMGBKADKGQ4W' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9R2QAM6ZMGBKADKGQ4W" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9R5JFW3GF57YC6VZHE3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9R5JFW3GF57YC6VZHE3" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9R721YPKKABDD6Y97KA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9R721YPKKABDD6Y97KA" product_slug="spotlight-plus" dose="0.3" unit="%">SPOTLIGHT PLUS <small>0.3%</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RBK9TFGGC6C5X6TAJP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RBK9TFGGC6C5X6TAJP" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RD4EF5EPF43QCRZ4T9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RD4EF5EPF43QCRZ4T9" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RF0J5P60G0580DNWDS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RF0J5P60G0580DNWDS" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RJ86XRZB13NC90VQ6B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RJ86XRZB13NC90VQ6B" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RMBNSMMXDZFGHS5P9M' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RMBNSMMXDZFGHS5P9M" product_slug="spotlight-plus" dose="0.3" unit="%">SPOTLIGHT PLUS <small>0.3%</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RPX333GNQ8G52MGT46' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RPX333GNQ8G52MGT46" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RS4PY232TBKFERY0MV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RS4PY232TBKFERY0MV" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9RXK777AMVR9GXCM7GS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9RXK777AMVR9GXCM7GS" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9S0KAT5VHBTMPDGNXYE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9S0KAT5VHBTMPDGNXYE" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9S38FSQ1B3VRXZNK0GG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9S38FSQ1B3VRXZNK0GG" product_slug="spotlight-plus" dose="0.3" unit="%">SPOTLIGHT PLUS <small>0.3%</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9S6J7BTNDMYAY22EYDY' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9S6J7BTNDMYAY22EYDY" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9S8CJGGAWEW8VV178M6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9S8CJGGAWEW8VV178M6" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SCZRG7GC5J63GFHMNP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SCZRG7GC5J63GFHMNP" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SGRRQ3SZVFVKP8NR7P' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SGRRQ3SZVFVKP8NR7P" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SJRV46K2WWXHY5B8ZN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SJRV46K2WWXHY5B8ZN" product_slug="spotlight-plus" dose="0.3" unit="%">SPOTLIGHT PLUS <small>0.3%</small></button>
+          </td>
+          <td>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SNBEZ77BJV8F62JFQZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SNBEZ77BJV8F62JFQZ" product_slug="roundup-flash-plus" dose="2" unit="L">ROUNDUP FLASH PLUS <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SRKHJ55VHRHYEPWGC7' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SRKHJ55VHRHYEPWGC7" product_slug="krypt-540-pjt-15-l-glypho" dose="1.7" unit="L">KRYPT 540 PJT 15 L (Glypho) <small>1.7L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9SX6DE70PXM2XK8WN4Q' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9SX6DE70PXM2XK8WN4Q" product_slug="glister-ultra-360" dose="2.5" unit="L">GLISTER ULTRA 360 <small>2.5L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9T0PA1V8WPYG0E1ERNA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9T0PA1V8WPYG0E1ERNA" product_slug="fusilade-max" dose="2" unit="L">FUSILADE MAX <small>2L</small></button>
+            <button class="btn-J btn btn-block isProduct {{ printRequest ? '01FV03S9T2VZ8FRRP4442W6ZQG' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FV03S9T2VZ8FRRP4442W6ZQG" product_slug="spotlight-plus" dose="0.3" unit="%">SPOTLIGHT PLUS <small>0.3%</small></button>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Chlorose <br>Ferique <br>Manganique</td>
+          <td></td><td></td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3CNBGV1QNVNPG0HG6XZ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CNBGV1QNVNPG0HG6XZ" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL BIO <small>300Kg</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3CQ42FTMAQ1HZWYGBPA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CQ42FTMAQ1HZWYGBPA" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE 4.8 BIO 5 KG <small>70gr/arbres</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3CTYDN7ECC75S136RND' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CTYDN7ECC75S136RND" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL BIO <small>300Kg</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3CWKV9MWFS14FZZ7R58' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CWKV9MWFS14FZZ7R58" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE 4.8 BIO 5 KG <small>70gr/arbres</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3CYN19M4YY4VTZ2YY5C' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3CYN19M4YY4VTZ2YY5C" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL BIO <small>300Kg</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3D13TFSBB4YQ2JKQC45' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3D13TFSBB4YQ2JKQC45" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE 4.8 BIO 5 KG <small>70gr/arbres</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3D5BHVWV285NRVD6K3S' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3D5BHVWV285NRVD6K3S" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL BIO <small>300Kg</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3D9FXPTEGGX3GMTR8V9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3D9FXPTEGGX3GMTR8V9" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE 4.8 BIO 5 KG <small>70gr/arbres</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3DCF5RFQ068CDGBPJCP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DCF5RFQ068CDGBPJCP" product_slug="sferesol" dose="300" unit="Kg">SFEROSOL BIO <small>300Kg</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DH4QA9RDMXF5ENWPEC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DH4QA9RDMXF5ENWPEC" product_slug="ferrilene" dose="70" unit="gr/arbres">FERRILENE 4.8 BIO 5 KG <small>70gr/arbres</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DK2FMGBZZGYKDHKEJ2' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DK2FMGBZZGYKDHKEJ2" product_slug="ino-chel-ultra" dose="3" unit="L">INO CHEL FER ULTRA 10L <small>3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DP6JQAT0G940GMG0T0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DP6JQAT0G940GMG0T0" product_slug="ino-chel-ultra" dose="3" unit="L">INO CHEL FER ULTRA 10L <small>3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DR4GKQ6VZJ9WN4ZWBB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DR4GKQ6VZJ9WN4ZWBB" product_slug="ino-chel-ultra" dose="3" unit="L">INO CHEL FER ULTRA 10L <small>3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DV6ESDKZS3XFCB04TC' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DV6ESDKZS3XFCB04TC" product_slug="ino-chel-ultra" dose="3" unit="L">INO CHEL FER ULTRA 10L <small>3L</small></button>
+          </td>
+          <td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>Nutrition foliaire</td>
+          <td></td><td></td><td></td><td></td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3DYFDX3DVSNR5QXSXCX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3DYFDX3DVSNR5QXSXCX" product_slug="ino-bore-ultra" dose="2" unit="L">INO-BORE ULTRA BIO 10 L <small>2L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3E0MQC0C0Y4FBXG578A' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3E0MQC0C0Y4FBXG578A" product_slug="ino-bore-ultra" dose="2" unit="L">INO-BORE ULTRA BIO 10 L <small>2L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3E2WWKEWZHA8KSKFN82' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3E2WWKEWZHA8KSKFN82" product_slug="ino-bore-ultra" dose="2" unit="L">INO-BORE ULTRA BIO 10 L <small>2L</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3E4B1CDJZP2JYTJZ6Y3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3E4B1CDJZP2JYTJZ6Y3" product_slug="ino-flow-zn-680f" dose="1" unit="L">INO-FLOW Zn680F Folli BIO 5 L <small>1L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3E8QVT7KNNPF101HKM9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3E8QVT7KNNPF101HKM9" product_slug="ino-flow-mg500" dose="2" unit="L">INO-FLOW Mg500 5 L <small>2L</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EC3PGJRVK2KEPNZ7TJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EC3PGJRVK2KEPNZ7TJ" product_slug="ino-soufre" dose="5" unit="L">INO-SOUFRE N <small>5L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EGVWZ4AD3ZA58PZXMP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EGVWZ4AD3ZA58PZXMP" product_slug="ino-flow-mg500" dose="2" unit="L">INO-FLOW Mg500 5 L <small>2L</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EMV9F2PS4HNVT8NZZR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EMV9F2PS4HNVT8NZZR" product_slug="ino-soufre" dose="5" unit="L">INO-SOUFRE N <small>5L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3ERYZ0VETRS49CG37SJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3ERYZ0VETRS49CG37SJ" product_slug="ino-flow-mg500" dose="2" unit="L">INO-FLOW Mg500 5 L <small>2L</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EWG5EYQGZE0XRH6PG0' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EWG5EYQGZE0XRH6PG0" product_slug="ino-mix-fruit" dose="10" unit="L">INO-MIX FRUITS 10L <small>10L</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3EZ6J7SM121Y2V88ENJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3EZ6J7SM121Y2V88ENJ" product_slug="ino-flow-zn-680f" dose="1" unit="L">INO-FLOW Zn680F Folli BIO 5 L <small>1L</small></button>
+          </td>
+          <td></td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FB20F88EJY0EAAW39X' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FB20F88EJY0EAAW39X" product_slug="ino-flow-mg500" dose="2" unit="L">INO-FLOW Mg500 5 L <small>2L</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FE4VCV3206BCRAHX68' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FE4VCV3206BCRAHX68" product_slug="ino-mix-fruit" dose="10" unit="L">INO-MIX FRUITS 10L <small>10L</small></button>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FKPAJG87RX7N0DS2NF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FKPAJG87RX7N0DS2NF" product_slug="ino-flow-zn-680f" dose="1" unit="L">INO-FLOW Zn680F Folli BIO 5 L <small>1L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FQ5SWC1W76YEF23N67' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FQ5SWC1W76YEF23N67" product_slug="ino-green-ultra-10-l" dose="3" unit="L">INO-GREEN ULTRA 10 L <small>3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3FTH9FQNZT668D746T4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FTH9FQNZT668D746T4" product_slug="ino-green-ultra-10-l" dose="3" unit="L">INO-GREEN ULTRA 10 L <small>3L</small></button>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td rowspan="2">Nutrition <br>du sol</td>
+          <td></td><td></td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3FX9AAJGRT4WCJT8PP9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3FX9AAJGRT4WCJT8PP9" product_slug="equinoxe-10-4-3" dose="1200" unit="Kg">EQUINOXE 10-4-3 (2MGO) 5 QL <small>1200Kg</small></button>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3G32N43WC782QNCECWR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3G32N43WC782QNCECWR" product_slug="equinoxe-9-3-12" dose="1200" unit="Kg">EQUINOXE 9 3 12 5 QL <small>1200Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3G84006EHQY4NE5SFAS' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3G84006EHQY4NE5SFAS" product_slug="equinoxe-10-4-3" dose="1200" unit="Kg">EQUINOXE 10-4-3 (2MGO) 5 QL <small>1200Kg</small></button>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GD021E6JFX55GBA5H6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GD021E6JFX55GBA5H6" product_slug="equinoxe-9-3-12" dose="1200" unit="Kg">EQUINOXE 9 3 12 5 QL <small>1200Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GHXKZPXJMKYF3FE765' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GHXKZPXJMKYF3FE765" product_slug="equinoxe-10-4-3" dose="1200" unit="Kg">EQUINOXE 10-4-3 (2MGO) 5 QL <small>1200Kg</small></button>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GNJ60NKWHC1MGCT1D5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GNJ60NKWHC1MGCT1D5" product_slug="equinoxe-9-3-12" dose="1200" unit="Kg">EQUINOXE 9 3 12 5 QL <small>1200Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GRX6TGGA551Y813Q7C' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GRX6TGGA551Y813Q7C" product_slug="equinoxe-10-4-3" dose="1200" unit="Kg">EQUINOXE 10-4-3 (2MGO) 5 QL <small>1200Kg</small></button>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3GWMBNSPXX6CAC28NSE' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3GWMBNSPXX6CAC28NSE" product_slug="equinoxe-9-3-12" dose="1200" unit="Kg">EQUINOXE 9 3 12 5 QL <small>1200Kg</small></button>
+          </td>
+          <td></td><td></td>
+          <td></td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01GS3DQN9KFB6AZ9WY81XD23CJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DQN9KFB6AZ9WY81XD23CJ" product_slug="ammonitre-33-5">AMMONITRE 33.5 .. FRANCAISE</button>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01GS3DQN9PEDTP25M396FRSFGP' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DQN9PEDTP25M396FRSFGP" product_slug="sulfonitrate-26-yara-eurochem" dose="200" unit="Kg">SULFONITRATE 26 YARA / EUROCHEM 6QL <small>200Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01GS3DQN9QC48VXHXD8PQP2HF3' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DQN9QC48VXHXD8PQP2HF3" product_slug="ammonitre-33-5">AMMONITRE 33.5 .. FRANCAISE</button>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01GS3DQN9R5EW6ZDX9H8EJ5XMN' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DQN9R5EW6ZDX9H8EJ5XMN" product_slug="sulfonitrate-26-yara-eurochem" dose="200" unit="Kg">SULFONITRATE 26 YARA / EUROCHEM 6QL <small>200Kg</small></button>
+          </td>
+          <td></td>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3HNMD4Y4FJB016HBHXF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3HNMD4Y4FJB016HBHXF" product_slug="17-20-so" dose="200" unit="Kg">17-20 SO <small>200Kg</small></button>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01GS3DH6C1VPNDTETC942HH013' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DH6C1VPNDTETC942HH013" product_slug="12-12-17" dose="600" unit="Kg">12 12 17 SK 6 QL <small>600Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3HSCN3HX3KMVT9A5EQ1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3HSCN3HX3KMVT9A5EQ1" product_slug="17-20-so" dose="200" unit="Kg">17-20 SO <small>200Kg</small></button>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01GS3DH6C6X1GJADZV88979FTR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DH6C6X1GJADZV88979FTR" product_slug="12-12-17" dose="600" unit="Kg">12 12 17 SK 6 QL <small>600Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01FEEEC3HYGW6V0DEBQ06PF8PX' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3HYGW6V0DEBQ06PF8PX" product_slug="17-20-so" dose="200" unit="Kg">17-20 SO <small>200Kg</small></button>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01GS3DH6C8BQP030J9DHKAMJBM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DH6C8BQP030J9DHKAMJBM" product_slug="12-12-17" dose="600" unit="Kg">12 12 17 SK 6 QL <small>600Kg</small></button>
+          </td>
+          <td>
+            <button class="btn btn-B btn-block isProduct {{ printRequest ? '01GS3DH6C8BQP030J9DHKAMJ12' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DH6C8BQP030J9DHKAMJ12" product_slug="12-12-17" dose="600" unit="Kg">12 12 17 SK 6 QL <small>600Kg</small></button>
+          </td><td></td><td></td><td></td>
+          <td></td>
+          <td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>Stimulation <br>Racinaire</td>
+          <td></td><td></td><td></td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3J2K945N7N9HXXBW9YJ' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3J2K945N7N9HXXBW9YJ" product_slug="rise-p-vam" dose="150" unit="grs">RISE P.VAM <small>150grs</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3J6T3G98R799K7Z6D5G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3J6T3G98R799K7Z6D5G" product_slug="rise-p-vam" dose="150" unit="grs">RISE P.VAM <small>150grs</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3J8Q2P1M1G5H7V44X7Z' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3J8Q2P1M1G5H7V44X7Z" product_slug="rise-p-vam" dose="150" unit="grs">RISE P.VAM <small>150grs</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3JBDCBX86PSP8C2RAB9' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JBDCBX86PSP8C2RAB9" product_slug="rise-p-vam" dose="150" unit="grs">RISE P.VAM <small>150grs</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3JD0BX335SE4PY71YX5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JD0BX335SE4PY71YX5" product_slug="rise-p-vam" dose="150" unit="grs">RISE P.VAM <small>150grs</small></button>
+          </td>
+          <td>
+            <button class="btn btn-M btn-block isProduct {{ printRequest ? '01FEEEC3JFYET75NSMM97J3R8B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JFYET75NSMM97J3R8B" product_slug="rise-p-vam" dose="150" unit="grs">RISE P.VAM <small>150grs</small></button>
+          </td>
+          <td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>Adjuvants</td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01GS3DSHZSMWJYRV2V4XRP8WCK' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DSHZSMWJYRV2V4XRP8WCK" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01GS3DSHZWP4B4ENVVDD5DM3F4' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DSHZWP4B4ENVVDD5DM3F4" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01GS3DSHZXE6PX17GSDYNMAB22' in c_id_array ? 'exist' : 'd-none' }}" c_id="01GS3DSHZXE6PX17GSDYNMAB22" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+
+          </td>
+          <td></td><td></td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JJ3FFBPZBQH0KSJXN6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JJ3FFBPZBQH0KSJXN6" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JNTHGP19R08AZ34HRM' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JNTHGP19R08AZ34HRM" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JQBVEKE95JX4BXP64J' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JQBVEKE95JX4BXP64J" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JS03AZHCSSYC6REAGV' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JS03AZHCSSYC6REAGV" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JW6YBKXE5TR5SW8XM5' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JW6YBKXE5TR5SW8XM5" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3JY6R872V43MV999FRR' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3JY6R872V43MV999FRR" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3K1T2S18EMACQ79SEMB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3K1T2S18EMACQ79SEMB" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3K310T2JRCB1P6C6W0B' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3K310T2JRCB1P6C6W0B" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3K64CFNP3ZTDM9Z810G' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3K64CFNP3ZTDM9Z810G" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3K9SGD8AA1EZ87MDP82' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3K9SGD8AA1EZ87MDP82" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KCFW43QV97ZSV18BNF' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KCFW43QV97ZSV18BNF" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KH4YJGNH9TXKTP5NB1' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KH4YJGNH9TXKTP5NB1" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KMJ6FT3F3VVFDVMMRT' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KMJ6FT3F3VVFDVMMRT" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KPAJHN901PHYYW0WP6' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KPAJHN901PHYYW0WP6" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KTE0CTB1CZ6V8GAEMA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KTE0CTB1CZ6V8GAEMA" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KWJ98TTY46FF1877JA' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KWJ98TTY46FF1877JA" product_slug="sticman" dose="0.3" unit="L">STICMAN <small>0.3L</small></button>
+          </td>
+          <td>
+            <button class="btn btn-A btn-block isProduct {{ printRequest ? '01FEEEC3KTE0CTB1CZ6V8GAEMB' in c_id_array ? 'exist' : 'd-none' }}" c_id="01FEEEC3KTE0CTB1CZ6V8GAEMB" product_slug="gondor" dose="0.3" unit="L">GONDOR <small>0.3L</small></button></td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
     </div>
     </div>
