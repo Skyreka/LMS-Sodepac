@@ -10,8 +10,6 @@ framework:
             # sync: 'sync://'
             async:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-                options:
-                    consumer: "%env(MESSENGER_CONSUMER_NAME)%"
                 retry_strategy:
                     max_retries: 0
                     delay: 5000

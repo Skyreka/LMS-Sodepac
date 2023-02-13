@@ -4,6 +4,7 @@ namespace App\Domain\Auth;
 
 use App\Domain\Auth\Repository\UsersRepository;
 use App\Domain\Bsv\Entity\BsvUsers;
+use App\Domain\Catalogue\Entity\Catalogue;
 use App\Domain\Exploitation\Entity\Exploitation;
 use App\Domain\Mix\Entity\Mix;
 use App\Domain\Order\Entity\Orders;
@@ -188,6 +189,11 @@ class Users implements UserInterface
      * @ORM\OneToMany(targetEntity=Panorama::class, mappedBy="owner")
      */
     private $ownedPanoramas;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Catalogue::class, mappedBy="customer")
+     */
+    private $catalogues;
     
     public function __construct()
     {
@@ -199,6 +205,7 @@ class Users implements UserInterface
         $this->orders            = new ArrayCollection();
         $this->purchaseContracts = new ArrayCollection();
         $this->ownedPanoramas    = new ArrayCollection();
+        $this->catalogues = new ArrayCollection();
     }
     
     public function __serialize(): array
@@ -766,6 +773,36 @@ class Users implements UserInterface
             }
         }
         
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Catalogue>
+     */
+    public function getCatalogues(): Collection
+    {
+        return $this->catalogues;
+    }
+
+    public function addCatalogue(Catalogue $catalogue): self
+    {
+        if (!$this->catalogues->contains($catalogue)) {
+            $this->catalogues[] = $catalogue;
+            $catalogue->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCatalogue(Catalogue $catalogue): self
+    {
+        if ($this->catalogues->removeElement($catalogue)) {
+            // set the owning side to null (unless already changed)
+            if ($catalogue->getCustomer() === $this) {
+                $catalogue->setCustomer(null);
+            }
+        }
+
         return $this;
     }
 }

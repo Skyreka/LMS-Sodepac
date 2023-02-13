@@ -1,0 +1,51 @@
+{% extends 'technician/catalogue/_partials/base.html.twig' %}
+
+{% block title %}Canevas {{ catalogue.canevas.name }}{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-12">
+            <h3 class="text-themecolor">Canevas {{ catalogue.canevas.name }} </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered no-wrap">
+                          <thead>
+                              <tr>
+                                  <th></th>
+                                  {% for step in catalogue.canevas.steps %}
+                                      <th>
+                                          <p class="text-center">{{ step.name }}</p>
+                                      </th>
+                                  {% endfor %}
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for disease in catalogue.canevas.diseases %}
+                                  <tr>
+                                      <td>{{ disease.name }}</td>
+                                      {% for step in catalogue.canevas.steps %}
+                                          <td>
+                                              {% for product in catalogue.canevas.products %}
+                                                  {% if product.step == step and product.disease == disease %}
+                                                      <button class="btn btn-{{ product.color }} btn-block isProduct" dose="{{ product.dose }}" unit="{{ product.unit }}">{{ product.product.name }} <small>{{ product.dose }}{{ product.unit }}</small></button>
+                                                  {% endif %}
+                                              {% endfor %}
+                                          </td>
+                                      {% endfor %}
+                                  </tr>
+                              {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

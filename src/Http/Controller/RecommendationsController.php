@@ -3,10 +3,9 @@
 namespace App\Http\Controller;
 
 use App\Domain\Auth\Repository\UsersRepository;
-use App\Domain\Auth\Users;
+use App\Domain\Catalogue\Entity\CanevasIndex;
 use App\Domain\Culture\Repository\CulturesRepository;
 use App\Domain\Exploitation\Entity\Exploitation;
-use App\Domain\Index\Entity\IndexCanevas;
 use App\Domain\Product\Repository\ProductsRepository;
 use App\Domain\Recommendation\Entity\RecommendationProducts;
 use App\Domain\Recommendation\Entity\Recommendations;
@@ -19,8 +18,6 @@ use App\Domain\Recommendation\Repository\RecommendationsRepository;
 use App\Domain\Stock\Entity\Stocks;
 use App\Domain\Stock\Repository\StocksRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Dompdf\Dompdf;
 use Dompdf\Exception;
 use Dompdf\Options;
@@ -29,7 +26,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

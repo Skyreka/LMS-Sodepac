@@ -16,6 +16,13 @@
                         <a class="waves-effect waves-dark" href="{{ path('management_order_index') }}"><i class="fa fa-truck"></i><span class="hide-menu">Commandes </span></a>
                     </li>
                     <li><a class="waves-effect waves-dark" href="{{ path('recommendation_index') }}"><i class="fas fa-book"></i><span class="hide-menu"> Catalogues</span></a></li>
+                    <li>
+                      <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-info"></i><span class="hide-menu">Catalogues 2.0</span></a>
+                      <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ path('admin_canevas_index') }}"><i class="fa fa-list"></i> Canevas</a></li>
+                        <li><a href="{{ path('catalogue_index') }}"><i class="fas fa-book"></i> Catalogues</a></li>
+                      </ul>
+                    </li>
                     <!-- <li><a class="waves-effect waves-dark" href="{{ path('management_products') }}"><i class="fa fa-flask"></i><span class="hide-menu"> Produits</span></a></li>-->
                     <li><a class="waves-effect waves-dark" href="https://www.melanges.arvalisinstitutduvegetal.fr/" target="_blank"><i class="fas fa-vials"></i><span class="hide-menu">Mélanges </span></a></li>
                     <li><a class="waves-effect waves-dark" href="{{ path('sales_index') }}"><i class="fas fa-chart-line"></i><span class="hide-menu">Cours de vente </span></a></li>

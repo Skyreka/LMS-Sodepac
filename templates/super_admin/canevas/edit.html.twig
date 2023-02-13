@@ -1,0 +1,258 @@
+{% extends 'technician/catalogue/_partials/base.html.twig' %}
+
+{% block title %}Edition canevas {{ canevas.name }}{% endblock %}
+
+{% block stylesheets %}
+  <style>
+    .btn-addProduct {
+      opacity: 0;
+    }
+    .btn-addProduct:hover {
+      opacity: 1;
+    }
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+  <link href="http://fk.github.io/select2-bootstrap-css/css/select2-bootstrap.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-12">
+        <h3 class="text-themecolor">Edition canevas {{ canevas.name }} </h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered no-wrap">
+                <thead>
+                <tr>
+                  <th></th>
+                  {% for step in canevas.steps %}
+                    <th>
+                      <p class="text-center">{{ step.name }}</p>
+                    </th>
+                  {% endfor %}
+                  <th>
+                    <btn class="btn btn-success m-1" data-toggle="modal" data-target="#addCanevasStepModal">Ajouter</btn>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for disease in canevas.diseases %}
+                  <tr>
+                    <td>{{ disease.name }}</td>
+                    {% for step in canevas.steps %}
+                      <td>
+                        {% for product in canevas.products %}
+                          {% if product.step == step and product.disease == disease %}
+                            <button class="btn btn-{{ product.color }} btn-block isProduct"
+                                    data-btnid="{{ product.id }}"
+                                    data-dose="{{ product.dose }}"
+                                    data-unit="{{ product.unit }}"
+                                    data-color="{{ product.color }}"
+                                    data-step="{{ step.id }}"
+                                    data-disease="{{ disease.id }}"
+                                    data-toggle="modal"
+                                    data-target="#editCanevasProductModal">{{ product.product.name }} <small>{{ product.dose }}{{ product.unit }}</small></button>
+                          {% endif %}
+                        {% endfor %}
+                        <button class="btn btn-block btn-addProduct" data-toggle="modal" data-target="#addCanevasBouton" data-step="{{ step.id }}" data-disease="{{ disease.id }}">Ajouter</button>
+                      </td>
+                    {% endfor %}
+                  </tr>
+                {% endfor %}
+                <tr>
+                  <td>
+                    <btn class="btn btn-success m-1" data-toggle="modal" data-target="#addCanevasDiseaseModal">Ajouter</btn>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="addCanevasDiseaseModal" tabindex="-1" role="dialog" aria-labelledby="addCanevasDiseaseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="POST" action="{{ path('admin_canevas_edit', {id: canevas.id}) }}">
+          {{ form_start(canevas_disease_form) }}
+            <div class="modal-header">
+              <h5 class="modal-title" id="addCanevasDiseaseModalLabel">Ajouter une maladie</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {{ form_rest(canevas_disease_form) }}
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+          {{ form_end(canevas_disease_form) }}
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="addCanevasStepModal" tabindex="-1" role="dialog" aria-labelledby="addCanevasStepModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="POST" action="{{ path('admin_canevas_edit', {id: canevas.id}) }}">
+          {{ form_start(canevas_step_form) }}
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCanevasDiseaseModalLabel">Ajouter une étape</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{ form_rest(canevas_step_form) }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+          </div>
+          {{ form_end(canevas_step_form) }}
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addCanevasBouton" tabindex="-1" role="dialog" aria-labelledby="addCanevasBoutonLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="POST" action="{{ path('admin_canevas_edit', {id: canevas.id}) }}">
+          {{ form_start(canevas_add_product_form) }}
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCanevasDiseaseModalLabel">Ajouter un bouton</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{ form_rest(canevas_add_product_form) }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+          </div>
+          {{ form_end(canevas_add_product_form) }}
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editCanevasProductModal" tabindex="-1" role="dialog" aria-labelledby="editCanevasProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="POST" action="{{ path('admin_canevas_edit', {id: canevas.id}) }}">
+          {{ form_start(canevas_edit_product_form) }}
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCanevasDiseaseModalLabel">Editer un bouton</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{ form_rest(canevas_edit_product_form) }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Editer</button>
+          </div>
+          {{ form_end(canevas_edit_product_form) }}
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/i18n/fr.min.js"></script>
+  <script src="{{ asset('js/select2entity.js') }}"></script>
+  <script>
+    // Add
+    $('.btn-addProduct').on('click', function () {
+      var stepId = $(this).data('step');
+      var diseaseId = $(this).data('disease');
+      $('#addCanevasBouton').find('#canevas_product_step').val(stepId);
+      $('#addCanevasBouton').find('#canevas_product_disease').val(diseaseId);
+      $('#addCanevasBouton').modal('show');
+    });
+    // Edit
+    $('.isProduct').on('click', function () {
+      var btnId = $(this).data('btnid');
+      var dose = $(this).data('dose');
+      var unit = $(this).data('unit');
+      var color = $(this).data('color');
+      var stepId = $(this).data('step');
+      var diseaseId = $(this).data('disease');
+      $('#editCanevasProductModal').find('#canevas_product_edit_dose').val(dose);
+      $('#editCanevasProductModal').find('#canevas_product_edit_unit').val(unit);
+      $('#editCanevasProductModal').find('#canevas_product_edit_btn_id').val(btnId);
+      $('#editCanevasProductModal').find('#canevas_product_edit_color').val(color);
+      $('#editCanevasProductModal').find('#canevas_product_edit_step').val(stepId);
+      $('#editCanevasProductModal').find('#canevas_product_edit_disease').val(diseaseId);
+      $('#editCanevasBouton').modal('show');
+    });
+    // Context menu
+    $('.isProduct').on('contextmenu', function (e) {
+      // Empêcher le menu contextuel par défaut
+      e.preventDefault();
+
+      // Créer le menu contextuel
+      var contextMenu = $('<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>');
+      var editOption = $('<a class="dropdown-item" href="#">Modifier</a>');
+      var deleteOption = $('<a class="dropdown-item" href="#">Supprimer</a>');
+
+      // Ajouter un gestionnaire d'événements pour l'option "Modifier"
+      editOption.on('click', function () {
+        // Récupérer l'ID du bouton cliqué
+        var btnId = $(e.target).data('btnid');
+        $('.isProduct[data-btnid=' + btnId + ']').click();
+        contextMenu.hide();
+      });
+
+      // Ajouter un gestionnaire d'événements pour l'option "Supprimer"
+      deleteOption.on('click', function () {
+        var btnId = $(e.target).data('btnid');
+
+        $.ajax({
+          url: '{{ path('admin_canevas_delete_btn') }}',
+          type: 'DELETE',
+          data: {btnId: btnId},
+          success: function () {
+            $(e.target).remove()
+          }
+        });
+
+        // Fermer le menu contextuel
+        contextMenu.hide();
+      });
+
+      // Ajouter les options au menu contextuel
+      contextMenu.append(editOption);
+      contextMenu.append(deleteOption);
+
+      // Afficher le menu contextuel
+      contextMenu.css({
+        display: 'block',
+        position: 'absolute',
+        left: e.pageX,
+        top: e.pageY
+      });
+      $('body').append(contextMenu);
+
+      // Fermer le menu contextuel lorsqu'on clique en dehors de celui-ci
+      $(document).on('click', function () {
+        contextMenu.hide();
+      });
+    });
+
+  </script>
+{% endblock %}

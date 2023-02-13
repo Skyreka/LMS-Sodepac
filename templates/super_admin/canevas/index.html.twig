@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Canevas{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-12">
+        <h3 class="text-themecolor">Gestion des canevas</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex no-block">
+              <h4 class="card-title">Liste des canevas</h4>
+              <div class="ml-auto">
+                <a href="/new" class="btn btn-success"><i class="fas fa-plus"></i></a>
+              </div>
+            </div>
+            <div class="table-responsive m-t-20">
+              <table class="table stylish-table">
+                <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for caneva in canevas %}
+                  <tr>
+                    <td>
+                      {% if caneva.isActive %}
+                        <h6>{{ caneva.name }}</h6>
+                      {% else %}
+                        <h6 style="text-decoration: line-through;">{{ caneva.name }}</h6>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <a href="{{ path('admin_canevas_edit', {id: caneva.id}) }}" class="btn btn-info">Editer</a>
+
+                      {% if caneva.isActive %}
+                        <form action="{{ path('admin_canevas_delete', {id: caneva.id}) }}" method="POST" style="display: inline-block">
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </form>
+                      {% else %}
+                        <form action="{{ path('admin_canevas_reactivate', {id: caneva.id}) }}" method="POST" style="display: inline-block">
+                          <input type="hidden" name="_method" value="REACTIVATE">
+                          <button type="submit" class="btn btn-success"><i class="fa fa-backward"></i></button>
+                        </form>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+include:
+  - templates.yaml
+
+App\Domain\Auth\Users:
+  user{1..5} (extends user):
+  admin (extends user):
+    username: Grafikart
+    email: grafikart@oe.fr

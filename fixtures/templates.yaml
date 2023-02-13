@@ -1,0 +1,7 @@
+App\Domain\Auth\Users:
+  user (template):
+    firstname: John<current()>
+    lastname: John<current()>
+    email: john<current()>\@sodepac.dev
+    password: <password('0000')>
+    is_active: true

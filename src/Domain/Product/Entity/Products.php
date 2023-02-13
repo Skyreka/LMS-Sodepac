@@ -2,6 +2,7 @@
 
 namespace App\Domain\Product\Entity;
 
+use App\Domain\Catalogue\Entity\CanevasProduct;
 use App\Domain\Product\Repository\ProductsRepository;
 use App\Domain\Stock\Entity\Stocks;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -154,12 +155,18 @@ class Products
      * @ORM\OneToMany(targetEntity=Products::class, mappedBy="parent_product")
      */
     private $childs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CanevasProduct::class, mappedBy="product")
+     */
+    private $canevasProducts;
     
     public function __construct()
     {
         $this->stocks     = new ArrayCollection();
         $this->riskPhases = new ArrayCollection();
         $this->childs     = new ArrayCollection();
+        $this->canevasProducts = new ArrayCollection();
     }
     
     public function getId(): ?int
@@ -554,5 +561,35 @@ class Products
     public function setAmm($amm): void
     {
         $this->amm = $amm;
+    }
+
+    /**
+     * @return Collection<int, CanevasProduct>
+     */
+    public function getCanevasProducts(): Collection
+    {
+        return $this->canevasProducts;
+    }
+
+    public function addCanevasProduct(CanevasProduct $canevasProduct): self
+    {
+        if (!$this->canevasProducts->contains($canevasProduct)) {
+            $this->canevasProducts[] = $canevasProduct;
+            $canevasProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCanevasProduct(CanevasProduct $canevasProduct): self
+    {
+        if ($this->canevasProducts->removeElement($canevasProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($canevasProduct->getProduct() === $this) {
+                $canevasProduct->setProduct(null);
+            }
+        }
+
+        return $this;
     }
 }
