@@ -1,0 +1,19 @@
+---
+- name: Outils | Timezone
+  community.general.timezone:
+    name: Europe/Paris
+- name: Outils | Locale française
+  community.general.locale_gen:
+    name: fr_FR.UTF-8
+    state: present
+- name: Outils | Requis
+  apt:
+    name:
+      - gnupg
+      - curl
+      - git
+      - rsync
+      - fail2ban
+      - certbot
+      - acl
+    state: present

@@ -1,0 +1,68 @@
+---
+- name: Symfony | Clone
+  become: no
+  git:
+    repo: 'https://github.com/Grafikart/Grafikart.fr.git'
+    dest: "{{ root_path }}"
+    version: feature/new-canevas-system
+- name: Symfony | .env.local"
+  become: no
+  template:
+    src: .env.local.j2
+    force: no
+    dest: "{{ root_path }}/.env.local"
+- name: Symfony | var permission
+  ansible.posix.acl:
+    path: "{{ root_path }}/var"
+    entity: "{{ ansible_user }}"
+    etype: user
+    default: yes
+    permissions: rwx
+    state: present
+    recursive: yes
+- name: Symfony | var permission www-data
+  ansible.posix.acl:
+    path: "{{ root_path }}/var"
+    entity: "www-data"
+    etype: user
+    default: yes
+    permissions: rwx
+    state: present
+    recursive: yes
+- name: Symfony | var permission www-data
+  ansible.posix.acl:
+    path: "{{ root_path }}/var"
+    entity: "www-data"
+    etype: user
+    permissions: rwx
+    state: present
+    recursive: yes
+- name: Symfony | dossier uploads default
+  become: no
+  file: state=directory path="{{ root_path }}/public/uploads"
+- name: Symfony | uploads permission
+  ansible.posix.acl:
+    path: "{{ root_path }}/public/uploads"
+    entity: www-data
+    etype: user
+    default: yes
+    permissions: rwx
+    state: present
+    recursive: yes
+- name: Symfony | uploads permission
+  ansible.posix.acl:
+    path: "{{ root_path }}/public/uploads"
+    entity: www-data
+    etype: user
+    permissions: rwx
+    state: present
+    recursive: yes
+- name: Symfony | uploads permission default
+  ansible.posix.acl:
+    path: "{{ root_path }}/public/uploads"
+    entity: "{{ ansible_user }}"
+    etype: user
+    default: yes
+    permissions: rwx
+    state: present
+    recursive: yes

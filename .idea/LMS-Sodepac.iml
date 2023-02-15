@@ -174,10 +174,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/cssinliner-extra" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/form" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/intl-extra" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/theofidry/alice-data-fixtures" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/fakerphp/faker" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/hautelook/alice-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/nelmio/alice" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
