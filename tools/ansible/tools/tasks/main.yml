@@ -15,6 +15,7 @@
       - rsync
       - fail2ban
       - certbot
+      - rsync
       - acl
       - make
     state: present

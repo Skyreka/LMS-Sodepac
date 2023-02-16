@@ -29,6 +29,14 @@ help: ## Affiche cette aide
 deploy: ## Déploie une nouvelle version du site
 	ssh -A $(server) 'cd $(domain) && git pull origin master && make install'
 
+.PHONY: dump
+dump:
+	$(de) db sh -c 'exec mysqldump -ulms-sodepac -plms-sodepac lms-sodepac > /var/www/var/dump/dump.sql'
+
+.PHONY: dumpimport
+dumpimport: ## Import un dump SQL
+	$(de) db sh -c 'mysql -ulms-sodepac -plms-sodepac lms-sodepac < /var/www/var/dump/dump.sql'
+
 .PHONY: install
 install: vendor/autoload.php ## Installe les différentes dépendances
 	APP_ENV=prod APP_DEBUG=0 $(php) composer install --no-dev --optimize-autoloader
@@ -45,7 +53,7 @@ build-docker:
 	$(dc) build node
 
 .PHONY: dev
-dev: vendor/autoload.php node_modules/time ## Lance le serveur de développement
+dev: vendor/autoload.php ## Lance le serveur de développement
 	$(dc) up
 
 .PHONY: migration
