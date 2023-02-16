@@ -78,6 +78,9 @@ vendor/autoload.php: composer.lock
 	$(php) composer install
 	touch vendor/autoload.php
 
+composer.lock: composer.json
+	$(php) composer install
+
 var/dump:
 	mkdir var/dump
 
