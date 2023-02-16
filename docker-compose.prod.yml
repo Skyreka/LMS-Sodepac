@@ -1,12 +1,6 @@
 version: '3'
 
 services:
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt
-      - /var/www/public:/var/www/public
-    command: certonly --webroot --webroot-path=/var/www/public --email sys@skyreka.com --agree-tos -d lab-sodepac.skyreka.com -d www.lab-sodepac.skyreka.com
   web:
     image: nginx:alpine
     restart: unless-stopped
@@ -19,6 +13,12 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
     links:
       - php
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/www:/var/www
+    command: certonly --webroot --webroot-path=/var/www/public --email sys@skyreka.com --agree-tos -d lab-sodepac.skyreka.com -d www.lab-sodepac.skyreka.com
   php:
     restart: unless-stopped
     build: ./docker/php
