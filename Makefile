@@ -30,13 +30,12 @@ deploy: ## Déploie une nouvelle version du site
 	ssh -A $(server) 'cd $(domain) && git pull origin master && make install'
 
 .PHONY: install
-install: vendor/autoload.php public/assets/manifest.json ## Installe les différentes dépendances
+install: vendor/autoload.php ## Installe les différentes dépendances
 	APP_ENV=prod APP_DEBUG=0 $(php) composer install --no-dev --optimize-autoloader
 	make migrate
 	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
 	$(sy) cache:pool:clear cache.global_clearer
 	$(sy) messenger:stop-workers
-	sudo service php8.1-fpm reload
 
 .PHONY: build-docker
 build-docker:

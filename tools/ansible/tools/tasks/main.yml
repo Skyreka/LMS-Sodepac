@@ -16,6 +16,7 @@
       - fail2ban
       - certbot
       - acl
+      - make
     state: present
 - name: Outils | Systemd user directory
   become: no
