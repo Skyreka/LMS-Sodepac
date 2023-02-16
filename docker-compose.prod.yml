@@ -54,3 +54,4 @@ services:
       MESSENGER_TRANSPORT_FAILED_DSN: redis://redis:6379/messages_failed
 volumes:
   db-data:
+

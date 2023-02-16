@@ -25,9 +25,13 @@ endif
 help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: deploy
+.PHONY: remote-deploy
 deploy: ## Déploie une nouvelle version du site
 	ssh -A $(server) 'cd $(domain) && git pull origin master && make install'
+
+.PHONY: remote-dockerstat
+dockerstat: ## Check les stats docker du serveur
+	ssh -A $(server) 'docker stats'
 
 .PHONY: dump
 dump:
