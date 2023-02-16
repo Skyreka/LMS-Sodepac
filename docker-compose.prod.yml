@@ -6,11 +6,19 @@ services:
     restart: unless-stopped
     ports:
       - '80:80'
+      - '443:443'
     volumes:
       - .:/var/www:delegated
       - ./site.conf:/etc/nginx/conf.d/default.conf
+      - /etc/letsencrypt:/etc/letsencrypt
     links:
       - php
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+    command: certonly --webroot --webroot-path=/var/www/html --email sys@skyreka.com --agree-tos -d lab-sodepac.skyreka.com -d www.lab-sodepac.skyreka.com
+      -
   php:
     restart: unless-stopped
     build: ./docker/php
