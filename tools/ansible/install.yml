@@ -14,5 +14,6 @@
   roles:
     #- {role: tools, tags: tools}
     #- {role: docker, tags: docker}
+    - {role: nginx, tags: nginx}
     - {role: app, tags: app}
 
