@@ -17,8 +17,7 @@ services:
     image: certbot/certbot:latest
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
-      - /var/www:/var/www
-    command: certonly --webroot --webroot-path=/var/www/public --email sys@skyreka.com --agree-tos -d lab-sodepac.skyreka.com -d www.lab-sodepac.skyreka.com
+    command: certonly --webroot --webroot-path=/etc/letsencrypt --email sys@skyreka.com --agree-tos -d lab-sodepac.skyreka.com -d www.lab-sodepac.skyreka.com
   php:
     restart: unless-stopped
     build: ./docker/php
