@@ -70,7 +70,7 @@ security-check: vendor/autoload.php ## Check pour les vulnérabilités des depen
 # -----------------------------------
 .PHONY: provision
 provision: ## Configure la machine distante
-	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/install.yml
+	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/install.yml -v
 
 # -----------------------------------
 # Dépendances

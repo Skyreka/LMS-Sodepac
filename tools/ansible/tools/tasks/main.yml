@@ -17,3 +17,8 @@
       - certbot
       - acl
     state: present
+- name: Outils | Systemd user directory
+  become: no
+  file:
+    path: ~/.config/systemd/user
+    state: directory

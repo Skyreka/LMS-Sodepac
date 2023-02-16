@@ -2,15 +2,24 @@
 - name: Symfony | Clone
   become: no
   git:
-    repo: 'https://github.com/Grafikart/Grafikart.fr.git'
+    repo: 'https://github.com/Skyreka/LMS-Sodepac.git'
     dest: "{{ root_path }}"
-    version: feature/new-canevas-system
+    version: "{{ GIT_BRANCH }}"
 - name: Symfony | .env.local"
   become: no
   template:
     src: .env.local.j2
     force: no
     dest: "{{ root_path }}/.env.local"
+- include_tasks: messenger.yml
+- name: Symfony | Create var directory
+  ansible.builtin.file:
+    path: "{{ root_path }}/var"
+    state: directory
+- name: Symfony | Create public/uploads directory
+  ansible.builtin.file:
+    path: "{{ root_path }}/public/uploads"
+    state: directory
 - name: Symfony | var permission
   ansible.posix.acl:
     path: "{{ root_path }}/var"
@@ -37,7 +46,7 @@
     permissions: rwx
     state: present
     recursive: yes
-- name: Symfony | dossier uploads default
+- name: Symfony | dossier uploads
   become: no
   file: state=directory path="{{ root_path }}/public/uploads"
 - name: Symfony | uploads permission
@@ -57,7 +66,7 @@
     permissions: rwx
     state: present
     recursive: yes
-- name: Symfony | uploads permission default
+- name: Symfony | uploads permission
   ansible.posix.acl:
     path: "{{ root_path }}/public/uploads"
     entity: "{{ ansible_user }}"
@@ -66,3 +75,4 @@
     permissions: rwx
     state: present
     recursive: yes
+- include_tasks: docker.yml
