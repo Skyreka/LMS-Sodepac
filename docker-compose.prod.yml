@@ -6,7 +6,7 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/public:/var/www/public
-    command: certonly --webroot --webroot-path=/var/www/public --email your-email@example.com --agree-tos -d lab-sodepac.skyreka.com -d www.lab-sodepac.skyreka.com
+    command: certonly --webroot --webroot-path=/var/www/public --email sys@skyreka.com --agree-tos -d lab-sodepac.skyreka.com -d www.lab-sodepac.skyreka.com
   web:
     image: nginx:alpine
     restart: unless-stopped
