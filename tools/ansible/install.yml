@@ -12,8 +12,8 @@
         update_cache: yes
   tasks:
   roles:
-    #- {role: tools, tags: tools}
-    #- {role: docker, tags: docker}
-    - {role: nginx, tags: nginx}
+    - {role: tools, tags: tools}
+    - {role: fail2ban, tags: fail2ban}
+    - {role: docker, tags: docker}
     - {role: app, tags: app}
 

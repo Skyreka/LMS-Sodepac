@@ -1,0 +1,22 @@
+---
+- name: Fail2Ban | Install
+  apt:
+    name: fail2ban
+    state: present
+- name: Fail2Ban | Copie de Jail de base
+  template:
+    src: jail.local.j2
+    dest: /etc/fail2ban/jail.local
+    mode: '0644'
+- name: Fail2Ban | NginxReqLimit filter
+  template:
+    src: filter/nginx-req-limit.conf.j2
+    dest: /etc/fail2ban/filter.d/nginx-req-limit.conf
+- name: Fail2Ban | PORT SCAN filter
+  template:
+    src: filter/port-scan.conf.j2
+    dest: /etc/fail2ban/filter.d/port-scan.conf
+- name: Fail2Ban | Restart
+  service:
+    name: fail2ban
+    state: restarted

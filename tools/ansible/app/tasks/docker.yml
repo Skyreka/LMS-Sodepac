@@ -1,6 +1,0 @@
-- name: Exécuter docker-compose
-  docker_compose:
-    project_src: "{{ root_path }}"
-    state: started
-    files:
-      - docker-compose.yml

@@ -75,4 +75,3 @@
     permissions: rwx
     state: present
     recursive: yes
-- include_tasks: docker.yml

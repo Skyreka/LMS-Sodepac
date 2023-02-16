@@ -1,0 +1,36 @@
+[DEFAULT]
+ignoreip  = 127.0.0.1
+bantime   = 86400
+banaction = iptables-multiport
+action    = %(action_mwl)s
+
+# JAILS
+[sshd]
+enabled = true
+port = ssh
+filter = sshd
+
+[scanning]
+enabled = true
+port = all
+filter = port-scan
+bantime = 86400
+maxretry = 1
+action = iptables-multiport[name=NoScan, port="0:65535", protocol=tcp]
+
+[pam-generic]
+enabled   = true
+banaction = iptables-allports
+
+[ssh-ddos]
+enabled   = true
+filter = sshd[mode=ddos]
+action = iptables-multiport[name=SSHDDoS, port=ssh, protocol=tcp]
+
+[nginx-req-limit]
+enabled = true
+filter = nginx-req-limit
+action = iptables-multiport[name=ReqLimit, port="http,https", protocol=tcp]
+findtime = 60
+bantime = 7200
+maxretry = 20

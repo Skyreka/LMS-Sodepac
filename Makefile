@@ -11,7 +11,7 @@ php :=
 ifeq ($(isDocker), 1)
 	ifneq ($(isProd), 1)
 		dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
-		dcimport := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.import.yml
+		dcprod:= USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.prod.yml
 		de := docker-compose exec
 		dr := $(dc) run --rm
 		sy := $(de) php bin/console
@@ -49,13 +49,6 @@ install: vendor/autoload.php ## Installe les différentes dépendances
 	$(sy) cache:pool:clear cache.global_clearer
 	$(sy) messenger:stop-workers
 
-.PHONY: build-docker
-build-docker:
-	$(dc) pull --ignore-pull-failures
-	$(dc) build php
-	$(dc) build messenger
-	$(dc) build node
-
 .PHONY: dev
 dev: vendor/autoload.php ## Lance le serveur de développement
 	$(dc) up
@@ -82,7 +75,7 @@ security-check: vendor/autoload.php ## Check pour les vulnérabilités des depen
 .PHONY: provision
 provision: ## Configure la machine distante
 	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/install.yml -v
-
+	ssh -A $(server) 'cd $(domain) && docker-compose -f docker-compose.prod.yml up -d'
 # -----------------------------------
 # Dépendances
 # -----------------------------------

@@ -18,6 +18,7 @@
       - rsync
       - acl
       - make
+      - iptables
     state: present
 - name: Outils | Systemd user directory
   become: no
