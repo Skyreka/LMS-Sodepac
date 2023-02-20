@@ -31,10 +31,10 @@ services:
     ports:
       - '5432:5432'
     environment:
-      MYSQL_ROOT_PASSWORD: lms-sodepac
-      MYSQL_DATABASE: lms-sodepac
-      MYSQL_USER: lms-sodepac
-      MYSQL_PASSWORD: lms-sodepac
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db-data:/var/lib/mysql
       - ./var:/var/www/var

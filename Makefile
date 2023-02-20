@@ -69,13 +69,25 @@ rollback:
 security-check: vendor/autoload.php ## Check pour les vulnérabilités des dependencies
 	$(de) php local-php-security-checker --path=/var/www
 
+
 # -----------------------------------
 # Déploiement
 # -----------------------------------
+.PHONY: deploy-prod
+deploy-prod:
+	ansible-vault decrypt vars.yml --vault-password-file .vault_pass
+	DB_PASSWORD=$$(grep "^DB_PASSWORD:" vars.yml | cut -d " " -f 2-); \
+	DB_DATABASE=$$(grep "^DB_DATABASE:" vars.yml | cut -d " " -f 2-); \
+	DB_USER=$$(grep "^DB_USER:" vars.yml | cut -d " " -f 2-); \
+	export DB_PASSWORD; \
+	export DB_DATABASE; \
+	export DB_USER; \
+	$(dc) up -d
+
 .PHONY: provision
 provision: ## Configure la machine distante
 	ansible-playbook -i tools/ansible/hosts.yml tools/ansible/install.yml -v
-	ssh -A $(server) 'cd $(domain) && docker-compose -f docker-compose.prod.yml up -d'
+	make deploy-prod
 # -----------------------------------
 # Dépendances
 # -----------------------------------
