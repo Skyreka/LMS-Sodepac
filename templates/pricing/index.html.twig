@@ -12,14 +12,8 @@
             <div class="col-12">
                 <h3 class="text-themecolor">Liste des produits</h3>
             </div>
-            <div class="col-md-7 col-12 align-self-center">
-                <div class="d-flex mt-2 justify-content-end">
-                    <a href="{{ path('pricing_product_new') }}" class="btn btn-info"><i class="fas fa-plus"></i> Ajout produit divers</a>
-                </div>
-            </div>
         </div>
         <div class="col-12">
-            <!--begin::Alert-->
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     <div class="alert alert-{{ label }}">{{ message }}</div>
