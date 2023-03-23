@@ -44,7 +44,7 @@ class InterventionsController extends AbstractController
     public function __construct(private readonly EntityManagerInterface $em)
     {
     }
-    
+
     /**
      * @Route("/recolte/{id}", name="intervention_recolte", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -54,7 +54,7 @@ class InterventionsController extends AbstractController
         $intervention = new Recolte();
         $form         = $this->createForm(RecolteType::class, $intervention);
         $form->handleRequest($request);
-        
+
         //-- Culture update status
         if($form->isSubmitted() && $form->isValid()) {
             //-- If is multiple intervention
@@ -70,7 +70,7 @@ class InterventionsController extends AbstractController
                     $this->em->merge($culture);
                     $this->em->flush();
                 }
-                
+
                 //-- Clear listCulture
                 $this->container->get('session')->remove('listCulture');
                 $this->addFlash('success', 'Intervention de ' . $name . ' créée avec succès');
@@ -80,9 +80,10 @@ class InterventionsController extends AbstractController
                 $intervention->setCulture($culture);
                 $intervention->setType($name);
                 $culture->setStatus(1);
+                $culture->setAddedAt(new \DateTime());
                 $this->em->persist($intervention);
                 $this->em->flush();
-                
+
                 // If is culture multiple create new and archive old
                 if($culture->getPermanent() == 1) {
                     $newCulture = clone $culture;
@@ -95,14 +96,14 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Intervention de ' . $name . ' créée avec succès');
             return $this->redirectToRoute('ilots_show', ['id' => $culture->getIlot()->getId()]);
         }
-        
+
         return $this->render('interventions/default.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/binage/{id}", name="intervention_binage", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -112,7 +113,7 @@ class InterventionsController extends AbstractController
         $intervention = new Binage();
         $form         = $this->createForm(DefaultInterventionType::class, $intervention);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             //-- If is multiple intervention
             if($this->container->get('session')->get('listCulture')) {
@@ -138,14 +139,14 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Intervention de ' . $name . ' créée avec succès');
             return $this->redirectToRoute('cultures_show', ['id' => $culture->getId()]);
         }
-        
+
         return $this->render('interventions/default.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/labour/{id}", name="intervention_labour", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -155,7 +156,7 @@ class InterventionsController extends AbstractController
         $intervention = new Labour();
         $form         = $this->createForm(DefaultInterventionType::class, $intervention);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             //-- If is multiple intervention
             if($this->container->get('session')->get('listCulture')) {
@@ -181,14 +182,14 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Intervention de ' . $name . ' créée avec succès');
             return $this->redirectToRoute('cultures_show', ['id' => $culture->getId()]);
         }
-        
+
         return $this->render('interventions/default.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/epandage/{id}", name="intervention_epandage", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -198,7 +199,7 @@ class InterventionsController extends AbstractController
         $intervention = new Epandage();
         $form         = $this->createForm(EpandageInterventionType::class, $intervention);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             if($this->container->get('session')->get('listCulture')) {
                 //-- Foreach of all culture selected
@@ -223,14 +224,14 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Intervention de ' . $name . ' créée avec succès');
             return $this->redirectToRoute('cultures_show', ['id' => $culture->getId()]);
         }
-        
+
         return $this->render('interventions/default.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/semis/{id}", name="intervention_semis", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -240,7 +241,7 @@ class InterventionsController extends AbstractController
         $intervention = new Semis();
         $form         = $this->createForm(SemisInterventionType::class, $intervention);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             if($this->container->get('session')->get('listCulture')) {
                 //-- Foreach of all culture selected
@@ -265,14 +266,14 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Intervention de ' . $name . ' créée avec succès');
             return $this->redirectToRoute('cultures_show', ['id' => $culture->getId()]);
         }
-        
+
         return $this->render('interventions/default.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/irrigation/{id}", name="intervention_irrigation", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -282,7 +283,7 @@ class InterventionsController extends AbstractController
         $intervention = new Irrigation();
         $form         = $this->createForm(IrrigationInterventionType::class, $intervention);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             if($this->container->get('session')->get('listCulture')) {
                 //-- Foreach of all culture selected
@@ -307,14 +308,14 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Intervention de ' . $name . ' créée avec succès');
             return $this->redirectToRoute('cultures_show', ['id' => $culture->getId()]);
         }
-        
+
         return $this->render('interventions/default.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/analyse/{id}", name="intervention_analyse", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -324,7 +325,7 @@ class InterventionsController extends AbstractController
         $intervention = new Analyse();
         $form         = $this->createForm(AnalyseInterventionType::class, $intervention);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             if($this->container->get('session')->get('listCulture')) {
                 //-- Foreach of all culture selected
@@ -349,24 +350,24 @@ class InterventionsController extends AbstractController
             $this->addFlash('success', 'Intervention de ' . $name . ' créée avec succès');
             return $this->redirectToRoute('cultures_show', ['id' => $culture->getId()]);
         }
-        
+
         return $this->render('interventions/default.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/phyto-{name}/{id}", name="intervention_phyto", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function phyto(Cultures $culture, $name, Request $request, StocksRepository $sr, InterventionsRepository $ir): Response
     {
         $intervention = new Phyto();
-        
+
         // For total Size
         $isMultiple = false;
-        
+
         //-- If multiple action is actived
         if($this->container->get('session')->get('listCulture')) {
             $isMultiple = true;
@@ -375,7 +376,7 @@ class InterventionsController extends AbstractController
             foreach($this->container->get('session')->get('listCulture') as $culture) {
                 $cultureTotalSize = $cultureTotalSize + $culture->getSize();
             }
-            
+
             // return form for multiple intervention and size of total
             $form = $this->createForm(PhytoInterventionType::class, $intervention, [
                 'user' => $this->getUser(),
@@ -390,7 +391,7 @@ class InterventionsController extends AbstractController
             ]);
         }
         $form->handleRequest($request);
-        
+
         //-- Warning Message of already intervention last 48 hours
         $lastPhyto = $ir->findPhyto($culture);
         $last2Days = new \DateTime();
@@ -399,7 +400,7 @@ class InterventionsController extends AbstractController
         if($lastPhyto && $lastPhyto->getInterventionAt() >= $last2Days) {
             $warningMessage = true;
         }
-        
+
         //-- Form Submit
         if($form->isSubmitted() && $form->isValid()) {
             //-- Get data
@@ -436,7 +437,7 @@ class InterventionsController extends AbstractController
                 }
                 //-- Clear listCulture
                 //$this->container->get('session')->remove('listCulture');
-                
+
                 //-- Multiple product on mutiple intervention
                 if($data['addProduct']->getData()) {
                     // Create listIntervention SESSION with array pre generated
@@ -447,11 +448,11 @@ class InterventionsController extends AbstractController
                         'id' => $lastIntervention->getId()
                     ]);
                 }
-                
+
                 //--Flash Message
                 $this->addFlash('success', 'Intervention de ' . $name . ' créée avec succès');
                 $this->addFlash('warning', 'Stock de ' . $stock->getProduct()->getName() . ' mis à jour. Nouvelle valeur en stock ' . $stock->getQuantity() . ' ' . $stock->getUnit(true));
-                
+
                 //-- Go to home
                 return $this->redirectToRoute('login_success');
             } else {
@@ -480,7 +481,7 @@ class InterventionsController extends AbstractController
             //-- Or redirect to culture
             return $this->redirectToRoute('cultures_show', ['id' => $culture->getId()]);
         }
-        
+
         return $this->render('interventions/phyto.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
@@ -489,33 +490,33 @@ class InterventionsController extends AbstractController
             'cultureSize' => $isMultiple ? $cultureTotalSize : $culture->getSize()
         ]);
     }
-    
+
     /**
      * @Route("/phyto-{name}/{id}/product", name="interventions_phyto_product", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function phytoAddProduct(Interventions $intervention, Request $request, StocksRepository $sr, InterventionsProductsRepository $ipr, InterventionsRepository $ir, $name): Response
     {
         $isMultiple = false;
-        
+
         $interventionProduct = new InterventionsProducts();
         $form                = $this->createForm(InterventionAddProductType::class, $interventionProduct, [
             'user' => $this->getUser(),
             'culture' => $intervention->getCulture()
         ]);
         $form->handleRequest($request);
-        
+
         //-- If multiple action is actived
         if($this->container->get('session')->get('listCulture')) {
             $isMultiple = true;
-            
+
             // get total size of selected multiple culture
             $cultureTotalSize = 0;
             foreach($this->container->get('session')->get('listCulture') as $culture) {
                 $cultureTotalSize = $cultureTotalSize + $culture->getSize();
             }
         }
-        
-        
+
+
         if($form->isSubmitted() && $form->isValid()) {
             //-- Get data
             $data  = $form->all();
@@ -546,7 +547,7 @@ class InterventionsController extends AbstractController
                     $this->em->merge($interventionProduct);
                     $this->em->flush();
                 }
-                
+
                 //-- Multiple product on mutiple intervention
                 if($data['addProduct']->getData()) {
                     // If user want to loop
@@ -562,7 +563,7 @@ class InterventionsController extends AbstractController
                     // Go to home
                     return $this->redirectToRoute('login_success');
                 }
-                
+
             } else {
                 // Normal Actions
                 // Setters
@@ -577,7 +578,7 @@ class InterventionsController extends AbstractController
                 $this->addFlash('success', 'Nouveau produit ajouté avec succès');
                 $this->addFlash('warning', 'Stock de ' . $stock->getProduct()->getName() . ' mis à jour. Nouvelle valeur en stock ' . $stock->getQuantity() . ' ' . $stock->getUnit(true));
             }
-            
+
             //-- Redirect to add new product if checkbox is checked
             if($data['addProduct']->getData()) {
                 return $this->redirectToRoute('interventions_phyto_product', [
@@ -585,13 +586,13 @@ class InterventionsController extends AbstractController
                     'id' => $intervention->getId()
                 ]);
             }
-            
+
             // Go to cultures show
             return $this->redirectToRoute('cultures_show', [
                 'id' => $intervention->getCulture()->getId()
             ]);
         }
-        
+
         return $this->render('interventions/addProduct.html.twig', [
             'form' => $form->createView(),
             'culture' => $intervention->getCulture(),
@@ -600,7 +601,7 @@ class InterventionsController extends AbstractController
             'cultureSize' => $isMultiple ? $cultureTotalSize : $intervention->getCulture()->getSize()
         ]);
     }
-    
+
     /**
      * @Route("/fertilisant/{id}", name="intervention_fertilisant", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -614,7 +615,7 @@ class InterventionsController extends AbstractController
             'culture' => $culture
         ]);
         $form->handleRequest($request);
-        
+
         //-- Warning Message of already intervention last 48 hours
         $lastPhyto = $ir->findPhyto($culture);
         $last2Days = new \DateTime();
@@ -623,17 +624,17 @@ class InterventionsController extends AbstractController
         if($lastPhyto && $lastPhyto->getInterventionAt() >= $last2Days) {
             $warningMessage = true;
         }
-        
+
         if($this->container->get('session')->get('listCulture')) {
             $isMultiple = true;
-            
+
             // get total size of selected multiple culture
             $cultureTotalSize = 0;
             foreach($this->container->get('session')->get('listCulture') as $culture) {
                 $cultureTotalSize = $cultureTotalSize + $culture->getSize();
             }
         }
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             //-- Get data
             $data  = $form->all();
@@ -675,7 +676,7 @@ class InterventionsController extends AbstractController
             $this->addFlash('warning', 'Stock de ' . $stock->getProduct()->getName() . ' mis à jour. Nouvelle valeur en stock ' . $stock->getQuantity() . ' ' . $stock->getUnit(true));
             return $this->redirectToRoute('cultures_show', ['id' => $culture->getId()]);
         }
-        
+
         return $this->render('interventions/fertilisant.html.twig', [
             'culture' => $culture,
             'intervention' => $name,
@@ -684,7 +685,7 @@ class InterventionsController extends AbstractController
             'cultureSize' => $isMultiple ? $cultureTotalSize : $culture->getSize()
         ]);
     }
-    
+
     /**
      * @Route("/edit/{id}", name="intervention_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -692,7 +693,7 @@ class InterventionsController extends AbstractController
     {
         $classMetadata    = $this->em->getClassMetadata(get_class($intervention));
         $discriminatorMap = $classMetadata->discriminatorValue;
-        
+
         // Freeze var before form on phyto only
         if($discriminatorMap == 'phyto') {
             $quantityOnIntervention = $intervention->getQuantity();
@@ -707,9 +708,9 @@ class InterventionsController extends AbstractController
             'Fongicide' => $this->createForm(EditInterventionQuantityType::class, $intervention),
             default => $this->createForm(DefaultInterventionType::class, $intervention)
         };
-        
+
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             //-- Update Stock
             if($discriminatorMap == 'phyto') {
@@ -721,19 +722,19 @@ class InterventionsController extends AbstractController
                 $quantityUsedInStock = $stock->getUsedQuantity();
                 $stock->setUsedQuantity($quantityUsedInStock + $diffQuantityIntervention);
             }
-            
+
             $this->em->flush();
             $this->addFlash('success', 'Intervention modifiée avec succès');
             return $this->redirectToRoute('cultures.synthese', ['id' => $intervention->getCulture()->getId()]);
         }
-        
+
         return $this->render('interventions/edit.html.twig', [
             'culture' => $intervention->getCulture(),
             'intervention' => $intervention->getType(),
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/delete/{id}", name="intervention_delete", methods="DELETE")
      */

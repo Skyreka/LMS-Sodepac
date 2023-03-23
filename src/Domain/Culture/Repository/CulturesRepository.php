@@ -81,18 +81,38 @@ class CulturesRepository extends ServiceEntityRepository
     /**
      * Find All Culture By ilot
      */
-    public function findByIlot($ilot, $year = null, $return = null)
+    public function findByIlot($ilot, $return = null)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.ilot = :ilot')
+            ->andWhere('c.status = 1')
+            ->setParameter('ilot', $ilot)
+            ->orderBy('c.name', 'DESC');
+
+        if($return) {
+            return $query;
+        }
+
+        return $query
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Find All Culture By ilot
+     */
+    public function findOldByIlot($ilot, $year = null, $return = null)
     {
         if( NULL === $year ) {
-            $year = new \DateTime('Y');
+            $year = (new \DateTime())->format('Y');
         }
+
         $query = $this->createQueryBuilder('c')
             ->where('c.ilot = :ilot')
             ->andWhere('YEAR(c.addedAt) = :year')
             ->setParameter('ilot', $ilot)
             ->setParameter('year', $year)
             ->orderBy('c.name', 'DESC');
-            //TODO: By Récolte Date
 
         if($return) {
             return $query;
