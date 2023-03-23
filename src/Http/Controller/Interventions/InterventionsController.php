@@ -69,6 +69,14 @@ class InterventionsController extends AbstractController
                     $this->em->merge($intervention);
                     $this->em->merge($culture);
                     $this->em->flush();
+
+                    if($culture->getPermanent() == 1) {
+                        $newCulture = clone $culture;
+                        $newCulture->setStatus(0);
+                        $this->em->persist($newCulture);
+                        $this->em->flush();
+                        $this->addFlash('warning', 'Duplication de vos cultures permanente');
+                    }
                 }
 
                 //-- Clear listCulture
@@ -80,7 +88,6 @@ class InterventionsController extends AbstractController
                 $intervention->setCulture($culture);
                 $intervention->setType($name);
                 $culture->setStatus(1);
-                $culture->setAddedAt(new \DateTime());
                 $this->em->persist($intervention);
                 $this->em->flush();
 
