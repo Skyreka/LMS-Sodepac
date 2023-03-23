@@ -75,7 +75,7 @@ class InterventionsController extends AbstractController
                         $newCulture->setStatus(0);
                         $this->em->persist($newCulture);
                         $this->em->flush();
-                        $this->addFlash('warning', 'Duplication de vos cultures permanente');
+                        $this->addFlash('warning', 'Duplication de vos cultures permanentes');
                     }
                 }
 
