@@ -85,7 +85,7 @@ class CulturesRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.ilot = :ilot')
-            ->andWhere('c.status = 1')
+            ->andWhere('c.status = 0')
             ->setParameter('ilot', $ilot)
             ->orderBy('c.name', 'DESC');
 
@@ -110,6 +110,7 @@ class CulturesRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('c')
             ->where('c.ilot = :ilot')
             ->andWhere('YEAR(c.addedAt) = :year')
+            ->andWhere('c.status = 1')
             ->setParameter('ilot', $ilot)
             ->setParameter('year', $year)
             ->orderBy('c.name', 'DESC');
