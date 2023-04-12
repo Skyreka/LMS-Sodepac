@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Synthese - Catalogue{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-12">
+                <h3 class="text-themecolor">Récapitulatif du Catalogue</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">Catalogue</a></li>
+                    <li class="breadcrumb-item active">Bilan</li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-12">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">{{ message }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="row mb-2">
+          <div class="col-12">
+            <div style="display: flex; justify-content: flex-end;">
+              {% if( catalogue.status > 1 ) %}
+                {% include 'technician/catalogue/_partials/_send.html.twig' with {'button_label': 'Envoyer'} %}
+              {% endif %}
+              {% if( catalogue.pdf ) %}
+                {% include 'technician/catalogue/_partials/_download.html.twig' with {'button_label': 'Télécharger'} %}
+              {% else %}
+                <a href="{{ path('catalogue_pdf_generate', {id: catalogue.id}) }}" class="btn btn-info ml-2 generate-buttons"><i class="fas fa-redo"></i> Générer</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                      <h5>Produits</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if catalogue.status >= 2 %}
+                            <form method="POST" action="{{ path('management_order_product_add', {'catalogue': catalogue.id }) }}">
+                                <input type="hidden" name="_method" value="ADDTOORDER">
+                                <button {{ app.request.query.get('added') ? "disabled"}} id="add-all-product" class="btn btn-info mb-2 float-right pull-right" title="Ajouter tous les produits"><i class="fas fa-truck"></i> Ajouter les produits à une commande</button>
+                            </form>
+                        {% endif %}
+                        <div class="table-responsive">
+                            <table class="table table-striped no-wrap" id="edit-table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nom du produit</th>
+                                    <th>Dosage</th>
+                                    <th>Surface</th>
+                                    <th>Quantité Totale</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for catalogueProduct in catalogue.products %}
+                                        <tr>
+                                            <td>{{ catalogueProduct.id }}</td>
+                                            <td>{{ catalogueProduct.product.product.name }}</td>
+                                            <td>
+                                                {% if catalogueProduct.doseEdit is not null %}
+                                                    {{ catalogueProduct.doseEdit|round(3, 'floor') }} <small>{{ catalogueProduct.product.unit }}</small>
+                                                {% else %}
+                                                    {{ catalogueProduct.product.dose|round(3, 'floor') }} <small>{{ catalogueProduct.product.unit }}</small>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ catalogue.cultureSize }} <small>ha</small></td>
+                                            <td>{{ catalogueProduct.quantity|round(3, 'floor') }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="mb-0">{{ catalogue.customer.identity }}</h5>
+                        <div class="row text-center mt-2">
+                            <div class="col-12 mt-1">
+                                <h6 class="mb-0 font-weight-light">{{ catalogue.customer.phone }}</h6><small>Téléphone</small>
+                            </div>
+                            <div class="col-12 mt-1">
+                                <h6 class="mb-0 font-weight-light">{{ catalogue.customer.email }}</h6><small>E-mail</small>
+                            </div>
+                            <div class="col-12 mt-1">
+                                <h6 class="mb-0 font-weight-light">{{ catalogue.customer.city }}</h6><small>Ville</small>
+                            </div>
+                            <div class="col-12 mt-1">
+                                <h6 class="mb-0 font-weight-light">{{ catalogue.customer.certificationPhyto }}</h6><small>Certification</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div clas="row">
+            <div class="col-12" style="padding-right: 0 !important;padding-left: 0 !important;">
+                <div class="card">
+                    <div class="card-header">
+                      <h5>Canevas</h5>
+                    </div>
+                    <div class="card-body">
+                        {% include 'technician/catalogue/_partials/table-canevas.html.twig' with {'displayOnlyProductOfCatalogue': true} %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>
+    <script>
+        $('.loading-button').hide();
+        $('.generate-buttons').click( function(e) {
+            let recommendationId = $(this).attr('recommendation-id')
+            let loadingButton = $("button[recommendation-id='" + recommendationId +"']");
+            $(this).hide();
+            loadingButton.show();
+        } )
+        $('#add-all-product').click( function(e) {
+            $('#add-all-product').addClass('btn-success')
+        } )
+    </script>
+{% endblock %}

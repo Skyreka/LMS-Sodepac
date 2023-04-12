@@ -58,7 +58,8 @@ class CatalogueType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Catalogue::class
+            'data_class' => Catalogue::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

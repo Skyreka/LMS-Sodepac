@@ -6,6 +6,11 @@ use App\Domain\Auth\AuthService;
 use App\Domain\Catalogue\Entity\Catalogue;
 use App\Domain\Catalogue\Repository\CatalogueRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
+use Dompdf\Exception;
+use Dompdf\Options;
+use iio\libmergepdf\Merger;
+use Symfony\Component\Filesystem\Filesystem;
 
 class CatalogueService
 {

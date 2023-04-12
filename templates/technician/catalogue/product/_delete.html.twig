@@ -1,0 +1,5 @@
+<form method="POST" action="{{ path('catalogue_product_delete', {'id': catalogueProduct.id}) }}">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete_catalogue_product_' ~ catalogueProduct.id) }}">
+    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+</form>

@@ -3,6 +3,7 @@
 namespace App\Http\Controller;
 
 use App\Domain\Auth\Repository\UsersRepository;
+use App\Domain\Catalogue\Entity\Catalogue;
 use App\Domain\Order\Entity\Orders;
 use App\Domain\Order\Entity\OrdersProduct;
 use App\Domain\Order\Event\OrderAskedSignatureEvent;
@@ -51,7 +52,7 @@ class OrderController extends AbstractController
     )
     {
     }
-    
+
     /**
      * @Route("/management/order", name="management_order_index", methods={"GET"})
      */
@@ -62,12 +63,12 @@ class OrderController extends AbstractController
         } else {
             $orders = $op->findByAdmin();
         }
-        
+
         return $this->render('management/order/index.html.twig', [
             'orders' => $orders
         ]);
     }
-    
+
     /**
      * @Route("/order/pdf/{id_number}/{print}", name="order_pdf_view", methods={"GET", "POST"}, defaults={"print"=false}, requirements={"print":"true|false"})
      */
@@ -79,17 +80,17 @@ class OrderController extends AbstractController
                 throw $this->createNotFoundException('Vous n\'avez pas la permission de voir ce document.');
             }
         }
-        
+
         // List of product
         $products = $opr->findBy(['orders' => $order]);
-        
+
         return $this->render('management/order/pdf.html.twig', [
             'order' => $order,
             'products' => $products,
             'print' => $request->get('print')
         ]);
     }
-    
+
     /**
      * @Route("/management/order/show/{id_number}", name="management_order_show", methods={"GET", "POST"})
      */
@@ -98,21 +99,21 @@ class OrderController extends AbstractController
         $products = $cpr->findBy(['orders' => $orders]);
         $form     = $this->createForm(OrderAdditionalType::class, $orders);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             $orders->setUpdateAt(new \DateTime());
             $this->em->flush();
             $this->addFlash('success', 'Information sauvegardée avec succès');
             return $this->redirectToRoute('management_order_show', ['id_number' => $orders->getIdNumber()]);
         }
-        
+
         return $this->render('management/order/show.html.twig', [
             'order' => $orders,
             'products' => $products,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/management/order/delete/{id}", name="management_order_delete_recorded", methods="DELETE", requirements={"id":"\d+"})
      */
@@ -121,14 +122,14 @@ class OrderController extends AbstractController
         if($this->isCsrfTokenValid('delete' . $orders->getId(), $request->get('_token'))) {
             $this->em->remove($orders);
             $this->em->flush();
-            
+
             $this->container->get('session')->remove('currentOrder');
-            
+
             $this->addFlash('success', 'Commande supprimée avec succès');
         }
         return $this->redirectToRoute('management_order_index');
     }
-    
+
     /**
      * @Route("/management/order/new", name="management_order_new", methods={"GET", "POST"})
      */
@@ -137,28 +138,28 @@ class OrderController extends AbstractController
         $order = new Orders;
         $form  = $this->createForm(OrdersType::class, $order);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             $order->setStatus(0);
             $order->setIdNumber(strtoupper(uniqid('C')));
             $order->setCreator($this->getUser());
-            
+
             $this->em->persist($order);
             $this->em->flush();
-            
+
             // Add id to session and reset if exist
             $this->container->get('session')->remove('currentOrder');
             $this->container->get('session')->set('currentOrder', $order);
-            
+
             $this->addFlash('success', 'Nouveau panier temporaire créé avec succès');
             return $this->redirectToRoute('management_order_show', ['id_number' => $order->getIdNumber()]);
         }
-        
+
         return $this->render('management/order/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/management/select_users", name="_management_select_users")
      */
@@ -167,7 +168,7 @@ class OrderController extends AbstractController
         //Get information from ajax call
         $term  = $request->query->get('q');
         $limit = $request->query->get('page_limit');
-        
+
         //Query of like call
         if($this->getUser()->getStatus() == 'ROLE_ADMIN') {
             $users = $ur->createQueryBuilder('u')
@@ -197,7 +198,7 @@ class OrderController extends AbstractController
                 ->getQuery()
                 ->getResult();
         }
-        
+
         // Return Array of key = id && text = value
         $array = [];
         foreach($users as $user) {
@@ -206,19 +207,17 @@ class OrderController extends AbstractController
                 'text' => $user->getIdentity() . ' ' . $user->getCompany()
             );
         }
-        
+
         // Return JsonResponse of code 200
         return new JsonResponse($array, 200);
     }
-    
+
     /**
-     * @Route("/management/order/product/add/{recommendation}", name="management_order_product_add", methods={"ADDTOORDER"}, requirements={"recommendation":"\d+"})
+     * @Route("/management/order/product/add/{catalogue}", name="management_order_product_add", methods={"ADDTOORDER"}, requirements={"catalogue":"\d+"})
      */
     public function addProduct(
-        Recommendations $recommendation,
-        OrdersRepository $or,
-        OrdersProductRepository $opr,
-        Request $request
+        Catalogue $catalogue,
+        OrdersProductRepository $opr
     ): RedirectResponse
     {
         // Check if order already exist on this session
@@ -227,56 +226,55 @@ class OrderController extends AbstractController
             $order->setStatus(0);
             $order->setIdNumber(strtoupper(uniqid('C')));
             $order->setCreator($this->getUser());
-            $order->setCustomer($recommendation->getExploitation()->getUsers());
+            $order->setCustomer($catalogue->getCustomer());
             $this->em->persist($order);
             $this->em->flush();
-            
+
             // Add id to session
             $this->container->get('session')->set('currentOrder', $order);
-            
+
             $products = [];
-            foreach($recommendation->getRecommendationProducts() as $recommendationProducts) {
-                
-                if(! in_array($recommendationProducts->getProduct(), $products)) {
+            foreach($catalogue->getProducts() as $catalogueProduct) {
+                if(! in_array($catalogueProduct->getProduct()->getProduct(), $products)) {
                     // Add  product
                     $orderProduct = new OrdersProduct();
                     $orderProduct->setOrder($order);
-                    $orderProduct->setProduct($recommendationProducts->getProduct());
-                    $orderProduct->setQuantity($recommendationProducts->getQuantity());
+                    $orderProduct->setProduct($catalogueProduct->getProduct()->getProduct());
+                    $orderProduct->setQuantity($catalogueProduct->getQuantity());
                     $orderProduct->setTotalQuantity(0);
-                    $orderProduct->setUnitPrice($recommendationProducts->getProduct()->getPrice() ? $recommendationProducts->getProduct()->getPrice() : 0);
-                    
+                    $orderProduct->setUnitPrice($catalogueProduct->getProduct()->getProduct()->getPrice() ? $catalogueProduct->getProduct()->getProduct()->getPrice() : 0);
+
                     $this->em->persist($orderProduct);
                     $this->em->flush();
                 } else {
                     // Update quantity
-                    $orderProduct = $opr->findOneBy(['product' => $recommendationProducts->getProduct(), 'orders' => $order]);
-                    $orderProduct->setQuantity($orderProduct->getQuantity() + $recommendationProducts->getQuantity());
+                    $orderProduct = $opr->findOneBy(['product' => $catalogueProduct->getProduct()->getProduct(), 'orders' => $order]);
+                    $orderProduct->setQuantity($orderProduct->getQuantity() + $catalogueProduct->getQuantity());
                     $this->em->flush();
                 }
-                
+
                 // Add product to array
-                array_push($products, $recommendationProducts->getProduct());
+                array_push($products, $catalogueProduct->getProduct()->getProduct());
             }
-            
+
             // Alert
             $this->addFlash('success', 'Nouveau panier temporaire créé avec succès');
         } else {
             $order = $this->container->get('session')->get('currentOrder');
-            
+
             // Add id to session
             $this->container->get('session')->set('currentOrder', $order);
-            
+
             $orderProducts = $opr->findBy(['orders' => $order]);
-            
+
             $products = [];
-            foreach($recommendation->getRecommendationProducts() as $recommendationProduct) {
-                if(! in_array($recommendationProduct->getProduct(), $products)) {
+            foreach($catalogue->getProducts() as $catalogueProduct) {
+                if(! in_array($catalogueProduct->getProduct()->getProduct(), $products)) {
                     if($orderProducts != null) {
                         foreach($orderProducts as $orderProduct) {
-                            if($orderProduct->getProduct() === $recommendationProduct->getProduct()) {
+                            if($orderProduct->getProduct() === $catalogueProduct->getProduct()->getProduct()) {
                                 // Update Quantity
-                                $orderProduct->setQuantity($orderProduct->getQuantity() + $recommendationProduct->getQuantity());
+                                $orderProduct->setQuantity($orderProduct->getQuantity() + $catalogueProduct->getQuantity());
                                 $this->em->flush();
                             }
                         }
@@ -284,52 +282,52 @@ class OrderController extends AbstractController
                         // Add all products if order not create
                         $orderProduct = new OrdersProduct();
                         $orderProduct->setOrder($order);
-                        $orderProduct->setProduct($recommendationProduct->getProduct());
-                        $orderProduct->setQuantity($recommendationProduct->getQuantity());
+                        $orderProduct->setProduct($catalogueProduct->getProduct()->getProduct());
+                        $orderProduct->setQuantity($catalogueProduct->getQuantity());
                         $orderProduct->setTotalQuantity(0);
-                        $orderProduct->setUnitPrice($recommendationProduct->getProduct()->getPrice() ? $recommendationProduct->getProduct()->getPrice() : 0);
+                        $orderProduct->setUnitPrice($catalogueProduct->getProduct()->getProduct()->getPrice() ? $catalogueProduct->getProduct()->getProduct()->getPrice() : 0);
                         $this->em->merge($orderProduct);
                         $this->em->flush();
                     }
                 }
-                
-                array_push($products, $recommendationProduct->getProduct());
+
+                array_push($products, $catalogueProduct->getProduct()->getProduct());
             }
-            
+
             // Check if product is not duplicate
             $orderProductsArray = $opr->findByToArray($order);
             $products           = [];
-            foreach($recommendation->getRecommendationProducts() as $recommendationProduct) {
+            foreach($catalogue->getProducts() as $catalogueProducts) {
                 $ids = array_column($orderProductsArray, 'id', 'id');
-                if(! in_array($recommendationProduct->getProduct(), $products)) {
-                    if(! isset($ids[$recommendationProduct->getProduct()->getId()])) {
+                if(! in_array($catalogueProducts->getProduct()->getProduct(), $products)) {
+                    if(! isset($ids[$catalogueProducts->getProduct()->getProduct()->getId()])) {
                         $orderProduct = new OrdersProduct();
                         $orderProduct->setOrder($order);
-                        $orderProduct->setProduct($recommendationProduct->getProduct());
-                        $orderProduct->setQuantity($recommendationProduct->getQuantity());
+                        $orderProduct->setProduct($catalogueProducts->getProduct()->getProduct());
+                        $orderProduct->setQuantity($catalogueProducts->getQuantity());
                         $orderProduct->setTotalQuantity(0);
-                        $orderProduct->setUnitPrice($recommendationProduct->getProduct()->getPrice() ? $recommendationProduct->getProduct()->getPrice() : 0);
+                        $orderProduct->setUnitPrice($catalogueProducts->getProduct()->getProduct()->getPrice() ? $catalogueProducts->getProduct()->getProduct()->getPrice() : 0);
                         $this->em->merge($orderProduct);
                         $this->em->flush();
                     }
                 } else {
-                    $orderProduct = $opr->findOneBy(['orders' => $order, 'product' => $recommendationProduct->getProduct()]);
-                    $orderProduct->setQuantity($orderProduct->getQuantity() + $recommendationProduct->getQuantity());
+                    $orderProduct = $opr->findOneBy(['orders' => $order, 'product' => $catalogueProducts->getProduct()->getProduct()]);
+                    $orderProduct->setQuantity($orderProduct->getQuantity() + $catalogueProducts->getQuantity());
                     $this->em->flush();
                 }
-                
-                array_push($products, $recommendationProduct->getProduct());
+
+                array_push($products, $catalogueProducts->getProduct()->getProduct());
             }
-            
+
             // Alert
             $this->addFlash('success', 'Ajout avec succès');
         }
-        
-        
+
+
         //Return to summary
-        return $this->redirectToRoute('recommendation_summary', ['id' => $recommendation->getId(), 'added' => 'true']);
+        return $this->redirectToRoute('catalogue_summary', ['id' => $catalogue->getId(), 'added' => 'true']);
     }
-    
+
     /**
      * Edit Dose with editable Ajax Table
      * @Route("/management/order/product/edit", name="management_order_product_edit")
@@ -338,35 +336,35 @@ class OrderController extends AbstractController
     {
         if($request->isXmlHttpRequest()) {
             $orderProduct = $cr->find($request->get('id'));
-            
+
             if($request->get('unitPrice')) {
                 $orderProduct->setUnitPrice((float)$request->get('unitPrice'));
             }
-            
+
             if($request->get('totalQuantity')) {
                 $orderProduct->setTotalQuantity((float)$request->get('totalQuantity'));
             }
-            
+
             if($request->get('conditioning')) {
                 $orderProduct->setConditioning($request->get('conditioning'));
             } elseif($request->get('conditioning') === '') {
                 $orderProduct->setConditioning(NULL);
             }
-            
+
             if($request->get('discount')) {
                 $orderProduct->setDiscount((float)$request->get('discount'));
             } elseif($request->get('discount') === '') {
                 $orderProduct->setDiscount(NULL);
             }
-            
+
             if($request->get('taxe')) {
                 $orderProduct->setTaxe((float)$request->get('taxe'));
             } elseif($request->get('taxe') === '') {
                 $orderProduct->setTaxe(NULL);
             }
-            
+
             $this->em->flush();
-            
+
             if($orderProduct->getProduct() != null) {
                 $total = ($orderProduct->getUnitPrice() * $orderProduct->getProduct()->getRpd()) + $orderProduct->getTotalQuantity();
             } else {
@@ -380,7 +378,7 @@ class OrderController extends AbstractController
             404
         ]);
     }
-    
+
     /**
      * @Route("/management/order/product/delete/{id}", name="management_order_product_delete", methods={"DELETE"}, requirements={"id":"\d+"})
      */
@@ -393,7 +391,7 @@ class OrderController extends AbstractController
         }
         return $this->redirectToRoute('management_order_show', ['id_number' => $product->getOrder()->getIdNumber()]);
     }
-    
+
     /**
      * @Route("/management/order/save/{id}", name="management_order_save", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -404,14 +402,14 @@ class OrderController extends AbstractController
             $order->setStatus(1);
             $order->setUpdateAt(new \DateTime());
             $this->em->flush();
-            
+
             //Remove Cart
             $this->container->get('session')->remove('currentOrder');
         }
-        
+
         return $this->redirectToRoute('management_order_show', ['id_number' => $order->getIdNumber()]);
     }
-    
+
     /**
      * @Route("/management/order/valid/{id}", name="management_order_valid", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -425,32 +423,32 @@ class OrderController extends AbstractController
             // Create Signature
             $signature = new Signature();
             $signature->setOrder($order);
-            
+
             $this->em->persist($signature);
-            
+
             $newDate = new \DateTime($request->request->get('date-order'));
-            
+
             // Update status
             $order->setStatus(2);
             $order->setCreateDate($newDate);
             $order->setUpdateAt(new \DateTime());
-            
+
             // Generate OTP
             $codeOtp = new SignatureOtp();
             $codeOtp->setSignature($signature);
-            
+
             // Save to DB
             $this->em->persist($codeOtp);
-            
+
             $this->dispatcher->dispatch( new SignatureAskedEvent( $codeOtp ));
             $this->dispatcher->dispatch( new OrderAskedSignatureEvent( $order ));
-            
+
             $this->em->flush();
         }
-        
+
         return $this->redirectToRoute('management_order_show', ['id_number' => $order->getIdNumber()]);
     }
-    
+
     /**
      * @Route("/orders", name="user_order_index", methods={"GET", "POST"})
      */
@@ -460,7 +458,7 @@ class OrderController extends AbstractController
             'orders' => $op->findByUser($this->getUser())
         ]);
     }
-    
+
     /**
      * @Route("/order/sign/{id}", name="user_order_sign", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
@@ -473,37 +471,37 @@ class OrderController extends AbstractController
         if($order->getCustomer() != $this->getUser() and $order->getCreator() != $this->getUser() and $request->get('print') == false and $this->getUser()->getStatus() != 'ROLE_ADMIN') {
             throw $this->createNotFoundException('Vous n\'avez pas la permission de signer ce document.');
         }
-        
+
         //Security
         if($order->getStatus() != 2) {
             $this->addFlash('warning', 'Cette commande est déjà signée.');
             return $this->redirectToRoute('user_order_index');
         }
-        
+
         $form = $this->createForm(OrderSignType::class, $order, ['user' => $this->getUser()]);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid() && $order->getStatus() == 2) {
             // Update status
             $order->setStatus(3);
-            
+
             $this->dispatcher->dispatch(new SignatureSignedEvent($order->getSignature()));
             $this->dispatcher->dispatch(new OrderValidatedEvent($order));
-            
+
             $this->em->flush();
-            
+
             // Msg
             $this->addFlash('success', 'Commande signée avec succès.');
-            
+
             return $this->redirectToRoute('user_order_index');
         }
-        
+
         return $this->render('exploitation/order/sign.html.twig', [
             'order' => $order,
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/management/order/add-product-other", name="management_order_product_other_add", methods={"GET", "POST"})
      */
@@ -511,7 +509,7 @@ class OrderController extends AbstractController
     {
         $form = $this->createForm(OrdersAddProductType::class);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             if($request->query->get('orderNumber')) {
                 $order = $or->findOneBy(['id_number' => $request->query->get('orderNumber')]);
@@ -524,7 +522,7 @@ class OrderController extends AbstractController
             $orderProduct->setProduct($form->get('product')->getData());
             $orderProduct->setTotalQuantity(0);
             $orderProduct->setQuantity(0);
-            
+
             //Parent product
             $product = $form->get('product')->getData();
             if(NULL != $product->getPrice()) {
@@ -532,23 +530,23 @@ class OrderController extends AbstractController
             } else {
                 $price = 0;
             }
-            
+
             $orderProduct->setUnitPrice($price);
-            
+
             $this->em->merge($orderProduct);
-            
+
             $this->em->flush();
-            
+
             // Alert
             $this->addFlash('info', 'Le produit ' . $form->get('product')->getData()->getName() . ' a été ajouté a la commande.');
             return $this->redirectToRoute('management_order_show', ['id_number' => $order->getIdNumber()]);
         }
-        
+
         return $this->render('management/order/add_product.html.twig', [
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/management/order/add-product-various", name="order_product_other_various_add", methods={"GET", "POST"})
      */
@@ -586,7 +584,7 @@ class OrderController extends AbstractController
             'form' => $form->createView()
         ]);
     }*/
-    
+
     /**
      * @Route("/management/order/add-product-other-field", name="management_order_product_other_field_add", methods={"GET", "POST"})
      */
@@ -594,7 +592,7 @@ class OrderController extends AbstractController
     {
         $form = $this->createForm(OrdersAddProductFieldType::class);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             if($request->query->get('orderNumber')) {
                 $order = $or->findOneBy(['id_number' => $request->query->get('orderNumber')]);
@@ -608,21 +606,21 @@ class OrderController extends AbstractController
             $orderProduct->setTotalQuantity(0);
             $orderProduct->setUnitPrice(0);
             $orderProduct->setQuantity(0);
-            
+
             $this->em->merge($orderProduct);
-            
+
             $this->em->flush();
-            
+
             // Alert
             $this->addFlash('info', 'Le produit ' . $form->get('product')->getData() . ' a été ajouté a la commande.');
             return $this->redirectToRoute('management_order_show', ['id_number' => $order->getIdNumber()]);
         }
-        
+
         return $this->render('management/order/add_product_field.html.twig', [
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/management/order/new/order_select_product_data", name="_management_select_product_data")
      */
@@ -631,7 +629,7 @@ class OrderController extends AbstractController
         //Get information from ajax call
         $term  = $request->query->get('q');
         $limit = $request->query->get('page_limit');
-        
+
         $products = $pr->createQueryBuilder('u')
             ->where('u.name LIKE :name')
             ->setParameter('name', '%' . $term . '%')
@@ -639,7 +637,7 @@ class OrderController extends AbstractController
             ->andWhere('u.isActive = 1')
             ->getQuery()
             ->getResult();
-        
+
         // Return Array of key = id && text = value
         $array = [];
         foreach($products as $product) {
@@ -648,11 +646,11 @@ class OrderController extends AbstractController
                 'text' => $product->getName()
             );
         }
-        
+
         // Return JsonResponse of code 200
         return new JsonResponse($array, 200);
     }
-    
+
     /**
      * @Route("/management/order/new/order_select_product_various_data", name="order_select_product_various_data")
      */
@@ -661,7 +659,7 @@ class OrderController extends AbstractController
         //Get information from ajax call
         $term  = $request->query->get('q');
         $limit = $request->query->get('page_limit');
-        
+
         $products = $pr->createQueryBuilder('u')
             ->where('u.name LIKE :name')
             ->andWhere('u.category = :category')
@@ -671,7 +669,7 @@ class OrderController extends AbstractController
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
-        
+
         // Return Array of key = id && text = value
         $array = [];
         foreach($products as $product) {
@@ -680,11 +678,11 @@ class OrderController extends AbstractController
                 'text' => $product->getName()
             );
         }
-        
+
         // Return JsonResponse of code 200
         return new JsonResponse($array, 200);
     }
-    
+
     /**
      * @Route("/management/order/swipe/{article}/{product}", name="management_order_article_swipe", methods={"UPDATE"}, requirements={"id":"\d+"})
      */

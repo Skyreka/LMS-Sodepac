@@ -1,0 +1,7 @@
+{% if catalogue.status >= 2 %}
+  <form method="POST" action="{{ path('catalogue_send', {id: catalogue.id}) }}">
+    <input type="hidden" name="_method" value="SEND">
+    <input type="hidden" name="_token" value="{{ csrf_token('send') }}">
+    <button title="Envoyer" class="btn btn-primary ml-2"><i class="far fa-envelope"></i> {{ button_label|default('') }}</button>
+  </form>
+{% endif %}

@@ -2,8 +2,10 @@
 
 namespace App\Domain\Catalogue\Entity;
 
+use App\Domain\Catalogue\Repository\CanevasProductRepository;
 use App\Domain\Product\Entity\Products;
-use App\Repository\Domain\Catalogue\Entity\CanevasProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,8 +14,14 @@ use Doctrine\ORM\Mapping as ORM;
 class CanevasProduct
 {
     const COLORS = [
-        'A' => 'A - Bleu',
-        'F' => 'F - Rouge'
+        'R' => 'R - Rose',
+        'O' => 'O - Orange',
+        'J' => 'J - Jaune claire',
+        'V' => 'V - Vert claire',
+        'C' => 'C - Bleu claire',
+        'B' => 'B - Violet',
+        'M' => 'M - Rose',
+        'A' => 'A - Gris'
     ];
 
     /**
@@ -61,6 +69,16 @@ class CanevasProduct
      * @ORM\Column(type="string", length=3)
      */
     private $color;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CatalogueProducts::class, mappedBy="product")
+     */
+    private $catalogueProducts;
+
+    public function __construct()
+    {
+        $this->catalogueProducts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,6 +165,36 @@ class CanevasProduct
     public function setColor(string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CatalogueProducts>
+     */
+    public function getCatalogueProducts(): Collection
+    {
+        return $this->catalogueProducts;
+    }
+
+    public function addCatalogueProduct(CatalogueProducts $catalogueProduct): self
+    {
+        if (!$this->catalogueProducts->contains($catalogueProduct)) {
+            $this->catalogueProducts[] = $catalogueProduct;
+            $catalogueProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCatalogueProduct(CatalogueProducts $catalogueProduct): self
+    {
+        if ($this->catalogueProducts->removeElement($catalogueProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($catalogueProduct->getProduct() === $this) {
+                $catalogueProduct->setProduct(null);
+            }
+        }
 
         return $this;
     }

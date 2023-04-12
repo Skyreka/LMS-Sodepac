@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Repository\Domain\Catalogue\Entity;
+namespace App\Domain\Catalogue\Repository;
 
-use App\Domain\Catalogue\Entity\CanevasProduct;
+use App\Domain\Catalogue\Entity\CatalogueProducts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<CanevasProduct>
+ * @extends ServiceEntityRepository<CatalogueProducts>
  *
- * @method CanevasProduct|null find($id, $lockMode = null, $lockVersion = null)
- * @method CanevasProduct|null findOneBy(array $criteria, array $orderBy = null)
- * @method CanevasProduct[]    findAll()
- * @method CanevasProduct[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CatalogueProducts|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CatalogueProducts|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CatalogueProducts[]    findAll()
+ * @method CatalogueProducts[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CanevasProductRepository extends ServiceEntityRepository
+class CatalogueProductsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CanevasProduct::class);
+        parent::__construct($registry, CatalogueProducts::class);
     }
 
-    public function add(CanevasProduct $entity, bool $flush = false): void
+    public function add(CatalogueProducts $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class CanevasProductRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(CanevasProduct $entity, bool $flush = false): void
+    public function remove(CatalogueProducts $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class CanevasProductRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return CanevasProduct[] Returns an array of CanevasProduct objects
+//     * @return CatalogueProducts[] Returns an array of CatalogueProducts objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class CanevasProductRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?CanevasProduct
+//    public function findOneBySomeField($value): ?CatalogueProducts
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

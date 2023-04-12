@@ -47,12 +47,39 @@
                 <tbody>
                 {% for catalogue in catalogues %}
                   <tr>
+                    <td>
+                      <a href="{{ path('management_user_show', {id: catalogue.customer.id}) }}">
+                        <h6>{{ catalogue.customer.identity }}</h6><small class="text-muted">{{ catalogue.customer.email }}</small>
+                      </a>
+                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                      <td>
+                        <h6>{{ catalogue.customer.technician.identity ? catalogue.customer.technician.identity : 'Aucun' }}</h6>
+                        <small class="text-muted">{{ catalogue.customer.technician.email }}</small>
+                      </td>
+                    {% endif %}
+                    <td>{{ catalogue.canevas.name }}</td>
+                    <td>
+                      <span class="badge badge-{{ catalogue.status( {'label': true} ) }}">{{ catalogue.status( {'word': true} ) }}</span>
+                    </td>
+                    <td>
+                      <p class="font-14">{{ catalogue.addedAt | date("d/m/y") }}</p>
+                    </td>
+                    <td>
+                      {{ catalogue.comment }}
+                    </td>
+                    <td>
+                      <div style="display: flex">
+                        <a title="Voir" class="btn btn-success" href="{{ path('catalogue_summary', {id: catalogue.id}) }}"><i class="fa fa-eye text-white"></i></a>
+                        {{ include('technician/catalogue/_partials/_send.html.twig') }}
+                        {{ include('technician/catalogue/_partials/_download.html.twig') }}
+                      </div>
+                    </td>
                   </tr>
                 {% endfor %}
                 </tbody>
               </table>
             </div>
-          </div>
         </div>
       </div>
     </div>

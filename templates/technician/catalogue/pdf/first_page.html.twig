@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Skyreka">
+    <title>{% block title %}Page{% endblock %} - {{ APP_NAME }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .footer {
+            position: fixed;
+            height: 50px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <h1 class="text-center h2 float-right d-block">{{ APP_NAME }} <br/> {{ "now"|date("d/m/Y") }} </h1>
+    </div>
+    <br /><br><br><br><br><br><br>
+    <h4 class="card-title text-center">Catalogue pour {{ catalogue.customer.identity }} </h4>
+    <div class="card-body little-profile center text-center">
+        <p>{{ catalogue.canevas.name }}</p>
+        <p>{{ catalogue.comment }}</p>
+        <p>{{ catalogue.customer.certificationPhyto }}</p>
+    </div>
+    <h4 class="card-title text-center">Synthèse des produits choisis</h4>
+    <small class="footer">{{ APP_NAME }} est certifiée CSA-GTP (Sécurité Sanitaire) N°GT090087 et 2BSsv (Durabilité Agro Carburants) N°2BS030038 <br> Distribution de produits Phytopharmaceutiques à des utilisateurs professionnels et non professionnels. N°Agrément: 4700008 </small>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped no-wrap" id="edit-table">
+                    <thead>
+                    <tr>
+                        <th>Nom du produit</th>
+                        <th>Dosage</th>
+                        <th>Surface</th>
+                        <th>Quantité Totale</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {% for catalogueProduct in catalogue.products %}
+                        <tr>
+                          <td>{{ catalogueProduct.product.product.name }}</td>
+                          <td>
+                            {% if catalogueProduct.doseEdit is not null %}
+                              {{ catalogueProduct.doseEdit|round(3, 'floor') }} <small>{{ catalogueProduct.product.unit }}</small>
+                            {% else %}
+                              {{ catalogueProduct.product.dose|round(3, 'floor') }} <small>{{ catalogueProduct.product.unit }}</small>
+                            {% endif %}
+                          </td>
+                          <td>{{ catalogue.cultureSize }} <small>ha</small></td>
+                          <td>{{ catalogueProduct.quantity|round(3, 'floor') }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>

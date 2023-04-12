@@ -1,0 +1,44 @@
+<div class="table-responsive">
+  <table class="table table-bordered no-wrap">
+    <thead>
+    <tr>
+      <th></th>
+      {% for step in catalogue.canevas.steps %}
+        <th>
+          <p class="text-center">{{ step.name }}</p>
+        </th>
+      {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for disease in catalogue.canevas.diseases %}
+      <tr>
+        <td>{{ disease.name }}</td>
+        {% for step in catalogue.canevas.steps %}
+          <td>
+            {% if displayOnlyProductOfCatalogue %}
+              {% for catalogueProduct in catalogue.products %}
+                {% if catalogueProduct.product.step == step and catalogueProduct.product.disease == disease %}
+                  <button class="btn btn-{{ catalogueProduct.product.color }} btn-block isProduct"
+                          btn-id="{{ catalogueProduct.product.id }}"
+                          dose="{{ catalogueProduct.product.dose }}"
+                          unit="{{ catalogueProduct.product.unit }}">
+                    {{ catalogueProduct.product.product.name }}
+                    <small>{{ catalogueProduct.product.dose }}{{ catalogueProduct.product.unit }}</small>
+                  </button>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              {% for product in catalogue.canevas.products %}
+                {% if product.step == step and product.disease == disease %}
+                  <button class="btn btn-{{ product.color }} btn-block isProduct" btn-id="{{ product.id }}" dose="{{ product.dose }}" unit="{{ product.unit }}">{{ product.product.name }} <small>{{ product.dose }}{{ product.unit }}</small></button>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>

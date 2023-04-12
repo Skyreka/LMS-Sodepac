@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits - Catalogue{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row page-titles">
+            <div class="col-12">
+                <h3 class="text-themecolor">Liste des produits</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('recommendation_index') }}">Catalogue</a></li>
+                    <li class="breadcrumb-item active">Liste des produits sélectionnés</li>
+                </ol>
+            </div>
+        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-lg-12">
+                <a href="{{ path('catalogue_canevas', {'catalogue': catalogue.id}) }}" class="btn btn-light-success mb-3">Revenir au canevas</a>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped no-wrap" id="edit-table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nom du produit</th>
+                                    <th>Dosage Max</th>
+                                    <th>Dosage prévu / Ha</th>
+                                    <th>Unité</th>
+                                    <th class="text-nowrap">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for catalogueProduct in catalogue.products %}
+                                        <tr>
+                                            <td>{{ catalogueProduct.id }}</td>
+                                            <td>{{ catalogueProduct.product.product.name }}</td>
+                                            <td class="text-danger">{{ catalogueProduct.product.dose|round(3, 'floor') }} <small>{{ catalogueProduct.product.unit }}</small></td>
+                                            <td>{{ catalogueProduct.doseEdit }}</td>
+                                            <td>{{ catalogueProduct.product.unit }}</td>
+                                            <td class="text-nowrap">
+                                                {{ include('technician/catalogue/product/_delete.html.twig') }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <a href="xx" class="btn btn-primary">Ajouter un produit hors canevas</a>
+              <a href="{{ path('catalogue_summary', {id: catalogue.id}) }}" class="btn btn-success float-right">Valider la liste des produits choisis</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('plugins/jquery-tabledit/jquery.tabledit.min.js') }}"></script>
+    <script>
+        $('#edit-table').Tabledit({
+            url: '{{ path('catalogue_product_dose_edit') }}',
+          deleteButton: false,
+          editButton: false,
+            hideIdentifier: true,
+            columns: {
+                identifier: [0, 'id'],
+                editable: [[3, 'dose_edit']]
+            }
+        });
+    </script>
+{% endblock %}

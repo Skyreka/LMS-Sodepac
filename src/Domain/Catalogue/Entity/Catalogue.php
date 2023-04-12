@@ -5,6 +5,8 @@ namespace App\Domain\Catalogue\Entity;
 use App\Domain\Auth\Users;
 use App\Domain\Catalogue\Repository\CatalogueRepository;
 use App\Domain\Catalogue\Entity\CanevasIndex;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,6 +18,13 @@ class Catalogue
     final public const CREATE = 1;
     final public const GENERATE = 2;
     final public const VALIDATE = 3;
+
+    const STATUS = [
+        0 => ['Brouillon', ''],
+        1 => ['Crée', 'warning'],
+        2 => ['Généré', 'info'],
+        3 => ['Validé', 'success']
+    ];
 
     /**
      * @ORM\Id
@@ -77,6 +86,21 @@ class Catalogue
      */
     private $comment;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CatalogueProducts::class, mappedBy="catalogue", orphanRemoval=true)
+     */
+    private $products;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pdf;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,8 +130,14 @@ class Catalogue
         return $this;
     }
 
-    public function getStatus(): ?int
+    public function getStatus($params = []): string
     {
+        if(isset($params['label'])) {
+            return self::STATUS[$this->status][1];
+        }
+        if(isset($params['word'])) {
+            return self::STATUS[$this->status][0];
+        }
         return $this->status;
     }
 
@@ -198,6 +228,48 @@ class Catalogue
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CatalogueProducts>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(CatalogueProducts $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setCatalogue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(CatalogueProducts $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getCatalogue() === $this) {
+                $product->setCatalogue(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPdf(): ?string
+    {
+        return $this->pdf;
+    }
+
+    public function setPdf(?string $pdf): self
+    {
+        $this->pdf = $pdf;
 
         return $this;
     }

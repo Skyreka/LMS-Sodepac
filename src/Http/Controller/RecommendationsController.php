@@ -9,7 +9,7 @@ use App\Domain\Exploitation\Entity\Exploitation;
 use App\Domain\Product\Repository\ProductsRepository;
 use App\Domain\Recommendation\Entity\RecommendationProducts;
 use App\Domain\Recommendation\Entity\Recommendations;
-use App\Domain\Recommendation\Event\RecommendationValidatedEvent;
+use App\Domain\Recommendation\Event\CatalogueValidatedEvent;
 use App\Domain\Recommendation\Form\RecommendationAddProductType;
 use App\Domain\Recommendation\Form\RecommendationAddType;
 use App\Domain\Recommendation\Form\RecommendationMentionsType;
@@ -152,7 +152,7 @@ class RecommendationsController extends AbstractController
      * Display canevas by id of culture
      * @Route("/recommendations/{recommendations}/canevas/{slug}", name="recommendation_canevas", methods={"GET", "POST"}, requirements={"recommendations":"\d+"})
      */
-    public function canevas(Recommendations $recommendations, IndexCanevas $indexCanevas, CulturesRepository $cr, RecommendationProductsRepository $rpr): Response
+    public function canevas(Recommendations $recommendations, CanevasIndex $indexCanevas, CulturesRepository $cr, RecommendationProductsRepository $rpr): Response
     {
         if($this->get('twig')->getLoader()->exists('recommendations/canevas/assets/' . $indexCanevas->getSlug() . '.html.twig')) {
             return $this->render('recommendations/canevas/assets/' . $indexCanevas->getSlug() . '.html.twig', [
@@ -364,7 +364,6 @@ class RecommendationsController extends AbstractController
 
         // After modification of 29/12/2020 (Disable mentions) User go to summary directly by list product page
         if($recommendation->getStatus() == 0) {
-
             $recommendation->setStatus(1);
             $this->em->flush();
 
@@ -418,7 +417,7 @@ class RecommendationsController extends AbstractController
             // Save to Db
             $this->em->flush();
 
-            $this->dispatcher->dispatch(new RecommendationValidatedEvent($recommendations));
+            $this->dispatcher->dispatch(new CatalogueValidatedEvent($recommendations));
 
             $this->addFlash('success', 'Email envoyé avec succès. Statut du catalogue: Envoyé');
             return $this->redirectToRoute('recommendation_summary', ['id' => $recommendations->getId()]);
