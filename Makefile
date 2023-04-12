@@ -1,4 +1,3 @@
-isDocker := $(shell docker info > /dev/null 2>&1 && echo 1)
 isProd := $(shell grep "APP_ENV=prod" .env.local > /dev/null && echo 1)
 domain := "lab-sodepac.skyreka.com"
 server := "debian@lab-sodepac.skyreka.com"
@@ -8,17 +7,16 @@ group := $(shell id -g)
 sy := php bin/console
 node :=
 php :=
-ifeq ($(isDocker), 1)
-	ifneq ($(isProd), 1)
-		dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
-		dcprod:= USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.prod.yml
-		de := docker-compose exec
-		dr := $(dc) run --rm
-		sy := $(de) php bin/console
-		node := $(dr) node
-		php := $(dr) --no-deps php
-	endif
+ifneq ($(isProd), 1)
+	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose
+else
+	dc := USER_ID=$(user) GROUP_ID=$(group) docker-compose -f docker-compose.prod.yml
 endif
+de := docker-compose exec
+dr := $(dc) run --rm
+sy := $(de) php bin/console
+php := $(dr) --no-deps php
+.DEFAULT_GOAL := help
 
 .DEFAULT_GOAL := help
 .PHONY: help
@@ -43,11 +41,16 @@ dumpimport: ## Import un dump SQL
 
 .PHONY: install
 install: vendor/autoload.php ## Installe les différentes dépendances
-	APP_ENV=prod APP_DEBUG=0 $(php) composer install --no-dev --optimize-autoloader
+ifneq ($(isProd), 1)
+	$(php) composer install
+else
+	$(php) composer install --no-dev --optimize-autoloader
+endif
 	make migrate
-	APP_ENV=prod APP_DEBUG=0 $(sy) cache:clear
+	$(sy) cache:clear
 	$(sy) cache:pool:clear cache.global_clearer
 	$(sy) messenger:stop-workers
+
 
 .PHONY: dev
 dev: vendor/autoload.php ## Lance le serveur de développement
