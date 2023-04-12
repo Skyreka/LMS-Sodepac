@@ -315,17 +315,17 @@
                 let totalSumTTC = 0
                 let totalSumHT = 0
                 $('.total_ttc').each( function (e) {
-                    let price = $(this).closest('tr').children('.price').text()
-                    let quantity = $(this).closest('tr').children('.quantity').text()
+                    let price = $(this).closest('tr').children('.price').text().replace(',', '.');
+                    let quantity = $(this).closest('tr').children('.quantity').text().replace(',', '.');
                     let priceQuantity = parseFloat(price) * parseFloat(quantity);
 
                     // Discount
-                    let discount = ( $(this).closest('tr').children('.discount').text() / 100)
+                    let discount = ( $(this).closest('tr').children('.discount').text().replace(',', '.') / 100)
                     let priceQuantityDiscount = parseFloat(price) * parseFloat(quantity) * discount;
                     let sumWithDiscount = priceQuantity - priceQuantityDiscount;
 
                     // Taxe
-                    let taxe = ( $(this).closest('tr').children('.taxe').text())
+                    let taxe = ( $(this).closest('tr').children('.taxe').text().replace(',', '.'))
                     if (taxe == "") {
                         taxe = 0;
                     }

@@ -26,7 +26,7 @@ class PricingController extends AbstractController
     public function __construct(private readonly EntityManagerInterface $em)
     {
     }
-    
+
     /**
      * @return Response
      * @Route("/", name="index", methods={"GET", "POST"})
@@ -35,7 +35,7 @@ class PricingController extends AbstractController
     {
         return $this->render('pricing/index.html.twig');
     }
-    
+
     /**
      * @Route("/products/data", name="products_data", methods={"GET"})
      */
@@ -43,13 +43,13 @@ class PricingController extends AbstractController
     {
         try {
             $results = $datatables->handle($request, 'pricing');
-            
+
             return $this->json($results);
         } catch(HttpException $e) {
             return $this->json($e->getMessage(), $e->getStatusCode());
         }
     }
-    
+
     /**
      * @Route("/product/new", name="product_new", methods={"GET", "POST"})
      */
@@ -59,42 +59,42 @@ class PricingController extends AbstractController
         $slugify = new Slugify();
         $form    = $this->createForm(ProductType::class, $product, ['edit_name' => true]);
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             $product->setSlug($slugify->slugify($form->get('name')->getViewData()));
             $this->em->persist($product);
             $this->em->flush();
             return $this->redirectToRoute('pricing_index', ['filterBy' => 2]);
         }
-        
+
         return $this->render('pricing/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/product/edit/{id}", name="product_edit", methods={"GET", "POST"}, requirements={"id":"\d+"})
      */
     public function edit(Products $product, Request $request): Response
     {
-        if(NULL != $product->getIdLex() ) {
-            $form = $this->createForm(ProductType::class, $product, ['edit_name' => false]);
-        } else {
+        if( $this->isGranted('ROLE_SUPERADMIN')) {
             $form = $this->createForm(ProductType::class, $product, ['edit_name' => true]);
+        } else {
+            $form = $this->createForm(ProductType::class, $product, ['edit_name' => false]);
         }
-    
+
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
             return $this->redirectToRoute('pricing_index');
         }
-        
+
         return $this->render('pricing/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/product/update/{id}", name="product_update", methods={"UPDATE"}, requirements={"id":"\d+"})
      */
