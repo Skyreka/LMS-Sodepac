@@ -65,14 +65,14 @@
                     <i class="fa fa-chart-line fa-2x text-dark" aria-hidden="true"><span class="font-weight-bold ml-1" style="font-family: Poppins">V</span></i>
                 </a>
             </div>
-            <div class="col-md-6">
-                {% if app.user.pack != 'PACK_LIGHT' %}
-                    <a href="{{ path('ilots_index') }}" class="btn btn-warning btn-lg btn-block mb-4">Interventions Ilots</a>
-                    <a href="{{ path('intervention_multiple_index') }}" class="btn btn-success btn-lg btn-block mb-4">Interventions Cultures</a>
-                    <a href="{{ path('exploitation_stock_index') }}" class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</a>
-                {% endif %}
-            </div>
-            <div class="col-md-6 d-none d-md-block">
+            {% if app.user.pack != 'PACK_LIGHT' %}
+                <div class="col-md-6 ">
+                      <a href="{{ path('ilots_index') }}" class="btn btn-warning btn-lg btn-block mb-4">Interventions Ilots</a>
+                      <a href="{{ path('intervention_multiple_index') }}" class="btn btn-success btn-lg btn-block mb-4">Interventions Cultures</a>
+                      <a href="{{ path('exploitation_stock_index') }}" class="btn btn-danger btn-lg btn-block mb-4">Gestion des stocks</a>
+                </div>
+            {% endif %}
+            <div class="{% if app.user.pack != 'PACK_LIGHT' %} col-md-6 {% else%} col-12 {% endif%}">
                 <div class="card">
                     <div class="card-body pb-0">
                         <h4 class="card-title">Flashs</h4>
