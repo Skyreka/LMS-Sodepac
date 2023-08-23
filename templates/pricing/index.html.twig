@@ -8,11 +8,19 @@
 
 {% block body %}
     <div class="container-fluid">
-        <div class="row page-titles">
-            <div class="col-12">
-                <h3 class="text-themecolor">Liste des produits</h3>
+        <div class="col-md-5 col-8 align-self-center">
+                <h3 class="text-themecolor">Cours des produits</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('login_success') }}">Accueil</a></li>
+                    <li class="breadcrumb-item active">Cours des produits</li>
+                </ol>
             </div>
-        </div>
+            <div class="col-md-7 col-12 align-self-center">
+                <div class="d-flex mt-2 justify-content-end">
+                    <a href="{{ path('pricing_product_new') }}" class="btn btn-info"><i class="fas fa-plus"></i> Ajout produit divers</a>
+                </div>
+            </div>
+          </div>
         <div class="col-12">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
