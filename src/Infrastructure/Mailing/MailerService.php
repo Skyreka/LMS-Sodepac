@@ -32,7 +32,7 @@ class MailerService
         $text = $this->twig->render($template, array_merge($data, ['layout' => 'mails/base.text.twig']));
 
         return (new Email())
-            ->from(new Address('ne-pas-repondre@sodepac.fr', 'LMS Sodepac'))
+            ->from(new Address('ne-pas-repondre@saslarrieu.fr', 'SAS Larrieu'))
             ->html($html)
             ->text($text);
     }
